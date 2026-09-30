@@ -1,0 +1,23 @@
+#!/bin/sh
+# MyShishapedia: commit-msg hook.
+# Iz poruke commita briše redove koji dodaju drugog autora ili alat kao potpis:
+#   Co-Authored-By: Claude ...   (i "Co-authored-by: Claude ...")
+#   Generated with [Claude Code] ...  (i sa emoji ispred)
+#   Claude-Session: ...
+# Radi u Git Bashu (Windows), na macOS-u i Linuxu (samo POSIX sh, grep i mv).
+# Instalacija: vidi README.md, "Git: autor commitova".
+
+msg_file="$1"
+[ -f "$msg_file" ] || exit 0
+
+tmp_file="${msg_file}.tmp.$$"
+
+grep -v -i -E '^[[:space:]]*co-authored-by:[[:space:]]*claude' "$msg_file" \
+  | grep -v -E 'Generated with \[Claude Code\]' \
+  | grep -v -i -E '^[[:space:]]*claude-session:' \
+  > "$tmp_file"
+
+# ukloni prazne redove na kraju poruke
+awk '{ lines[NR] = $0 } END { n = NR; while (n > 0 && lines[n] ~ /^[[:space:]]*$/) n--; for (i = 1; i <= n; i++) print lines[i] }' "$tmp_file" > "$msg_file"
+rm -f "$tmp_file"
+exit 0

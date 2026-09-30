@@ -1,0 +1,3 @@
+# Git hook i skripte uvijek sa LF krajevima redova (inače ne rade u Git Bashu na Windowsu)
+scripts/git-hooks/* text eol=lf
+*.sh text eol=lf
