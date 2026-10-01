@@ -10,6 +10,7 @@
  *     anyTags: ['ledeni']                okus mora imati bar jedan od ovih tagova
  *     allTags: ['vocni']                 okus mora imati sve ove tagove
  *     anyOf:   [ {pravilo}, {pravilo} ]  dovoljno je da vrijedi bilo koje od ovih pod-pravila
+ *     leaf:    'light'                   samo okusi sa ovom vrstom lista ('light' ili 'dark')
  *   }
  *
  * Ručne izmjene (imaju prednost nad pravilom):
@@ -40,7 +41,8 @@ window.COLLECTIONS = [
       ]
     },
     rule: { anyOf: [{ min: { cooling: 8 } }, { anyTags: ['ledeni'] }] },
-    include: [],
+    // Blue Mist ima blago hlađenje, ali po karakteru spada među ledene okuse
+    include: ['starbuzz-blue-mist'],
     exclude: [],
     palette: { primary: '#9fe3ff', secondary: '#e6f7ff', accent: '#2f8fd6', background: '#0b2c4a', text: '#eef9ff', smoke: ['#ffffff', '#e3f6ff', '#c8ecff'] }
   },
@@ -118,6 +120,7 @@ window.COLLECTIONS = [
     guideLink: true,
     rule: {
       max: { cooling: 6, strength: 6 },
+      leaf: 'light',
       anyOf: [{ min: { fruitiness: 7 } }, { min: { sweetness: 7 } }]
     },
     include: [],

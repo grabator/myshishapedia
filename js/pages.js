@@ -284,6 +284,7 @@
     if (b) out.b = b;
     var r = parseInt(params.get('r'), 10);
     if (r >= 20 && r <= 80) out.ratio = Math.round(r / 5) * 5;
+    else if (V.coolerRatio(out.a, out.b)) out.ratio = V.coolerRatio(out.a, out.b);
     if (out.a === out.b) out.b = F.filter(function (f) { return f !== out.a; })[0] || out.a;
     return out;
   }
@@ -348,6 +349,8 @@
       }
       function setPair(a, b, ratio) {
         mix.a = a; mix.b = b;
+        // Supernova i slični "hladnjaci" idu u malom omjeru (20%)
+        ratio = V.coolerRatio(a, b) || ratio;
         if (ratio) mix.ratio = ratio;
         drawSlots();
         setupStreams(ctx);
@@ -762,6 +765,8 @@
       var sortEl = document.getElementById('fl-sort');
       var tagsEl = document.getElementById('fl-tags');
       var colsEl = document.getElementById('fl-cols');
+      var brandEl = document.getElementById('fl-brand');
+      var leafEl = document.getElementById('fl-leaf');
       var countEl = document.getElementById('fl-count');
       var empty = document.getElementById('fl-empty');
       var suggest = document.getElementById('fl-suggest');
@@ -774,12 +779,20 @@
         q: p.get('q') || '',
         tag: p.get('tag') || '',
         col: p.get('col') || '',
+        brand: V.brandBySlug(p.get('brand')) ? p.get('brand') : '',
+        leaf: /^(light|dark)$/.test(p.get('leaf') || '') ? p.get('leaf') : '',
         sort: V.SORTS.indexOf(p.get('sort')) !== -1 ? p.get('sort') : 'az'
       };
 
       function syncControls() {
         input.value = state.q;
         sortEl.value = state.sort;
+        brandEl.value = state.brand;
+        leafEl.querySelectorAll('.chip').forEach(function (b) {
+          var on = (b.getAttribute('data-leaf') || '') === state.leaf;
+          b.classList.toggle('is-active', on);
+          b.setAttribute('aria-pressed', String(on));
+        });
         tagsEl.querySelectorAll('.chip').forEach(function (b) {
           var on = (b.getAttribute('data-tag') || '') === state.tag;
           b.classList.toggle('is-active', on);
@@ -795,6 +808,8 @@
       function apply(animate) {
         var list = V.flavors().filter(function (f) {
           if (state.tag && (f.tags || []).indexOf(state.tag) === -1) return false;
+          if (state.brand && f.brandId !== state.brand) return false;
+          if (state.leaf && V.leafOf(f) !== state.leaf) return false;
           if (state.col && (items[f.id].getAttribute('data-cols') || '').split(' ').indexOf(state.col) === -1) return false;
           return V.matchesQuery(f, state.q);
         });
@@ -821,6 +836,8 @@
         if (state.q) qs.push('q=' + encodeURIComponent(state.q));
         if (state.tag) qs.push('tag=' + encodeURIComponent(state.tag));
         if (state.col) qs.push('col=' + encodeURIComponent(state.col));
+        if (state.brand) qs.push('brand=' + encodeURIComponent(state.brand));
+        if (state.leaf) qs.push('leaf=' + state.leaf);
         if (state.sort !== 'az') qs.push('sort=' + state.sort);
         ctx.replaceUrl(qs.length ? '?' + qs.join('&') : '');
       }
@@ -828,6 +845,15 @@
       input.addEventListener('input', function () { state.q = input.value; apply(false); });
       document.getElementById('fl-form').addEventListener('submit', function (e) { e.preventDefault(); input.blur(); });
       sortEl.addEventListener('change', function () { state.sort = sortEl.value; apply(true); });
+      brandEl.addEventListener('change', function () { state.brand = brandEl.value; apply(true); });
+      leafEl.addEventListener('click', function (e) {
+        var b = e.target.closest('.chip');
+        if (!b) return;
+        var v = b.getAttribute('data-leaf') || '';
+        state.leaf = state.leaf === v ? '' : v;
+        syncControls();
+        apply(true);
+      });
       tagsEl.addEventListener('click', function (e) {
         var b = e.target.closest('.chip');
         if (!b) return;
@@ -845,7 +871,7 @@
         apply(true);
       });
       document.getElementById('fl-reset').addEventListener('click', function () {
-        state = { q: '', tag: '', col: '', sort: state.sort };
+        state = { q: '', tag: '', col: '', brand: '', leaf: '', sort: state.sort };
         syncControls();
         apply(true);
         input.focus();
@@ -866,6 +892,60 @@
       ctx.cleanup(FX.tilt(grid));
       ctx.cleanup(FX.cardWisps(grid));
       ctx.heroSmoke();
+      ctx.cleanup(FX.reveal(main));
+    }
+  };
+
+  /* ------------------------------------------------------------------ */
+  /* Brendovi: filter po vrsti lista; stranica brenda                     */
+  /* ------------------------------------------------------------------ */
+
+  Pages.brands = {
+    mount: function (ctx) {
+      var main = ctx.els.main;
+      var group = document.getElementById('br-leaf');
+      var grid = document.getElementById('br-grid');
+      var items = grid.querySelectorAll('.bcards__item');
+      var p = ctx.params();
+      var leaf = /^(light|dark)$/.test(p.get('leaf') || '') ? p.get('leaf') : '';
+      function apply() {
+        var shown = 0;
+        items.forEach(function (li) {
+          var l = li.querySelector('.bcard').getAttribute('data-leaf');
+          var ok = !leaf || l === leaf || l === 'both';
+          li.hidden = !ok;
+          if (ok) { shown++; li.querySelector('.bcard').classList.add('is-in'); }
+        });
+        group.querySelectorAll('.chip').forEach(function (b) {
+          var on = (b.getAttribute('data-leaf') || '') === leaf;
+          b.classList.toggle('is-active', on);
+          b.setAttribute('aria-pressed', String(on));
+        });
+        document.getElementById('br-count').textContent = MSP.plural('brands.count', shown);
+        document.getElementById('br-empty').hidden = shown > 0;
+        ctx.replaceUrl(leaf ? '?leaf=' + leaf : '');
+      }
+      group.addEventListener('click', function (e) {
+        var b = e.target.closest('.chip');
+        if (!b) return;
+        var v = b.getAttribute('data-leaf') || '';
+        leaf = leaf === v ? '' : v;
+        apply();
+      });
+      apply();
+      ctx.heroSmoke();
+      ctx.cleanup(FX.reveal(main));
+    }
+  };
+
+  Pages.brand = {
+    mount: function (ctx) {
+      var main = ctx.els.main;
+      var grid = document.getElementById('brand-grid');
+      if (grid) {
+        ctx.cleanup(FX.tilt(grid));
+        ctx.cleanup(FX.cardWisps(grid));
+      }
       ctx.cleanup(FX.reveal(main));
     }
   };
@@ -953,7 +1033,7 @@
     }
   };
 
-  /** Za testove i README: bodovanje (npr. MSP.Pages.quiz.score(['puno','slatko','voce','srednji','ljeto'])). */
+  /** Za testove i README: bodovanje (npr. MSP.Pages.quiz.score(['pocetnik','puno','slatko','voce','srednji','ljeto'])). */
   Pages.quiz.score = function (answerIds) {
     var Q = window.QUIZ || [];
     var answers = answerIds.map(function (id, i) { return Q[i].answers.filter(function (a) { return a.id === id; })[0]; });
