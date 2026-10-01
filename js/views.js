@@ -26,11 +26,11 @@
     bs: { home: '', flavor: 'okus', mixer: 'mikser', quiz: 'kviz', guide: 'vodic', glossary: 'rjecnik', term: 'rjecnik', gear: 'oprema', about: 'o-nama', notfound: '404',
       collections: 'kolekcije', collection: 'kolekcije', compare: 'poredjenje', comparePair: 'poredjenje', mixes: 'recepti', recipe: 'recepti',
       privacy: 'privatnost', terms: 'uslovi', suggest: 'predlozi-okus', report: 'prijavi-gresku', flavors: 'okusi', search: 'pretraga',
-      brands: 'brendovi', brand: 'brendovi' },
+      brands: 'brendovi', brand: 'brendovi', top: 'najbolje-ocijenjeno' },
     en: { home: '', flavor: 'flavor', mixer: 'mixer', quiz: 'quiz', guide: 'guide', glossary: 'glossary', term: 'glossary', gear: 'gear', about: 'about', notfound: '404',
       collections: 'collections', collection: 'collections', compare: 'compare', comparePair: 'compare', mixes: 'mixes', recipe: 'mixes',
       privacy: 'privacy', terms: 'terms', suggest: 'suggest-flavor', report: 'report-issue', flavors: 'flavors', search: 'search',
-      brands: 'brands', brand: 'brands' }
+      brands: 'brands', brand: 'brands', top: 'top-rated' }
   };
   V.SEG = SEG;
 
@@ -128,6 +128,7 @@
     wisp: '<path d="M8 20c-3-4 3-6 0-10s2-7 2-7"/><path d="M14 21c-3-4.5 3.5-6.5 0-11s2.5-7 2.5-7"/>',
     globe: '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.5 3 14.5 0 18M12 3c-3 3.5-3 14.5 0 18"/>',
     mail: '<rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m4 7 8 6 8-6"/>',
+    star: '<path d="m12 3.2 2.7 5.5 6 .9-4.35 4.25 1.03 6L12 17l-5.38 2.85 1.03-6L3.3 9.6l6-.9z"/>',
     link: '<path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/>'
   };
 
@@ -386,6 +387,58 @@
   };
 
   /* ------------------------------------------------------------------ */
+  /* Ocjene (zvjezdice; brojke popunjava js/ratings.js u browseru)       */
+  /* ------------------------------------------------------------------ */
+
+  /**
+   * Prazno mjesto za prosjek ocjena na kartici (apsolutno pozicionirano, pa ne pomjera
+   * ništa kad se popuni ili ostane prazno). js/ratings.js ga popuni kad stignu ocjene.
+   */
+  V.rateSlot = function (kind, id, cls) {
+    return '<span class="rpill' + (cls ? ' ' + cls : '') + '" data-rate-slot="' + kind + ':' + esc(id) + '"></span>';
+  };
+
+  // Najmanji broj ocjena da bi okus ili recept ušao na rang listu (i bio među prvima pri sortiranju po ocjeni).
+  V.TOP_MIN = 3;
+
+  /**
+   * Poredak po ocjeni: prvo stavke sa bar TOP_MIN ocjena (veći prosjek, pa više ocjena),
+   * zatim one sa manje ocjena, a neocijenjene na kraju. get(x) vraća { avg, count } ili null.
+   */
+  V.compareRated = function (a, b, get) {
+    var ra = get(a), rb = get(b);
+    var ta = !ra || !ra.count ? 2 : ra.count >= V.TOP_MIN ? 0 : 1;
+    var tb = !rb || !rb.count ? 2 : rb.count >= V.TOP_MIN ? 0 : 1;
+    if (ta !== tb) return ta - tb;
+    if (ta === 2) return 0;
+    return (rb.avg - ra.avg) || (rb.count - ra.count);
+  };
+
+  /** Zvjezdice na stranici okusa i recepta: prosjek, broj ocjena i ocjenjivanje (bez JS-a se ne prikazuje). */
+  V.rateWidget = function (kind, id, name, i) {
+    var lid = 'rate-label';
+    var stars = '';
+    for (var n = 1; n <= 5; n++) {
+      stars += '<button type="button" class="rate__star" data-v="' + n + '" aria-pressed="false" aria-label="' + esc(t('ratings.starLabel', { n: n })) + '" style="--n:' + n + '">' + icon('star') + '</button>';
+    }
+    return (
+      '<div class="rate anim-in is-loading" style="--i:' + (i || 0) + '" data-rate-widget="' + kind + ':' + esc(id) + '" data-rate-name="' + esc(name) + '">' +
+        '<div class="rate__sum">' +
+          '<span class="rate__avg" aria-hidden="true">0,0</span>' +
+          '<span class="rate__meter" aria-hidden="true"><span class="rate__meter-fill"></span></span>' +
+          '<span class="rate__count"></span>' +
+        '</div>' +
+        '<div class="rate__me">' +
+          '<p class="rate__label" id="' + lid + '">' + esc(t(kind === 'recipe' ? 'ratings.rateRecipe' : 'ratings.rateFlavor')) + '</p>' +
+          '<div class="rate__stars" role="group" aria-labelledby="' + lid + '">' + stars + '</div>' +
+        '</div>' +
+        '<p class="rate__msg" role="status" aria-live="polite"></p>' +
+        '<div class="rate__ts"></div>' +
+      '</div>'
+    );
+  };
+
+  /* ------------------------------------------------------------------ */
   /* Kartica okusa                                                       */
   /* ------------------------------------------------------------------ */
 
@@ -408,7 +461,7 @@
     }).join('');
     var names = (f.ingredients || []).map(function (i) { return esc(L(i.name)); }).join('<span class="dot" aria-hidden="true"> · </span>');
     return (
-      '<a class="card" href="' + V.flavorUrl(f) + '" data-veil="' + th.veil + '" data-smoke="' + th.smoke.join(',') + '"' + (f.mood ? ' data-mood="' + esc(f.mood) + '"' : '') + ' style="' +
+      '<a class="card" href="' + V.flavorUrl(f) + '" data-fid="' + esc(f.id) + '" data-veil="' + th.veil + '" data-smoke="' + th.smoke.join(',') + '"' + (f.mood ? ' data-mood="' + esc(f.mood) + '"' : '') + ' style="' +
         '--card-bg:' + th.bg + ';--card-surface:' + th.surface + ';--card-text:' + th.text + ';--card-muted:' + th.muted + ';' +
         '--card-accent:' + th.accentInk + ';--card-primary:' + th.primary + ';--card-secondary:' + th.secondary + ';--card-glow:' + th.surface2 + '">' +
         '<span class="card__tilt">' +
@@ -420,6 +473,7 @@
             '<span class="card__ings">' + names + '</span>' +
           '</span>' +
           '<span class="card__arrow" aria-hidden="true">' + icon('arrowUpRight') + '</span>' +
+          V.rateSlot('flavor', f.id, 'rpill--card') +
           '<span class="card__glare" aria-hidden="true"></span>' +
         '</span>' +
       '</a>'
@@ -485,7 +539,8 @@
       { key: 'brands', page: 'brands', match: ['brands', 'brand'] },
       { key: 'collections', page: 'collections', match: ['collections', 'collection'] },
       { key: 'compare', page: 'compare', match: ['compare', 'comparePair'] },
-      { key: 'mixes', page: 'mixes', match: ['mixes', 'recipe'] }
+      { key: 'mixes', page: 'mixes', match: ['mixes', 'recipe'] },
+      { key: 'top', page: 'top', match: ['top'] }
     ] },
     { key: 'mixer', page: 'mixer', match: ['mixer'] },
     { key: 'quiz', page: 'quiz', match: ['quiz'] },
@@ -610,7 +665,7 @@
     var year = desc.year || new Date().getFullYear();
     var email = (cfg && cfg.AUTHOR_EMAIL) || '';
     var name = (cfg && cfg.AUTHOR_NAME) || 'Graba';
-    var links = ['flavors', 'brands', 'collections', 'compare', 'mixes', 'mixer', 'quiz', 'guide', 'glossary', 'gear', 'about'].map(function (p) {
+    var links = ['flavors', 'brands', 'collections', 'compare', 'mixes', 'top', 'mixer', 'quiz', 'guide', 'glossary', 'gear', 'about'].map(function (p) {
       return '<li><a href="' + V.url(p) + '">' + esc(t('nav.' + (p === 'flavors' ? 'allFlavors' : p))) + '</a></li>';
     }).join('');
     return (
@@ -1117,6 +1172,7 @@
               V.collectionBadges(f) +
               V.leafNote(f) +
               '<p class="fhero__actions anim-in" style="--i:8">' + V.shareButton('flavor', f.id) + '</p>' +
+              V.rateWidget('flavor', f.id, f.brand + ' ' + f.name, 9) +
             '</div>' +
             '<div class="fhero__stage">' + V.hookahStage(th, ings.slice(0, 4)) + '</div>' +
           '</div>' +
@@ -1963,7 +2019,7 @@
         out.title = t('meta.aboutTitle');
         out.description = t('meta.aboutDescription');
         break;
-      case 'privacy': case 'terms': case 'suggest': case 'report': case 'flavors': case 'search': case 'brands': case 'brand':
+      case 'privacy': case 'terms': case 'suggest': case 'report': case 'flavors': case 'search': case 'brands': case 'brand': case 'top':
         var extra = V.pageExtra(desc, crumbs, cfg);
         out.main = extra.main;
         out.title = extra.title;

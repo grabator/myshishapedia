@@ -35,16 +35,43 @@ window.LEGAL = {
           bs: [
             'Stranica u tvom browseru (localStorage) pamti samo ovo:',
             '- da si potvrdio/la da imaš 18 ili više godina, da te ne pitamo pri svakoj posjeti,',
-            '- izabrani jezik (bosanski ili engleski).',
+            '- izabrani jezik (bosanski ili engleski),',
+            '- ako ocjenjuješ okuse ili recepte: nasumičan anonimni ID uređaja i tvoje ocjene, da vidiš svoju ocjenu i možeš je promijeniti (vidi "Ocjene okusa i recepata").',
             'Tokom jedne posjete (sessionStorage) pamti se i da li je uvodna animacija već prikazana i boja prelaza između stranica. To se briše kad zatvoriš tab.',
-            'Ovi podaci ostaju samo na tvom uređaju i nikad nam se ne šalju. Možeš ih obrisati u postavkama browsera (brisanje podataka za ovu stranicu).'
+            'Ovi podaci ostaju na tvom uređaju; jedino se ID uređaja šalje uz ocjenu (vidi ispod). Možeš ih obrisati u postavkama browsera (brisanje podataka za ovu stranicu).'
           ],
           en: [
             'In your browser (localStorage) the site only remembers:',
             '- that you confirmed you are 18 or older, so we do not ask on every visit,',
-            '- your chosen language (Bosnian or English).',
+            '- your chosen language (Bosnian or English),',
+            '- if you rate flavors or recipes: a random anonymous device ID and your ratings, so you can see your rating and change it (see "Flavor and recipe ratings").',
             'During a single visit (sessionStorage) it also remembers whether the intro animation has already played and the color of the page transition. That is cleared when you close the tab.',
-            'This data stays on your device and is never sent to us. You can remove it in your browser settings by clearing the data for this site.'
+            'This data stays on your device; only the device ID is sent along with a rating (see below). You can remove it in your browser settings by clearing the data for this site.'
+          ]
+        }
+      },
+      {
+        title: { bs: 'Ocjene okusa i recepata', en: 'Flavor and recipe ratings' },
+        body: {
+          bs: [
+            'Okuse i recepte možeš ocijeniti zvjezdicama (1 do 5) bez prijave i bez računa. Kad pošalješ ocjenu, šalje se samo ovo:',
+            '- šta ocjenjuješ (okus ili recept) i koliko zvjezdica,',
+            '- nasumičan anonimni ID uređaja iz tvog browsera, da jedan uređaj ima samo jednu ocjenu po okusu i da je može promijeniti.',
+            'Na serveru se ID uređaja ne čuva u izvornom obliku, nego samo kao nepovratan hash (šifrovani otisak), uz ocjenu i vrijeme ocjenjivanja. Ne čuvamo ime, email ni IP adresu i ocjena se ne može povezati sa tobom.',
+            'Da bismo spriječili zloupotrebu (npr. robote koji šalju hiljade ocjena), privremeno brojimo slanja sa iste IP adrese. Pri tome se čuva samo hash IP adrese i broj slanja u zadnjih nekoliko minuta, nikad sama adresa, a stari zapisi se redovno brišu.',
+            'Za zaštitu od robota koristimo Cloudflare Turnstile. Kad ocjenjuješ, Turnstile u tvom browseru provjeri da nisi robot (bez kolačića za praćenje i, u pravilu, bez slagalica). Pri tome Cloudflare obrađuje tehničke podatke o browseru i uređaju, prema svojim pravilima privatnosti.',
+            'Ocjene se čuvaju u Cloudflare D1 bazi i prikazuju se samo zbirno: prosjek i broj ocjena. Pojedinačne ocjene nikad ne objavljujemo.',
+            'Ako obrišeš podatke stranice u browseru, gubi se veza sa tvojim ranijim ocjenama: one ostaju u prosjeku, ali ih više ne možeš promijeniti.'
+          ],
+          en: [
+            'You can rate flavors and recipes with stars (1 to 5) without signing in or creating an account. When you send a rating, only this is sent:',
+            '- what you are rating (a flavor or a recipe) and how many stars,',
+            '- a random anonymous device ID from your browser, so each device has only one rating per flavor and can change it.',
+            'On the server the device ID is never stored as is, only as a one-way hash (a scrambled fingerprint), together with the rating and when it was given. We do not store your name, email or IP address, and a rating cannot be linked to you.',
+            'To prevent abuse (such as bots sending thousands of ratings), we briefly count submissions from the same IP address. Only a hash of the IP address and the number of submissions in the last few minutes is kept, never the address itself, and old records are deleted regularly.',
+            'For bot protection we use Cloudflare Turnstile. When you rate, Turnstile checks in your browser that you are not a bot (without tracking cookies and, usually, without puzzles). Cloudflare processes technical browser and device data for this, under its own privacy policy.',
+            'Ratings are stored in a Cloudflare D1 database and are only shown as totals: the average and the number of ratings. Individual ratings are never published.',
+            'If you clear the site data in your browser, the link to your earlier ratings is lost: they stay in the average, but you can no longer change them.'
           ]
         }
       },

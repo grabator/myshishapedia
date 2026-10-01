@@ -178,12 +178,17 @@
   /* Svi okusi                                                           */
   /* ================================================================== */
 
-  V.SORTS = ['az', 'cooling', 'sweetness', 'fruitiness'];
+  V.SORTS = ['az', 'rating', 'cooling', 'sweetness', 'fruitiness'];
 
   V.sortFlavors = function (list, sort) {
     var out = list.slice();
-    if (sort === 'az') out.sort(function (a, b) { return a.name.localeCompare(b.name, MSP.lang); });
-    else if (V.SORTS.indexOf(sort) > 0) out.sort(function (a, b) { return (b.profile[sort] || 0) - (a.profile[sort] || 0) || a.name.localeCompare(b.name, MSP.lang); });
+    var byName = function (a, b) { return a.name.localeCompare(b.name, MSP.lang); };
+    if (sort === 'az') out.sort(byName);
+    else if (sort === 'rating') {
+      var R = MSP.Ratings;
+      var get = function (f) { return R && R.get('flavor', f.id); };
+      out.sort(function (a, b) { return V.compareRated(a, b, get) || byName(a, b); });
+    } else if (V.SORTS.indexOf(sort) > 1) out.sort(function (a, b) { return (b.profile[sort] || 0) - (a.profile[sort] || 0) || byName(a, b); });
     return out;
   };
 
@@ -360,6 +365,82 @@
   }
 
   /* ================================================================== */
+  /* Najbolje ocijenjeni (brojke i redoslijed dolaze iz js/ratings.js)   */
+  /* ================================================================== */
+
+  function topRow(kind, o) {
+    return (
+      '<li class="top__item" data-kind="' + kind + '" data-id="' + esc(o.id) + '" data-brands="' + esc(o.brands.join(' ')) + '" data-cols="' + esc(o.cols.join(' ')) + '" hidden>' +
+        '<a class="top__link" href="' + o.url + '" data-veil="' + o.veil + '" style="--tp-bg:' + o.bg + ';--tp-text:' + o.text + ';--tp-muted:' + o.muted + ';--tp-accent:' + o.accent + '">' +
+          '<span class="top__rank" aria-hidden="true"></span>' +
+          '<span class="top__art" aria-hidden="true">' + o.art + '</span>' +
+          '<span class="top__txt"><span class="top__kicker">' + esc(o.kicker) + '</span><span class="top__name">' + esc(o.name) + '</span></span>' +
+          V.rateSlot(kind, o.id, 'rpill--top') +
+        '</a>' +
+      '</li>'
+    );
+  }
+
+  function topList(kind, rows, headingId) {
+    var skeleton = '';
+    for (var i = 0; i < 5; i++) skeleton += '<li class="top__ghost" style="--i:' + i + '" aria-hidden="true"><span></span></li>';
+    return (
+      '<section class="top__col" aria-labelledby="' + headingId + '">' +
+        '<h2 class="top__h" id="' + headingId + '">' + icon(kind === 'recipe' ? 'mix' : 'star') + '<span>' + esc(t(kind === 'recipe' ? 'ratings.topMixes' : 'ratings.topFlavors')) + '</span></h2>' +
+        '<ol class="top__list" role="list" data-top-list="' + kind + '">' + skeleton + rows + '</ol>' +
+        '<p class="top__empty" data-top-empty="' + kind + '" hidden>' + esc(t('ratings.topEmpty', { n: V.TOP_MIN })) + '</p>' +
+      '</section>'
+    );
+  }
+
+  function pageTop(crumbs) {
+    var flavorRows = V.flavors().map(function (f) {
+      var th = V.themeFor(f);
+      var ing = V.byIntensity(f)[0];
+      return topRow('flavor', {
+        id: f.id, url: V.flavorUrl(f), veil: th.veil, bg: th.bg, text: th.text, muted: th.muted, accent: th.accentInk,
+        art: ing ? MSP.illustrate(ing.illustration, { color: ing.color }) : '',
+        kicker: f.brand, name: f.name,
+        brands: [f.brandId], cols: V.collectionsOf(f).map(function (c) { return c.id; })
+      });
+    }).join('');
+    var mixRows = V.mixes().map(function (m) {
+      var th = V.recipeTheme(m);
+      var fl = V.recipeFlavors(m);
+      var brands = [], cols = [];
+      fl.forEach(function (f) {
+        if (brands.indexOf(f.brandId) === -1) brands.push(f.brandId);
+        V.collectionsOf(f).forEach(function (c) { if (cols.indexOf(c.id) === -1) cols.push(c.id); });
+      });
+      return topRow('recipe', {
+        id: m.id, url: V.recipeUrl(m), veil: th.veil, bg: th.bg, text: th.text, muted: th.muted, accent: th.accentInk,
+        art: V.bowlTop(m, { cls: 'bowl-top--mini' }),
+        kicker: V.recipePartsText(m), name: L(m.name),
+        brands: brands, cols: cols
+      });
+    }).join('');
+    var brandOpts = V.brands().filter(function (b) { return V.brandFlavors(b).length; }).map(function (b) {
+      return '<option value="' + esc(b.slug) + '">' + esc(b.name) + '</option>';
+    }).join('');
+    var colOpts = V.collections().map(function (c) { return '<option value="' + c.id + '">' + esc(L(c.title)) + '</option>'; }).join('');
+    return (
+      V.pageHero({ id: 'top-title', eyebrow: t('ratings.eyebrow'), title: t('ratings.topTitle'), lead: t('ratings.topLead', { n: V.TOP_MIN }), crumbs: crumbs }) +
+      '<section class="fsec fsec--flush"><div class="container top" id="top" data-top-min="' + V.TOP_MIN + '">' +
+        '<div class="fl-tools top__tools">' +
+          '<div class="fl-sort"><label class="fl-sort__label" for="top-brand">' + esc(t('flavorsPage.brandsLabel')) + '</label>' +
+            '<select id="top-brand" name="brand"><option value="">' + esc(t('flavorsPage.brandAll')) + '</option>' + brandOpts + '</select></div>' +
+          '<div class="fl-sort"><label class="fl-sort__label" for="top-col">' + esc(t('flavorsPage.collectionsLabel')) + '</label>' +
+            '<select id="top-col" name="col"><option value="">' + esc(t('ratings.colAll')) + '</option>' + colOpts + '</select></div>' +
+        '</div>' +
+        '<p class="top__status" id="top-status" role="status" aria-live="polite">' + esc(t('ratings.loading')) + '</p>' +
+        '<div class="top__cols">' + topList('flavor', flavorRows, 'top-flavors') + topList('recipe', mixRows, 'top-mixes') + '</div>' +
+        '<noscript><p class="top__noscript">' + esc(t('ratings.noJs')) + '</p></noscript>' +
+        '<p class="mix__note" role="note">' + icon('alert') + '<span>' + esc(t('ratings.topNote', { n: V.TOP_MIN })) + '</span></p>' +
+      '</div></section>'
+    );
+  }
+
+  /* ================================================================== */
   /* Stranica pretrage (rezerva za globalnu pretragu)                    */
   /* ================================================================== */
 
@@ -400,7 +481,7 @@
   /* Stranice (poziva ih V.page iz views.js)                             */
   /* ================================================================== */
 
-  V.EXTRA_PAGES = ['privacy', 'terms', 'suggest', 'report', 'flavors', 'search', 'brands'];
+  V.EXTRA_PAGES = ['privacy', 'terms', 'suggest', 'report', 'flavors', 'search', 'brands', 'top'];
   V.NOINDEX_PAGES = ['report', 'search'];
 
   V.pageExtra = function (desc, crumbs, cfg) {
@@ -412,6 +493,7 @@
       case 'flavors': return { main: pageFlavors(crumbs), title: t('meta.flavorsTitle'), description: t('meta.flavorsDescription') };
       case 'search': return { main: pageSearch(crumbs), title: t('meta.searchTitle'), description: t('meta.searchDescription') };
       case 'brands': return { main: pageBrands(crumbs), title: t('meta.brandsTitle'), description: t('meta.brandsDescription') };
+      case 'top': return { main: pageTop(crumbs), title: t('meta.topTitle'), description: t('meta.topDescription') };
       case 'brand':
         var b = desc.brand;
         return {

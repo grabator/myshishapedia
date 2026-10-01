@@ -24,6 +24,11 @@ var SITE_CONFIG = {
   // email program (mailto) sa već sastavljenom porukom. Vidi docs/UPUTSTVO.md.
   FORM_ENDPOINT: 'https://formspree.io/f/mzezwlrd',
 
+  // Turnstile "Site Key" (javni ključ, Cloudflare → Turnstile → widget), za ocjene okusa i recepata.
+  // Prazno = ocjenjivanje je na objavljenoj stranici isključeno. Na lokalnom serveru (localhost)
+  // se uvijek koristi Cloudflareov testni ključ. Tajni ključ NIKAD ne ide ovdje. Vidi docs/UPUTSTVO.md, "Ocjene".
+  TURNSTILE_SITE_KEY: '',
+
 
   // Datum zadnje izmjene politike privatnosti i uslova korištenja (GGGG-MM-DD).
   LEGAL_UPDATED: '2026-10-01'

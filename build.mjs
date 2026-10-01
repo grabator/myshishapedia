@@ -63,7 +63,7 @@ for (const file of SOURCES) vm.runInContext(read(file), sandbox, { filename: fil
 const CFG = sandbox.SITE_CONFIG;
 // Vrijednosti se mogu zadati i kao varijable okruženja (npr. u Cloudflare Pages postavkama),
 // tada imaju prednost nad site.config.js.
-for (const key of ['ANALYTICS_TOKEN', 'FORM_ENDPOINT']) {
+for (const key of ['ANALYTICS_TOKEN', 'FORM_ENDPOINT', 'TURNSTILE_SITE_KEY']) {
   if (process.env[key] !== undefined) CFG[key] = process.env[key];
 }
 const MSP = sandbox.MSP;
@@ -83,7 +83,7 @@ function hashOf(file) {
 
 const ASSETS = ['css/style.css', 'js/strings.js', 'data/brands.js', 'data/flavors.js', 'data/glossary.js', 'data/guide.js', 'data/gear.js', 'data/quiz.js',
   'data/mixes.js', 'js/illustrations.js', 'js/effects.js', 'js/views.js', 'js/views-more.js', 'js/views-extra.js', 'js/pages.js', 'js/app.js',
-  'js/search.js', 'js/forms.js', 'js/share.js', 'favicon.svg'];
+  'js/search.js', 'js/forms.js', 'js/share.js', 'js/ratings.js', 'favicon.svg'];
 const VERSION = {};
 for (const a of ASSETS) VERSION[a] = hashOf(a);
 const asset = (p) => '/' + p + '?v=' + VERSION[p];
@@ -212,7 +212,7 @@ function head(desc, lang, info) {
   const views = ['js/views.js']
     .concat(VIEWS_MORE_PAGES.includes(desc.page) ? ['js/views-more.js'] : [])
     .concat(VIEWS_EXTRA_PAGES.includes(desc.page) ? ['js/views-extra.js'] : []);
-  const scripts = ['js/strings.js', 'data/brands.js', 'data/flavors.js'].concat(data, ['js/illustrations.js', 'js/effects.js'], views, ['js/pages.js', 'js/app.js'], PAGE_SCRIPTS[desc.page] || []);
+  const scripts = ['js/strings.js', 'data/brands.js', 'data/flavors.js'].concat(data, ['js/illustrations.js', 'js/effects.js'], views, ['js/pages.js', 'js/app.js', 'js/ratings.js'], PAGE_SCRIPTS[desc.page] || []);
   const other = LANGS.filter((l) => l !== lang);
 
   return [
@@ -224,6 +224,7 @@ function head(desc, lang, info) {
     indexable ? LANGS.map((l) => `<link rel="alternate" hreflang="${l}" href="${abs(alt[l])}">`).join('') + `<link rel="alternate" hreflang="x-default" href="${abs(alt[DEFAULT_LANG])}">` : '',
     `<meta name="theme-color" content="${info.theme.bg}">`,
     CFG.ANALYTICS_TOKEN ? `<meta name="msp-analytics" content="${esc(CFG.ANALYTICS_TOKEN)}">` : '',
+    CFG.TURNSTILE_SITE_KEY ? `<meta name="msp-turnstile" content="${esc(CFG.TURNSTILE_SITE_KEY)}">` : '',
     '<meta name="color-scheme" content="dark light">',
     `<meta property="og:type" content="${desc.page === 'home' ? 'website' : 'article'}">`,
     `<meta property="og:site_name" content="${esc(CFG.SITE_NAME)}">`,
@@ -507,7 +508,7 @@ function writeSearchIndex() {
     }
     const pages = [['flavors', 'allFlavors', 'flavorsDescription'], ['brands', 'brands', 'brandsDescription'], ['collections', 'collections', 'collectionsDescription'], ['mixes', 'mixes', 'mixesDescription'],
       ['compare', 'compare', 'compareDescription'], ['mixer', 'mixer', 'mixerDescription'], ['quiz', 'quiz', 'quizDescription'], ['guide', 'guide', 'guideDescription'],
-      ['glossary', 'glossary', 'glossaryDescription'], ['gear', 'gear', 'gearDescription'], ['about', 'about', 'aboutDescription'],
+      ['glossary', 'glossary', 'glossaryDescription'], ['gear', 'gear', 'gearDescription'], ['about', 'about', 'aboutDescription'], ['top', 'top', 'topDescription'],
       ['suggest', 'suggest', 'suggestDescription'], ['privacy', 'privacy', 'privacyDescription'], ['terms', 'terms', 'termsDescription']];
     for (const [page, navKey, metaKey] of pages) {
       add('page', MSP.t('nav.' + navKey), MSP.t('meta.' + metaKey), V.url(page), '', LANGS.map((l) => MSP.strings[l].nav[navKey]));
@@ -519,6 +520,8 @@ function writeSearchIndex() {
 /* ------------------------------------------------------------------ */
 /* Cloudflare Pages: _headers i _redirects                             */
 /* ------------------------------------------------------------------ */
+
+const TURNSTILE = 'https://challenges.cloudflare.com';
 
 function hostOf(url) {
   try { return new URL(url).origin; } catch { return ''; }
@@ -547,11 +550,13 @@ function writeCloudflareFiles() {
   const analytics = !!CFG.ANALYTICS_TOKEN;
   const csp = [
     "default-src 'self'",
-    ["script-src 'self'", ...inlineScriptHashes(), analytics ? 'https://static.cloudflareinsights.com' : ''].filter(Boolean).join(' '),
+    // Turnstile (zaštita ocjena od robota): skripta i iframe sa challenges.cloudflare.com
+    ["script-src 'self'", ...inlineScriptHashes(), analytics ? 'https://static.cloudflareinsights.com' : '', TURNSTILE].filter(Boolean).join(' '),
     // inline style atributi nose boje okusa (style="--c-bg:..."), pa su potrebni
     "style-src 'self' 'unsafe-inline'",
     "font-src 'self' https://fonts.gstatic.com",
     "img-src 'self' data: blob:",
+    'frame-src ' + TURNSTILE,
     ["connect-src 'self'", analytics ? 'https://cloudflareinsights.com' : '', form].filter(Boolean).join(' '),
     ["form-action 'self'", form].filter(Boolean).join(' '),
     "frame-ancestors 'none'",
@@ -576,6 +581,9 @@ function writeCloudflareFiles() {
     ...['/css/*', '/js/*', '/data/*'].flatMap((p) => [p, '  Cache-Control: ' + long, '']),
     '/search/*',
     '  Cache-Control: public, max-age=3600',
+    '',
+    '/ratings-ids.json',
+    '  Cache-Control: public, max-age=300',
     '',
     '# HTML uvijek svjež',
     ...['/', '/index.html', '/404.html', '/bs/*', '/en/*'].flatMap((p) => [p, '  Cache-Control: ' + html, '']),
@@ -607,6 +615,14 @@ function writeCloudflareFiles() {
     '/brands/*  /en/brands/:splat  301'
   ];
   writeFile('_redirects', r.join('\n') + '\n');
+
+  // Pages Functions rade samo za /api/* (ostalo je statično i ne troši zahtjeve Functionsa).
+  writeFile('_routes.json', JSON.stringify({ version: 1, include: ['/api/*'], exclude: [] }, null, 2) + '\n');
+}
+
+/** Dozvoljeni id-jevi za ocjene (čita ih API u functions/ i lokalni lažni API u serve.mjs). */
+function writeRatingsIds() {
+  writeFile('ratings-ids.json', JSON.stringify({ flavor: V.flavors().map((f) => f.id), recipe: V.mixes().map((m) => m.id) }) + '\n');
 }
 
 /**
@@ -614,6 +630,10 @@ function writeCloudflareFiles() {
  * kolekcije nisu prazne (a "Za početnike" nema tamni list), recepti imaju ispravne okuse i omjer.
  */
 function checkData() {
+  // id ide u adresu i u API za ocjene: samo mala slova, brojevi i crtica
+  const ID_OK = /^[a-z0-9-]{1,80}$/;
+  for (const fl of V.flavors()) if (!ID_OK.test(fl.id)) errors.push(`okus ${fl.id}: id smije imati samo mala slova, brojeve i crticu`);
+  for (const m of V.mixes()) if (!ID_OK.test(m.id)) errors.push(`recept ${m.id}: id smije imati samo mala slova, brojeve i crticu`);
   for (const fl of V.flavors()) {
     if (!V.brandOf(fl)) errors.push(`okus ${fl.id}: nepoznat brend ${fl.brandId}`);
     if (!['light', 'dark'].includes(fl.leaf)) errors.push(`okus ${fl.id}: leaf mora biti 'light' ili 'dark'`);
@@ -694,6 +714,7 @@ function build() {
   if (fs.existsSync(path.join(ROOT, 'static'))) copyDir('static', '.');
 
   writeSearchIndex();
+  writeRatingsIds();
   writeCloudflareFiles();
 
   checkData();

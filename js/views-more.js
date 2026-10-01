@@ -383,7 +383,7 @@
     var h = headingTag || 'h3';
     var th = V.recipeTheme(m);
     return (
-      '<a class="rcard" href="' + V.recipeUrl(m) + '" data-veil="' + th.veil + '" data-tags="' + esc(m.tags.join(' ')) + '" data-strength="' + m.strength + '" style="--i:' + (i || 0) + ';' +
+      '<a class="rcard" href="' + V.recipeUrl(m) + '" data-rid="' + esc(m.id) + '" data-veil="' + th.veil + '" data-tags="' + esc(m.tags.join(' ')) + '" data-strength="' + m.strength + '" style="--i:' + (i || 0) + ';' +
         '--rc-bg:' + th.bg + ';--rc-text:' + th.text + ';--rc-muted:' + th.muted + ';--rc-accent:' + th.accentInk + ';--rc-glow:' + th.surface2 + '">' +
         '<span class="rcard__bowl">' + V.bowlTop(m, { cls: 'bowl-top--card' }) + '</span>' +
         '<span class="rcard__body">' +
@@ -392,6 +392,7 @@
           '<span class="rcard__meta">' + strengthBadge(m) + '</span>' +
         '</span>' +
         '<span class="card__arrow" aria-hidden="true">' + icon('arrowUpRight') + '</span>' +
+        V.rateSlot('recipe', m.id, 'rpill--card') +
       '</a>'
     );
   };
@@ -508,6 +509,7 @@
                 m.tags.map(function (x) { return '<li class="tag">' + esc(MSP.tagLabel(x)) + '</li>'; }).join('') +
               '</ul>' +
               '<p class="rhero__actions anim-in" style="--i:5"><a class="btn btn--primary" href="' + esc(V.recipeMixerUrl(m)) + '">' + icon('mix') + '<span>' + esc(t('mixes.openMixer')) + '</span></a>' + V.shareButton('recipe', m.id) + '</p>' +
+              V.rateWidget('recipe', m.id, L(m.name), 6) +
             '</div>' +
             '<div class="rhero__stage">' +
               '<div class="rbowl" data-bowl>' + V.bowlTop(m, { label: true, cls: 'bowl-top--hero' }) + '</div>' +
@@ -886,6 +888,7 @@
     var chips = (f.ingredients || []).map(function (i) { return '<li>' + esc(L(i.name)) + '</li>'; }).join('');
     return (
       '<div class="fotd__art" aria-hidden="true"><span class="fotd__halo"></span>' + art + '<span class="fotd__bowl">' + MSP.hookahBowl() + '</span></div>' +
+      V.rateSlot('flavor', f.id, 'rpill--fotd') +
       '<div class="fotd__copy">' +
         '<p class="fotd__top"><span class="eyebrow"><span class="eyebrow__dot" aria-hidden="true"></span>' + esc(t('fotd.eyebrow')) + '</span>' +
           '<span class="fotd__timer" id="fotd-timer" aria-live="off"></span></p>' +

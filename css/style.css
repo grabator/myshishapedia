@@ -5227,3 +5227,223 @@ a.fhero__brand:hover, a.fhero__brand:focus-visible { color: var(--c-text); text-
   .sn__nebula { animation: none; opacity: 0.55; }
   .sn__ring, .sn__ray, .sn__shard { animation: none; opacity: 0; }
 }
+
+/* ================================================================== */
+/* Ocjene: prosjek na karticama, zvjezdice, rang liste                 */
+/* ================================================================== */
+
+/* Mali prosjek na kartici. Apsolutno pozicioniran: kad se popuni (ili ostane prazan), ništa se ne pomjera. */
+.rpill {
+  --rp-bg: var(--c-bg);
+  --rp-text: var(--c-text);
+  --rp-accent: var(--c-accent-ink);
+  position: absolute;
+  z-index: 2;
+  top: clamp(16px, 2vw, 22px);
+  left: clamp(16px, 2vw, 22px);
+  pointer-events: none;
+  opacity: 0;
+  transform: translate3d(0, -6px, 0) scale(0.92);
+  transition: opacity 0.5s var(--ease-out), transform 0.6s var(--ease-out);
+}
+.rpill.is-on { opacity: 1; transform: none; }
+.rpill__in {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 36px;
+  padding: 0 13px 0 10px;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--rp-text) 22%, transparent);
+  background: color-mix(in srgb, var(--rp-bg) 72%, transparent);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  color: var(--rp-text);
+  font-size: 0.875rem;
+  line-height: 1;
+  white-space: nowrap;
+  box-shadow: 0 10px 24px -14px rgba(0, 0, 0, 0.6);
+}
+.rpill__in b { font-weight: 800; font-variant-numeric: tabular-nums; }
+.rpill__star { width: 16px; height: 16px; color: var(--rp-accent); fill: currentColor; stroke-width: 1.2; filter: drop-shadow(0 0 6px color-mix(in srgb, var(--rp-accent) 55%, transparent)); }
+.rpill__n { font-weight: 600; opacity: 0.72; }
+.rpill__n::before { content: '('; }
+.rpill__n::after { content: ')'; }
+.card .rpill { --rp-bg: var(--card-bg); --rp-text: var(--card-text); --rp-accent: var(--card-accent); }
+.rcard .rpill { --rp-bg: var(--rc-bg); --rp-text: var(--rc-text); --rp-accent: var(--rc-accent); }
+.fotd__card .rpill { --rp-bg: var(--fd-bg); --rp-text: var(--fd-text); --rp-accent: var(--fd-accent); left: auto; right: clamp(16px, 2vw, 24px); top: clamp(16px, 2vw, 24px); }
+.top__link .rpill { --rp-bg: var(--tp-bg); --rp-text: var(--tp-text); --rp-accent: var(--tp-accent); position: static; justify-self: end; min-width: 96px; display: flex; justify-content: flex-end; }
+
+/* ---------- Zvjezdice na stranici okusa i recepta ---------- */
+
+.rate {
+  --star: 40px;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  grid-template-areas: 'sum me' 'msg msg' 'ts ts';
+  align-items: center;
+  gap: 4px 22px;
+  width: min(100%, 470px);
+  margin: 22px 0 0;
+  padding: 14px 18px 10px;
+  border-radius: 24px;
+  border: 1px solid var(--c-line);
+  background: color-mix(in srgb, var(--c-surface) 62%, transparent);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  text-align: left;
+}
+html:not(.js) .rate { display: none; }
+/* API ne radi: mjesto ostaje rezervisano (ništa ne skače), samo se ne vidi */
+.rate.is-off { visibility: hidden; }
+.fhero__copy .rate { margin-inline: auto; }
+@media (min-width: 1100px) { .fhero__copy .rate { margin-inline: 0; } }
+
+.rate__sum { grid-area: sum; display: grid; grid-template-columns: auto auto; grid-template-rows: auto auto; column-gap: 10px; align-items: center; min-width: 0; }
+.rate__avg {
+  grid-row: 1 / span 2;
+  font-family: var(--font-display);
+  font-size: 2.6rem;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
+  color: var(--c-text);
+}
+.rate__meter {
+  --star-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='m12 3.2 2.7 5.5 6 .9-4.35 4.25 1.03 6L12 17l-5.38 2.85 1.03-6L3.3 9.6l6-.9z'/%3E%3C/svg%3E");
+  position: relative;
+  display: block;
+  width: 90px;
+  height: 18px;
+  overflow: hidden;
+  background: color-mix(in srgb, var(--c-text) 22%, transparent);
+  -webkit-mask: var(--star-mask) 0 0 / 18px 18px repeat-x;
+  mask: var(--star-mask) 0 0 / 18px 18px repeat-x;
+}
+.rate__meter-fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: calc(var(--avg, 0) / 5 * 100%);
+  background: var(--c-accent-ink);
+  transition: width 1s var(--ease-out);
+}
+.rate__count { font-size: 0.8125rem; font-weight: 600; color: var(--c-muted); white-space: nowrap; }
+
+.rate__me { grid-area: me; display: grid; justify-items: start; gap: 2px; min-width: 0; }
+.rate__label { margin: 0; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--c-muted); }
+.rate__stars { display: flex; margin-left: -6px; }
+.rate__star {
+  display: grid;
+  place-items: center;
+  width: calc(var(--star) + 4px);
+  height: calc(var(--star) + 4px);
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: none;
+  color: color-mix(in srgb, var(--c-text) 45%, transparent);
+  -webkit-tap-highlight-color: transparent;
+}
+.rate__star .icon {
+  width: 28px;
+  height: 28px;
+  fill: transparent;
+  stroke-width: 1.5;
+  transition: fill 0.25s, color 0.25s, transform 0.4s var(--ease-out), filter 0.4s;
+}
+.rate__star.is-on { color: var(--c-accent-ink); }
+.rate__star.is-on .icon { fill: currentColor; filter: drop-shadow(0 0 8px color-mix(in srgb, var(--c-accent-ink) 60%, transparent)); }
+@media (hover: hover) { .rate__star:hover .icon { transform: scale(1.18) rotate(-8deg); } }
+.rate__star:active .icon { transform: scale(0.9); }
+.rate.is-preview .rate__star.is-on { color: color-mix(in srgb, var(--c-accent-ink) 80%, var(--c-text)); }
+.rate.is-sending .rate__star.is-on .icon { animation: rate-ember 0.9s ease-in-out infinite alternate; animation-delay: calc(var(--n) * 90ms); }
+.rate.is-celebrate .rate__star.is-on .icon { animation: rate-pop 0.6s var(--ease-out) both; animation-delay: calc(var(--n) * 70ms); }
+
+/* jedna linija rezervisana za poruku, da se okvir ne trza */
+.rate__msg { grid-area: msg; min-height: 1.5em; margin: 2px 0 0; font-size: 0.8125rem; font-weight: 600; color: var(--c-muted); }
+.rate__msg.is-error { color: #ff9b85; }
+.rate__ts { grid-area: ts; }
+.rate__ts:empty { display: none; }
+
+/* dok ocjene stižu: tinjajuće sive trake umjesto brojki */
+.rate.is-loading .rate__avg,
+.rate.is-loading .rate__count { color: transparent; border-radius: 8px; background: linear-gradient(90deg, var(--c-line) 0%, color-mix(in srgb, var(--c-text) 22%, transparent) 50%, var(--c-line) 100%) 0 0 / 200% 100%; animation: rate-shimmer 1.4s linear infinite; }
+.rate.is-loading .rate__count { min-width: 70px; }
+.rate.is-loading .rate__stars { opacity: 0.5; pointer-events: none; }
+
+@media (max-width: 419px) {
+  .rate { grid-template-columns: minmax(0, 1fr); grid-template-areas: 'me' 'sum' 'msg' 'ts'; justify-items: center; text-align: center; gap: 8px; }
+  .rate__me { justify-items: center; }
+  .rate__stars { margin-left: 0; }
+  .rate__msg { min-height: 3em; }
+}
+
+@keyframes rate-pop {
+  0% { transform: scale(0.6) rotate(-20deg); }
+  55% { transform: scale(1.32) rotate(8deg); }
+  100% { transform: none; }
+}
+@keyframes rate-ember {
+  from { opacity: 0.55; }
+  to { opacity: 1; }
+}
+@keyframes rate-shimmer { to { background-position: -200% 0; } }
+
+/* ---------- Najbolje ocijenjeno ---------- */
+
+.top__tools { margin-bottom: 8px; }
+.top__status { margin: 0 0 18px; color: var(--c-muted); font-weight: 600; }
+.top__cols { display: grid; gap: clamp(32px, 5vw, 56px); }
+@media (min-width: 980px) { .top__cols { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.top__col { min-width: 0; }
+.top__h { display: flex; align-items: center; gap: 12px; margin: 0 0 16px; font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem); letter-spacing: -0.02em; }
+.top__h .icon { width: 26px; height: 26px; color: var(--c-accent-ink); fill: color-mix(in srgb, var(--c-accent-ink) 30%, transparent); }
+.top__list { display: grid; gap: 10px; margin: 0; padding: 0; list-style: none; }
+.top__ghost { height: 80px; border-radius: 20px; background: linear-gradient(90deg, var(--c-line) 0%, color-mix(in srgb, var(--c-text) 16%, transparent) 50%, var(--c-line) 100%) 0 0 / 200% 100%; animation: rate-shimmer 1.4s linear infinite; animation-delay: calc(var(--i) * 0.12s); }
+.top__link {
+  display: grid;
+  grid-template-columns: 40px 56px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+  min-height: 80px;
+  padding: 10px 14px 10px 12px;
+  border-radius: 20px;
+  border: 1px solid color-mix(in srgb, var(--tp-text) 12%, transparent);
+  background: radial-gradient(70% 140% at 0% 50%, color-mix(in srgb, var(--tp-accent) 22%, transparent), transparent 70%), var(--tp-bg);
+  color: var(--tp-text);
+  text-decoration: none;
+  transition: transform 0.5s var(--ease-out), box-shadow 0.5s var(--ease-out);
+}
+@media (hover: hover) {
+  .top__link:hover { transform: translate3d(6px, 0, 0); box-shadow: 0 18px 40px -26px rgba(0, 0, 0, 0.8); }
+  .top__link:hover .top__art { transform: rotate(-10deg) scale(1.08); }
+}
+.top__rank { font-family: var(--font-display); font-size: 1.6rem; font-weight: 800; letter-spacing: -0.04em; text-align: center; color: var(--tp-accent); font-variant-numeric: tabular-nums; }
+.top__item.is-first .top__link { border-color: color-mix(in srgb, var(--tp-accent) 55%, transparent); box-shadow: 0 0 0 1px color-mix(in srgb, var(--tp-accent) 25%, transparent), 0 24px 50px -30px color-mix(in srgb, var(--tp-accent) 70%, transparent); }
+.top__item.is-first .top__rank { font-size: 2rem; text-shadow: 0 0 18px color-mix(in srgb, var(--tp-accent) 70%, transparent); }
+.top__art { display: block; width: 56px; transition: transform 0.6s var(--ease-out); }
+.top__art svg { display: block; width: 100%; height: auto; filter: drop-shadow(0 8px 10px rgba(0, 0, 0, 0.3)); }
+.bowl-top--mini { width: 56px; }
+.top__txt { display: grid; min-width: 0; }
+.top__kicker { overflow: hidden; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; text-overflow: ellipsis; white-space: nowrap; color: var(--tp-muted); }
+.top__name { overflow: hidden; font-family: var(--font-display); font-size: 1.15rem; font-weight: 700; line-height: 1.2; text-overflow: ellipsis; white-space: nowrap; }
+.top.is-ready .top__item:not([hidden]) { animation: fl-in 0.6s var(--ease-out) both; animation-delay: calc(var(--i, 0) * 60ms); }
+.top__item.is-shuffling { animation: fl-in 0.5s var(--ease-out) both; animation-delay: calc(var(--i, 0) * 40ms); }
+.top__empty { margin: 0; padding: 18px 20px; border-radius: 20px; border: 1px dashed var(--c-line-strong); color: var(--c-muted); }
+.top.is-off .top__cols { display: none; }
+.top__noscript { color: var(--c-muted); }
+@media (max-width: 479px) {
+  .top__link { grid-template-columns: 30px 44px minmax(0, 1fr); gap: 10px; }
+  .top__art, .bowl-top--mini { width: 44px; }
+  .top__link .rpill { grid-column: 3; justify-self: start; min-width: 0; }
+  .top__link .rpill__in { height: 28px; font-size: 0.8125rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rpill, .rate__meter-fill, .rate__star .icon, .top__link, .top__art { transition: none; }
+  .rate.is-sending .rate__star.is-on .icon,
+  .rate.is-celebrate .rate__star.is-on .icon,
+  .rate.is-loading .rate__avg, .rate.is-loading .rate__count,
+  .top__ghost, .top.is-ready .top__item:not([hidden]), .top__item.is-shuffling { animation: none; }
+}
