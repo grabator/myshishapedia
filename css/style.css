@@ -5499,7 +5499,8 @@ html:not(.js) .shelf-tog { display: none; }
 @media (hover: hover) { .shelf-tog--card:hover { transform: scale(1.08) rotate(-6deg); } }
 .shelf-tog.is-pop { animation: shelf-pop 0.55s var(--ease-out); }
 
-.shelf-tog--btn { gap: 8px; }
+.shelf-tog--btn { gap: 8px; background: transparent; color: var(--c-text); border-color: var(--c-line-strong); }
+@media (hover: hover) { .shelf-tog--btn:hover { border-color: var(--c-text); } }
 .shelf-tog--btn .icon { width: 18px; height: 18px; }
 .shelf-tog--btn[aria-pressed='true'] { background: var(--c-accent-fill); color: var(--c-on-accent); border-color: transparent; }
 /* oba natpisa zauzimaju isto mjesto, pa dugme ne mijenja širinu */
