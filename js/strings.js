@@ -415,6 +415,13 @@
         note: 'Brojke su okvirne preporuke: svaka nargila, posuda i duhan se ponašaju malo drugačije, pa probaj i prilagodi.'
       },
 
+      reco: {
+        title: 'Preporučeno za tebe',
+        lead: 'Na osnovu tvoje police, ocjena i okusa koje si gledao/la.',
+        because: 'Zato što ti se sviđa {name}',
+        similar: 'Slično okusu {name}'
+      },
+
       share: {
         button: 'Podijeli',
         title: 'Podijeli karticu',
@@ -1123,6 +1130,13 @@
         ctaGlossary: 'Glossary',
         ctaGear: 'Bowls and coals',
         note: 'The numbers are rough guidelines: every hookah, bowl and tobacco behaves a little differently, so try and adjust.'
+      },
+
+      reco: {
+        title: 'Recommended for you',
+        lead: 'Based on your shelf, your ratings and the flavors you looked at.',
+        because: 'Because you like {name}',
+        similar: 'Similar to {name}'
       },
 
       share: {

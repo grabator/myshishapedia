@@ -167,6 +167,7 @@ const HEAD_SCRIPT = `(function(){var d=document.documentElement,c=' js';function
 if(g('localStorage','msp-age-ok')==='1')c+=' age-ok';
 if((g('localStorage','msp-shelf')||'[]').length>2)c+=' has-shelf';
 if((g('localStorage','msp-recent')||'[]').length>2)c+=' has-recent';
+if(c.indexOf('has-')>0||/"flavor:[^"]+":[45]/.test(g('localStorage','msp-ratings')||''))c+=' has-reco';
 if(!g('sessionStorage','msp-seen')){c+=' first-visit';s('sessionStorage','msp-seen','1')}
 var v=g('sessionStorage','msp-veil');if(v){c+=' arrive';d.style.setProperty('--arrive-veil',v);try{sessionStorage.removeItem('msp-veil')}catch(e){}}
 d.className+=c;s('localStorage','msp-lang',d.lang)})();`;

@@ -7,6 +7,8 @@
  *   - kratko obavještenje (toast) sa linkom na policu
  *   - "Nedavno gledano": pamti zadnjih 8 otvorenih okusa i puni traku na početnoj i
  *     na stranici svih okusa
+ *   - "Preporučeno za tebe": bira okuse slične onima na polici, nedavno gledanim i
+ *     ocijenjenim sa 4-5 zvjezdica (sve u browseru, bez novih podataka)
  *   - stranica "Moja polica": ormarić sa teglama (desktop, tablet) i ladice (mobitel),
  *     pregled tegle u dijalogu
  */
@@ -480,6 +482,7 @@
       var finish = function () {
         strip.classList.remove('is-leaving');
         renderRecent();
+        renderReco(false);
         var main = document.getElementById('main');
         if (main) main.focus({ preventScroll: true });
       };
@@ -490,6 +493,122 @@
         window.setTimeout(finish, 320);
       }
     });
+  }
+
+
+  /* ------------------------------------------------------------------ */
+  /* Preporučeno za tebe                                                 */
+  /* ------------------------------------------------------------------ */
+
+  var RECO_MAX = 6;
+  var RECO_MIN = 4;
+  var RECO_PER_BRAND = 2;
+  var PROFILE_KEYS = ['sweetness', 'freshness', 'fruitiness', 'cooling', 'strength'];
+
+  function jaccard(a, b) {
+    if (!a.length && !b.length) return 0;
+    var inter = a.filter(function (x) { return b.indexOf(x) !== -1; }).length;
+    return inter / (a.length + b.length - inter);
+  }
+
+  /** Sličnost dva okusa (0-1): profil, tagovi, sastojci (i glavni sastojak), kolekcije, "slični okusi" i vrsta lista. */
+  function similarity(a, b, cols) {
+    var d = 0;
+    PROFILE_KEYS.forEach(function (k) { var x = ((a.profile || {})[k] || 0) - ((b.profile || {})[k] || 0); d += x * x; });
+    var prof = 1 - Math.sqrt(d) / Math.sqrt(PROFILE_KEYS.length * 100);
+    var ings = function (f) { return (f.ingredients || []).map(function (i) { return i.illustration; }); };
+    var top = function (f) { var i = V.byIntensity(f)[0]; return i ? i.illustration : ''; };
+    var linked = (a.similar || []).indexOf(b.id) !== -1 || (b.similar || []).indexOf(a.id) !== -1 ? 1 : 0;
+    // okusi bez kolekcije dijele policu "Ostalo"
+    var ca = (cols[a.id] || []).length ? cols[a.id] : ['other'];
+    var cb = (cols[b.id] || []).length ? cols[b.id] : ['other'];
+    return (
+      0.3 * prof +
+      0.15 * jaccard(a.tags || [], b.tags || []) +
+      0.12 * jaccard(ings(a), ings(b)) +
+      0.15 * (top(a) && top(a) === top(b) ? 1 : 0) +
+      0.08 * jaccard(ca, cb) +
+      0.15 * linked +
+      0.05 * (V.leafOf(a) === V.leafOf(b) ? 1 : 0)
+    );
+  }
+
+  /**
+   * Signali: polica (najjači), ocjene 4-5 zvjezdica, nedavno gledano (noviji jači).
+   * Vraća { id: { w: težina, why: 'because' | 'similar' } }.
+   */
+  function recoSeeds() {
+    var seeds = {};
+    function add(id, w, why) {
+      if (!V.flavorById(id)) return;
+      var s = seeds[id] || (seeds[id] = { w: 0, why: why });
+      s.w += w;
+      if (why === 'because') s.why = 'because';
+    }
+    Shelf.list().forEach(function (id) { add(id, 3, 'because'); });
+    var mine = {};
+    try { mine = JSON.parse(window.localStorage.getItem('msp-ratings') || '{}') || {}; } catch (e) { mine = {}; }
+    Object.keys(mine).forEach(function (k) {
+      var p = k.split(':');
+      if (p[0] === 'flavor' && mine[k] >= 4) add(p[1], mine[k] === 5 ? 2.5 : 1.5, 'because');
+    });
+    Recent.list().forEach(function (id, i) { add(id, 1.2 - i * 0.12, 'similar'); });
+    return seeds;
+  }
+
+  /** Najviše RECO_MAX preporuka (bez okusa sa police i već poznatih), najviše 2 po brendu. */
+  function recommend(cols) {
+    var seeds = recoSeeds();
+    var seedIds = Object.keys(seeds);
+    if (!seedIds.length) return [];
+    var shelf = Shelf.list();
+    var scored = V.flavors().filter(function (f) { return !seeds[f.id] && shelf.indexOf(f.id) === -1; }).map(function (f) {
+      var total = 0, best = null, bestV = -1;
+      seedIds.forEach(function (id) {
+        // na treći stepen: bliska poklapanja vrijede mnogo više od osrednjih
+        var v = seeds[id].w * Math.pow(similarity(V.flavorById(id), f, cols), 3);
+        total += v;
+        if (v > bestV) { bestV = v; best = id; }
+      });
+      return { f: f, score: total, by: best };
+    }).sort(function (a, b) { return b.score - a.score; });
+    var perBrand = {};
+    var out = [];
+    for (var i = 0; i < scored.length && out.length < RECO_MAX; i++) {
+      var b = scored[i].f.brandId;
+      if ((perBrand[b] || 0) >= RECO_PER_BRAND) continue;
+      perBrand[b] = (perBrand[b] || 0) + 1;
+      out.push(scored[i]);
+    }
+    return out;
+  }
+
+  function renderReco(animate) {
+    var sec = document.getElementById('reco');
+    if (!sec) return;
+    var cols = {};
+    try { cols = JSON.parse(sec.getAttribute('data-cols') || '{}'); } catch (e) { cols = {}; }
+    var seeds = recoSeeds();
+    var list = recommend(cols);
+    var show = list.length >= RECO_MIN;
+    doc.classList.toggle('has-reco', show);
+    if (!show) return;
+    var grid = document.getElementById('reco-grid');
+    grid.innerHTML = list.map(function (r, i) {
+      var by = V.flavorById(r.by);
+      var why = t(seeds[r.by].why === 'because' ? 'reco.because' : 'reco.similar', { name: by.brand + ' ' + by.name });
+      return (
+        '<li class="grid__item reco__item' + (animate ? ' is-in' : '') + '" style="--i:' + i + '">' +
+          '<p class="reco__why">' + icon('spark') + '<span>' + esc(why) + '</span></p>' +
+          V.card(r.f, 'h3') +
+        '</li>'
+      );
+    }).join('');
+    if (!sec.hasAttribute('data-bound') && FX) {
+      sec.setAttribute('data-bound', '');
+      FX.tilt(grid);
+      FX.cardWisps(grid);
+    }
   }
 
   /* ------------------------------------------------------------------ */
@@ -503,6 +622,7 @@
   window.addEventListener('storage', function (e) {
     if (e.key === KEY) changed();
     if (e.key === RECENT_KEY) renderRecent();
+    if (e.key === KEY || e.key === RECENT_KEY || e.key === 'msp-ratings') renderReco(false);
   });
 
   function start() {
@@ -512,6 +632,9 @@
     if (document.body.getAttribute('data-page') === 'flavor') Recent.push(document.body.getAttribute('data-id') || '');
     renderRecent();
     bindRecent();
+    renderReco(false);
+    // novi okus na polici: preporuke se osvježe
+    Shelf.on(function () { renderReco(true); });
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
   else start();

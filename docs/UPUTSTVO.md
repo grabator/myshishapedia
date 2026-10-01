@@ -10,6 +10,7 @@ Stranica ima:
 - ocjene okusa i recepata (zvjezdice 1-5, bez prijave), rang liste "Najbolje ocijenjeno" i sortiranje po ocjeni;
 - "Moja polica": lična kolekcija okusa (ormarić sa teglama, na mobitelu ladice), bez prijave;
 - "Nedavno gledano": traka sa zadnjih 8 otvorenih okusa na početnoj i na stranici svih okusa;
+- "Preporučeno za tebe": lične preporuke okusa na početnoj i na polici, izračunate u browseru;
 - politiku privatnosti i uslove korištenja.
 
 Nema mape barova ni korisničkih računa.
@@ -669,6 +670,21 @@ Kod je u `js/shelf.js` (ponašanje) i `js/views-shelf.js` (okvir stranice), a st
   za policu (klasa `has-shelf`).
 - Dugme "Obriši listu" obriše listu i sakrije traku.
 - Najveći broj okusa je `RECENT_MAX` u `js/shelf.js`.
+
+## Preporučeno za tebe
+
+- Sekcija je na početnoj (ispod "Nedavno gledano") i na stranici Moja polica (ispod ormarića ili ladica).
+- **Na osnovu čega:** okusi na polici (najjači signal), tvoje ocjene sa 4 ili 5 zvjezdica (ključ `msp-ratings`) i
+  nedavno gledani okusi (noviji vrijede više). Sve se računa u browseru; nema novih podataka ni slanja.
+- **Kako bira:** za svaki okus računa sličnost sa tim okusima: profil (slatko, svježe, voćno, hlađenje, jačina),
+  tagovi, sastojci (i isti glavni sastojak), kolekcije (okusi bez kolekcije dijele "Ostalo"), "slični okusi" i
+  vrsta lista. Bliska poklapanja vrijede mnogo više od osrednjih.
+- **Pravila:** nikad okusi sa police ni oni koje si već gledao/la ili ocijenio/la; najviše 2 okusa istog brenda;
+  4 do 6 kartica. Ako ih je manje od 4, sekcija se ne prikazuje.
+- Uz svaku karticu piše zašto je tu: "Zato što ti se sviđa ..." (polica, ocjene) ili "Slično okusu ..." (nedavno gledano).
+- Kad dodaš ili ukloniš okus sa police, preporuke se odmah osvježe.
+- Mjesto za sekciju se rezerviše prije iscrtavanja (klasa `has-reco` iz `<head>` skripte), pa ništa ne skače.
+- Težine i pravila su u `js/shelf.js` (`similarity`, `recoSeeds`, `RECO_MAX`, `RECO_PER_BRAND`).
 
 ---
 

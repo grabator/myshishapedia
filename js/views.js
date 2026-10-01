@@ -949,6 +949,7 @@
         '</div>' +
       '</section>' +
       V.recentStrip() +
+      V.recoSection() +
       V.fotdSection(V.fotdPick(new Date())) +
       V.homeCollections() +
       '<div class="marquee" aria-hidden="true"><div class="marquee__track">' + marquee() + '</div></div>' +

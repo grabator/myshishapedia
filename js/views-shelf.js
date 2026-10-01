@@ -38,6 +38,34 @@
     );
   };
 
+
+  /* ================================================================== */
+  /* Preporučeno za tebe (kartice bira i crta js/shelf.js)               */
+  /* ================================================================== */
+
+  /**
+   * Sekcija "Preporučeno za tebe". Okusi se biraju u browseru (polica, nedavno gledano, ocjene),
+   * a ovdje je samo okvir sa praznim mjestima (iste veličine kao kartice) i kolekcije okusa,
+   * jer data/collections.js nije učitan u browseru. Vidi se samo uz klasu "has-reco" (<head> skripta).
+   */
+  V.recoSection = function (cls) {
+    var cols = {};
+    V.flavors().forEach(function (f) { cols[f.id] = V.collectionsOf(f).map(function (c) { return c.id; }); });
+    var ghosts = '';
+    for (var i = 0; i < 6; i++) ghosts += '<li class="grid__item reco__ghost" aria-hidden="true"><span></span></li>';
+    return (
+      '<section class="reco' + (cls ? ' ' + cls : '') + '" id="reco" aria-labelledby="reco-title" data-cols="' + esc(JSON.stringify(cols)) + '">' +
+        '<div class="container">' +
+          '<div class="reco__head">' +
+            '<h2 class="reco__title" id="reco-title">' + icon('spark') + '<span>' + esc(t('reco.title')) + '</span></h2>' +
+            '<p class="reco__lead">' + esc(t('reco.lead')) + '</p>' +
+          '</div>' +
+          '<ul class="grid reco__grid" id="reco-grid" role="list">' + ghosts + '</ul>' +
+        '</div>' +
+      '</section>'
+    );
+  };
+
   /* ================================================================== */
   /* Moja polica                                                         */
   /* ================================================================== */
@@ -108,6 +136,7 @@
         '</div>' +
         '<noscript><p class="shelf__nojs">' + esc(t('shelf.noJs')) + '</p></noscript>' +
       '</div></section>' +
+      V.recoSection('reco--shelf') +
 
       // pregled tegle (dijalog)
       '<div class="jarview" id="jarview" hidden>' +

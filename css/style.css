@@ -6234,3 +6234,51 @@ html:not(.js) .recent { display: none; }
 .mood--fizz { overflow: hidden; background: radial-gradient(70% 60% at 50% 110%, color-mix(in srgb, var(--c-secondary) 40%, transparent), transparent 70%); }
 [data-mood='fizz'] .lounge__glow--a { background: radial-gradient(closest-side, color-mix(in srgb, var(--c-primary) 34%, transparent), transparent 70%); }
 [data-mood='fizz'] .lounge__glow--b { background: radial-gradient(closest-side, color-mix(in srgb, var(--c-secondary) 26%, transparent), transparent 70%); opacity: 1; }
+
+/* ================================================================== */
+/* Preporučeno za tebe                                                 */
+/* ================================================================== */
+
+/* vidi se samo uz klasu "has-reco" (<head> skripta je doda kad postoje polica, nedavno gledano ili ocjene) */
+.reco { display: none; padding: clamp(36px, 5vw, 64px) 0 0; }
+.has-reco .reco { display: block; }
+html:not(.js) .reco { display: none; }
+.reco--shelf { padding-bottom: clamp(40px, 6vw, 80px); }
+.reco__head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 20px; margin-bottom: 18px; }
+.reco__title { display: flex; align-items: center; gap: 10px; margin: 0; font-size: clamp(1.5rem, 1.2rem + 1.2vw, 2.2rem); letter-spacing: -0.02em; }
+.reco__title .icon { width: 26px; height: 26px; color: var(--c-accent-ink); fill: color-mix(in srgb, var(--c-accent-ink) 30%, transparent); }
+.reco__lead { margin: 0; color: var(--c-muted); }
+.reco__item { display: flex; flex-direction: column; gap: 8px; }
+.reco__item .cardbox { flex: 1; }
+.reco__item.is-in { animation: fl-in 0.6s var(--ease-out) both; animation-delay: calc(var(--i, 0) * 60ms); }
+.reco__why { display: flex; align-items: center; gap: 7px; min-height: 22px; margin: 0; overflow: hidden; font-size: 0.8125rem; font-weight: 700; color: var(--c-muted); white-space: nowrap; text-overflow: ellipsis; }
+.reco__why span { overflow: hidden; text-overflow: ellipsis; }
+.reco__why .icon { width: 15px; height: 15px; color: var(--c-accent-ink); fill: currentColor; }
+/* prazna mjesta iste veličine kao kartica (prije nego JavaScript nacrta preporuke) */
+.reco__ghost { display: flex; flex-direction: column; gap: 8px; }
+.reco__ghost::before { content: ''; height: 22px; }
+.reco__ghost span {
+  display: block;
+  aspect-ratio: 4 / 5;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(90deg, var(--c-line) 0%, color-mix(in srgb, var(--c-text) 10%, transparent) 50%, var(--c-line) 100%) 0 0 / 200% 100%;
+  animation: rate-shimmer 1.6s linear infinite;
+}
+/* mobitel: preporuke u jednom redu koji se skrola vodoravno */
+@media (max-width: 639px) {
+  .reco__grid {
+    display: flex;
+    gap: 14px;
+    margin: 0 calc(var(--gutter) * -1);
+    padding: 0 var(--gutter) 8px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--gutter);
+    scrollbar-width: none;
+  }
+  .reco__grid::-webkit-scrollbar { display: none; }
+  .reco__grid > li { flex: 0 0 78%; scroll-snap-align: start; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .reco__item.is-in, .reco__ghost span { animation: none; }
+}

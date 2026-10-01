@@ -40,6 +40,7 @@ window.LEGAL = {
             '- zadnjih 8 okusa koje si otvorio/la ("Nedavno gledano"); listu možeš obrisati dugmetom "Obriši listu",',
             '- ako ocjenjuješ okuse ili recepte: nasumičan anonimni ID uređaja i tvoje ocjene, da vidiš svoju ocjenu i možeš je promijeniti (vidi "Ocjene okusa i recepata").',
             'Tokom jedne posjete (sessionStorage) pamti se i da li je uvodna animacija već prikazana i boja prelaza između stranica. To se briše kad zatvoriš tab.',
+            'Iz police, nedavno gledanih okusa i tvojih ocjena stranica u browseru sama izračuna "Preporučeno za tebe"; za to se ništa ne šalje niti dodatno čuva.',
             'Ovi podaci ostaju na tvom uređaju; jedino se ID uređaja šalje uz ocjenu (vidi ispod). Možeš ih obrisati u postavkama browsera (brisanje podataka za ovu stranicu).'
           ],
           en: [
@@ -50,6 +51,7 @@ window.LEGAL = {
             '- the last 8 flavors you opened ("Recently viewed"); you can clear the list with the "Clear list" button,',
             '- if you rate flavors or recipes: a random anonymous device ID and your ratings, so you can see your rating and change it (see "Flavor and recipe ratings").',
             'During a single visit (sessionStorage) it also remembers whether the intro animation has already played and the color of the page transition. That is cleared when you close the tab.',
+            'From your shelf, recently viewed flavors and your ratings, the site works out "Recommended for you" right in your browser; nothing is sent or stored for that.',
             'This data stays on your device; only the device ID is sent along with a rating (see below). You can remove it in your browser settings by clearing the data for this site.'
           ]
         }
