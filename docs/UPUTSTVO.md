@@ -5,11 +5,15 @@ Enciklopedija okusa za nargilu, na bosanskom i engleskom. Otkrij od čega je nap
 Stranica ima:
 - okuse (sastojci, profil, ideje za mikseve) i stranicu svih okusa sa pretragom, filterima i sortiranjem;
 - kolekcije, poređenje okusa, recepte miksova, okus dana, mikser i kviz;
-- vodič za pripremu nargile, rječnik pojmova, opremu i stranicu "O nama";
+- vodič za pripremu nargile, savjete za bolji okus, rječnik pojmova, opremu i stranicu "O nama";
 - globalnu pretragu, kartice za dijeljenje (Instagram story), forme "Predloži okus" i "Prijavi grešku";
+- ocjene okusa i recepata (zvjezdice 1-5, bez prijave), rang liste "Najbolje ocijenjeno" i sortiranje po ocjeni;
+- "Moja polica": lična kolekcija okusa (ormarić sa teglama, na mobitelu ladice), bez prijave;
+- "Nedavno gledano": traka sa zadnjih 8 otvorenih okusa na početnoj i na stranici svih okusa;
+- "Preporučeno za tebe": lične preporuke okusa na početnoj i na polici, izračunate u browseru;
 - politiku privatnosti i uslove korištenja.
 
-Nema ocjena, mape barova ni korisničkih računa.
+Nema mape barova ni korisničkih računa.
 
 Sve je čist HTML, CSS i JavaScript, bez frameworka i bez npm paketa. Build korak (`node build.mjs`) iz istih
 skripti napravi gotove HTML stranice za oba jezika. Tako je sav tekst odmah u HTML-u (dobro za Google i za rad
@@ -112,7 +116,11 @@ privatnost i uslovi).
 /build.mjs              build: pravi dist/ (stranice, sitemap, robots, 404, _headers, _redirects, indeks pretrage)
                         i provjerava linkove, meta tagove i podatke
 /serve.mjs              lokalni server za dist/, radi kao Cloudflare Pages (_headers, _redirects, 404 po jeziku)
-/site.config.js         SITE_URL, email, ANALYTICS_TOKEN, FORM_ENDPOINT, LEGAL_UPDATED
+                        i ima lažni API za ocjene (/api/ratings)
+/site.config.js         SITE_URL, email, ANALYTICS_TOKEN, FORM_ENDPOINT, TURNSTILE_SITE_KEY, LEGAL_UPDATED
+/functions/             Cloudflare Pages Functions: API za ocjene (/api/ratings)
+/lib/                   zajednička pravila za ocjene (koriste ih functions/ i serve.mjs)
+/migrations/            SQL za Cloudflare D1 bazu (tabele za ocjene)
 /.node-version          verzija Nodea za Cloudflare Pages (20)
 /favicon.svg
 /static/                kopira se u dist/: og-image.png, manifest.webmanifest, icons/ (PNG ikone)
@@ -129,7 +137,10 @@ privatnost i uslovi).
 /js/search.js           globalna pretraga (Ctrl+K)
 /js/forms.js            forme (predloži okus, prijavi grešku)
 /js/share.js            kartica za dijeljenje (canvas)
-/data/*.js              brendovi, okusi, rječnik, vodič, oprema, kviz, O nama, kolekcije, recepti, pravni tekstovi
+/js/ratings.js          ocjene u browseru: prosjeci na karticama, zvjezdice, Turnstile, slanje
+/js/shelf.js            Moja polica (dugmad, obavještenje, ormarić, ladice, pregled tegle) i Nedavno gledano
+/js/views-shelf.js      HTML: Moja polica, traka Nedavno gledano i Savjeti (samo za build)
+/data/*.js              brendovi, okusi, rječnik, vodič, savjeti, oprema, kviz, O nama, kolekcije, recepti, pravni tekstovi
 /dist/                  REZULTAT builda (ne mijenjaj ručno, ne ide na GitHub)
 ```
 
@@ -144,6 +155,9 @@ privatnost i uslovi).
 | `/bs/kolekcije/` i `/bs/kolekcije/ledeni-okusi/` | `/en/collections/` i `/en/collections/icy-flavors/` |
 | `/bs/poredjenje/` i `/bs/poredjenje/<a>-vs-<b>/` | `/en/compare/` i `/en/compare/<a>-vs-<b>/` |
 | `/bs/recepti/` i `/bs/recepti/ledena-laguna/` | `/en/mixes/` i `/en/mixes/frozen-lagoon/` |
+| `/bs/najbolje-ocijenjeno/` | `/en/top-rated/` |
+| `/bs/moja-polica/` (noindex) | `/en/my-shelf/` (noindex) |
+| `/bs/savjeti/` i `/bs/savjeti/#savjet-toplota` | `/en/tips/` i `/en/tips/#savjet-toplota` |
 | `/bs/mikser/` | `/en/mixer/` |
 | `/bs/kviz/` | `/en/quiz/` |
 | `/bs/vodic/` | `/en/guide/` |
@@ -162,7 +176,8 @@ privatnost i uslovi).
   - mikser: `/en/mixer/?a=adalya-dubai&b=adalya-love-66&r=60`;
   - poređenje: `/en/compare/?a=...&b=...`;
   - vodič: `/bs/vodic/?korak=3` (engleski `?step=3`);
-  - svi okusi: `/en/flavors/?q=mint&tag=vocni&col=icy&brand=darkside&leaf=dark&sort=cooling`;
+  - svi okusi: `/en/flavors/?q=mint&tag=vocni&col=icy&brand=darkside&leaf=dark&sort=cooling` (`sort=rating` = najbolje ocijenjeno);
+  - najbolje ocijenjeno: `/en/top-rated/?brand=adalya&col=icy`;
   - brendovi: `/en/brands/?leaf=dark`.
 - Stari linkovi sa `#` (npr. `/#/okus/adalya-dubai`) automatski se preusmjere na nove adrese.
 
@@ -183,7 +198,10 @@ node serve.mjs
 pa otvori `http://localhost:5173`. `serve.mjs` radi kao Cloudflare Pages (šalje `_headers` sa CSP-om, poštuje
 `_redirects` i 404 po jeziku), pa se greške vide prije objave. Nakon izmjene ponovo pokreni `node build.mjs`.
 
-`ANALYTICS_TOKEN` i `FORM_ENDPOINT` se mogu zadati i kao varijable okruženja; one imaju prednost nad
+Ocjene lokalno rade bez Cloudflarea: `serve.mjs` ima lažni API sa primjerima ocjena (vidi "Ocjene").
+`node serve.mjs --no-api` pokrene server bez API-ja, da vidiš kako stranica izgleda kad ocjene ne rade.
+
+`ANALYTICS_TOKEN`, `FORM_ENDPOINT` i `TURNSTILE_SITE_KEY` se mogu zadati i kao varijable okruženja; one imaju prednost nad
 `site.config.js` (isto važi za `SITE_URL`, npr. za probnu `*.pages.dev` adresu).
 
 Build na kraju sam provjeri:
@@ -193,7 +211,8 @@ Build na kraju sam provjeri:
 - da su naslovi i opisi jedinstveni i da opis nema više od 155 znakova,
 - da nijedan tekst ne nedostaje u `strings.js` (za oba jezika),
 - da email nije upisan u HTML kao običan tekst,
-- da kolekcije nisu prazne i da recepti imaju ispravne okuse i omjer (zbir 100%).
+- da kolekcije nisu prazne i da recepti imaju ispravne okuse i omjer (zbir 100%),
+- da id-jevi okusa i recepata imaju samo mala slova, brojeve i crticu (koriste se i u API-ju za ocjene).
 
 Ako nešto ne valja, ispiše listu grešaka i završi neuspješno (Cloudflare tada ne objavi pokvarenu verziju).
 
@@ -253,7 +272,8 @@ početnoj i za "Prethodni / Sljedeći okus". Sve što se čita na stranici ima v
   profile: { sweetness: 7, freshness: 7, fruitiness: 9, cooling: 4, strength: 6 },   // 0-10
   tags: ['vocni', 'tropski', 'mint'],  // ključevi; nazivi na oba jezika su u js/strings.js → tags
   tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
-  mood: 'honey',                       // opcionalno: 'night', 'honey', 'frost', 'ice', 'soda', 'mist' ili 'supernova'
+  mood: 'honey',                       // opcionalno: 'night', 'honey', 'frost', 'ice', 'soda', 'fizz', 'mist' ili 'supernova'
+                                       // ('fizz' = mjehurići u bojama okusa, za kole i sode)
   mixRole: 'cooler',                   // opcionalno: okus koji je skoro samo hlađenje (npr. Supernova);
                                        // mikser i linkovi ga tada sami stave na 20% miksa
   palette: {                           // boje stranice okusa
@@ -269,12 +289,15 @@ početnoj i za "Prethodni / Sljedeći okus". Sve što se čita na stranici ima v
 }
 ```
 
-Zatim `node build.mjs`. Novi okus se sam pojavi na početnoj, u pretrazi (na oba jezika), filterima,
+Zatim `node build.mjs`. Novi okus se sam pojavi na stranici svih okusa, u pretrazi (na oba jezika), filterima,
 mikseru, kvizu, sitemap-u i u "Slični okusi" tamo gdje si ga dodao.
 
 Napomene:
 
 - **Slični okusi:** dodaj novi id i u `similar` postojećih okusa kojima je sličan, da veza ide u oba smjera.
+  Svaki par iz `similar` dobije i stranicu poređenja. Najviše 4 slična okusa (4 se prikažu u jednom redu).
+- **Isti naziv kod više brendova** (npr. "Cola", "Mint"): u naslovima poređenja, receptima i pretrazi se
+  automatski dodaje brend (`V.uniqueName`), pa naslovi ostaju jedinstveni.
 - **Kontrast je automatski.** Ako `palette.text` nema dovoljan kontrast (4.5:1), sam se potamni ili posvijetli.
 - **Novi tag:** dodaj ključ u `tags` okusa i naziv na oba jezika u `js/strings.js` (`tags` pod `bs` i pod `en`).
 - **Kviz** ne zna ništa o pojedinačnim okusima: uspoređuje odgovore sa `profile` i `tags`, pa novi okus
@@ -286,6 +309,16 @@ Napomene:
   konzoli browsera koje počinje sa `[flavors]`.
 - **Nova ilustracija sastojka:** u `js/illustrations.js`, objekat `ILLUSTRATIONS`: funkcija koja prima boju i
   vraća SVG na platnu 200x200. Za gradijente uvijek `uid('...')`; sitne oblike crtaj kao jedan `<path>`.
+
+---
+
+### Okusi na početnoj
+
+Početna ne prikazuje sve okuse, nego izbor: prvi okus svakog brenda (redom iz `data/flavors.js`), najviše 9
+(`V.HOME_PICKS` u `js/views.js`). Na tabletu se vidi 6, a na mobitelu 4. Ispod je dugme "Prikaži sve okuse",
+koje vodi na stranicu svih okusa. Pretraga i tagovi iznad kartica traže kroz sve okuse, ali prikažu najviše 9
+rezultata, uz dugme "Prikaži svih N rezultata", koje otvara stranicu svih okusa sa istom pretragom (`?q=` ili `?tag=`).
+Da se neki okus pojavi na početnoj, stavi ga kao prvi okus svog brenda u `data/flavors.js`.
 
 ---
 
@@ -461,11 +494,210 @@ Dugme "Podijeli" je na stranici okusa, recepta, u mikseru i na rezultatu kviza.
 - Tekstovi politike privatnosti i uslova su u `data/legal.js`, a datum zadnje izmjene u `site.config.js`
   (`LEGAL_UPDATED`). Tekst opisuje šta stranica stvarno radi:
   - statistika bez kolačića;
-  - localStorage samo za potvrdu godina i jezik;
+  - localStorage za potvrdu godina, jezik, okuse na polici, nedavno gledane okuse i (ako ocjenjuješ) anonimni ID
+    uređaja i tvoje ocjene;
+  - ocjene: šta se šalje i čuva, hash IP adrese za ograničenje slanja i Cloudflare Turnstile;
   - forme sa neobaveznim emailom;
   - Google Fonts i Cloudflare hosting.
 
   **Ovo nije pravni savjet:** Graba treba pročitati i po potrebi prilagoditi.
+
+---
+
+## Ocjene (zvjezdice, rang liste)
+
+Posjetioci ocjenjuju okuse i recepte miksova zvjezdicama od 1 do 5, bez prijave. Prosjek i broj ocjena se vide
+na stranici okusa i recepta, na svim karticama okusa i recepata, u okusu dana i na stranici
+"Najbolje ocijenjeno" (`/bs/najbolje-ocijenjeno/`, `/en/top-rated/`). Na stranici svih okusa postoji
+sortiranje "Najbolje ocijenjeno".
+
+### Kako radi
+
+```
+browser (js/ratings.js)  --GET /api/ratings-->   Cloudflare Pages Function  -->  D1 baza
+                         --POST /api/ratings-->  (functions/api/ratings/)        (migrations/0001_ratings.sql)
+                                                 + Turnstile provjera
+```
+
+- **Statične stranice** imaju samo prazno mjesto za ocjene. `js/ratings.js` jednim zahtjevom dohvati sve prosjeke
+  i popuni ih. Mjesto je unaprijed rezervisano, pa se ništa ne pomjera kad ocjene stignu.
+- **Ako API ne radi** (baza nije povezana, greška, nema interneta), ocjene se jednostavno ne prikažu: zvjezdice
+  ostanu nevidljive, kartice bez prosjeka, a sortiranje po ocjeni je onemogućeno. Bez JavaScripta se ocjene ne
+  prikazuju uopšte.
+- **API:**
+  - `GET /api/ratings`: svi prosjeci, `{ v: 1, flavor: { <id>: [prosjek, broj] }, recipe: { ... } }`.
+    Cloudflare ga čuva 30 sekundi, a browser 15 sekundi.
+  - `GET /api/ratings/flavor/<id>` i `GET /api/ratings/recipe/<id>`: jedna stavka, `{ kind, id, avg, count }`.
+  - `POST /api/ratings` sa `{ kind, id, stars, device, token }`: snimi ocjenu i vrati novi prosjek.
+- **Provjere na serveru** (`lib/ratings-core.mjs`, iste i u lažnom API-ju):
+  - id mora postojati (`dist/ratings-ids.json`, pravi ga build iz `data/flavors.js` i `data/mixes.js`);
+  - ocjena je cijeli broj 1-5;
+  - Turnstile token mora proći provjeru kod Cloudflarea;
+  - najviše 30 slanja u 10 minuta sa iste IP adrese (u bazi je samo hash adrese). Granica je u `lib/ratings-core.mjs`.
+- **Jedna ocjena po uređaju:** browser napravi nasumičan anonimni ID (localStorage, ključ `msp-device`). Server čuva
+  samo njegov hash. Nova ocjena sa istog uređaja zamijeni staru. Svoje ocjene browser pamti u ključu `msp-ratings`.
+- **Baza** ima tri tabele: `ratings` (pojedinačne ocjene), `rating_totals` (zbir i broj po stavci, osvježava se pri
+  svakoj ocjeni, da čitanje prosjeka bude brzo i jeftino) i `rate_limits` (ograničenje slanja).
+- **Rang liste:** stavka ulazi na listu tek kad je ocijenjena najmanje 3 puta (`V.TOP_MIN` u `js/views.js`).
+  Veći prosjek ide gore; kod istog prosjeka prednost ima stavka sa više ocjena. Prikazuje se najviše 10 stavki
+  po listi (`TOP_LIMIT` u `js/pages.js`). Isto pravilo važi i za sortiranje "Najbolje ocijenjeno": prvo stavke sa
+  3+ ocjena, pa one sa manje, a neocijenjene na kraju.
+- **Novi okus ili recept** automatski dobije ocjene: dovoljno je `node build.mjs` i objava.
+
+### Lokalno (bez Cloudflarea)
+
+```bash
+node build.mjs
+node serve.mjs
+```
+
+- `serve.mjs` ima lažni API na istoj adresi (`/api/ratings`). Ocjene su u memoriji, sa primjerima koji su uvijek
+  isti. Kad ponovo pokreneš server, vraćaju se početni primjeri.
+- Na `localhost` se uvijek koristi Cloudflareov **testni** Turnstile ključ (`1x00000000000000000000AA`, uvijek prolazi),
+  a lažni API token ne provjerava. Za Turnstile skriptu treba internet.
+- `node serve.mjs --no-api`: stranica bez API-ja, da vidiš kako izgleda kad ocjene ne rade.
+- Svoju ocjenu "zaboraviš" brisanjem ključeva `msp-device` i `msp-ratings` u DevTools (Application → Local Storage).
+
+### Šta Graba treba podesiti na Cloudflareu (jednom)
+
+Dok ovo nije urađeno, objavljena stranica radi normalno, samo bez ocjena.
+
+**1. Napravi D1 bazu i tabele**
+
+1. Cloudflare dashboard → **Storage & Databases → D1 SQL Database → Create**.
+2. Ime npr. `myshishapedia-ratings`, lokacija Automatic → **Create**.
+3. Otvori bazu → kartica **Console**. Zalijepi cijeli sadržaj fajla `migrations/0001_ratings.sql` i klikni **Execute**.
+   Trebaju se pojaviti tabele `ratings`, `rating_totals` i `rate_limits`. Ponovno pokretanje istog SQL-a ne smeta.
+
+   (Isto preko terminala, ako koristiš Wrangler:
+   `npx wrangler d1 execute myshishapedia-ratings --remote --file=migrations/0001_ratings.sql`.)
+
+**2. Poveži bazu sa Pages projektom**
+
+1. **Workers & Pages** → projekat `myshishapedia` → **Settings → Bindings → Add → D1 database**.
+2. **Variable name: `DB`** (tačno tako, velikim slovima). **D1 database:** baza iz koraka 1.
+3. Sačuvaj. Ako postoje odvojena podešavanja za **Production** i **Preview**, dodaj binding u oba.
+
+**3. Napravi Turnstile widget i upiši ključeve**
+
+1. Cloudflare dashboard → **Turnstile → Add widget**.
+2. Ime npr. `MyShishapedia ocjene`. **Hostnames:** `myshishapedia.com` (i `www.myshishapedia.com` ako ga koristiš;
+   za probnu adresu dodaj i `<projekat>.pages.dev`). **Widget mode: Managed.** → **Create**.
+3. Dobiješ dva ključa:
+   - **Site Key** (javni): upiši ga u `site.config.js` kao `TURNSTILE_SITE_KEY` (ili kao varijablu okruženja
+     `TURNSTILE_SITE_KEY` u Pages → Settings → Variables and Secrets, tip "Text"), pa commit i objava.
+   - **Secret Key** (tajni): Pages projekat → **Settings → Variables and Secrets → Add** → tip **Secret**,
+     ime **`TURNSTILE_SECRET_KEY`**, vrijednost = Secret Key. **Nikad ga ne upisuj u repo.**
+4. Opcionalno: još jedan secret, **`RATE_SALT`**, sa bilo kojim dugim nasumičnim tekstom. Koristi se za hash IP
+   adrese pri ograničenju slanja. Bez njega se koristi Turnstile Secret Key, što je takođe u redu.
+5. Nakon izmjene varijabli pokreni novi deploy (Deployments → najnoviji → **Retry deployment**, ili novi commit),
+   jer se varijable primjenjuju tek na novi deploy.
+
+**4. Provjeri da sve radi nakon objave**
+
+1. Otvori `https://myshishapedia.com/api/ratings`. Treba se vidjeti `{"v":1,"flavor":{},"recipe":{}}`.
+   - `{"error":"not-configured"}` znači da binding `DB` nije postavljen (ili deploy nije ponovljen).
+   - `{"error":"db-error"}` znači da tabele ne postoje (ponovi korak 1.3).
+2. Otvori neki okus. Ispod dugmeta "Podijeli" trebaju biti zvjezdice. Klikni zvjezdicu i treba pisati
+   "Hvala! Tvoja ocjena (…) je sačuvana.", a broj ocjena poraste.
+   - "Provjera protiv robota nije uspjela" znači da su Site Key i Secret Key iz različitih widgeta, da je
+     `TURNSTILE_SECRET_KEY` pogrešan ili da domen nije među Hostnames u Turnstileu.
+   - Ako zvjezdica uopšte nema, `TURNSTILE_SITE_KEY` je prazan ili `/api/ratings` ne radi (vidi tačku 1).
+3. U D1 → Console provjeri: `SELECT * FROM rating_totals;`.
+4. Promijeni ocjenu na istom okusu. Broj ocjena ostaje isti, a prosjek se promijeni.
+
+### Brisanje lažnih ocjena (ako zatreba)
+
+U D1 → Console, npr. sve ocjene jednog okusa:
+
+```sql
+DELETE FROM ratings WHERE kind = 'flavor' AND item_id = 'adalya-dubai';
+DELETE FROM rating_totals WHERE kind = 'flavor' AND item_id = 'adalya-dubai';
+```
+
+---
+
+## Kako dodati savjet
+
+Savjeti su u `data/tips.js` (stranica `/bs/savjeti/`, `/en/tips/`). Stranica ima sekcije, a svaka sekcija svoje
+savjete. Sve ima verziju za oba jezika.
+
+- **Novi savjet u postojećoj sekciji:** dodaj objekat u niz `tips` te sekcije:
+  ```js
+  {
+    title: { bs: 'Kratak naslov', en: 'Short title' },
+    text: {
+      bs: 'Jedna-dvije rečenice. [[hmd|HMD]] postaje link na pojam iz rječnika.',
+      en: 'One or two sentences. [[hmd|HMD]] becomes a link to the glossary term.'
+    }
+  }
+  ```
+- **Nova sekcija:** dodaj objekat u `sections` sa poljima `id` (kratko, mala slova; sidro je `#savjet-<id>`),
+  `icon` (`'bowl'`, `'heat'`, `'cloud'`, `'ice'` ili `'clean'`), `title`, `lead`, `tips` i po želji:
+  - `numbers`: brojke za karticu "U brojkama": `{ label: { bs, en }, value: { bs, en } }`;
+  - `more`: linkovi "Više o tome": `{ guide: 4 }` (korak vodiča), `{ gear: 'hmd' }` (id iz `data/gear.js`) ili
+    `{ term: 'glicerin' }` (id iz `data/glossary.js`).
+- **Build provjerava** da tekst postoji na oba jezika, da svaki `[[id|...]]` pojam postoji u rječniku i da svaki
+  link "Više o tome" vodi na postojeći korak, opremu ili pojam. Ako ne, javi grešku.
+- Nova sekcija se sama pojavi u sadržaju na vrhu stranice i u globalnoj pretrazi (grupa "Savjeti").
+- Brojke u savjetima su okvirne; ako ih mijenjaš, uskladi ih i sa vodičem (`data/guide.js`).
+
+---
+
+## Moja polica
+
+Lična kolekcija okusa, bez prijave. Čuva se samo u browseru i nikad se ne šalje.
+
+- **Dugme sa teglom** je na svakoj kartici okusa (gore desno, pored strelice) i na stranici okusa ("Dodaj na policu" /
+  "Ukloni sa police"). Klik doda ili ukloni okus i pokaže kratko obavještenje sa linkom na policu. Bez JavaScripta
+  dugmad se ne prikazuju.
+- **Gdje se čuva:** localStorage, ključ `msp-shelf` (niz id-jeva okusa, najnoviji prvi). Nepostojeći id-jevi se
+  sami preskoče. Promjena u jednom tabu odmah se vidi i u drugim otvorenim tabovima.
+- **Stranica** `/bs/moja-polica/` (`/en/my-shelf/`) je noindex, jer je lična. Link je u meniju (Okusi) i u footeru.
+- **Desktop i tablet (od 720 px):** tamni drveni ormarić sa dvoja vrata. Klik (ili Enter) otvori vrata u 3D,
+  upali se toplo svjetlo i izađe pramen dima. Police su kolekcije iz `data/collections.js`, istim redom. Okus ide na
+  policu prve kolekcije u koju spada, a okusi bez kolekcije na policu "Ostalo". Prazne police se ne prikazuju.
+- **Mobitel (ispod 720 px):** umjesto ormarića ladice, po jedna za svaku kolekciju sa okusima. Unutra su iste tegle.
+- **Tegla** ima boje iz palete okusa i sliku glavnog sastojka. Klik otvori pregled: tegla "izađe" sa police, a
+  pored nje su naziv, brend, kratak opis, sastojci, ocjena (ako postoji), link na okus i dugme za uklanjanje.
+  Na mobitelu se pregled otvara odozdo.
+- **Tastatura:** Enter otvori ormarić i fokus ode na prvu teglu; Escape zatvori pregled ili ormarić. Fokus se uvijek
+  vraća na dugme ili teglu sa koje se krenulo.
+- **prefers-reduced-motion:** bez 3D i bez letenja tegle; vrata samo nestanu, a pregled se odmah prikaže.
+- **Prazna polica:** poruka sa linkovima na sve okuse i kviz.
+- Da isprazniš policu za provjeru: DevTools → Application → Local Storage → obriši `msp-shelf`.
+- **Napomena o lokalnom čuvanju:** kratka rečenica (ikona "i") da polica, nedavno gledano i preporuke žive samo u
+  ovom browseru. Vidi se jednom po stranici: na polici ispod ormarića, a na početnoj ispod "Nedavno gledano"
+  (ili ispod preporuka). Tekst je `shelf.localNote` u `js/strings.js`.
+
+Kod je u `js/shelf.js` (ponašanje) i `js/views-shelf.js` (okvir stranice), a stilovi na kraju `css/style.css`.
+
+## Nedavno gledano
+
+- Svaki otvoreni okus ide na vrh liste. Lista pamti najviše 8 okusa, bez duplikata (najnoviji prvi).
+- Čuva se samo u browseru: localStorage, ključ `msp-recent`. Ništa se ne šalje.
+- Traka "Nedavno gledano" je na početnoj (ispod nargile, iznad okusa dana) i na stranici svih okusa (iznad pretrage).
+  Na mobitelu i kad ima puno okusa skrola se vodoravno.
+- Ako je lista prazna, traka se ne prikazuje. Skripta u `<head>` (u `build.mjs`, `HEAD_SCRIPT`) unaprijed doda
+  klasu `has-recent`, pa se mjesto za traku rezerviše prije iscrtavanja i ništa na stranici ne skače. Isto radi i
+  za policu (klasa `has-shelf`).
+- Dugme "Obriši listu" obriše listu i sakrije traku.
+- Najveći broj okusa je `RECENT_MAX` u `js/shelf.js`.
+
+## Preporučeno za tebe
+
+- Sekcija je na početnoj (ispod "Nedavno gledano") i na stranici Moja polica (ispod ormarića ili ladica).
+- **Na osnovu čega:** okusi na polici (najjači signal), tvoje ocjene sa 4 ili 5 zvjezdica (ključ `msp-ratings`) i
+  nedavno gledani okusi (noviji vrijede više). Sve se računa u browseru; nema novih podataka ni slanja.
+- **Kako bira:** za svaki okus računa sličnost sa tim okusima: profil (slatko, svježe, voćno, hlađenje, jačina),
+  tagovi, sastojci (i isti glavni sastojak), kolekcije (okusi bez kolekcije dijele "Ostalo"), "slični okusi" i
+  vrsta lista. Bliska poklapanja vrijede mnogo više od osrednjih.
+- **Pravila:** nikad okusi sa police ni oni koje si već gledao/la ili ocijenio/la; najviše 2 okusa istog brenda;
+  4 do 6 kartica. Ako ih je manje od 4, sekcija se ne prikazuje.
+- Uz svaku karticu piše zašto je tu: "Zato što ti se sviđa ..." (polica, ocjene) ili "Slično okusu ..." (nedavno gledano).
+- Kad dodaš ili ukloniš okus sa police, preporuke se odmah osvježe.
+- Mjesto za sekciju se rezerviše prije iscrtavanja (klasa `has-reco` iz `<head>` skripte), pa ništa ne skače.
+- Težine i pravila su u `js/shelf.js` (`similarity`, `recoSeeds`, `RECO_MAX`, `RECO_PER_BRAND`).
 
 ---
 
@@ -482,6 +714,8 @@ Dugme "Podijeli" je na stranici okusa, recepta, u mikseru i na rezultatu kviza.
 - **Ikone:** favicon (SVG i PNG 32), apple-touch-icon 180, ikone 192 i 512 i `manifest.webmanifest`.
 - **Sigurnosna zaglavlja (`_headers`):**
   - Content-Security-Policy, bez `unsafe-inline` za skripte (inline skripte su dozvoljene hashom koji računa build);
+    jedini vanjski izvori su Web Analytics, servis za forme, Google Fonts i Turnstile (`challenges.cloudflare.com`,
+    skripta i iframe, samo za ocjene);
   - X-Frame-Options, Referrer-Policy, Permissions-Policy, nosniff.
 - **Fontovi i skripte:** `font-display: swap` i `preload`; sve skripte sa `defer`.
 - **Učitavanje efekata:** dim i efekti kreću nakon prvog iscrtavanja, a iza prozora za godine tek nakon potvrde.
@@ -522,6 +756,22 @@ Boje dima se računaju iz palete okusa (`computeTheme` u `js/views.js`, polje `s
 
 Profil = slatkoća / svježina / voćnost / menta-hlađenje / jačina.
 
+Drugi okus za svaki brend (najpoznatiji okusi brenda, sve PROVJERITI):
+
+- [ ] **Al Fakher Mint: sastav (PROVJERITI).** Uneseno: menta 9, hlađenje 5. Svijetli list. Profil 2 / 10 / 0 / 8 / 6.
+- [ ] **Starbuzz Pirate's Cave: sastav (PROVJERITI).** Uneseno: limun 8, limeta 7, narandža 4, menta 3. Svijetli list. Profil 5 / 9 / 7 / 3 / 5.
+- [ ] **Tangiers Kashmir Peach: sastav (PROVJERITI).** Uneseno: breskva 9, kardamom 6, topli začini 5. Tamni list. Profil 6 / 4 / 8 / 0 / 9.
+- [ ] **Fumari Ambrosia: sastav (PROVJERITI).** Uneseno: dinja (kantalupa) 9, narandža 6, marshmallow 5. Svijetli list. Profil 9 / 5 / 8 / 0 / 4.
+- [ ] **Darkside Cola: sastav (PROVJERITI).** Uneseno: kola 9, karamel 6, lagani začin 3. Tamni list. Profil 7 / 5 / 1 / 0 / 8.
+- [ ] **MustHave Cola: sastav (PROVJERITI).** Uneseno: kola 9, led 4. Tamni list. Profil 6 / 7 / 1 / 3 / 8.
+- [ ] **Sebero Black Cola: sastav (PROVJERITI).** Uneseno: kola 9, karamel 5. Tamni list (Sebero Black linija). Profil 8 / 4 / 1 / 0 / 8.
+- [ ] **Haze Purple Krush: sastav (PROVJERITI).** Uneseno: grožđe 9, bobičasto voće 4, hlađenje 3. Svijetli list. Profil 8 / 6 / 8 / 3 / 5.
+  Umjesto Haze Nice Dreams, jer je Nice Dreams ograničeno izdanje (Haze × Cheech & Chong).
+- [ ] **Trifecta Twice the Ice: sastav (PROVJERITI).** Uneseno: ledeni mentol 10, pepermint 8. Svijetli list (Trifecta Blonde). Profil 1 / 10 / 0 / 10 / 6.
+- [ ] Nove ilustracije u `js/illustrations.js`: kola, karamel, marshmallow, kardamom, grožđe.
+- [ ] Police: tri Cole su u "Ostalo" (nijedna kolekcija im ne odgovara), Kashmir Peach u "Noćnim", Al Fakher Mint i
+  Twice the Ice u "Ledenim", a Pirate's Cave, Ambrosia i Purple Krush u "Za početnike".
+
 Okusi drugih brendova (dodani u fazi 7, sve PROVJERITI):
 
 - [ ] **Al Fakher Double Apple: sastav (PROVJERITI).** Uneseno: crvena jabuka 8, zelena jabuka 6, anis 6. Svijetli list. Profil 6 / 4 / 7 / 0 / 6.
@@ -560,7 +810,7 @@ Ranije dodani:
 
 ### Recepti miksova (PRIJEDLOZI: Graba treba isprobati i potvrditi)
 
-Svih 17 recepata su prijedlozi napravljeni na osnovu sastojaka i profila. Treba ih isprobati, pa
+Svih 20 recepata su prijedlozi napravljeni na osnovu sastojaka i profila. Treba ih isprobati, pa
 potvrditi ili promijeniti omjer, opis, savjete i jačinu u `data/mixes.js`:
 
 - [ ] Ledena laguna / Frozen Lagoon: Dubai 70% + Ice Bonbon 30% (srednji, sektori)
@@ -583,6 +833,12 @@ Između brendova (faza 7, PRIJEDLOG, provjeriti):
 - [ ] Stari bazar / Old Bazaar: Double Apple 70% + Mint 30% (lagan, izmiješano)
 - [ ] Plavi šejk / Blue Shake: Peppermint Shake 50% + Blue Mist 50% (lagan, izmiješano)
 - [ ] Vrtna margarita / Garden Margarita: Cucumberita 70% + Mint 30% (lagan, izmiješano)
+
+Sa novim okusima (PRIJEDLOG, provjeriti):
+
+- [ ] Višnjeva kola / Cherry Cola Mint: Darkside Cola 70% + Cherry Mint 30% (jak, izmiješano)
+- [ ] Kašmirski vrt / Kashmir Garden: Kashmir Peach 50% + Ambrosia 50% (srednji, sektori)
+- [ ] Ljubičasta limunada / Purple Lemonade: Pirate's Cave 70% + Purple Krush 30% (lagan, izmiješano)
 
 Supernova je u receptima uvijek 20% (najmanji udio koji mikser dozvoljava); u tekstu piše 10 do 20 posto.
 
@@ -610,9 +866,18 @@ Tekst je u `data/about.js`. Namjerno nema izmišljenih činjenica o autoru. Pro�
 - [ ] Pročitaj `data/legal.js` (oba jezika) i provjeri da opis odgovara stvarnom stanju:
   - servis za forme;
   - Web Analytics;
-  - Google Fonts.
+  - Google Fonts;
+  - ocjene i Cloudflare Turnstile (sekcija "Ocjene okusa i recepata").
 - [ ] Ako stranicu posjećuju ljudi iz EU, razmisli da tekst pogleda neko ko poznaje GDPR.
 - [ ] Datum `LEGAL_UPDATED` u `site.config.js` promijeni kad god promijeniš tekst.
+
+### Ocjene
+
+- [ ] Podesi D1 bazu, binding `DB` i Turnstile ključeve (vidi "Ocjene", "Šta Graba treba podesiti na Cloudflareu").
+- [ ] Nakon objave prođi provjeru iz koraka 4 u istoj sekciji.
+- [ ] Odluči da li je 3 ocjene dovoljno za rang listu (`V.TOP_MIN`) i 30 slanja u 10 minuta dovoljno za
+  ograničenje (`RATE_LIMIT_MAX`, `RATE_LIMIT_WINDOW` u `lib/ratings-core.mjs`).
+- [ ] Pročitaj sekciju "Ocjene okusa i recepata" u politici privatnosti (`data/legal.js`).
 
 ### Brojke u vodiču i opremi (opšte preporuke, provjeriti)
 
@@ -623,6 +888,20 @@ Tekst je u `data/about.js`. Namjerno nema izmišljenih činjenica o autoru. Pro�
   - Posude (intenzitet / trajanje / lakoća za početnike): klasična 3 / 2 / 3, phunnel 4 / 5 / 5, vortex 5 / 4 / 3.
   - Ugljevi (čistoća okusa / trajanje / lakoća paljenja): kokosove kocke 5 / 5 / 2, kokosovi ravni 5 / 3 / 3, brzopaleći 1 / 2 / 5.
   - Toplota (kontrola / jednostavnost / čistoća): folija 2 / 3 / 2, HMD 5 / 5 / 4.
+
+### Savjeti za bolji okus (opšte preporuke, provjeriti)
+
+Tekst je u `data/tips.js`. Provjeri da odgovara tvom iskustvu, posebno brojke:
+
+- [ ] Pakovanje: duhan 2-3 mm ispod ivice posude; oko 12-20 g duhana u posudi.
+- [ ] Pakovanje: svijetli list (Adalya, Al Fakher, Fumari) rastresito, a tamni list (Darkside, MustHave, Tangiers)
+  podnosi gušće punjenje.
+- [ ] Toplota: kokosovi ugljevi 8-10 minuta paljenja; za početak 3 kocke uz ivicu; predgrijavanje 3-5 minuta;
+  ugljeve okretati ili pomjerati svakih 10-15 minuta.
+- [ ] Gušći dim: jedno povlačenje 4-6 sekundi; stub 2-3 cm ispod vode.
+- [ ] Led u vazi: 3-6 kocki leda; upozorenje da staklena vaza može pući od nagle promjene temperature.
+- [ ] Čišćenje: nova voda poslije svake sesije; dublje čišćenje jednom sedmično sa kašikom sode bikarbone ili sokom
+  pola limuna; posebna posuda za mentol (glinena posuda najduže zadržava mentu).
 
 ### Ostalo
 

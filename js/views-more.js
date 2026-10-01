@@ -281,7 +281,7 @@
     return V.mixUrl(fl[0], fl[1], m.parts[0].pct, lang);
   };
   V.recipePartsText = function (m) {
-    return m.parts.map(function (p) { var f = V.flavorById(p.flavor); return (f ? f.name : p.flavor) + ' ' + p.pct + '%'; }).join(' + ');
+    return m.parts.map(function (p) { var f = V.flavorById(p.flavor); return (f ? V.uniqueName(f) : p.flavor) + ' ' + p.pct + '%'; }).join(' + ');
   };
 
   var recTheme = {};
@@ -383,7 +383,7 @@
     var h = headingTag || 'h3';
     var th = V.recipeTheme(m);
     return (
-      '<a class="rcard" href="' + V.recipeUrl(m) + '" data-veil="' + th.veil + '" data-tags="' + esc(m.tags.join(' ')) + '" data-strength="' + m.strength + '" style="--i:' + (i || 0) + ';' +
+      '<a class="rcard" href="' + V.recipeUrl(m) + '" data-rid="' + esc(m.id) + '" data-veil="' + th.veil + '" data-tags="' + esc(m.tags.join(' ')) + '" data-strength="' + m.strength + '" style="--i:' + (i || 0) + ';' +
         '--rc-bg:' + th.bg + ';--rc-text:' + th.text + ';--rc-muted:' + th.muted + ';--rc-accent:' + th.accentInk + ';--rc-glow:' + th.surface2 + '">' +
         '<span class="rcard__bowl">' + V.bowlTop(m, { cls: 'bowl-top--card' }) + '</span>' +
         '<span class="rcard__body">' +
@@ -392,6 +392,7 @@
           '<span class="rcard__meta">' + strengthBadge(m) + '</span>' +
         '</span>' +
         '<span class="card__arrow" aria-hidden="true">' + icon('arrowUpRight') + '</span>' +
+        V.rateSlot('recipe', m.id, 'rpill--card') +
       '</a>'
     );
   };
@@ -508,6 +509,7 @@
                 m.tags.map(function (x) { return '<li class="tag">' + esc(MSP.tagLabel(x)) + '</li>'; }).join('') +
               '</ul>' +
               '<p class="rhero__actions anim-in" style="--i:5"><a class="btn btn--primary" href="' + esc(V.recipeMixerUrl(m)) + '">' + icon('mix') + '<span>' + esc(t('mixes.openMixer')) + '</span></a>' + V.shareButton('recipe', m.id) + '</p>' +
+              V.rateWidget('recipe', m.id, L(m.name), 6) +
             '</div>' +
             '<div class="rhero__stage">' +
               '<div class="rbowl" data-bowl>' + V.bowlTop(m, { label: true, cls: 'bowl-top--hero' }) + '</div>' +
@@ -765,7 +767,7 @@
     return '<ul class="cpairs" role="list">' + pairs.filter(function (p) { return p !== current; }).map(function (p) {
       var ta = V.themeFor(p.a), tb = V.themeFor(p.b);
       return '<li><a class="cpair" href="' + V.pairUrl(p) + '" style="--pa:' + ta.bg + ';--pb:' + tb.bg + ';--pta:' + ta.text + ';--ptb:' + tb.text + '">' +
-        '<span class="cpair__a">' + esc(p.a.name) + '</span><span class="cpair__vs">' + esc(t('compare.vs')) + '</span><span class="cpair__b">' + esc(p.b.name) + '</span></a></li>';
+        '<span class="cpair__a">' + esc(V.uniqueName(p.a)) + '</span><span class="cpair__vs">' + esc(t('compare.vs')) + '</span><span class="cpair__b">' + esc(V.uniqueName(p.b)) + '</span></a></li>';
     }).join('') + '</ul>';
   }
 
@@ -886,6 +888,7 @@
     var chips = (f.ingredients || []).map(function (i) { return '<li>' + esc(L(i.name)) + '</li>'; }).join('');
     return (
       '<div class="fotd__art" aria-hidden="true"><span class="fotd__halo"></span>' + art + '<span class="fotd__bowl">' + MSP.hookahBowl() + '</span></div>' +
+      V.rateSlot('flavor', f.id, 'rpill--fotd') +
       '<div class="fotd__copy">' +
         '<p class="fotd__top"><span class="eyebrow"><span class="eyebrow__dot" aria-hidden="true"></span>' + esc(t('fotd.eyebrow')) + '</span>' +
           '<span class="fotd__timer" id="fotd-timer" aria-live="off"></span></p>' +
@@ -923,7 +926,7 @@
 
   V.crumbsMore = function (desc, home) {
     if (desc.page === 'collection') return [home, { name: t('nav.collections'), url: V.url('collections') }, { name: L(desc.collection.title), url: V.collectionUrl(desc.collection) }];
-    if (desc.page === 'comparePair') return [home, { name: t('nav.compare'), url: V.url('compare') }, { name: desc.pair.a.name + ' vs ' + desc.pair.b.name, url: V.pairUrl(desc.pair) }];
+    if (desc.page === 'comparePair') return [home, { name: t('nav.compare'), url: V.url('compare') }, { name: V.uniqueName(desc.pair.a) + ' vs ' + V.uniqueName(desc.pair.b), url: V.pairUrl(desc.pair) }];
     if (desc.page === 'recipe') return [home, { name: t('nav.mixes'), url: V.url('mixes') }, { name: L(desc.recipe.name), url: V.recipeUrl(desc.recipe) }];
     return [home];
   };
@@ -950,8 +953,8 @@
         p = desc.pair;
         return {
           main: pageCompare(p.a, p.b, crumbs, p),
-          title: t('meta.comparePairTitle', { a: p.a.name, b: p.b.name }),
-          description: V.clip(t('meta.comparePairLead', { a: p.a.name, b: p.b.name }) + ' ' + V.compareText(p.a, p.b))
+          title: t('meta.comparePairTitle', { a: V.uniqueName(p.a), b: V.uniqueName(p.b) }),
+          description: V.clip(t('meta.comparePairLead', { a: V.uniqueName(p.a), b: V.uniqueName(p.b) }) + ' ' + V.compareText(p.a, p.b))
         };
       case 'mixes':
         return { main: pageMixes(crumbs), title: t('meta.mixesTitle'), description: t('meta.mixesDescription') };

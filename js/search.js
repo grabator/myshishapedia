@@ -16,7 +16,7 @@
   var esc = V.esc;
   var FX = MSP.Effects;
 
-  var GROUP_ORDER = ['flavor', 'brand', 'collection', 'recipe', 'term', 'guide', 'gear', 'compare', 'page'];
+  var GROUP_ORDER = ['flavor', 'brand', 'collection', 'recipe', 'term', 'guide', 'tips', 'gear', 'compare', 'page'];
   var GROUP_BONUS = { flavor: 3, brand: 3, collection: 2, recipe: 2, page: 1 };
   var MAX_PER_GROUP = 6;
 
@@ -158,6 +158,7 @@
     recipe: '<circle cx="12" cy="12" r="8"/><path d="M12 4v8l6 4"/>',
     term: '<path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z"/><path d="M5 17a3 3 0 0 1 3-3h11"/>',
     guide: '<path d="M4 6h16M4 12h10M4 18h13"/>',
+    tips: '<path d="M12 3c.6 4.6 2.4 6.4 7 7-4.6.6-6.4 2.4-7 7-.6-4.6-2.4-6.4-7-7 4.6-.6 6.4-2.4 7-7z"/>',
     gear: '<path d="M8 4h8l-2 8h-4z"/><path d="M12 12v6M8 20h8"/>',
     compare: '<path d="M8 4v16M16 4v16M4 8h8M12 16h8"/>',
     page: '<path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/>'

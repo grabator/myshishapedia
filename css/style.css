@@ -5227,3 +5227,1088 @@ a.fhero__brand:hover, a.fhero__brand:focus-visible { color: var(--c-text); text-
   .sn__nebula { animation: none; opacity: 0.55; }
   .sn__ring, .sn__ray, .sn__shard { animation: none; opacity: 0; }
 }
+
+/* ================================================================== */
+/* Ocjene: prosjek na karticama, zvjezdice, rang liste                 */
+/* ================================================================== */
+
+/* Mali prosjek na kartici. Apsolutno pozicioniran: kad se popuni (ili ostane prazan), ništa se ne pomjera. */
+.rpill {
+  --rp-bg: var(--c-bg);
+  --rp-text: var(--c-text);
+  --rp-accent: var(--c-accent-ink);
+  position: absolute;
+  z-index: 2;
+  top: clamp(16px, 2vw, 22px);
+  left: clamp(16px, 2vw, 22px);
+  pointer-events: none;
+  opacity: 0;
+  transform: translate3d(0, -6px, 0) scale(0.92);
+  transition: opacity 0.5s var(--ease-out), transform 0.6s var(--ease-out);
+}
+.rpill.is-on { opacity: 1; transform: none; }
+.rpill__in {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 36px;
+  padding: 0 13px 0 10px;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--rp-text) 22%, transparent);
+  background: color-mix(in srgb, var(--rp-bg) 72%, transparent);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  color: var(--rp-text);
+  font-size: 0.875rem;
+  line-height: 1;
+  white-space: nowrap;
+  box-shadow: 0 10px 24px -14px rgba(0, 0, 0, 0.6);
+}
+.rpill__in b { font-weight: 800; font-variant-numeric: tabular-nums; }
+.rpill__star { width: 16px; height: 16px; color: var(--rp-accent); fill: currentColor; stroke-width: 1.2; filter: drop-shadow(0 0 6px color-mix(in srgb, var(--rp-accent) 55%, transparent)); }
+.rpill__n { font-weight: 600; opacity: 0.72; }
+.rpill__n::before { content: '('; }
+.rpill__n::after { content: ')'; }
+.card .rpill { --rp-bg: var(--card-bg); --rp-text: var(--card-text); --rp-accent: var(--card-accent); }
+.rcard .rpill { --rp-bg: var(--rc-bg); --rp-text: var(--rc-text); --rp-accent: var(--rc-accent); }
+.fotd__card .rpill { --rp-bg: var(--fd-bg); --rp-text: var(--fd-text); --rp-accent: var(--fd-accent); left: auto; right: clamp(16px, 2vw, 24px); top: clamp(16px, 2vw, 24px); }
+.top__link .rpill { --rp-bg: var(--tp-bg); --rp-text: var(--tp-text); --rp-accent: var(--tp-accent); position: static; justify-self: end; min-width: 96px; display: flex; justify-content: flex-end; }
+
+/* ---------- Zvjezdice na stranici okusa i recepta ---------- */
+
+.rate {
+  --star: 40px;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  grid-template-areas: 'sum me' 'msg msg' 'ts ts';
+  align-items: center;
+  gap: 4px 22px;
+  width: min(100%, 470px);
+  margin: 22px 0 0;
+  padding: 14px 18px 10px;
+  border-radius: 24px;
+  border: 1px solid var(--c-line);
+  background: color-mix(in srgb, var(--c-surface) 62%, transparent);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  text-align: left;
+}
+html:not(.js) .rate { display: none; }
+/* API ne radi: mjesto ostaje rezervisano (ništa ne skače), samo se ne vidi */
+.rate.is-off { visibility: hidden; }
+.fhero__copy .rate { margin-inline: auto; }
+@media (min-width: 1100px) { .fhero__copy .rate { margin-inline: 0; } }
+
+.rate__sum { grid-area: sum; display: grid; grid-template-columns: auto auto; grid-template-rows: auto auto; column-gap: 10px; align-items: center; min-width: 0; }
+.rate__avg {
+  grid-row: 1 / span 2;
+  font-family: var(--font-display);
+  font-size: 2.6rem;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
+  color: var(--c-text);
+}
+.rate__meter {
+  --star-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='m12 3.2 2.7 5.5 6 .9-4.35 4.25 1.03 6L12 17l-5.38 2.85 1.03-6L3.3 9.6l6-.9z'/%3E%3C/svg%3E");
+  position: relative;
+  display: block;
+  width: 90px;
+  height: 18px;
+  overflow: hidden;
+  background: color-mix(in srgb, var(--c-text) 22%, transparent);
+  -webkit-mask: var(--star-mask) 0 0 / 18px 18px repeat-x;
+  mask: var(--star-mask) 0 0 / 18px 18px repeat-x;
+}
+.rate__meter-fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: calc(var(--avg, 0) / 5 * 100%);
+  background: var(--c-accent-ink);
+  transition: width 1s var(--ease-out);
+}
+.rate__count { font-size: 0.8125rem; font-weight: 600; color: var(--c-muted); white-space: nowrap; }
+
+.rate__me { grid-area: me; display: grid; justify-items: start; gap: 2px; min-width: 0; }
+.rate__label { margin: 0; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--c-muted); }
+.rate__stars { display: flex; margin-left: -6px; }
+.rate__star {
+  display: grid;
+  place-items: center;
+  width: calc(var(--star) + 4px);
+  height: calc(var(--star) + 4px);
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: none;
+  color: color-mix(in srgb, var(--c-text) 45%, transparent);
+  -webkit-tap-highlight-color: transparent;
+}
+.rate__star .icon {
+  width: 28px;
+  height: 28px;
+  fill: transparent;
+  stroke-width: 1.5;
+  transition: fill 0.25s, color 0.25s, transform 0.4s var(--ease-out), filter 0.4s;
+}
+.rate__star.is-on { color: var(--c-accent-ink); }
+.rate__star.is-on .icon { fill: currentColor; filter: drop-shadow(0 0 8px color-mix(in srgb, var(--c-accent-ink) 60%, transparent)); }
+@media (hover: hover) { .rate__star:hover .icon { transform: scale(1.18) rotate(-8deg); } }
+.rate__star:active .icon { transform: scale(0.9); }
+.rate.is-preview .rate__star.is-on { color: color-mix(in srgb, var(--c-accent-ink) 80%, var(--c-text)); }
+.rate.is-sending .rate__star.is-on .icon { animation: rate-ember 0.9s ease-in-out infinite alternate; animation-delay: calc(var(--n) * 90ms); }
+.rate.is-celebrate .rate__star.is-on .icon { animation: rate-pop 0.6s var(--ease-out) both; animation-delay: calc(var(--n) * 70ms); }
+
+/* jedna linija rezervisana za poruku, da se okvir ne trza */
+.rate__msg { grid-area: msg; min-height: 1.5em; margin: 2px 0 0; font-size: 0.8125rem; font-weight: 600; color: var(--c-muted); }
+.rate__msg.is-error { color: #ff9b85; }
+.rate__ts { grid-area: ts; }
+.rate__ts:empty { display: none; }
+
+/* dok ocjene stižu: tinjajuće sive trake umjesto brojki */
+.rate.is-loading .rate__avg,
+.rate.is-loading .rate__count { color: transparent; border-radius: 8px; background: linear-gradient(90deg, var(--c-line) 0%, color-mix(in srgb, var(--c-text) 22%, transparent) 50%, var(--c-line) 100%) 0 0 / 200% 100%; animation: rate-shimmer 1.4s linear infinite; }
+.rate.is-loading .rate__count { min-width: 70px; }
+.rate.is-loading .rate__stars { opacity: 0.5; pointer-events: none; }
+
+@media (max-width: 419px) {
+  .rate { grid-template-columns: minmax(0, 1fr); grid-template-areas: 'me' 'sum' 'msg' 'ts'; justify-items: center; text-align: center; gap: 8px; }
+  .rate__me { justify-items: center; }
+  .rate__stars { margin-left: 0; }
+  .rate__msg { min-height: 3em; }
+}
+
+@keyframes rate-pop {
+  0% { transform: scale(0.6) rotate(-20deg); }
+  55% { transform: scale(1.32) rotate(8deg); }
+  100% { transform: none; }
+}
+@keyframes rate-ember {
+  from { opacity: 0.55; }
+  to { opacity: 1; }
+}
+@keyframes rate-shimmer { to { background-position: -200% 0; } }
+
+/* ---------- Najbolje ocijenjeno ---------- */
+
+.top__tools { margin-bottom: 8px; }
+.top__status { margin: 0 0 18px; color: var(--c-muted); font-weight: 600; }
+.top__cols { display: grid; gap: clamp(32px, 5vw, 56px); }
+@media (min-width: 980px) { .top__cols { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.top__col { min-width: 0; }
+.top__h { display: flex; align-items: center; gap: 12px; margin: 0 0 16px; font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem); letter-spacing: -0.02em; }
+.top__h .icon { width: 26px; height: 26px; color: var(--c-accent-ink); fill: color-mix(in srgb, var(--c-accent-ink) 30%, transparent); }
+.top__list { display: grid; gap: 10px; margin: 0; padding: 0; list-style: none; }
+.top__ghost { height: 80px; border-radius: 20px; background: linear-gradient(90deg, var(--c-line) 0%, color-mix(in srgb, var(--c-text) 16%, transparent) 50%, var(--c-line) 100%) 0 0 / 200% 100%; animation: rate-shimmer 1.4s linear infinite; animation-delay: calc(var(--i) * 0.12s); }
+.top__link {
+  display: grid;
+  grid-template-columns: 40px 56px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+  min-height: 80px;
+  padding: 10px 14px 10px 12px;
+  border-radius: 20px;
+  border: 1px solid color-mix(in srgb, var(--tp-text) 12%, transparent);
+  background: radial-gradient(70% 140% at 0% 50%, color-mix(in srgb, var(--tp-accent) 22%, transparent), transparent 70%), var(--tp-bg);
+  color: var(--tp-text);
+  text-decoration: none;
+  transition: transform 0.5s var(--ease-out), box-shadow 0.5s var(--ease-out);
+}
+@media (hover: hover) {
+  .top__link:hover { transform: translate3d(6px, 0, 0); box-shadow: 0 18px 40px -26px rgba(0, 0, 0, 0.8); }
+  .top__link:hover .top__art { transform: rotate(-10deg) scale(1.08); }
+}
+.top__rank { font-family: var(--font-display); font-size: 1.6rem; font-weight: 800; letter-spacing: -0.04em; text-align: center; color: var(--tp-accent); font-variant-numeric: tabular-nums; }
+.top__item.is-first .top__link { border-color: color-mix(in srgb, var(--tp-accent) 55%, transparent); box-shadow: 0 0 0 1px color-mix(in srgb, var(--tp-accent) 25%, transparent), 0 24px 50px -30px color-mix(in srgb, var(--tp-accent) 70%, transparent); }
+.top__item.is-first .top__rank { font-size: 2rem; text-shadow: 0 0 18px color-mix(in srgb, var(--tp-accent) 70%, transparent); }
+.top__art { display: block; width: 56px; transition: transform 0.6s var(--ease-out); }
+.top__art svg { display: block; width: 100%; height: auto; filter: drop-shadow(0 8px 10px rgba(0, 0, 0, 0.3)); }
+.bowl-top--mini { width: 56px; }
+.top__txt { display: grid; min-width: 0; }
+.top__kicker { overflow: hidden; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; text-overflow: ellipsis; white-space: nowrap; color: var(--tp-muted); }
+.top__name { overflow: hidden; font-family: var(--font-display); font-size: 1.15rem; font-weight: 700; line-height: 1.2; text-overflow: ellipsis; white-space: nowrap; }
+.top.is-ready .top__item:not([hidden]) { animation: fl-in 0.6s var(--ease-out) both; animation-delay: calc(var(--i, 0) * 60ms); }
+.top__item.is-shuffling { animation: fl-in 0.5s var(--ease-out) both; animation-delay: calc(var(--i, 0) * 40ms); }
+.top__empty { margin: 0; padding: 18px 20px; border-radius: 20px; border: 1px dashed var(--c-line-strong); color: var(--c-muted); }
+.top.is-off .top__cols { display: none; }
+.top__noscript { color: var(--c-muted); }
+@media (max-width: 479px) {
+  .top__link { grid-template-columns: 30px 44px minmax(0, 1fr); gap: 10px; }
+  .top__art, .bowl-top--mini { width: 44px; }
+  .top__link .rpill { grid-column: 3; justify-self: start; min-width: 0; }
+  .top__link .rpill__in { height: 28px; font-size: 0.8125rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rpill, .rate__meter-fill, .rate__star .icon, .top__link, .top__art { transition: none; }
+  .rate.is-sending .rate__star.is-on .icon,
+  .rate.is-celebrate .rate__star.is-on .icon,
+  .rate.is-loading .rate__avg, .rate.is-loading .rate__count,
+  .top__ghost, .top.is-ready .top__item:not([hidden]), .top__item.is-shuffling { animation: none; }
+}
+
+/* ================================================================== */
+/* Moja polica: dugmad, obavještenje, ormarić, ladice, tegle, pregled  */
+/* ================================================================== */
+
+/* omotač kartice: nosi boje okusa i dugme za policu (dugme je van linka) */
+.cardbox { position: relative; height: 100%; }
+
+.shelf-tog .icon__fill { fill: currentColor; opacity: 0; transition: opacity 0.3s; }
+.shelf-tog[aria-pressed='true'] .icon__fill { opacity: 1; }
+html:not(.js) .shelf-tog { display: none; }
+
+.shelf-tog--card {
+  position: absolute;
+  z-index: 3;
+  top: clamp(16px, 2vw, 22px);
+  right: calc(clamp(16px, 2vw, 22px) + 56px);
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  border-radius: 50%;
+  border: 1px solid color-mix(in srgb, var(--card-text) 24%, transparent);
+  background: color-mix(in srgb, var(--card-bg) 70%, transparent);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  color: var(--card-text);
+  transition: transform 0.4s var(--ease-out), opacity 0.3s;
+}
+.shelf-tog--card .icon { width: 22px; height: 22px; }
+.shelf-tog--card[aria-pressed='true'] { color: var(--card-accent); border-color: color-mix(in srgb, var(--card-accent) 55%, transparent); }
+.shelf-tog__badge {
+  position: absolute;
+  right: -3px;
+  bottom: -3px;
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--card-text);
+  color: var(--card-bg);
+  opacity: 0;
+  transform: scale(0.4);
+  transition: opacity 0.3s, transform 0.4s var(--ease-out);
+}
+.shelf-tog__badge .icon { width: 13px; height: 13px; stroke-width: 3; }
+.shelf-tog--card[aria-pressed='true'] .shelf-tog__badge { opacity: 1; transform: none; }
+@media (hover: hover) { .shelf-tog--card:hover { transform: scale(1.08) rotate(-6deg); } }
+.shelf-tog.is-pop { animation: shelf-pop 0.55s var(--ease-out); }
+
+.shelf-tog--btn { gap: 8px; background: transparent; color: var(--c-text); border-color: var(--c-line-strong); }
+@media (hover: hover) { .shelf-tog--btn:hover { border-color: var(--c-text); } }
+.shelf-tog--btn .icon { width: 18px; height: 18px; }
+.shelf-tog--btn[aria-pressed='true'] { background: var(--c-accent-fill); color: var(--c-on-accent); border-color: transparent; }
+/* oba natpisa zauzimaju isto mjesto, pa dugme ne mijenja širinu */
+.shelf-tog__txt { display: grid; }
+.shelf-tog__off, .shelf-tog__on { grid-area: 1 / 1; transition: opacity 0.25s; }
+.shelf-tog__on, .shelf-tog[aria-pressed='true'] .shelf-tog__off { opacity: 0; }
+.shelf-tog[aria-pressed='true'] .shelf-tog__on { opacity: 1; }
+
+@keyframes shelf-pop {
+  0% { transform: scale(1); }
+  35% { transform: scale(0.86); }
+  70% { transform: scale(1.14) rotate(-8deg); }
+  100% { transform: none; }
+}
+
+/* ---------- obavještenje ---------- */
+
+.toast {
+  position: fixed;
+  z-index: 185;
+  left: 50%;
+  bottom: calc(18px + env(safe-area-inset-bottom));
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  max-width: calc(100vw - 32px);
+  padding: 10px 12px 10px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--c-line-strong);
+  background: color-mix(in srgb, var(--c-surface-2) 92%, transparent);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  color: var(--c-text);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  box-shadow: 0 20px 50px -20px rgba(0, 0, 0, 0.7);
+  opacity: 0;
+  pointer-events: none;
+  transform: translate3d(-50%, 24px, 0);
+  transition: opacity 0.35s, transform 0.5s var(--ease-out);
+}
+.toast.is-on { opacity: 1; pointer-events: auto; transform: translate3d(-50%, 0, 0); }
+.toast__icon { display: grid; place-items: center; width: 34px; height: 34px; flex-shrink: 0; border-radius: 50%; background: var(--c-accent-fill); color: var(--c-on-accent); }
+.toast__icon .icon { width: 18px; height: 18px; }
+.toast__icon .icon__fill { fill: currentColor; }
+.toast__msg { min-width: 0; }
+.toast__link { flex-shrink: 0; padding: 8px 14px; border-radius: 999px; background: var(--c-text); color: var(--c-bg); font-weight: 700; text-decoration: none; white-space: nowrap; }
+
+/* ---------- stranica: šta se vidi ---------- */
+
+.shelf__count { margin: 0 0 22px; text-align: center; color: var(--c-muted); font-weight: 700; letter-spacing: 0.04em; }
+.cab, .cab__bar, .drawers { display: none; }
+@media (min-width: 720px) { .has-shelf .cab { display: block; } .has-shelf .cab__bar { display: flex; } }
+@media (max-width: 719px) { .has-shelf .drawers { display: grid; } }
+.has-shelf .shelf-empty { display: none; }
+html:not(.js) .shelf-empty, html:not(.js) .cab, html:not(.js) .drawers { display: none; }
+.shelf__nojs { text-align: center; color: var(--c-muted); }
+
+/* ---------- ormarić ---------- */
+
+.cab {
+  --wood-a: #4b2e1b;
+  --wood-b: #33200f;
+  --wood-c: #24150a;
+  --brass: linear-gradient(180deg, #f7e0a0 0%, #d6a94f 38%, #9b6b25 72%, #6e4815 100%);
+  width: min(100%, 980px);
+  margin: 0 auto;
+  filter: drop-shadow(0 40px 50px rgba(0, 0, 0, 0.55));
+}
+.cab__crown {
+  height: 26px;
+  margin: 0 -18px;
+  border-radius: 10px 10px 3px 3px;
+  background:
+    linear-gradient(180deg, rgba(255, 220, 170, 0.18), transparent 40%),
+    linear-gradient(180deg, var(--wood-a), var(--wood-c));
+  box-shadow: inset 0 -5px 0 rgba(0, 0, 0, 0.35), inset 0 2px 0 rgba(255, 220, 170, 0.12);
+}
+.cab__body {
+  position: relative;
+  padding: 18px;
+  background:
+    repeating-linear-gradient(92deg, rgba(255, 255, 255, 0.025) 0 2px, transparent 2px 11px),
+    linear-gradient(90deg, var(--wood-b), var(--wood-a) 50%, var(--wood-b));
+  box-shadow: inset 0 0 0 1px rgba(255, 220, 170, 0.06);
+}
+.cab__inside {
+  position: relative;
+  min-height: 420px;
+  padding: 50px 22px 18px;
+  overflow: hidden;
+  border-radius: 4px;
+  background:
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.018) 0 3px, transparent 3px 14px),
+    linear-gradient(180deg, #1c110a, #120a05);
+  box-shadow: inset 0 18px 30px rgba(0, 0, 0, 0.7), inset 0 -10px 24px rgba(0, 0, 0, 0.6);
+}
+/* tama dok su vrata zatvorena; topla svjetlost kad se otvore */
+.cab__inside::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: #070402;
+  pointer-events: none;
+  transition: opacity 0.7s;
+}
+.cab.is-open .cab__inside::after { opacity: 0; transition-delay: 0.25s; }
+.cab__glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(70% 45% at 50% 0%, rgba(255, 186, 104, 0.42), transparent 75%),
+    radial-gradient(90% 70% at 50% 100%, rgba(255, 150, 70, 0.12), transparent 70%);
+  opacity: 0;
+  transition: opacity 0.6s;
+}
+.cab.is-open .cab__glow { opacity: 1; transition: opacity 1.2s 0.45s; }
+.cab__lamp {
+  position: absolute;
+  top: 14px;
+  left: 50%;
+  width: 34%;
+  height: 7px;
+  translate: -50% 0;
+  border-radius: 999px;
+  background: var(--brass);
+}
+.cab__lamp::after {
+  content: '';
+  position: absolute;
+  inset: 3px 6% -4px;
+  border-radius: 999px;
+  background: #fff1cf;
+  box-shadow: 0 0 18px 6px rgba(255, 196, 110, 0.75), 0 0 60px 20px rgba(255, 170, 80, 0.35);
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+.cab.is-open .cab__lamp::after { opacity: 1; transition: opacity 0.5s 0.4s; }
+.cab__shelves { position: relative; z-index: 1; display: grid; gap: 16px 34px; }
+@media (min-width: 960px) { .cab__shelves { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.cab__label { margin: 0 0 6px; font-family: var(--font-body); font-size: 0; }
+.cab__label span {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 4px;
+  background: var(--brass);
+  color: #2b1906;
+  font-size: 0.6875rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+/* svaki red tegli stoji na svojoj dasci (pozadina se ponavlja na visini reda) */
+.cab__row {
+  --row: 140px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 8px;
+  margin: 0;
+  padding: 0 10px;
+  list-style: none;
+  background: repeating-linear-gradient(180deg, transparent 0 calc(var(--row) - 26px), #6e452a calc(var(--row) - 26px), #523220 calc(var(--row) - 6px), #2a180c calc(var(--row) - 6px) var(--row));
+  border-radius: 3px;
+}
+.cab__row .jar-li { height: var(--row); }
+.cab__row .jar__name { height: 26px; line-height: 26px; color: #f6e6cf; text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8); }
+
+/* vrata */
+.cab__doors {
+  position: absolute;
+  inset: 18px;
+  z-index: 3;
+  display: flex;
+  padding: 0;
+  border: 0;
+  border-radius: 4px;
+  background: none;
+  perspective: 1800px;
+  cursor: pointer;
+}
+.cab.is-open .cab__doors { pointer-events: none; }
+.cab__door {
+  position: relative;
+  flex: 1;
+  transform-style: preserve-3d;
+  transition: transform 1.15s cubic-bezier(0.22, 0.9, 0.24, 1);
+}
+.cab__door--l { transform-origin: left center; }
+.cab__door--r { transform-origin: right center; }
+.cab__face,
+.cab__back {
+  position: absolute;
+  inset: 0;
+  border-radius: 4px;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+.cab__face {
+  background:
+    linear-gradient(90deg, rgba(0, 0, 0, 0.28), transparent 7%, transparent 93%, rgba(0, 0, 0, 0.34)),
+    repeating-linear-gradient(94deg, rgba(255, 255, 255, 0.028) 0 2px, transparent 2px 10px),
+    linear-gradient(180deg, var(--wood-a), var(--wood-b) 62%, var(--wood-c));
+  box-shadow: inset 0 0 0 1px rgba(255, 220, 170, 0.08), inset 0 0 34px rgba(0, 0, 0, 0.45);
+}
+.cab__back {
+  transform: rotateY(180deg);
+  background: linear-gradient(180deg, #2b1a0d, #1b0f07);
+  box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.6);
+}
+.cab__panel {
+  position: absolute;
+  inset: 7% 13% 53% 13%;
+  border-radius: 3px;
+  background: linear-gradient(180deg, rgba(255, 220, 170, 0.07), rgba(0, 0, 0, 0.12));
+  box-shadow: inset 2px 2px 0 rgba(255, 220, 170, 0.1), inset -2px -2px 0 rgba(0, 0, 0, 0.35), 0 0 0 5px rgba(0, 0, 0, 0.12);
+}
+.cab__panel--low { inset: 53% 13% 7% 13%; }
+.cab__handle {
+  position: absolute;
+  top: 50%;
+  width: 12px;
+  height: 54px;
+  translate: 0 -50%;
+  border-radius: 6px;
+  background: var(--brass);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+.cab__door--l .cab__handle { right: 16px; }
+.cab__door--r .cab__handle { left: 16px; }
+.cab.is-open .cab__door--l { transform: rotateY(-106deg); }
+.cab.is-open .cab__door--r { transform: rotateY(106deg); }
+@media (hover: hover) {
+  .cab:not(.is-open) .cab__doors:hover .cab__door--l { transform: rotateY(-7deg); }
+  .cab:not(.is-open) .cab__doors:hover .cab__door--r { transform: rotateY(7deg); }
+}
+.cab:not(.is-open) .cab__doors:focus-visible .cab__door--l { transform: rotateY(-7deg); }
+.cab:not(.is-open) .cab__doors:focus-visible .cab__door--r { transform: rotateY(7deg); }
+.cab__doors:focus-visible { outline-offset: 6px; }
+.cab__plate {
+  position: absolute;
+  top: 9%;
+  left: 50%;
+  display: grid;
+  justify-items: center;
+  gap: 2px;
+  padding: 10px 22px 9px;
+  translate: -50% 0;
+  border-radius: 6px;
+  background: var(--brass);
+  color: #2b1906;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  white-space: nowrap;
+  transition: opacity 0.3s;
+}
+.cab.is-open .cab__plate { opacity: 0; }
+.cab__plate-title { font-family: var(--font-display); font-size: 1.05rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; }
+.cab__plate-hint { font-size: 0.75rem; font-weight: 700; opacity: 0.75; animation: cab-hint 2.4s ease-in-out infinite alternate; }
+.cab__base { position: relative; height: 16px; margin: 0 -8px; border-radius: 0 0 6px 6px; background: linear-gradient(180deg, var(--wood-b), var(--wood-c)); }
+.cab__foot { position: absolute; top: 100%; width: 34px; height: 14px; border-radius: 0 0 6px 6px; background: var(--wood-c); }
+.cab__foot:first-child { left: 26px; }
+.cab__foot:last-child { right: 26px; }
+.cab__bar { justify-content: center; min-height: 52px; margin: 34px 0 0; }
+@keyframes cab-hint { from { opacity: 0.45; } to { opacity: 0.9; } }
+
+/* ---------- tegla ---------- */
+
+.jar-li { display: flex; flex-direction: column; justify-content: flex-end; width: 84px; }
+.jar {
+  display: grid;
+  justify-items: center;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  border-radius: 14px;
+  background: none;
+  color: inherit;
+  text-align: center;
+}
+.jar__art {
+  --jw: 70px;
+  position: relative;
+  display: block;
+  width: var(--jw);
+  height: calc(var(--jw) * 1.42);
+  transition: transform 0.5s var(--ease-out), opacity 0.25s;
+}
+.jar__lid {
+  position: absolute;
+  z-index: 1;
+  left: 15%;
+  right: 15%;
+  top: 0;
+  height: 13%;
+  border-radius: 22% 22% 12% 12% / 40% 40% 20% 20%;
+  background: var(--brass, linear-gradient(180deg, #f7e0a0, #d6a94f 38%, #9b6b25 72%, #6e4815));
+  box-shadow: inset 0 -2px 0 rgba(0, 0, 0, 0.3), 0 2px 3px rgba(0, 0, 0, 0.4);
+}
+.jar__glass {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 10%;
+  bottom: 0;
+  overflow: hidden;
+  border-radius: 22% 22% 26% 26% / 14% 14% 16% 16%;
+  border: 1.5px solid rgba(255, 255, 255, 0.3);
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.04) 45%, rgba(255, 255, 255, 0.12));
+  box-shadow: 0 12px 18px -8px rgba(0, 0, 0, 0.75), inset 0 0 14px rgba(255, 255, 255, 0.08);
+}
+.jar__fill {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 66%;
+  border-radius: 50% 50% 0 0 / 10% 10% 0 0;
+  background:
+    radial-gradient(circle at 30% 30%, rgba(0, 0, 0, 0.18) 0 1.5px, transparent 2px) 0 0 / 9px 9px,
+    radial-gradient(120% 50% at 50% 0%, var(--j-b), transparent 70%),
+    linear-gradient(180deg, var(--j-a), color-mix(in srgb, var(--j-a) 55%, #140b05));
+}
+.jar__label {
+  position: absolute;
+  left: 50%;
+  top: 52%;
+  width: 60%;
+  aspect-ratio: 1;
+  padding: 6%;
+  translate: -50% -50%;
+  border-radius: 50%;
+  background: rgba(255, 250, 240, 0.92);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.35);
+}
+.jar__label svg { display: block; width: 100%; height: 100%; }
+.jar__shine { position: absolute; left: 12%; top: 7%; width: 13%; height: 72%; border-radius: 999px; background: linear-gradient(180deg, rgba(255, 255, 255, 0.55), transparent); opacity: 0.6; }
+.jar__name { display: block; width: 100%; overflow: hidden; font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.02em; text-overflow: ellipsis; white-space: nowrap; }
+.jar:focus-visible { outline-offset: 4px; }
+@media (hover: hover) { .jar:hover .jar__art { transform: translate3d(0, -8px, 0) rotate(-4deg); } }
+.jar:focus-visible .jar__art { transform: translate3d(0, -8px, 0) rotate(-4deg); }
+.jar.is-out .jar__art { opacity: 0; transition: none; }
+/* tegle "uskoče" na police kad se ormarić otvori */
+.cab.is-open .jar-li { animation: jar-in 0.7s var(--ease-out) both; animation-delay: calc(0.55s + var(--k, 0) * 60ms); }
+@keyframes jar-in {
+  from { opacity: 0; transform: translate3d(0, 14px, 0) scale(0.94); }
+  to { opacity: 1; transform: none; }
+}
+
+/* ---------- ladice (mobitel) ---------- */
+
+.drawers {
+  gap: 12px;
+  padding: 14px;
+  border-radius: 14px 14px 8px 8px;
+  background:
+    repeating-linear-gradient(92deg, rgba(255, 255, 255, 0.025) 0 2px, transparent 2px 11px),
+    linear-gradient(90deg, #33200f, #4b2e1b 50%, #33200f);
+  box-shadow: 0 30px 40px -20px rgba(0, 0, 0, 0.7), inset 0 2px 0 rgba(255, 220, 170, 0.12);
+}
+.drawer__h { margin: 0; font-size: 1rem; }
+.drawer__front {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 4px 12px;
+  width: 100%;
+  min-height: 78px;
+  padding: 14px 18px 26px;
+  border: 0;
+  border-radius: 6px;
+  background:
+    linear-gradient(180deg, rgba(255, 220, 170, 0.08), transparent 30%),
+    repeating-linear-gradient(94deg, rgba(255, 255, 255, 0.028) 0 2px, transparent 2px 10px),
+    linear-gradient(180deg, #4b2e1b, #33200f);
+  box-shadow: inset 0 0 0 1px rgba(255, 220, 170, 0.08), inset 0 -4px 0 rgba(0, 0, 0, 0.3), 0 6px 10px rgba(0, 0, 0, 0.45);
+  color: #f6e6cf;
+  text-align: left;
+  transition: transform 0.45s var(--ease-out);
+}
+.drawer__title { font-family: var(--font-display); font-size: 1.15rem; font-weight: 800; }
+.drawer__count { font-size: 0.8125rem; font-weight: 700; color: #d9c2a2; }
+.drawer__pull {
+  position: absolute;
+  left: 50%;
+  bottom: 10px;
+  width: 64px;
+  height: 9px;
+  translate: -50% 0;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #f7e0a0, #d6a94f 38%, #9b6b25 72%, #6e4815);
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.55);
+}
+.drawer.is-open .drawer__front { transform: translate3d(0, 4px, 0) scale(1.02); }
+.drawer__box {
+  margin: -6px 6px 0;
+  padding: 18px 12px 10px;
+  border-radius: 0 0 8px 8px;
+  background: linear-gradient(180deg, #120a05, #1e120a);
+  box-shadow: inset 0 10px 18px rgba(0, 0, 0, 0.7);
+  transform-origin: top center;
+}
+.drawer.is-open .drawer__box { animation: drawer-out 0.5s var(--ease-out) both; }
+.drawer.is-closing .drawer__box { animation: drawer-in 0.26s ease-in both; }
+@keyframes drawer-out {
+  from { opacity: 0; transform: translate3d(0, -18px, 0) scaleY(0.92); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes drawer-in {
+  to { opacity: 0; transform: translate3d(0, -14px, 0) scaleY(0.94); }
+}
+.drawer__jars { display: grid; grid-template-columns: repeat(auto-fill, minmax(84px, 1fr)); gap: 16px 8px; margin: 0; padding: 0; list-style: none; }
+.drawer__jars .jar-li { width: auto; }
+.drawer__jars .jar__name { margin-top: 6px; color: #f6e6cf; }
+.drawer.is-open .drawer__jars .jar-li { animation: jar-in 0.55s var(--ease-out) both; animation-delay: calc(0.12s + var(--k, 0) * 50ms); }
+
+/* ---------- prazna polica ---------- */
+
+.shelf-empty { display: grid; justify-items: center; gap: 10px; max-width: 560px; margin: 0 auto; padding: clamp(36px, 6vw, 64px) 20px; border: 1px dashed var(--c-line-strong); border-radius: var(--radius-lg); text-align: center; }
+.shelf-empty__jar { position: relative; display: grid; place-items: center; width: 96px; height: 96px; margin-bottom: 6px; border-radius: 50%; background: radial-gradient(closest-side, color-mix(in srgb, var(--c-accent-ink) 22%, transparent), transparent); color: var(--c-accent-ink); }
+.shelf-empty__jar .icon { width: 54px; height: 54px; stroke-width: 1.4; }
+.shelf-empty__wisp { position: absolute; left: 46%; top: -6px; width: 14px; height: 34px; border-radius: 50%; border-left: 2px solid color-mix(in srgb, var(--c-text) 40%, transparent); opacity: 0; animation: wisp-rise 3.2s ease-in-out infinite; }
+.shelf-empty__wisp--b { left: 54%; animation-delay: 1.6s; }
+@keyframes wisp-rise {
+  0% { opacity: 0; transform: translate3d(0, 10px, 0) scaleY(0.6); }
+  40% { opacity: 0.8; }
+  100% { opacity: 0; transform: translate3d(6px, -22px, 0) scaleY(1.2); }
+}
+.shelf-empty__title { margin: 0; font-size: clamp(1.5rem, 1.2rem + 1.2vw, 2.1rem); }
+.shelf-empty__title:focus { outline: none; }
+.shelf-empty__text { max-width: 44ch; margin: 0 0 8px; color: var(--c-muted); }
+.shelf-empty__actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin: 0; }
+
+/* ---------- pregled tegle ---------- */
+
+.jarview { position: fixed; inset: 0; z-index: 190; }
+.jarview__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(8, 5, 3, 0.74);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  opacity: 0;
+  transition: opacity 0.35s;
+}
+.jarview.is-open .jarview__backdrop { opacity: 1; }
+.jarview__card {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  isolation: isolate;
+  display: grid;
+  grid-template-columns: 260px minmax(0, 1fr);
+  align-items: center;
+  gap: 28px;
+  width: min(92vw, 820px);
+  max-height: 92vh;
+  padding: clamp(24px, 3.4vw, 40px);
+  overflow: auto;
+  translate: -50% -50%;
+  color: var(--jv-text);
+  outline: none;
+}
+/* pozadina kartice se pojavljuje zasebno (tegla leti preko nje) */
+.jarview__card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: 30px;
+  background: radial-gradient(80% 70% at 20% 30%, var(--jv-glow), transparent 70%), var(--jv-bg);
+  box-shadow: 0 50px 90px -40px rgba(0, 0, 0, 0.85);
+  opacity: 0;
+  transform: scale(0.96);
+  transition: opacity 0.35s, transform 0.5s var(--ease-out);
+}
+.jarview.is-open .jarview__card::before { opacity: 1; transform: none; }
+.jarview__x {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid color-mix(in srgb, var(--jv-text) 25%, transparent);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--jv-text);
+  opacity: 0;
+  transition: opacity 0.3s 0.15s;
+}
+.jarview.is-open .jarview__x { opacity: 1; }
+.jarview__stage { position: relative; display: grid; place-items: center; min-height: 300px; }
+.jarview__halo { position: absolute; inset: 6%; border-radius: 50%; background: radial-gradient(closest-side, color-mix(in srgb, var(--jv-accent) 40%, transparent), transparent); opacity: 0; transition: opacity 0.6s 0.2s; }
+.jarview.is-open .jarview__halo { opacity: 1; }
+.jarview__jar { position: relative; display: block; transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1); will-change: transform; }
+.jarview__jar .jar__art { --jw: 170px; }
+.jarview__info { min-width: 0; opacity: 0; transform: translate3d(0, 14px, 0); transition: opacity 0.35s, transform 0.5s var(--ease-out); }
+.jarview.is-open .jarview__info { opacity: 1; transform: none; transition-delay: 0.12s; }
+.jarview__brand { margin: 0; font-size: 0.75rem; font-weight: 800; letter-spacing: 0.22em; text-transform: uppercase; color: var(--jv-muted); }
+.jarview__name { margin: 2px 0 10px; font-size: clamp(2rem, 1.4rem + 2vw, 3rem); line-height: 1; letter-spacing: -0.03em; }
+.jarview__rate { min-height: 36px; }
+.rpill--jv { --rp-bg: var(--jv-bg); --rp-text: var(--jv-text); --rp-accent: var(--jv-accent); position: static; display: inline-flex; }
+.jarview__desc { margin: 8px 0 14px; color: var(--jv-muted); font-weight: 500; }
+.jarview__label { margin: 0 0 8px; font-size: 0.75rem; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; color: var(--jv-muted); }
+.jarview__ings { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 20px; padding: 0; list-style: none; }
+.jarview__ings li { display: inline-flex; align-items: center; gap: 7px; padding: 6px 12px; border-radius: 999px; border: 1px solid color-mix(in srgb, var(--jv-text) 22%, transparent); font-size: 0.875rem; font-weight: 600; }
+.jarview__ings li::before { content: ''; width: 9px; height: 9px; border-radius: 50%; background: var(--dot); }
+.jarview__actions { display: flex; flex-wrap: wrap; gap: 10px; margin: 0; }
+.jarview__card .btn--primary { background: var(--jv-text); color: var(--jv-bg); }
+.jarview__card .btn--ghost { color: var(--jv-text); border-color: color-mix(in srgb, var(--jv-text) 30%, transparent); }
+@media (max-width: 719px) {
+  .jarview__card {
+    top: auto;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    max-height: 88vh;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 8px;
+    padding: 22px 20px calc(24px + env(safe-area-inset-bottom));
+    translate: none;
+  }
+  .jarview__card::before { border-radius: 26px 26px 0 0; transform: translate3d(0, 40px, 0); }
+  .jarview__stage { min-height: 200px; }
+  .jarview__jar .jar__art { --jw: 112px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cab__door, .cab__plate, .cab__glow, .cab__inside::after, .cab__lamp::after, .jar__art,
+  .jarview__backdrop, .jarview__card::before, .jarview__info, .jarview__jar, .jarview__x, .jarview__halo,
+  .drawer__front, .toast, .shelf-tog--card, .shelf-tog__badge { transition: none !important; }
+  .cab.is-open .cab__glow, .cab.is-open .cab__lamp::after, .cab.is-open .cab__inside::after { transition: none !important; }
+  /* bez 3D: vrata se samo sklone (nestanu), unutrašnjost se odmah vidi */
+  .cab.is-open .cab__door--l, .cab.is-open .cab__door--r { transform: none; opacity: 0; }
+  .cab:not(.is-open) .cab__doors:hover .cab__door--l, .cab:not(.is-open) .cab__doors:hover .cab__door--r,
+  .cab:not(.is-open) .cab__doors:focus-visible .cab__door--l, .cab:not(.is-open) .cab__doors:focus-visible .cab__door--r { transform: none; }
+  .cab__plate-hint, .shelf-tog.is-pop, .cab.is-open .jar-li, .drawer.is-open .drawer__box, .drawer.is-closing .drawer__box,
+  .drawer.is-open .drawer__jars .jar-li, .shelf-empty__wisp { animation: none; }
+  .shelf-empty__wisp { opacity: 0.5; }
+  .jar:hover .jar__art, .jar:focus-visible .jar__art { transform: none; }
+  .jarview__card::before, .jarview__info { transform: none; }
+}
+
+/* ================================================================== */
+/* Nedavno gledano                                                     */
+/* ================================================================== */
+
+/* vidi se samo kad lista nije prazna (klasu "has-recent" doda <head> skripta prije iscrtavanja) */
+.recent { display: none; padding: clamp(28px, 4vw, 48px) 0 0; }
+.has-recent .recent { display: block; }
+html:not(.js) .recent { display: none; }
+.recent--flush { padding: 0 0 clamp(20px, 3vw, 32px); }
+.recent.is-leaving { opacity: 0; transform: translate3d(0, -8px, 0); transition: opacity 0.3s, transform 0.3s; }
+.recent__head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
+.recent__title { display: flex; align-items: center; gap: 10px; margin: 0; font-size: clamp(1.15rem, 1rem + 0.5vw, 1.4rem); letter-spacing: -0.01em; }
+.recent__title .icon { width: 22px; height: 22px; color: var(--c-accent-ink); }
+.recent__clear {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 40px;
+  padding: 0 14px;
+  border: 1px solid var(--c-line-strong);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--c-muted);
+  font-size: 0.875rem;
+  font-weight: 700;
+  transition: color 0.2s, border-color 0.2s;
+}
+.recent__clear .icon { width: 15px; height: 15px; }
+@media (hover: hover) { .recent__clear:hover { color: var(--c-text); border-color: var(--c-text); } }
+/* jedan red koji se skrola vodoravno; visina je fiksna, pa se ništa ne pomjera kad se popuni */
+.recent__list {
+  display: flex;
+  gap: 12px;
+  min-height: 76px;
+  margin: 0 calc(var(--gutter) * -1);
+  padding: 4px var(--gutter) 10px;
+  overflow-x: auto;
+  list-style: none;
+  scroll-snap-type: x proximity;
+  scroll-padding-inline: var(--gutter);
+  scrollbar-width: thin;
+  scrollbar-color: var(--c-line-strong) transparent;
+}
+.recent__item { flex: 0 0 auto; scroll-snap-align: start; animation: fl-in 0.5s var(--ease-out) both; animation-delay: calc(var(--k, 0) * 50ms); }
+.recent__link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 230px;
+  height: 66px;
+  padding: 8px 16px 8px 8px;
+  border-radius: 18px;
+  background: radial-gradient(80% 120% at 10% 50%, var(--rc-glow), transparent 70%), var(--rc-bg);
+  color: var(--rc-text);
+  text-decoration: none;
+  transition: transform 0.4s var(--ease-out);
+}
+@media (hover: hover) {
+  .recent__link:hover { transform: translate3d(0, -4px, 0); }
+  .recent__link:hover .recent__art { transform: rotate(-10deg) scale(1.08); }
+}
+.recent__art { display: block; flex-shrink: 0; width: 50px; height: 50px; transition: transform 0.5s var(--ease-out); }
+.recent__art svg { display: block; width: 100%; height: 100%; filter: drop-shadow(0 6px 8px rgba(0, 0, 0, 0.25)); }
+.recent__txt { display: grid; min-width: 0; }
+.recent__brand { overflow: hidden; font-size: 0.6875rem; font-weight: 800; letter-spacing: 0.16em; text-overflow: ellipsis; text-transform: uppercase; white-space: nowrap; color: var(--rc-muted); }
+.recent__name { overflow: hidden; font-family: var(--font-display); font-size: 1.05rem; font-weight: 700; line-height: 1.2; text-overflow: ellipsis; white-space: nowrap; }
+@media (prefers-reduced-motion: reduce) {
+  .recent__item { animation: none; }
+  .recent.is-leaving, .recent__link, .recent__art { transition: none; transform: none; }
+}
+
+/* ================================================================== */
+/* Savjeti za bolji okus                                               */
+/* ================================================================== */
+
+.tipnav { padding-block: 0 clamp(8px, 2vw, 16px); }
+.tipnav__list { display: flex; flex-wrap: wrap; gap: 10px; margin: 0; padding: 0; list-style: none; }
+.tipnav__list li { animation: fl-in 0.6s var(--ease-out) both; animation-delay: calc(0.3s + var(--i, 0) * 70ms); }
+.tipnav__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 46px;
+  padding: 0 18px 0 14px;
+  border: 1px solid var(--c-line-strong);
+  border-radius: 999px;
+  color: var(--c-text);
+  font-weight: 700;
+  text-decoration: none;
+  transition: transform 0.4s var(--ease-out), border-color 0.3s;
+}
+.tipnav__link .icon { width: 20px; height: 20px; color: var(--c-accent-ink); }
+@media (hover: hover) { .tipnav__link:hover { transform: translate3d(0, -3px, 0); border-color: var(--c-accent-ink); } }
+
+.tipsec { scroll-margin-top: var(--header-h); }
+.tipsec__grid { display: grid; gap: clamp(28px, 4vw, 56px); }
+@media (min-width: 980px) {
+  .tipsec__grid { grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.4fr); align-items: start; }
+  .tipsec__side { position: sticky; top: calc(var(--header-h) + 24px); }
+}
+.tipsec__side { display: grid; gap: 18px; }
+.tipsec__icon {
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  margin-bottom: 14px;
+  border-radius: 20px;
+  background: radial-gradient(circle at 30% 25%, color-mix(in srgb, var(--c-accent-ink) 35%, transparent), transparent 70%), var(--c-surface-2);
+  color: var(--c-accent-ink);
+  box-shadow: inset 0 0 0 1px var(--c-line);
+}
+.tipsec__icon .icon { width: 34px; height: 34px; }
+.tipsec__num { margin: 0 0 6px; font-size: 0.8125rem; font-weight: 800; letter-spacing: 0.2em; color: var(--c-muted); }
+.tipsec__title { margin: 0 0 12px; font-size: clamp(2rem, 1.4rem + 2.4vw, 3.4rem); line-height: 1; letter-spacing: -0.035em; }
+.tipsec__title:focus { outline: none; }
+.tipsec__lead { margin: 0; max-width: 46ch; color: var(--c-muted); font-size: 1.0625rem; }
+
+.tipnums { padding: 16px 20px; border-radius: 20px; border: 1px solid var(--c-line); background: color-mix(in srgb, var(--c-bg) 55%, transparent); }
+.fsec--alt .tipnums { background: color-mix(in srgb, var(--c-bg) 70%, transparent); }
+.tipnums__title, .tipmore__title { margin: 0 0 10px; font-size: 0.75rem; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; color: var(--c-muted); }
+.tipnums dl { display: grid; gap: 8px; margin: 0; }
+.tipnums dl > div { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 2px 12px; padding-bottom: 8px; border-bottom: 1px dashed var(--c-line); }
+.tipnums dl > div:last-child { padding-bottom: 0; border-bottom: 0; }
+.tipnums dt { color: var(--c-muted); font-weight: 600; }
+.tipnums dd { margin: 0; font-family: var(--font-display); font-weight: 800; color: var(--c-accent-ink); }
+
+.tipmore ul { display: grid; gap: 6px; margin: 0; padding: 0; list-style: none; }
+.tipmore__link { display: inline-flex; align-items: center; gap: 8px; min-height: 36px; color: var(--c-text); font-weight: 700; text-decoration: underline; text-decoration-color: var(--c-line-strong); text-underline-offset: 4px; }
+.tipmore__link .icon { width: 16px; height: 16px; color: var(--c-accent-ink); transition: transform 0.3s var(--ease-out); }
+@media (hover: hover) { .tipmore__link:hover .icon { transform: translate3d(4px, 0, 0); } }
+
+.tiplist { display: grid; gap: 14px; margin: 0; padding: 0; list-style: none; counter-reset: none; }
+@media (min-width: 640px) { .tiplist { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.tip {
+  position: relative;
+  padding: 22px 22px 20px;
+  border-radius: 22px;
+  border: 1px solid var(--c-line);
+  background: linear-gradient(160deg, color-mix(in srgb, var(--c-text) 5%, transparent), transparent 60%), var(--c-surface);
+  transition: transform 0.5s var(--ease-out), border-color 0.3s;
+}
+.fsec--alt .tip { background: linear-gradient(160deg, color-mix(in srgb, var(--c-text) 5%, transparent), transparent 60%), var(--c-bg); }
+@media (hover: hover) { .tip:hover { transform: translate3d(0, -4px, 0); border-color: var(--c-line-strong); } }
+.tip__n {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  margin-bottom: 12px;
+  border-radius: 50%;
+  background: var(--c-accent-fill);
+  color: var(--c-on-accent);
+  font-family: var(--font-display);
+  font-weight: 800;
+}
+.tip__title { margin: 0 0 6px; font-size: 1.2rem; line-height: 1.2; letter-spacing: -0.01em; }
+.tip__text { margin: 0; color: var(--c-muted); }
+
+.tipcta { display: grid; justify-items: center; gap: 10px; max-width: 760px; margin: 0 auto; text-align: center; }
+.tipcta__title { margin: 0; font-size: clamp(1.8rem, 1.3rem + 2vw, 2.8rem); letter-spacing: -0.03em; }
+.tipcta__text { max-width: 54ch; margin: 0 0 8px; color: var(--c-muted); }
+.tipcta__actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin: 0 0 8px; }
+.tipcta .mix__note { text-align: left; }
+
+@media (prefers-reduced-motion: reduce) {
+  .tipnav__list li { animation: none; }
+  .tipnav__link, .tip, .tipmore__link .icon { transition: none; }
+  .tipnav__link:hover, .tip:hover { transform: none; }
+}
+
+/* "Slični okusi" sa 4 kartice: 2 x 2 na srednjim ekranima, jedan red od 4 na širokim */
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .grid--similar:has(> :nth-child(4):last-child) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (min-width: 1280px) {
+  .grid--similar:has(> :nth-child(4):last-child) { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+
+/* Atmosfera "fizz" (kola, sode): mjehurići u bojama okusa */
+.mood--fizz { overflow: hidden; background: radial-gradient(70% 60% at 50% 110%, color-mix(in srgb, var(--c-secondary) 40%, transparent), transparent 70%); }
+[data-mood='fizz'] .lounge__glow--a { background: radial-gradient(closest-side, color-mix(in srgb, var(--c-primary) 34%, transparent), transparent 70%); }
+[data-mood='fizz'] .lounge__glow--b { background: radial-gradient(closest-side, color-mix(in srgb, var(--c-secondary) 26%, transparent), transparent 70%); opacity: 1; }
+
+/* ================================================================== */
+/* Preporučeno za tebe                                                 */
+/* ================================================================== */
+
+/* vidi se samo uz klasu "has-reco" (<head> skripta je doda kad postoje polica, nedavno gledano ili ocjene) */
+.reco { display: none; padding: clamp(36px, 5vw, 64px) 0 0; }
+.has-reco .reco { display: block; }
+html:not(.js) .reco { display: none; }
+.reco--shelf { padding-bottom: clamp(40px, 6vw, 80px); }
+.reco__head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 20px; margin-bottom: 18px; }
+.reco__title { display: flex; align-items: center; gap: 10px; margin: 0; font-size: clamp(1.5rem, 1.2rem + 1.2vw, 2.2rem); letter-spacing: -0.02em; }
+.reco__title .icon { width: 26px; height: 26px; color: var(--c-accent-ink); fill: color-mix(in srgb, var(--c-accent-ink) 30%, transparent); }
+.reco__lead { margin: 0; color: var(--c-muted); }
+.reco__item { display: flex; flex-direction: column; gap: 8px; }
+.reco__item .cardbox { flex: 1; }
+.reco__item.is-in { animation: fl-in 0.6s var(--ease-out) both; animation-delay: calc(var(--i, 0) * 60ms); }
+.reco__why { display: flex; align-items: center; gap: 7px; min-height: 22px; margin: 0; overflow: hidden; font-size: 0.8125rem; font-weight: 700; color: var(--c-muted); white-space: nowrap; text-overflow: ellipsis; }
+.reco__why span { overflow: hidden; text-overflow: ellipsis; }
+.reco__why .icon { width: 15px; height: 15px; color: var(--c-accent-ink); fill: currentColor; }
+/* prazna mjesta iste veličine kao kartica (prije nego JavaScript nacrta preporuke) */
+.reco__ghost { display: flex; flex-direction: column; gap: 8px; }
+.reco__ghost::before { content: ''; height: 22px; }
+.reco__ghost span {
+  display: block;
+  aspect-ratio: 4 / 5;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(90deg, var(--c-line) 0%, color-mix(in srgb, var(--c-text) 10%, transparent) 50%, var(--c-line) 100%) 0 0 / 200% 100%;
+  animation: rate-shimmer 1.6s linear infinite;
+}
+/* mobitel: preporuke u jednom redu koji se skrola vodoravno */
+@media (max-width: 639px) {
+  .reco__grid {
+    display: flex;
+    gap: 14px;
+    margin: 0 calc(var(--gutter) * -1);
+    padding: 0 var(--gutter) 8px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--gutter);
+    scrollbar-width: none;
+  }
+  .reco__grid::-webkit-scrollbar { display: none; }
+  .reco__grid > li { flex: 0 0 78%; scroll-snap-align: start; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .reco__item.is-in, .reco__ghost span { animation: none; }
+}
+
+/* Kratka napomena: lični podaci žive samo u ovom browseru */
+.localnote { display: flex; align-items: flex-start; gap: 8px; max-width: 70ch; margin: 12px 0 0; font-size: 0.8125rem; line-height: 1.5; color: var(--c-muted); opacity: 0.85; }
+.localnote .icon { flex-shrink: 0; width: 16px; height: 16px; margin-top: 2px; color: var(--c-accent-ink); }
+.localnote--shelf { justify-content: center; margin: 28px auto 0; text-align: left; }
+html:not(.js) .localnote { display: none; }
+/* jedna napomena po stranici: na polici je ispod police; na početnoj ispod "Nedavno gledano" ako postoji */
+.reco--shelf .localnote, .has-recent .reco .localnote { display: none; }
+
+/* ---------- Početna: izbor okusa umjesto cijele liste ---------- */
+
+.catalog__search { margin: 0 0 14px; }
+.catalog__more { display: flex; justify-content: center; margin: clamp(28px, 4vw, 44px) 0 0; }
+.catalog__more .btn { min-width: min(100%, 300px); }
+/* na mobitelu 4, na tabletu 6, na desktopu 9 kartica */
+@media (max-width: 639px) { #flavor-grid > .grid__item:nth-child(n+5) { display: none; } }
+@media (min-width: 640px) and (max-width: 1023px) { #flavor-grid > .grid__item:nth-child(n+7) { display: none; } }
+/* tagovi na početnoj: na mobitelu jedan red koji se skrola, umjesto šest redova */
+@media (max-width: 639px) {
+  #filters {
+    flex-wrap: nowrap;
+    margin-inline: calc(var(--gutter) * -1);
+    padding: 2px var(--gutter) 6px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    scroll-padding-inline: var(--gutter);
+  }
+  #filters::-webkit-scrollbar { display: none; }
+  #filters .chip { flex: 0 0 auto; }
+}

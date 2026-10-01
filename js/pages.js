@@ -20,6 +20,12 @@
 
   function smooth() { return FX.reducedMotion() ? 'auto' : 'smooth'; }
 
+  /** fn(stanje) kad stignu ocjene (js/ratings.js se učitava poslije ovog fajla, pa se po potrebi sačeka). */
+  function withRatings(ctx, fn) {
+    if (MSP.Ratings) { ctx.cleanup(MSP.Ratings.on(fn)); return; }
+    document.addEventListener('DOMContentLoaded', function () { if (MSP.Ratings) ctx.cleanup(MSP.Ratings.on(fn)); }, { once: true });
+  }
+
   /* ------------------------------------------------------------------ */
   /* Rječnik                                                             */
   /* ------------------------------------------------------------------ */
@@ -887,10 +893,100 @@
       document.addEventListener('keydown', onKey);
       ctx.cleanup(function () { document.removeEventListener('keydown', onKey); });
 
+      // Sortiranje po ocjeni čeka ocjene sa servera; bez njih ta opcija nije dostupna.
+      withRatings(ctx, function (st) {
+        var opt = sortEl.querySelector('option[value="rating"]');
+        if (st === 'off') {
+          if (opt) opt.disabled = true;
+          if (state.sort === 'rating') { state.sort = 'az'; syncControls(); apply(false); }
+        } else if (state.sort === 'rating') apply(false);
+      });
+
       syncControls();
       apply(false);
       ctx.cleanup(FX.tilt(grid));
       ctx.cleanup(FX.cardWisps(grid));
+      ctx.heroSmoke();
+      ctx.cleanup(FX.reveal(main));
+    }
+  };
+
+
+  /* ------------------------------------------------------------------ */
+  /* Najbolje ocijenjeno: rang liste iz MSP.Ratings, filter po brendu i kolekciji */
+  /* ------------------------------------------------------------------ */
+
+  var TOP_LIMIT = 10;
+
+  Pages.top = {
+    mount: function (ctx) {
+      var main = ctx.els.main;
+      var wrap = document.getElementById('top');
+      var brandEl = document.getElementById('top-brand');
+      var colEl = document.getElementById('top-col');
+      var status = document.getElementById('top-status');
+      var has = function (sel, v) { return !!sel.querySelector('option[value="' + v + '"]'); };
+      var p = ctx.params();
+      var state = {
+        brand: p.get('brand') && has(brandEl, p.get('brand')) ? p.get('brand') : '',
+        col: p.get('col') && has(colEl, p.get('col')) ? p.get('col') : ''
+      };
+      brandEl.value = state.brand;
+      colEl.value = state.col;
+      var first = true;
+
+      function apply() {
+        var R = MSP.Ratings;
+        if (!R || R.state !== 'ready') return;
+        ['flavor', 'recipe'].forEach(function (kind) {
+          var list = wrap.querySelector('[data-top-list="' + kind + '"]');
+          Array.prototype.forEach.call(list.querySelectorAll('.top__ghost'), function (g) { g.remove(); });
+          var items = Array.prototype.slice.call(list.querySelectorAll('.top__item'));
+          var get = function (li) { return R.get(kind, li.getAttribute('data-id')); };
+          var shown = items.filter(function (li) {
+            var r = get(li);
+            if (!r || r.count < V.TOP_MIN) return false;
+            if (state.brand && li.getAttribute('data-brands').split(' ').indexOf(state.brand) === -1) return false;
+            if (state.col && li.getAttribute('data-cols').split(' ').indexOf(state.col) === -1) return false;
+            return true;
+          });
+          shown.sort(function (a, b) { return V.compareRated(a, b, get); });
+          shown = shown.slice(0, TOP_LIMIT);
+          items.forEach(function (li) { li.hidden = shown.indexOf(li) === -1; });
+          shown.forEach(function (li, i) {
+            li.querySelector('.top__rank').textContent = String(i + 1);
+            li.style.setProperty('--i', String(i));
+            li.classList.toggle('is-first', i === 0);
+            list.appendChild(li);
+            if (!first) {
+              li.classList.remove('is-shuffling');
+              void li.offsetWidth;
+              li.classList.add('is-shuffling');
+            }
+          });
+          wrap.querySelector('[data-top-empty="' + kind + '"]').hidden = shown.length > 0;
+        });
+        wrap.classList.add('is-ready');
+        status.textContent = t('ratings.ready');
+        status.classList.add('sr-only');
+        first = false;
+        var qs = [];
+        if (state.brand) qs.push('brand=' + encodeURIComponent(state.brand));
+        if (state.col) qs.push('col=' + encodeURIComponent(state.col));
+        ctx.replaceUrl(qs.length ? '?' + qs.join('&') : '');
+      }
+
+      brandEl.addEventListener('change', function () { state.brand = brandEl.value; apply(); });
+      colEl.addEventListener('change', function () { state.col = colEl.value; apply(); });
+
+      withRatings(ctx, function (st) {
+        if (st === 'ready') apply();
+        else {
+          Array.prototype.forEach.call(wrap.querySelectorAll('.top__ghost'), function (g) { g.remove(); });
+          wrap.classList.add('is-off');
+          status.textContent = t('ratings.unavailable');
+        }
+      });
       ctx.heroSmoke();
       ctx.cleanup(FX.reveal(main));
     }
@@ -951,6 +1047,7 @@
   };
 
   Pages.privacy = { mount: function (ctx) { ctx.heroSmoke(); } };
+  Pages.tips = { mount: function (ctx) { ctx.heroSmoke(); ctx.cleanup(FX.reveal(ctx.els.main)); } };
   Pages.terms = { mount: function (ctx) { ctx.heroSmoke(); } };
   Pages.suggest = { mount: function (ctx) { ctx.heroSmoke(); } };
   Pages.report = { mount: function (ctx) { ctx.heroSmoke(); } };

@@ -1166,6 +1166,148 @@
       );
     },
 
+    /* Kola: čaša tamne kole sa pjenom, kockama leda, mjehurićima i slamkom. */
+    kola: function (c) {
+      var id = uid('kola');
+      var glass = 'M54 56L146 56L135 176Q134 186 124 186L76 186Q66 186 65 176Z';
+      var bubbles = [[84, 120, 3], [112, 140, 2.5], [96, 160, 3.5], [122, 108, 2], [78, 150, 2], [106, 98, 2.5], [90, 92, 2]].map(function (b) {
+        return '<circle cx="' + b[0] + '" cy="' + b[1] + '" r="' + b[2] + '"/>';
+      }).join('');
+      return (
+        '<defs>' +
+          '<linearGradient id="' + id + '-c" x1="0" y1="0" x2="0" y2="1">' +
+            '<stop offset="0" stop-color="' + lighten(c, 0.18) + '"/>' +
+            '<stop offset="1" stop-color="' + darken(c, 0.45) + '"/>' +
+          '</linearGradient>' +
+          '<clipPath id="' + id + '-g"><path d="' + glass + '"/></clipPath>' +
+        '</defs>' +
+        '<path d="M116 74L150 12" stroke="#e8455a" stroke-width="9" stroke-linecap="round"/>' +
+        '<path d="M122 63L128 52M134 41L140 30" stroke="#fff" stroke-width="9" opacity="0.85"/>' +
+        '<path d="' + glass + '" fill="#ffffff" opacity="0.14"/>' +
+        '<g clip-path="url(#' + id + '-g)">' +
+          '<rect x="40" y="76" width="120" height="120" fill="url(#' + id + '-c)"/>' +
+          '<path d="M40 80C60 70 72 86 92 76S126 70 160 78V68H40Z" fill="' + mix(c, '#f3dcc0', 0.75) + '"/>' +
+          '<rect x="66" y="82" width="34" height="30" rx="6" fill="#ffffff" opacity="0.4" transform="rotate(-12 83 97)"/>' +
+          '<rect x="100" y="90" width="30" height="28" rx="6" fill="#ffffff" opacity="0.32" transform="rotate(14 115 104)"/>' +
+          '<g fill="#ffffff" opacity="0.55">' + bubbles + '</g>' +
+        '</g>' +
+        '<path d="' + glass + '" fill="none" stroke="#fff" stroke-width="3" stroke-linejoin="round" opacity="0.75"/>' +
+        '<path d="M66 70L76 172" stroke="#fff" stroke-width="5" stroke-linecap="round" opacity="0.35"/>'
+      );
+    },
+
+    /* Karamel: sjajne kocke karamele, gornja sa kapljicom koja se cijedi. */
+    karamel: function (c) {
+      var id = uid('karamel');
+      function cube(x, y, s, rot) {
+        return (
+          '<g transform="translate(' + x + ' ' + y + ') rotate(' + rot + ')">' +
+            '<rect x="' + (-s / 2) + '" y="' + (-s / 2) + '" width="' + s + '" height="' + s + '" rx="' + (s * 0.18) + '" fill="url(#' + id + '-g)" stroke="' + darken(c, 0.35) + '" stroke-width="1.5"/>' +
+            '<rect x="' + (-s / 2 + 6) + '" y="' + (-s / 2 + 5) + '" width="' + (s * 0.45) + '" height="' + (s * 0.16) + '" rx="' + (s * 0.08) + '" fill="#fff" opacity="0.45"/>' +
+          '</g>'
+        );
+      }
+      return (
+        '<defs>' +
+          '<linearGradient id="' + id + '-g" x1="0" y1="0" x2="1" y2="1">' +
+            '<stop offset="0" stop-color="' + lighten(c, 0.35) + '"/>' +
+            '<stop offset="0.55" stop-color="' + c + '"/>' +
+            '<stop offset="1" stop-color="' + darken(c, 0.3) + '"/>' +
+          '</linearGradient>' +
+        '</defs>' +
+        cube(72, 132, 64, -8) +
+        cube(130, 140, 54, 10) +
+        cube(104, 78, 60, 4) +
+        '<path d="M86 104C88 118 84 126 90 134C96 126 92 118 96 106Z" fill="' + darken(c, 0.08) + '"/>' +
+        '<circle cx="90" cy="138" r="5" fill="' + darken(c, 0.08) + '"/>' +
+        '<circle cx="88" cy="136" r="1.6" fill="#fff" opacity="0.6"/>'
+      );
+    },
+
+    /* Marshmallow: dva mekana, puhasta valjčića (jedan polegnut). */
+    marshmallow: function (c) {
+      var id = uid('marsh');
+      var pink = mix(c, '#ff9cc4', 0.35);
+      function puff(x, y, w, h, rot, col) {
+        return (
+          '<g transform="translate(' + x + ' ' + y + ') rotate(' + rot + ')">' +
+            '<rect x="' + (-w / 2) + '" y="' + (-h / 2) + '" width="' + w + '" height="' + h + '" rx="' + (w * 0.32) + '" fill="url(#' + id + '-' + col + ')" stroke="' + darken(c, 0.18) + '" stroke-width="1.3"/>' +
+            '<ellipse cx="0" cy="' + (-h / 2 + 7) + '" rx="' + (w / 2 - 5) + '" ry="7" fill="#fff" opacity="0.6"/>' +
+            '<path d="M' + (-w / 2 + 8) + ' ' + (-h / 2 + 18) + 'V' + (h / 2 - 12) + '" stroke="#fff" stroke-width="5" stroke-linecap="round" opacity="0.5"/>' +
+          '</g>'
+        );
+      }
+      return (
+        '<defs>' +
+          '<linearGradient id="' + id + '-a" x1="0" y1="0" x2="1" y2="0">' +
+            '<stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="' + c + '"/>' +
+          '</linearGradient>' +
+          '<linearGradient id="' + id + '-b" x1="0" y1="0" x2="1" y2="0">' +
+            '<stop offset="0" stop-color="' + lighten(pink, 0.5) + '"/><stop offset="1" stop-color="' + pink + '"/>' +
+          '</linearGradient>' +
+        '</defs>' +
+        puff(78, 104, 66, 82, -10, 'a') +
+        puff(132, 134, 58, 70, 62, 'b')
+      );
+    },
+
+    /* Kardamom: tri zelene mahune sa rebrima i par tamnih sjemenki. */
+    kardamom: function (c) {
+      var id = uid('kard');
+      function pod(x, y, rot, s) {
+        return (
+          '<g transform="translate(' + x + ' ' + y + ') rotate(' + rot + ') scale(' + s + ')">' +
+            '<path d="M0 -44C24 -32 26 26 0 44C-26 26 -24 -32 0 -44Z" fill="url(#' + id + '-g)" stroke="' + darken(c, 0.35) + '" stroke-width="1.6"/>' +
+            '<path d="M0 -40V40M-10 -30C-14 0 -14 10 -10 32M10 -30C14 0 14 10 10 32" fill="none" stroke="' + darken(c, 0.25) + '" stroke-width="1.4" opacity="0.6"/>' +
+            '<path d="M-2 -46L0 -54L2 -46" fill="' + darken(c, 0.4) + '"/>' +
+            '<ellipse cx="-8" cy="-14" rx="3" ry="9" fill="#fff" opacity="0.35"/>' +
+          '</g>'
+        );
+      }
+      return (
+        '<defs>' +
+          '<linearGradient id="' + id + '-g" x1="0" y1="0" x2="1" y2="1">' +
+            '<stop offset="0" stop-color="' + lighten(c, 0.35) + '"/>' +
+            '<stop offset="1" stop-color="' + darken(c, 0.2) + '"/>' +
+          '</linearGradient>' +
+        '</defs>' +
+        pod(72, 98, -28, 1) +
+        pod(126, 92, 22, 1.05) +
+        pod(100, 140, 84, 0.85) +
+        '<g fill="#3a2a1a"><circle cx="60" cy="160" r="5"/><circle cx="72" cy="168" r="4"/><circle cx="148" cy="158" r="4.5"/></g>'
+      );
+    },
+
+    /* Grožđe: grozd okruglih bobica sa peteljkom i listom. */
+    grozdje: function (c) {
+      var id = uid('grozdje');
+      var rows = [[100, 64, 4], [100, 86, 4], [100, 108, 3], [100, 130, 3], [100, 152, 2], [100, 172, 1]];
+      var berries = '';
+      var shine = '';
+      rows.forEach(function (row, ri) {
+        var n = row[2];
+        for (var i = 0; i < n; i++) {
+          var x = row[0] + (i - (n - 1) / 2) * 22 + (ri % 2 ? 4 : -4);
+          berries += circleD(x, row[1], 12);
+          shine += circleD(x - 4, row[1] - 4.5, 3);
+        }
+      });
+      return (
+        '<defs>' +
+          '<radialGradient id="' + id + '-g" cx="0.4" cy="0.3" r="0.8">' +
+            '<stop offset="0" stop-color="' + lighten(c, 0.35) + '"/>' +
+            '<stop offset="0.6" stop-color="' + c + '"/>' +
+            '<stop offset="1" stop-color="' + darken(c, 0.4) + '"/>' +
+          '</radialGradient>' +
+        '</defs>' +
+        '<path d="M100 52C100 38 106 28 116 22" fill="none" stroke="#6b4a2a" stroke-width="5" stroke-linecap="round"/>' +
+        '<path d="M106 40C120 22 146 22 158 34C146 38 140 50 124 52C116 54 108 48 106 40Z" fill="#5aa84a" stroke="#2f6b2a" stroke-width="1.5"/>' +
+        '<path d="M108 42C122 38 136 36 150 34" fill="none" stroke="#2f6b2a" stroke-width="1.2" opacity="0.7"/>' +
+        '<path d="' + berries + '" fill="url(#' + id + '-g)" stroke="' + darken(c, 0.5) + '" stroke-width="1.2"/>' +
+        '<path d="' + shine + '" fill="#fff" opacity="0.45"/>'
+      );
+    },
+
     /* Rezerva za sastojak koji još nema svoju ilustraciju. */
     fallback: function (c) {
       var id = uid('voce');

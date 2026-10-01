@@ -26,11 +26,11 @@
     bs: { home: '', flavor: 'okus', mixer: 'mikser', quiz: 'kviz', guide: 'vodic', glossary: 'rjecnik', term: 'rjecnik', gear: 'oprema', about: 'o-nama', notfound: '404',
       collections: 'kolekcije', collection: 'kolekcije', compare: 'poredjenje', comparePair: 'poredjenje', mixes: 'recepti', recipe: 'recepti',
       privacy: 'privatnost', terms: 'uslovi', suggest: 'predlozi-okus', report: 'prijavi-gresku', flavors: 'okusi', search: 'pretraga',
-      brands: 'brendovi', brand: 'brendovi' },
+      brands: 'brendovi', brand: 'brendovi', top: 'najbolje-ocijenjeno', shelf: 'moja-polica', tips: 'savjeti' },
     en: { home: '', flavor: 'flavor', mixer: 'mixer', quiz: 'quiz', guide: 'guide', glossary: 'glossary', term: 'glossary', gear: 'gear', about: 'about', notfound: '404',
       collections: 'collections', collection: 'collections', compare: 'compare', comparePair: 'compare', mixes: 'mixes', recipe: 'mixes',
       privacy: 'privacy', terms: 'terms', suggest: 'suggest-flavor', report: 'report-issue', flavors: 'flavors', search: 'search',
-      brands: 'brands', brand: 'brands' }
+      brands: 'brands', brand: 'brands', top: 'top-rated', shelf: 'my-shelf', tips: 'tips' }
   };
   V.SEG = SEG;
 
@@ -128,6 +128,11 @@
     wisp: '<path d="M8 20c-3-4 3-6 0-10s2-7 2-7"/><path d="M14 21c-3-4.5 3.5-6.5 0-11s2.5-7 2.5-7"/>',
     globe: '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.5 3 14.5 0 18M12 3c-3 3.5-3 14.5 0 18"/>',
     mail: '<rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m4 7 8 6 8-6"/>',
+    jar: '<rect x="7.5" y="2.5" width="9" height="3.5" rx="1"/><path d="M7 6h10v1.2c1.2.9 2 2.3 2 3.8V19a2.5 2.5 0 0 1-2.5 2.5h-9A2.5 2.5 0 0 1 5 19v-8c0-1.5.8-2.9 2-3.8z"/><path class="icon__fill" d="M7.5 12.5h9V19a.8.8 0 0 1-.8.8H8.3a.8.8 0 0 1-.8-.8z"/>',
+    check: '<path d="m5 12.5 4.5 4.5L19 7.5"/>',
+    info: '<circle cx="12" cy="12" r="8.5"/><path d="M12 11v5.5M12 7.6v.1"/>',
+    clock: '<circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/>',
+    star: '<path d="m12 3.2 2.7 5.5 6 .9-4.35 4.25 1.03 6L12 17l-5.38 2.85 1.03-6L3.3 9.6l6-.9z"/>',
     link: '<path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/>'
   };
 
@@ -172,6 +177,11 @@
   /** Vrsta lista: 'light' (svijetli) ili 'dark' (tamni); pojmovi u rječniku. */
   V.LEAF_TERM = { light: 'svijetli-list', dark: 'tamni-list' };
   V.leafOf = function (f) { return f.leaf === 'dark' ? 'dark' : 'light'; };
+  /** Naziv okusa; ako isti naziv ima više brendova (npr. "Cola", "Mint"), dodaje se i brend. */
+  V.uniqueName = function (f) {
+    var same = V.flavors().filter(function (x) { return x.name === f.name; }).length;
+    return same > 1 ? f.brand + ' ' + f.name : f.name;
+  };
   V.flavorById = function (id) {
     return V.flavors().filter(function (f) { return f.id === id; })[0] || null;
   };
@@ -386,6 +396,58 @@
   };
 
   /* ------------------------------------------------------------------ */
+  /* Ocjene (zvjezdice; brojke popunjava js/ratings.js u browseru)       */
+  /* ------------------------------------------------------------------ */
+
+  /**
+   * Prazno mjesto za prosjek ocjena na kartici (apsolutno pozicionirano, pa ne pomjera
+   * ništa kad se popuni ili ostane prazno). js/ratings.js ga popuni kad stignu ocjene.
+   */
+  V.rateSlot = function (kind, id, cls) {
+    return '<span class="rpill' + (cls ? ' ' + cls : '') + '" data-rate-slot="' + kind + ':' + esc(id) + '"></span>';
+  };
+
+  // Najmanji broj ocjena da bi okus ili recept ušao na rang listu (i bio među prvima pri sortiranju po ocjeni).
+  V.TOP_MIN = 3;
+
+  /**
+   * Poredak po ocjeni: prvo stavke sa bar TOP_MIN ocjena (veći prosjek, pa više ocjena),
+   * zatim one sa manje ocjena, a neocijenjene na kraju. get(x) vraća { avg, count } ili null.
+   */
+  V.compareRated = function (a, b, get) {
+    var ra = get(a), rb = get(b);
+    var ta = !ra || !ra.count ? 2 : ra.count >= V.TOP_MIN ? 0 : 1;
+    var tb = !rb || !rb.count ? 2 : rb.count >= V.TOP_MIN ? 0 : 1;
+    if (ta !== tb) return ta - tb;
+    if (ta === 2) return 0;
+    return (rb.avg - ra.avg) || (rb.count - ra.count);
+  };
+
+  /** Zvjezdice na stranici okusa i recepta: prosjek, broj ocjena i ocjenjivanje (bez JS-a se ne prikazuje). */
+  V.rateWidget = function (kind, id, name, i) {
+    var lid = 'rate-label';
+    var stars = '';
+    for (var n = 1; n <= 5; n++) {
+      stars += '<button type="button" class="rate__star" data-v="' + n + '" aria-pressed="false" aria-label="' + esc(t('ratings.starLabel', { n: n })) + '" style="--n:' + n + '">' + icon('star') + '</button>';
+    }
+    return (
+      '<div class="rate anim-in is-loading" style="--i:' + (i || 0) + '" data-rate-widget="' + kind + ':' + esc(id) + '" data-rate-name="' + esc(name) + '">' +
+        '<div class="rate__sum">' +
+          '<span class="rate__avg" aria-hidden="true">0,0</span>' +
+          '<span class="rate__meter" aria-hidden="true"><span class="rate__meter-fill"></span></span>' +
+          '<span class="rate__count"></span>' +
+        '</div>' +
+        '<div class="rate__me">' +
+          '<p class="rate__label" id="' + lid + '">' + esc(t(kind === 'recipe' ? 'ratings.rateRecipe' : 'ratings.rateFlavor')) + '</p>' +
+          '<div class="rate__stars" role="group" aria-labelledby="' + lid + '">' + stars + '</div>' +
+        '</div>' +
+        '<p class="rate__msg" role="status" aria-live="polite"></p>' +
+        '<div class="rate__ts"></div>' +
+      '</div>'
+    );
+  };
+
+  /* ------------------------------------------------------------------ */
   /* Kartica okusa                                                       */
   /* ------------------------------------------------------------------ */
 
@@ -408,9 +470,11 @@
     }).join('');
     var names = (f.ingredients || []).map(function (i) { return esc(L(i.name)); }).join('<span class="dot" aria-hidden="true"> · </span>');
     return (
-      '<a class="card" href="' + V.flavorUrl(f) + '" data-veil="' + th.veil + '" data-smoke="' + th.smoke.join(',') + '"' + (f.mood ? ' data-mood="' + esc(f.mood) + '"' : '') + ' style="' +
+      // boje kartice su na omotaču, da ih ima i dugme za policu (ono je van linka)
+      '<div class="cardbox" style="' +
         '--card-bg:' + th.bg + ';--card-surface:' + th.surface + ';--card-text:' + th.text + ';--card-muted:' + th.muted + ';' +
         '--card-accent:' + th.accentInk + ';--card-primary:' + th.primary + ';--card-secondary:' + th.secondary + ';--card-glow:' + th.surface2 + '">' +
+      '<a class="card" href="' + V.flavorUrl(f) + '" data-fid="' + esc(f.id) + '" data-veil="' + th.veil + '" data-smoke="' + th.smoke.join(',') + '"' + (f.mood ? ' data-mood="' + esc(f.mood) + '"' : '') + '>' +
         '<span class="card__tilt">' +
           '<span class="card__glow" aria-hidden="true"></span>' +
           '<span class="card__art" aria-hidden="true"><span class="card__bowl">' + MSP.hookahBowl() + '</span>' + art + '</span>' +
@@ -420,10 +484,30 @@
             '<span class="card__ings">' + names + '</span>' +
           '</span>' +
           '<span class="card__arrow" aria-hidden="true">' + icon('arrowUpRight') + '</span>' +
+          V.rateSlot('flavor', f.id, 'rpill--card') +
           '<span class="card__glare" aria-hidden="true"></span>' +
         '</span>' +
-      '</a>'
+      '</a>' +
+      V.shelfButton(f, 'card') +
+      '</div>'
     );
+  };
+
+  /**
+   * Dugme "Dodaj na policu" / "Ukloni sa police" (js/shelf.js ga oživi; bez JS-a se ne prikazuje).
+   * variant 'card': okruglo dugme na kartici; 'btn': dugme sa tekstom na stranici okusa.
+   * U browseru (MSP.Shelf postoji) odmah dobije tačno stanje, pa nema treptanja.
+   */
+  V.shelfButton = function (f, variant) {
+    var on = !!(MSP.Shelf && MSP.Shelf.has(f.id));
+    var name = f.brand + ' ' + f.name;
+    var aria = esc(t(on ? 'shelf.removeAria' : 'shelf.addAria', { name: name }));
+    if (variant === 'card') {
+      return '<button type="button" class="shelf-tog shelf-tog--card" data-shelf="' + esc(f.id) + '" data-name="' + esc(name) + '" aria-pressed="' + on + '" aria-label="' + aria + '" title="' + aria + '">' +
+        icon('jar') + '<span class="shelf-tog__badge" aria-hidden="true">' + icon('check') + '</span></button>';
+    }
+    return '<button type="button" class="btn shelf-tog shelf-tog--btn" data-shelf="' + esc(f.id) + '" data-name="' + esc(name) + '" aria-pressed="' + on + '">' +
+      icon('jar') + '<span class="shelf-tog__txt"><span class="shelf-tog__off">' + esc(t('shelf.add')) + '</span><span class="shelf-tog__on">' + esc(t('shelf.remove')) + '</span></span></button>';
   };
 
   /** Mala oznaka vrste lista (kartice, liste). */
@@ -485,14 +569,17 @@
       { key: 'brands', page: 'brands', match: ['brands', 'brand'] },
       { key: 'collections', page: 'collections', match: ['collections', 'collection'] },
       { key: 'compare', page: 'compare', match: ['compare', 'comparePair'] },
-      { key: 'mixes', page: 'mixes', match: ['mixes', 'recipe'] }
+      { key: 'mixes', page: 'mixes', match: ['mixes', 'recipe'] },
+      { key: 'top', page: 'top', match: ['top'] },
+      { key: 'shelf', page: 'shelf', match: ['shelf'] }
     ] },
     { key: 'mixer', page: 'mixer', match: ['mixer'] },
     { key: 'quiz', page: 'quiz', match: ['quiz'] },
     { group: 'hookah', key: 'groupHookah', items: [
       { key: 'guide', page: 'guide', match: ['guide'] },
       { key: 'glossary', page: 'glossary', match: ['glossary', 'term'] },
-      { key: 'gear', page: 'gear', match: ['gear'] }
+      { key: 'gear', page: 'gear', match: ['gear'] },
+      { key: 'tips', page: 'tips', match: ['tips'] }
     ] },
     { key: 'about', page: 'about', match: ['about'] }
   ];
@@ -610,7 +697,7 @@
     var year = desc.year || new Date().getFullYear();
     var email = (cfg && cfg.AUTHOR_EMAIL) || '';
     var name = (cfg && cfg.AUTHOR_NAME) || 'Graba';
-    var links = ['flavors', 'brands', 'collections', 'compare', 'mixes', 'mixer', 'quiz', 'guide', 'glossary', 'gear', 'about'].map(function (p) {
+    var links = ['flavors', 'brands', 'collections', 'compare', 'mixes', 'top', 'shelf', 'mixer', 'quiz', 'guide', 'tips', 'glossary', 'gear', 'about'].map(function (p) {
       return '<li><a href="' + V.url(p) + '">' + esc(t('nav.' + (p === 'flavors' ? 'allFlavors' : p))) + '</a></li>';
     }).join('');
     return (
@@ -822,17 +909,40 @@
     );
   }
 
+  // Na početnoj se ne prikazuju svi okusi, nego izbor (po jedan od svakog brenda) i dugme "Prikaži sve".
+  // Koliko se vidi: 9 na desktopu, 6 na tabletu, 4 na mobitelu (ostalo sakrije CSS).
+  V.HOME_PICKS = 9;
+
+  /** Izbor okusa za početnu: prvi okus svakog brenda (redom iz data/flavors.js), pa ostali do HOME_PICKS. */
+  V.homePicks = function () {
+    var seen = {};
+    var picks = [];
+    var all = V.flavors();
+    all.forEach(function (f) {
+      if (picks.length < V.HOME_PICKS && !seen[f.brandId]) { seen[f.brandId] = 1; picks.push(f); }
+    });
+    all.forEach(function (f) { if (picks.length < V.HOME_PICKS && picks.indexOf(f) === -1) picks.push(f); });
+    return picks;
+  };
+
   function catalog(headingId) {
-    var list = V.flavors();
+    var total = V.flavors().length;
     return (
       '<section class="catalog" aria-labelledby="' + headingId + '" id="svi-okusi">' +
         '<div class="container">' +
           '<div class="catalog__head">' +
             '<h2 class="catalog__title" id="' + headingId + '">' + esc(t('home.catalogTitle')) + '</h2>' +
-            '<p class="catalog__count" id="catalog-count" aria-live="polite">' + esc(MSP.plural('home.count', list.length)) + '</p>' +
+            '<p class="catalog__count" id="catalog-count" aria-live="polite">' + esc(MSP.plural('home.count', total)) + '</p>' +
           '</div>' +
+          '<form class="search search--small catalog__search" role="search" id="catalog-q-form" action="' + V.url('flavors') + '">' +
+            '<label class="sr-only" for="catalog-q">' + esc(t('home.catalogSearchLabel')) + '</label>' +
+            '<span class="search__icon" aria-hidden="true">' + icon('search') + '</span>' +
+            '<input class="search__input" id="catalog-q" name="q" type="search" autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="search" placeholder="' + esc(t('home.searchPlaceholder')) + '">' +
+          '</form>' +
           '<div class="filters" role="group" aria-label="' + esc(t('home.filtersLabel')) + '" id="filters">' + V.filters(null) + '</div>' +
-          '<ul class="grid" id="flavor-grid" role="list">' + V.gridItems(list, { reveal: true, soon: true }) + '</ul>' +
+          '<ul class="grid" id="flavor-grid" role="list">' + V.gridItems(V.homePicks(), { reveal: true }) + '</ul>' +
+          '<p class="catalog__more"><a class="btn btn--primary" id="catalog-more" href="' + V.url('flavors') + '">' +
+            '<span id="catalog-more-text">' + esc(t('home.showAll', { n: total })) + '</span>' + icon('arrowRight') + '</a></p>' +
           '<div class="empty" id="catalog-empty" hidden>' +
             '<p class="empty__title">' + esc(t('home.emptyTitle')) + '</p>' +
             '<p class="empty__text">' + esc(t('home.emptyText')) + '</p>' +
@@ -862,6 +972,8 @@
           '<div class="hero__stage">' + V.hookahStage(th) + '</div>' +
         '</div>' +
       '</section>' +
+      V.recentStrip() +
+      V.recoSection() +
       V.fotdSection(V.fotdPick(new Date())) +
       V.homeCollections() +
       '<div class="marquee" aria-hidden="true"><div class="marquee__track">' + marquee() + '</div></div>' +
@@ -1026,12 +1138,12 @@
         '</div>'
       );
     }
-    if (f.mood === 'soda') {
-      // limunada: sitni mjehurići koji se dižu kao u gaziranom piću
+    if (f.mood === 'soda' || f.mood === 'fizz') {
+      // limunada (soda) i kola / sode (fizz): sitni mjehurići koji se dižu kao u gaziranom piću
       for (i = 0; i < 30; i++) {
         out += '<span class="fizz" style="--x:' + ((i * 37.3 + 3) % 100).toFixed(1) + '%;--s:' + (5 + (i * 7) % 12) + 'px;--dur:' + (4 + (i % 6) * 0.9).toFixed(1) + 's;--dl:' + (-(i % 11) * 0.7).toFixed(1) + 's;--sway:' + ((i % 5) - 2) * 6 + 'px"></span>';
       }
-      return '<div class="mood mood--soda" aria-hidden="true">' + out + '</div>';
+      return '<div class="mood mood--' + f.mood + '" aria-hidden="true">' + out + '</div>';
     }
     return '';
   }
@@ -1116,7 +1228,8 @@
               (tags ? '<ul class="tags anim-in" style="--i:6" role="list">' + tags + '</ul>' : '') +
               V.collectionBadges(f) +
               V.leafNote(f) +
-              '<p class="fhero__actions anim-in" style="--i:8">' + V.shareButton('flavor', f.id) + '</p>' +
+              '<p class="fhero__actions anim-in" style="--i:8">' + V.shelfButton(f, 'btn') + V.shareButton('flavor', f.id) + '</p>' +
+              V.rateWidget('flavor', f.id, f.brand + ' ' + f.name, 9) +
             '</div>' +
             '<div class="fhero__stage">' + V.hookahStage(th, ings.slice(0, 4)) + '</div>' +
           '</div>' +
@@ -1963,7 +2076,8 @@
         out.title = t('meta.aboutTitle');
         out.description = t('meta.aboutDescription');
         break;
-      case 'privacy': case 'terms': case 'suggest': case 'report': case 'flavors': case 'search': case 'brands': case 'brand':
+      case 'privacy': case 'terms': case 'suggest': case 'report': case 'flavors': case 'search': case 'brands': case 'brand': case 'top':
+      case 'shelf': case 'tips':
         var extra = V.pageExtra(desc, crumbs, cfg);
         out.main = extra.main;
         out.title = extra.title;
