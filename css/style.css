@@ -6282,3 +6282,11 @@ html:not(.js) .reco { display: none; }
 @media (prefers-reduced-motion: reduce) {
   .reco__item.is-in, .reco__ghost span { animation: none; }
 }
+
+/* Kratka napomena: lični podaci žive samo u ovom browseru */
+.localnote { display: flex; align-items: flex-start; gap: 8px; max-width: 70ch; margin: 12px 0 0; font-size: 0.8125rem; line-height: 1.5; color: var(--c-muted); opacity: 0.85; }
+.localnote .icon { flex-shrink: 0; width: 16px; height: 16px; margin-top: 2px; color: var(--c-accent-ink); }
+.localnote--shelf { justify-content: center; margin: 28px auto 0; text-align: left; }
+html:not(.js) .localnote { display: none; }
+/* jedna napomena po stranici: na polici je ispod police; na početnoj ispod "Nedavno gledano" ako postoji */
+.reco--shelf .localnote, .has-recent .reco .localnote { display: none; }

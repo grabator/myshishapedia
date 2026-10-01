@@ -16,6 +16,11 @@
   function t(k, v) { return MSP.t(k, v); }
   function L(v, lang) { return MSP.L(v, lang); }
 
+  /** Kratka napomena: polica, nedavno gledano i preporuke žive samo u ovom browseru. */
+  V.localNote = function (cls) {
+    return '<p class="localnote' + (cls ? ' ' + cls : '') + '">' + icon('info') + '<span>' + esc(t('shelf.localNote')) + '</span></p>';
+  };
+
   /* ================================================================== */
   /* Nedavno gledano (traku popunjava js/shelf.js)                       */
   /* ================================================================== */
@@ -33,6 +38,7 @@
             '<button type="button" class="recent__clear" id="recent-clear" aria-label="' + esc(t('recent.clearAria')) + '">' + icon('close') + '<span>' + esc(t('recent.clear')) + '</span></button>' +
           '</div>' +
           '<ul class="recent__list" id="recent-list" role="list"></ul>' +
+          V.localNote() +
         '</div>' +
       '</section>'
     );
@@ -61,6 +67,7 @@
             '<p class="reco__lead">' + esc(t('reco.lead')) + '</p>' +
           '</div>' +
           '<ul class="grid reco__grid" id="reco-grid" role="list">' + ghosts + '</ul>' +
+          V.localNote() +
         '</div>' +
       '</section>'
     );
@@ -135,6 +142,7 @@
             '<a class="btn btn--ghost" href="' + V.url('quiz') + '">' + esc(t('shelf.emptyQuiz')) + '</a></p>' +
         '</div>' +
         '<noscript><p class="shelf__nojs">' + esc(t('shelf.noJs')) + '</p></noscript>' +
+        V.localNote('localnote--shelf') +
       '</div></section>' +
       V.recoSection('reco--shelf') +
 

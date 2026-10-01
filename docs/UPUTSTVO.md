@@ -656,6 +656,9 @@ Lična kolekcija okusa, bez prijave. Čuva se samo u browseru i nikad se ne šal
 - **prefers-reduced-motion:** bez 3D i bez letenja tegle; vrata samo nestanu, a pregled se odmah prikaže.
 - **Prazna polica:** poruka sa linkovima na sve okuse i kviz.
 - Da isprazniš policu za provjeru: DevTools → Application → Local Storage → obriši `msp-shelf`.
+- **Napomena o lokalnom čuvanju:** kratka rečenica (ikona "i") da polica, nedavno gledano i preporuke žive samo u
+  ovom browseru. Vidi se jednom po stranici: na polici ispod ormarića, a na početnoj ispod "Nedavno gledano"
+  (ili ispod preporuka). Tekst je `shelf.localNote` u `js/strings.js`.
 
 Kod je u `js/shelf.js` (ponašanje) i `js/views-shelf.js` (okvir stranice), a stilovi na kraju `css/style.css`.
 

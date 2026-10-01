@@ -386,7 +386,8 @@
         emptyText: 'Na kartici ili stranici okusa klikni dugme sa teglom i okus će te čekati ovdje, u ormariću. Sve ostaje samo u tvom browseru.',
         emptyCta: 'Pogledaj sve okuse',
         emptyQuiz: 'Pronađi okus kvizom',
-        noJs: 'Polica radi kad je uključen JavaScript.'
+        noJs: 'Polica radi kad je uključen JavaScript.',
+        localNote: 'Polica, nedavno gledano i preporuke čuvaju se samo u ovom browseru. Ako obrišeš podatke browsera ili koristiš drugi uređaj ili privatni prozor, kreću ispočetka.'
       },
 
       recent: {
@@ -1103,7 +1104,8 @@
         emptyText: 'Click the jar button on a flavor card or flavor page and it will be waiting for you here, in the cabinet. Everything stays in your browser.',
         emptyCta: 'Browse all flavors',
         emptyQuiz: 'Find a flavor with the quiz',
-        noJs: 'The shelf works when JavaScript is turned on.'
+        noJs: 'The shelf works when JavaScript is turned on.',
+        localNote: 'Your shelf, recently viewed and recommendations are saved only in this browser. Clearing browser data, or using another device or a private window, starts them fresh.'
       },
 
       recent: {
