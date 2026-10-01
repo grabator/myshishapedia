@@ -130,6 +130,7 @@
     mail: '<rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m4 7 8 6 8-6"/>',
     jar: '<rect x="7.5" y="2.5" width="9" height="3.5" rx="1"/><path d="M7 6h10v1.2c1.2.9 2 2.3 2 3.8V19a2.5 2.5 0 0 1-2.5 2.5h-9A2.5 2.5 0 0 1 5 19v-8c0-1.5.8-2.9 2-3.8z"/><path class="icon__fill" d="M7.5 12.5h9V19a.8.8 0 0 1-.8.8H8.3a.8.8 0 0 1-.8-.8z"/>',
     check: '<path d="m5 12.5 4.5 4.5L19 7.5"/>',
+    clock: '<circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/>',
     star: '<path d="m12 3.2 2.7 5.5 6 .9-4.35 4.25 1.03 6L12 17l-5.38 2.85 1.03-6L3.3 9.6l6-.9z"/>',
     link: '<path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/>'
   };
@@ -941,6 +942,7 @@
           '<div class="hero__stage">' + V.hookahStage(th) + '</div>' +
         '</div>' +
       '</section>' +
+      V.recentStrip() +
       V.fotdSection(V.fotdPick(new Date())) +
       V.homeCollections() +
       '<div class="marquee" aria-hidden="true"><div class="marquee__track">' + marquee() + '</div></div>' +

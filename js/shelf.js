@@ -1,10 +1,12 @@
 /*
  * MyShishapedia - Moja polica (lična kolekcija okusa, bez prijave).
  *
- * Sve se čuva samo u browseru (localStorage, ključ "msp-shelf": niz id-jeva okusa, najnoviji prvi)
- * i nikad se ne šalje. Učitava se na svim stranicama:
+ * Sve se čuva samo u browseru i nikad se ne šalje (localStorage: "msp-shelf" i "msp-recent",
+ * nizovi id-jeva okusa, najnoviji prvi). Učitava se na svim stranicama:
  *   - dugmad [data-shelf] (kartice okusa i stranica okusa): dodaj / ukloni sa police
  *   - kratko obavještenje (toast) sa linkom na policu
+ *   - "Nedavno gledano": pamti zadnjih 8 otvorenih okusa i puni traku na početnoj i
+ *     na stranici svih okusa
  *   - stranica "Moja polica": ormarić sa teglama (desktop, tablet) i ladice (mobitel),
  *     pregled tegle u dijalogu
  */
@@ -127,7 +129,8 @@
   var toastEl = null;
   var toastTimer = 0;
 
-  function toast(msg) {
+  function toast(msg, opts) {
+    opts = opts || {};
     if (!toastEl) {
       toastEl = document.createElement('div');
       toastEl.className = 'toast';
@@ -138,6 +141,8 @@
       document.body.appendChild(toastEl);
     }
     toastEl.querySelector('.toast__msg').textContent = msg;
+    var link = toastEl.querySelector('.toast__link');
+    if (link) link.hidden = opts.link === false;
     toastEl.classList.remove('is-on');
     void toastEl.offsetWidth;
     toastEl.classList.add('is-on');
@@ -423,6 +428,70 @@
     ctx.heroSmoke();
   }
 
+
+  /* ------------------------------------------------------------------ */
+  /* Nedavno gledano                                                     */
+  /* ------------------------------------------------------------------ */
+
+  var RECENT_KEY = 'msp-recent';
+  var RECENT_MAX = 8;
+
+  var Recent = {
+    list: function () { return readList(RECENT_KEY); },
+    push: function (id) {
+      if (!V.flavorById(id)) return;
+      var l = Recent.list().filter(function (x) { return x !== id; });
+      l.unshift(id);
+      writeList(RECENT_KEY, l.slice(0, RECENT_MAX));
+    },
+    clear: function () {
+      try { window.localStorage.removeItem(RECENT_KEY); } catch (e) { delete mem[RECENT_KEY]; }
+    }
+  };
+  MSP.Recent = Recent;
+
+  function recentItem(f, i) {
+    var th = V.themeFor(f);
+    var ing = V.byIntensity(f)[0];
+    return (
+      '<li class="recent__item" style="--k:' + i + '">' +
+        '<a class="recent__link" href="' + V.flavorUrl(f) + '" data-veil="' + th.veil + '" style="--rc-bg:' + th.bg + ';--rc-text:' + th.text + ';--rc-muted:' + th.muted + ';--rc-glow:' + th.surface2 + '">' +
+          '<span class="recent__art" aria-hidden="true">' + (ing ? MSP.illustrate(ing.illustration, { color: ing.color }) : '') + '</span>' +
+          '<span class="recent__txt"><span class="recent__brand">' + esc(f.brand) + '</span><span class="recent__name">' + esc(f.name) + '</span></span>' +
+        '</a>' +
+      '</li>'
+    );
+  }
+
+  function renderRecent() {
+    var strip = document.getElementById('recent');
+    if (!strip) return;
+    var list = Recent.list().map(V.flavorById);
+    doc.classList.toggle('has-recent', list.length > 0);
+    document.getElementById('recent-list').innerHTML = list.map(recentItem).join('');
+  }
+
+  function bindRecent() {
+    var btn = document.getElementById('recent-clear');
+    if (!btn) return;
+    btn.addEventListener('click', function () {
+      var strip = document.getElementById('recent');
+      Recent.clear();
+      var finish = function () {
+        strip.classList.remove('is-leaving');
+        renderRecent();
+        var main = document.getElementById('main');
+        if (main) main.focus({ preventScroll: true });
+      };
+      toast(t('recent.cleared'), { link: false });
+      if (reduced()) finish();
+      else {
+        strip.classList.add('is-leaving');
+        window.setTimeout(finish, 320);
+      }
+    });
+  }
+
   /* ------------------------------------------------------------------ */
   /* Start                                                               */
   /* ------------------------------------------------------------------ */
@@ -431,11 +500,18 @@
 
   document.addEventListener('click', onShelfClick);
   // promjena u drugom tabu
-  window.addEventListener('storage', function (e) { if (e.key === KEY) changed(); });
+  window.addEventListener('storage', function (e) {
+    if (e.key === KEY) changed();
+    if (e.key === RECENT_KEY) renderRecent();
+  });
 
   function start() {
     doc.classList.toggle('has-shelf', Shelf.list().length > 0);
     syncButtons(document);
+    // otvoren okus ide na vrh liste "Nedavno gledano"
+    if (document.body.getAttribute('data-page') === 'flavor') Recent.push(document.body.getAttribute('data-id') || '');
+    renderRecent();
+    bindRecent();
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
   else start();

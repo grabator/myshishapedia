@@ -16,6 +16,28 @@
   function L(v, lang) { return MSP.L(v, lang); }
 
   /* ================================================================== */
+  /* Nedavno gledano (traku popunjava js/shelf.js)                       */
+  /* ================================================================== */
+
+  /**
+   * Traka "Nedavno gledano" na početnoj i na stranici svih okusa. Vidi se samo kad lista nije
+   * prazna: <head> skripta unaprijed doda klasu "has-recent", pa se ništa ne pomjera.
+   */
+  V.recentStrip = function (cls) {
+    return (
+      '<section class="recent' + (cls ? ' ' + cls : '') + '" id="recent" aria-labelledby="recent-title">' +
+        '<div class="container">' +
+          '<div class="recent__head">' +
+            '<h2 class="recent__title" id="recent-title">' + icon('clock') + '<span>' + esc(t('recent.title')) + '</span></h2>' +
+            '<button type="button" class="recent__clear" id="recent-clear" aria-label="' + esc(t('recent.clearAria')) + '">' + icon('close') + '<span>' + esc(t('recent.clear')) + '</span></button>' +
+          '</div>' +
+          '<ul class="recent__list" id="recent-list" role="list"></ul>' +
+        '</div>' +
+      '</section>'
+    );
+  };
+
+  /* ================================================================== */
   /* Moja polica                                                         */
   /* ================================================================== */
 

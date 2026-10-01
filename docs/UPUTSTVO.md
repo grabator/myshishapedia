@@ -9,6 +9,7 @@ Stranica ima:
 - globalnu pretragu, kartice za dijeljenje (Instagram story), forme "Predloži okus" i "Prijavi grešku";
 - ocjene okusa i recepata (zvjezdice 1-5, bez prijave), rang liste "Najbolje ocijenjeno" i sortiranje po ocjeni;
 - "Moja polica": lična kolekcija okusa (ormarić sa teglama, na mobitelu ladice), bez prijave;
+- "Nedavno gledano": traka sa zadnjih 8 otvorenih okusa na početnoj i na stranici svih okusa;
 - politiku privatnosti i uslove korištenja.
 
 Nema mape barova ni korisničkih računa.
@@ -136,8 +137,8 @@ privatnost i uslovi).
 /js/forms.js            forme (predloži okus, prijavi grešku)
 /js/share.js            kartica za dijeljenje (canvas)
 /js/ratings.js          ocjene u browseru: prosjeci na karticama, zvjezdice, Turnstile, slanje
-/js/shelf.js            Moja polica: dugmad za policu, obavještenje, ormarić, ladice, pregled tegle
-/js/views-shelf.js      HTML: Moja polica (samo za build)
+/js/shelf.js            Moja polica (dugmad, obavještenje, ormarić, ladice, pregled tegle) i Nedavno gledano
+/js/views-shelf.js      HTML: Moja polica i traka Nedavno gledano (samo za build)
 /data/*.js              brendovi, okusi, rječnik, vodič, oprema, kviz, O nama, kolekcije, recepti, pravni tekstovi
 /dist/                  REZULTAT builda (ne mijenjaj ručno, ne ide na GitHub)
 ```
@@ -477,7 +478,8 @@ Dugme "Podijeli" je na stranici okusa, recepta, u mikseru i na rezultatu kviza.
 - Tekstovi politike privatnosti i uslova su u `data/legal.js`, a datum zadnje izmjene u `site.config.js`
   (`LEGAL_UPDATED`). Tekst opisuje šta stranica stvarno radi:
   - statistika bez kolačića;
-  - localStorage za potvrdu godina, jezik, okuse na polici i (ako ocjenjuješ) anonimni ID uređaja i tvoje ocjene;
+  - localStorage za potvrdu godina, jezik, okuse na polici, nedavno gledane okuse i (ako ocjenjuješ) anonimni ID
+    uređaja i tvoje ocjene;
   - ocjene: šta se šalje i čuva, hash IP adrese za ograničenje slanja i Cloudflare Turnstile;
   - forme sa neobaveznim emailom;
   - Google Fonts i Cloudflare hosting.
@@ -623,6 +625,18 @@ Lična kolekcija okusa, bez prijave. Čuva se samo u browseru i nikad se ne šal
 - Da isprazniš policu za provjeru: DevTools → Application → Local Storage → obriši `msp-shelf`.
 
 Kod je u `js/shelf.js` (ponašanje) i `js/views-shelf.js` (okvir stranice), a stilovi na kraju `css/style.css`.
+
+## Nedavno gledano
+
+- Svaki otvoreni okus ide na vrh liste. Lista pamti najviše 8 okusa, bez duplikata (najnoviji prvi).
+- Čuva se samo u browseru: localStorage, ključ `msp-recent`. Ništa se ne šalje.
+- Traka "Nedavno gledano" je na početnoj (ispod nargile, iznad okusa dana) i na stranici svih okusa (iznad pretrage).
+  Na mobitelu i kad ima puno okusa skrola se vodoravno.
+- Ako je lista prazna, traka se ne prikazuje. Skripta u `<head>` (u `build.mjs`, `HEAD_SCRIPT`) unaprijed doda
+  klasu `has-recent`, pa se mjesto za traku rezerviše prije iscrtavanja i ništa na stranici ne skače. Isto radi i
+  za policu (klasa `has-shelf`).
+- Dugme "Obriši listu" obriše listu i sakrije traku.
+- Najveći broj okusa je `RECENT_MAX` u `js/shelf.js`.
 
 ---
 

@@ -385,6 +385,13 @@
         noJs: 'Polica radi kad je uključen JavaScript.'
       },
 
+      recent: {
+        title: 'Nedavno gledano',
+        clear: 'Obriši listu',
+        clearAria: 'Obriši listu nedavno gledanih okusa',
+        cleared: 'Lista nedavno gledanih okusa je obrisana.'
+      },
+
       share: {
         button: 'Podijeli',
         title: 'Podijeli karticu',
@@ -1062,6 +1069,13 @@
         emptyCta: 'Browse all flavors',
         emptyQuiz: 'Find a flavor with the quiz',
         noJs: 'The shelf works when JavaScript is turned on.'
+      },
+
+      recent: {
+        title: 'Recently viewed',
+        clear: 'Clear list',
+        clearAria: 'Clear the list of recently viewed flavors',
+        cleared: 'Your recently viewed list has been cleared.'
       },
 
       share: {

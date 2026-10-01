@@ -6049,3 +6049,74 @@ html:not(.js) .shelf-empty, html:not(.js) .cab, html:not(.js) .drawers { display
   .jar:hover .jar__art, .jar:focus-visible .jar__art { transform: none; }
   .jarview__card::before, .jarview__info { transform: none; }
 }
+
+/* ================================================================== */
+/* Nedavno gledano                                                     */
+/* ================================================================== */
+
+/* vidi se samo kad lista nije prazna (klasu "has-recent" doda <head> skripta prije iscrtavanja) */
+.recent { display: none; padding: clamp(28px, 4vw, 48px) 0 0; }
+.has-recent .recent { display: block; }
+html:not(.js) .recent { display: none; }
+.recent--flush { padding: 0 0 clamp(20px, 3vw, 32px); }
+.recent.is-leaving { opacity: 0; transform: translate3d(0, -8px, 0); transition: opacity 0.3s, transform 0.3s; }
+.recent__head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
+.recent__title { display: flex; align-items: center; gap: 10px; margin: 0; font-size: clamp(1.15rem, 1rem + 0.5vw, 1.4rem); letter-spacing: -0.01em; }
+.recent__title .icon { width: 22px; height: 22px; color: var(--c-accent-ink); }
+.recent__clear {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 40px;
+  padding: 0 14px;
+  border: 1px solid var(--c-line-strong);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--c-muted);
+  font-size: 0.875rem;
+  font-weight: 700;
+  transition: color 0.2s, border-color 0.2s;
+}
+.recent__clear .icon { width: 15px; height: 15px; }
+@media (hover: hover) { .recent__clear:hover { color: var(--c-text); border-color: var(--c-text); } }
+/* jedan red koji se skrola vodoravno; visina je fiksna, pa se ništa ne pomjera kad se popuni */
+.recent__list {
+  display: flex;
+  gap: 12px;
+  min-height: 76px;
+  margin: 0 calc(var(--gutter) * -1);
+  padding: 4px var(--gutter) 10px;
+  overflow-x: auto;
+  list-style: none;
+  scroll-snap-type: x proximity;
+  scroll-padding-inline: var(--gutter);
+  scrollbar-width: thin;
+  scrollbar-color: var(--c-line-strong) transparent;
+}
+.recent__item { flex: 0 0 auto; scroll-snap-align: start; animation: fl-in 0.5s var(--ease-out) both; animation-delay: calc(var(--k, 0) * 50ms); }
+.recent__link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 230px;
+  height: 66px;
+  padding: 8px 16px 8px 8px;
+  border-radius: 18px;
+  background: radial-gradient(80% 120% at 10% 50%, var(--rc-glow), transparent 70%), var(--rc-bg);
+  color: var(--rc-text);
+  text-decoration: none;
+  transition: transform 0.4s var(--ease-out);
+}
+@media (hover: hover) {
+  .recent__link:hover { transform: translate3d(0, -4px, 0); }
+  .recent__link:hover .recent__art { transform: rotate(-10deg) scale(1.08); }
+}
+.recent__art { display: block; flex-shrink: 0; width: 50px; height: 50px; transition: transform 0.5s var(--ease-out); }
+.recent__art svg { display: block; width: 100%; height: 100%; filter: drop-shadow(0 6px 8px rgba(0, 0, 0, 0.25)); }
+.recent__txt { display: grid; min-width: 0; }
+.recent__brand { overflow: hidden; font-size: 0.6875rem; font-weight: 800; letter-spacing: 0.16em; text-overflow: ellipsis; text-transform: uppercase; white-space: nowrap; color: var(--rc-muted); }
+.recent__name { overflow: hidden; font-family: var(--font-display); font-size: 1.05rem; font-weight: 700; line-height: 1.2; text-overflow: ellipsis; white-space: nowrap; }
+@media (prefers-reduced-motion: reduce) {
+  .recent__item { animation: none; }
+  .recent.is-leaving, .recent__link, .recent__art { transition: none; transform: none; }
+}

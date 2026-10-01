@@ -202,6 +202,7 @@
     var tagKeys = Object.keys(tags).sort(function (a, b) { return tags[b] - tags[a] || MSP.tagLabel(a).localeCompare(MSP.tagLabel(b), MSP.lang); });
     return (
       V.pageHero({ id: 'flavors-title', eyebrow: t('flavorsPage.eyebrow'), title: t('flavorsPage.title'), lead: t('flavorsPage.lead'), crumbs: crumbs }) +
+      V.recentStrip('recent--flush') +
       '<section class="fsec fsec--flush"><div class="container">' +
         '<div class="fl-tools">' +
           '<form class="search search--small fl-search" role="search" id="fl-form" action="' + V.url('flavors') + '">' +
