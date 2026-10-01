@@ -24,8 +24,6 @@ var SITE_CONFIG = {
   // email program (mailto) sa već sastavljenom porukom. Vidi README.
   FORM_ENDPOINT: '',
 
-  // Nargila u heru početne: 'svg' (postojeća, 2D) ili '3d' (Three.js, eksperiment). Vidi README.
-  HERO_MODE: 'svg',
 
   // Datum zadnje izmjene politike privatnosti i uslova korištenja (GGGG-MM-DD).
   LEGAL_UPDATED: '2026-10-01'

@@ -239,9 +239,7 @@
     var hero = els.main.querySelector('.hero');
     bindCatalog();
     mountFotd();
-    var svgOpts = { introDelay: 1.7, bowlSmoke: { rate: 8, alpha: 0.26 } };
-    var stopSvg = startHookah(hero, th, svgOpts);
-    load3D(hero, th, stopSvg, svgOpts);
+    startHookah(hero, th, { introDelay: 1.7, bowlSmoke: { rate: 8, alpha: 0.26 } });
     cleanup(FX.parallax(hero));
     var grid = document.getElementById('flavor-grid');
     cleanup(FX.tilt(grid));
@@ -351,88 +349,6 @@
         if (!g.contains(e.target) && g.classList.contains('is-open')) setOpen(g, false);
       });
     });
-  }
-
-  /* ------------------------------------------------------------------ */
-  /* 3D nargila u heru (HERO_MODE: '3d' u site.config.js; eksperiment)   */
-  /* ------------------------------------------------------------------ */
-
-  /**
-   * Učitava js/hero3d.js (i Three.js) tek nakon što je stranica prikazana i browser miruje.
-   * Bez WebGL-a, uz reduced motion ili na slabom uređaju ostaje SVG nargila. Ako 3D kasnije
-   * ne postiže dovoljno FPS-a, sam se ugasi i SVG nargila se vrati.
-   */
-  function load3D(hero, th, stopSvg, svgOpts) {
-    var src = document.body.getAttribute('data-hero3d');
-    if (!src || FX.reducedMotion()) return;
-    var probe = document.createElement('canvas');
-    var gl = null;
-    try { gl = probe.getContext('webgl2') || probe.getContext('webgl'); } catch (e) { gl = null; }
-    if (!gl) return;
-    var ext = gl.getExtension('WEBGL_lose_context');
-    if (ext) ext.loseContext();
-    if ((navigator.deviceMemory && navigator.deviceMemory < 3) || (navigator.hardwareConcurrency && navigator.hardwareConcurrency < 4)) return;
-
-    var hookah = hero.querySelector('.hookah');
-    var wrap = hero.querySelector('.hookah-wrap');
-    if (!hookah || !wrap) return;
-    var ctrl = null;
-    var cancelled = false;
-    cleanup(function () { cancelled = true; if (ctrl) ctrl.dispose(); });
-
-    /** Kratak test brzine procesora (najbolje od 3 mjerenja): na sporom uređaju ostaje SVG. */
-    function fastEnough() {
-      var best = Infinity;
-      for (var k = 0; k < 3; k++) {
-        var t0 = performance.now();
-        var s = 0;
-        for (var i = 0; i < 150000; i++) s += Math.sin(i * 0.001) * Math.sqrt(i);
-        best = Math.min(best, performance.now() - t0);
-        if (s === -1) best = 0; // da optimizator ne izbaci petlju
-      }
-      return best <= 16;
-    }
-
-    function go() {
-      if (cancelled || !fastEnough()) return;
-      import(src).then(function (mod) {
-        if (cancelled) return null;
-        var box = document.createElement('div');
-        box.className = 'hero3d-box';
-        hookah.appendChild(box);
-        var fotd = V.fotdPick ? V.fotdPick(new Date()) : null;
-        return mod.mount(box, {
-          label: t('hero3d.label'),
-          waterColor: fotd ? (fotd.palette.water || fotd.palette.accent) : '#3fc08a',
-          smoke: th.smoke,
-          button: wrap.querySelector('.pull'),
-          meter: wrap.querySelector('.pull__meter'),
-          onFail: function () {
-            // FPS prenizak i nakon smanjenja kvaliteta: nazad na SVG nargilu
-            if (ctrl) ctrl.dispose();
-            ctrl = null;
-            hookah.classList.remove('is-3d');
-            box.remove();
-            startHookah(hero, th, { introDelay: 0.2, bowlSmoke: svgOpts.bowlSmoke });
-          }
-        }).then(function (c) {
-          if (cancelled) { c.dispose(); return; }
-          ctrl = c;
-          stopSvg();
-          hookah.classList.add('is-3d');
-          var hint = wrap.querySelector('.pull__hint');
-          if (hint) hint.textContent = t('hero3d.hint');
-        });
-      }).catch(function () { /* ostaje SVG nargila */ });
-    }
-
-    // tek kad se sve učita i browser odmori
-    function idle() {
-      if ('requestIdleCallback' in window) window.requestIdleCallback(go, { timeout: 2500 });
-      else window.setTimeout(go, 600);
-    }
-    if (document.readyState === 'complete') idle();
-    else window.addEventListener('load', idle, { once: true });
   }
 
   function mountNotFound() {

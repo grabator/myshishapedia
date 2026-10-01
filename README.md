@@ -112,8 +112,7 @@ privatnost i uslovi).
 /build.mjs              build: pravi dist/ (stranice, sitemap, robots, 404, _headers, _redirects, indeks pretrage)
                         i provjerava linkove, meta tagove i podatke
 /serve.mjs              lokalni server za dist/, radi kao Cloudflare Pages (_headers, _redirects, 404 po jeziku)
-/site.config.js         SITE_URL, email, ANALYTICS_TOKEN, FORM_ENDPOINT, HERO_MODE, LEGAL_UPDATED
-/vendor/three/          Three.js r170 (samo za 3D nargilu) i njegova licenca
+/site.config.js         SITE_URL, email, ANALYTICS_TOKEN, FORM_ENDPOINT, LEGAL_UPDATED
 /.node-version          verzija Nodea za Cloudflare Pages (20)
 /favicon.svg
 /static/                kopira se u dist/: og-image.png, manifest.webmanifest, icons/ (PNG ikone)
@@ -130,7 +129,6 @@ privatnost i uslovi).
 /js/search.js           globalna pretraga (Ctrl+K)
 /js/forms.js            forme (predloži okus, prijavi grešku)
 /js/share.js            kartica za dijeljenje (canvas)
-/js/hero3d.js           3D nargila u heru (eksperiment, HERO_MODE)
 /data/*.js              okusi, rječnik, vodič, oprema, kviz, O nama, kolekcije, recepti, pravni tekstovi
 /dist/                  REZULTAT builda (ne mijenjaj ručno, ne ide na GitHub)
 ```
@@ -183,7 +181,7 @@ node serve.mjs
 pa otvori `http://localhost:5173`. `serve.mjs` radi kao Cloudflare Pages (šalje `_headers` sa CSP-om, poštuje
 `_redirects` i 404 po jeziku), pa se greške vide prije objave. Nakon izmjene ponovo pokreni `node build.mjs`.
 
-`ANALYTICS_TOKEN`, `FORM_ENDPOINT` i `HERO_MODE` se mogu zadati i kao varijable okruženja; one imaju prednost nad
+`ANALYTICS_TOKEN` i `FORM_ENDPOINT` se mogu zadati i kao varijable okruženja; one imaju prednost nad
 `site.config.js` (isto važi za `SITE_URL`, npr. za probnu `*.pages.dev` adresu).
 
 Build na kraju sam provjeri:
@@ -393,49 +391,6 @@ sa istim ključevima. Build prijavi grešku ako neki ključ fali.
 
 ---
 
-## 3D nargila u heru (eksperiment)
-
-Na početnoj se, umjesto SVG nargile, može prikazati 3D nargila (Three.js). Uključuje se u `site.config.js`:
-
-```js
-HERO_MODE: '3d',   // ili 'svg' za postojeću 2D nargilu
-```
-
-Kako radi:
-- **Kod i biblioteka:** kod je u `js/hero3d.js`. Three.js je lokalno u `vendor/three/` (fiksna verzija r170,
-  sa licencom), bez npm paketa i bez tuđih CDN-ova. Model je napravljen iz koda (vaza, stub, tacna i posuda kao
-  LatheGeometry, crijevo kao TubeGeometry), bez vanjskih 3D modela.
-- **Učitavanje:** samo na početnoj, samo kad je `HERO_MODE` '3d', i tek nakon potvrde godina, kad se stranica
-  potpuno učita i browser miruje. Do tada je vidljiva SVG nargila, a 3D se glatko pretopi preko nje.
-- **Kad 3D ostaje isključen:**
-  - bez WebGL-a;
-  - uz `prefers-reduced-motion`;
-  - na slabom uređaju: malo memorije ili jezgri, ili ako kratak test brzine procesora (oko 15 ms, prije
-    preuzimanja Three.js-a) pokaže da je uređaj spor;
-  - ako FPS ostane ispod 45 i nakon smanjenja kvaliteta.
-
-  Tada ostaje (ili se vraća) SVG nargila. Zbog testa brzine se 3D može ne pokrenuti i na jačem računaru dok je
-  jako opterećen; to je namjerno.
-- **Interakcija:**
-  - prevlačenje okreće nargilu, sa inercijom; vertikalno prevlačenje na mobitelu normalno skrola stranicu;
-  - nargila se polako sama okreće;
-  - na desktopu ima parallax prema mišu;
-  - skrol spušta kameru od posude prema vazi.
-- **"Povuci dim":** radi preko dugmeta, tastature (Space/Enter) i držanjem nargile. Žar jača, mjehurići se
-  ubrzaju, a na puštanje izlazi oblak dima.
-- **Veličina:** Three.js oko 675 KB (oko 170 KB preko mreže, komprimovano) i `hero3d.js` oko 26 KB (oko 9 KB
-  komprimovano). Preuzima se samo na početnoj i samo kad se 3D stvarno pokrene.
-
-**Vraćanje na SVG nargilu**, dva načina:
-1. U `site.config.js` postavi `HERO_MODE: 'svg'` i ponovo pokreni build. Početna je tada potpuno ista kao prije
-   3D verzije, a Three.js se uopšte ne kopira ni učitava. Isto se može i bez izmjene fajla, varijablom okruženja
-   `HERO_MODE=svg` u Cloudflare Pages postavkama.
-2. Povratak cijelog projekta na stanje prije 3D eksperimenta preko git taga:
-   ```bash
-   git checkout prije-3d
-   ```
-   (ili `git reset --hard prije-3d` na grani, ako želiš trajno odbaciti sve poslije tog taga).
-
 ## Globalna pretraga
 
 - Ikona lupe u headeru i u mobilnom meniju, prečice **Ctrl+K / Cmd+K** i **/** (na početnoj i na stranici svih
@@ -505,7 +460,6 @@ Dugme "Podijeli" je na stranici okusa, recepta, u mikseru i na rezultatu kviza.
 - **Šta realno utiče na mobilni rezultat:** veličina početnog HTML-a (inline SVG ilustracije) i fontovi.
 - **Na Cloudflareu** (HTTP/2, Brotli) rezultat bi trebao biti malo bolji nego lokalno (lokalni server: HTTP/1.1 i
   gzip). Provjeri nakon objave na [pagespeed.web.dev](https://pagespeed.web.dev).
-- **3D nargila ne utiče na Lighthouse:** učitava se tek nakon potvrde godina.
 
 ---
 

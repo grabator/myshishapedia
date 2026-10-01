@@ -62,7 +62,7 @@ for (const file of SOURCES) vm.runInContext(read(file), sandbox, { filename: fil
 const CFG = sandbox.SITE_CONFIG;
 // Vrijednosti se mogu zadati i kao varijable okruženja (npr. u Cloudflare Pages postavkama),
 // tada imaju prednost nad site.config.js.
-for (const key of ['ANALYTICS_TOKEN', 'FORM_ENDPOINT', 'HERO_MODE']) {
+for (const key of ['ANALYTICS_TOKEN', 'FORM_ENDPOINT']) {
   if (process.env[key] !== undefined) CFG[key] = process.env[key];
 }
 const MSP = sandbox.MSP;
@@ -82,7 +82,7 @@ function hashOf(file) {
 
 const ASSETS = ['css/style.css', 'js/strings.js', 'data/flavors.js', 'data/glossary.js', 'data/guide.js', 'data/gear.js', 'data/quiz.js',
   'data/mixes.js', 'js/illustrations.js', 'js/effects.js', 'js/views.js', 'js/views-more.js', 'js/views-extra.js', 'js/pages.js', 'js/app.js',
-  'js/search.js', 'js/forms.js', 'js/share.js', 'js/hero3d.js', 'favicon.svg'];
+  'js/search.js', 'js/forms.js', 'js/share.js', 'favicon.svg'];
 const VERSION = {};
 for (const a of ASSETS) VERSION[a] = hashOf(a);
 const asset = (p) => '/' + p + '?v=' + VERSION[p];
@@ -264,9 +264,7 @@ function renderPage(desc) {
     `style="${V.themeStyle(info.theme)}"`
   ].filter(Boolean).join(' ');
   const bodyAttrs = `data-page="${desc.page}"` + (desc.id ? ` data-id="${esc(desc.id)}"` : '') +
-    ` data-smoke="${esc(info.theme.smoke.join(','))}" data-search="${asset('js/search.js')}"` +
-    // 3D nargila (eksperiment): samo početna i samo kad je HERO_MODE '3d'
-    (desc.page === 'home' && CFG.HERO_MODE === '3d' ? ` data-hero3d="${asset('js/hero3d.js')}"` : '');
+    ` data-smoke="${esc(info.theme.smoke.join(','))}" data-search="${asset('js/search.js')}"`;
 
   const html = `<!doctype html>
 <html ${htmlAttrs}>
@@ -569,7 +567,7 @@ function writeCloudflareFiles() {
     '  Content-Security-Policy: ' + csp,
     '',
     '# CSS, JS i podaci imaju verziju u adresi (?v=hash), pa ih browser smije dugo čuvati.',
-    ...['/css/*', '/js/*', '/data/*', '/vendor/*'].flatMap((p) => [p, '  Cache-Control: ' + long, '']),
+    ...['/css/*', '/js/*', '/data/*'].flatMap((p) => [p, '  Cache-Control: ' + long, '']),
     '/search/*',
     '  Cache-Control: public, max-age=3600',
     '',
@@ -669,7 +667,6 @@ function build() {
   copyDir('css', 'css');
   copyDir('js', 'js');
   copyDir('data', 'data', (f) => !f.endsWith('about.js') && !f.endsWith('legal.js'));
-  if (CFG.HERO_MODE === '3d') copyDir('vendor', 'vendor');
   fs.copyFileSync(path.join(ROOT, 'favicon.svg'), path.join(DIST, 'favicon.svg'));
   if (fs.existsSync(path.join(ROOT, 'static'))) copyDir('static', '.');
 

@@ -4873,31 +4873,6 @@ html:not(.js) .share-btn { display: none; }
   .menu-btn { min-width: 40px; min-height: 40px; padding: 0 11px; }
 }
 
-/* ---------- 3D nargila u heru (HERO_MODE '3d', eksperiment) ---------- */
-.hero3d-box {
-  position: absolute;
-  z-index: 2;
-  left: -34%;
-  right: -22%;
-  top: -6%;
-  bottom: -2%;
-}
-.hero3d {
-  display: block;
-  width: 100%;
-  height: 100%;
-  /* horizontalno prevlačenje okreće nargilu, vertikalno normalno skrola stranicu */
-  touch-action: pan-y;
-  cursor: grab;
-  opacity: 0;
-  animation: hero3d-in 1.1s var(--ease-out) 0.1s forwards;
-}
-.hero3d:active { cursor: grabbing; }
-.hookah.is-3d { cursor: default; }
-/* !important: SVG sloj ima fade-in animaciju, koja bi inače pobijedila ovo pravilo */
-.hookah.is-3d > :not(.hero3d-box) { opacity: 0 !important; transition: opacity 0.9s ease; pointer-events: none; }
-@keyframes hero3d-in { to { opacity: 1; } }
-@media (prefers-reduced-motion: reduce) { .hero3d { animation: none; opacity: 1; } }
 
 /* Okus dana: naziv staje u karticu za svaki okus (prilagodi se širini, najviše 2 reda) */
 .fotd__copy { container-type: inline-size; }
