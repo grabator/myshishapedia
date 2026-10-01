@@ -44,7 +44,8 @@ const SOURCES = [
   'js/illustrations.js',
   'js/views.js',
   'js/views-more.js',
-  'js/views-extra.js'
+  'js/views-extra.js',
+  'js/views-shelf.js'
 ];
 
 const warnings = [];
@@ -83,7 +84,7 @@ function hashOf(file) {
 
 const ASSETS = ['css/style.css', 'js/strings.js', 'data/brands.js', 'data/flavors.js', 'data/glossary.js', 'data/guide.js', 'data/gear.js', 'data/quiz.js',
   'data/mixes.js', 'js/illustrations.js', 'js/effects.js', 'js/views.js', 'js/views-more.js', 'js/views-extra.js', 'js/pages.js', 'js/app.js',
-  'js/search.js', 'js/forms.js', 'js/share.js', 'js/ratings.js', 'favicon.svg'];
+  'js/search.js', 'js/forms.js', 'js/share.js', 'js/ratings.js', 'js/shelf.js', 'favicon.svg'];
 const VERSION = {};
 for (const a of ASSETS) VERSION[a] = hashOf(a);
 const asset = (p) => '/' + p + '?v=' + VERSION[p];
@@ -163,6 +164,7 @@ const FONT_PRELOADS_BS = ['https://fonts.gstatic.com/s/syne/v24/8vIH7w4qzmVxm25L
 // prvoj posjeti u sesiji, i "raziđi oblak" ako se stiglo prelazom sa druge stranice.
 const HEAD_SCRIPT = `(function(){var d=document.documentElement,c=' js';function g(s,k){try{return window[s].getItem(k)}catch(e){return null}}function s(t,k,v){try{window[t].setItem(k,v)}catch(e){}}
 if(g('localStorage','msp-age-ok')==='1')c+=' age-ok';
+if((g('localStorage','msp-shelf')||'[]').length>2)c+=' has-shelf';
 if(!g('sessionStorage','msp-seen')){c+=' first-visit';s('sessionStorage','msp-seen','1')}
 var v=g('sessionStorage','msp-veil');if(v){c+=' arrive';d.style.setProperty('--arrive-veil',v);try{sessionStorage.removeItem('msp-veil')}catch(e){}}
 d.className+=c;s('localStorage','msp-lang',d.lang)})();`;
@@ -212,7 +214,7 @@ function head(desc, lang, info) {
   const views = ['js/views.js']
     .concat(VIEWS_MORE_PAGES.includes(desc.page) ? ['js/views-more.js'] : [])
     .concat(VIEWS_EXTRA_PAGES.includes(desc.page) ? ['js/views-extra.js'] : []);
-  const scripts = ['js/strings.js', 'data/brands.js', 'data/flavors.js'].concat(data, ['js/illustrations.js', 'js/effects.js'], views, ['js/pages.js', 'js/app.js', 'js/ratings.js'], PAGE_SCRIPTS[desc.page] || []);
+  const scripts = ['js/strings.js', 'data/brands.js', 'data/flavors.js'].concat(data, ['js/illustrations.js', 'js/effects.js'], views, ['js/pages.js', 'js/shelf.js', 'js/app.js', 'js/ratings.js'], PAGE_SCRIPTS[desc.page] || []);
   const other = LANGS.filter((l) => l !== lang);
 
   return [

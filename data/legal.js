@@ -36,6 +36,7 @@ window.LEGAL = {
             'Stranica u tvom browseru (localStorage) pamti samo ovo:',
             '- da si potvrdio/la da imaš 18 ili više godina, da te ne pitamo pri svakoj posjeti,',
             '- izabrani jezik (bosanski ili engleski),',
+            '- okuse koje dodaš na svoju policu ("Moja polica"),',
             '- ako ocjenjuješ okuse ili recepte: nasumičan anonimni ID uređaja i tvoje ocjene, da vidiš svoju ocjenu i možeš je promijeniti (vidi "Ocjene okusa i recepata").',
             'Tokom jedne posjete (sessionStorage) pamti se i da li je uvodna animacija već prikazana i boja prelaza između stranica. To se briše kad zatvoriš tab.',
             'Ovi podaci ostaju na tvom uređaju; jedino se ID uređaja šalje uz ocjenu (vidi ispod). Možeš ih obrisati u postavkama browsera (brisanje podataka za ovu stranicu).'
@@ -44,6 +45,7 @@ window.LEGAL = {
             'In your browser (localStorage) the site only remembers:',
             '- that you confirmed you are 18 or older, so we do not ask on every visit,',
             '- your chosen language (Bosnian or English),',
+            '- the flavors you add to your shelf ("My shelf"),',
             '- if you rate flavors or recipes: a random anonymous device ID and your ratings, so you can see your rating and change it (see "Flavor and recipe ratings").',
             'During a single visit (sessionStorage) it also remembers whether the intro animation has already played and the color of the page transition. That is cleared when you close the tab.',
             'This data stays on your device; only the device ID is sent along with a rating (see below). You can remove it in your browser settings by clearing the data for this site.'

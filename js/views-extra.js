@@ -481,8 +481,8 @@
   /* Stranice (poziva ih V.page iz views.js)                             */
   /* ================================================================== */
 
-  V.EXTRA_PAGES = ['privacy', 'terms', 'suggest', 'report', 'flavors', 'search', 'brands', 'top'];
-  V.NOINDEX_PAGES = ['report', 'search'];
+  V.EXTRA_PAGES = ['privacy', 'terms', 'suggest', 'report', 'flavors', 'search', 'brands', 'top', 'shelf'];
+  V.NOINDEX_PAGES = ['report', 'search', 'shelf'];
 
   V.pageExtra = function (desc, crumbs, cfg) {
     switch (desc.page) {
@@ -494,6 +494,7 @@
       case 'search': return { main: pageSearch(crumbs), title: t('meta.searchTitle'), description: t('meta.searchDescription') };
       case 'brands': return { main: pageBrands(crumbs), title: t('meta.brandsTitle'), description: t('meta.brandsDescription') };
       case 'top': return { main: pageTop(crumbs), title: t('meta.topTitle'), description: t('meta.topDescription') };
+      case 'shelf': return { main: V.pageShelf(crumbs), title: t('meta.shelfTitle'), description: t('meta.shelfDescription') };
       case 'brand':
         var b = desc.brand;
         return {

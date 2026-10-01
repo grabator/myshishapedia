@@ -26,11 +26,11 @@
     bs: { home: '', flavor: 'okus', mixer: 'mikser', quiz: 'kviz', guide: 'vodic', glossary: 'rjecnik', term: 'rjecnik', gear: 'oprema', about: 'o-nama', notfound: '404',
       collections: 'kolekcije', collection: 'kolekcije', compare: 'poredjenje', comparePair: 'poredjenje', mixes: 'recepti', recipe: 'recepti',
       privacy: 'privatnost', terms: 'uslovi', suggest: 'predlozi-okus', report: 'prijavi-gresku', flavors: 'okusi', search: 'pretraga',
-      brands: 'brendovi', brand: 'brendovi', top: 'najbolje-ocijenjeno' },
+      brands: 'brendovi', brand: 'brendovi', top: 'najbolje-ocijenjeno', shelf: 'moja-polica', tips: 'savjeti' },
     en: { home: '', flavor: 'flavor', mixer: 'mixer', quiz: 'quiz', guide: 'guide', glossary: 'glossary', term: 'glossary', gear: 'gear', about: 'about', notfound: '404',
       collections: 'collections', collection: 'collections', compare: 'compare', comparePair: 'compare', mixes: 'mixes', recipe: 'mixes',
       privacy: 'privacy', terms: 'terms', suggest: 'suggest-flavor', report: 'report-issue', flavors: 'flavors', search: 'search',
-      brands: 'brands', brand: 'brands', top: 'top-rated' }
+      brands: 'brands', brand: 'brands', top: 'top-rated', shelf: 'my-shelf', tips: 'tips' }
   };
   V.SEG = SEG;
 
@@ -128,6 +128,8 @@
     wisp: '<path d="M8 20c-3-4 3-6 0-10s2-7 2-7"/><path d="M14 21c-3-4.5 3.5-6.5 0-11s2.5-7 2.5-7"/>',
     globe: '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.5 3 14.5 0 18M12 3c-3 3.5-3 14.5 0 18"/>',
     mail: '<rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m4 7 8 6 8-6"/>',
+    jar: '<rect x="7.5" y="2.5" width="9" height="3.5" rx="1"/><path d="M7 6h10v1.2c1.2.9 2 2.3 2 3.8V19a2.5 2.5 0 0 1-2.5 2.5h-9A2.5 2.5 0 0 1 5 19v-8c0-1.5.8-2.9 2-3.8z"/><path class="icon__fill" d="M7.5 12.5h9V19a.8.8 0 0 1-.8.8H8.3a.8.8 0 0 1-.8-.8z"/>',
+    check: '<path d="m5 12.5 4.5 4.5L19 7.5"/>',
     star: '<path d="m12 3.2 2.7 5.5 6 .9-4.35 4.25 1.03 6L12 17l-5.38 2.85 1.03-6L3.3 9.6l6-.9z"/>',
     link: '<path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/>'
   };
@@ -461,9 +463,11 @@
     }).join('');
     var names = (f.ingredients || []).map(function (i) { return esc(L(i.name)); }).join('<span class="dot" aria-hidden="true"> · </span>');
     return (
-      '<a class="card" href="' + V.flavorUrl(f) + '" data-fid="' + esc(f.id) + '" data-veil="' + th.veil + '" data-smoke="' + th.smoke.join(',') + '"' + (f.mood ? ' data-mood="' + esc(f.mood) + '"' : '') + ' style="' +
+      // boje kartice su na omotaču, da ih ima i dugme za policu (ono je van linka)
+      '<div class="cardbox" style="' +
         '--card-bg:' + th.bg + ';--card-surface:' + th.surface + ';--card-text:' + th.text + ';--card-muted:' + th.muted + ';' +
         '--card-accent:' + th.accentInk + ';--card-primary:' + th.primary + ';--card-secondary:' + th.secondary + ';--card-glow:' + th.surface2 + '">' +
+      '<a class="card" href="' + V.flavorUrl(f) + '" data-fid="' + esc(f.id) + '" data-veil="' + th.veil + '" data-smoke="' + th.smoke.join(',') + '"' + (f.mood ? ' data-mood="' + esc(f.mood) + '"' : '') + '>' +
         '<span class="card__tilt">' +
           '<span class="card__glow" aria-hidden="true"></span>' +
           '<span class="card__art" aria-hidden="true"><span class="card__bowl">' + MSP.hookahBowl() + '</span>' + art + '</span>' +
@@ -476,8 +480,27 @@
           V.rateSlot('flavor', f.id, 'rpill--card') +
           '<span class="card__glare" aria-hidden="true"></span>' +
         '</span>' +
-      '</a>'
+      '</a>' +
+      V.shelfButton(f, 'card') +
+      '</div>'
     );
+  };
+
+  /**
+   * Dugme "Dodaj na policu" / "Ukloni sa police" (js/shelf.js ga oživi; bez JS-a se ne prikazuje).
+   * variant 'card': okruglo dugme na kartici; 'btn': dugme sa tekstom na stranici okusa.
+   * U browseru (MSP.Shelf postoji) odmah dobije tačno stanje, pa nema treptanja.
+   */
+  V.shelfButton = function (f, variant) {
+    var on = !!(MSP.Shelf && MSP.Shelf.has(f.id));
+    var name = f.brand + ' ' + f.name;
+    var aria = esc(t(on ? 'shelf.removeAria' : 'shelf.addAria', { name: name }));
+    if (variant === 'card') {
+      return '<button type="button" class="shelf-tog shelf-tog--card" data-shelf="' + esc(f.id) + '" data-name="' + esc(name) + '" aria-pressed="' + on + '" aria-label="' + aria + '" title="' + aria + '">' +
+        icon('jar') + '<span class="shelf-tog__badge" aria-hidden="true">' + icon('check') + '</span></button>';
+    }
+    return '<button type="button" class="btn shelf-tog shelf-tog--btn" data-shelf="' + esc(f.id) + '" data-name="' + esc(name) + '" aria-pressed="' + on + '">' +
+      icon('jar') + '<span class="shelf-tog__txt"><span class="shelf-tog__off">' + esc(t('shelf.add')) + '</span><span class="shelf-tog__on">' + esc(t('shelf.remove')) + '</span></span></button>';
   };
 
   /** Mala oznaka vrste lista (kartice, liste). */
@@ -540,7 +563,8 @@
       { key: 'collections', page: 'collections', match: ['collections', 'collection'] },
       { key: 'compare', page: 'compare', match: ['compare', 'comparePair'] },
       { key: 'mixes', page: 'mixes', match: ['mixes', 'recipe'] },
-      { key: 'top', page: 'top', match: ['top'] }
+      { key: 'top', page: 'top', match: ['top'] },
+      { key: 'shelf', page: 'shelf', match: ['shelf'] }
     ] },
     { key: 'mixer', page: 'mixer', match: ['mixer'] },
     { key: 'quiz', page: 'quiz', match: ['quiz'] },
@@ -665,7 +689,7 @@
     var year = desc.year || new Date().getFullYear();
     var email = (cfg && cfg.AUTHOR_EMAIL) || '';
     var name = (cfg && cfg.AUTHOR_NAME) || 'Graba';
-    var links = ['flavors', 'brands', 'collections', 'compare', 'mixes', 'top', 'mixer', 'quiz', 'guide', 'glossary', 'gear', 'about'].map(function (p) {
+    var links = ['flavors', 'brands', 'collections', 'compare', 'mixes', 'top', 'shelf', 'mixer', 'quiz', 'guide', 'glossary', 'gear', 'about'].map(function (p) {
       return '<li><a href="' + V.url(p) + '">' + esc(t('nav.' + (p === 'flavors' ? 'allFlavors' : p))) + '</a></li>';
     }).join('');
     return (
@@ -1171,7 +1195,7 @@
               (tags ? '<ul class="tags anim-in" style="--i:6" role="list">' + tags + '</ul>' : '') +
               V.collectionBadges(f) +
               V.leafNote(f) +
-              '<p class="fhero__actions anim-in" style="--i:8">' + V.shareButton('flavor', f.id) + '</p>' +
+              '<p class="fhero__actions anim-in" style="--i:8">' + V.shelfButton(f, 'btn') + V.shareButton('flavor', f.id) + '</p>' +
               V.rateWidget('flavor', f.id, f.brand + ' ' + f.name, 9) +
             '</div>' +
             '<div class="fhero__stage">' + V.hookahStage(th, ings.slice(0, 4)) + '</div>' +
@@ -2020,6 +2044,7 @@
         out.description = t('meta.aboutDescription');
         break;
       case 'privacy': case 'terms': case 'suggest': case 'report': case 'flavors': case 'search': case 'brands': case 'brand': case 'top':
+      case 'shelf':
         var extra = V.pageExtra(desc, crumbs, cfg);
         out.main = extra.main;
         out.title = extra.title;

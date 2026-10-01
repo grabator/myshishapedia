@@ -8,6 +8,7 @@ Stranica ima:
 - vodič za pripremu nargile, rječnik pojmova, opremu i stranicu "O nama";
 - globalnu pretragu, kartice za dijeljenje (Instagram story), forme "Predloži okus" i "Prijavi grešku";
 - ocjene okusa i recepata (zvjezdice 1-5, bez prijave), rang liste "Najbolje ocijenjeno" i sortiranje po ocjeni;
+- "Moja polica": lična kolekcija okusa (ormarić sa teglama, na mobitelu ladice), bez prijave;
 - politiku privatnosti i uslove korištenja.
 
 Nema mape barova ni korisničkih računa.
@@ -135,6 +136,8 @@ privatnost i uslovi).
 /js/forms.js            forme (predloži okus, prijavi grešku)
 /js/share.js            kartica za dijeljenje (canvas)
 /js/ratings.js          ocjene u browseru: prosjeci na karticama, zvjezdice, Turnstile, slanje
+/js/shelf.js            Moja polica: dugmad za policu, obavještenje, ormarić, ladice, pregled tegle
+/js/views-shelf.js      HTML: Moja polica (samo za build)
 /data/*.js              brendovi, okusi, rječnik, vodič, oprema, kviz, O nama, kolekcije, recepti, pravni tekstovi
 /dist/                  REZULTAT builda (ne mijenjaj ručno, ne ide na GitHub)
 ```
@@ -151,6 +154,7 @@ privatnost i uslovi).
 | `/bs/poredjenje/` i `/bs/poredjenje/<a>-vs-<b>/` | `/en/compare/` i `/en/compare/<a>-vs-<b>/` |
 | `/bs/recepti/` i `/bs/recepti/ledena-laguna/` | `/en/mixes/` i `/en/mixes/frozen-lagoon/` |
 | `/bs/najbolje-ocijenjeno/` | `/en/top-rated/` |
+| `/bs/moja-polica/` (noindex) | `/en/my-shelf/` (noindex) |
 | `/bs/mikser/` | `/en/mixer/` |
 | `/bs/kviz/` | `/en/quiz/` |
 | `/bs/vodic/` | `/en/guide/` |
@@ -473,7 +477,7 @@ Dugme "Podijeli" je na stranici okusa, recepta, u mikseru i na rezultatu kviza.
 - Tekstovi politike privatnosti i uslova su u `data/legal.js`, a datum zadnje izmjene u `site.config.js`
   (`LEGAL_UPDATED`). Tekst opisuje šta stranica stvarno radi:
   - statistika bez kolačića;
-  - localStorage za potvrdu godina, jezik i (ako ocjenjuješ) anonimni ID uređaja i tvoje ocjene;
+  - localStorage za potvrdu godina, jezik, okuse na polici i (ako ocjenjuješ) anonimni ID uređaja i tvoje ocjene;
   - ocjene: šta se šalje i čuva, hash IP adrese za ograničenje slanja i Cloudflare Turnstile;
   - forme sa neobaveznim emailom;
   - Google Fonts i Cloudflare hosting.
@@ -592,6 +596,33 @@ U D1 → Console, npr. sve ocjene jednog okusa:
 DELETE FROM ratings WHERE kind = 'flavor' AND item_id = 'adalya-dubai';
 DELETE FROM rating_totals WHERE kind = 'flavor' AND item_id = 'adalya-dubai';
 ```
+
+---
+
+## Moja polica
+
+Lična kolekcija okusa, bez prijave. Čuva se samo u browseru i nikad se ne šalje.
+
+- **Dugme sa teglom** je na svakoj kartici okusa (gore desno, pored strelice) i na stranici okusa ("Dodaj na policu" /
+  "Ukloni sa police"). Klik doda ili ukloni okus i pokaže kratko obavještenje sa linkom na policu. Bez JavaScripta
+  dugmad se ne prikazuju.
+- **Gdje se čuva:** localStorage, ključ `msp-shelf` (niz id-jeva okusa, najnoviji prvi). Nepostojeći id-jevi se
+  sami preskoče. Promjena u jednom tabu odmah se vidi i u drugim otvorenim tabovima.
+- **Stranica** `/bs/moja-polica/` (`/en/my-shelf/`) je noindex, jer je lična. Link je u meniju (Okusi) i u footeru.
+- **Desktop i tablet (od 720 px):** tamni drveni ormarić sa dvoja vrata. Klik (ili Enter) otvori vrata u 3D,
+  upali se toplo svjetlo i izađe pramen dima. Police su kolekcije iz `data/collections.js`, istim redom. Okus ide na
+  policu prve kolekcije u koju spada, a okusi bez kolekcije na policu "Ostalo". Prazne police se ne prikazuju.
+- **Mobitel (ispod 720 px):** umjesto ormarića ladice, po jedna za svaku kolekciju sa okusima. Unutra su iste tegle.
+- **Tegla** ima boje iz palete okusa i sliku glavnog sastojka. Klik otvori pregled: tegla "izađe" sa police, a
+  pored nje su naziv, brend, kratak opis, sastojci, ocjena (ako postoji), link na okus i dugme za uklanjanje.
+  Na mobitelu se pregled otvara odozdo.
+- **Tastatura:** Enter otvori ormarić i fokus ode na prvu teglu; Escape zatvori pregled ili ormarić. Fokus se uvijek
+  vraća na dugme ili teglu sa koje se krenulo.
+- **prefers-reduced-motion:** bez 3D i bez letenja tegle; vrata samo nestanu, a pregled se odmah prikaže.
+- **Prazna polica:** poruka sa linkovima na sve okuse i kviz.
+- Da isprazniš policu za provjeru: DevTools → Application → Local Storage → obriši `msp-shelf`.
+
+Kod je u `js/shelf.js` (ponašanje) i `js/views-shelf.js` (okvir stranice), a stilovi na kraju `css/style.css`.
 
 ---
 
