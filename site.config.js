@@ -18,7 +18,7 @@ var SITE_CONFIG = {
 
   // Cloudflare Web Analytics token (Cloudflare → Analytics & Logs → Web Analytics → site → "JS snippet",
   // vrijednost "token"). Prazno = na stranicama nema nikakve analitike. Vidi docs/UPUTSTVO.md.
-  ANALYTICS_TOKEN: '',
+  ANALYTICS_TOKEN: '2b3d031ad68d4922bbdc6bdd63777390',
 
   // Adresa servisa za forme (npr. https://formspree.io/f/abcdwxyz). Prazno = forme otvaraju
   // email program (mailto) sa već sastavljenom porukom. Vidi docs/UPUTSTVO.md.
