@@ -5,7 +5,7 @@ Enciklopedija okusa za nargilu, na bosanskom i engleskom. Otkrij od čega je nap
 Stranica ima:
 - okuse (sastojci, profil, ideje za mikseve) i stranicu svih okusa sa pretragom, filterima i sortiranjem;
 - kolekcije, poređenje okusa, recepte miksova, okus dana, mikser i kviz;
-- vodič za pripremu nargile, rječnik pojmova, opremu i stranicu "O nama";
+- vodič za pripremu nargile, savjete za bolji okus, rječnik pojmova, opremu i stranicu "O nama";
 - globalnu pretragu, kartice za dijeljenje (Instagram story), forme "Predloži okus" i "Prijavi grešku";
 - ocjene okusa i recepata (zvjezdice 1-5, bez prijave), rang liste "Najbolje ocijenjeno" i sortiranje po ocjeni;
 - "Moja polica": lična kolekcija okusa (ormarić sa teglama, na mobitelu ladice), bez prijave;
@@ -138,8 +138,8 @@ privatnost i uslovi).
 /js/share.js            kartica za dijeljenje (canvas)
 /js/ratings.js          ocjene u browseru: prosjeci na karticama, zvjezdice, Turnstile, slanje
 /js/shelf.js            Moja polica (dugmad, obavještenje, ormarić, ladice, pregled tegle) i Nedavno gledano
-/js/views-shelf.js      HTML: Moja polica i traka Nedavno gledano (samo za build)
-/data/*.js              brendovi, okusi, rječnik, vodič, oprema, kviz, O nama, kolekcije, recepti, pravni tekstovi
+/js/views-shelf.js      HTML: Moja polica, traka Nedavno gledano i Savjeti (samo za build)
+/data/*.js              brendovi, okusi, rječnik, vodič, savjeti, oprema, kviz, O nama, kolekcije, recepti, pravni tekstovi
 /dist/                  REZULTAT builda (ne mijenjaj ručno, ne ide na GitHub)
 ```
 
@@ -156,6 +156,7 @@ privatnost i uslovi).
 | `/bs/recepti/` i `/bs/recepti/ledena-laguna/` | `/en/mixes/` i `/en/mixes/frozen-lagoon/` |
 | `/bs/najbolje-ocijenjeno/` | `/en/top-rated/` |
 | `/bs/moja-polica/` (noindex) | `/en/my-shelf/` (noindex) |
+| `/bs/savjeti/` i `/bs/savjeti/#savjet-toplota` | `/en/tips/` i `/en/tips/#savjet-toplota` |
 | `/bs/mikser/` | `/en/mixer/` |
 | `/bs/kviz/` | `/en/quiz/` |
 | `/bs/vodic/` | `/en/guide/` |
@@ -601,6 +602,33 @@ DELETE FROM rating_totals WHERE kind = 'flavor' AND item_id = 'adalya-dubai';
 
 ---
 
+## Kako dodati savjet
+
+Savjeti su u `data/tips.js` (stranica `/bs/savjeti/`, `/en/tips/`). Stranica ima sekcije, a svaka sekcija svoje
+savjete. Sve ima verziju za oba jezika.
+
+- **Novi savjet u postojećoj sekciji:** dodaj objekat u niz `tips` te sekcije:
+  ```js
+  {
+    title: { bs: 'Kratak naslov', en: 'Short title' },
+    text: {
+      bs: 'Jedna-dvije rečenice. [[hmd|HMD]] postaje link na pojam iz rječnika.',
+      en: 'One or two sentences. [[hmd|HMD]] becomes a link to the glossary term.'
+    }
+  }
+  ```
+- **Nova sekcija:** dodaj objekat u `sections` sa poljima `id` (kratko, mala slova; sidro je `#savjet-<id>`),
+  `icon` (`'bowl'`, `'heat'`, `'cloud'`, `'ice'` ili `'clean'`), `title`, `lead`, `tips` i po želji:
+  - `numbers`: brojke za karticu "U brojkama": `{ label: { bs, en }, value: { bs, en } }`;
+  - `more`: linkovi "Više o tome": `{ guide: 4 }` (korak vodiča), `{ gear: 'hmd' }` (id iz `data/gear.js`) ili
+    `{ term: 'glicerin' }` (id iz `data/glossary.js`).
+- **Build provjerava** da tekst postoji na oba jezika, da svaki `[[id|...]]` pojam postoji u rječniku i da svaki
+  link "Više o tome" vodi na postojeći korak, opremu ili pojam. Ako ne, javi grešku.
+- Nova sekcija se sama pojavi u sadržaju na vrhu stranice i u globalnoj pretrazi (grupa "Savjeti").
+- Brojke u savjetima su okvirne; ako ih mijenjaš, uskladi ih i sa vodičem (`data/guide.js`).
+
+---
+
 ## Moja polica
 
 Lična kolekcija okusa, bez prijave. Čuva se samo u browseru i nikad se ne šalje.
@@ -805,6 +833,20 @@ Tekst je u `data/about.js`. Namjerno nema izmišljenih činjenica o autoru. Pro�
   - Posude (intenzitet / trajanje / lakoća za početnike): klasična 3 / 2 / 3, phunnel 4 / 5 / 5, vortex 5 / 4 / 3.
   - Ugljevi (čistoća okusa / trajanje / lakoća paljenja): kokosove kocke 5 / 5 / 2, kokosovi ravni 5 / 3 / 3, brzopaleći 1 / 2 / 5.
   - Toplota (kontrola / jednostavnost / čistoća): folija 2 / 3 / 2, HMD 5 / 5 / 4.
+
+### Savjeti za bolji okus (opšte preporuke, provjeriti)
+
+Tekst je u `data/tips.js`. Provjeri da odgovara tvom iskustvu, posebno brojke:
+
+- [ ] Pakovanje: duhan 2-3 mm ispod ivice posude; oko 12-20 g duhana u posudi.
+- [ ] Pakovanje: svijetli list (Adalya, Al Fakher, Fumari) rastresito, a tamni list (Darkside, MustHave, Tangiers)
+  podnosi gušće punjenje.
+- [ ] Toplota: kokosovi ugljevi 8-10 minuta paljenja; za početak 3 kocke uz ivicu; predgrijavanje 3-5 minuta;
+  ugljeve okretati ili pomjerati svakih 10-15 minuta.
+- [ ] Gušći dim: jedno povlačenje 4-6 sekundi; stub 2-3 cm ispod vode.
+- [ ] Led u vazi: 3-6 kocki leda; upozorenje da staklena vaza može pući od nagle promjene temperature.
+- [ ] Čišćenje: nova voda poslije svake sesije; dublje čišćenje jednom sedmično sa kašikom sode bikarbone ili sokom
+  pola limuna; posebna posuda za mentol (glinena posuda najduže zadržava mentu).
 
 ### Ostalo
 

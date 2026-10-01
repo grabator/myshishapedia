@@ -41,6 +41,7 @@ const SOURCES = [
   'data/collections.js',
   'data/mixes.js',
   'data/legal.js',
+  'data/tips.js',
   'js/illustrations.js',
   'js/views.js',
   'js/views-more.js',
@@ -502,6 +503,9 @@ function writeSearchIndex() {
     V.guideSteps().forEach((s, i) => {
       add('guide', (i + 1) + '. ' + MSP.L(s.title), stripTerms((MSP.L(s.text) || [])[0]), V.guideStepUrl(i + 1), '', both(s.title));
     });
+    for (const s of V.tipSections()) {
+      add('tips', MSP.L(s.title), stripTerms(MSP.L(s.lead)), V.url('tips') + '#savjet-' + s.id, '', both(s.title).concat(s.tips.flatMap((x) => both(x.title))));
+    }
     const G = (sandbox.GEAR || {}).categories || {};
     for (const key of Object.keys(G)) {
       for (const it of G[key].items) add('gear', MSP.L(it.name), MSP.L(it.short), V.url('gear') + '#oprema-' + it.id, '', both(it.name));
@@ -511,7 +515,7 @@ function writeSearchIndex() {
     }
     const pages = [['flavors', 'allFlavors', 'flavorsDescription'], ['brands', 'brands', 'brandsDescription'], ['collections', 'collections', 'collectionsDescription'], ['mixes', 'mixes', 'mixesDescription'],
       ['compare', 'compare', 'compareDescription'], ['mixer', 'mixer', 'mixerDescription'], ['quiz', 'quiz', 'quizDescription'], ['guide', 'guide', 'guideDescription'],
-      ['glossary', 'glossary', 'glossaryDescription'], ['gear', 'gear', 'gearDescription'], ['about', 'about', 'aboutDescription'], ['top', 'top', 'topDescription'],
+      ['glossary', 'glossary', 'glossaryDescription'], ['gear', 'gear', 'gearDescription'], ['about', 'about', 'aboutDescription'], ['top', 'top', 'topDescription'], ['tips', 'tips', 'tipsDescription'],
       ['suggest', 'suggest', 'suggestDescription'], ['privacy', 'privacy', 'privacyDescription'], ['terms', 'terms', 'termsDescription']];
     for (const [page, navKey, metaKey] of pages) {
       add('page', MSP.t('nav.' + navKey), MSP.t('meta.' + metaKey), V.url(page), '', LANGS.map((l) => MSP.strings[l].nav[navKey]));
@@ -658,6 +662,20 @@ function checkData() {
       if (!V.flavorById(id)) errors.push(`kolekcija ${col.id}: nepostojeći okus ${id}`);
     }
   }
+  // savjeti: tekst na oba jezika, linkovi "Više o tome" i pojmovi [[id|tekst]] moraju postojati
+  const tipIds = new Set();
+  for (const s of V.tipSections()) {
+    if (tipIds.has(s.id)) errors.push(`savjeti: dupli id ${s.id}`);
+    tipIds.add(s.id);
+    for (const l of LANGS) {
+      if (!MSP.L(s.title, l) || !MSP.L(s.lead, l)) errors.push(`savjeti ${s.id}: fali naslov ili uvod (${l})`);
+      for (const tp of s.tips) if (!MSP.L(tp.title, l) || !MSP.L(tp.text, l)) errors.push(`savjeti ${s.id}: fali tekst savjeta (${l})`);
+    }
+    for (const m of s.more || []) if (!V.tipMore(m)) errors.push(`savjeti ${s.id}: nepostojeći link ${JSON.stringify(m)}`);
+    const texts = LANGS.flatMap((l) => [MSP.L(s.lead, l)].concat(s.tips.map((tp) => MSP.L(tp.text, l))));
+    for (const txt of texts) for (const m of String(txt).matchAll(/\[\[([a-z0-9-]+)\|/g)) if (!V.glossaryById(m[1])) errors.push(`savjeti ${s.id}: nepostojeći pojam ${m[1]}`);
+  }
+
   const slugs = new Set();
   for (const m of V.mixes()) {
     if (m.parts.length !== 2) errors.push(`recept ${m.id}: treba tačno 2 okusa`);

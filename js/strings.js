@@ -45,6 +45,8 @@
         topDescription: 'Rang liste okusa i recepata miksova za nargilu po ocjenama posjetilaca, po brendu i kolekciji. Ocijeni i ti svoje omiljene.',
         shelfTitle: 'Moja polica | MyShishapedia',
         shelfDescription: 'Tvoja lična polica omiljenih okusa za nargilu, poredanih po kolekcijama. Čuva se samo u tvom browseru.',
+        tipsTitle: 'Savjeti za bolji okus nargile: punjenje, toplota, dim | MyShishapedia',
+        tipsDescription: 'Kako napuniti posudu, kontrolisati toplotu, dobiti gušći dim, koristiti led u vazi i očistiti nargilu za čist okus.',
         flavorsDescription: 'Svi okusi na jednom mjestu: pretraži po nazivu, brendu ili sastojku, filtriraj po tagu i kolekciji i sortiraj po mentoli ili slatkoći.',
         searchTitle: 'Pretraga | MyShishapedia',
         searchDescription: 'Pretraži okuse, kolekcije, recepte, pojmove i vodič na MyShishapediji.',
@@ -115,6 +117,7 @@
         brands: 'Brendovi',
         top: 'Najbolje ocijenjeno',
         shelf: 'Moja polica',
+        tips: 'Savjeti',
         backToAll: 'Nazad na sve okuse',
         tagline: 'Enciklopedija okusa'
       },
@@ -296,6 +299,7 @@
           recipe: 'Recepti',
           term: 'Rječnik',
           guide: 'Vodič',
+          tips: 'Savjeti',
           gear: 'Oprema',
           compare: 'Poređenja',
           page: 'Stranice'
@@ -390,6 +394,25 @@
         clear: 'Obriši listu',
         clearAria: 'Obriši listu nedavno gledanih okusa',
         cleared: 'Lista nedavno gledanih okusa je obrisana.'
+      },
+
+      tips: {
+        eyebrow: 'Savjeti',
+        title: 'Savjeti za bolji okus',
+        lead: 'Kratki, praktični savjeti za punjenje posude, toplotu, gušći dim, led u vazi i čišćenje. Mala promjena često napravi veliku razliku u okusu.',
+        navLabel: 'Sadržaj savjeta',
+        of: '{n} / {total}',
+        numbersTitle: 'U brojkama',
+        moreTitle: 'Više o tome',
+        moreGuide: 'Vodič, korak {n}: {title}',
+        moreGear: 'Oprema: {name}',
+        moreTerm: 'Rječnik: {term}',
+        ctaTitle: 'Prvi put pripremaš nargilu?',
+        ctaText: 'Vodič te vodi korak po korak, rječnik objašnjava sve pojmove, a na stranici opreme su razlike između posuda i ugljeva.',
+        ctaGuide: 'Otvori vodič',
+        ctaGlossary: 'Rječnik pojmova',
+        ctaGear: 'Posude i ugljevi',
+        note: 'Brojke su okvirne preporuke: svaka nargila, posuda i duhan se ponašaju malo drugačije, pa probaj i prilagodi.'
       },
 
       share: {
@@ -731,6 +754,8 @@
         topDescription: 'Hookah flavors and mix recipes ranked by visitor ratings, by brand and by collection. Rate your own favorites too.',
         shelfTitle: 'My shelf | MyShishapedia',
         shelfDescription: 'Your personal shelf of favorite hookah flavors, sorted by collection. It is stored only in your browser.',
+        tipsTitle: 'Tips for better hookah flavor: packing, heat, clouds | MyShishapedia',
+        tipsDescription: 'How to pack the bowl, manage heat, get thicker clouds, use ice in the base and clean your hookah for a clean taste.',
         flavorsDescription: 'Every flavor in one place: search by name, brand or ingredient, filter by tag and collection, and sort by mint or sweetness.',
         searchTitle: 'Search | MyShishapedia',
         searchDescription: 'Search flavors, collections, mixes, glossary terms and the guide on MyShishapedia.',
@@ -801,6 +826,7 @@
         brands: 'Brands',
         top: 'Top rated',
         shelf: 'My shelf',
+        tips: 'Tips',
         backToAll: 'Back to all flavors',
         tagline: 'Flavor encyclopedia'
       },
@@ -982,6 +1008,7 @@
           recipe: 'Mixes',
           term: 'Glossary',
           guide: 'Guide',
+          tips: 'Tips',
           gear: 'Gear',
           compare: 'Comparisons',
           page: 'Pages'
@@ -1076,6 +1103,25 @@
         clear: 'Clear list',
         clearAria: 'Clear the list of recently viewed flavors',
         cleared: 'Your recently viewed list has been cleared.'
+      },
+
+      tips: {
+        eyebrow: 'Tips',
+        title: 'Tips for better flavor',
+        lead: 'Short, practical tips on packing the bowl, heat, thicker clouds, ice in the base and cleaning. A small change often makes a big difference in taste.',
+        navLabel: 'Tips contents',
+        of: '{n} / {total}',
+        numbersTitle: 'In numbers',
+        moreTitle: 'More on this',
+        moreGuide: 'Guide, step {n}: {title}',
+        moreGear: 'Gear: {name}',
+        moreTerm: 'Glossary: {term}',
+        ctaTitle: 'Setting up a hookah for the first time?',
+        ctaText: 'The guide walks you through it step by step, the glossary explains every term, and the gear page covers the differences between bowls and coals.',
+        ctaGuide: 'Open the guide',
+        ctaGlossary: 'Glossary',
+        ctaGear: 'Bowls and coals',
+        note: 'The numbers are rough guidelines: every hookah, bowl and tobacco behaves a little differently, so try and adjust.'
       },
 
       share: {

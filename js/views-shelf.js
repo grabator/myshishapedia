@@ -1,8 +1,9 @@
 /*
- * MyShishapedia - pogledi za: Moja polica (ormarić i ladice).
+ * MyShishapedia - pogledi za: Moja polica (ormarić i ladice), traku Nedavno gledano
+ * i stranicu Savjeti za bolji okus.
  *
- * Nastavak js/views.js (isti MSP.V objekat). Koristi ga samo build: polica je lična
- * (localStorage), pa ovdje nastaje samo okvir stranice, a tegle crta js/shelf.js u browseru.
+ * Nastavak js/views.js (isti MSP.V objekat). Koristi ga samo build: polica i nedavno gledano
+ * su lični (localStorage), pa ovdje nastaje samo okvir, a tegle i trake crta js/shelf.js u browseru.
  */
 (function (root) {
   'use strict';
@@ -126,6 +127,106 @@
           '</div>' +
         '</div>' +
       '</div>'
+    );
+  };
+
+  /* ================================================================== */
+  /* Savjeti za bolji okus (sadržaj je u data/tips.js)                   */
+  /* ================================================================== */
+
+  var TIP_ICONS = {
+    bowl: '<path d="M4 9h16l-2.5 6.5a3 3 0 0 1-2.8 1.9H9.3a3 3 0 0 1-2.8-1.9z"/><path d="M9 17.4 8 21h8l-1-3.6"/><path d="M9 6c0-1.5 1.5-1.5 1.5-3M13.5 6c0-1.5 1.5-1.5 1.5-3"/>',
+    heat: '<path d="M12 21c-3.9 0-6.5-2.6-6.5-6.2 0-3.6 3-5.6 3.6-9.3 2.4 1.5 3.4 3.6 3.4 5.5 1-.6 1.6-1.6 1.8-2.9 2.2 1.6 4.2 4 4.2 6.7 0 3.6-2.6 6.2-6.5 6.2z"/><path d="M12 21c-1.6 0-2.7-1.1-2.7-2.6 0-1.6 1.4-2.6 2.7-4.4 1.3 1.8 2.7 2.8 2.7 4.4 0 1.5-1.1 2.6-2.7 2.6z"/>',
+    cloud: '<path d="M7 18a4 4 0 0 1-.6-8A5.5 5.5 0 0 1 17 8.6 4.7 4.7 0 0 1 17.3 18z"/><path d="M8 21.5c1.5-.8 3-.8 4.5 0s3 .8 4.5 0"/>',
+    ice: '<path d="M12 2.8 20 7.4v9.2l-8 4.6-8-4.6V7.4z"/><path d="M4 7.4l8 4.6 8-4.6M12 12v9.2"/><path d="m7.5 13.2 1.5.9M15 14.1l1.5-.9"/>',
+    clean: '<path d="M12 3.5c3 4 6 7 6 10.5a6 6 0 0 1-12 0c0-3.5 3-6.5 6-10.5z"/><path d="M9.2 14.6a3 3 0 0 0 2.6 2.7"/>'
+  };
+
+  function tipIcon(name) {
+    return '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">' + (TIP_ICONS[name] || TIP_ICONS.bowl) + '</svg>';
+  }
+
+  V.tipSections = function () { return (root.TIPS && root.TIPS.sections) || []; };
+
+  function gearItem(id) {
+    var G = (root.GEAR || {}).categories || {};
+    for (var k in G) {
+      var it = (G[k].items || []).filter(function (x) { return x.id === id; })[0];
+      if (it) return it;
+    }
+    return null;
+  }
+
+  /** Link "Više o tome": korak vodiča, stavka opreme ili pojam iz rječnika. Vraća null ako cilj ne postoji. */
+  V.tipMore = function (m) {
+    if (m.guide) {
+      var s = V.guideSteps()[m.guide - 1];
+      return s ? { url: V.guideStepUrl(m.guide), label: t('tips.moreGuide', { n: m.guide, title: L(s.title) }), kind: 'guide' } : null;
+    }
+    if (m.gear) {
+      var it = gearItem(m.gear);
+      return it ? { url: V.url('gear') + '#oprema-' + m.gear, label: t('tips.moreGear', { name: L(it.name) }), kind: 'gear' } : null;
+    }
+    if (m.term) {
+      var g = V.glossaryById(m.term);
+      return g ? { url: V.termUrl(g), label: t('tips.moreTerm', { term: L(g.term) }), kind: 'term' } : null;
+    }
+    return null;
+  };
+
+  V.pageTips = function (crumbs) {
+    var secs = V.tipSections();
+    var total = secs.length;
+    var pad = function (n) { return (n < 10 ? '0' : '') + n; };
+    var nav = secs.map(function (s, i) {
+      return '<li style="--i:' + i + '"><a class="tipnav__link" href="#savjet-' + s.id + '">' + tipIcon(s.icon) + '<span>' + esc(L(s.title)) + '</span></a></li>';
+    }).join('');
+    var body = secs.map(function (s, i) {
+      var hid = 'savjet-' + s.id + '-h';
+      var nums = (s.numbers || []).map(function (n) {
+        return '<div><dt>' + esc(L(n.label)) + '</dt><dd>' + esc(L(n.value)) + '</dd></div>';
+      }).join('');
+      var more = (s.more || []).map(V.tipMore).filter(Boolean).map(function (m) {
+        return '<li><a class="tipmore__link tipmore__link--' + m.kind + '" href="' + esc(m.url) + '">' + esc(m.label) + icon('arrowRight') + '</a></li>';
+      }).join('');
+      return (
+        '<section class="fsec tipsec' + (i % 2 ? ' fsec--alt' : '') + '" id="savjet-' + s.id + '" aria-labelledby="' + hid + '"><div class="container tipsec__grid">' +
+          '<div class="tipsec__side">' +
+            '<header class="tipsec__head" data-reveal>' +
+              '<span class="tipsec__icon" aria-hidden="true">' + tipIcon(s.icon) + '</span>' +
+              '<p class="tipsec__num">' + esc(t('tips.of', { n: pad(i + 1), total: pad(total) })) + '</p>' +
+              '<h2 class="tipsec__title" id="' + hid + '" tabindex="-1">' + esc(L(s.title)) + '</h2>' +
+              '<p class="tipsec__lead">' + V.linkTerms(L(s.lead)) + '</p>' +
+            '</header>' +
+            (nums ? '<aside class="tipnums" data-reveal aria-label="' + esc(t('tips.numbersTitle')) + '"><p class="tipnums__title">' + esc(t('tips.numbersTitle')) + '</p><dl>' + nums + '</dl></aside>' : '') +
+            (more ? '<div class="tipmore" data-reveal><p class="tipmore__title">' + esc(t('tips.moreTitle')) + '</p><ul role="list">' + more + '</ul></div>' : '') +
+          '</div>' +
+          '<ol class="tiplist" role="list">' + s.tips.map(function (tp, k) {
+            return (
+              '<li class="tip" data-reveal style="--i:' + (k % 2) + '">' +
+                '<span class="tip__n" aria-hidden="true">' + (k + 1) + '</span>' +
+                '<h3 class="tip__title">' + esc(L(tp.title)) + '</h3>' +
+                '<p class="tip__text">' + V.linkTerms(L(tp.text)) + '</p>' +
+              '</li>'
+            );
+          }).join('') + '</ol>' +
+        '</div></section>'
+      );
+    }).join('');
+    return (
+      V.pageHero({ id: 'tips-title', eyebrow: t('tips.eyebrow'), title: t('tips.title'), lead: t('tips.lead'), crumbs: crumbs }) +
+      '<nav class="container tipnav" aria-label="' + esc(t('tips.navLabel')) + '"><ol class="tipnav__list" role="list">' + nav + '</ol></nav>' +
+      body +
+      '<section class="fsec" aria-labelledby="tips-cta"><div class="container">' +
+        '<div class="tipcta" data-reveal>' +
+          '<h2 class="tipcta__title" id="tips-cta">' + esc(t('tips.ctaTitle')) + '</h2>' +
+          '<p class="tipcta__text">' + esc(t('tips.ctaText')) + '</p>' +
+          '<p class="tipcta__actions"><a class="btn btn--primary" href="' + V.url('guide') + '">' + esc(t('tips.ctaGuide')) + icon('arrowRight') + '</a>' +
+            '<a class="btn btn--ghost" href="' + V.url('glossary') + '">' + esc(t('tips.ctaGlossary')) + '</a>' +
+            '<a class="btn btn--ghost" href="' + V.url('gear') + '">' + esc(t('tips.ctaGear')) + '</a></p>' +
+          '<p class="mix__note" role="note">' + icon('alert') + '<span>' + esc(t('tips.note')) + '</span></p>' +
+        '</div>' +
+      '</div></section>'
     );
   };
 })(typeof window !== 'undefined' ? window : globalThis);

@@ -1047,6 +1047,7 @@
   };
 
   Pages.privacy = { mount: function (ctx) { ctx.heroSmoke(); } };
+  Pages.tips = { mount: function (ctx) { ctx.heroSmoke(); ctx.cleanup(FX.reveal(ctx.els.main)); } };
   Pages.terms = { mount: function (ctx) { ctx.heroSmoke(); } };
   Pages.suggest = { mount: function (ctx) { ctx.heroSmoke(); } };
   Pages.report = { mount: function (ctx) { ctx.heroSmoke(); } };

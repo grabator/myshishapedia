@@ -572,7 +572,8 @@
     { group: 'hookah', key: 'groupHookah', items: [
       { key: 'guide', page: 'guide', match: ['guide'] },
       { key: 'glossary', page: 'glossary', match: ['glossary', 'term'] },
-      { key: 'gear', page: 'gear', match: ['gear'] }
+      { key: 'gear', page: 'gear', match: ['gear'] },
+      { key: 'tips', page: 'tips', match: ['tips'] }
     ] },
     { key: 'about', page: 'about', match: ['about'] }
   ];
@@ -690,7 +691,7 @@
     var year = desc.year || new Date().getFullYear();
     var email = (cfg && cfg.AUTHOR_EMAIL) || '';
     var name = (cfg && cfg.AUTHOR_NAME) || 'Graba';
-    var links = ['flavors', 'brands', 'collections', 'compare', 'mixes', 'top', 'shelf', 'mixer', 'quiz', 'guide', 'glossary', 'gear', 'about'].map(function (p) {
+    var links = ['flavors', 'brands', 'collections', 'compare', 'mixes', 'top', 'shelf', 'mixer', 'quiz', 'guide', 'tips', 'glossary', 'gear', 'about'].map(function (p) {
       return '<li><a href="' + V.url(p) + '">' + esc(t('nav.' + (p === 'flavors' ? 'allFlavors' : p))) + '</a></li>';
     }).join('');
     return (
@@ -2046,7 +2047,7 @@
         out.description = t('meta.aboutDescription');
         break;
       case 'privacy': case 'terms': case 'suggest': case 'report': case 'flavors': case 'search': case 'brands': case 'brand': case 'top':
-      case 'shelf':
+      case 'shelf': case 'tips':
         var extra = V.pageExtra(desc, crumbs, cfg);
         out.main = extra.main;
         out.title = extra.title;
