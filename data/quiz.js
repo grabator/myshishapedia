@@ -5,10 +5,23 @@
  *   target  željene vrijednosti profila (sweetness, freshness, fruitiness, cooling, strength; 0-10)
  *   tags    tagovi koji se "nagrađuju" i koliko (npr. { ledeni: 2 })
  *   reason  dio rečenice za objašnjenje rezultata ("Voliš ... i ...")
+ *   onlyLeaf  (neobavezno) preporučuju se SAMO okusi sa ovom vrstom lista ('light'),
+ *             npr. početnik nikad ne dobije tamni list
+ *   leafBonus (neobavezno) blaga prednost za vrstu lista, npr. { dark: 1 }
  * Rezultat se računa poređenjem sa `profile` i `tags` svih okusa iz data/flavors.js,
  * pa novi okusi automatski ulaze u kviz (vidi docs/UPUTSTVO.md, "Kako radi kviz").
  */
 window.QUIZ = [
+  {
+    id: 'iskustvo',
+    question: { bs: 'Koliko dugo pušiš nargilu?', en: 'How long have you been smoking hookah?' },
+    weight: 0.8,
+    answers: [
+      { id: 'pocetnik', label: { bs: 'Tek počinjem', en: 'Just starting out' }, icon: 'sprout', reason: { bs: 'blaže okuse za početak', en: 'milder flavors to start with' }, target: { strength: 4 }, onlyLeaf: 'light' },
+      { id: 'povremeno', label: { bs: 'Povremeno', en: 'Now and then' }, icon: 'cup', reason: { bs: '', en: '' }, target: { strength: 6 } },
+      { id: 'iskusan', label: { bs: 'Već godinama', en: 'For years' }, icon: 'crown', reason: { bs: 'jače okuse', en: 'stronger flavors' }, target: { strength: 8 }, leafBonus: { dark: 1 } }
+    ]
+  },
   {
     id: 'menta',
     question: { bs: 'Koliko voliš mentu?', en: 'How much do you like mint?' },

@@ -346,5 +346,185 @@ window.MIXES = [
         'Menthol gets louder with more heat, so go easy on the coals at the start.'
       ]
     }
+  },
+  {
+    id: 'pink-supernova',
+    slug: { bs: 'ruzicasta-supernova', en: 'pink-supernova' },
+    name: { bs: 'Ružičasta supernova', en: 'Pink Supernova' },
+    parts: [{ flavor: 'musthave-pinkman', pct: 80 }, { flavor: 'darkside-supernova', pct: 20 }],
+    layout: 'mixed',
+    strength: 'strong',
+    tags: ['vocni', 'bobicasti', 'ledeni'],
+    featured: false,
+    description: {
+      bs: [
+        'Slatko-kiseli roze grejpfrut i bobice iz Pinkmana, a preko njih mala doza Supernove koja sve zaledi.',
+        'Supernova je samo petina posude: dovoljno da izdah postane leden, a da voće ostane glavno.'
+      ],
+      en: [
+        'Sweet and tart pink grapefruit and berries from Pinkman, with a small dose of Supernova that freezes it all.',
+        'Supernova is only a fifth of the bowl: enough to turn the exhale icy while the fruit stays in charge.'
+      ]
+    },
+    tips: {
+      bs: [
+        'Dobro izmiješaj okuse, da se Supernova rasporedi ravnomjerno i ne dođe u jednom naletu.',
+        'Oba okusa su na tamnom listu, pa je miks jak: kreni sa manje toplote i dodaj po potrebi.'
+      ],
+      en: [
+        'Mix the two well so the Supernova spreads evenly instead of hitting all at once.',
+        'Both flavors sit on dark leaf, so this mix is strong: start with less heat and add more if needed.'
+      ]
+    }
+  },
+  {
+    id: 'gummy-glacier',
+    slug: { bs: 'ledeni-medo', en: 'gummy-glacier' },
+    name: { bs: 'Ledeni medo', en: 'Gummy Glacier' },
+    parts: [{ flavor: 'fumari-white-gummi-bear', pct: 70 }, { flavor: 'tangiers-cane-mint', pct: 30 }],
+    layout: 'sectors',
+    strength: 'medium',
+    tags: ['bombon', 'slatki', 'ledeni'],
+    featured: false,
+    description: {
+      bs: [
+        'Slatki gumeni bomboni sa ananasom i citrusom, a uz njih hladan pepermint iz Cane Minta.',
+        'Bomboni su na udahu, a pepermint stiže na izdahu, kao kad pojedeš bombon pa popiješ ledenu vodu.'
+      ],
+      en: [
+        'Sweet gummy candy with pineapple and citrus, joined by cold peppermint from Cane Mint.',
+        'The candy comes through on the inhale and the peppermint on the exhale, like eating a sweet and then sipping ice water.'
+      ]
+    },
+    tips: {
+      bs: [
+        'Stavi okuse u sektore: veći za White Gummi Bear, manji za Cane Mint.',
+        'Cane Mint je na tamnom listu i jak je, pa ga ne povećavaj preko trećine posude.'
+      ],
+      en: [
+        'Pack them in sectors: a larger one for White Gummi Bear and a smaller one for Cane Mint.',
+        'Cane Mint is strong dark leaf, so keep it under a third of the bowl.'
+      ]
+    }
+  },
+  {
+    id: 'raspberry-blush',
+    slug: { bs: 'malinovo-rumenilo', en: 'raspberry-blush' },
+    name: { bs: 'Malinovo rumenilo', en: 'Raspberry Blush' },
+    parts: [{ flavor: 'musthave-pinkman', pct: 60 }, { flavor: 'adalya-raspberry', pct: 40 }],
+    layout: 'mixed',
+    strength: 'medium',
+    tags: ['vocni', 'bobicasti', 'slatki'],
+    featured: false,
+    description: {
+      bs: [
+        'Pinkmanov roze grejpfrut i jagoda, pojačani slatkom malinom iz Adalya Raspberryja.',
+        'Malina je zajednička nota oba okusa, pa se spajaju glatko, a grejpfrut drži miks svježim.'
+      ],
+      en: [
+        'Pinkman’s pink grapefruit and strawberry, boosted with sweet raspberry from Adalya Raspberry.',
+        'Raspberry is the note both flavors share, so they blend smoothly while the grapefruit keeps it fresh.'
+      ]
+    },
+    tips: {
+      bs: [
+        'Izmiješaj okuse prije punjenja, da malina i grejpfrut budu u svakom dimu.',
+        'Ako želiš malo hlađenja, dodaj prstohvat mente ili Supernove.'
+      ],
+      en: [
+        'Mix the flavors before you pack, so raspberry and grapefruit show up in every pull.',
+        'If you want a bit of chill, add a pinch of mint or Supernova.'
+      ]
+    }
+  },
+  {
+    id: 'old-bazaar',
+    slug: { bs: 'stari-bazar', en: 'old-bazaar' },
+    name: { bs: 'Stari bazar', en: 'Old Bazaar' },
+    parts: [{ flavor: 'al-fakher-double-apple', pct: 70 }, { flavor: 'adalya-mint', pct: 30 }],
+    layout: 'mixed',
+    strength: 'light',
+    tags: ['klasicni', 'vocni', 'mint'],
+    featured: false,
+    description: {
+      bs: [
+        'Klasična dvostruka jabuka sa anisom, osvježena čistom mentom.',
+        'Spoj koji podsjeća na stare čajdžinice: topla, blago začinska jabuka i lagan, svjež izdah.'
+      ],
+      en: [
+        'Classic double apple with anise, freshened up with clean mint.',
+        'A pairing that recalls old tea houses: warm, gently spiced apple and a light, fresh exhale.'
+      ]
+    },
+    tips: {
+      bs: [
+        'Dobro izmiješaj okuse, pa rastresito napuni posudu.',
+        'Ako želiš više mente, idi do pola-pola, ali ne preko toga, da anis ne nestane.'
+      ],
+      en: [
+        'Mix the flavors well, then pack the bowl loosely.',
+        'If you want more mint, go up to half and half, but not past that, or the anise disappears.'
+      ]
+    }
+  },
+  {
+    id: 'blue-shake',
+    slug: { bs: 'plavi-sejk', en: 'blue-shake' },
+    name: { bs: 'Plavi šejk', en: 'Blue Shake' },
+    parts: [{ flavor: 'trifecta-peppermint-shake', pct: 50 }, { flavor: 'starbuzz-blue-mist', pct: 50 }],
+    layout: 'mixed',
+    strength: 'light',
+    tags: ['desertni', 'slatki', 'bobicasti'],
+    featured: false,
+    description: {
+      bs: [
+        'Kremast vanila šejk sa pepermintom, pomiješan sa slatkom borovnicom iz Blue Mista.',
+        'Rezultat liči na borovnica milkshake sa daškom mente: sladak, mekan i lagano hladan.'
+      ],
+      en: [
+        'A creamy vanilla and peppermint shake mixed with sweet blueberry from Blue Mist.',
+        'It ends up tasting like a blueberry milkshake with a hint of mint: sweet, soft and lightly cool.'
+      ]
+    },
+    tips: {
+      bs: [
+        'Izmiješaj okuse pola-pola, da vanila i borovnica budu u ravnoteži.',
+        'Desertni okusi lako zagore, pa drži umjerenu toplotu.'
+      ],
+      en: [
+        'Mix them half and half so the vanilla and blueberry stay balanced.',
+        'Dessert flavors scorch easily, so keep the heat moderate.'
+      ]
+    }
+  },
+  {
+    id: 'garden-margarita',
+    slug: { bs: 'vrtna-margarita', en: 'garden-margarita' },
+    name: { bs: 'Vrtna margarita', en: 'Garden Margarita' },
+    parts: [{ flavor: 'haze-cucumberita', pct: 70 }, { flavor: 'adalya-mint', pct: 30 }],
+    layout: 'mixed',
+    strength: 'light',
+    tags: ['osvjezavajuci', 'ljetni', 'mint'],
+    featured: false,
+    description: {
+      bs: [
+        'Krastavac i limeta iz Cucumberite, sa svježom mentom kao u ljetnom koktelu.',
+        'Zelen, lagan i nimalo težak miks za vruće popodne.'
+      ],
+      en: [
+        'Cucumber and lime from Cucumberita with fresh mint, like a summer cocktail.',
+        'A green, light and easygoing mix for a hot afternoon.'
+      ]
+    },
+    tips: {
+      bs: [
+        'Izmiješaj okuse i napuni posudu rastresito, da krastavac ostane nježan.',
+        'Za još više svježine dodaj malo Supernove umjesto dijela mente.'
+      ],
+      en: [
+        'Mix the flavors and pack loosely so the cucumber stays delicate.',
+        'For even more freshness, swap part of the mint for a little Supernova.'
+      ]
+    }
   }
 ];

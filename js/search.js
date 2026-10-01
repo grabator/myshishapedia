@@ -16,8 +16,8 @@
   var esc = V.esc;
   var FX = MSP.Effects;
 
-  var GROUP_ORDER = ['flavor', 'collection', 'recipe', 'term', 'guide', 'gear', 'compare', 'page'];
-  var GROUP_BONUS = { flavor: 3, collection: 2, recipe: 2, page: 1 };
+  var GROUP_ORDER = ['flavor', 'brand', 'collection', 'recipe', 'term', 'guide', 'gear', 'compare', 'page'];
+  var GROUP_BONUS = { flavor: 3, brand: 3, collection: 2, recipe: 2, page: 1 };
   var MAX_PER_GROUP = 6;
 
   /* ------------------------------------------------------------------ */
@@ -153,6 +153,7 @@
 
   var GROUP_ICON = {
     flavor: '<circle cx="12" cy="12" r="7"/><path d="M12 5c1.5-2 3.5-2.5 5-2"/>',
+    brand: '<path d="M4 9 12 4l8 5v10H4z"/><path d="M9 19v-6h6v6"/>',
     collection: '<rect x="4" y="4" width="7" height="7" rx="2"/><rect x="13" y="4" width="7" height="7" rx="2"/><rect x="4" y="13" width="7" height="7" rx="2"/><rect x="13" y="13" width="7" height="7" rx="2"/>',
     recipe: '<circle cx="12" cy="12" r="8"/><path d="M12 4v8l6 4"/>',
     term: '<path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z"/><path d="M5 17a3 3 0 0 1 3-3h11"/>',

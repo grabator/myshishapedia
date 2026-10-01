@@ -121,7 +121,7 @@ privatnost i uslovi).
 /js/strings.js          SVI tekstovi interfejsa, bs i en
 /js/views.js            HTML svih stranica (koristi ga i build i browser)
 /js/views-more.js       HTML: kolekcije, poređenje, recepti, okus dana
-/js/views-extra.js      HTML: svi okusi, privatnost, uslovi, forme, stranica pretrage
+/js/views-extra.js      HTML: svi okusi, brendovi, privatnost, uslovi, forme, stranica pretrage
 /js/illustrations.js    SVG ilustracije sastojaka, nargila, ugalj, boje i kontrast
 /js/effects.js          dim (canvas), "Povuci dim", prelazi, parallax, animacije
 /js/pages.js            ponašanje podstranica
@@ -129,7 +129,7 @@ privatnost i uslovi).
 /js/search.js           globalna pretraga (Ctrl+K)
 /js/forms.js            forme (predloži okus, prijavi grešku)
 /js/share.js            kartica za dijeljenje (canvas)
-/data/*.js              okusi, rječnik, vodič, oprema, kviz, O nama, kolekcije, recepti, pravni tekstovi
+/data/*.js              brendovi, okusi, rječnik, vodič, oprema, kviz, O nama, kolekcije, recepti, pravni tekstovi
 /dist/                  REZULTAT builda (ne mijenjaj ručno, ne ide na GitHub)
 ```
 
@@ -140,6 +140,7 @@ privatnost i uslovi).
 | `/bs/` | `/en/` |
 | `/bs/okusi/` (svi okusi) | `/en/flavors/` |
 | `/bs/okus/adalya-dubai/` | `/en/flavor/adalya-dubai/` |
+| `/bs/brendovi/` i `/bs/brendovi/darkside/` | `/en/brands/` i `/en/brands/darkside/` |
 | `/bs/kolekcije/` i `/bs/kolekcije/ledeni-okusi/` | `/en/collections/` i `/en/collections/icy-flavors/` |
 | `/bs/poredjenje/` i `/bs/poredjenje/<a>-vs-<b>/` | `/en/compare/` i `/en/compare/<a>-vs-<b>/` |
 | `/bs/recepti/` i `/bs/recepti/ledena-laguna/` | `/en/mixes/` i `/en/mixes/frozen-lagoon/` |
@@ -161,7 +162,8 @@ privatnost i uslovi).
   - mikser: `/en/mixer/?a=adalya-dubai&b=adalya-love-66&r=60`;
   - poređenje: `/en/compare/?a=...&b=...`;
   - vodič: `/bs/vodic/?korak=3` (engleski `?step=3`);
-  - svi okusi: `/en/flavors/?q=mint&tag=vocni&col=icy&sort=cooling`.
+  - svi okusi: `/en/flavors/?q=mint&tag=vocni&col=icy&brand=darkside&leaf=dark&sort=cooling`;
+  - brendovi: `/en/brands/?leaf=dark`.
 - Stari linkovi sa `#` (npr. `/#/okus/adalya-dubai`) automatski se preusmjere na nove adrese.
 
 ---
@@ -231,7 +233,8 @@ početnoj i za "Prethodni / Sljedeći okus". Sve što se čita na stranici ima v
 ```js
 {
   id: 'adalya-hawaii',                 // jedinstven; isti u obje adrese: /bs/okus/<id>/ i /en/flavor/<id>/
-  brand: 'Adalya',
+  brand: 'adalya',                     // SLUG brenda iz data/brands.js (ne ime); ime se prikaže samo
+  leaf: 'light',                       // vrsta lista: 'light' (svijetli) ili 'dark' (tamni)
   name: 'Hawaii',
   shortDescription: {                  // jedna rečenica; koristi se i kao meta opis (do 155 znakova)
     bs: 'Ananas i mango sa laganom mentom.',
@@ -250,7 +253,9 @@ početnoj i za "Prethodni / Sljedeći okus". Sve što se čita na stranici ima v
   profile: { sweetness: 7, freshness: 7, fruitiness: 9, cooling: 4, strength: 6 },   // 0-10
   tags: ['vocni', 'tropski', 'mint'],  // ključevi; nazivi na oba jezika su u js/strings.js → tags
   tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
-  mood: 'honey',                       // opcionalno: 'night', 'honey', 'frost' ili 'ice' (atmosfera stranice)
+  mood: 'honey',                       // opcionalno: 'night', 'honey', 'frost', 'ice', 'soda', 'mist' ili 'supernova'
+  mixRole: 'cooler',                   // opcionalno: okus koji je skoro samo hlađenje (npr. Supernova);
+                                       // mikser i linkovi ga tada sami stave na 20% miksa
   palette: {                           // boje stranice okusa
     primary: '#f5c542', secondary: '#ffb020', accent: '#3fc08a',
     background: '#ffd66b', text: '#2a1a00',
@@ -273,11 +278,50 @@ Napomene:
 - **Kontrast je automatski.** Ako `palette.text` nema dovoljan kontrast (4.5:1), sam se potamni ili posvijetli.
 - **Novi tag:** dodaj ključ u `tags` okusa i naziv na oba jezika u `js/strings.js` (`tags` pod `bs` i pod `en`).
 - **Kviz** ne zna ništa o pojedinačnim okusima: uspoređuje odgovore sa `profile` i `tags`, pa novi okus
-  automatski ulazi u rezultate. Provjera u konzoli: `MSP.Pages.quiz.score(['puno','slatko','voce','srednji','ljeto'])`.
+  automatski ulazi u rezultate. Provjera u konzoli: `MSP.Pages.quiz.score(['pocetnik','puno','slatko','voce','srednji','ljeto'])`.
+  Prvo pitanje je iskustvo: odgovor "Tek počinjem" ima `onlyLeaf: 'light'`, pa početnik nikad ne dobije tamni list.
+- **Vrsta lista (`leaf`):** na stranici okusa se prikaže oznaka sa objašnjenjem i linkom na rječnik, a na
+  karticama mala oznaka. Kolekcija "Za početnike" ima u pravilu `leaf: 'light'`, pa tamni list tu nikad ne ulazi.
 - **Provjera podataka:** nepostojeća ilustracija, pogrešan id u `similar` ili dupli id daju upozorenje u
   konzoli browsera koje počinje sa `[flavors]`.
 - **Nova ilustracija sastojka:** u `js/illustrations.js`, objekat `ILLUSTRATIONS`: funkcija koja prima boju i
   vraća SVG na platnu 200x200. Za gradijente uvijek `uid('...')`; sitne oblike crtaj kao jedan `<path>`.
+
+---
+
+## Kako dodati brend
+
+Brendovi su u `data/brands.js`. Svaki brend dobije svoju stranicu (`/bs/brendovi/<slug>/` i
+`/en/brands/<slug>/`), karticu na pregledu brendova, opciju u filteru na stranici svih okusa i rezultat u pretrazi.
+
+```js
+{
+  slug: 'al-fakher',                   // dio adrese, isti na oba jezika; okusi se vežu preko njega
+  name: 'Al Fakher',                   // ime kako se piše (prikazuje se kao tipografija, bez logotipa)
+  country: { bs: 'Ujedinjeni Arapski Emirati', en: 'United Arab Emirates' },
+  leaf: 'light',                       // tipičan list: 'light', 'dark' ili 'both'
+  short: { bs: 'Jedna rečenica.', en: 'One sentence.' },
+  about: { bs: ['2-3 rečenice o brendu.'], en: ['2-3 sentences about the brand.'] },
+  palette: { primary: '#c8323c', secondary: '#8cc63f', accent: '#e0a43a', background: '#2b130f', text: '#fff3e2' }
+}
+```
+
+Pravila:
+
+- **Opisi svojim riječima i bez izmišljenih činjenica** (godine osnivanja, brojke, "najveći" i slično).
+- **Boje su izmišljene**, ne boje pakovanja. Na stranici brenda glavne boje se ionako uzmu iz njegovih okusa.
+- **Svaki brend mora imati bar jedan okus**, inače build javi grešku. Prvo dodaj brend, pa okus sa `brand: '<slug>'`.
+- Napomena da stranica nije povezana sa brendom ispisuje se automatski na stranici brenda.
+
+### Okus novog brenda, korak po korak
+
+1. Dodaj brend u `data/brands.js` (gore).
+2. Dodaj okus u `data/flavors.js` sa `brand: '<slug brenda>'` i `leaf`. Id neka počinje slugom brenda,
+   npr. `al-fakher-grape`.
+3. Ako sastojak nema ilustraciju, nacrtaj je u `js/illustrations.js` (vidi gore).
+4. Dodaj id u `similar` sličnih okusa (i obrnuto); svaki takav par dobije i stranicu poređenja.
+5. `node build.mjs`: build provjeri da brend postoji, da svaki brend ima okus i da tamni list nije "Za početnike".
+6. U ovom uputstvu, pod "Šta treba provjeriti", dodaj sastav okusa kao "provjeriti".
 
 ---
 
@@ -478,7 +522,21 @@ Boje dima se računaju iz palete okusa (`computeTheme` u `js/views.js`, polje `s
 
 Profil = slatkoća / svježina / voćnost / menta-hlađenje / jačina.
 
-Novi okusi (sve PROVJERITI):
+Okusi drugih brendova (dodani u fazi 7, sve PROVJERITI):
+
+- [ ] **Al Fakher Double Apple: sastav (PROVJERITI).** Uneseno: crvena jabuka 8, zelena jabuka 6, anis 6. Svijetli list. Profil 6 / 4 / 7 / 0 / 6.
+- [ ] **Starbuzz Blue Mist: sastav (PROVJERITI).** Uneseno: borovnica 8, hlađenje 5. Svijetli list. Profil 8 / 7 / 7 / 5 / 5.
+  Ručno je u "Ledenim okusima" (`include` u `data/collections.js`), iako je hlađenje blago.
+- [ ] **Tangiers Cane Mint: sastav (PROVJERITI).** Uneseno: pepermint 10. Tamni list. Profil 3 / 10 / 0 / 9 / 9.
+- [ ] **Fumari White Gummi Bear: sastav (PROVJERITI).** Uneseno: gumeni bombon 8, ananas 7, limun 6, narandža 5. Svijetli list. Profil 9 / 6 / 8 / 0 / 4.
+- [ ] **Darkside Supernova: sastav (PROVJERITI).** Uneseno: ledeni mentol 10, menta 4. Tamni list. Profil 1 / 10 / 0 / 10 / 8.
+- [ ] **MustHave Pinkman: sastav (PROVJERITI).** Uneseno: roze grejpfrut 8, malina 7, jagoda 6. Tamni list. Profil 7 / 7 / 9 / 0 / 7.
+- [ ] **Sebero Arctic Mix Jelly Fruit: sastav (PROVJERITI).** Uneseno: hlađenje 7, grejpfrut 6, žvakaća guma 6, jagoda 6, narandža 5. Tamni list. Profil 8 / 8 / 8 / 7 / 7.
+- [ ] **Haze Cucumberita: sastav (PROVJERITI).** Uneseno: krastavac 8, limeta 6. Svijetli list. Profil 3 / 10 / 5 / 2 / 4.
+- [ ] **Trifecta Peppermint Shake: sastav (PROVJERITI).** Uneseno: vanila 7, mliječni šejk 7, pepermint bombon 6. Svijetli list. Profil 8 / 7 / 0 / 6 / 5.
+- [ ] Opisi brendova u `data/brands.js` (zemlja, tipičan list, 2-3 rečenice) i da li je vrsta lista tačna za svaki okus.
+
+Adalya, dodani u fazi 6 (sve PROVJERITI):
 
 - [ ] **Adalya Mint: sastav (PROVJERITI).** Uneseno: menta 9. Profil 2 / 10 / 0 / 8 / 6.
 - [ ] **Adalya Blue Ice: sastav (PROVJERITI).** Uneseno: borovnica 8, mentol 9. Profil 6 / 9 / 7 / 9 / 7.
@@ -502,7 +560,7 @@ Ranije dodani:
 
 ### Recepti miksova (PRIJEDLOZI: Graba treba isprobati i potvrditi)
 
-Svih 11 recepata su prijedlozi napravljeni na osnovu sastojaka i profila. Treba ih isprobati, pa
+Svih 17 recepata su prijedlozi napravljeni na osnovu sastojaka i profila. Treba ih isprobati, pa
 potvrditi ili promijeniti omjer, opis, savjete i jačinu u `data/mixes.js`:
 
 - [ ] Ledena laguna / Frozen Lagoon: Dubai 70% + Ice Bonbon 30% (srednji, sektori)
@@ -517,11 +575,22 @@ potvrditi ili promijeniti omjer, opis, savjete i jačinu u `data/mixes.js`:
 - [ ] **Novo:** Voćna limunada / Fruit Lemonade: Tynky Wynky 60% + Double Melon 40% (lagan, izmiješano)
 - [ ] **Novo:** Višnjin led / Cherry Frost: Cherry Mint 70% + Blue Ice 30% (srednji, sektori)
 
+Između brendova (faza 7, PRIJEDLOG, provjeriti):
+
+- [ ] Ružičasta supernova / Pink Supernova: Pinkman 80% + Supernova 20% (jak, izmiješano)
+- [ ] Ledeni medo / Gummy Glacier: White Gummi Bear 70% + Cane Mint 30% (srednji, sektori)
+- [ ] Malinovo rumenilo / Raspberry Blush: Pinkman 60% + Raspberry 40% (srednji, izmiješano)
+- [ ] Stari bazar / Old Bazaar: Double Apple 70% + Mint 30% (lagan, izmiješano)
+- [ ] Plavi šejk / Blue Shake: Peppermint Shake 50% + Blue Mist 50% (lagan, izmiješano)
+- [ ] Vrtna margarita / Garden Margarita: Cucumberita 70% + Mint 30% (lagan, izmiješano)
+
+Supernova je u receptima uvijek 20% (najmanji udio koji mikser dozvoljava); u tekstu piše 10 do 20 posto.
+
 ### Kolekcije
 
 - [ ] Da li raspodjela okusa po kolekcijama odgovara tvom iskustvu. Primjeri:
   - Lady Killer je i u ledenim i u tropskim;
-  - "Za početnike" sada ima 8 okusa;
+  - "Za početnike" ima samo okuse na svijetlom listu (pravilo `leaf: 'light'`);
   - Mint je u ledenim zbog hlađenja 8.
 
   Ako treba, koristi `include` / `exclude` u `data/collections.js`.

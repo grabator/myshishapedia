@@ -34,6 +34,9 @@
     return items.slice(0, -1).join(t('flavor.listJoin')) + t('flavor.listLast') + items[items.length - 1];
   }
 
+  /** Broj slova najduže riječi (da naslov stane u kolonu). */
+  function longestWord(s) { return String(s).split(/\s+/).reduce(function (m, w) { return Math.max(m, w.length); }, 1); }
+
   function topIng(f) { return V.byIntensity(f)[0] || { illustration: 'fallback', color: '#ccc' }; }
 
   var uidN = 0;
@@ -54,6 +57,7 @@
     if (r.max) for (k in r.max) if ((p[k] || 0) > r.max[k]) return false;
     if (r.anyTags && !r.anyTags.some(function (x) { return tags.indexOf(x) !== -1; })) return false;
     if (r.allTags && !r.allTags.every(function (x) { return tags.indexOf(x) !== -1; })) return false;
+    if (r.leaf && (f.leaf || 'light') !== r.leaf) return false;
     if (r.anyOf && !r.anyOf.some(function (sub) { return ruleMatch(f, sub); })) return false;
     return true;
   }
@@ -495,7 +499,7 @@
           '<div class="container rhero__inner">' +
             '<div class="rhero__copy">' +
               '<p class="eyebrow anim-in" style="--i:0"><span class="eyebrow__dot" aria-hidden="true"></span>' + esc(t('mixes.eyebrow')) + '</p>' +
-              '<h1 class="phero__title rhero__title anim-in" style="--i:1" id="recipe-title" tabindex="-1">' + esc(L(m.name)) + '</h1>' +
+              '<h1 class="phero__title rhero__title anim-in" style="--i:1;--len:' + longestWord(L(m.name)) + '" id="recipe-title" tabindex="-1">' + esc(L(m.name)) + '</h1>' +
               '<p class="rhero__parts anim-in" style="--i:2">' + esc(V.recipePartsText(m)) + '</p>' +
               '<p class="phero__lead anim-in" style="--i:3">' + esc(desc[0] || '') + '</p>' +
               '<ul class="rhero__meta anim-in" style="--i:4" role="list">' +
@@ -765,6 +769,13 @@
     }).join('') + '</ul>';
   }
 
+  /** Za stranicu jednog para: prvo parovi sa istim okusom, pa ostali, najviše max. */
+  function relatedPairs(pair, max) {
+    var all = V.comparePairs().filter(function (p) { return p !== pair; });
+    var near = all.filter(function (p) { return p.a === pair.a || p.b === pair.a || p.a === pair.b || p.b === pair.b; });
+    return near.concat(all.filter(function (p) { return near.indexOf(p) === -1; })).slice(0, max);
+  }
+
   function pageCompare(a, b, crumbs, pair) {
     var parts = V.compareParts(a, b);
     var title = pair ? a.name + ' ' + t('compare.vs') + ' ' + b.name : t('compare.title');
@@ -789,7 +800,7 @@
           '<div class="cverdict" data-reveal><h2 class="cverdict__h">' + esc(t('compare.verdictTitle')) + '</h2><p id="cmp-verdict" aria-live="polite">' + esc(parts.verdict) + '</p></div>' +
           '<div class="cblock"><h2 class="mix__h">' + esc(t('compare.profileTitle')) + '</h2><div id="cmp-bars">' + parts.bars + '</div></div>' +
           '<div class="cblock"><h2 class="mix__h">' + esc(t('compare.ingredientsTitle')) + '</h2><div id="cmp-ings">' + parts.ings + '</div></div>' +
-          '<div class="cblock"><h2 class="mix__h">' + esc(t('compare.popularTitle')) + '</h2>' + pairLinks(V.comparePairs(), pair) + '</div>' +
+          '<div class="cblock cblock--pairs"><h2 class="mix__h">' + esc(t('compare.popularTitle')) + '</h2>' + pairLinks(pair ? relatedPairs(pair, 12) : V.comparePairs(), pair) + '</div>' +
         '</div>' +
       '</section>'
     );

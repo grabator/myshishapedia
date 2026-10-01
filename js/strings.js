@@ -38,6 +38,9 @@
         reportTitle: 'Prijavi grešku | MyShishapedia',
         reportDescription: 'Primijetio/la si grešku u sastavu, opisu ili profilu okusa? Javi nam i biće ispravljena.',
         flavorsTitle: 'Svi okusi za nargilu - pretraga i filteri | MyShishapedia',
+        brandsTitle: 'Brendovi duhana za nargilu: Adalya, Al Fakher, Tangiers i drugi | MyShishapedia',
+        brandsDescription: 'Svi brendovi u enciklopediji: zemlja porijekla, vrsta lista i okusi. Od turske Adalye do ruskog Darksidea.',
+        brandTitle: '{name} okusi za nargilu ({country}) | MyShishapedia',
         flavorsDescription: 'Svi okusi na jednom mjestu: pretraži po nazivu, brendu ili sastojku, filtriraj po tagu i kolekciji i sortiraj po mentoli ili slatkoći.',
         searchTitle: 'Pretraga | MyShishapedia',
         searchDescription: 'Pretraži okuse, kolekcije, recepte, pojmove i vodič na MyShishapediji.',
@@ -47,7 +50,7 @@
         mixTitle: 'Miks {a} × {b} | MyShishapedia',
         mixerDescription: 'Spoji dva okusa za nargilu, podesi omjer i pogledaj kombinovanu paletu, sastojke i profil miksa.',
         quizTitle: 'Kviz: koji okus za nargilu je za tebe? | MyShishapedia',
-        quizDescription: 'Odgovori na pet kratkih pitanja i pronađi okus za nargilu koji najviše odgovara tvom ukusu.',
+        quizDescription: 'Odgovori na šest kratkih pitanja i pronađi okus za nargilu koji najviše odgovara tvom ukusu.',
         guideTitle: 'Kako pripremiti nargilu - vodič za početnike | MyShishapedia',
         guideDescription: 'Korak po korak: voda, sastavljanje, duhan, punjenje posude, folija ili HMD, ugljevi, pušenje i čišćenje nargile.',
         glossaryTitle: 'Rječnik pojmova o nargili | MyShishapedia',
@@ -105,6 +108,7 @@
         legalNav: 'Pravne informacije',
         menuFooter: 'Enciklopedija okusa za nargilu',
         allFlavors: 'Svi okusi',
+        brands: 'Brendovi',
         backToAll: 'Nazad na sve okuse',
         tagline: 'Enciklopedija okusa'
       },
@@ -281,6 +285,7 @@
         keys: '↑↓ za kretanje, Enter za otvaranje, Esc za zatvaranje',
         groups: {
           flavor: 'Okusi',
+          brand: 'Brendovi',
           collection: 'Kolekcije',
           recipe: 'Recepti',
           term: 'Rječnik',
@@ -301,6 +306,10 @@
         searchLabel: 'Pretraži okuse',
         tagsLabel: 'Filtriraj po tagu',
         collectionsLabel: 'Filtriraj po kolekciji',
+        brandsLabel: 'Filtriraj po brendu',
+        brandAll: 'Svi brendovi',
+        leafLabel: 'Filtriraj po vrsti lista',
+        leafAll: 'Svaki list',
         sortLabel: 'Sortiraj',
         sort: { az: 'A-Ž', cooling: 'Najviše mente', sweetness: 'Najslađe', fruitiness: 'Najvoćnije' },
         emptyTitle: 'Nema takvog okusa (još)',
@@ -362,6 +371,34 @@
         comingSoonText: 'Novi okusi stižu uskoro.'
       },
 
+      leaf: {
+        light: 'Svijetli list',
+        dark: 'Tamni list',
+        both: 'Svijetli i tamni list',
+        lightNote: 'Blaži, manje nikotina i lakši za početnike.',
+        darkNote: 'Jači, više nikotina. Za iskusnije pušače, nije za početnike.',
+        more: 'Šta to znači?'
+      },
+
+      brands: {
+        eyebrow: 'Brendovi',
+        title: 'Brendovi',
+        lead: 'Svi brendovi u enciklopediji: odakle dolaze, na kakvom listu rade i koje njihove okuse imamo.',
+        count: { one: '{n} brend', few: '{n} brenda', other: '{n} brendova' },
+        flavorsCount: { one: '{n} okus', few: '{n} okusa', other: '{n} okusa' },
+        filterLabel: 'Filtriraj po vrsti lista',
+        all: 'Svi',
+        empty: 'Nema brendova sa ovom vrstom lista.',
+        country: 'Zemlja',
+        leafLabel: 'Tipičan list',
+        flavorsTitle: 'Okusi',
+        aboutTitle: 'O brendu',
+        disclaimer: 'MyShishapedia nije povezana sa brendom {name}, niti je od njega sponzorisana. Ime brenda koristimo samo da bismo opisali okuse.',
+        otherTitle: 'Ostali brendovi',
+        allBrands: 'Svi brendovi',
+        metaIn: 'Okusi: {list}.'
+      },
+
       flavor: {
         scrollCue: 'Skrolaj',
         ingredientsTitle: 'Od čega je napravljen',
@@ -409,7 +446,10 @@
         bombon: 'Bombon',
         bobicasti: 'Bobičasti',
         medeni: 'Medeni',
-        citrusni: 'Citrusni'
+        citrusni: 'Citrusni',
+        klasicni: 'Klasični',
+        zacinski: 'Začinski',
+        desertni: 'Desertni'
       },
 
       notFound: {
@@ -438,7 +478,7 @@
         mixerTitle: 'Mikser okusa',
         mixerText: 'Spoji dva okusa, podesi omjer i pogledaj kako bi izgledao tvoj miks.',
         quizTitle: 'Koji okus je za tebe?',
-        quizText: 'Pet kratkih pitanja i dobićeš okus koji najviše odgovara tvom ukusu.',
+        quizText: 'Šest kratkih pitanja i dobićeš okus koji najviše odgovara tvom ukusu.',
         guideTitle: 'Vodič za početnike',
         guideText: 'Kako pripremiti nargilu, korak po korak, od vode do prvog dima.',
         cta: 'Otvori'
@@ -540,6 +580,7 @@
         descSweet: 'Miks je prilično sladak.',
         descFresh: 'Završetak je svjež i lagan.',
         descBalance: 'Omjer je uravnotežen, pa se oba okusa osjete podjednako.',
+        descCooler: '{name} je skoro čisto hlađenje, pa ga drži na malom udjelu, oko 10 do 20 posto.',
         descLean: 'Više se osjeti {name}.',
         and: 'i'
       },
@@ -547,7 +588,7 @@
       quiz: {
         eyebrow: 'Kviz',
         title: 'Koji okus je za tebe?',
-        lead: 'Pet kratkih pitanja. Nema pogrešnih odgovora.',
+        lead: 'Šest kratkih pitanja. Nema pogrešnih odgovora.',
         start: 'Počni kviz',
         questionOf: 'Pitanje {n} od {total}',
         back: 'Prethodno pitanje',
@@ -610,6 +651,9 @@
         reportTitle: 'Report an issue | MyShishapedia',
         reportDescription: 'Spotted a mistake in a flavor composition, description or profile? Let us know and it will be fixed.',
         flavorsTitle: 'All hookah flavors - search and filters | MyShishapedia',
+        brandsTitle: 'Hookah tobacco brands: Adalya, Al Fakher, Tangiers and more | MyShishapedia',
+        brandsDescription: 'Every brand in the encyclopedia: country of origin, leaf type and flavors. From Turkish Adalya to Russian Darkside.',
+        brandTitle: '{name} hookah flavors ({country}) | MyShishapedia',
         flavorsDescription: 'Every flavor in one place: search by name, brand or ingredient, filter by tag and collection, and sort by mint or sweetness.',
         searchTitle: 'Search | MyShishapedia',
         searchDescription: 'Search flavors, collections, mixes, glossary terms and the guide on MyShishapedia.',
@@ -619,7 +663,7 @@
         mixTitle: 'Mix {a} × {b} | MyShishapedia',
         mixerDescription: 'Blend two hookah flavors, set the ratio and see the combined colors, ingredients and flavor profile of your mix.',
         quizTitle: 'Quiz: which hookah flavor is right for you? | MyShishapedia',
-        quizDescription: 'Answer five quick questions and find the hookah flavor that fits your taste best.',
+        quizDescription: 'Answer six quick questions and find the hookah flavor that fits your taste best.',
         guideTitle: 'How to set up a hookah - beginner guide | MyShishapedia',
         guideDescription: 'Step by step: water, assembly, prepping the tobacco, packing the bowl, foil or HMD, coals, smoking and cleaning.',
         glossaryTitle: 'Hookah glossary - terms explained | MyShishapedia',
@@ -677,6 +721,7 @@
         legalNav: 'Legal',
         menuFooter: 'The hookah flavor encyclopedia',
         allFlavors: 'All flavors',
+        brands: 'Brands',
         backToAll: 'Back to all flavors',
         tagline: 'Flavor encyclopedia'
       },
@@ -853,6 +898,7 @@
         keys: '↑↓ to move, Enter to open, Esc to close',
         groups: {
           flavor: 'Flavors',
+          brand: 'Brands',
           collection: 'Collections',
           recipe: 'Mixes',
           term: 'Glossary',
@@ -873,6 +919,10 @@
         searchLabel: 'Search flavors',
         tagsLabel: 'Filter by tag',
         collectionsLabel: 'Filter by collection',
+        brandsLabel: 'Filter by brand',
+        brandAll: 'All brands',
+        leafLabel: 'Filter by leaf type',
+        leafAll: 'Any leaf',
         sortLabel: 'Sort by',
         sort: { az: 'A-Z', cooling: 'Most mint', sweetness: 'Sweetest', fruitiness: 'Fruitiest' },
         emptyTitle: 'No such flavor (yet)',
@@ -934,6 +984,34 @@
         comingSoonText: 'New flavors are on the way.'
       },
 
+      leaf: {
+        light: 'Blonde leaf',
+        dark: 'Dark leaf',
+        both: 'Blonde and dark leaf',
+        lightNote: 'Milder, with less nicotine and easier for beginners.',
+        darkNote: 'Stronger, with more nicotine. Made for experienced smokers, not for beginners.',
+        more: 'What does that mean?'
+      },
+
+      brands: {
+        eyebrow: 'Brands',
+        title: 'Brands',
+        lead: 'Every brand in the encyclopedia: where it comes from, what leaf it uses and which of its flavors we cover.',
+        count: { one: '{n} brand', other: '{n} brands' },
+        flavorsCount: { one: '{n} flavor', other: '{n} flavors' },
+        filterLabel: 'Filter by leaf type',
+        all: 'All',
+        empty: 'No brands with this leaf type.',
+        country: 'Country',
+        leafLabel: 'Typical leaf',
+        flavorsTitle: 'Flavors',
+        aboutTitle: 'About the brand',
+        disclaimer: 'MyShishapedia is not affiliated with or sponsored by {name}. We only use the brand name to describe its flavors.',
+        otherTitle: 'Other brands',
+        allBrands: 'All brands',
+        metaIn: 'Flavors: {list}.'
+      },
+
       flavor: {
         scrollCue: 'Scroll',
         ingredientsTitle: 'What it’s made of',
@@ -981,7 +1059,10 @@
         bombon: 'Candy',
         bobicasti: 'Berry',
         medeni: 'Honey',
-        citrusni: 'Citrus'
+        citrusni: 'Citrus',
+        klasicni: 'Classic',
+        zacinski: 'Spiced',
+        desertni: 'Dessert'
       },
 
       notFound: {
@@ -1010,7 +1091,7 @@
         mixerTitle: 'Flavor mixer',
         mixerText: 'Blend two flavors, set the ratio and see what your mix would look like.',
         quizTitle: 'Which flavor is for you?',
-        quizText: 'Five quick questions and you get the flavor that fits your taste best.',
+        quizText: 'Six quick questions and you get the flavor that fits your taste best.',
         guideTitle: 'Beginner guide',
         guideText: 'How to set up a hookah, step by step, from water to the first cloud.',
         cta: 'Open'
@@ -1112,6 +1193,7 @@
         descSweet: 'It leans quite sweet.',
         descFresh: 'The finish is fresh and light.',
         descBalance: 'The ratio is even, so both flavors come through equally.',
+        descCooler: '{name} is almost pure chill, so keep it to a small share, around 10 to 20 percent.',
         descLean: '{name} comes through more.',
         and: 'and'
       },
@@ -1119,7 +1201,7 @@
       quiz: {
         eyebrow: 'Quiz',
         title: 'Which flavor is for you?',
-        lead: 'Five quick questions. There are no wrong answers.',
+        lead: 'Six quick questions. There are no wrong answers.',
         start: 'Start the quiz',
         questionOf: 'Question {n} of {total}',
         back: 'Previous question',

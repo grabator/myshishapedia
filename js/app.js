@@ -374,8 +374,9 @@
     startHookah(hero, th, {
       introDelay: 2.5,
       dropAt: 2450,
-      bowlSmoke: f.mood === 'ice' ? { rate: 9, alpha: 0.3 } : f.mood === 'frost' ? { rate: 7, alpha: 0.26 } : null
+      bowlSmoke: f.mood === 'ice' || f.mood === 'supernova' ? { rate: 9, alpha: 0.3 } : f.mood === 'frost' || f.mood === 'mist' ? { rate: 7, alpha: 0.26 } : null
     });
+    if (f.mood === 'supernova') supernovaSmoke(hero, th);
     cleanup(FX.parallax(hero));
     cleanup(FX.fitText(document.getElementById('flavor-name')));
     cleanup(FX.reveal(els.main, th.smoke));
@@ -385,6 +386,27 @@
       cleanup(FX.tilt(sim));
       cleanup(FX.cardWisps(sim));
     }
+  }
+
+  /**
+   * Supernova: kad CSS eksplozija dostigne vrhunac, iz središta zvijezde krene ledeni dim
+   * (krhotine se "pretvore" u dim). Bez animacija (prefers-reduced-motion) ostaje samo mirna slika.
+   */
+  function supernovaSmoke(hero, th) {
+    var core = hero && hero.querySelector('.sn__core');
+    if (!core || !Field.ready || FX.reducedMotion()) return;
+    var timers = [];
+    function burst(count, speed, alpha) {
+      var r = core.getBoundingClientRect();
+      if (r.bottom < 0 || r.top > window.innerHeight) return;
+      Field.puff(r.left + r.width / 2, r.top + r.height / 2, {
+        count: count, angle: 0, spread: Math.PI, speed: speed, r0: 14, r1: [70, 170],
+        life: [2.6, 4.4], alpha: alpha, colors: th.smoke, turb: 70, buoy: 14, drag: 0.4, force: true
+      });
+    }
+    timers.push(window.setTimeout(function () { burst(30, [120, 260], 0.34); }, 1000));
+    timers.push(window.setTimeout(function () { burst(18, [60, 140], 0.26); }, 1500));
+    cleanup(function () { timers.forEach(clearTimeout); });
   }
 
   /* ------------------------------------------------------------------ */

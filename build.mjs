@@ -31,6 +31,7 @@ const read = (p) => fs.readFileSync(path.join(ROOT, p), 'utf8');
 const SOURCES = [
   'site.config.js',
   'js/strings.js',
+  'data/brands.js',
   'data/flavors.js',
   'data/glossary.js',
   'data/guide.js',
@@ -80,7 +81,7 @@ function hashOf(file) {
   return crypto.createHash('sha1').update(fs.readFileSync(path.join(ROOT, file))).digest('hex').slice(0, 8);
 }
 
-const ASSETS = ['css/style.css', 'js/strings.js', 'data/flavors.js', 'data/glossary.js', 'data/guide.js', 'data/gear.js', 'data/quiz.js',
+const ASSETS = ['css/style.css', 'js/strings.js', 'data/brands.js', 'data/flavors.js', 'data/glossary.js', 'data/guide.js', 'data/gear.js', 'data/quiz.js',
   'data/mixes.js', 'js/illustrations.js', 'js/effects.js', 'js/views.js', 'js/views-more.js', 'js/views-extra.js', 'js/pages.js', 'js/app.js',
   'js/search.js', 'js/forms.js', 'js/share.js', 'favicon.svg'];
 const VERSION = {};
@@ -211,7 +212,7 @@ function head(desc, lang, info) {
   const views = ['js/views.js']
     .concat(VIEWS_MORE_PAGES.includes(desc.page) ? ['js/views-more.js'] : [])
     .concat(VIEWS_EXTRA_PAGES.includes(desc.page) ? ['js/views-extra.js'] : []);
-  const scripts = ['js/strings.js', 'data/flavors.js'].concat(data, ['js/illustrations.js', 'js/effects.js'], views, ['js/pages.js', 'js/app.js'], PAGE_SCRIPTS[desc.page] || []);
+  const scripts = ['js/strings.js', 'data/brands.js', 'data/flavors.js'].concat(data, ['js/illustrations.js', 'js/effects.js'], views, ['js/pages.js', 'js/app.js'], PAGE_SCRIPTS[desc.page] || []);
   const other = LANGS.filter((l) => l !== lang);
 
   return [
@@ -379,6 +380,7 @@ function pageList() {
     list.push({ lang, page: 'mixes', url: V.urlFor(lang, 'mixes') });
     for (const m of V.mixes()) list.push({ lang, page: 'recipe', id: m.id, recipe: m, url: V.urlFor(lang, 'recipe', m.slug[lang]) });
     for (const p of V.EXTRA_PAGES) list.push({ lang, page: p, url: V.urlFor(lang, p) });
+    for (const b of V.brands()) list.push({ lang, page: 'brand', id: b.slug, brand: b, url: V.urlFor(lang, 'brand', b.slug) });
     list.push({ lang, page: 'notfound', url: '/' + lang + '/404.html', year: null });
   }
   return list;
@@ -476,8 +478,12 @@ function writeSearchIndex() {
     });
     for (const f of V.flavors()) {
       add('flavor', f.brand + ' ' + f.name, MSP.L(f.shortDescription), V.flavorUrl(f), V.themeFor(f).bg,
-        [f.id].concat((f.ingredients || []).flatMap((i) => both(i.name)), (f.tags || []).flatMap((x) => [MSP.strings.bs.tags[x], MSP.strings.en.tags[x]]),
+        [f.id, f.brandId].concat((f.ingredients || []).flatMap((i) => both(i.name)), (f.tags || []).flatMap((x) => [MSP.strings.bs.tags[x], MSP.strings.en.tags[x]]),
           V.collectionsOf(f).flatMap((c) => both(c.title))));
+    }
+    for (const b of V.brands()) {
+      add('brand', b.name, MSP.L(b.short), V.brandUrl(b), V.brandTheme(b).bg,
+        [b.slug].concat(both(b.country), V.brandFlavors(b).map((f) => f.name), [MSP.strings.bs.leaf[b.leaf === 'dark' ? 'dark' : 'light'], MSP.strings.en.leaf[b.leaf === 'dark' ? 'dark' : 'light']]));
     }
     for (const c of V.collections()) {
       add('collection', MSP.L(c.title), MSP.L(c.short), V.collectionUrl(c), V.collectionTheme(c).bg, both(c.title).concat(V.collectionMembers(c).map((f) => f.name)));
@@ -499,7 +505,7 @@ function writeSearchIndex() {
     for (const p of V.comparePairs()) {
       add('compare', p.a.name + ' vs ' + p.b.name, V.compareText(p.a, p.b), V.pairUrl(p), '', ['vs', 'compare', 'poredjenje']);
     }
-    const pages = [['flavors', 'allFlavors', 'flavorsDescription'], ['collections', 'collections', 'collectionsDescription'], ['mixes', 'mixes', 'mixesDescription'],
+    const pages = [['flavors', 'allFlavors', 'flavorsDescription'], ['brands', 'brands', 'brandsDescription'], ['collections', 'collections', 'collectionsDescription'], ['mixes', 'mixes', 'mixesDescription'],
       ['compare', 'compare', 'compareDescription'], ['mixer', 'mixer', 'mixerDescription'], ['quiz', 'quiz', 'quizDescription'], ['guide', 'guide', 'guideDescription'],
       ['glossary', 'glossary', 'glossaryDescription'], ['gear', 'gear', 'gearDescription'], ['about', 'about', 'aboutDescription'],
       ['suggest', 'suggest', 'suggestDescription'], ['privacy', 'privacy', 'privacyDescription'], ['terms', 'terms', 'termsDescription']];
@@ -596,13 +602,30 @@ function writeCloudflareFiles() {
     '/recepti/*  /bs/recepti/:splat  301',
     '/mixes/*  /en/mixes/:splat  301',
     '/kolekcije/*  /bs/kolekcije/:splat  301',
-    '/collections/*  /en/collections/:splat  301'
+    '/collections/*  /en/collections/:splat  301',
+    '/brendovi/*  /bs/brendovi/:splat  301',
+    '/brands/*  /en/brands/:splat  301'
   ];
   writeFile('_redirects', r.join('\n') + '\n');
 }
 
-/** Provjera novih podataka: kolekcije nisu prazne, recepti imaju ispravne okuse i omjer. */
+/**
+ * Provjera podataka: svaki okus ima postojeći brend i vrstu lista, svaki brend ima bar jedan okus,
+ * kolekcije nisu prazne (a "Za početnike" nema tamni list), recepti imaju ispravne okuse i omjer.
+ */
 function checkData() {
+  for (const fl of V.flavors()) {
+    if (!V.brandOf(fl)) errors.push(`okus ${fl.id}: nepoznat brend ${fl.brandId}`);
+    if (!['light', 'dark'].includes(fl.leaf)) errors.push(`okus ${fl.id}: leaf mora biti 'light' ili 'dark'`);
+    for (const id of fl.similar || []) if (!V.flavorById(id)) errors.push(`okus ${fl.id}: nepostojeći sličan okus ${id}`);
+  }
+  for (const b of V.brands()) {
+    if (!V.brandFlavors(b).length) errors.push(`brend ${b.slug}: nema nijednog okusa`);
+    if (!['light', 'dark', 'both'].includes(b.leaf)) errors.push(`brend ${b.slug}: leaf mora biti light, dark ili both`);
+    for (const l of LANGS) if (!MSP.L(b.country, l) || !MSP.L(b.short, l) || !(MSP.L(b.about, l) || []).length) errors.push(`brend ${b.slug}: fali tekst (${l})`);
+  }
+  const beginners = V.collections().filter((c) => c.id === 'beginners')[0];
+  if (beginners) for (const fl of V.collectionMembers(beginners)) if (fl.leaf === 'dark') errors.push(`kolekcija beginners: tamni list ${fl.id} ne smije biti za početnike`);
   for (const col of V.collections()) {
     if (!V.collectionMembers(col).length) errors.push(`kolekcija ${col.id}: nema nijednog okusa`);
     for (const l of LANGS) {

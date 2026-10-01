@@ -204,6 +204,12 @@
             '<span class="search__icon" aria-hidden="true">' + icon('search') + '</span>' +
             '<input class="search__input" id="fl-q" name="q" type="search" autocomplete="off" spellcheck="false" placeholder="' + esc(t('home.searchPlaceholder')) + '">' +
           '</form>' +
+          '<div class="fl-sort"><label class="fl-sort__label" for="fl-brand">' + esc(t('flavorsPage.brandsLabel')) + '</label>' +
+            '<select id="fl-brand" name="brand"><option value="">' + esc(t('flavorsPage.brandAll')) + '</option>' +
+              V.brands().filter(function (b) { return V.brandFlavors(b).length; }).map(function (b) {
+                return '<option value="' + esc(b.slug) + '">' + esc(b.name) + '</option>';
+              }).join('') +
+            '</select></div>' +
           '<div class="fl-sort"><label class="fl-sort__label" for="fl-sort">' + esc(t('flavorsPage.sortLabel')) + '</label>' +
             '<select id="fl-sort" name="sort">' + V.SORTS.map(function (s) { return '<option value="' + s + '">' + esc(t('flavorsPage.sort.' + s)) + '</option>'; }).join('') + '</select></div>' +
         '</div>' +
@@ -211,6 +217,10 @@
           V.collections().map(function (c) {
             return '<button type="button" class="chip chip--col" data-col="' + c.id + '" aria-pressed="false">' + V.moodIcon(c.mood) + '<span>' + esc(L(c.title)) + '</span></button>';
           }).join('') +
+        '</div>' +
+        '<div class="filters filters--leaf" role="group" aria-label="' + esc(t('flavorsPage.leafLabel')) + '" id="fl-leaf">' +
+          chip('data-leaf', '', t('flavorsPage.leafAll'), true) +
+          ['light', 'dark'].map(function (x) { return chip('data-leaf', x, t('leaf.' + x), false); }).join('') +
         '</div>' +
         '<div class="filters" role="group" aria-label="' + esc(t('flavorsPage.tagsLabel')) + '" id="fl-tags">' +
           chip('data-tag', '', t('home.filterAll'), true) + tagKeys.map(function (x) { return chip('data-tag', x, MSP.tagLabel(x), false); }).join('') +
@@ -227,6 +237,124 @@
           '<button type="button" class="btn btn--ghost" id="fl-reset">' + esc(t('flavorsPage.reset')) + '</button></p>' +
         '</div>' +
         '<p class="fl-suggest-line">' + esc(t('flavorsPage.suggestLine')) + ' <a href="' + V.url('suggest') + '">' + esc(t('nav.suggest')) + '</a></p>' +
+      '</div></section>'
+    );
+  }
+
+  /* ================================================================== */
+  /* Brendovi                                                            */
+  /* ================================================================== */
+
+  /**
+   * Tema stranice brenda: pozadina i tekst iz palete brenda (data/brands.js),
+   * a glavne boje iz njegovih okusa, pa stranica "liči" na okuse koje nudi.
+   */
+  var brandThemes = {};
+  V.brandTheme = function (b) {
+    if (!brandThemes[b.slug]) {
+      var fl = V.brandFlavors(b);
+      var p = {};
+      Object.keys(b.palette).forEach(function (k) { p[k] = b.palette[k]; });
+      if (fl[0]) {
+        p.primary = fl[0].palette.primary;
+        p.secondary = fl[1] ? fl[1].palette.primary : fl[0].palette.secondary;
+        p.smoke = [MSP.color.lighten(p.primary, 0.5), MSP.color.lighten(p.secondary, 0.5), MSP.color.lighten(b.palette.accent, 0.4)];
+      }
+      brandThemes[b.slug] = V.computeTheme(p, false);
+    }
+    return brandThemes[b.slug];
+  };
+
+  V.brandLeafLabel = function (b) { return t('leaf.' + (b.leaf === 'both' ? 'both' : b.leaf === 'dark' ? 'dark' : 'light')); };
+
+  function leafChipFor(b) {
+    return '<span class="leaf-chip leaf-chip--' + esc(b.leaf) + '"><span class="leaf-chip__dot" aria-hidden="true"></span>' + esc(V.brandLeafLabel(b)) + '</span>';
+  }
+
+  /** Kartica brenda: ime kao tipografija, zemlja, list, broj okusa i boje njegovih okusa. */
+  V.brandCard = function (b, headingTag, i) {
+    var h = headingTag || 'h3';
+    var th = V.brandTheme(b);
+    var fl = V.brandFlavors(b);
+    var MAX_SW = 6;
+    var swatches = fl.slice(0, MAX_SW).map(function (f, k) {
+      var ft = V.themeFor(f);
+      var ing = V.byIntensity(f)[0];
+      return '<span class="bcard__sw" style="--k:' + k + ';--sw:' + ft.bg + ';--sw2:' + f.palette.primary + '">' +
+        (ing ? MSP.illustrate(ing.illustration, { color: ing.color }) : '') + '</span>';
+    }).join('') + (fl.length > MAX_SW ? '<span class="bcard__sw bcard__sw--more" style="--k:' + MAX_SW + '">+' + (fl.length - MAX_SW) + '</span>' : '');
+    return (
+      '<a class="bcard" href="' + V.brandUrl(b) + '" data-veil="' + th.veil + '" data-leaf="' + esc(b.leaf) + '" data-reveal style="--i:' + ((i || 0) % 3) + ';' +
+        '--bc-bg:' + th.bg + ';--bc-text:' + th.text + ';--bc-muted:' + th.muted + ';--bc-accent:' + th.accentInk + ';--bc-glow:' + th.surface2 + ';--bc-primary:' + th.primary + ';--bc-secondary:' + th.secondary + '">' +
+        '<span class="bcard__glow" aria-hidden="true"></span>' +
+        '<span class="bcard__top">' +
+          '<span class="bcard__country">' + icon('globe') + esc(L(b.country)) + '</span>' +
+          leafChipFor(b) +
+        '</span>' +
+        '<' + h + ' class="bcard__name" style="--len:' + b.name.length + '">' + esc(b.name) + '</' + h + '>' +
+        '<span class="bcard__short">' + esc(L(b.short)) + '</span>' +
+        '<span class="bcard__foot">' +
+          '<span class="bcard__sws" aria-hidden="true">' + swatches + '</span>' +
+          '<span class="bcard__count">' + esc(MSP.plural('brands.flavorsCount', fl.length)) + '</span>' +
+        '</span>' +
+        '<span class="card__arrow" aria-hidden="true">' + icon('arrowUpRight') + '</span>' +
+      '</a>'
+    );
+  };
+
+  function brandsWithFlavors() { return V.brands().filter(function (b) { return V.brandFlavors(b).length; }); }
+
+  function pageBrands(crumbs) {
+    var list = brandsWithFlavors();
+    var chip = function (val, label, on) {
+      return '<button type="button" class="chip' + (on ? ' is-active' : '') + '" data-leaf="' + esc(val) + '" aria-pressed="' + on + '">' + esc(label) + '</button>';
+    };
+    return (
+      V.pageHero({ id: 'brands-title', eyebrow: t('brands.eyebrow'), title: t('brands.title'), lead: t('brands.lead'), crumbs: crumbs }) +
+      '<section class="fsec fsec--flush"><div class="container">' +
+        '<div class="filters" role="group" aria-label="' + esc(t('brands.filterLabel')) + '" id="br-leaf">' +
+          chip('', t('brands.all'), true) + chip('light', t('leaf.light'), false) + chip('dark', t('leaf.dark'), false) +
+        '</div>' +
+        '<p class="catalog__count" id="br-count" aria-live="polite">' + esc(MSP.plural('brands.count', list.length)) + '</p>' +
+        '<ul class="bcards" id="br-grid" role="list">' + list.map(function (b, i) { return '<li class="bcards__item">' + V.brandCard(b, 'h2', i) + '</li>'; }).join('') + '</ul>' +
+        '<p class="empty" id="br-empty" hidden>' + esc(t('brands.empty')) + '</p>' +
+        '<p class="fl-suggest-line">' + esc(t('flavorsPage.suggestLine')) + ' <a href="' + V.url('suggest') + '">' + esc(t('nav.suggest')) + '</a></p>' +
+      '</div></section>'
+    );
+  }
+
+  function pageBrand(b, crumbs) {
+    var fl = V.brandFlavors(b);
+    var about = L(b.about) || [];
+    var others = brandsWithFlavors().filter(function (x) { return x !== b; });
+    var wisps = '';
+    for (var i = 0; i < 5; i++) wisps += '<span class="bsmoke__w" style="--k:' + i + '"></span>';
+    return (
+      '<section class="bhero" aria-labelledby="brand-title">' +
+        '<div class="bsmoke" aria-hidden="true">' + wisps + '</div>' +
+        crumbs +
+        '<div class="container bhero__inner">' +
+          '<p class="eyebrow anim-in" style="--i:0"><span class="eyebrow__dot" aria-hidden="true"></span>' + esc(t('brands.eyebrow')) + '</p>' +
+          '<h1 class="bhero__name anim-in" style="--i:1;--len:' + b.name.length + '" id="brand-title" tabindex="-1">' + esc(b.name) + '</h1>' +
+          '<ul class="bhero__meta anim-in" style="--i:2" role="list">' +
+            '<li><span class="bhero__k">' + esc(t('brands.country')) + '</span><span class="bhero__v">' + icon('globe') + esc(L(b.country)) + '</span></li>' +
+            '<li><span class="bhero__k">' + esc(t('brands.leafLabel')) + '</span><span class="bhero__v">' + leafChipFor(b) + '</span></li>' +
+            '<li><span class="bhero__k">' + esc(t('brands.flavorsTitle')) + '</span><span class="bhero__v">' + esc(MSP.plural('brands.flavorsCount', fl.length)) + '</span></li>' +
+          '</ul>' +
+          '<div class="bhero__about">' + about.map(function (p, k) { return '<p class="anim-in" style="--i:' + (k + 3) + '">' + esc(p) + '</p>'; }).join('') + '</div>' +
+        '</div>' +
+      '</section>' +
+      '<section class="fsec fsec--tight" aria-labelledby="brand-flavors"><div class="container">' +
+        '<h2 class="mix__h" id="brand-flavors">' + esc(t('brands.flavorsTitle')) + '</h2>' +
+        '<ul class="grid' + (fl.length < 3 ? ' grid--big' : '') + '" id="brand-grid" role="list">' + fl.map(function (f, k) {
+          return '<li class="grid__item" data-reveal style="--i:' + (k % 3) + '">' + V.card(f, 'h3') + '</li>';
+        }).join('') + '</ul>' +
+        '<p class="mix__note bnote" role="note">' + icon('alert') + '<span>' + esc(t('brands.disclaimer', { name: b.name })) + '</span></p>' +
+      '</div></section>' +
+      '<section class="fsec fsec--alt" aria-labelledby="brand-others"><div class="container">' +
+        '<h2 class="mix__h" id="brand-others">' + esc(t('brands.otherTitle')) + '</h2>' +
+        '<ul class="bcards bcards--small" role="list">' + others.map(function (x, k) { return '<li class="bcards__item">' + V.brandCard(x, 'h3', k) + '</li>'; }).join('') + '</ul>' +
+        '<p><a class="btn btn--ghost" href="' + V.url('brands') + '">' + icon('arrowLeft') + '<span>' + esc(t('brands.allBrands')) + '</span></a></p>' +
       '</div></section>'
     );
   }
@@ -272,7 +400,7 @@
   /* Stranice (poziva ih V.page iz views.js)                             */
   /* ================================================================== */
 
-  V.EXTRA_PAGES = ['privacy', 'terms', 'suggest', 'report', 'flavors', 'search'];
+  V.EXTRA_PAGES = ['privacy', 'terms', 'suggest', 'report', 'flavors', 'search', 'brands'];
   V.NOINDEX_PAGES = ['report', 'search'];
 
   V.pageExtra = function (desc, crumbs, cfg) {
@@ -283,6 +411,15 @@
       case 'report': return { main: pageReport(crumbs, cfg), title: t('meta.reportTitle'), description: t('meta.reportDescription') };
       case 'flavors': return { main: pageFlavors(crumbs), title: t('meta.flavorsTitle'), description: t('meta.flavorsDescription') };
       case 'search': return { main: pageSearch(crumbs), title: t('meta.searchTitle'), description: t('meta.searchDescription') };
+      case 'brands': return { main: pageBrands(crumbs), title: t('meta.brandsTitle'), description: t('meta.brandsDescription') };
+      case 'brand':
+        var b = desc.brand;
+        return {
+          main: pageBrand(b, crumbs),
+          title: t('meta.brandTitle', { name: b.name, country: L(b.country) }),
+          description: V.clip(L(b.short) + ' ' + t('brands.metaIn', { list: V.brandFlavors(b).map(function (f) { return f.name; }).join(', ') })),
+          theme: V.brandTheme(b)
+        };
     }
     return { main: '', title: '', description: '' };
   };
