@@ -190,11 +190,16 @@
     var c = C();
     var bg = p.background;
     var isLight = c.contrast(bg, '#000000') >= c.contrast(bg, '#ffffff');
+    // Tamna shema: svijetli tekst ne može biti svjetliji od bijelog, pa po potrebi malo potamni
+    // pozadinu, da i najsvjetlija površina (surface2) ima kontrast od najmanje 4.6:1 prema bijelom.
+    for (var guard = 0; !isLight && guard < 24 && c.contrast('#ffffff', c.mix(bg, '#ffffff', 0.09)) < 4.6; guard++) {
+      bg = c.darken(bg, 0.04);
+    }
     var surface = isLight ? c.mix(bg, '#ffffff', 0.38) : c.mix(bg, '#ffffff', 0.05);
     var surface2 = isLight ? c.mix(bg, '#ffffff', 0.6) : c.mix(bg, '#ffffff', 0.09);
-    var text = c.ensureContrast(p.text, [bg, surface, surface2], 4.5);
-    var muted = c.ensureContrast(c.mix(text, bg, 0.3), [bg, surface, surface2], 4.5);
-    var accentInk = c.ensureContrast(p.accent, [bg, surface], 4.5);
+    var text = c.ensureContrast(p.text, [bg, surface, surface2], 4.6);
+    var muted = c.ensureContrast(c.mix(text, bg, 0.3), [bg, surface, surface2], 4.6);
+    var accentInk = c.ensureContrast(p.accent, [bg, surface], 4.6);
     var onAccent = c.contrast(p.accent, '#ffffff') >= c.contrast(p.accent, '#16100a') ? '#ffffff' : '#16100a';
     var accentFill = c.ensureContrast(p.accent, onAccent, 4.5);
     var barA = [p.accent, p.primary, p.secondary].sort(function (a, b) {

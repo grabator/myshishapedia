@@ -207,6 +207,11 @@
         note: 'Recepti su prijedlozi. Ukus je lična stvar, pa slobodno prilagodi omjer.'
       },
 
+      hero3d: {
+        label: '3D nargila koju možeš okretati',
+        hint: 'Prevuci da okreneš nargilu. Drži dugme ili nargilu za dim, pa pusti.'
+      },
+
       legal: {
         eyebrow: 'Pravne informacije',
         privacyTitle: 'Politika privatnosti',
@@ -777,6 +782,11 @@
         withFlavorIntro: 'Blends that use this flavor.',
         otherTitle: 'More mixes',
         note: 'These mixes are suggestions. Taste is personal, so feel free to tweak the ratio.'
+      },
+
+      hero3d: {
+        label: '3D hookah you can rotate',
+        hint: 'Drag to spin the hookah. Hold the button or the hookah to pull, then let go.'
       },
 
       legal: {

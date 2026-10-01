@@ -79,7 +79,7 @@
     var stage = scope && scope.querySelector('[data-hookah]');
     if (!stage) return;
     opts = opts || {};
-    cleanup(whenAgeOk(function () {
+    var stopAll = whenAgeOk(function () {
       stage.classList.add('is-started');
       var stop = FX.hookah(stage, {
         button: scope.querySelector('.pull'),
@@ -90,7 +90,9 @@
       });
       var stopDrop = opts.dropAt ? FX.bowlDrop(stage, th.smoke, opts.dropAt) : function () {};
       return function () { stop(); stopDrop(); };
-    }));
+    });
+    cleanup(stopAll);
+    return stopAll;
   }
 
   /** Dim iz uglja u zaglavlju podstranice. */
@@ -237,7 +239,9 @@
     var hero = els.main.querySelector('.hero');
     bindCatalog();
     mountFotd();
-    startHookah(hero, th, { introDelay: 1.7, bowlSmoke: { rate: 8, alpha: 0.26 } });
+    var svgOpts = { introDelay: 1.7, bowlSmoke: { rate: 8, alpha: 0.26 } };
+    var stopSvg = startHookah(hero, th, svgOpts);
+    load3D(hero, th, stopSvg, svgOpts);
     cleanup(FX.parallax(hero));
     var grid = document.getElementById('flavor-grid');
     cleanup(FX.tilt(grid));
@@ -347,6 +351,88 @@
         if (!g.contains(e.target) && g.classList.contains('is-open')) setOpen(g, false);
       });
     });
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* 3D nargila u heru (HERO_MODE: '3d' u site.config.js; eksperiment)   */
+  /* ------------------------------------------------------------------ */
+
+  /**
+   * Učitava js/hero3d.js (i Three.js) tek nakon što je stranica prikazana i browser miruje.
+   * Bez WebGL-a, uz reduced motion ili na slabom uređaju ostaje SVG nargila. Ako 3D kasnije
+   * ne postiže dovoljno FPS-a, sam se ugasi i SVG nargila se vrati.
+   */
+  function load3D(hero, th, stopSvg, svgOpts) {
+    var src = document.body.getAttribute('data-hero3d');
+    if (!src || FX.reducedMotion()) return;
+    var probe = document.createElement('canvas');
+    var gl = null;
+    try { gl = probe.getContext('webgl2') || probe.getContext('webgl'); } catch (e) { gl = null; }
+    if (!gl) return;
+    var ext = gl.getExtension('WEBGL_lose_context');
+    if (ext) ext.loseContext();
+    if ((navigator.deviceMemory && navigator.deviceMemory < 3) || (navigator.hardwareConcurrency && navigator.hardwareConcurrency < 4)) return;
+
+    var hookah = hero.querySelector('.hookah');
+    var wrap = hero.querySelector('.hookah-wrap');
+    if (!hookah || !wrap) return;
+    var ctrl = null;
+    var cancelled = false;
+    cleanup(function () { cancelled = true; if (ctrl) ctrl.dispose(); });
+
+    /** Kratak test brzine procesora (najbolje od 3 mjerenja): na sporom uređaju ostaje SVG. */
+    function fastEnough() {
+      var best = Infinity;
+      for (var k = 0; k < 3; k++) {
+        var t0 = performance.now();
+        var s = 0;
+        for (var i = 0; i < 150000; i++) s += Math.sin(i * 0.001) * Math.sqrt(i);
+        best = Math.min(best, performance.now() - t0);
+        if (s === -1) best = 0; // da optimizator ne izbaci petlju
+      }
+      return best <= 16;
+    }
+
+    function go() {
+      if (cancelled || !fastEnough()) return;
+      import(src).then(function (mod) {
+        if (cancelled) return null;
+        var box = document.createElement('div');
+        box.className = 'hero3d-box';
+        hookah.appendChild(box);
+        var fotd = V.fotdPick ? V.fotdPick(new Date()) : null;
+        return mod.mount(box, {
+          label: t('hero3d.label'),
+          waterColor: fotd ? (fotd.palette.water || fotd.palette.accent) : '#3fc08a',
+          smoke: th.smoke,
+          button: wrap.querySelector('.pull'),
+          meter: wrap.querySelector('.pull__meter'),
+          onFail: function () {
+            // FPS prenizak i nakon smanjenja kvaliteta: nazad na SVG nargilu
+            if (ctrl) ctrl.dispose();
+            ctrl = null;
+            hookah.classList.remove('is-3d');
+            box.remove();
+            startHookah(hero, th, { introDelay: 0.2, bowlSmoke: svgOpts.bowlSmoke });
+          }
+        }).then(function (c) {
+          if (cancelled) { c.dispose(); return; }
+          ctrl = c;
+          stopSvg();
+          hookah.classList.add('is-3d');
+          var hint = wrap.querySelector('.pull__hint');
+          if (hint) hint.textContent = t('hero3d.hint');
+        });
+      }).catch(function () { /* ostaje SVG nargila */ });
+    }
+
+    // tek kad se sve učita i browser odmori
+    function idle() {
+      if ('requestIdleCallback' in window) window.requestIdleCallback(go, { timeout: 2500 });
+      else window.setTimeout(go, 600);
+    }
+    if (document.readyState === 'complete') idle();
+    else window.addEventListener('load', idle, { once: true });
   }
 
   function mountNotFound() {
@@ -620,6 +706,58 @@
 
     bindMail();
     loadAnalytics();
+    bindLazySearch();
+  }
+
+  /* ---------- Globalna pretraga: js/search.js se učita tek kad zatreba ---------- */
+
+  var searchLoading = null;
+  function loadSearch() {
+    if (MSP.Search) return Promise.resolve();
+    if (!searchLoading) {
+      searchLoading = new Promise(function (res) {
+        var src = document.body.getAttribute('data-search');
+        if (!src) { res(); return; }
+        var s = document.createElement('script');
+        s.src = src;
+        s.onload = s.onerror = function () { res(); };
+        document.head.appendChild(s);
+      });
+    }
+    return searchLoading;
+  }
+
+  function openSearchFrom(el) {
+    loadSearch().then(function () { if (MSP.Search) MSP.Search.open(el); });
+  }
+
+  function bindLazySearch() {
+    // prije učitavanja: klik na lupu i prečice učitaju pretragu i odmah je otvore
+    document.addEventListener('click', function (e) {
+      if (MSP.Search) return;
+      var a = e.target.closest('[data-gsearch]');
+      if (!a || e.metaKey || e.ctrlKey || e.shiftKey) return;
+      e.preventDefault();
+      openSearchFrom(a);
+    }, true);
+    document.addEventListener('keydown', function (e) {
+      if (MSP.Search || !isAgeOk()) return;
+      var tag = (e.target && e.target.tagName) || '';
+      var typing = /^(INPUT|TEXTAREA|SELECT)$/.test(tag) || (e.target && e.target.isContentEditable);
+      var ctrlK = (e.ctrlKey || e.metaKey) && !e.altKey && (e.key === 'k' || e.key === 'K');
+      var slash = e.key === '/' && !typing && !e.ctrlKey && !e.metaKey && !e.altKey &&
+        !document.getElementById('search-input') && !document.getElementById('fl-q');
+      if (!ctrlK && !slash) return;
+      e.preventDefault();
+      openSearchFrom(document.activeElement);
+    });
+    // u mirovanju se učita unaprijed, da prvo otvaranje bude trenutno
+    var later = function () {
+      if ('requestIdleCallback' in window) window.requestIdleCallback(loadSearch, { timeout: 5000 });
+      else window.setTimeout(loadSearch, 3000);
+    };
+    if (document.readyState === 'complete') later();
+    else window.addEventListener('load', later, { once: true });
   }
 
   /**

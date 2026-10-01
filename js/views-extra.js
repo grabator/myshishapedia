@@ -19,11 +19,16 @@
   V.formatDate = function (iso) {
     var p = String(iso || '').split('-').map(Number);
     if (p.length !== 3) return iso || '';
+    if (MSP.lang === 'bs') {
+      // genitiv ("1. oktobra 2026."), što Intl na bosanskom ne daje
+      var months = ['januara', 'februara', 'marta', 'aprila', 'maja', 'juna', 'jula', 'augusta', 'septembra', 'oktobra', 'novembra', 'decembra'];
+      return p[2] + '. ' + months[p[1] - 1] + ' ' + p[0] + '.';
+    }
     var d = new Date(Date.UTC(p[0], p[1] - 1, p[2]));
     try {
-      return d.toLocaleDateString(MSP.lang === 'bs' ? 'bs-BA' : 'en-US', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
+      return d.toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
     } catch (e) {
-      return MSP.lang === 'bs' ? p[2] + '. ' + p[1] + '. ' + p[0] + '.' : iso;
+      return iso;
     }
   };
 

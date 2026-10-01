@@ -25,7 +25,7 @@ var SITE_CONFIG = {
   FORM_ENDPOINT: '',
 
   // Nargila u heru početne: 'svg' (postojeća, 2D) ili '3d' (Three.js, eksperiment). Vidi README.
-  HERO_MODE: 'svg',
+  HERO_MODE: '3d',
 
   // Datum zadnje izmjene politike privatnosti i uslova korištenja (GGGG-MM-DD).
   LEGAL_UPDATED: '2026-10-01'

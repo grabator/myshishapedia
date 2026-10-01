@@ -82,7 +82,7 @@ function hashOf(file) {
 
 const ASSETS = ['css/style.css', 'js/strings.js', 'data/flavors.js', 'data/glossary.js', 'data/guide.js', 'data/gear.js', 'data/quiz.js',
   'data/mixes.js', 'js/illustrations.js', 'js/effects.js', 'js/views.js', 'js/views-more.js', 'js/views-extra.js', 'js/pages.js', 'js/app.js',
-  'js/search.js', 'js/forms.js', 'js/share.js', 'favicon.svg'];
+  'js/search.js', 'js/forms.js', 'js/share.js', 'js/hero3d.js', 'favicon.svg'];
 const VERSION = {};
 for (const a of ASSETS) VERSION[a] = hashOf(a);
 const asset = (p) => '/' + p + '?v=' + VERSION[p];
@@ -98,7 +98,11 @@ const PAGE_DATA = {
 };
 
 // Dodatne skripte samo gdje trebaju.
+const VIEWS_MORE_PAGES = ['home', 'compare', 'comparePair', 'mixer', 'recipe'];
+const VIEWS_EXTRA_PAGES = ['flavors', 'quiz'];
+
 const PAGE_SCRIPTS = {
+  search: ['js/search.js'],
   suggest: ['js/forms.js'],
   report: ['js/forms.js'],
   flavor: ['js/share.js'],
@@ -144,12 +148,15 @@ function copyDir(src, dest, filter) {
 /* Dijelovi šablona                                                    */
 /* ------------------------------------------------------------------ */
 
+// Unaprijed se preuzimaju samo osnovni (latin) fontovi; latin-ext (č ć š ž đ) browser preuzme sam
+// čim zatreba (unicode-range u style.css), da fontovi ne otimaju propusni opseg pri učitavanju.
+// Bosanski naslovi često imaju č ć š ž đ, pa bs stranice unaprijed preuzimaju i latin-ext za Syne.
 const FONT_PRELOADS = [
   'https://fonts.gstatic.com/s/syne/v24/8vIH7w4qzmVxm2BL9A.woff2',
-  'https://fonts.gstatic.com/s/syne/v24/8vIH7w4qzmVxm25L9Hz_.woff2',
-  'https://fonts.gstatic.com/s/manrope/v20/xn7gYHE41ni1AdIRggexSg.woff2',
-  'https://fonts.gstatic.com/s/manrope/v20/xn7gYHE41ni1AdIRggmxSuXd.woff2'
+  'https://fonts.gstatic.com/s/manrope/v20/xn7gYHE41ni1AdIRggexSg.woff2'
 ];
+const FONT_PRELOADS_BS = ['https://fonts.gstatic.com/s/syne/v24/8vIH7w4qzmVxm25L9Hz_.woff2'];
+
 
 // Izvršava se u <head> prije iscrtavanja: jezik, provjera godina, loader samo pri
 // prvoj posjeti u sesiji, i "raziđi oblak" ako se stiglo prelazom sa druge stranice.
@@ -199,7 +206,12 @@ function head(desc, lang, info) {
   const d = info.description;
   const ogImage = abs('/og-image.png');
   const data = (PAGE_DATA[desc.page] || []).concat(desc.page === 'term' ? [] : []);
-  const scripts = ['js/strings.js', 'data/flavors.js'].concat(data, ['js/illustrations.js', 'js/effects.js', 'js/views.js', 'js/views-more.js', 'js/views-extra.js', 'js/pages.js', 'js/app.js', 'js/search.js'], PAGE_SCRIPTS[desc.page] || []);
+  // views-more/views-extra samo gdje ih JavaScript stvarno koristi (ostalo je već u HTML-u);
+  // search.js se učitava kasnije (app.js), tek u mirovanju ili na prvo otvaranje pretrage.
+  const views = ['js/views.js']
+    .concat(VIEWS_MORE_PAGES.includes(desc.page) ? ['js/views-more.js'] : [])
+    .concat(VIEWS_EXTRA_PAGES.includes(desc.page) ? ['js/views-extra.js'] : []);
+  const scripts = ['js/strings.js', 'data/flavors.js'].concat(data, ['js/illustrations.js', 'js/effects.js'], views, ['js/pages.js', 'js/app.js'], PAGE_SCRIPTS[desc.page] || []);
   const other = LANGS.filter((l) => l !== lang);
 
   return [
@@ -231,7 +243,7 @@ function head(desc, lang, info) {
     '<link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">',
     '<link rel="manifest" href="/manifest.webmanifest">',
     '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>',
-    FONT_PRELOADS.map((f) => `<link rel="preload" as="font" type="font/woff2" crossorigin href="${f}">`).join(''),
+    FONT_PRELOADS.concat(lang === 'bs' ? FONT_PRELOADS_BS : []).map((f) => `<link rel="preload" as="font" type="font/woff2" crossorigin href="${f}">`).join(''),
     `<link rel="stylesheet" href="${asset('css/style.css')}">`,
     `<script>${HEAD_SCRIPT}</script>`,
     scripts.map((s) => `<script defer src="${asset(s)}"></script>`).join(''),
@@ -252,7 +264,9 @@ function renderPage(desc) {
     `style="${V.themeStyle(info.theme)}"`
   ].filter(Boolean).join(' ');
   const bodyAttrs = `data-page="${desc.page}"` + (desc.id ? ` data-id="${esc(desc.id)}"` : '') +
-    ` data-smoke="${esc(info.theme.smoke.join(','))}"`;
+    ` data-smoke="${esc(info.theme.smoke.join(','))}" data-search="${asset('js/search.js')}"` +
+    // 3D nargila (eksperiment): samo početna i samo kad je HERO_MODE '3d'
+    (desc.page === 'home' && CFG.HERO_MODE === '3d' ? ` data-hero3d="${asset('js/hero3d.js')}"` : '');
 
   const html = `<!doctype html>
 <html ${htmlAttrs}>
@@ -654,7 +668,8 @@ function build() {
   // statični fajlovi
   copyDir('css', 'css');
   copyDir('js', 'js');
-  copyDir('data', 'data', (f) => !f.endsWith('about.js'));
+  copyDir('data', 'data', (f) => !f.endsWith('about.js') && !f.endsWith('legal.js'));
+  if (CFG.HERO_MODE === '3d') copyDir('vendor', 'vendor');
   fs.copyFileSync(path.join(ROOT, 'favicon.svg'), path.join(DIST, 'favicon.svg'));
   if (fs.existsSync(path.join(ROOT, 'static'))) copyDir('static', '.');
 
