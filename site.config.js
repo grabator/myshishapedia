@@ -22,7 +22,7 @@ var SITE_CONFIG = {
 
   // Adresa servisa za forme (npr. https://formspree.io/f/abcdwxyz). Prazno = forme otvaraju
   // email program (mailto) sa već sastavljenom porukom. Vidi docs/UPUTSTVO.md.
-  FORM_ENDPOINT: '',
+  FORM_ENDPOINT: 'https://formspree.io/f/mzezwlrd',
 
 
   // Datum zadnje izmjene politike privatnosti i uslova korištenja (GGGG-MM-DD).
