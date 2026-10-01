@@ -687,7 +687,8 @@ button { cursor: pointer; }
 
 .grid {
   display: grid;
-  grid-template-columns: 1fr;
+  /* minmax(0, 1fr): kolona nikad ne smije biti šira od ekrana */
+  grid-template-columns: minmax(0, 1fr);
   gap: clamp(16px, 2vw, 28px);
   margin: 0;
   padding: 0;
@@ -3146,7 +3147,7 @@ button { cursor: pointer; }
 /* duge mreže okusa i brendova: kartice od trećeg reda naniže se crtaju tek kad im se približi skrol */
 #fl-grid > .grid__item:nth-child(n+7),
 #flavor-grid > .grid__item:nth-child(n+7),
-#br-grid > .bcards__item:nth-child(n+7) { content-visibility: auto; contain-intrinsic-size: auto 460px; }
+#br-grid > .bcards__item:nth-child(n+7) { content-visibility: auto; contain-intrinsic-block-size: auto 460px; }
 .gl-group { content-visibility: auto; contain-intrinsic-size: auto 420px; }
 .mixer__grid,
 .ideas,
