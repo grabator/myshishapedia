@@ -17,11 +17,11 @@ var SITE_CONFIG = {
   AUTHOR_EMAIL: 'grabafaceit@gmail.com',
 
   // Cloudflare Web Analytics token (Cloudflare → Analytics & Logs → Web Analytics → site → "JS snippet",
-  // vrijednost "token"). Prazno = na stranicama nema nikakve analitike. Vidi README.
+  // vrijednost "token"). Prazno = na stranicama nema nikakve analitike. Vidi docs/UPUTSTVO.md.
   ANALYTICS_TOKEN: '',
 
   // Adresa servisa za forme (npr. https://formspree.io/f/abcdwxyz). Prazno = forme otvaraju
-  // email program (mailto) sa već sastavljenom porukom. Vidi README.
+  // email program (mailto) sa već sastavljenom porukom. Vidi docs/UPUTSTVO.md.
   FORM_ENDPOINT: '',
 
 

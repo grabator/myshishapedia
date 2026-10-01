@@ -7,7 +7,7 @@
  *
  * Nova ilustracija: dodaj funkciju u ILLUSTRATIONS (ključ = vrijednost
  * `illustration` u data/flavors.js). Funkcija prima (color, opts) i vraća
- * unutrašnjost <svg> elementa (bez samog <svg> taga). Vidi README.md.
+ * unutrašnjost <svg> elementa (bez samog <svg> taga). Vidi docs/UPUTSTVO.md.
  */
 (function () {
   'use strict';

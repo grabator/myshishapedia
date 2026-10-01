@@ -2,7 +2,7 @@
  * MyShishapedia - politika privatnosti i uslovi korištenja (oba jezika).
  *
  * VAŽNO: ovo nije pravni savjet. Tekst opisuje šta stranica stvarno radi, ali ga
- * Graba treba pročitati i po potrebi prilagoditi (vidi README.md).
+ * Graba treba pročitati i po potrebi prilagoditi (vidi docs/UPUTSTVO.md).
  * Datum zadnje izmjene je u site.config.js (LEGAL_UPDATED).
  *
  * Svaka sekcija: { title: {bs,en}, body: {bs:[...], en:[...]} }.

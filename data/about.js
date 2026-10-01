@@ -1,7 +1,7 @@
 /*
  * MyShishapedia - stranica "O nama" (oba jezika).
  *
- * Rečenice označene sa [GRABA] u README.md Graba treba pregledati i
+ * Rečenice označene sa [GRABA] u docs/UPUTSTVO.md Graba treba pregledati i
  * prilagoditi svojim riječima. O autoru namjerno nema izmišljenih činjenica
  * (godine, grad, iskustvo, broj korisnika).
  */

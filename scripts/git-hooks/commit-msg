@@ -5,7 +5,7 @@
 #   Generated with [Claude Code] ...  (i sa emoji ispred)
 #   Claude-Session: ...
 # Radi u Git Bashu (Windows), na macOS-u i Linuxu (samo POSIX sh, grep i mv).
-# Instalacija: vidi README.md, "Git: autor commitova".
+# Instalacija: vidi docs/UPUTSTVO.md, "Git: autor commitova".
 
 msg_file="$1"
 [ -f "$msg_file" ] || exit 0

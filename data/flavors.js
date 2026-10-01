@@ -1,10 +1,10 @@
 /*
  * MyShishapedia - podaci o okusima (oba jezika).
  *
- * Tekstualna polja su { bs: ..., en: ... }. Šema je opisana u README.md
+ * Tekstualna polja su { bs: ..., en: ... }. Šema je opisana u docs/UPUTSTVO.md
  * ("Kako dodati novi okus"). Vrijednosti u `profile` i `intensity` su procjene
  * i treba ih provjeriti; sastav okusa Lady Killer, Berlin Nights i Angel Lips
- * je u README.md označen kao "provjeriti".
+ * je u docs/UPUTSTVO.md označen kao "provjeriti".
  */
 window.FLAVORS = [
   {

@@ -6,7 +6,7 @@
  *   tags    tagovi koji se "nagrađuju" i koliko (npr. { ledeni: 2 })
  *   reason  dio rečenice za objašnjenje rezultata ("Voliš ... i ...")
  * Rezultat se računa poređenjem sa `profile` i `tags` svih okusa iz data/flavors.js,
- * pa novi okusi automatski ulaze u kviz (vidi README.md, "Kako radi kviz").
+ * pa novi okusi automatski ulaze u kviz (vidi docs/UPUTSTVO.md, "Kako radi kviz").
  */
 window.QUIZ = [
   {

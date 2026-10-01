@@ -1,7 +1,7 @@
 /*
  * MyShishapedia - recepti miksova (oba jezika).
  *
- * SVI RECEPTI SU PRIJEDLOZI: Graba treba svaki isprobati i potvrditi (vidi README.md).
+ * SVI RECEPTI SU PRIJEDLOZI: Graba treba svaki isprobati i potvrditi (vidi docs/UPUTSTVO.md).
  *
  * Polja:
  *   id        jedinstven, koristi se interno

@@ -2,7 +2,7 @@
  * MyShishapedia - posude, ugljevi i toplota (oba jezika).
  *
  * Ocjene su KVALITATIVNE procjene od 1 do 5 (prikazuju se kao užareni ugljevi),
- * a ne mjerenja. Navedene su u README.md kao "provjeriti".
+ * a ne mjerenja. Navedene su u docs/UPUTSTVO.md kao "provjeriti".
  */
 window.GEAR = {
   categories: {

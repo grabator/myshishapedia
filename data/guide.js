@@ -9,7 +9,7 @@
  *   compare opcionalno poređenje dvije opcije: [{ title, text }, { title, text }]
  *
  * Konkretne brojke (visina vode, vrijeme paljenja ugljeva, broj ugljeva) su
- * okvirne i navedene su u README.md kao "provjeriti".
+ * okvirne i navedene su u docs/UPUTSTVO.md kao "provjeriti".
  */
 window.GUIDE = {
   steps: [

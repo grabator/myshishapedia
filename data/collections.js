@@ -17,7 +17,7 @@
  *   exclude: ['adalya-love-66']          nikad u kolekciji
  *
  * mood određuje atmosferu stranice: 'ice', 'night', 'tropical' ili 'calm'.
- * Vidi README.md, "Kako dodati kolekciju".
+ * Vidi docs/UPUTSTVO.md, "Kako dodati kolekciju".
  */
 window.COLLECTIONS = [
   {
