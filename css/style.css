@@ -6220,3 +6220,16 @@ html:not(.js) .recent { display: none; }
   .tipnav__link, .tip, .tipmore__link .icon { transition: none; }
   .tipnav__link:hover, .tip:hover { transform: none; }
 }
+
+/* "Slični okusi" sa 4 kartice: 2 x 2 na srednjim ekranima, jedan red od 4 na širokim */
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .grid--similar:has(> :nth-child(4):last-child) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (min-width: 1280px) {
+  .grid--similar:has(> :nth-child(4):last-child) { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+
+/* Atmosfera "fizz" (kola, sode): mjehurići u bojama okusa */
+.mood--fizz { overflow: hidden; background: radial-gradient(70% 60% at 50% 110%, color-mix(in srgb, var(--c-secondary) 40%, transparent), transparent 70%); }
+[data-mood='fizz'] .lounge__glow--a { background: radial-gradient(closest-side, color-mix(in srgb, var(--c-primary) 34%, transparent), transparent 70%); }
+[data-mood='fizz'] .lounge__glow--b { background: radial-gradient(closest-side, color-mix(in srgb, var(--c-secondary) 26%, transparent), transparent 70%); opacity: 1; }

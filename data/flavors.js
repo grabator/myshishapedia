@@ -5,6 +5,7 @@
  * ("Kako dodati novi okus"). Vrijednosti u `profile` i `intensity` su procjene
  * i treba ih provjeriti; sastav okusa Lady Killer, Berlin Nights i Angel Lips
  * je u docs/UPUTSTVO.md označen kao "provjeriti", kao i sastav svih okusa drugih brendova.
+ * Polje mood (opcionalno) bira atmosferu stranice: night, honey, ice, frost, mist, supernova, soda ili fizz.
  * Polje brand je slug iz data/brands.js, a leaf vrsta lista: 'light' (svijetli) ili 'dark' (tamni).
  */
 window.FLAVORS = [
@@ -411,7 +412,7 @@ window.FLAVORS = [
         'Mint with Double Melon for an easy summer mix.'
       ]
     },
-    similar: ['tangiers-cane-mint', 'adalya-cherry-mint', 'haze-cucumberita']
+    similar: ['al-fakher-mint', 'tangiers-cane-mint', 'adalya-cherry-mint', 'haze-cucumberita']
   },
   {
     id: 'adalya-blue-ice',
@@ -677,6 +678,49 @@ window.FLAVORS = [
     similar: ['adalya-berlin-nights', 'adalya-baku-nights', 'adalya-mint']
   },
   {
+    id: 'al-fakher-mint',
+    brand: 'al-fakher',
+    leaf: 'light',
+    name: 'Mint',
+    shortDescription: {
+      bs: 'Klasična Al Fakher menta: jaka, čista i hladna, bez slatkih dodataka.',
+      en: 'The classic Al Fakher mint: bold, clean and cool, with no sweet extras.'
+    },
+    description: {
+      bs: [
+        'Al Fakher Mint je jedna od najprodavanijih menti na svijetu i okus koji se nalazi u gotovo svakom lounge baru. Svjež je i zelen od prvog povlačenja, sa jasnim hladnim izdahom.',
+        'U poređenju sa Adalya Mint ima malo više "zrelog" duhana u pozadini i nešto izraženiji, oštriji mentol, ali je i dalje mekši od Tangiers Cane Mint.',
+        'Odličan je sam, a još bolji kao dodatak: par grama osvježi gotovo svaki voćni okus.'
+      ],
+      en: [
+        'Al Fakher Mint is one of the best-selling mints in the world and a flavor you will find in almost every lounge. It is fresh and green from the first pull, with a clear, cool exhale.',
+        'Compared to Adalya Mint it has a little more tobacco character in the background and a slightly sharper menthol, yet it is still softer than Tangiers Cane Mint.',
+        'Great on its own and even better as an add-on: a few grams freshen up almost any fruit flavor.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Menta', en: 'Mint' }, illustration: 'menta', color: '#2fae78', intensity: 9 },
+      { name: { bs: 'Hlađenje', en: 'Cooling' }, illustration: 'kristal', color: '#dcf5ec', intensity: 5 }
+    ],
+    profile: { sweetness: 2, freshness: 10, fruitiness: 0, cooling: 8, strength: 6 },
+    tags: ['mint', 'osvjezavajuci', 'klasicni'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#22a36d', secondary: '#bdeed6', accent: '#0f6e47', background: '#e3f6ec', text: '#0a2a1c', water: '#a9efd0' },
+    mixIdeas: {
+      bs: [
+        'Mint i Two Apples, 30/70, klasičan bliskoistočni miks sa svježim krajem.',
+        'Mint uz bilo koji voćni okus, oko 20-30%, za hladniji izdah.',
+        'Mint i Cola, za "kolu sa ledom i mentom".'
+      ],
+      en: [
+        'Mint with Two Apples, 30/70, a classic Middle Eastern mix with a fresh finish.',
+        'Mint with any fruit flavor at around 20-30% for a cooler exhale.',
+        'Mint with Cola for a "cola on ice with mint" bowl.'
+      ]
+    },
+    similar: ['adalya-mint', 'tangiers-cane-mint', 'trifecta-twice-the-ice']
+  },
+  {
     id: 'starbuzz-blue-mist',
     brand: 'starbuzz',
     leaf: 'light',
@@ -721,6 +765,51 @@ window.FLAVORS = [
     similar: ['adalya-blue-ice', 'adalya-raspberry', 'trifecta-peppermint-shake']
   },
   {
+    id: 'starbuzz-pirates-cave',
+    brand: 'starbuzz',
+    leaf: 'light',
+    name: "Pirate's Cave",
+    shortDescription: {
+      bs: 'Limun i limeta sa daškom narandže i lagane mente: sočan, kiselkast citrus.',
+      en: 'Lemon and lime with a hint of orange and a light touch of mint: juicy, tangy citrus.'
+    },
+    description: {
+      bs: [
+        "Pirate's Cave je jedan od najpoznatijih Starbuzz okusa, odmah iza Blue Mista. U prvom planu su limun i limeta, svježi i blago kiseli, kao domaća limunada.",
+        'Ispod njih se osjeti malo narandže koja zaobli kiselinu i lagana menta koja osvježi izdah, bez jakog hlađenja.',
+        'Dobar izbor za ljeto i za one koji vole citruse, ali ne žele previše leda.'
+      ],
+      en: [
+        "Pirate's Cave is one of Starbuzz's best-known flavors, right after Blue Mist. Lemon and lime lead the way, fresh and slightly sour, like homemade lemonade.",
+        'Underneath there is a little orange that rounds off the tartness and a light mint that freshens the exhale without heavy cooling.',
+        'A good pick for summer and for anyone who loves citrus but does not want too much ice.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Limun', en: 'Lemon' }, illustration: 'limun', color: '#f5d63d', intensity: 8 },
+      { name: { bs: 'Limeta', en: 'Lime' }, illustration: 'limeta', color: '#8fd14f', intensity: 7 },
+      { name: { bs: 'Narandža', en: 'Orange' }, illustration: 'narandza', color: '#ff9a2e', intensity: 4 },
+      { name: { bs: 'Menta', en: 'Mint' }, illustration: 'menta', color: '#3fbf86', intensity: 3 }
+    ],
+    profile: { sweetness: 5, freshness: 9, fruitiness: 7, cooling: 3, strength: 5 },
+    tags: ['citrusni', 'vocni', 'osvjezavajuci', 'ljetni'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#c6e04a', secondary: '#f5e06a', accent: '#2f8f3e', background: '#e9f4c2', text: '#1f2a06', water: '#d9f08a' },
+    mixIdeas: {
+      bs: [
+        "Pirate's Cave i Blue Mist, pola-pola, za plavu limunadu.",
+        "Pirate's Cave i Purple Krush, 70/30, za ljubičastu limunadu od grožđa.",
+        "Pirate's Cave i Cucumberita, za vrlo svjež, ljetni miks."
+      ],
+      en: [
+        "Pirate's Cave with Blue Mist, half and half, for a blue lemonade.",
+        "Pirate's Cave with Purple Krush, 70/30, for a purple grape lemonade.",
+        "Pirate's Cave with Cucumberita for a very fresh summer mix."
+      ]
+    },
+    similar: ['haze-cucumberita', 'fumari-white-gummi-bear', 'haze-purple-krush']
+  },
+  {
     id: 'tangiers-cane-mint',
     brand: 'tangiers',
     leaf: 'dark',
@@ -761,7 +850,52 @@ window.FLAVORS = [
         'Cane Mint with Peppermint Shake for a dessert mint with more punch.'
       ]
     },
-    similar: ['adalya-mint', 'darkside-supernova', 'trifecta-peppermint-shake']
+    similar: ['trifecta-twice-the-ice', 'al-fakher-mint', 'adalya-mint', 'trifecta-peppermint-shake']
+  },
+  {
+    id: 'tangiers-kashmir-peach',
+    brand: 'tangiers',
+    leaf: 'dark',
+    name: 'Kashmir Peach',
+    mood: 'honey',
+    shortDescription: {
+      bs: 'Zrela breskva umotana u tople kašmir začine i kardamom: složen, topao i elegantan okus.',
+      en: 'Ripe peach wrapped in warm Kashmir spice and cardamom: complex, cozy and elegant.'
+    },
+    description: {
+      bs: [
+        'Kashmir Peach je jedan od najprodavanijih Tangiers okusa. Osnova je sočna, zrela breskva, slatka i blago cvjetna.',
+        'Ono što ga izdvaja je kašmir mješavina začina: kardamom i topli, pomalo parfemski tonovi koji breskvi daju dubinu i "večernji" karakter.',
+        'Kao i ostali Tangiers okusi, ovo je tamni list: jak, gust i traži malo strpljenja sa toplotom. Nije za prvu sesiju, ali je odličan kad želiš nešto drugačije od običnog voća.'
+      ],
+      en: [
+        "Kashmir Peach is one of Tangiers' best-selling flavors. The base is a juicy, ripe peach, sweet and slightly floral.",
+        'What sets it apart is the Kashmir spice blend: cardamom and warm, almost perfume-like notes that give the peach depth and an evening feel.',
+        'Like the rest of Tangiers, this is dark leaf: strong, dense and in need of a little patience with heat. Not a first-session flavor, but great when you want something different from plain fruit.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Breskva', en: 'Peach' }, illustration: 'breskva', color: '#f6a36a', intensity: 9 },
+      { name: { bs: 'Kardamom', en: 'Cardamom' }, illustration: 'kardamom', color: '#8fa64a', intensity: 6 },
+      { name: { bs: 'Topli začini', en: 'Warm spice' }, illustration: 'anis', color: '#9a5a2a', intensity: 5 }
+    ],
+    profile: { sweetness: 6, freshness: 4, fruitiness: 8, cooling: 0, strength: 9 },
+    tags: ['vocni', 'zacinski', 'nocni'],
+    tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
+    palette: { primary: '#f08a4b', secondary: '#f6c27a', accent: '#d9a441', background: '#2a1610', text: '#fbeee2', smoke: ['#fff1e4', '#f7caa0', '#e3a979'] },
+    mixIdeas: {
+      bs: [
+        'Kashmir Peach i Ambrosia, pola-pola, za breskvu i dinju sa začinom.',
+        'Kashmir Peach i Cane Mint, 80/20, za začinsku breskvu sa hladnim krajem.',
+        'Kashmir Peach i Two Apples, za istočnjački, začinski voćni miks.'
+      ],
+      en: [
+        'Kashmir Peach with Ambrosia, half and half, for spiced peach and melon.',
+        'Kashmir Peach with Cane Mint, 80/20, for spiced peach with a cool finish.',
+        'Kashmir Peach with Two Apples for a spiced, Middle Eastern fruit mix.'
+      ]
+    },
+    similar: ['adalya-baku-nights', 'fumari-ambrosia', 'al-fakher-double-apple']
   },
   {
     id: 'fumari-white-gummi-bear',
@@ -809,6 +943,50 @@ window.FLAVORS = [
     similar: ['adalya-dubai', 'adalya-tynky-wynky', 'adalya-ice-bonbon']
   },
   {
+    id: 'fumari-ambrosia',
+    brand: 'fumari',
+    leaf: 'light',
+    name: 'Ambrosia',
+    shortDescription: {
+      bs: 'Slatka dinja i sočna narandža na mekoj, kremastoj podlozi od marshmallowa.',
+      en: 'Sweet cantaloupe and juicy orange on a soft, creamy marshmallow base.'
+    },
+    description: {
+      bs: [
+        'Ambrosia je jedan od zaštitnih znakova Fumarija i okus koji se godinama drži među najprodavanijima. Glavna je zrela, slatka dinja (kantalupa).',
+        'Uz nju je sočna, kremasta narandža, a sve zajedno leži na mekoj podlozi koja podsjeća na marshmallow, pa okus djeluje skoro kao desert.',
+        'Daje gust, sladak dim i lagan je za pripremu, pa je dobar i za početnike.'
+      ],
+      en: [
+        'Ambrosia is one of Fumari\'s signature flavors and has been among its best sellers for years. The star is ripe, sweet cantaloupe.',
+        'Alongside it comes juicy, creamy orange, all resting on a soft, marshmallow-like base that makes it feel almost like a dessert.',
+        'It gives thick, sweet clouds and is easy to set up, so it also works well for beginners.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Dinja', en: 'Cantaloupe' }, illustration: 'dinja', color: '#f6b26b', intensity: 9 },
+      { name: { bs: 'Narandža', en: 'Orange' }, illustration: 'narandza', color: '#ff9a2e', intensity: 6 },
+      { name: { bs: 'Marshmallow', en: 'Marshmallow' }, illustration: 'marshmallow', color: '#fde6ef', intensity: 5 }
+    ],
+    profile: { sweetness: 9, freshness: 5, fruitiness: 8, cooling: 0, strength: 4 },
+    tags: ['vocni', 'slatki', 'desertni', 'ljetni'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#f6a55a', secondary: '#fde3c4', accent: '#c8611e', background: '#fdebd6', text: '#2e1806', water: '#fbd3a6' },
+    mixIdeas: {
+      bs: [
+        'Ambrosia i White Gummi Bear, za vrlo slatku, bombon voćnu posudu.',
+        'Ambrosia i Kashmir Peach, za breskvu i dinju sa začinom.',
+        'Ambrosia i malo mente, 80/20, za svježiji ljetni miks.'
+      ],
+      en: [
+        'Ambrosia with White Gummi Bear for a very sweet, candy-fruit bowl.',
+        'Ambrosia with Kashmir Peach for spiced peach and melon.',
+        'Ambrosia with a little mint, 80/20, for a fresher summer mix.'
+      ]
+    },
+    similar: ['adalya-double-melon', 'fumari-white-gummi-bear', 'tangiers-kashmir-peach']
+  },
+  {
     id: 'darkside-supernova',
     brand: 'darkside',
     leaf: 'dark',
@@ -854,6 +1032,51 @@ window.FLAVORS = [
     similar: ['tangiers-cane-mint', 'adalya-ice-bonbon', 'adalya-swiss-bonbon']
   },
   {
+    id: 'darkside-cola',
+    brand: 'darkside',
+    leaf: 'dark',
+    name: 'Cola',
+    mood: 'fizz',
+    shortDescription: {
+      bs: 'Klasična kola sa karamel slatkoćom i laganim začinom: kao čaša sipana iz boce.',
+      en: 'Classic cola with caramel sweetness and a light spice: like a glass poured from the bottle.'
+    },
+    description: {
+      bs: [
+        'Darkside Cola ima okus prave, sipane kole, a ne bombona sa okusom kole. Na početku je topla karamel slatkoća poznata iz pića.',
+        'U sredini se pojavi lagan začin, nalik na cimet i vaniliju iz recepta za kolu, koji okusu daje dubinu, a završetak je čist i ostavlja jasan okus kole.',
+        'Tamni list, pa traži umjerenu, stabilnu toplotu. Zato je zanimljivo uporediti ga sa MustHave Colom i Sebero Black Colom: isti okus, tri različita karaktera.'
+      ],
+      en: [
+        'Darkside Cola tastes like real poured cola, not cola-flavored candy. It opens with the warm caramel sweetness you know from the drink.',
+        'Mid-pull a light spice comes through, like the cinnamon and vanilla in a cola recipe, giving it depth, and the finish is clean with a clear cola aftertaste.',
+        'It is dark leaf, so it wants steady, moderate heat. That makes it fun to compare with MustHave Cola and Sebero Black Cola: the same flavor, three different characters.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Kola', en: 'Cola' }, illustration: 'kola', color: '#5a2614', intensity: 9 },
+      { name: { bs: 'Karamel', en: 'Caramel' }, illustration: 'karamel', color: '#c8843a', intensity: 6 },
+      { name: { bs: 'Lagani začin', en: 'Light spice' }, illustration: 'anis', color: '#8a4a22', intensity: 3 }
+    ],
+    profile: { sweetness: 7, freshness: 5, fruitiness: 1, cooling: 0, strength: 8 },
+    tags: ['pice', 'slatki', 'klasicni'],
+    tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
+    palette: { primary: '#8a3a1c', secondary: '#d9954a', accent: '#e8a85a', background: '#1c0f0a', text: '#f8eadc', smoke: ['#fff3e6', '#e8c49a', '#c98a52'] },
+    mixIdeas: {
+      bs: [
+        'Cola i Cherry Mint, 70/30, za kolu sa višnjom i svježim krajem.',
+        'Cola i limun ili Pirate\'s Cave, za "kolu sa kriškom limuna".',
+        'Cola i Peppermint Shake, za kremastu kolu sa vanilom.'
+      ],
+      en: [
+        'Cola with Cherry Mint, 70/30, for cherry cola with a fresh finish.',
+        'Cola with lemon or Pirate\'s Cave for "cola with a slice of lemon".',
+        'Cola with Peppermint Shake for a creamy vanilla cola.'
+      ]
+    },
+    similar: ['musthave-cola', 'sebero-black-cola', 'adalya-cherry-mint']
+  },
+  {
     id: 'musthave-pinkman',
     brand: 'musthave',
     leaf: 'dark',
@@ -896,6 +1119,50 @@ window.FLAVORS = [
       ]
     },
     similar: ['adalya-raspberry', 'sebero-arctic-mix-jelly-fruit', 'adalya-angel-lips']
+  },
+  {
+    id: 'musthave-cola',
+    brand: 'musthave',
+    leaf: 'dark',
+    name: 'Cola',
+    mood: 'fizz',
+    shortDescription: {
+      bs: 'Hladna, gazirana kola pravo iz frižidera: osvježavajuća i ljetna.',
+      en: 'Ice-cold fizzy cola straight from the fridge: refreshing and summery.'
+    },
+    description: {
+      bs: [
+        'MustHave Cola je kola kakvu piješ ljeti: hladna, gazirana i osvježavajuća. Slatkoća je tu, ali je lakša i "pjenušavija" nego kod Darkside Cole.',
+        'Osjećaj hladnog pića dolazi od blagog hlađenja na izdahu, pa okus djeluje kao čaša sa kockama leda.',
+        'Tamni list i dosta jak, kao i ostali MustHave okusi. Ako voliš kolu, uporedi je sa Darkside Colom i Sebero Black Colom.'
+      ],
+      en: [
+        'MustHave Cola is the cola you drink in summer: cold, fizzy and refreshing. The sweetness is there, but lighter and more "sparkling" than in Darkside Cola.',
+        'The cold-drink feel comes from a gentle cooling on the exhale, so it tastes like a glass with ice cubes.',
+        'Dark leaf and fairly strong, like the rest of MustHave. If you love cola, compare it with Darkside Cola and Sebero Black Cola.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Kola', en: 'Cola' }, illustration: 'kola', color: '#6a2a16', intensity: 9 },
+      { name: { bs: 'Led', en: 'Ice' }, illustration: 'kocka', color: '#d8f2ff', intensity: 4 }
+    ],
+    profile: { sweetness: 6, freshness: 7, fruitiness: 1, cooling: 3, strength: 8 },
+    tags: ['pice', 'osvjezavajuci', 'ljetni'],
+    tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
+    palette: { primary: '#b0281f', secondary: '#f3ece6', accent: '#ef4b3f', background: '#220c0c', text: '#fbeeee', smoke: ['#ffffff', '#ffe6e3', '#e9c3bd'] },
+    mixIdeas: {
+      bs: [
+        'Cola i Pirate\'s Cave, za kolu sa limetom.',
+        'Cola i Mint, 80/20, za kolu sa ledom i mentom.',
+        'Cola i Pinkman, za voćnu, ljetnu kolu.'
+      ],
+      en: [
+        'Cola with Pirate\'s Cave for cola with lime.',
+        'Cola with Mint, 80/20, for cola on ice with mint.',
+        'Cola with Pinkman for a fruity summer cola.'
+      ]
+    },
+    similar: ['darkside-cola', 'sebero-black-cola', 'starbuzz-pirates-cave']
   },
   {
     id: 'sebero-arctic-mix-jelly-fruit',
@@ -945,6 +1212,50 @@ window.FLAVORS = [
     similar: ['musthave-pinkman', 'adalya-ice-bonbon', 'adalya-tynky-wynky']
   },
   {
+    id: 'sebero-black-cola',
+    brand: 'sebero',
+    leaf: 'dark',
+    name: 'Black Cola',
+    mood: 'fizz',
+    shortDescription: {
+      bs: 'Bogata, izrazito slatka kola sa baršunastim, mekim završetkom.',
+      en: 'A rich, distinctly sweet cola with a velvety, smooth finish.'
+    },
+    description: {
+      bs: [
+        'Black Cola je dio Sebero Black linije, jačih tamnih duhana. Okus je bogata kola sa izraženom slatkoćom, punija i "sirupastija" od MustHave Cole.',
+        'Završetak je mekan i baršunast, bez kiselosti i bez hlađenja, pa okus ostaje topao od prvog do zadnjeg povlačenja.',
+        'Jak tamni list: pakuj ga malo rastresito i ne pretjeruj sa toplotom. Treća kola za poređenje, uz Darkside i MustHave.'
+      ],
+      en: [
+        'Black Cola belongs to the Sebero Black line of stronger dark tobaccos. It is a rich cola with pronounced sweetness, fuller and more "syrupy" than MustHave Cola.',
+        'The finish is soft and velvety, with no tartness and no cooling, so it stays warm from the first pull to the last.',
+        'Strong dark leaf: pack it a little loose and go easy on the heat. The third cola to compare, alongside Darkside and MustHave.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Kola', en: 'Cola' }, illustration: 'kola', color: '#3e1a0e', intensity: 9 },
+      { name: { bs: 'Karamel', en: 'Caramel' }, illustration: 'karamel', color: '#b7742f', intensity: 5 }
+    ],
+    profile: { sweetness: 8, freshness: 4, fruitiness: 1, cooling: 0, strength: 8 },
+    tags: ['pice', 'slatki'],
+    tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
+    palette: { primary: '#5a2a18', secondary: '#c28a54', accent: '#d7a46a', background: '#140b08', text: '#f6e8da', smoke: ['#fbefe2', '#d9b48c', '#a8784e'] },
+    mixIdeas: {
+      bs: [
+        'Black Cola i Cherry Mint, za tamnu višnja-kolu.',
+        'Black Cola i Peppermint Shake, za kolu sa šlagom i vanilom.',
+        'Black Cola i Ambrosia, 70/30, za slatku kolu sa dinjom.'
+      ],
+      en: [
+        'Black Cola with Cherry Mint for a dark cherry cola.',
+        'Black Cola with Peppermint Shake for cola with whipped cream and vanilla.',
+        'Black Cola with Ambrosia, 70/30, for a sweet cola with melon.'
+      ]
+    },
+    similar: ['darkside-cola', 'musthave-cola', 'al-fakher-double-apple']
+  },
+  {
     id: 'haze-cucumberita',
     brand: 'haze',
     leaf: 'light',
@@ -988,6 +1299,51 @@ window.FLAVORS = [
     similar: ['adalya-mint', 'adalya-tynky-wynky', 'adalya-double-melon']
   },
   {
+    id: 'haze-purple-krush',
+    brand: 'haze',
+    leaf: 'light',
+    name: 'Purple Krush',
+    mood: 'fizz',
+    shortDescription: {
+      bs: 'Slatka, hladna soda od grožđa sa daškom bobičastog voća.',
+      en: 'A sweet, cold grape soda with a hint of berries.'
+    },
+    description: {
+      bs: [
+        'Purple Krush je jedan od najprodavanijih Haze okusa. U prvom planu je slatko, tamno grožđe, onakvo kakvo znaš iz bombona i gaziranih sokova od grožđa.',
+        'Uz grožđe se osjeti malo bobičastog voća i lagano hlađenje, pa okus djeluje kao čaša hladne sode.',
+        'Haze pravi gust dim i dobro podnosi toplotu, a svijetli list ga čini laganim za početnike.'
+      ],
+      en: [
+        'Purple Krush is one of the best-selling Haze flavors. Sweet, dark grape leads the way, the kind you know from candy and grape sodas.',
+        'Alongside the grape comes a touch of berries and a light chill, so it feels like a glass of cold soda.',
+        'Haze makes thick clouds and handles heat well, and the blonde leaf keeps it easy for beginners.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Grožđe', en: 'Grape' }, illustration: 'grozdje', color: '#7b3fb2', intensity: 9 },
+      { name: { bs: 'Bobičasto voće', en: 'Berries' }, illustration: 'kupina', color: '#4a2a6a', intensity: 4 },
+      { name: { bs: 'Hlađenje', en: 'Cooling' }, illustration: 'kristal', color: '#e6dcff', intensity: 3 }
+    ],
+    profile: { sweetness: 8, freshness: 6, fruitiness: 8, cooling: 3, strength: 5 },
+    tags: ['vocni', 'slatki', 'pice', 'bombon'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#8a4fd0', secondary: '#d6c2f5', accent: '#c58bff', background: '#24123a', text: '#f5edff', smoke: ['#ffffff', '#e6d8ff', '#c9b0f2'] },
+    mixIdeas: {
+      bs: [
+        'Purple Krush i Pirate\'s Cave, 30/70, za ljubičastu limunadu.',
+        'Purple Krush i Mint, 80/20, za hladnu sodu od grožđa.',
+        'Purple Krush i Blue Mist, za slatki, bobičasti miks.'
+      ],
+      en: [
+        'Purple Krush with Pirate\'s Cave, 30/70, for a purple lemonade.',
+        'Purple Krush with Mint, 80/20, for an ice-cold grape soda.',
+        'Purple Krush with Blue Mist for a sweet berry mix.'
+      ]
+    },
+    similar: ['starbuzz-blue-mist', 'starbuzz-pirates-cave', 'musthave-pinkman']
+  },
+  {
     id: 'trifecta-peppermint-shake',
     brand: 'trifecta',
     leaf: 'light',
@@ -1029,6 +1385,50 @@ window.FLAVORS = [
         'Peppermint Shake with Raspberry for raspberries and cream.'
       ]
     },
-    similar: ['tangiers-cane-mint', 'starbuzz-blue-mist', 'adalya-swiss-bonbon']
+    similar: ['trifecta-twice-the-ice', 'tangiers-cane-mint', 'starbuzz-blue-mist', 'adalya-swiss-bonbon']
+  },
+  {
+    id: 'trifecta-twice-the-ice',
+    brand: 'trifecta',
+    leaf: 'light',
+    name: 'Twice the Ice',
+    mood: 'frost',
+    shortDescription: {
+      bs: 'Jaka paprena metvica i leden mentol: jedan od najhladnijih okusa uopšte.',
+      en: 'Strong peppermint and icy menthol: one of the coldest flavors around.'
+    },
+    description: {
+      bs: [
+        'Twice the Ice je, kako mu ime kaže, dvostruki led. Osnova je jaka paprena metvica, a preko nje ide toliko mentola da se hladnoća osjeti već na udahu.',
+        'Nema slatkoće ni voća: samo čisto, oštro hlađenje. Zato ga mnogi koriste u malim količinama, da "zalede" voćni okus.',
+        'Svijetli list (Trifecta Blonde), pa je lakši od Tangiers Cane Minta, ali je hladniji od skoro svake druge mente.'
+      ],
+      en: [
+        'Twice the Ice is, as the name says, double the ice. The base is a strong peppermint, topped with so much menthol that you feel the cold on the inhale.',
+        'No sweetness, no fruit: just clean, sharp cooling. That is why many people use it in small amounts to "ice up" a fruit flavor.',
+        'It is blonde leaf (Trifecta Blonde), so it is lighter than Tangiers Cane Mint, yet colder than almost any other mint.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Ledeni mentol', en: 'Icy menthol' }, illustration: 'kristal', color: '#e3f6ff', intensity: 10 },
+      { name: { bs: 'Pepermint', en: 'Peppermint' }, illustration: 'pepermint', color: '#1fa874', intensity: 8 }
+    ],
+    profile: { sweetness: 1, freshness: 10, fruitiness: 0, cooling: 10, strength: 6 },
+    tags: ['mint', 'ledeni'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#5cc8f0', secondary: '#e4f7ff', accent: '#0f7fb0', background: '#e9f8ff', text: '#062636', water: '#c8efff', smoke: ['#ffffff', '#e8f8ff', '#cdeefc'] },
+    mixIdeas: {
+      bs: [
+        'Malo Twice the Ice (20%) uz bilo koji voćni okus, za ledeni miks.',
+        'Twice the Ice i Peppermint Shake, za hladni desertni mint.',
+        'Twice the Ice i Pinkman, 20/80, za ledeni grejpfrut.'
+      ],
+      en: [
+        'A little Twice the Ice (20%) with any fruit flavor for an icy mix.',
+        'Twice the Ice with Peppermint Shake for a cold dessert mint.',
+        'Twice the Ice with Pinkman, 20/80, for an icy grapefruit.'
+      ]
+    },
+    similar: ['tangiers-cane-mint', 'trifecta-peppermint-shake', 'darkside-supernova']
   }
 ];

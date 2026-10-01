@@ -281,7 +281,7 @@
     return V.mixUrl(fl[0], fl[1], m.parts[0].pct, lang);
   };
   V.recipePartsText = function (m) {
-    return m.parts.map(function (p) { var f = V.flavorById(p.flavor); return (f ? f.name : p.flavor) + ' ' + p.pct + '%'; }).join(' + ');
+    return m.parts.map(function (p) { var f = V.flavorById(p.flavor); return (f ? V.uniqueName(f) : p.flavor) + ' ' + p.pct + '%'; }).join(' + ');
   };
 
   var recTheme = {};
@@ -767,7 +767,7 @@
     return '<ul class="cpairs" role="list">' + pairs.filter(function (p) { return p !== current; }).map(function (p) {
       var ta = V.themeFor(p.a), tb = V.themeFor(p.b);
       return '<li><a class="cpair" href="' + V.pairUrl(p) + '" style="--pa:' + ta.bg + ';--pb:' + tb.bg + ';--pta:' + ta.text + ';--ptb:' + tb.text + '">' +
-        '<span class="cpair__a">' + esc(p.a.name) + '</span><span class="cpair__vs">' + esc(t('compare.vs')) + '</span><span class="cpair__b">' + esc(p.b.name) + '</span></a></li>';
+        '<span class="cpair__a">' + esc(V.uniqueName(p.a)) + '</span><span class="cpair__vs">' + esc(t('compare.vs')) + '</span><span class="cpair__b">' + esc(V.uniqueName(p.b)) + '</span></a></li>';
     }).join('') + '</ul>';
   }
 
@@ -926,7 +926,7 @@
 
   V.crumbsMore = function (desc, home) {
     if (desc.page === 'collection') return [home, { name: t('nav.collections'), url: V.url('collections') }, { name: L(desc.collection.title), url: V.collectionUrl(desc.collection) }];
-    if (desc.page === 'comparePair') return [home, { name: t('nav.compare'), url: V.url('compare') }, { name: desc.pair.a.name + ' vs ' + desc.pair.b.name, url: V.pairUrl(desc.pair) }];
+    if (desc.page === 'comparePair') return [home, { name: t('nav.compare'), url: V.url('compare') }, { name: V.uniqueName(desc.pair.a) + ' vs ' + V.uniqueName(desc.pair.b), url: V.pairUrl(desc.pair) }];
     if (desc.page === 'recipe') return [home, { name: t('nav.mixes'), url: V.url('mixes') }, { name: L(desc.recipe.name), url: V.recipeUrl(desc.recipe) }];
     return [home];
   };
@@ -953,8 +953,8 @@
         p = desc.pair;
         return {
           main: pageCompare(p.a, p.b, crumbs, p),
-          title: t('meta.comparePairTitle', { a: p.a.name, b: p.b.name }),
-          description: V.clip(t('meta.comparePairLead', { a: p.a.name, b: p.b.name }) + ' ' + V.compareText(p.a, p.b))
+          title: t('meta.comparePairTitle', { a: V.uniqueName(p.a), b: V.uniqueName(p.b) }),
+          description: V.clip(t('meta.comparePairLead', { a: V.uniqueName(p.a), b: V.uniqueName(p.b) }) + ' ' + V.compareText(p.a, p.b))
         };
       case 'mixes':
         return { main: pageMixes(crumbs), title: t('meta.mixesTitle'), description: t('meta.mixesDescription') };

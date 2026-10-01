@@ -176,6 +176,11 @@
   /** Vrsta lista: 'light' (svijetli) ili 'dark' (tamni); pojmovi u rječniku. */
   V.LEAF_TERM = { light: 'svijetli-list', dark: 'tamni-list' };
   V.leafOf = function (f) { return f.leaf === 'dark' ? 'dark' : 'light'; };
+  /** Naziv okusa; ako isti naziv ima više brendova (npr. "Cola", "Mint"), dodaje se i brend. */
+  V.uniqueName = function (f) {
+    var same = V.flavors().filter(function (x) { return x.name === f.name; }).length;
+    return same > 1 ? f.brand + ' ' + f.name : f.name;
+  };
   V.flavorById = function (id) {
     return V.flavors().filter(function (f) { return f.id === id; })[0] || null;
   };
@@ -1108,12 +1113,12 @@
         '</div>'
       );
     }
-    if (f.mood === 'soda') {
-      // limunada: sitni mjehurići koji se dižu kao u gaziranom piću
+    if (f.mood === 'soda' || f.mood === 'fizz') {
+      // limunada (soda) i kola / sode (fizz): sitni mjehurići koji se dižu kao u gaziranom piću
       for (i = 0; i < 30; i++) {
         out += '<span class="fizz" style="--x:' + ((i * 37.3 + 3) % 100).toFixed(1) + '%;--s:' + (5 + (i * 7) % 12) + 'px;--dur:' + (4 + (i % 6) * 0.9).toFixed(1) + 's;--dl:' + (-(i % 11) * 0.7).toFixed(1) + 's;--sway:' + ((i % 5) - 2) * 6 + 'px"></span>';
       }
-      return '<div class="mood mood--soda" aria-hidden="true">' + out + '</div>';
+      return '<div class="mood mood--' + f.mood + '" aria-hidden="true">' + out + '</div>';
     }
     return '';
   }

@@ -271,7 +271,8 @@ početnoj i za "Prethodni / Sljedeći okus". Sve što se čita na stranici ima v
   profile: { sweetness: 7, freshness: 7, fruitiness: 9, cooling: 4, strength: 6 },   // 0-10
   tags: ['vocni', 'tropski', 'mint'],  // ključevi; nazivi na oba jezika su u js/strings.js → tags
   tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
-  mood: 'honey',                       // opcionalno: 'night', 'honey', 'frost', 'ice', 'soda', 'mist' ili 'supernova'
+  mood: 'honey',                       // opcionalno: 'night', 'honey', 'frost', 'ice', 'soda', 'fizz', 'mist' ili 'supernova'
+                                       // ('fizz' = mjehurići u bojama okusa, za kole i sode)
   mixRole: 'cooler',                   // opcionalno: okus koji je skoro samo hlađenje (npr. Supernova);
                                        // mikser i linkovi ga tada sami stave na 20% miksa
   palette: {                           // boje stranice okusa
@@ -293,6 +294,9 @@ mikseru, kvizu, sitemap-u i u "Slični okusi" tamo gdje si ga dodao.
 Napomene:
 
 - **Slični okusi:** dodaj novi id i u `similar` postojećih okusa kojima je sličan, da veza ide u oba smjera.
+  Svaki par iz `similar` dobije i stranicu poređenja. Najviše 4 slična okusa (4 se prikažu u jednom redu).
+- **Isti naziv kod više brendova** (npr. "Cola", "Mint"): u naslovima poređenja, receptima i pretrazi se
+  automatski dodaje brend (`V.uniqueName`), pa naslovi ostaju jedinstveni.
 - **Kontrast je automatski.** Ako `palette.text` nema dovoljan kontrast (4.5:1), sam se potamni ili posvijetli.
 - **Novi tag:** dodaj ključ u `tags` okusa i naziv na oba jezika u `js/strings.js` (`tags` pod `bs` i pod `en`).
 - **Kviz** ne zna ništa o pojedinačnim okusima: uspoređuje odgovore sa `profile` i `tags`, pa novi okus
@@ -723,6 +727,22 @@ Boje dima se računaju iz palete okusa (`computeTheme` u `js/views.js`, polje `s
 
 Profil = slatkoća / svježina / voćnost / menta-hlađenje / jačina.
 
+Drugi okus za svaki brend (najpoznatiji okusi brenda, sve PROVJERITI):
+
+- [ ] **Al Fakher Mint: sastav (PROVJERITI).** Uneseno: menta 9, hlađenje 5. Svijetli list. Profil 2 / 10 / 0 / 8 / 6.
+- [ ] **Starbuzz Pirate's Cave: sastav (PROVJERITI).** Uneseno: limun 8, limeta 7, narandža 4, menta 3. Svijetli list. Profil 5 / 9 / 7 / 3 / 5.
+- [ ] **Tangiers Kashmir Peach: sastav (PROVJERITI).** Uneseno: breskva 9, kardamom 6, topli začini 5. Tamni list. Profil 6 / 4 / 8 / 0 / 9.
+- [ ] **Fumari Ambrosia: sastav (PROVJERITI).** Uneseno: dinja (kantalupa) 9, narandža 6, marshmallow 5. Svijetli list. Profil 9 / 5 / 8 / 0 / 4.
+- [ ] **Darkside Cola: sastav (PROVJERITI).** Uneseno: kola 9, karamel 6, lagani začin 3. Tamni list. Profil 7 / 5 / 1 / 0 / 8.
+- [ ] **MustHave Cola: sastav (PROVJERITI).** Uneseno: kola 9, led 4. Tamni list. Profil 6 / 7 / 1 / 3 / 8.
+- [ ] **Sebero Black Cola: sastav (PROVJERITI).** Uneseno: kola 9, karamel 5. Tamni list (Sebero Black linija). Profil 8 / 4 / 1 / 0 / 8.
+- [ ] **Haze Purple Krush: sastav (PROVJERITI).** Uneseno: grožđe 9, bobičasto voće 4, hlađenje 3. Svijetli list. Profil 8 / 6 / 8 / 3 / 5.
+  Umjesto Haze Nice Dreams, jer je Nice Dreams ograničeno izdanje (Haze × Cheech & Chong).
+- [ ] **Trifecta Twice the Ice: sastav (PROVJERITI).** Uneseno: ledeni mentol 10, pepermint 8. Svijetli list (Trifecta Blonde). Profil 1 / 10 / 0 / 10 / 6.
+- [ ] Nove ilustracije u `js/illustrations.js`: kola, karamel, marshmallow, kardamom, grožđe.
+- [ ] Police: tri Cole su u "Ostalo" (nijedna kolekcija im ne odgovara), Kashmir Peach u "Noćnim", Al Fakher Mint i
+  Twice the Ice u "Ledenim", a Pirate's Cave, Ambrosia i Purple Krush u "Za početnike".
+
 Okusi drugih brendova (dodani u fazi 7, sve PROVJERITI):
 
 - [ ] **Al Fakher Double Apple: sastav (PROVJERITI).** Uneseno: crvena jabuka 8, zelena jabuka 6, anis 6. Svijetli list. Profil 6 / 4 / 7 / 0 / 6.
@@ -761,7 +781,7 @@ Ranije dodani:
 
 ### Recepti miksova (PRIJEDLOZI: Graba treba isprobati i potvrditi)
 
-Svih 17 recepata su prijedlozi napravljeni na osnovu sastojaka i profila. Treba ih isprobati, pa
+Svih 20 recepata su prijedlozi napravljeni na osnovu sastojaka i profila. Treba ih isprobati, pa
 potvrditi ili promijeniti omjer, opis, savjete i jačinu u `data/mixes.js`:
 
 - [ ] Ledena laguna / Frozen Lagoon: Dubai 70% + Ice Bonbon 30% (srednji, sektori)
@@ -784,6 +804,12 @@ Između brendova (faza 7, PRIJEDLOG, provjeriti):
 - [ ] Stari bazar / Old Bazaar: Double Apple 70% + Mint 30% (lagan, izmiješano)
 - [ ] Plavi šejk / Blue Shake: Peppermint Shake 50% + Blue Mist 50% (lagan, izmiješano)
 - [ ] Vrtna margarita / Garden Margarita: Cucumberita 70% + Mint 30% (lagan, izmiješano)
+
+Sa novim okusima (PRIJEDLOG, provjeriti):
+
+- [ ] Višnjeva kola / Cherry Cola Mint: Darkside Cola 70% + Cherry Mint 30% (jak, izmiješano)
+- [ ] Kašmirski vrt / Kashmir Garden: Kashmir Peach 50% + Ambrosia 50% (srednji, sektori)
+- [ ] Ljubičasta limunada / Purple Lemonade: Pirate's Cave 70% + Purple Krush 30% (lagan, izmiješano)
 
 Supernova je u receptima uvijek 20% (najmanji udio koji mikser dozvoljava); u tekstu piše 10 do 20 posto.
 

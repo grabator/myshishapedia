@@ -526,5 +526,95 @@ window.MIXES = [
         'For even more freshness, swap part of the mint for a little Supernova.'
       ]
     }
+  },
+  {
+    id: 'cherry-cola',
+    slug: { bs: 'visnjeva-kola', en: 'cherry-cola-mint' },
+    name: { bs: 'Višnjeva kola', en: 'Cherry Cola Mint' },
+    parts: [{ flavor: 'darkside-cola', pct: 70 }, { flavor: 'adalya-cherry-mint', pct: 30 }],
+    layout: 'mixed',
+    strength: 'strong',
+    tags: ['slatki', 'mint', 'pice'],
+    featured: false,
+    description: {
+      bs: [
+        'Karamel kola iz Darksidea sa slatkom višnjom i svježim krajem iz Cherry Minta, kao kola sa sirupom od višnje i kockom leda.',
+        'Kola ostaje glavna, a višnja i menta je osvježe, pa ni duža sesija nije teška.'
+      ],
+      en: [
+        'Darkside\'s caramel cola with sweet cherry and a fresh finish from Cherry Mint, like a cola with cherry syrup and an ice cube.',
+        'The cola stays in charge while the cherry and mint keep it fresh, so even a long session never gets heavy.'
+      ]
+    },
+    tips: {
+      bs: [
+        'Darkside je tamni list: izmiješaj okuse, napuni posudu rastresito i kreni sa manje toplote.',
+        'Ako voliš jaču kolu, idi na 80/20; za više višnje, 60/40.'
+      ],
+      en: [
+        'Darkside is dark leaf: mix the flavors, pack loosely and start with less heat.',
+        'For a stronger cola go 80/20; for more cherry, 60/40.'
+      ]
+    }
+  },
+  {
+    id: 'kashmir-garden',
+    slug: { bs: 'kasmirski-vrt', en: 'kashmir-garden' },
+    name: { bs: 'Kašmirski vrt', en: 'Kashmir Garden' },
+    parts: [{ flavor: 'tangiers-kashmir-peach', pct: 50 }, { flavor: 'fumari-ambrosia', pct: 50 }],
+    layout: 'sectors',
+    strength: 'medium',
+    tags: ['vocni', 'slatki', 'zacinski'],
+    featured: false,
+    description: {
+      bs: [
+        'Začinska breskva iz Tangiersa i slatka, kremasta dinja iz Ambrosije: voćni miks sa toplim, večernjim karakterom.',
+        'Ambrosia ublaži jačinu tamnog lista, a Kashmir Peach daje dubinu koju sama dinja nema.'
+      ],
+      en: [
+        'Spiced peach from Tangiers and sweet, creamy melon from Ambrosia: a fruit mix with a warm, evening feel.',
+        'Ambrosia softens the dark leaf, while Kashmir Peach adds a depth melon alone does not have.'
+      ]
+    },
+    tips: {
+      bs: [
+        'Puni u sektorima: Kashmir Peach na jednu, Ambrosiju na drugu polovinu posude, pa se okusi smjenjuju dok se toplota pomjera.',
+        'Tangiers traži strpljenje: daj posudi nekoliko minuta predgrijavanja.'
+      ],
+      en: [
+        'Pack in sectors: Kashmir Peach on one half of the bowl and Ambrosia on the other, so the flavors trade places as the heat moves.',
+        'Tangiers needs patience: give the bowl a few minutes to heat up.'
+      ]
+    }
+  },
+  {
+    id: 'purple-lemonade',
+    slug: { bs: 'ljubicasta-limunada', en: 'purple-lemonade' },
+    name: { bs: 'Ljubičasta limunada', en: 'Purple Lemonade' },
+    parts: [{ flavor: 'starbuzz-pirates-cave', pct: 70 }, { flavor: 'haze-purple-krush', pct: 30 }],
+    layout: 'mixed',
+    strength: 'light',
+    tags: ['citrusni', 'ljetni', 'osvjezavajuci'],
+    featured: false,
+    description: {
+      bs: [
+        'Limun i limeta iz Pirate\'s Cave sa slatkom sodom od grožđa iz Purple Krusha: ljubičasta limunada za vruće dane.',
+        'Citrus je glavni, a grožđe ga zasladi i zaokruži.'
+      ],
+      en: [
+        'Lemon and lime from Pirate\'s Cave with the sweet grape soda of Purple Krush: a purple lemonade for hot days.',
+        'Citrus leads, and the grape sweetens and rounds it off.'
+      ]
+    },
+    tips: {
+      bs: [
+        'Oba okusa su svijetli list, pa je miks lagan i dobar za početnike.',
+        'Za ledeniju verziju dodaj malo Twice the Ice umjesto dijela Pirate\'s Cave.'
+      ],
+      en: [
+        'Both flavors are blonde leaf, so the mix is light and beginner-friendly.',
+        'For an icier take, swap a little Pirate\'s Cave for Twice the Ice.'
+      ]
+    }
   }
 ];

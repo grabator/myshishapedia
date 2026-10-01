@@ -511,7 +511,7 @@ function writeSearchIndex() {
       for (const it of G[key].items) add('gear', MSP.L(it.name), MSP.L(it.short), V.url('gear') + '#oprema-' + it.id, '', both(it.name));
     }
     for (const p of V.comparePairs()) {
-      add('compare', p.a.name + ' vs ' + p.b.name, V.compareText(p.a, p.b), V.pairUrl(p), '', ['vs', 'compare', 'poredjenje']);
+      add('compare', V.uniqueName(p.a) + ' vs ' + V.uniqueName(p.b), V.compareText(p.a, p.b), V.pairUrl(p), '', ['vs', 'compare', 'poredjenje']);
     }
     const pages = [['flavors', 'allFlavors', 'flavorsDescription'], ['brands', 'brands', 'brandsDescription'], ['collections', 'collections', 'collectionsDescription'], ['mixes', 'mixes', 'mixesDescription'],
       ['compare', 'compare', 'compareDescription'], ['mixer', 'mixer', 'mixerDescription'], ['quiz', 'quiz', 'quizDescription'], ['guide', 'guide', 'guideDescription'],
