@@ -6290,3 +6290,25 @@ html:not(.js) .reco { display: none; }
 html:not(.js) .localnote { display: none; }
 /* jedna napomena po stranici: na polici je ispod police; na početnoj ispod "Nedavno gledano" ako postoji */
 .reco--shelf .localnote, .has-recent .reco .localnote { display: none; }
+
+/* ---------- Početna: izbor okusa umjesto cijele liste ---------- */
+
+.catalog__search { margin: 0 0 14px; }
+.catalog__more { display: flex; justify-content: center; margin: clamp(28px, 4vw, 44px) 0 0; }
+.catalog__more .btn { min-width: min(100%, 300px); }
+/* na mobitelu 4, na tabletu 6, na desktopu 9 kartica */
+@media (max-width: 639px) { #flavor-grid > .grid__item:nth-child(n+5) { display: none; } }
+@media (min-width: 640px) and (max-width: 1023px) { #flavor-grid > .grid__item:nth-child(n+7) { display: none; } }
+/* tagovi na početnoj: na mobitelu jedan red koji se skrola, umjesto šest redova */
+@media (max-width: 639px) {
+  #filters {
+    flex-wrap: nowrap;
+    margin-inline: calc(var(--gutter) * -1);
+    padding: 2px var(--gutter) 6px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    scroll-padding-inline: var(--gutter);
+  }
+  #filters::-webkit-scrollbar { display: none; }
+  #filters .chip { flex: 0 0 auto; }
+}

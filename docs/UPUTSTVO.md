@@ -289,7 +289,7 @@ početnoj i za "Prethodni / Sljedeći okus". Sve što se čita na stranici ima v
 }
 ```
 
-Zatim `node build.mjs`. Novi okus se sam pojavi na početnoj, u pretrazi (na oba jezika), filterima,
+Zatim `node build.mjs`. Novi okus se sam pojavi na stranici svih okusa, u pretrazi (na oba jezika), filterima,
 mikseru, kvizu, sitemap-u i u "Slični okusi" tamo gdje si ga dodao.
 
 Napomene:
@@ -309,6 +309,16 @@ Napomene:
   konzoli browsera koje počinje sa `[flavors]`.
 - **Nova ilustracija sastojka:** u `js/illustrations.js`, objekat `ILLUSTRATIONS`: funkcija koja prima boju i
   vraća SVG na platnu 200x200. Za gradijente uvijek `uid('...')`; sitne oblike crtaj kao jedan `<path>`.
+
+---
+
+### Okusi na početnoj
+
+Početna ne prikazuje sve okuse, nego izbor: prvi okus svakog brenda (redom iz `data/flavors.js`), najviše 9
+(`V.HOME_PICKS` u `js/views.js`). Na tabletu se vidi 6, a na mobitelu 4. Ispod je dugme "Prikaži sve okuse",
+koje vodi na stranicu svih okusa. Pretraga i tagovi iznad kartica traže kroz sve okuse, ali prikažu najviše 9
+rezultata, uz dugme "Prikaži svih N rezultata", koje otvara stranicu svih okusa sa istom pretragom (`?q=` ili `?tag=`).
+Da se neki okus pojavi na početnoj, stavi ga kao prvi okus svog brenda u `data/flavors.js`.
 
 ---
 

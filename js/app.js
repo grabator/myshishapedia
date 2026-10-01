@@ -166,14 +166,30 @@
     });
   }
 
+  /**
+   * Početna i 404 ne prikazuju sve okuse: bez pretrage izbor (V.homePicks), a uz pretragu ili tag
+   * najviše HOME_PICKS rezultata i dugme koje vodi na stranicu svih okusa sa istom pretragom.
+   */
   function updateGrid() {
     var grid = document.getElementById('flavor-grid');
     if (!grid) return;
     var list = filteredFlavors();
     var filtering = !!(V.normalize(catalog.query) || catalog.tag);
-    grid.innerHTML = V.gridItems(list, { soon: !filtering });
+    grid.innerHTML = V.gridItems(filtering ? list.slice(0, V.HOME_PICKS) : V.homePicks());
     document.getElementById('catalog-count').textContent = MSP.plural('home.count', list.length);
     document.getElementById('catalog-empty').hidden = list.length > 0;
+    var more = document.getElementById('catalog-more');
+    if (more) {
+      var qs = [];
+      if (catalog.query) qs.push('q=' + encodeURIComponent(catalog.query));
+      if (catalog.tag) qs.push('tag=' + encodeURIComponent(catalog.tag));
+      more.setAttribute('href', V.url('flavors') + (qs.length ? '?' + qs.join('&') : ''));
+      document.getElementById('catalog-more-text').textContent = filtering
+        ? MSP.plural('home.showResults', list.length)
+        : t('home.showAll', { n: list.length });
+      // uz pretragu dugme ima smisla tek kad ima više rezultata nego što stane (na mobitelu 4)
+      more.parentNode.hidden = filtering && list.length <= 4;
+    }
   }
 
   function scrollToCatalog() {
@@ -186,15 +202,26 @@
     var input = document.getElementById('search-input');
     var clear = document.getElementById('search-input-clear');
     var filters = document.getElementById('filters');
+    var catInput = document.getElementById('catalog-q');
     if (!input || !filters) return;
 
+    // gornja pretraga i pretraga iznad okusa su ista pretraga
     function setQuery(q) {
       catalog.query = q;
       clear.hidden = !q;
+      if (input.value !== q) input.value = q;
+      if (catInput && catInput.value !== q) catInput.value = q;
       updateGrid();
     }
 
     input.addEventListener('input', function () { setQuery(input.value); });
+    if (catInput) {
+      catInput.addEventListener('input', function () { setQuery(catInput.value); });
+      document.getElementById('catalog-q-form').addEventListener('submit', function (e) {
+        e.preventDefault();
+        if (FX.isMobile()) catInput.blur();
+      });
+    }
     clear.addEventListener('click', function () {
       input.value = '';
       setQuery('');

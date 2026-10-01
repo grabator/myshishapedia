@@ -909,17 +909,40 @@
     );
   }
 
+  // Na početnoj se ne prikazuju svi okusi, nego izbor (po jedan od svakog brenda) i dugme "Prikaži sve".
+  // Koliko se vidi: 9 na desktopu, 6 na tabletu, 4 na mobitelu (ostalo sakrije CSS).
+  V.HOME_PICKS = 9;
+
+  /** Izbor okusa za početnu: prvi okus svakog brenda (redom iz data/flavors.js), pa ostali do HOME_PICKS. */
+  V.homePicks = function () {
+    var seen = {};
+    var picks = [];
+    var all = V.flavors();
+    all.forEach(function (f) {
+      if (picks.length < V.HOME_PICKS && !seen[f.brandId]) { seen[f.brandId] = 1; picks.push(f); }
+    });
+    all.forEach(function (f) { if (picks.length < V.HOME_PICKS && picks.indexOf(f) === -1) picks.push(f); });
+    return picks;
+  };
+
   function catalog(headingId) {
-    var list = V.flavors();
+    var total = V.flavors().length;
     return (
       '<section class="catalog" aria-labelledby="' + headingId + '" id="svi-okusi">' +
         '<div class="container">' +
           '<div class="catalog__head">' +
             '<h2 class="catalog__title" id="' + headingId + '">' + esc(t('home.catalogTitle')) + '</h2>' +
-            '<p class="catalog__count" id="catalog-count" aria-live="polite">' + esc(MSP.plural('home.count', list.length)) + '</p>' +
+            '<p class="catalog__count" id="catalog-count" aria-live="polite">' + esc(MSP.plural('home.count', total)) + '</p>' +
           '</div>' +
+          '<form class="search search--small catalog__search" role="search" id="catalog-q-form" action="' + V.url('flavors') + '">' +
+            '<label class="sr-only" for="catalog-q">' + esc(t('home.catalogSearchLabel')) + '</label>' +
+            '<span class="search__icon" aria-hidden="true">' + icon('search') + '</span>' +
+            '<input class="search__input" id="catalog-q" name="q" type="search" autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="search" placeholder="' + esc(t('home.searchPlaceholder')) + '">' +
+          '</form>' +
           '<div class="filters" role="group" aria-label="' + esc(t('home.filtersLabel')) + '" id="filters">' + V.filters(null) + '</div>' +
-          '<ul class="grid" id="flavor-grid" role="list">' + V.gridItems(list, { reveal: true, soon: true }) + '</ul>' +
+          '<ul class="grid" id="flavor-grid" role="list">' + V.gridItems(V.homePicks(), { reveal: true }) + '</ul>' +
+          '<p class="catalog__more"><a class="btn btn--primary" id="catalog-more" href="' + V.url('flavors') + '">' +
+            '<span id="catalog-more-text">' + esc(t('home.showAll', { n: total })) + '</span>' + icon('arrowRight') + '</a></p>' +
           '<div class="empty" id="catalog-empty" hidden>' +
             '<p class="empty__title">' + esc(t('home.emptyTitle')) + '</p>' +
             '<p class="empty__text">' + esc(t('home.emptyText')) + '</p>' +
