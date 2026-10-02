@@ -2311,15 +2311,14 @@ button { cursor: pointer; }
   z-index: 150;
   display: flex;
   flex-direction: column;
-  padding-top: env(safe-area-inset-top);
-  padding-bottom: env(safe-area-inset-bottom);
-  overflow-y: auto;
+  overflow: hidden;
   background: color-mix(in srgb, var(--c-bg) 96%, transparent);
   opacity: 0;
   transition: opacity 0.32s ease;
 }
 .menu-overlay.is-open { opacity: 1; }
-.menu-overlay__smoke { position: fixed; inset: 0; overflow: hidden; pointer-events: none; }
+/* pozadina i dim stoje mirno, skrola se samo sadržaj (.menu-overlay__inner) */
+.menu-overlay__smoke { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
 .menu-overlay__smoke span {
   position: absolute;
   width: 90vmax;
@@ -2357,11 +2356,13 @@ button { cursor: pointer; }
   position: relative;
   display: flex;
   flex-direction: column;
-  width: min(100%, 560px);
-  min-height: 100%;
-  margin: 0 auto;
-  padding: 0 16px;
+  height: 100%;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  padding: env(safe-area-inset-top) max(16px, calc((100% - 528px) / 2)) 0;
 }
+.menu-overlay__inner > * { flex-shrink: 0; }
 .menu-overlay__nav { display: grid; gap: 10px; padding-top: 4px; }
 .msearch, .mtile, .msurprise, .mshelf, .mlist, .menu-overlay__foot {
   opacity: 0;
@@ -2662,7 +2663,8 @@ button { cursor: pointer; }
 .mabout .icon { width: 16px; height: 16px; }
 .mabout[aria-current='page'] { color: var(--c-accent-ink); }
 
-@media (max-height: 740px) {
+@media (max-height: 820px) {
+  .menu-overlay__top { height: 60px; }
   .menu-overlay__nav { gap: 8px; }
   .mtile { min-height: 92px; padding: 12px; }
   .mfx { transform: scale(0.85); transform-origin: top right; }
