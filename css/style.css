@@ -1787,7 +1787,8 @@ button { cursor: pointer; }
   aspect-ratio: 360 / 580;
   /* osa nargile je na 36% širine; pomak je centrira (crijevo ide desno) */
   translate: 14% 0;
-  touch-action: none;
+  /* prstom se preko nargile može skrolati; dim kreće tek kad se prst zadrži (vidi effects.js) */
+  touch-action: pan-y;
   user-select: none;
   -webkit-user-select: none;
   -webkit-touch-callout: none;
