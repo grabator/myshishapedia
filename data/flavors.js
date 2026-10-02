@@ -244,17 +244,17 @@ window.FLAVORS = [
     leaf: 'light',
     name: 'Lady Killer',
     shortDescription: {
-      bs: 'Sočni mango, dinja i jagoda, sa hladnim mentol završetkom.',
-      en: 'Juicy mango, melon and strawberry with a cool menthol finish.'
+      bs: 'Sočni mango, dinja i bobičasto voće, sa hladnim mentol završetkom.',
+      en: 'Juicy mango, melon and mixed berries with a cool menthol finish.'
     },
     description: {
       bs: [
-        'Lady Killer je sočan tropski miks u kojem mango vodi glavnu riječ: zreo, gust i sladak. Dinja ga čini svježijim i lakšim, a jagoda dodaje crvenu, blago kiselkastu notu.',
+        'Lady Killer je sočan tropski miks u kojem mango vodi glavnu riječ: zreo, gust i sladak. Dinja ga čini svježijim i lakšim, a bobičasto voće dodaje tamniju, blago kiselkastu notu.',
         'Na kraju dolazi mentol. Nije sladak kao menta, nego čist i hladan, pa voće ostaje u prvom planu, a izdah je osvježavajući.',
         'Dobar izbor za ljubitelje voćnih okusa koji vole kad se na kraju osjeti malo leda.'
       ],
       en: [
-        'Lady Killer is a juicy tropical blend led by mango: ripe, thick and sweet. Melon lightens it up and makes it fresher, while strawberry adds a red, slightly tart note.',
+        'Lady Killer is a juicy tropical blend led by mango: ripe, thick and sweet. Melon lightens it up and makes it fresher, while mixed berries add a darker, slightly tart note.',
         'Menthol closes it out. It is not sweet like mint, just clean and cold, so the fruit stays up front and the exhale feels refreshing.',
         'A solid pick for fruit lovers who like a touch of ice at the end.'
       ]
@@ -262,13 +262,13 @@ window.FLAVORS = [
     ingredients: [
       { name: { bs: 'Mango', en: 'Mango' }, illustration: 'mango', color: '#ffb52e', intensity: 8 },
       { name: { bs: 'Dinja', en: 'Melon' }, illustration: 'dinja', color: '#d9ec9f', intensity: 6 },
-      { name: { bs: 'Jagoda', en: 'Strawberry' }, illustration: 'jagoda', color: '#e8354a', intensity: 6 },
+      { name: { bs: 'Bobičasto voće', en: 'Mixed berries' }, illustration: 'kupina', color: '#7a2f6b', intensity: 6 },
       { name: { bs: 'Mentol', en: 'Menthol' }, illustration: 'kristal', color: '#cdefff', intensity: 7 }
     ],
     profile: { sweetness: 7, freshness: 8, fruitiness: 9, cooling: 7, strength: 7 },
     tags: ['vocni', 'tropski', 'ledeni', 'slatki'],
     tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
-    palette: { primary: '#ffc34d', secondary: '#e8354a', accent: '#39b8e6', background: '#f7a531', text: '#2a1300', water: '#b9ecff' },
+    palette: { primary: '#ffc34d', secondary: '#9b3a7e', accent: '#39b8e6', background: '#f7a531', text: '#2a1300', water: '#b9ecff' },
     mixIdeas: {
       bs: [
         'Lady Killer i Dubai, za još više tropskog voća.',
