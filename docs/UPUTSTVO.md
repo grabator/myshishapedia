@@ -478,6 +478,24 @@ sa istim ključevima. Build prijavi grešku ako neki ključ fali.
 - Indeks pravi build (`dist/search/bs.json` i `en.json`); učitava se tek kad se pretraga prvi put otvori.
 - Rezerva bez prozora: `/bs/pretraga/?q=` i `/en/search/?q=` (noindex).
 
+## Mobilni meni
+
+Meni na mobitelu i tabletu (ispod 1024 px) pravi `V.menu` u `js/views.js`, a žive dijelove pokreće `MenuFx` u `js/app.js`:
+
+- **Pretraga na vrhu** izgleda kao polje i otvara globalnu pretragu. Nakon dvije sekunde sama "kuca" primjere
+  (imena okusa, brend i sastojke), da korisnik vidi šta sve može tražiti.
+- **Četiri pločice** (`MENU_TILES`): Svi okusi (boje nasumičnih okusa se prelijevaju), Brendovi (imena brendova
+  kruže oko broja brendova), Mikser (dvije boje okusa se spajaju) i Kviz. Brojevi okusa i brendova se računaju sami.
+- **Iznenadi me** bira nasumičan okus: imena se kratko vrte kao na slot mašini, pa se otvori izabrani okus.
+- **Moja polica**: tačkice su boje okusa sa police, a desno je broj okusa. Kad je polica prazna, piše "Sačuvaj okuse koje imaš".
+- **Dvije liste** (`MENU_LISTS`): Otkrij i Nargila, svaka stavka ima svoju boju tačkice. Trenutna stranica je istaknuta.
+- Boje menija prate temu stranice (svijetla ili tamna). Kad je uključeno "smanji pokrete", animacije se isključe.
+
+Tekstovi su u `js/strings.js` pod `nav` (`menuSearch`, `mixerSub`, `quizSub`, `surprise`, `surpriseSub`, `shelfSub`,
+`shelfSubEmpty`, `groupDiscover`).
+
+---
+
 ## Kartica za dijeljenje
 
 Dugme "Podijeli" je na stranici okusa, recepta, u mikseru i na rezultatu kviza.
