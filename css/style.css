@@ -904,9 +904,12 @@ button { cursor: pointer; }
 @media (min-width: 1100px) {
   .fhero {
     display: flex;
-    align-items: center;
+    /* "safe": ako je sadržaj viši od ekrana, ne ide preko putanje (breadcrumbs) na vrhu */
+    align-items: safe center;
     min-height: 100vh;
     min-height: 100svh;
+    /* mjesto za putanju (breadcrumbs), koja je na desktopu fiksno na vrhu */
+    padding-top: calc(var(--header-h) + env(safe-area-inset-top) + 56px);
     text-align: left;
   }
 }
@@ -976,7 +979,7 @@ button { cursor: pointer; }
   color: var(--c-text);
 }
 @media (min-width: 1100px) {
-  .fhero__title { font-size: min(14rem, calc(58cqi / (var(--chars, 6) * 1.02))); }
+  .fhero__title { font-size: min(14rem, calc(58cqi / (var(--chars-d, var(--chars, 6)) * 1.02))); }
 }
 .fhero__title .w {
   display: inline-block;

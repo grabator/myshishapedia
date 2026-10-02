@@ -1199,6 +1199,12 @@
       return '<span class="w">' + Array.from(w).map(function (ch) { return '<span class="ch" style="--c:' + (ci++) + '">' + esc(ch) + '</span>'; }).join('') + '</span>';
     }).join(' ');
     var longest = words.reduce(function (m, w) { return Math.max(m, w.length); }, 1);
+    // Veličina naslova ("koliko slova mora stati u red"; slovo je u prosjeku ~0,62 širine fonta):
+    // na desktopu višerječni naziv (npr. "Blue Mist") staje u jedan red, da ne bude dvostruko viši od "Dubai";
+    // na mobitelu smije u dva reda, da ne bude sitan. Najduža riječ uvijek mora stati.
+    var total = String(f.name).length;
+    var fitMobile = words.length < 2 ? longest : Math.max(longest, Math.ceil(total * 0.31));
+    var fitDesktop = words.length < 2 ? longest : Math.max(longest, Math.ceil(total * 0.62));
     var tags = (f.tags || []).map(function (tag) { return '<li class="tag">' + esc(MSP.tagLabel(tag)) + '</li>'; }).join('');
     var floaterIngs = f.mood === 'frost'
       ? ings.concat([{ illustration: 'kristal', color: '#dff4ff' }])
@@ -1222,7 +1228,7 @@
                   ? '<a class="fhero__brand anim-in" style="--i:0" href="' + V.brandUrl(brand) + '">' + esc(f.brand) + '</a> '
                   : '<span class="fhero__brand anim-in" style="--i:0">' + esc(f.brand) + '</span> ') +
                 '<span class="sr-only">' + esc(f.name) + '</span>' +
-                '<span class="fhero__title" id="flavor-name" aria-hidden="true" style="--chars:' + longest + '">' + nameWords + '</span>' +
+                '<span class="fhero__title" id="flavor-name" aria-hidden="true" style="--chars:' + fitMobile + ';--chars-d:' + fitDesktop + '">' + nameWords + '</span>' +
               '</h1>' +
               '<p class="fhero__lead anim-in" style="--i:5">' + esc(L(f.shortDescription)) + '</p>' +
               (tags ? '<ul class="tags anim-in" style="--i:6" role="list">' + tags + '</ul>' : '') +
