@@ -5279,10 +5279,9 @@ a.fhero__brand:hover, a.fhero__brand:focus-visible { color: var(--c-text); text-
 .rate {
   --star: 40px;
   display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
-  grid-template-areas: 'sum me' 'msg msg' 'ts ts';
-  align-items: center;
-  gap: 4px 22px;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-areas: 'me' 'sum' 'msg' 'ts';
+  gap: 8px;
   width: min(100%, 470px);
   margin: 22px 0 0;
   padding: 14px 18px 10px;
@@ -5299,11 +5298,10 @@ html:not(.js) .rate { display: none; }
 .fhero__copy .rate { margin-inline: auto; }
 @media (min-width: 1100px) { .fhero__copy .rate { margin-inline: 0; } }
 
-.rate__sum { grid-area: sum; display: grid; grid-template-columns: auto auto; grid-template-rows: auto auto; column-gap: 10px; align-items: center; min-width: 0; }
+.rate__sum { grid-area: sum; display: flex; flex-wrap: wrap; align-items: center; gap: 4px 10px; min-width: 0; padding-top: 10px; border-top: 1px solid var(--c-line); }
 .rate__avg {
-  grid-row: 1 / span 2;
   font-family: var(--font-display);
-  font-size: 2.6rem;
+  font-size: 1.7rem;
   font-weight: 800;
   line-height: 1;
   letter-spacing: -0.04em;
@@ -5328,9 +5326,12 @@ html:not(.js) .rate { display: none; }
   background: var(--c-accent-ink);
   transition: width 1s var(--ease-out);
 }
-.rate__count { font-size: 0.8125rem; font-weight: 600; color: var(--c-muted); white-space: nowrap; }
+.rate__count { min-width: 0; font-size: 0.8125rem; font-weight: 600; color: var(--c-muted); }
+/* još nema ocjena: samo kratka rečenica, bez crtice i praznih zvjezdica */
+.rate.is-ready:not(.has-ratings) .rate__avg,
+.rate.is-ready:not(.has-ratings) .rate__meter { display: none; }
 
-.rate__me { grid-area: me; display: grid; justify-items: start; gap: 2px; min-width: 0; }
+.rate__me { grid-area: me; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 2px 14px; min-width: 0; }
 .rate__label { margin: 0; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--c-muted); }
 .rate__stars { display: flex; margin-left: -6px; }
 .rate__star {
@@ -5362,7 +5363,7 @@ html:not(.js) .rate { display: none; }
 
 /* jedna linija rezervisana za poruku, da se okvir ne trza */
 .rate__msg { grid-area: msg; min-height: 1.5em; margin: 2px 0 0; font-size: 0.8125rem; font-weight: 600; color: var(--c-muted); }
-.rate__msg.is-error { color: #ff9b85; }
+.rate__msg.is-error { color: color-mix(in srgb, #d93a2b 72%, var(--c-text)); }
 .rate__ts { grid-area: ts; }
 .rate__ts:empty { display: none; }
 
@@ -5372,9 +5373,14 @@ html:not(.js) .rate { display: none; }
 .rate.is-loading .rate__count { min-width: 70px; }
 .rate.is-loading .rate__stars { opacity: 0.5; pointer-events: none; }
 
-@media (max-width: 419px) {
-  .rate { grid-template-columns: minmax(0, 1fr); grid-template-areas: 'me' 'sum' 'msg' 'ts'; justify-items: center; text-align: center; gap: 8px; }
-  .rate__me { justify-items: center; }
+/* uski ekrani i centrirana stranica okusa: sve u sredini */
+@media (max-width: 1099px) {
+  .fhero__copy .rate { text-align: center; }
+  .fhero__copy .rate__me, .fhero__copy .rate__sum { justify-content: center; }
+}
+@media (max-width: 479px) {
+  .rate { text-align: center; }
+  .rate__me, .rate__sum { justify-content: center; }
   .rate__stars { margin-left: 0; }
   .rate__msg { min-height: 3em; }
 }

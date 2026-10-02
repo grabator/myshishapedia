@@ -200,25 +200,34 @@
         var w = tsWidgets[key];
         var ok = function (tok) { window.clearTimeout(timer); resolve(tok); };
         var bad = function () { window.clearTimeout(timer); reject(new Error('turnstile')); };
-        if (w) {
-          w.ok = ok; w.bad = bad;
-          T.reset(w.id);
+        // pogrešan ključ i slične greške Turnstile baci odmah: tretiraj ih kao neuspjelu provjeru
+        try {
+          if (w) {
+            w.ok = ok; w.bad = bad;
+            T.reset(w.id);
+            T.execute(box);
+            return;
+          }
+          w = tsWidgets[key] = { ok: ok, bad: bad };
+          w.id = T.render(box, {
+            sitekey: SITEKEY,
+            action: 'rate',
+            theme: 'dark',
+            size: 'flexible',
+            appearance: 'interaction-only',
+            execution: 'execute',
+            callback: function (tok) { w.ok(tok); },
+            // kod greške (npr. 110200 = domen nije dozvoljen, 400020 = pogrešan ključ) ide u konzolu
+            'error-callback': function (code) { if (window.console) console.warn('[ratings] Turnstile greška:', code); w.bad(); return true; },
+            'timeout-callback': function () { w.bad(); }
+          });
           T.execute(box);
-          return;
+        } catch (err) {
+          delete tsWidgets[key];
+          window.clearTimeout(timer);
+          if (window.console) console.warn('[ratings] Turnstile:', err && err.message ? err.message : err);
+          reject(new Error('turnstile'));
         }
-        w = tsWidgets[key] = { ok: ok, bad: bad };
-        w.id = T.render(box, {
-          sitekey: SITEKEY,
-          action: 'rate',
-          theme: 'dark',
-          size: 'flexible',
-          appearance: 'interaction-only',
-          execution: 'execute',
-          callback: function (tok) { w.ok(tok); },
-          'error-callback': function () { w.bad(); return true; },
-          'timeout-callback': function () { w.bad(); }
-        });
-        T.execute(box);
       });
     });
   }
@@ -259,7 +268,15 @@
         body: JSON.stringify({ kind: k[0], id: k[1], stars: n, device: deviceId(), token: token })
       });
     }).then(function (res) {
-      if (!res.ok) { var e = new Error('http'); e.status = res.status; throw e; }
+      if (!res.ok) {
+        var e = new Error('http');
+        e.status = res.status;
+        // razlog sa servera (npr. not-configured) ide u konzolu, za lakše traženje greške
+        return res.json().catch(function () { return {}; }).then(function (body) {
+          if (window.console) console.warn('[ratings] POST /api/ratings:', res.status, body && body.error);
+          throw e;
+        });
+      }
       return res.json();
     }).then(function (out) {
       data[k[0]] = data[k[0]] || {};
