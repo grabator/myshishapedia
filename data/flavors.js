@@ -633,6 +633,137 @@ window.FLAVORS = [
     similar: ['adalya-dubai', 'adalya-love-66', 'adalya-double-melon']
   },
   {
+    id: 'adalya-hawaii',
+    brand: 'adalya',
+    leaf: 'light',
+    name: 'Hawaii',
+    shortDescription: {
+      bs: 'Zreli mango i sočni ananas sa svježim mentolom: ljeto u jednoj glavi.',
+      en: 'Ripe mango and juicy pineapple with fresh menthol: summer in a single bowl.'
+    },
+    description: {
+      bs: [
+        'Hawaii je jedan od najpoznatijih Adalya okusa. Mango daje gustu, medenu slatkoću, a ananas ga razbija svojom svijetlom, blago kiselkastom sočnošću.',
+        'Mentol je umjeren: hladi izdah, ali ne pokriva voće, pa okus ostaje tropski i lagan.',
+        'Siguran izbor za početnike i za sve koji vole voćne okuse sa malo leda.'
+      ],
+      en: [
+        'Hawaii is one of the best known Adalya flavors. Mango brings a thick, honeyed sweetness, and pineapple cuts through it with bright, slightly tangy juiciness.',
+        'The menthol is moderate: it cools the exhale without covering the fruit, so the flavor stays tropical and light.',
+        'A safe pick for beginners and for anyone who likes fruit flavors with a little ice.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Mango', en: 'Mango' }, illustration: 'mango', color: '#ffb52e', intensity: 8 },
+      { name: { bs: 'Ananas', en: 'Pineapple' }, illustration: 'ananas', color: '#f8cf4a', intensity: 7 },
+      { name: { bs: 'Mentol', en: 'Menthol' }, illustration: 'kristal', color: '#cdefff', intensity: 5 }
+    ],
+    profile: { sweetness: 8, freshness: 7, fruitiness: 9, cooling: 5, strength: 5 },
+    tags: ['vocni', 'tropski', 'ljetni', 'slatki'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#ffb52e', secondary: '#f8cf4a', accent: '#2fbfa0', background: '#2b1a08', text: '#fff4e0' },
+    mixIdeas: {
+      bs: [
+        'Hawaii i Dubai, za još više tropskog voća sa bananom.',
+        'Hawaii i Love 66, za šareni ljetni miks sa lubenicom.',
+        'Hawaii i Ice Bonbon, 70/30, kad želiš više leda.'
+      ],
+      en: [
+        'Hawaii with Dubai for even more tropical fruit plus banana.',
+        'Hawaii with Love 66 for a colorful summer mix with watermelon.',
+        'Hawaii with Ice Bonbon, 70/30, when you want more ice.'
+      ]
+    },
+    similar: ['adalya-dubai', 'adalya-lady-killer', 'darkside-falling-star', 'revoshi-lady-mystique']
+  },
+  {
+    id: 'adalya-blue-melon',
+    brand: 'adalya',
+    leaf: 'light',
+    name: 'Blue Melon',
+    mood: 'ice',
+    shortDescription: {
+      bs: 'Medena dinja na ledu: slatka, sočna i jako osvježavajuća.',
+      en: 'Honeyed melon on ice: sweet, juicy and very refreshing.'
+    },
+    description: {
+      bs: [
+        'Blue Melon je zrela, medena dinja sa izraženim mentolom. Dinja je sočna i mekana, bez kiselosti, a hladnoća joj daje "plavi", ledeni karakter.',
+        'Hlađenje je jače nego kod Hawaii, ali okus ne postaje oštar: dinja ostaje u prvom planu do kraja glave.',
+        'Odličan za vruće ljetne dane i za one koji vole jednostavne, čiste okuse.'
+      ],
+      en: [
+        'Blue Melon is ripe, honeyed melon with pronounced menthol. The melon is juicy and soft with no tartness, and the cold gives it a "blue", icy character.',
+        'The cooling is stronger than in Hawaii, but the flavor never turns sharp: the melon stays up front until the bowl is done.',
+        'Great for hot summer days and for anyone who likes simple, clean flavors.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Dinja', en: 'Melon' }, illustration: 'dinja', color: '#d9ec9f', intensity: 8 },
+      { name: { bs: 'Mentol', en: 'Menthol' }, illustration: 'kristal', color: '#cdefff', intensity: 8 }
+    ],
+    profile: { sweetness: 7, freshness: 9, fruitiness: 8, cooling: 8, strength: 5 },
+    tags: ['vocni', 'ledeni', 'ljetni', 'osvjezavajuci'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#bfe58a', secondary: '#7fd3f0', accent: '#2a8fc8', background: '#0d2230', text: '#eefbff', water: '#bfeeff' },
+    mixIdeas: {
+      bs: [
+        'Blue Melon i Double Melon, za dinju na dva načina.',
+        'Blue Melon i Blue Ice, za plavi ledeni voćni miks.',
+        'Blue Melon i Mint, 70/30, za klasičnu dinju sa mentom.'
+      ],
+      en: [
+        'Blue Melon with Double Melon for melon two ways.',
+        'Blue Melon with Blue Ice for a blue, icy fruit mix.',
+        'Blue Melon with Mint, 70/30, for a classic melon and mint.'
+      ]
+    },
+    similar: ['adalya-double-melon', 'starbuzz-safari-melon-dew', 'serbetli-ice-watermelon', 'fumari-ambrosia']
+  },
+  {
+    id: 'adalya-lemon-cocktail',
+    brand: 'adalya',
+    leaf: 'light',
+    name: 'Lemon Cocktail',
+    shortDescription: {
+      bs: 'Slatki limun u stilu limončela: kiselkast, sunčan i lagan.',
+      en: 'Sweet limoncello-style lemon: tangy, sunny and light.'
+    },
+    description: {
+      bs: [
+        'Lemon Cocktail podsjeća na limončelo, talijanski liker od limuna. Limun je zreo i sladak, sa koricom koja daje blagu, ugodnu gorčinu.',
+        'Nema mentola, pa je okus topliji i "koktelskiji" od klasičnih limun-menta kombinacija.',
+        'Lijep samostalno, a još bolji kao kiselkasta nota u voćnim miksevima.'
+      ],
+      en: [
+        'Lemon Cocktail is reminiscent of limoncello, the Italian lemon liqueur. The lemon is ripe and sweet, with a zesty peel that adds a gentle, pleasant bitterness.',
+        'There is no menthol, so it feels warmer and more like a cocktail than the classic lemon and mint blends.',
+        'Nice on its own, and even better as the tangy note in fruit mixes.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Limun', en: 'Lemon' }, illustration: 'limun', color: '#f7e04b', intensity: 9 },
+      { name: { bs: 'Šećerni sirup', en: 'Sugar syrup' }, illustration: 'med', color: '#f3c96b', intensity: 4 }
+    ],
+    profile: { sweetness: 7, freshness: 7, fruitiness: 8, cooling: 0, strength: 5 },
+    tags: ['citrusni', 'vocni', 'pice', 'ljetni'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#f7e04b', secondary: '#fff3a8', accent: '#e8a21b', background: '#fff9d9', text: '#2e2600' },
+    mixIdeas: {
+      bs: [
+        'Lemon Cocktail i Raspberry, za malinovu limunadu.',
+        'Lemon Cocktail i Mint, 70/30, za limun-mentu.',
+        'Lemon Cocktail i Double Melon, za ljetni koktel od dinje.'
+      ],
+      en: [
+        'Lemon Cocktail with Raspberry for a raspberry lemonade.',
+        'Lemon Cocktail with Mint, 70/30, for lemon and mint.',
+        'Lemon Cocktail with Double Melon for a summer melon cocktail.'
+      ]
+    },
+    similar: ['revoshi-eskimo-lemon', 'al-fakher-lemon-mint', 'adalya-tynky-wynky']
+  },
+  {
     id: 'al-fakher-double-apple',
     brand: 'al-fakher',
     leaf: 'light',
@@ -719,6 +850,177 @@ window.FLAVORS = [
       ]
     },
     similar: ['adalya-mint', 'tangiers-cane-mint', 'trifecta-twice-the-ice']
+  },
+  {
+    id: 'al-fakher-grape-mint',
+    brand: 'al-fakher',
+    leaf: 'light',
+    name: 'Grape Mint',
+    shortDescription: {
+      bs: 'Slatko bijelo grožđe i hladna menta: jedan od najprodavanijih klasika.',
+      en: 'Sweet white grape and cool mint: one of the best selling classics.'
+    },
+    description: {
+      bs: [
+        'Grape Mint je klasik orijentalnih kafića. Grožđe je slatko i sočno, bliže bijelom nego tamnom, a menta ga hladi i čini laganim.',
+        'Menta je izražena, ali ne ledena, pa je okus osvježavajući bez peckanja u grlu.',
+        'Dobar okus za duže sesije sa društvom i jedan od najlakših načina da probaš Al Fakher.'
+      ],
+      en: [
+        'Grape Mint is a classic of hookah cafés. The grape is sweet and juicy, closer to white than dark, and the mint cools it down and keeps it light.',
+        'The mint is pronounced but not icy, so it is refreshing without biting the throat.',
+        'A good flavor for long sessions with friends and one of the easiest ways to try Al Fakher.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Bijelo grožđe', en: 'White grape' }, illustration: 'grozdje', color: '#c9d77a', intensity: 8 },
+      { name: { bs: 'Menta', en: 'Mint' }, illustration: 'menta', color: '#2fae78', intensity: 7 }
+    ],
+    profile: { sweetness: 7, freshness: 8, fruitiness: 7, cooling: 6, strength: 5 },
+    tags: ['vocni', 'mint', 'klasicni', 'osvjezavajuci'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#9fbf4a', secondary: '#d8e89a', accent: '#2fae78', background: '#1a2410', text: '#f3fbe4' },
+    mixIdeas: {
+      bs: [
+        'Grape Mint i Double Apple, za stari orijentalni miks.',
+        'Grape Mint i Blueberry, za tamnije bobičasto grožđe.',
+        'Grape Mint i Watermelon Mint, za ljetni miks sa mentom.'
+      ],
+      en: [
+        'Grape Mint with Double Apple for an old-school café mix.',
+        'Grape Mint with Blueberry for a darker, berry-like grape.',
+        'Grape Mint with Watermelon Mint for a summer mix with mint.'
+      ]
+    },
+    similar: ['al-waha-grape-mint', 'nameless-black-nana', 'al-fakher-mint', 'al-fakher-watermelon-mint']
+  },
+  {
+    id: 'al-fakher-lemon-mint',
+    brand: 'al-fakher',
+    leaf: 'light',
+    name: 'Lemon Mint',
+    shortDescription: {
+      bs: 'Kiselkast limun i hladna menta: jednostavan, čist i osvježavajući klasik.',
+      en: 'Tangy lemon and cool mint: a simple, clean and refreshing classic.'
+    },
+    description: {
+      bs: [
+        'Lemon Mint je kao limunada sa listićima mente. Limun je kiselkast i svjež, sa malo slatkoće, a menta daje hladan, čist izdah.',
+        'Okus je lagan i ne zamara, pa je dobar za vruće dane i duže sesije.',
+        'Za poređenje probaj i Fumari i Mazaya Lemon Mint: isti par, tri različita karaktera.'
+      ],
+      en: [
+        'Lemon Mint is like lemonade with mint leaves. The lemon is tangy and fresh with a bit of sweetness, and the mint gives a cool, clean exhale.',
+        'It is light and never tiring, so it works well on hot days and in long sessions.',
+        'For comparison, try the Fumari and Mazaya Lemon Mint too: the same pair, three different characters.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Limun', en: 'Lemon' }, illustration: 'limun', color: '#f7e04b', intensity: 8 },
+      { name: { bs: 'Menta', en: 'Mint' }, illustration: 'menta', color: '#2fae78', intensity: 7 }
+    ],
+    profile: { sweetness: 5, freshness: 9, fruitiness: 6, cooling: 6, strength: 5 },
+    tags: ['citrusni', 'mint', 'klasicni', 'osvjezavajuci'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#f2d93a', secondary: '#9fe0b8', accent: '#1f9a66', background: '#17240f', text: '#fbffe8' },
+    mixIdeas: {
+      bs: [
+        'Lemon Mint i Double Apple, za svježiju dvostruku jabuku.',
+        'Lemon Mint i Grape Mint, za voćnu limunadu.',
+        'Lemon Mint i Raspberry, za malinovu limunadu sa mentom.'
+      ],
+      en: [
+        'Lemon Mint with Double Apple for a fresher double apple.',
+        'Lemon Mint with Grape Mint for a fruity lemonade.',
+        'Lemon Mint with Raspberry for a raspberry lemonade with mint.'
+      ]
+    },
+    similar: ['fumari-lemon-mint', 'mazaya-lemon-mint', 'al-fakher-mint', 'adalya-lemon-cocktail']
+  },
+  {
+    id: 'al-fakher-watermelon-mint',
+    brand: 'al-fakher',
+    leaf: 'light',
+    name: 'Watermelon Mint',
+    shortDescription: {
+      bs: 'Sočna, slatka lubenica sa hladnom mentom: ljetni klasik.',
+      en: 'Juicy, sweet watermelon with cool mint: a summer classic.'
+    },
+    description: {
+      bs: [
+        'Watermelon Mint je lubenica onakva kakvu je pamtiš sa ljeta: slatka, vodenasta i sočna. Menta joj dodaje hladnoću i čini je još osvježavajućom.',
+        'Okus je mekan i jednostavan, bez kiselosti, pa ga je lako pušiti i ako tek počinješ.',
+        'Odličan i kao baza za mikseve sa drugim voćem.'
+      ],
+      en: [
+        'Watermelon Mint is watermelon the way you remember it from summer: sweet, watery and juicy. The mint adds coolness and makes it even more refreshing.',
+        'It is soft and simple with no tartness, so it is easy to smoke even if you are just starting out.',
+        'Great as a base for mixes with other fruit, too.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Lubenica', en: 'Watermelon' }, illustration: 'lubenica', color: '#e8434f', intensity: 8 },
+      { name: { bs: 'Menta', en: 'Mint' }, illustration: 'menta', color: '#2fae78', intensity: 6 }
+    ],
+    profile: { sweetness: 7, freshness: 8, fruitiness: 8, cooling: 5, strength: 5 },
+    tags: ['vocni', 'mint', 'ljetni', 'osvjezavajuci'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#e8434f', secondary: '#7fd18b', accent: '#1f8a4c', background: '#2a0f14', text: '#fff0f0' },
+    mixIdeas: {
+      bs: [
+        'Watermelon Mint i Grape Mint, za voćni miks sa mentom.',
+        'Watermelon Mint i Lemon Mint, za lubenicu-limunadu.',
+        'Watermelon Mint i Blueberry, za lubenicu sa bobicama.'
+      ],
+      en: [
+        'Watermelon Mint with Grape Mint for a fruity mix with mint.',
+        'Watermelon Mint with Lemon Mint for a watermelon lemonade.',
+        'Watermelon Mint with Blueberry for watermelon with berries.'
+      ]
+    },
+    similar: ['serbetli-ice-watermelon', 'al-waha-big-boy', 'adalya-love-66', 'al-fakher-grape-mint']
+  },
+  {
+    id: 'al-fakher-blueberry',
+    brand: 'al-fakher',
+    leaf: 'light',
+    name: 'Blueberry',
+    shortDescription: {
+      bs: 'Slatka, džemasta borovnica, mekana i bez hlađenja.',
+      en: 'Sweet, jammy blueberry, soft and without any cooling.'
+    },
+    description: {
+      bs: [
+        'Blueberry je čista borovnica: slatka, malo džemasta i tamna. Nema mente ni mentola, pa je okus topao i mekan.',
+        'Slatkoća je izražena, ali ne bombonska, a blaga kiselost bobice drži okus živim.',
+        'Dobar samostalno, a još češće se koristi kao bobičasta nota u miksevima sa mentom ili limunom.'
+      ],
+      en: [
+        'Blueberry is pure blueberry: sweet, a little jammy and dark. There is no mint or menthol, so the flavor is warm and soft.',
+        'The sweetness is pronounced but not candy-like, and a slight berry tartness keeps it lively.',
+        'Good on its own, and even more often used as the berry note in mixes with mint or lemon.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Borovnica', en: 'Blueberry' }, illustration: 'borovnica', color: '#4b5bb5', intensity: 9 }
+    ],
+    profile: { sweetness: 8, freshness: 5, fruitiness: 9, cooling: 0, strength: 5 },
+    tags: ['vocni', 'bobicasti', 'slatki'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#5b6fd6', secondary: '#a9b6ff', accent: '#e86ba8', background: '#12142e', text: '#eef0ff' },
+    mixIdeas: {
+      bs: [
+        'Blueberry i Mint, 70/30, za borovnicu sa mentom.',
+        'Blueberry i Lemon Mint, za borovnicu-limunadu.',
+        'Blueberry i Grape Mint, za tamni voćni miks.'
+      ],
+      en: [
+        'Blueberry with Mint, 70/30, for blueberry and mint.',
+        'Blueberry with Lemon Mint for a blueberry lemonade.',
+        'Blueberry with Grape Mint for a dark fruit mix.'
+      ]
+    },
+    similar: ['serbetli-ice-blueberry', 'adalya-blue-ice', 'trifecta-blue-strawberry', 'starbuzz-blue-mist']
   },
   {
     id: 'starbuzz-blue-mist',
