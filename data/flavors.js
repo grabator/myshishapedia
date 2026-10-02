@@ -244,17 +244,17 @@ window.FLAVORS = [
     leaf: 'light',
     name: 'Lady Killer',
     shortDescription: {
-      bs: 'Sočni mango, dinja i jagoda, sa hladnim mentol završetkom.',
-      en: 'Juicy mango, melon and strawberry with a cool menthol finish.'
+      bs: 'Sočni mango, dinja i bobičasto voće, sa hladnim mentol završetkom.',
+      en: 'Juicy mango, melon and mixed berries with a cool menthol finish.'
     },
     description: {
       bs: [
-        'Lady Killer je sočan tropski miks u kojem mango vodi glavnu riječ: zreo, gust i sladak. Dinja ga čini svježijim i lakšim, a jagoda dodaje crvenu, blago kiselkastu notu.',
+        'Lady Killer je sočan tropski miks u kojem mango vodi glavnu riječ: zreo, gust i sladak. Dinja ga čini svježijim i lakšim, a bobičasto voće dodaje tamniju, blago kiselkastu notu.',
         'Na kraju dolazi mentol. Nije sladak kao menta, nego čist i hladan, pa voće ostaje u prvom planu, a izdah je osvježavajući.',
         'Dobar izbor za ljubitelje voćnih okusa koji vole kad se na kraju osjeti malo leda.'
       ],
       en: [
-        'Lady Killer is a juicy tropical blend led by mango: ripe, thick and sweet. Melon lightens it up and makes it fresher, while strawberry adds a red, slightly tart note.',
+        'Lady Killer is a juicy tropical blend led by mango: ripe, thick and sweet. Melon lightens it up and makes it fresher, while mixed berries add a darker, slightly tart note.',
         'Menthol closes it out. It is not sweet like mint, just clean and cold, so the fruit stays up front and the exhale feels refreshing.',
         'A solid pick for fruit lovers who like a touch of ice at the end.'
       ]
@@ -262,13 +262,13 @@ window.FLAVORS = [
     ingredients: [
       { name: { bs: 'Mango', en: 'Mango' }, illustration: 'mango', color: '#ffb52e', intensity: 8 },
       { name: { bs: 'Dinja', en: 'Melon' }, illustration: 'dinja', color: '#d9ec9f', intensity: 6 },
-      { name: { bs: 'Jagoda', en: 'Strawberry' }, illustration: 'jagoda', color: '#e8354a', intensity: 6 },
+      { name: { bs: 'Bobičasto voće', en: 'Mixed berries' }, illustration: 'kupina', color: '#7a2f6b', intensity: 6 },
       { name: { bs: 'Mentol', en: 'Menthol' }, illustration: 'kristal', color: '#cdefff', intensity: 7 }
     ],
     profile: { sweetness: 7, freshness: 8, fruitiness: 9, cooling: 7, strength: 7 },
     tags: ['vocni', 'tropski', 'ledeni', 'slatki'],
     tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
-    palette: { primary: '#ffc34d', secondary: '#e8354a', accent: '#39b8e6', background: '#f7a531', text: '#2a1300', water: '#b9ecff' },
+    palette: { primary: '#ffc34d', secondary: '#9b3a7e', accent: '#39b8e6', background: '#f7a531', text: '#2a1300', water: '#b9ecff' },
     mixIdeas: {
       bs: [
         'Lady Killer i Dubai, za još više tropskog voća.',
@@ -456,7 +456,7 @@ window.FLAVORS = [
         'A little Blue Ice in Raspberry when you want chilled raspberry.'
       ]
     },
-    similar: ['starbuzz-blue-mist', 'adalya-ice-bonbon', 'adalya-angel-lips']
+    similar: ['serbetli-ice-blueberry', 'al-fakher-blueberry', 'starbuzz-blue-mist', 'adalya-ice-bonbon']
   },
   {
     id: 'adalya-cherry-mint',
@@ -541,7 +541,7 @@ window.FLAVORS = [
         'Raspberry with a little Blue Ice for icy raspberry.'
       ]
     },
-    similar: ['musthave-pinkman', 'adalya-angel-lips', 'adalya-blue-ice']
+    similar: ['darkside-generis-raspberry', 'starbuzz-pink', 'musthave-pinkman', 'adalya-angel-lips']
   },
   {
     id: 'adalya-double-melon',
@@ -584,7 +584,7 @@ window.FLAVORS = [
         'Double Melon with Tynky Wynky for a fruity lemonade.'
       ]
     },
-    similar: ['adalya-love-66', 'adalya-angel-lips', 'adalya-lady-killer']
+    similar: ['adalya-blue-melon', 'starbuzz-safari-melon-dew', 'adalya-love-66', 'adalya-lady-killer']
   },
   {
     id: 'adalya-tynky-wynky',
@@ -633,6 +633,137 @@ window.FLAVORS = [
     similar: ['adalya-dubai', 'adalya-love-66', 'adalya-double-melon']
   },
   {
+    id: 'adalya-hawaii',
+    brand: 'adalya',
+    leaf: 'light',
+    name: 'Hawaii',
+    shortDescription: {
+      bs: 'Zreli mango i sočni ananas sa svježim mentolom: ljeto u jednoj glavi.',
+      en: 'Ripe mango and juicy pineapple with fresh menthol: summer in a single bowl.'
+    },
+    description: {
+      bs: [
+        'Hawaii je jedan od najpoznatijih Adalya okusa. Mango daje gustu, medenu slatkoću, a ananas ga razbija svojom svijetlom, blago kiselkastom sočnošću.',
+        'Mentol je umjeren: hladi izdah, ali ne pokriva voće, pa okus ostaje tropski i lagan.',
+        'Siguran izbor za početnike i za sve koji vole voćne okuse sa malo leda.'
+      ],
+      en: [
+        'Hawaii is one of the best known Adalya flavors. Mango brings a thick, honeyed sweetness, and pineapple cuts through it with bright, slightly tangy juiciness.',
+        'The menthol is moderate: it cools the exhale without covering the fruit, so the flavor stays tropical and light.',
+        'A safe pick for beginners and for anyone who likes fruit flavors with a little ice.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Mango', en: 'Mango' }, illustration: 'mango', color: '#ffb52e', intensity: 8 },
+      { name: { bs: 'Ananas', en: 'Pineapple' }, illustration: 'ananas', color: '#f8cf4a', intensity: 7 },
+      { name: { bs: 'Mentol', en: 'Menthol' }, illustration: 'kristal', color: '#cdefff', intensity: 5 }
+    ],
+    profile: { sweetness: 8, freshness: 7, fruitiness: 9, cooling: 5, strength: 5 },
+    tags: ['vocni', 'tropski', 'ljetni', 'slatki'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#ffb52e', secondary: '#f8cf4a', accent: '#2fbfa0', background: '#2b1a08', text: '#fff4e0' },
+    mixIdeas: {
+      bs: [
+        'Hawaii i Dubai, za još više tropskog voća sa bananom.',
+        'Hawaii i Love 66, za šareni ljetni miks sa lubenicom.',
+        'Hawaii i Ice Bonbon, 70/30, kad želiš više leda.'
+      ],
+      en: [
+        'Hawaii with Dubai for even more tropical fruit plus banana.',
+        'Hawaii with Love 66 for a colorful summer mix with watermelon.',
+        'Hawaii with Ice Bonbon, 70/30, when you want more ice.'
+      ]
+    },
+    similar: ['adalya-dubai', 'adalya-lady-killer', 'darkside-falling-star', 'revoshi-lady-mystique']
+  },
+  {
+    id: 'adalya-blue-melon',
+    brand: 'adalya',
+    leaf: 'light',
+    name: 'Blue Melon',
+    mood: 'ice',
+    shortDescription: {
+      bs: 'Medena dinja na ledu: slatka, sočna i jako osvježavajuća.',
+      en: 'Honeyed melon on ice: sweet, juicy and very refreshing.'
+    },
+    description: {
+      bs: [
+        'Blue Melon je zrela, medena dinja sa izraženim mentolom. Dinja je sočna i mekana, bez kiselosti, a hladnoća joj daje "plavi", ledeni karakter.',
+        'Hlađenje je jače nego kod Hawaii, ali okus ne postaje oštar: dinja ostaje u prvom planu do kraja glave.',
+        'Odličan za vruće ljetne dane i za one koji vole jednostavne, čiste okuse.'
+      ],
+      en: [
+        'Blue Melon is ripe, honeyed melon with pronounced menthol. The melon is juicy and soft with no tartness, and the cold gives it a "blue", icy character.',
+        'The cooling is stronger than in Hawaii, but the flavor never turns sharp: the melon stays up front until the bowl is done.',
+        'Great for hot summer days and for anyone who likes simple, clean flavors.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Dinja', en: 'Melon' }, illustration: 'dinja', color: '#d9ec9f', intensity: 8 },
+      { name: { bs: 'Mentol', en: 'Menthol' }, illustration: 'kristal', color: '#cdefff', intensity: 8 }
+    ],
+    profile: { sweetness: 7, freshness: 9, fruitiness: 8, cooling: 8, strength: 5 },
+    tags: ['vocni', 'ledeni', 'ljetni', 'osvjezavajuci'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#bfe58a', secondary: '#7fd3f0', accent: '#2a8fc8', background: '#0d2230', text: '#eefbff', water: '#bfeeff' },
+    mixIdeas: {
+      bs: [
+        'Blue Melon i Double Melon, za dinju na dva načina.',
+        'Blue Melon i Blue Ice, za plavi ledeni voćni miks.',
+        'Blue Melon i Mint, 70/30, za klasičnu dinju sa mentom.'
+      ],
+      en: [
+        'Blue Melon with Double Melon for melon two ways.',
+        'Blue Melon with Blue Ice for a blue, icy fruit mix.',
+        'Blue Melon with Mint, 70/30, for a classic melon and mint.'
+      ]
+    },
+    similar: ['adalya-double-melon', 'starbuzz-safari-melon-dew', 'serbetli-ice-watermelon', 'fumari-ambrosia']
+  },
+  {
+    id: 'adalya-lemon-cocktail',
+    brand: 'adalya',
+    leaf: 'light',
+    name: 'Lemon Cocktail',
+    shortDescription: {
+      bs: 'Slatki limun u stilu limončela: kiselkast, sunčan i lagan.',
+      en: 'Sweet limoncello-style lemon: tangy, sunny and light.'
+    },
+    description: {
+      bs: [
+        'Lemon Cocktail podsjeća na limončelo, talijanski liker od limuna. Limun je zreo i sladak, sa koricom koja daje blagu, ugodnu gorčinu.',
+        'Nema mentola, pa je okus topliji i "koktelskiji" od klasičnih limun-menta kombinacija.',
+        'Lijep samostalno, a još bolji kao kiselkasta nota u voćnim miksevima.'
+      ],
+      en: [
+        'Lemon Cocktail is reminiscent of limoncello, the Italian lemon liqueur. The lemon is ripe and sweet, with a zesty peel that adds a gentle, pleasant bitterness.',
+        'There is no menthol, so it feels warmer and more like a cocktail than the classic lemon and mint blends.',
+        'Nice on its own, and even better as the tangy note in fruit mixes.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Limun', en: 'Lemon' }, illustration: 'limun', color: '#f7e04b', intensity: 9 },
+      { name: { bs: 'Šećerni sirup', en: 'Sugar syrup' }, illustration: 'med', color: '#f3c96b', intensity: 4 }
+    ],
+    profile: { sweetness: 7, freshness: 7, fruitiness: 8, cooling: 0, strength: 5 },
+    tags: ['citrusni', 'vocni', 'pice', 'ljetni'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#f7e04b', secondary: '#fff3a8', accent: '#e8a21b', background: '#fff9d9', text: '#2e2600' },
+    mixIdeas: {
+      bs: [
+        'Lemon Cocktail i Raspberry, za malinovu limunadu.',
+        'Lemon Cocktail i Mint, 70/30, za limun-mentu.',
+        'Lemon Cocktail i Double Melon, za ljetni koktel od dinje.'
+      ],
+      en: [
+        'Lemon Cocktail with Raspberry for a raspberry lemonade.',
+        'Lemon Cocktail with Mint, 70/30, for lemon and mint.',
+        'Lemon Cocktail with Double Melon for a summer melon cocktail.'
+      ]
+    },
+    similar: ['revoshi-eskimo-lemon', 'al-fakher-lemon-mint', 'adalya-tynky-wynky']
+  },
+  {
     id: 'al-fakher-double-apple',
     brand: 'al-fakher',
     leaf: 'light',
@@ -675,7 +806,7 @@ window.FLAVORS = [
         'Double Apple with Berlin Nights for a warmer, honeyed take.'
       ]
     },
-    similar: ['adalya-berlin-nights', 'adalya-baku-nights', 'adalya-mint']
+    similar: ['nakhla-double-apple', 'revoshi-d-app-strong', 'adalya-berlin-nights', 'adalya-mint']
   },
   {
     id: 'al-fakher-mint',
@@ -718,7 +849,178 @@ window.FLAVORS = [
         'Mint with Cola for a "cola on ice with mint" bowl.'
       ]
     },
-    similar: ['adalya-mint', 'tangiers-cane-mint', 'trifecta-twice-the-ice']
+    similar: ['adalya-mint', 'haze-mint-supreme', 'tangiers-cane-mint', 'al-fakher-lemon-mint']
+  },
+  {
+    id: 'al-fakher-grape-mint',
+    brand: 'al-fakher',
+    leaf: 'light',
+    name: 'Grape Mint',
+    shortDescription: {
+      bs: 'Slatko bijelo grožđe i hladna menta: jedan od najprodavanijih klasika.',
+      en: 'Sweet white grape and cool mint: one of the best selling classics.'
+    },
+    description: {
+      bs: [
+        'Grape Mint je klasik orijentalnih kafića. Grožđe je slatko i sočno, bliže bijelom nego tamnom, a menta ga hladi i čini laganim.',
+        'Menta je izražena, ali ne ledena, pa je okus osvježavajući bez peckanja u grlu.',
+        'Dobar okus za duže sesije sa društvom i jedan od najlakših načina da probaš Al Fakher.'
+      ],
+      en: [
+        'Grape Mint is a classic of hookah cafés. The grape is sweet and juicy, closer to white than dark, and the mint cools it down and keeps it light.',
+        'The mint is pronounced but not icy, so it is refreshing without biting the throat.',
+        'A good flavor for long sessions with friends and one of the easiest ways to try Al Fakher.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Bijelo grožđe', en: 'White grape' }, illustration: 'grozdje', color: '#c9d77a', intensity: 8 },
+      { name: { bs: 'Menta', en: 'Mint' }, illustration: 'menta', color: '#2fae78', intensity: 7 }
+    ],
+    profile: { sweetness: 7, freshness: 8, fruitiness: 7, cooling: 6, strength: 5 },
+    tags: ['vocni', 'mint', 'klasicni', 'osvjezavajuci'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#9fbf4a', secondary: '#d8e89a', accent: '#2fae78', background: '#1a2410', text: '#f3fbe4' },
+    mixIdeas: {
+      bs: [
+        'Grape Mint i Double Apple, za stari orijentalni miks.',
+        'Grape Mint i Blueberry, za tamnije bobičasto grožđe.',
+        'Grape Mint i Watermelon Mint, za ljetni miks sa mentom.'
+      ],
+      en: [
+        'Grape Mint with Double Apple for an old-school café mix.',
+        'Grape Mint with Blueberry for a darker, berry-like grape.',
+        'Grape Mint with Watermelon Mint for a summer mix with mint.'
+      ]
+    },
+    similar: ['al-waha-grape-mint', 'nameless-black-nana', 'al-fakher-mint', 'al-fakher-watermelon-mint']
+  },
+  {
+    id: 'al-fakher-lemon-mint',
+    brand: 'al-fakher',
+    leaf: 'light',
+    name: 'Lemon Mint',
+    shortDescription: {
+      bs: 'Kiselkast limun i hladna menta: jednostavan, čist i osvježavajući klasik.',
+      en: 'Tangy lemon and cool mint: a simple, clean and refreshing classic.'
+    },
+    description: {
+      bs: [
+        'Lemon Mint je kao limunada sa listićima mente. Limun je kiselkast i svjež, sa malo slatkoće, a menta daje hladan, čist izdah.',
+        'Okus je lagan i ne zamara, pa je dobar za vruće dane i duže sesije.',
+        'Za poređenje probaj i Fumari i Mazaya Lemon Mint: isti par, tri različita karaktera.'
+      ],
+      en: [
+        'Lemon Mint is like lemonade with mint leaves. The lemon is tangy and fresh with a bit of sweetness, and the mint gives a cool, clean exhale.',
+        'It is light and never tiring, so it works well on hot days and in long sessions.',
+        'For comparison, try the Fumari and Mazaya Lemon Mint too: the same pair, three different characters.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Limun', en: 'Lemon' }, illustration: 'limun', color: '#f7e04b', intensity: 8 },
+      { name: { bs: 'Menta', en: 'Mint' }, illustration: 'menta', color: '#2fae78', intensity: 7 }
+    ],
+    profile: { sweetness: 5, freshness: 9, fruitiness: 6, cooling: 6, strength: 5 },
+    tags: ['citrusni', 'mint', 'klasicni', 'osvjezavajuci'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#f2d93a', secondary: '#9fe0b8', accent: '#1f9a66', background: '#17240f', text: '#fbffe8' },
+    mixIdeas: {
+      bs: [
+        'Lemon Mint i Double Apple, za svježiju dvostruku jabuku.',
+        'Lemon Mint i Grape Mint, za voćnu limunadu.',
+        'Lemon Mint i Raspberry, za malinovu limunadu sa mentom.'
+      ],
+      en: [
+        'Lemon Mint with Double Apple for a fresher double apple.',
+        'Lemon Mint with Grape Mint for a fruity lemonade.',
+        'Lemon Mint with Raspberry for a raspberry lemonade with mint.'
+      ]
+    },
+    similar: ['fumari-lemon-mint', 'mazaya-lemon-mint', 'al-fakher-mint', 'adalya-lemon-cocktail']
+  },
+  {
+    id: 'al-fakher-watermelon-mint',
+    brand: 'al-fakher',
+    leaf: 'light',
+    name: 'Watermelon Mint',
+    shortDescription: {
+      bs: 'Sočna, slatka lubenica sa hladnom mentom: ljetni klasik.',
+      en: 'Juicy, sweet watermelon with cool mint: a summer classic.'
+    },
+    description: {
+      bs: [
+        'Watermelon Mint je lubenica onakva kakvu je pamtiš sa ljeta: slatka, vodenasta i sočna. Menta joj dodaje hladnoću i čini je još osvježavajućom.',
+        'Okus je mekan i jednostavan, bez kiselosti, pa ga je lako pušiti i ako tek počinješ.',
+        'Odličan i kao baza za mikseve sa drugim voćem.'
+      ],
+      en: [
+        'Watermelon Mint is watermelon the way you remember it from summer: sweet, watery and juicy. The mint adds coolness and makes it even more refreshing.',
+        'It is soft and simple with no tartness, so it is easy to smoke even if you are just starting out.',
+        'Great as a base for mixes with other fruit, too.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Lubenica', en: 'Watermelon' }, illustration: 'lubenica', color: '#e8434f', intensity: 8 },
+      { name: { bs: 'Menta', en: 'Mint' }, illustration: 'menta', color: '#2fae78', intensity: 6 }
+    ],
+    profile: { sweetness: 7, freshness: 8, fruitiness: 8, cooling: 5, strength: 5 },
+    tags: ['vocni', 'mint', 'ljetni', 'osvjezavajuci'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#e8434f', secondary: '#7fd18b', accent: '#1f8a4c', background: '#2a0f14', text: '#fff0f0' },
+    mixIdeas: {
+      bs: [
+        'Watermelon Mint i Grape Mint, za voćni miks sa mentom.',
+        'Watermelon Mint i Lemon Mint, za lubenicu-limunadu.',
+        'Watermelon Mint i Blueberry, za lubenicu sa bobicama.'
+      ],
+      en: [
+        'Watermelon Mint with Grape Mint for a fruity mix with mint.',
+        'Watermelon Mint with Lemon Mint for a watermelon lemonade.',
+        'Watermelon Mint with Blueberry for watermelon with berries.'
+      ]
+    },
+    similar: ['serbetli-ice-watermelon', 'al-waha-big-boy', 'adalya-love-66', 'al-fakher-grape-mint']
+  },
+  {
+    id: 'al-fakher-blueberry',
+    brand: 'al-fakher',
+    leaf: 'light',
+    name: 'Blueberry',
+    shortDescription: {
+      bs: 'Slatka, džemasta borovnica, mekana i bez hlađenja.',
+      en: 'Sweet, jammy blueberry, soft and without any cooling.'
+    },
+    description: {
+      bs: [
+        'Blueberry je čista borovnica: slatka, malo džemasta i tamna. Nema mente ni mentola, pa je okus topao i mekan.',
+        'Slatkoća je izražena, ali ne bombonska, a blaga kiselost bobice drži okus živim.',
+        'Dobar samostalno, a još češće se koristi kao bobičasta nota u miksevima sa mentom ili limunom.'
+      ],
+      en: [
+        'Blueberry is pure blueberry: sweet, a little jammy and dark. There is no mint or menthol, so the flavor is warm and soft.',
+        'The sweetness is pronounced but not candy-like, and a slight berry tartness keeps it lively.',
+        'Good on its own, and even more often used as the berry note in mixes with mint or lemon.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Borovnica', en: 'Blueberry' }, illustration: 'borovnica', color: '#4b5bb5', intensity: 9 }
+    ],
+    profile: { sweetness: 8, freshness: 5, fruitiness: 9, cooling: 0, strength: 5 },
+    tags: ['vocni', 'bobicasti', 'slatki'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#5b6fd6', secondary: '#a9b6ff', accent: '#e86ba8', background: '#12142e', text: '#eef0ff' },
+    mixIdeas: {
+      bs: [
+        'Blueberry i Mint, 70/30, za borovnicu sa mentom.',
+        'Blueberry i Lemon Mint, za borovnicu-limunadu.',
+        'Blueberry i Grape Mint, za tamni voćni miks.'
+      ],
+      en: [
+        'Blueberry with Mint, 70/30, for blueberry and mint.',
+        'Blueberry with Lemon Mint for a blueberry lemonade.',
+        'Blueberry with Grape Mint for a dark fruit mix.'
+      ]
+    },
+    similar: ['serbetli-ice-blueberry', 'adalya-blue-ice', 'trifecta-blue-strawberry', 'starbuzz-blue-mist']
   },
   {
     id: 'starbuzz-blue-mist',
@@ -810,6 +1112,179 @@ window.FLAVORS = [
     similar: ['haze-cucumberita', 'fumari-white-gummi-bear', 'haze-purple-krush']
   },
   {
+    id: 'starbuzz-code-69',
+    brand: 'starbuzz',
+    leaf: 'light',
+    name: 'Code 69',
+    shortDescription: {
+      bs: 'Voćni punč sa tropskim voćem i citrusima: sladak, sočan i šaren.',
+      en: 'A fruit punch of tropical fruit and citrus: sweet, juicy and colorful.'
+    },
+    description: {
+      bs: [
+        'Code 69 je Starbuzz voćni punč. Nema jednog glavnog voća: tropska slatkoća i citrusi se miješaju u sočan, šaren okus koji podsjeća na čašu punča na zabavi.',
+        'Citrusi daju svježinu i drže slatkoću pod kontrolom, pa okus ne postaje težak ni kad glava dugo traje.',
+        'Bez mentola, topao i voćni. Dobar za društvo i za one koji vole "sve voće odjednom".'
+      ],
+      en: [
+        'Code 69 is the Starbuzz fruit punch. There is no single lead fruit: tropical sweetness and citrus blend into a juicy, colorful flavor that recalls a glass of party punch.',
+        'The citrus brings freshness and keeps the sweetness in check, so it never gets heavy, even in a long bowl.',
+        'No menthol, warm and fruity. Good for a group and for anyone who likes "all the fruit at once".'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Voćni punč', en: 'Fruit punch' }, illustration: 'bomboni', color: '#e8457a', intensity: 8 },
+      { name: { bs: 'Tropsko voće', en: 'Tropical fruit' }, illustration: 'marakuja', color: '#f2a03a', intensity: 7 },
+      { name: { bs: 'Citrusi', en: 'Citrus' }, illustration: 'narandza', color: '#ff9a2e', intensity: 6 }
+    ],
+    profile: { sweetness: 8, freshness: 6, fruitiness: 9, cooling: 0, strength: 5 },
+    tags: ['vocni', 'tropski', 'citrusni', 'slatki'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#e8457a', secondary: '#ffb547', accent: '#3fc1c9', background: '#2a0f1f', text: '#fff0f6' },
+    mixIdeas: {
+      bs: [
+        'Code 69 i Blue Mist, za plavi voćni punč.',
+        'Code 69 i Pirate\'s Cave, za punč sa bananom i limetom.',
+        'Code 69 i Mint, 80/20, za osvježen punč.'
+      ],
+      en: [
+        'Code 69 with Blue Mist for a blue fruit punch.',
+        'Code 69 with Pirate\'s Cave for punch with banana and lime.',
+        'Code 69 with Mint, 80/20, for a refreshed punch.'
+      ]
+    },
+    similar: ['starbuzz-sex-on-the-beach', 'true-passion-cinderella', '187-i-love-hamburg', 'adalya-love-66']
+  },
+  {
+    id: 'starbuzz-sex-on-the-beach',
+    brand: 'starbuzz',
+    leaf: 'light',
+    name: 'Sex on the Beach',
+    shortDescription: {
+      bs: 'Okus inspirisan koktelom: slatka narandža i limun, sunčan i lagan.',
+      en: 'A cocktail-inspired flavor: sweet orange and lemon, sunny and light.'
+    },
+    description: {
+      bs: [
+        'Sex on the Beach je dobio ime po poznatom ljetnom koktelu. U glavi su slatka, sočna narandža i kiselkast limun, spojeni u okus koji podsjeća na voćni koktel na plaži.',
+        'Narandža vodi, a limun dodaje svježinu i malo oštrine na kraju. Nema mentola, pa je okus topao i sunčan.',
+        'Lagan i voćni, dobar za ljeto i za mikseve sa tropskim voćem.'
+      ],
+      en: [
+        'Sex on the Beach is named after the well known summer cocktail. The bowl holds sweet, juicy orange and tangy lemon, blended into something like a fruity beach cocktail.',
+        'Orange leads and lemon adds freshness and a little edge at the end. There is no menthol, so it feels warm and sunny.',
+        'Light and fruity, great for summer and for mixes with tropical fruit.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Narandža', en: 'Orange' }, illustration: 'narandza', color: '#ff9a2e', intensity: 8 },
+      { name: { bs: 'Limun', en: 'Lemon' }, illustration: 'limun', color: '#f7e04b', intensity: 6 }
+    ],
+    profile: { sweetness: 7, freshness: 7, fruitiness: 8, cooling: 0, strength: 5 },
+    tags: ['citrusni', 'vocni', 'pice', 'ljetni'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#ff8a3d', secondary: '#ffd36b', accent: '#e8457a', background: '#2b1408', text: '#fff3e6' },
+    mixIdeas: {
+      bs: [
+        'Sex on the Beach i Code 69, za veliki voćni punč.',
+        'Sex on the Beach i Hawaii, za tropski koktel.',
+        'Sex on the Beach i Blue Mist, 70/30, za koktel sa borovnicom.'
+      ],
+      en: [
+        'Sex on the Beach with Code 69 for a big fruit punch.',
+        'Sex on the Beach with Hawaii for a tropical cocktail.',
+        'Sex on the Beach with Blue Mist, 70/30, for a cocktail with blueberry.'
+      ]
+    },
+    similar: ['starbuzz-code-69', 'tangiers-orange-soda', '187-beach-vibez']
+  },
+  {
+    id: 'starbuzz-safari-melon-dew',
+    brand: 'starbuzz',
+    leaf: 'light',
+    name: 'Safari Melon Dew',
+    shortDescription: {
+      bs: 'Dvije dinje, medena i narandžasta: sočne, slatke i mekane.',
+      en: 'Two melons, honeydew and cantaloupe: juicy, sweet and soft.'
+    },
+    description: {
+      bs: [
+        'Safari Melon Dew spaja dvije dinje: zelenkastu medenu dinju i narandžastu kantalupu. Prva daje svježinu, druga gustu, skoro mošusnu slatkoću.',
+        'Okus je mekan i zreo, bez kiselosti i bez hlađenja, pa je ugodan od prve do zadnje dimne.',
+        'Jedan od Starbuzz okusa koje ljudi često preporučuju kao lagan i siguran izbor.'
+      ],
+      en: [
+        'Safari Melon Dew combines two melons: greenish honeydew and orange cantaloupe. The first brings freshness, the second a thick, almost musky sweetness.',
+        'It is soft and ripe with no tartness and no cooling, so it stays pleasant from the first pull to the last.',
+        'One of the Starbuzz flavors people often recommend as a light, safe pick.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Medena dinja', en: 'Honeydew' }, illustration: 'dinja', color: '#d9ec9f', intensity: 8 },
+      { name: { bs: 'Kantalupa', en: 'Cantaloupe' }, illustration: 'dinja', color: '#f6a65a', intensity: 7 }
+    ],
+    profile: { sweetness: 8, freshness: 6, fruitiness: 9, cooling: 0, strength: 5 },
+    tags: ['vocni', 'slatki', 'ljetni'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#b9dd7a', secondary: '#f6a65a', accent: '#3a9a5a', background: '#f3f9e3', text: '#1c2a0c' },
+    mixIdeas: {
+      bs: [
+        'Safari Melon Dew i Blue Mist, za plavu dinju.',
+        'Safari Melon Dew i Mint, 70/30, za dinju sa mentom.',
+        'Safari Melon Dew i Pirate\'s Cave, za tropsku dinju.'
+      ],
+      en: [
+        'Safari Melon Dew with Blue Mist for a blue melon.',
+        'Safari Melon Dew with Mint, 70/30, for melon and mint.',
+        'Safari Melon Dew with Pirate\'s Cave for a tropical melon.'
+      ]
+    },
+    similar: ['adalya-double-melon', 'adalya-blue-melon', 'fumari-ambrosia']
+  },
+  {
+    id: 'starbuzz-pink',
+    brand: 'starbuzz',
+    leaf: 'light',
+    name: 'Pink',
+    shortDescription: {
+      bs: 'Roze limunada sa malinom: kiselkasta, slatka i osvježavajuća.',
+      en: 'Pink lemonade with raspberry: tangy, sweet and refreshing.'
+    },
+    description: {
+      bs: [
+        'Pink je Starbuzz roze limunada. Malina daje slatku, crvenu voćnost, a limunada kiselkast, svjež karakter koji podsjeća na hladno piće sa ledom.',
+        'Okus je živ i lagan. Kiselost je jasna, ali ne oštra, a slatkoća je tu taman koliko treba.',
+        'Dobar izbor za ljeto, samostalno ili kao svježa nota u voćnim miksevima.'
+      ],
+      en: [
+        'Pink is the Starbuzz pink lemonade. Raspberry brings sweet, red fruitiness and the lemonade a tangy, fresh character that recalls a cold drink over ice.',
+        'It is lively and light. The tartness is clear but not sharp, and the sweetness is just right.',
+        'A good summer pick, on its own or as the fresh note in fruit mixes.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Malina', en: 'Raspberry' }, illustration: 'malina', color: '#e0336b', intensity: 8 },
+      { name: { bs: 'Limunada', en: 'Lemonade' }, illustration: 'limun', color: '#f7e04b', intensity: 7 }
+    ],
+    profile: { sweetness: 7, freshness: 8, fruitiness: 8, cooling: 0, strength: 5 },
+    tags: ['vocni', 'bobicasti', 'citrusni', 'pice'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#ff6fa3', secondary: '#ffd0e0', accent: '#f2c230', background: '#ffeef4', text: '#3a0a1c' },
+    mixIdeas: {
+      bs: [
+        'Pink i Blue Mist, za plavo-roze limunadu.',
+        'Pink i Mint, 70/30, za limunadu sa mentom.',
+        'Pink i Safari Melon Dew, za ljetnu limunadu od dinje.'
+      ],
+      en: [
+        'Pink with Blue Mist for a blue and pink lemonade.',
+        'Pink with Mint, 70/30, for lemonade with mint.',
+        'Pink with Safari Melon Dew for a summer melon lemonade.'
+      ]
+    },
+    similar: ['adalya-raspberry', 'darkside-generis-raspberry', 'musthave-pinkman']
+  },
+  {
     id: 'tangiers-cane-mint',
     brand: 'tangiers',
     leaf: 'dark',
@@ -850,7 +1325,7 @@ window.FLAVORS = [
         'Cane Mint with Peppermint Shake for a dessert mint with more punch.'
       ]
     },
-    similar: ['trifecta-twice-the-ice', 'al-fakher-mint', 'adalya-mint', 'trifecta-peppermint-shake']
+    similar: ['trifecta-twice-the-ice', 'trifecta-durty-mint', 'al-fakher-mint', 'haze-mint-supreme']
   },
   {
     id: 'tangiers-kashmir-peach',
@@ -898,6 +1373,138 @@ window.FLAVORS = [
     similar: ['adalya-baku-nights', 'fumari-ambrosia', 'al-fakher-double-apple']
   },
   {
+    id: 'tangiers-horchata',
+    brand: 'tangiers',
+    leaf: 'dark',
+    name: 'Horchata',
+    mood: 'honey',
+    shortDescription: {
+      bs: 'Cimet, slatko mlijeko i vanila, kao meksičko piće horchata.',
+      en: 'Cinnamon, sweet milk and vanilla, like the Mexican drink horchata.'
+    },
+    description: {
+      bs: [
+        'Horchata je dobila ime po meksičkom napitku od riže, mlijeka i cimeta. Okus je kremast i topao: slatko mlijeko i vanila u osnovi, a cimet preko njih.',
+        'Cimet je jasan, ali mekan, bez ljutine. Zajedno sa vanilom daje okus koji podsjeća na desert ili praznično piće.',
+        'Tangiers je jak tamni list: pakuj rastresito, zagrijavaj polako i daj glavi vremena. Nije za prvu sesiju.'
+      ],
+      en: [
+        'Horchata is named after the Mexican drink made with rice, milk and cinnamon. It is creamy and warm: sweet milk and vanilla at the base, with cinnamon on top.',
+        'The cinnamon is clear but soft, with no heat. Together with the vanilla it tastes like a dessert or a holiday drink.',
+        'Tangiers is strong dark leaf: pack it loose, heat it slowly and give the bowl time. Not for a first session.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Cimet', en: 'Cinnamon' }, illustration: 'cimet', color: '#a0522d', intensity: 8 },
+      { name: { bs: 'Slatko mlijeko', en: 'Sweet milk' }, illustration: 'sejk', color: '#f3ead8', intensity: 7 },
+      { name: { bs: 'Vanila', en: 'Vanilla' }, illustration: 'vanila', color: '#f1dca7', intensity: 6 }
+    ],
+    profile: { sweetness: 7, freshness: 3, fruitiness: 0, cooling: 0, strength: 9 },
+    tags: ['desertni', 'zacinski', 'pice', 'slatki'],
+    tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
+    palette: { primary: '#c58a52', secondary: '#f3ead8', accent: '#8a4a22', background: '#1f140c', text: '#fbf1e4', smoke: ['#fff8ee', '#ead7bd', '#c9a57d'] },
+    mixIdeas: {
+      bs: [
+        'Horchata i Kashmir Peach, za začinjenu breskvu sa kremom.',
+        'Horchata i Cane Mint, 80/20, za hladni cimet.',
+        'Horchata i Double Apple, za pitu od jabuka.'
+      ],
+      en: [
+        'Horchata with Kashmir Peach for spiced peach and cream.',
+        'Horchata with Cane Mint, 80/20, for a cool cinnamon.',
+        'Horchata with Double Apple for apple pie.'
+      ]
+    },
+    similar: ['fumari-spiced-chai', 'tangiers-kashmir-peach', 'trifecta-peppermint-shake']
+  },
+  {
+    id: 'tangiers-maraschino-cherry',
+    brand: 'tangiers',
+    leaf: 'dark',
+    name: 'Maraschino Cherry',
+    shortDescription: {
+      bs: 'Slatka koktel višnja sa blagom notom badema.',
+      en: 'Sweet cocktail cherry with a gentle hint of almond.'
+    },
+    description: {
+      bs: [
+        'Maraschino Cherry je slatka, sirupasta višnja kakvu stavljaju u koktele i na kolače. Ispod nje se osjeti blaga nota badema, kao kod pravih maraskino višanja.',
+        'Okus je bogat i bombonski, ali ne vještački, a badem mu daje dubinu.',
+        'Tamni list: rastresito pakovanje i strpljenje sa toplotom. Odličan za mikseve sa kolom ili vanilom.'
+      ],
+      en: [
+        'Maraschino Cherry is the sweet, syrupy cherry you find in cocktails and on cakes. Underneath it you get a gentle hint of almond, as in real maraschino cherries.',
+        'It is rich and candy-like without feeling artificial, and the almond gives it depth.',
+        'Dark leaf: pack it loose and be patient with the heat. Excellent in mixes with cola or vanilla.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Višnja', en: 'Cherry' }, illustration: 'visnja', color: '#a3122a', intensity: 9 },
+      { name: { bs: 'Badem', en: 'Almond' }, illustration: 'karamel', color: '#d6b48a', intensity: 4 }
+    ],
+    profile: { sweetness: 8, freshness: 4, fruitiness: 8, cooling: 0, strength: 9 },
+    tags: ['vocni', 'slatki', 'bombon'],
+    tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
+    palette: { primary: '#c8102e', secondary: '#ff8fa3', accent: '#f2d2a9', background: '#1e0609', text: '#fff0f2' },
+    mixIdeas: {
+      bs: [
+        'Maraschino Cherry i Darkside Cola, za višnja-kolu.',
+        'Maraschino Cherry i Horchata, za višnju sa kremom.',
+        'Maraschino Cherry i Cane Mint, 80/20, za ledenu višnju.'
+      ],
+      en: [
+        'Maraschino Cherry with Darkside Cola for cherry cola.',
+        'Maraschino Cherry with Horchata for cherries and cream.',
+        'Maraschino Cherry with Cane Mint, 80/20, for an icy cherry.'
+      ]
+    },
+    similar: ['sebero-black-amarena-cherry', 'adalya-cherry-mint', 'musthave-cherry-cola']
+  },
+  {
+    id: 'tangiers-orange-soda',
+    brand: 'tangiers',
+    leaf: 'dark',
+    name: 'Orange Soda',
+    mood: 'fizz',
+    shortDescription: {
+      bs: 'Gazirani sok od narandže: sladak, mjehurast i jako vjeran originalu.',
+      en: 'Fizzy orange soda: sweet, bubbly and very true to the real thing.'
+    },
+    description: {
+      bs: [
+        'Orange Soda je narandža iz limenke: slatka, gazirana i prepoznatljiva već na prvom povlačenju. Nije svježa narandža, nego baš onaj sok koji pamtiš iz djetinjstva.',
+        'Slatkoća je izražena, a blaga "gaziranost" daje okusu živost. Nema mentola.',
+        'Jak tamni list, pa je okus gust i dugotrajan. Pakuj rastresito i ne žuri sa toplotom.'
+      ],
+      en: [
+        'Orange Soda is orange from a can: sweet, fizzy and recognizable from the first pull. Not fresh orange, but exactly the soda you remember from childhood.',
+        'The sweetness is pronounced and a gentle "fizz" keeps it lively. There is no menthol.',
+        'Strong dark leaf, so the flavor is dense and long lasting. Pack it loose and do not rush the heat.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Narandža', en: 'Orange' }, illustration: 'narandza', color: '#ff9a2e', intensity: 9 },
+      { name: { bs: 'Gazirani sok', en: 'Soda' }, illustration: 'kola', color: '#f08a24', intensity: 6 }
+    ],
+    profile: { sweetness: 8, freshness: 6, fruitiness: 7, cooling: 0, strength: 9 },
+    tags: ['citrusni', 'pice', 'slatki'],
+    tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
+    palette: { primary: '#ff8a1f', secondary: '#ffd08a', accent: '#ffffff', background: '#2a1204', text: '#fff4e6', smoke: ['#fff6ea', '#ffd9a8', '#f4a95a'] },
+    mixIdeas: {
+      bs: [
+        'Orange Soda i Horchata, za kremastu narandžu.',
+        'Orange Soda i Cane Mint, 80/20, za ledeni sok.',
+        'Orange Soda i Maraschino Cherry, za voćni sok.'
+      ],
+      en: [
+        'Orange Soda with Horchata for a creamsicle.',
+        'Orange Soda with Cane Mint, 80/20, for an icy soda.',
+        'Orange Soda with Maraschino Cherry for a fruit soda.'
+      ]
+    },
+    similar: ['starbuzz-sex-on-the-beach', 'darkside-cola', 'haze-purple-krush']
+  },
+  {
     id: 'fumari-white-gummi-bear',
     brand: 'fumari',
     leaf: 'light',
@@ -940,7 +1547,7 @@ window.FLAVORS = [
         'White Gummi Bear with Tynky Wynky for a citrusy summer lemonade.'
       ]
     },
-    similar: ['adalya-dubai', 'adalya-tynky-wynky', 'adalya-ice-bonbon']
+    similar: ['fumari-red-gummi-bear', 'haze-double-bubble', 'adalya-dubai', 'adalya-ice-bonbon']
   },
   {
     id: 'fumari-ambrosia',
@@ -985,6 +1592,184 @@ window.FLAVORS = [
       ]
     },
     similar: ['adalya-double-melon', 'fumari-white-gummi-bear', 'tangiers-kashmir-peach']
+  },
+  {
+    id: 'fumari-red-gummi-bear',
+    brand: 'fumari',
+    leaf: 'light',
+    name: 'Red Gummi Bear',
+    shortDescription: {
+      bs: 'Crveni gumeni medo: divlja višnja i malina, slatko kao bombon.',
+      en: 'A red gummy bear: wild cherry and raspberry, sweet as candy.'
+    },
+    description: {
+      bs: [
+        'Red Gummi Bear je crveni brat poznatog White Gummi Bear. Ovdje su divlja višnja i malina, spojene u slatki, bombonski okus gumenih medvjedića.',
+        'Okus je sočan i živ, sa blagom kiselošću bobica, bez hlađenja.',
+        'Fumari je svijetli list, mekan i lagan, pa je ovo dobar izbor i za početnike.'
+      ],
+      en: [
+        'Red Gummi Bear is the red sibling of the famous White Gummi Bear. Here you get wild cherry and raspberry, blended into the sweet, candy flavor of gummy bears.',
+        'It is juicy and lively, with a slight berry tartness and no cooling.',
+        'Fumari is blonde leaf, soft and light, so this is a good pick for beginners too.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Divlja višnja', en: 'Wild cherry' }, illustration: 'visnja', color: '#a3122a', intensity: 8 },
+      { name: { bs: 'Malina', en: 'Raspberry' }, illustration: 'malina', color: '#e0336b', intensity: 7 },
+      { name: { bs: 'Gumeni bombon', en: 'Gummy candy' }, illustration: 'medo', color: '#ff5a6e', intensity: 6 }
+    ],
+    profile: { sweetness: 9, freshness: 5, fruitiness: 8, cooling: 0, strength: 4 },
+    tags: ['bombon', 'vocni', 'bobicasti', 'slatki'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#e8304a', secondary: '#ff9aa8', accent: '#ffd23f', background: '#2a080e', text: '#fff0f2' },
+    mixIdeas: {
+      bs: [
+        'Red Gummi Bear i White Gummi Bear, za cijelu kesicu medvjedića.',
+        'Red Gummi Bear i Mint, 80/20, za osvježene bombone.',
+        'Red Gummi Bear i Ambrosia, za voćni bombon sa dinjom.'
+      ],
+      en: [
+        'Red Gummi Bear with White Gummi Bear for the whole bag of gummies.',
+        'Red Gummi Bear with Mint, 80/20, for refreshed candy.',
+        'Red Gummi Bear with Ambrosia for fruit candy with melon.'
+      ]
+    },
+    similar: ['fumari-white-gummi-bear', 'adalya-raspberry', 'tangiers-maraschino-cherry']
+  },
+  {
+    id: 'fumari-lemon-mint',
+    brand: 'fumari',
+    leaf: 'light',
+    name: 'Lemon Mint',
+    shortDescription: {
+      bs: 'Svjež limun i paprena metvica: čist, kiselkast i jako osvježavajući.',
+      en: 'Fresh lemon and peppermint: clean, tangy and very refreshing.'
+    },
+    description: {
+      bs: [
+        'Fumari Lemon Mint spaja svjež, kiselkast limun sa paprenom metvicom. Metvica je oštrija od obične mente, pa je izdah hladniji i čišći.',
+        'Limun je prirodan i svijetao, više kao korica i sok nego kao bombon.',
+        'Uporedi ga sa Al Fakher i Mazaya Lemon Mint: Fumari je najsvježiji i najmanje sladak od tri.'
+      ],
+      en: [
+        'Fumari Lemon Mint pairs fresh, tangy lemon with peppermint. Peppermint is sharper than regular mint, so the exhale is colder and cleaner.',
+        'The lemon is natural and bright, more like peel and juice than candy.',
+        'Compare it with the Al Fakher and Mazaya Lemon Mint: Fumari is the freshest and the least sweet of the three.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Limun', en: 'Lemon' }, illustration: 'limun', color: '#f7e04b', intensity: 8 },
+      { name: { bs: 'Paprena metvica', en: 'Peppermint' }, illustration: 'pepermint', color: '#1fa874', intensity: 7 }
+    ],
+    profile: { sweetness: 4, freshness: 9, fruitiness: 6, cooling: 6, strength: 4 },
+    tags: ['citrusni', 'mint', 'osvjezavajuci'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#f5e04a', secondary: '#bff0d0', accent: '#1fa874', background: '#f4fde8', text: '#18280c' },
+    mixIdeas: {
+      bs: [
+        'Lemon Mint i Red Gummi Bear, za bombon-limunadu.',
+        'Lemon Mint i Ambrosia, za ljetni miks od dinje.',
+        'Lemon Mint i White Gummi Bear, za kiselkaste bombone.'
+      ],
+      en: [
+        'Lemon Mint with Red Gummi Bear for a candy lemonade.',
+        'Lemon Mint with Ambrosia for a summer melon mix.',
+        'Lemon Mint with White Gummi Bear for tangy candy.'
+      ]
+    },
+    similar: ['al-fakher-lemon-mint', 'mazaya-lemon-mint', 'revoshi-eskimo-lemon']
+  },
+  {
+    id: 'fumari-spiced-chai',
+    brand: 'fumari',
+    leaf: 'light',
+    name: 'Spiced Chai',
+    mood: 'honey',
+    shortDescription: {
+      bs: 'Začinjeni čaj sa vanilom, cimetom, muškatnim oraščićem i kardamomom.',
+      en: 'Spiced tea with vanilla, cinnamon, nutmeg and cardamom.'
+    },
+    description: {
+      bs: [
+        'Spiced Chai je okus indijskog začinjenog čaja sa mlijekom. Vanila daje mekanu, slatku osnovu, a cimet, muškatni oraščić i kardamom grijući, mirisni završetak.',
+        'Začini su skladni i nijedan ne iskače. Okus je topao i umirujuć, idealan za zimske večeri.',
+        'Svijetli list, pa je lagan uprkos bogatom okusu. Odličan i u miksevima sa voćem.'
+      ],
+      en: [
+        'Spiced Chai is the flavor of Indian spiced milk tea. Vanilla gives a soft, sweet base, while cinnamon, nutmeg and cardamom add a warming, fragrant finish.',
+        'The spices are balanced and none of them jumps out. It is warm and calming, perfect for winter evenings.',
+        'Blonde leaf, so it stays light despite the rich flavor. Great in fruit mixes, too.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Vanila', en: 'Vanilla' }, illustration: 'vanila', color: '#f1dca7', intensity: 7 },
+      { name: { bs: 'Cimet', en: 'Cinnamon' }, illustration: 'cimet', color: '#a0522d', intensity: 6 },
+      { name: { bs: 'Kardamom', en: 'Cardamom' }, illustration: 'kardamom', color: '#8fae5a', intensity: 5 },
+      { name: { bs: 'Muškatni oraščić', en: 'Nutmeg' }, illustration: 'bilje', color: '#8a5a3a', intensity: 4 },
+      { name: { bs: 'Čaj', en: 'Tea' }, illustration: 'caj', color: '#b5651d', intensity: 5 }
+    ],
+    profile: { sweetness: 6, freshness: 3, fruitiness: 0, cooling: 0, strength: 4 },
+    tags: ['zacinski', 'desertni', 'pice'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#c47a3a', secondary: '#f1dca7', accent: '#8fae5a', background: '#1d120a', text: '#fbf0e2', smoke: ['#fff7ea', '#ead2b0', '#c79a68'] },
+    mixIdeas: {
+      bs: [
+        'Spiced Chai i Double Apple, za jabuku sa cimetom.',
+        'Spiced Chai i Kashmir Peach, za začinjenu breskvu.',
+        'Spiced Chai i Peppermint Shake, za zimski desert.'
+      ],
+      en: [
+        'Spiced Chai with Double Apple for apple and cinnamon.',
+        'Spiced Chai with Kashmir Peach for a spiced peach.',
+        'Spiced Chai with Peppermint Shake for a winter dessert.'
+      ]
+    },
+    similar: ['tangiers-horchata', 'tangiers-kashmir-peach', '187-wild-beast']
+  },
+  {
+    id: 'fumari-mint-chocolate-chill',
+    brand: 'fumari',
+    leaf: 'light',
+    name: 'Mint Chocolate Chill',
+    mood: 'frost',
+    shortDescription: {
+      bs: 'Slatka tamna čokolada i hladna menta: desert koji osvježava.',
+      en: 'Sweet dark chocolate and cool mint: a dessert that refreshes.'
+    },
+    description: {
+      bs: [
+        'Mint Chocolate Chill je desertni okus: tamna, slatka čokolada i hladna menta, kao sladoled od mente sa komadićima čokolade.',
+        'Čokolada daje toplu, kremastu osnovu, a menta hladi izdah. Spoj je skladan i nije previše sladak.',
+        'Svijetli list, mekan i lagan. Dobar izbor kad želiš nešto drugačije od voća.'
+      ],
+      en: [
+        'Mint Chocolate Chill is a dessert flavor: dark, sweet chocolate and cool mint, like mint chocolate chip ice cream.',
+        'The chocolate gives a warm, creamy base and the mint cools the exhale. The pairing is balanced and not too sweet.',
+        'Blonde leaf, soft and light. A good pick when you want something other than fruit.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Čokolada', en: 'Chocolate' }, illustration: 'cokolada', color: '#5a3220', intensity: 8 },
+      { name: { bs: 'Menta', en: 'Mint' }, illustration: 'menta', color: '#2fae78', intensity: 7 }
+    ],
+    profile: { sweetness: 7, freshness: 7, fruitiness: 0, cooling: 6, strength: 4 },
+    tags: ['desertni', 'mint', 'slatki'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#6fd3a8', secondary: '#5a3220', accent: '#e9fff4', background: '#170d08', text: '#effff7' },
+    mixIdeas: {
+      bs: [
+        'Mint Chocolate Chill i Peppermint Shake, za mliječni šejk sa čokoladom.',
+        'Mint Chocolate Chill i Raspberry, za čokoladu sa malinom.',
+        'Mint Chocolate Chill i Bananarama, za čokoladnu bananu.'
+      ],
+      en: [
+        'Mint Chocolate Chill with Peppermint Shake for a chocolate milkshake.',
+        'Mint Chocolate Chill with Raspberry for chocolate and raspberry.',
+        'Mint Chocolate Chill with Bananarama for a chocolate banana.'
+      ]
+    },
+    similar: ['trifecta-peppermint-shake', 'haze-mint-supreme', 'tangiers-horchata']
   },
   {
     id: 'darkside-supernova',
@@ -1077,6 +1862,176 @@ window.FLAVORS = [
     similar: ['musthave-cola', 'sebero-black-cola', 'adalya-cherry-mint']
   },
   {
+    id: 'darkside-falling-star',
+    brand: 'darkside',
+    leaf: 'dark',
+    name: 'Falling Star',
+    shortDescription: {
+      bs: 'Mango i marakuja: tropski, sočan i blago kiselkast.',
+      en: 'Mango and passion fruit: tropical, juicy and slightly tart.'
+    },
+    description: {
+      bs: [
+        'Falling Star je jedan od najpoznatijih Darkside okusa. Zreo mango daje gustu slatkoću, a marakuja kiselkast, mirisni tropski ton.',
+        'Okus je sočan i jasan, bez hlađenja, a marakuja sprečava da mango postane težak.',
+        'Darkside je jak tamni list: pakuj rastresito, ne pretjeruj sa toplotom i nemoj ga davati nekome ko tek počinje.'
+      ],
+      en: [
+        'Falling Star is one of the best known Darkside flavors. Ripe mango brings a thick sweetness and passion fruit a tangy, fragrant tropical tone.',
+        'It is juicy and clear with no cooling, and the passion fruit keeps the mango from getting heavy.',
+        'Darkside is strong dark leaf: pack it loose, go easy on the heat and do not hand it to someone who is just starting out.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Mango', en: 'Mango' }, illustration: 'mango', color: '#ffb52e', intensity: 8 },
+      { name: { bs: 'Marakuja', en: 'Passion fruit' }, illustration: 'marakuja', color: '#f2a03a', intensity: 7 }
+    ],
+    profile: { sweetness: 7, freshness: 6, fruitiness: 9, cooling: 0, strength: 8 },
+    tags: ['vocni', 'tropski', 'ljetni'],
+    tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
+    palette: { primary: '#ffb52e', secondary: '#9b4dca', accent: '#ffe08a', background: '#140b1f', text: '#fff4e2' },
+    mixIdeas: {
+      bs: [
+        'Falling Star i Supernova, 80/20, za ledeni mango.',
+        'Falling Star i Bananapapa, za tropski smoothie.',
+        'Falling Star i Generis Raspberry, za mango sa malinom.'
+      ],
+      en: [
+        'Falling Star with Supernova, 80/20, for an icy mango.',
+        'Falling Star with Bananapapa for a tropical smoothie.',
+        'Falling Star with Generis Raspberry for mango and raspberry.'
+      ]
+    },
+    similar: ['adalya-hawaii', 'revoshi-lady-mystique', 'sebero-mango-yogurt']
+  },
+  {
+    id: 'darkside-bananapapa',
+    brand: 'darkside',
+    leaf: 'dark',
+    name: 'Bananapapa',
+    shortDescription: {
+      bs: 'Zrela, kremasta banana: slatka, mekana i jako prirodna.',
+      en: 'Ripe, creamy banana: sweet, soft and very natural.'
+    },
+    description: {
+      bs: [
+        'Bananapapa je čista banana, zrela i kremasta, onakva kakva je kad se tek ogulji. Nije bombonska, nego prirodna i mekana.',
+        'Nema kiselosti ni hlađenja, pa je okus topao i pun, skoro kao desert.',
+        'Odlična baza za mikseve sa bobicama, čokoladom ili kolom. Tamni list, pa ga pakuj rastresito.'
+      ],
+      en: [
+        'Bananapapa is pure banana, ripe and creamy, the way it is right after peeling. Not candy-like, but natural and soft.',
+        'There is no tartness and no cooling, so it is warm and full, almost like a dessert.',
+        'A great base for mixes with berries, chocolate or cola. Dark leaf, so pack it loose.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Zrela banana', en: 'Ripe banana' }, illustration: 'banana', color: '#fbe48c', intensity: 9 }
+    ],
+    profile: { sweetness: 8, freshness: 3, fruitiness: 8, cooling: 0, strength: 8 },
+    tags: ['vocni', 'tropski', 'desertni'],
+    tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
+    palette: { primary: '#f7d84a', secondary: '#fff1b0', accent: '#6b4a1f', background: '#1c1606', text: '#fffbe6' },
+    mixIdeas: {
+      bs: [
+        'Bananapapa i Generis Raspberry, za bananu sa malinom.',
+        'Bananapapa i Darkside Cola, za bananu u koli.',
+        'Bananapapa i Falling Star, za tropski smoothie.'
+      ],
+      en: [
+        'Bananapapa with Generis Raspberry for banana and raspberry.',
+        'Bananapapa with Darkside Cola for banana cola.',
+        'Bananapapa with Falling Star for a tropical smoothie.'
+      ]
+    },
+    similar: ['haze-bananarama', 'adalya-dubai', 'starbuzz-pirates-cave']
+  },
+  {
+    id: 'darkside-generis-raspberry',
+    brand: 'darkside',
+    leaf: 'dark',
+    name: 'Generis Raspberry',
+    shortDescription: {
+      bs: 'Prava malina: slatka, kiselkasta i prirodna, bez bombonskog ukusa.',
+      en: 'Real raspberry: sweet, tart and natural, with no candy taste.'
+    },
+    description: {
+      bs: [
+        'Generis Raspberry je iz Darkside Generis linije, gdje je cilj što prirodniji okus. Malina je slatka i kiselkasta, sa onom blagom "zelenom" notom svježih bobica.',
+        'Nema mentola ni dodatne slatkoće. Okus je čist i lako se kombinuje.',
+        'Tamni list: rastresito pakovanje i umjerena toplota. Odličan za mikseve sa mentom ili limunom.'
+      ],
+      en: [
+        'Generis Raspberry comes from the Darkside Generis line, which aims for flavors as natural as possible. The raspberry is sweet and tart, with that slight "green" note of fresh berries.',
+        'No menthol and no added sweetness. It is clean and easy to mix.',
+        'Dark leaf: pack it loose and keep the heat moderate. Excellent in mixes with mint or lemon.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Malina', en: 'Raspberry' }, illustration: 'malina', color: '#e0336b', intensity: 9 }
+    ],
+    profile: { sweetness: 6, freshness: 6, fruitiness: 9, cooling: 0, strength: 8 },
+    tags: ['vocni', 'bobicasti'],
+    tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
+    palette: { primary: '#d62f63', secondary: '#ff9cbc', accent: '#5fbf7a', background: '#1f070f', text: '#fff0f5' },
+    mixIdeas: {
+      bs: [
+        'Generis Raspberry i Supernova, 80/20, za ledenu malinu.',
+        'Generis Raspberry i Bananapapa, za smoothie od maline i banane.',
+        'Generis Raspberry i Wild Forest, za šumske bobice.'
+      ],
+      en: [
+        'Generis Raspberry with Supernova, 80/20, for an icy raspberry.',
+        'Generis Raspberry with Bananapapa for a raspberry banana smoothie.',
+        'Generis Raspberry with Wild Forest for forest berries.'
+      ]
+    },
+    similar: ['adalya-raspberry', 'starbuzz-pink', 'darkside-wild-forest', 'musthave-pinkman']
+  },
+  {
+    id: 'darkside-wild-forest',
+    brand: 'darkside',
+    leaf: 'dark',
+    name: 'Wild Forest',
+    shortDescription: {
+      bs: 'Šumska jagoda i bobice: slatko, mirisno i malo divlje.',
+      en: 'Wild strawberry and forest berries: sweet, fragrant and a little wild.'
+    },
+    description: {
+      bs: [
+        'Wild Forest je šumska jagoda sa miješanim šumskim bobicama. Jagoda je sitna i mirisna, kao ona ubrana u šumi, a bobice dodaju tamniju, kiselkastu dubinu.',
+        'Okus je prirodan i nije previše sladak. Nema hlađenja.',
+        'Darkside je jak tamni list: pakuj rastresito i daj glavi par minuta da se zagrije.'
+      ],
+      en: [
+        'Wild Forest is wild strawberry with mixed forest berries. The strawberry is small and fragrant, like one picked in the woods, and the berries add a darker, tart depth.',
+        'It is natural and not too sweet. No cooling.',
+        'Darkside is strong dark leaf: pack it loose and give the bowl a few minutes to heat up.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Šumska jagoda', en: 'Wild strawberry' }, illustration: 'jagoda', color: '#e8354a', intensity: 8 },
+      { name: { bs: 'Šumske bobice', en: 'Forest berries' }, illustration: 'kupina', color: '#5a2a5e', intensity: 6 }
+    ],
+    profile: { sweetness: 6, freshness: 6, fruitiness: 9, cooling: 0, strength: 8 },
+    tags: ['vocni', 'bobicasti'],
+    tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
+    palette: { primary: '#d8344c', secondary: '#7a3a7e', accent: '#7cc46a', background: '#140a10', text: '#fff0f2' },
+    mixIdeas: {
+      bs: [
+        'Wild Forest i Generis Raspberry, za korpu šumskog voća.',
+        'Wild Forest i Supernova, 80/20, za ledene bobice.',
+        'Wild Forest i Bananapapa, za jagodu sa bananom.'
+      ],
+      en: [
+        'Wild Forest with Generis Raspberry for a basket of forest fruit.',
+        'Wild Forest with Supernova, 80/20, for icy berries.',
+        'Wild Forest with Bananapapa for strawberry and banana.'
+      ]
+    },
+    similar: ['darkside-generis-raspberry', '187-wild-beast', 'trifecta-blue-strawberry']
+  },
+  {
     id: 'musthave-pinkman',
     brand: 'musthave',
     leaf: 'dark',
@@ -1162,7 +2117,137 @@ window.FLAVORS = [
         'Cola with Pinkman for a fruity summer cola.'
       ]
     },
-    similar: ['darkside-cola', 'sebero-black-cola', 'starbuzz-pirates-cave']
+    similar: ['darkside-cola', 'sebero-black-cola', 'musthave-cherry-cola', 'starbuzz-pirates-cave']
+  },
+  {
+    id: 'musthave-pineapple-rings',
+    brand: 'musthave',
+    leaf: 'dark',
+    name: 'Pineapple Rings',
+    shortDescription: {
+      bs: 'Kolutovi ananasa iz konzerve: slatki, sirupasti i jako sočni.',
+      en: 'Canned pineapple rings: sweet, syrupy and very juicy.'
+    },
+    description: {
+      bs: [
+        'Pineapple Rings je ananas iz konzerve, sa sve slatkim sirupom. Nije oštar i kiseo kao svjež ananas, nego mekan, sladak i sočan.',
+        'Okus je jednostavan i jako prepoznatljiv, a blaga kiselost ga drži živim do kraja glave.',
+        'Tamni list: pakuj rastresito. Odličan je i u tropskim miksevima.'
+      ],
+      en: [
+        'Pineapple Rings is canned pineapple, syrup and all. Not sharp and sour like fresh pineapple, but soft, sweet and juicy.',
+        'It is simple and very recognizable, and a slight tartness keeps it lively to the end of the bowl.',
+        'Dark leaf: pack it loose. It also shines in tropical mixes.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Ananas', en: 'Pineapple' }, illustration: 'ananas', color: '#f8cf4a', intensity: 9 },
+      { name: { bs: 'Šećerni sirup', en: 'Sugar syrup' }, illustration: 'med', color: '#f3c96b', intensity: 5 }
+    ],
+    profile: { sweetness: 8, freshness: 6, fruitiness: 9, cooling: 0, strength: 7 },
+    tags: ['vocni', 'tropski', 'slatki'],
+    tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
+    palette: { primary: '#f8cf4a', secondary: '#fff0a0', accent: '#4caf50', background: '#1f1805', text: '#fffbe2' },
+    mixIdeas: {
+      bs: [
+        'Pineapple Rings i Pinkman, za ananas sa grejpfrutom.',
+        'Pineapple Rings i Candy Cow, za karamelizovani ananas.',
+        'Pineapple Rings i MustHave Cola, za tropsku kolu.'
+      ],
+      en: [
+        'Pineapple Rings with Pinkman for pineapple and grapefruit.',
+        'Pineapple Rings with Candy Cow for caramelized pineapple.',
+        'Pineapple Rings with MustHave Cola for a tropical cola.'
+      ]
+    },
+    similar: ['haze-pineapple-krush', 'trifecta-pineapple-guava', 'adalya-dubai']
+  },
+  {
+    id: 'musthave-candy-cow',
+    brand: 'musthave',
+    leaf: 'dark',
+    name: 'Candy Cow',
+    shortDescription: {
+      bs: 'Mliječna karamela, kao poznati bombon "kravica".',
+      en: 'Milky caramel, like the classic "little cow" toffee candy.'
+    },
+    description: {
+      bs: [
+        'Candy Cow je okus mliječne karamele, onih mekanih bombona sa kravicom na omotu. Slatko, kremasto i toplo, sa notom prženog šećera.',
+        'Nema voća ni hlađenja. Okus je gust i desertni, pa ga mnogi koriste u miksevima da "zaobli" voće.',
+        'Tamni list: rastresito pakovanje i strpljenje. Dobar uz kafu ili čaj.'
+      ],
+      en: [
+        'Candy Cow is the flavor of milky caramel, those soft toffees with a cow on the wrapper. Sweet, creamy and warm, with a note of toasted sugar.',
+        'No fruit and no cooling. It is dense and dessert-like, which is why many people use it in mixes to round off fruit.',
+        'Dark leaf: pack it loose and be patient. Goes well with coffee or tea.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Karamel', en: 'Caramel' }, illustration: 'karamel', color: '#b7742f', intensity: 9 },
+      { name: { bs: 'Mlijeko', en: 'Milk' }, illustration: 'sejk', color: '#f3ead8', intensity: 6 }
+    ],
+    profile: { sweetness: 9, freshness: 2, fruitiness: 0, cooling: 0, strength: 7 },
+    tags: ['desertni', 'slatki', 'bombon'],
+    tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
+    palette: { primary: '#c9873e', secondary: '#f3ead8', accent: '#6b3a1a', background: '#1c120a', text: '#fff5e8' },
+    mixIdeas: {
+      bs: [
+        'Candy Cow i Pineapple Rings, za karamelizovani ananas.',
+        'Candy Cow i MustHave Cola, za karamel-kolu.',
+        'Candy Cow i Bananapapa, za bananu sa karamelom.'
+      ],
+      en: [
+        'Candy Cow with Pineapple Rings for caramelized pineapple.',
+        'Candy Cow with MustHave Cola for caramel cola.',
+        'Candy Cow with Bananapapa for banana and caramel.'
+      ]
+    },
+    similar: ['tangiers-horchata', 'trifecta-peppermint-shake', 'haze-bananarama']
+  },
+  {
+    id: 'musthave-cherry-cola',
+    brand: 'musthave',
+    leaf: 'dark',
+    name: 'Cherry-Cola',
+    mood: 'fizz',
+    shortDescription: {
+      bs: 'Kola sa višnjom: slatka, gazirana i malo voćna.',
+      en: 'Cola with cherry: sweet, fizzy and a little fruity.'
+    },
+    description: {
+      bs: [
+        'Cherry-Cola je klasična kola sa jasnom notom višnje, kao poznata višnja-kola iz limenke. Kola daje začinsku, karamelnu osnovu, a višnja voćnu slatkoću.',
+        'Okus je gust i dobro izbalansiran: višnja ne pokriva kolu, nego je obogaćuje.',
+        'Tamni list: rastresito pakovanje. Uporedi sa običnom MustHave Colom da osjetiš razliku.'
+      ],
+      en: [
+        'Cherry-Cola is classic cola with a clear cherry note, like the familiar cherry cola in a can. The cola gives a spiced, caramel base and the cherry a fruity sweetness.',
+        'It is dense and well balanced: the cherry does not cover the cola, it enriches it.',
+        'Dark leaf: pack it loose. Compare it with the plain MustHave Cola to taste the difference.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Kola', en: 'Cola' }, illustration: 'kola', color: '#3e1a0e', intensity: 8 },
+      { name: { bs: 'Višnja', en: 'Cherry' }, illustration: 'visnja', color: '#a3122a', intensity: 7 }
+    ],
+    profile: { sweetness: 8, freshness: 5, fruitiness: 5, cooling: 0, strength: 7 },
+    tags: ['pice', 'slatki', 'vocni'],
+    tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
+    palette: { primary: '#8a1a2a', secondary: '#c28a54', accent: '#ff6a7a', background: '#140608', text: '#fbeaea', smoke: ['#fff0f0', '#e0b0a8', '#a86a60'] },
+    mixIdeas: {
+      bs: [
+        'Cherry-Cola i Candy Cow, za kolu sa karamelom.',
+        'Cherry-Cola i Supernova, 85/15, za ledenu višnja-kolu.',
+        'Cherry-Cola i Pineapple Rings, za tropsku kolu.'
+      ],
+      en: [
+        'Cherry-Cola with Candy Cow for cola with caramel.',
+        'Cherry-Cola with Supernova, 85/15, for an icy cherry cola.',
+        'Cherry-Cola with Pineapple Rings for a tropical cola.'
+      ]
+    },
+    similar: ['musthave-cola', 'darkside-cola', 'tangiers-maraschino-cherry', 'sebero-black-amarena-cherry']
   },
   {
     id: 'sebero-arctic-mix-jelly-fruit',
@@ -1209,7 +2294,7 @@ window.FLAVORS = [
         'Arctic Mix Jelly Fruit with Love 66 for an icy summer cocktail.'
       ]
     },
-    similar: ['musthave-pinkman', 'adalya-ice-bonbon', 'adalya-tynky-wynky']
+    similar: ['sebero-arctic-mix-spice-fruit', 'musthave-pinkman', 'adalya-ice-bonbon', 'adalya-tynky-wynky']
   },
   {
     id: 'sebero-black-cola',
@@ -1256,6 +2341,181 @@ window.FLAVORS = [
     similar: ['darkside-cola', 'musthave-cola', 'al-fakher-double-apple']
   },
   {
+    id: 'sebero-black-amarena-cherry',
+    brand: 'sebero',
+    leaf: 'dark',
+    name: 'Black Amarena Cherry',
+    shortDescription: {
+      bs: 'Tamna, kiselkasta amarena višnja: bogata, sočna i jaka.',
+      en: 'Dark, tart amarena cherry: rich, juicy and strong.'
+    },
+    description: {
+      bs: [
+        'Black Amarena Cherry je iz Sebero Black linije jačih duhana. Amarena je tamna talijanska višnja, kiselkasta i bogata, sa notom višnjevog sirupa.',
+        'Kiselost je jasna i drži okus svježim, a slatkoća je dovoljna da ne bude oštar.',
+        'Jak tamni list: pakuj rastresito, zagrijavaj polako i ne daj ga početnicima.'
+      ],
+      en: [
+        'Black Amarena Cherry is from the Sebero Black line of stronger tobaccos. Amarena is a dark Italian cherry, tart and rich, with a note of cherry syrup.',
+        'The tartness is clear and keeps it fresh, while the sweetness is enough to keep it from turning sharp.',
+        'Strong dark leaf: pack it loose, heat it slowly and keep it away from beginners.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Amarena višnja', en: 'Amarena cherry' }, illustration: 'visnja', color: '#6a0a1c', intensity: 9 }
+    ],
+    profile: { sweetness: 6, freshness: 5, fruitiness: 9, cooling: 0, strength: 9 },
+    tags: ['vocni', 'bobicasti'],
+    tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
+    palette: { primary: '#8c0f26', secondary: '#e05a72', accent: '#f5c6cf', background: '#120306', text: '#ffeef1' },
+    mixIdeas: {
+      bs: [
+        'Black Amarena Cherry i Black Cola, za tamnu višnja-kolu.',
+        'Black Amarena Cherry i Arctic Mix Jelly Fruit, za ledenu višnju.',
+        'Black Amarena Cherry i Mango Yogurt, za višnju sa jogurtom.'
+      ],
+      en: [
+        'Black Amarena Cherry with Black Cola for a dark cherry cola.',
+        'Black Amarena Cherry with Arctic Mix Jelly Fruit for an icy cherry.',
+        'Black Amarena Cherry with Mango Yogurt for cherry and yogurt.'
+      ]
+    },
+    similar: ['tangiers-maraschino-cherry', 'adalya-cherry-mint', 'musthave-cherry-cola']
+  },
+  {
+    id: 'sebero-green-pear',
+    brand: 'sebero',
+    leaf: 'dark',
+    name: 'Green Pear',
+    shortDescription: {
+      bs: 'Sočna zelena kruška sa notom guave: svježa i blago slatka.',
+      en: 'Juicy green pear with a note of guava: fresh and gently sweet.'
+    },
+    description: {
+      bs: [
+        'Green Pear je iz Sebero Classic linije. Glavna je sočna zelena kruška, svježa i hrskava, a guava joj dodaje mekanu, tropsku notu.',
+        'Okus je prirodan i ne pretjerano sladak, sa blagom svježinom bez hlađenja.',
+        'Tamni list, ali Classic linija je blaža od Sebero Black. Dobar za one koji vole neobične voćne okuse.'
+      ],
+      en: [
+        'Green Pear comes from the Sebero Classic line. The star is a juicy green pear, fresh and crisp, with guava adding a soft, tropical note.',
+        'It is natural and not overly sweet, with a gentle freshness and no cooling.',
+        'Dark leaf, though the Classic line is milder than Sebero Black. Good for anyone who likes unusual fruit flavors.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Zelena kruška', en: 'Green pear' }, illustration: 'kruska', color: '#b5d65a', intensity: 8 },
+      { name: { bs: 'Guava', en: 'Guava' }, illustration: 'guava', color: '#f08a9a', intensity: 5 }
+    ],
+    profile: { sweetness: 6, freshness: 7, fruitiness: 9, cooling: 0, strength: 7 },
+    tags: ['vocni', 'osvjezavajuci'],
+    tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
+    palette: { primary: '#a9cf4f', secondary: '#f2a0ae', accent: '#2f8a4a', background: '#141c08', text: '#f6ffe6' },
+    mixIdeas: {
+      bs: [
+        'Green Pear i Arctic Mix Jelly Fruit, za ledenu krušku.',
+        'Green Pear i Mango Yogurt, za voćni jogurt.',
+        'Green Pear i Pinkman, za krušku sa grejpfrutom.'
+      ],
+      en: [
+        'Green Pear with Arctic Mix Jelly Fruit for an icy pear.',
+        'Green Pear with Mango Yogurt for a fruit yogurt.',
+        'Green Pear with Pinkman for pear and grapefruit.'
+      ]
+    },
+    similar: ['trifecta-pineapple-guava', 'al-fakher-double-apple', 'haze-cucumberita']
+  },
+  {
+    id: 'sebero-mango-yogurt',
+    brand: 'sebero',
+    leaf: 'dark',
+    name: 'Mango Yogurt',
+    shortDescription: {
+      bs: 'Mango sa kremastim jogurtom: kao voćni jogurt ili mango lassi.',
+      en: 'Mango with creamy yogurt: like a fruit yogurt or a mango lassi.'
+    },
+    description: {
+      bs: [
+        'Mango Yogurt spaja zreo, sladak mango i kremast, blago kiselkast jogurt. Podsjeća na voćni jogurt ili indijski napitak mango lassi.',
+        'Jogurt smiruje slatkoću manga i daje okusu mekan, mliječni završetak.',
+        'Tamni list, pa ga pakuj rastresito. Lijep desertni izbor za kraj dana.'
+      ],
+      en: [
+        'Mango Yogurt combines ripe, sweet mango with creamy, slightly tangy yogurt. It recalls a fruit yogurt or an Indian mango lassi.',
+        'The yogurt calms the mango sweetness and gives the flavor a soft, milky finish.',
+        'Dark leaf, so pack it loose. A nice dessert pick to end the day.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Mango', en: 'Mango' }, illustration: 'mango', color: '#ffb52e', intensity: 8 },
+      { name: { bs: 'Jogurt', en: 'Yogurt' }, illustration: 'sejk', color: '#f6f1e6', intensity: 7 }
+    ],
+    profile: { sweetness: 7, freshness: 5, fruitiness: 7, cooling: 0, strength: 7 },
+    tags: ['desertni', 'tropski', 'vocni'],
+    tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
+    palette: { primary: '#ffb52e', secondary: '#fff6e6', accent: '#e07a2a', background: '#fff4e0', text: '#2b1600' },
+    mixIdeas: {
+      bs: [
+        'Mango Yogurt i Black Amarena Cherry, za jogurt sa višnjom.',
+        'Mango Yogurt i Green Pear, za voćni jogurt.',
+        'Mango Yogurt i Falling Star, za još tropskiji lassi.'
+      ],
+      en: [
+        'Mango Yogurt with Black Amarena Cherry for cherry yogurt.',
+        'Mango Yogurt with Green Pear for a fruit yogurt.',
+        'Mango Yogurt with Falling Star for an even more tropical lassi.'
+      ]
+    },
+    similar: ['darkside-falling-star', 'adalya-hawaii', 'trifecta-peppermint-shake']
+  },
+  {
+    id: 'sebero-arctic-mix-spice-fruit',
+    brand: 'sebero',
+    leaf: 'dark',
+    name: 'Arctic Mix Spice Fruit',
+    mood: 'frost',
+    shortDescription: {
+      bs: 'Začinjeni čaj, guava, jagoda, rabarbara i ribizla, sa hlađenjem.',
+      en: 'Spiced tea, guava, strawberry, rhubarb and blackcurrant, with cooling.'
+    },
+    description: {
+      bs: [
+        'Arctic Mix Spice Fruit je iz Sebero Arctic Mix linije: gotovi miksevi sa hlađenjem. Ovdje je osnova začinjeni čaj, a preko njega guava, jagoda, rabarbara i crna ribizla.',
+        'Voće je kiselkasto i bogato, čaj daje toplu, začinsku dubinu, a hlađenje sve to drži svježim.',
+        'Neobičan, slojevit okus. Tamni list: pakuj rastresito i ne pretjeruj sa toplotom.'
+      ],
+      en: [
+        'Arctic Mix Spice Fruit comes from the Sebero Arctic Mix line of ready-made mixes with cooling. The base is spiced tea, topped with guava, strawberry, rhubarb and blackcurrant.',
+        'The fruit is tart and rich, the tea adds warm, spiced depth, and the cooling keeps it all fresh.',
+        'An unusual, layered flavor. Dark leaf: pack it loose and go easy on the heat.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Začinjeni čaj', en: 'Spiced tea' }, illustration: 'caj', color: '#b5651d', intensity: 7 },
+      { name: { bs: 'Guava', en: 'Guava' }, illustration: 'guava', color: '#f08a9a', intensity: 6 },
+      { name: { bs: 'Jagoda', en: 'Strawberry' }, illustration: 'jagoda', color: '#e8354a', intensity: 6 },
+      { name: { bs: 'Rabarbara', en: 'Rhubarb' }, illustration: 'rabarbara', color: '#d9455f', intensity: 5 },
+      { name: { bs: 'Hlađenje', en: 'Cooling' }, illustration: 'kristal', color: '#cdefff', intensity: 7 }
+    ],
+    profile: { sweetness: 6, freshness: 8, fruitiness: 8, cooling: 7, strength: 7 },
+    tags: ['vocni', 'zacinski', 'ledeni', 'bobicasti'],
+    tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
+    palette: { primary: '#d9455f', secondary: '#b5651d', accent: '#8fd8f0', background: '#160a10', text: '#fff0f2', water: '#c8efff' },
+    mixIdeas: {
+      bs: [
+        'Arctic Mix Spice Fruit i Green Pear, za začinjenu krušku.',
+        'Arctic Mix Spice Fruit i Black Amarena Cherry, za zimsko voće.',
+        'Arctic Mix Spice Fruit i Spiced Chai, za još više začina.'
+      ],
+      en: [
+        'Arctic Mix Spice Fruit with Green Pear for a spiced pear.',
+        'Arctic Mix Spice Fruit with Black Amarena Cherry for winter fruit.',
+        'Arctic Mix Spice Fruit with Spiced Chai for even more spice.'
+      ]
+    },
+    similar: ['sebero-arctic-mix-jelly-fruit', 'fumari-spiced-chai', '187-wild-beast']
+  },
+  {
     id: 'haze-cucumberita',
     brand: 'haze',
     leaf: 'light',
@@ -1296,7 +2556,7 @@ window.FLAVORS = [
         'Cucumberita with Tynky Wynky for a citrus lemonade with cucumber.'
       ]
     },
-    similar: ['adalya-mint', 'adalya-tynky-wynky', 'adalya-double-melon']
+    similar: ['holster-ice-kaktuz', 'adalya-mint', 'adalya-tynky-wynky', 'adalya-double-melon']
   },
   {
     id: 'haze-purple-krush',
@@ -1342,6 +2602,180 @@ window.FLAVORS = [
       ]
     },
     similar: ['starbuzz-blue-mist', 'starbuzz-pirates-cave', 'musthave-pinkman']
+  },
+  {
+    id: 'haze-mint-supreme',
+    brand: 'haze',
+    leaf: 'light',
+    name: 'Mint Supreme',
+    mood: 'frost',
+    shortDescription: {
+      bs: 'Jaka, čista menta za one kojima obična menta nije dovoljna.',
+      en: 'Strong, clean mint for anyone who finds regular mint too mild.'
+    },
+    description: {
+      bs: [
+        'Mint Supreme je Haze menta pojačana do kraja. Nema voća ni slatkoće u prvom planu, samo jaka, svježa menta koja hladi i udah i izdah.',
+        'Hladnoća je izražena, ali menta ostaje "zelena" i prirodna, a ne čisti mentol.',
+        'Svijetli list, pa je lagan za pušenje. Odličan i u malim količinama uz voćne okuse.'
+      ],
+      en: [
+        'Mint Supreme is Haze mint turned all the way up. No fruit and no sweetness up front, just strong, fresh mint that cools both the inhale and the exhale.',
+        'The cold is pronounced, but the mint stays "green" and natural rather than pure menthol.',
+        'Blonde leaf, so it is easy to smoke. Great in small amounts with fruit flavors, too.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Menta', en: 'Mint' }, illustration: 'menta', color: '#2fae78', intensity: 10 },
+      { name: { bs: 'Mentol', en: 'Menthol' }, illustration: 'kristal', color: '#cdefff', intensity: 7 }
+    ],
+    profile: { sweetness: 2, freshness: 10, fruitiness: 0, cooling: 9, strength: 5 },
+    tags: ['mint', 'ledeni', 'osvjezavajuci'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#2fc48a', secondary: '#c8f7e2', accent: '#0d7a52', background: '#e8fbf2', text: '#062a1c', water: '#c8f7e2' },
+    mixIdeas: {
+      bs: [
+        'Mint Supreme i Purple Krush, 30/70, za ledeno grožđe.',
+        'Mint Supreme i Cucumberita, za mojito.',
+        'Mint Supreme i Pineapple Krush, 30/70, za ledeni ananas.'
+      ],
+      en: [
+        'Mint Supreme with Purple Krush, 30/70, for an icy grape.',
+        'Mint Supreme with Cucumberita for a mojito.',
+        'Mint Supreme with Pineapple Krush, 30/70, for an icy pineapple.'
+      ]
+    },
+    similar: ['al-fakher-mint', 'adalya-mint', 'trifecta-durty-mint', 'tangiers-cane-mint']
+  },
+  {
+    id: 'haze-bananarama',
+    brand: 'haze',
+    leaf: 'light',
+    name: 'Bananarama',
+    shortDescription: {
+      bs: 'Puding od banane i hljeba: kremasto, toplo i desertno.',
+      en: 'Banana bread pudding: creamy, warm and dessert-like.'
+    },
+    description: {
+      bs: [
+        'Bananarama je desert u nargili: zrela banana, mekan "hljeb" i kremasta, puding tekstura. Podsjeća na američki puding od banane i hljeba.',
+        'Okus je topao i sladak, sa notom vanile i pečenog tijesta. Nema hlađenja.',
+        'Svijetli list, mekan i lagan. Dobar za kraj večeri, uz kafu ili čaj.'
+      ],
+      en: [
+        'Bananarama is dessert in a hookah: ripe banana, soft "bread" and a creamy, pudding-like texture. It recalls an American banana bread pudding.',
+        'It is warm and sweet, with notes of vanilla and baked dough. No cooling.',
+        'Blonde leaf, soft and light. Good to end the evening with coffee or tea.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Banana', en: 'Banana' }, illustration: 'banana', color: '#fbe48c', intensity: 8 },
+      { name: { bs: 'Puding', en: 'Pudding' }, illustration: 'vanila', color: '#f1dca7', intensity: 6 },
+      { name: { bs: 'Pecivo', en: 'Baked bread' }, illustration: 'karamel', color: '#c58a52', intensity: 5 }
+    ],
+    profile: { sweetness: 8, freshness: 2, fruitiness: 6, cooling: 0, strength: 4 },
+    tags: ['desertni', 'tropski', 'slatki'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#f2cf5a', secondary: '#c58a52', accent: '#7a4a1f', background: '#1d1508', text: '#fff8e4' },
+    mixIdeas: {
+      bs: [
+        'Bananarama i Mint Supreme, 80/20, za hladni desert.',
+        'Bananarama i Purple Krush, za puding sa grožđem.',
+        'Bananarama i Double Bubble, za bombonsku bananu.'
+      ],
+      en: [
+        'Bananarama with Mint Supreme, 80/20, for a cool dessert.',
+        'Bananarama with Purple Krush for pudding with grape.',
+        'Bananarama with Double Bubble for a candy banana.'
+      ]
+    },
+    similar: ['darkside-bananapapa', 'trifecta-peppermint-shake', 'musthave-candy-cow']
+  },
+  {
+    id: 'haze-pineapple-krush',
+    brand: 'haze',
+    leaf: 'light',
+    name: 'Pineapple Krush',
+    mood: 'ice',
+    shortDescription: {
+      bs: 'Sočni ananas sa hladnim završetkom, kao ledeni ananas sok.',
+      en: 'Juicy pineapple with a cool finish, like iced pineapple juice.'
+    },
+    description: {
+      bs: [
+        'Pineapple Krush je iz Haze "Krush" linije voćnih okusa sa hlađenjem. Ananas je sočan, sladak i blago kiselkast, a na kraju dolazi lagano hlađenje.',
+        'Hlađenje je umjereno, pa ananas ostaje glavna stvar, a izdah je svjež.',
+        'Svijetli list, lagan i ljetni. Dobar izbor za vruće dane.'
+      ],
+      en: [
+        'Pineapple Krush belongs to the Haze "Krush" line of fruit flavors with cooling. The pineapple is juicy, sweet and slightly tart, with a gentle chill at the end.',
+        'The cooling is moderate, so the pineapple stays the main event while the exhale feels fresh.',
+        'Blonde leaf, light and summery. A good pick for hot days.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Ananas', en: 'Pineapple' }, illustration: 'ananas', color: '#f8cf4a', intensity: 9 },
+      { name: { bs: 'Hlađenje', en: 'Cooling' }, illustration: 'kristal', color: '#cdefff', intensity: 5 }
+    ],
+    profile: { sweetness: 7, freshness: 8, fruitiness: 9, cooling: 5, strength: 4 },
+    tags: ['vocni', 'tropski', 'ljetni', 'osvjezavajuci'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#f8cf4a', secondary: '#bfefff', accent: '#2a9a5a', background: '#0f2026', text: '#fffbe6', water: '#cdf3ff' },
+    mixIdeas: {
+      bs: [
+        'Pineapple Krush i Purple Krush, za tropski sok od grožđa.',
+        'Pineapple Krush i Cucumberita, za ananas-mojito.',
+        'Pineapple Krush i Bananarama, za piña coladu.'
+      ],
+      en: [
+        'Pineapple Krush with Purple Krush for a tropical grape juice.',
+        'Pineapple Krush with Cucumberita for a pineapple mojito.',
+        'Pineapple Krush with Bananarama for a piña colada.'
+      ]
+    },
+    similar: ['musthave-pineapple-rings', 'trifecta-pineapple-guava', 'haze-purple-krush']
+  },
+  {
+    id: 'haze-double-bubble',
+    brand: 'haze',
+    leaf: 'light',
+    name: 'Double Bubble',
+    shortDescription: {
+      bs: 'Klasična roze žvakaća guma: slatka, voćna i nostalgična.',
+      en: 'Classic pink bubble gum: sweet, fruity and nostalgic.'
+    },
+    description: {
+      bs: [
+        'Double Bubble je okus stare roze žvakaće gume. Slatka je, voćna i malo cvjetna, baš kao guma iz djetinjstva.',
+        'Nema mentola, pa okus ostaje mekan i bombonski od početka do kraja.',
+        'Svijetli list, lagan za pušenje. Lijep samostalno ili uz voće.'
+      ],
+      en: [
+        'Double Bubble is the flavor of old-school pink bubble gum. It is sweet, fruity and slightly floral, just like the gum you chewed as a kid.',
+        'There is no menthol, so it stays soft and candy-like from start to finish.',
+        'Blonde leaf, easy to smoke. Nice on its own or with fruit.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Žvakaća guma', en: 'Bubble gum' }, illustration: 'zvaka', color: '#ff8fc0', intensity: 9 }
+    ],
+    profile: { sweetness: 9, freshness: 4, fruitiness: 4, cooling: 0, strength: 4 },
+    tags: ['bombon', 'slatki'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#ff7ab6', secondary: '#ffd0e6', accent: '#7ad0ff', background: '#ffeef6', text: '#3a0a22' },
+    mixIdeas: {
+      bs: [
+        'Double Bubble i Mint Supreme, 80/20, za mint žvaku.',
+        'Double Bubble i Purple Krush, za žvaku od grožđa.',
+        'Double Bubble i Pineapple Krush, za tropsku žvaku.'
+      ],
+      en: [
+        'Double Bubble with Mint Supreme, 80/20, for mint gum.',
+        'Double Bubble with Purple Krush for grape gum.',
+        'Double Bubble with Pineapple Krush for tropical gum.'
+      ]
+    },
+    similar: ['mazaya-gum-mint', 'fumari-white-gummi-bear', 'adalya-swiss-bonbon']
   },
   {
     id: 'trifecta-peppermint-shake',
@@ -1430,5 +2864,980 @@ window.FLAVORS = [
       ]
     },
     similar: ['tangiers-cane-mint', 'trifecta-peppermint-shake', 'darkside-supernova']
+  },
+  {
+    id: 'trifecta-pineapple-guava',
+    brand: 'trifecta',
+    leaf: 'light',
+    name: 'Pineapple Guava',
+    shortDescription: {
+      bs: 'Ananas i guava: tropski, sočan i mirisan.',
+      en: 'Pineapple and guava: tropical, juicy and fragrant.'
+    },
+    description: {
+      bs: [
+        'Pineapple Guava spaja sočan ananas i mirisnu, ružičastu guavu. Ananas daje svjetlinu i blagu kiselost, a guava mekan, cvjetno-tropski ton.',
+        'Okus je prirodan i nije previše sladak, bez hlađenja.',
+        'Ovo je Trifecta Blonde, svijetli list, pa je lagan i dobar i za manje iskusne.'
+      ],
+      en: [
+        'Pineapple Guava pairs juicy pineapple with fragrant pink guava. Pineapple brings brightness and a slight tartness, and guava a soft, floral tropical tone.',
+        'It is natural and not too sweet, with no cooling.',
+        'This is Trifecta Blonde, on blonde leaf, so it is light and good for less experienced smokers too.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Ananas', en: 'Pineapple' }, illustration: 'ananas', color: '#f8cf4a', intensity: 8 },
+      { name: { bs: 'Guava', en: 'Guava' }, illustration: 'guava', color: '#f08a9a', intensity: 7 }
+    ],
+    profile: { sweetness: 7, freshness: 7, fruitiness: 9, cooling: 0, strength: 5 },
+    tags: ['vocni', 'tropski', 'ljetni'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#f6a3a8', secondary: '#f8cf4a', accent: '#3aa86a', background: '#24100f', text: '#fff2ee' },
+    mixIdeas: {
+      bs: [
+        'Pineapple Guava i Twice the Ice, 80/20, za ledeno tropsko voće.',
+        'Pineapple Guava i Blue Strawberry, za šareni voćni miks.',
+        'Pineapple Guava i Peppermint Shake, za tropski šejk.'
+      ],
+      en: [
+        'Pineapple Guava with Twice the Ice, 80/20, for icy tropical fruit.',
+        'Pineapple Guava with Blue Strawberry for a colorful fruit mix.',
+        'Pineapple Guava with Peppermint Shake for a tropical shake.'
+      ]
+    },
+    similar: ['musthave-pineapple-rings', 'haze-pineapple-krush', 'sebero-green-pear']
+  },
+  {
+    id: 'trifecta-blue-strawberry',
+    brand: 'trifecta',
+    leaf: 'light',
+    name: 'Blue Strawberry',
+    shortDescription: {
+      bs: 'Borovnica i jagoda: slatki, sočni bobičasti par.',
+      en: 'Blueberry and strawberry: a sweet, juicy berry pair.'
+    },
+    description: {
+      bs: [
+        'Blue Strawberry je spoj borovnice i jagode. Borovnica daje tamnu, džemastu slatkoću, a jagoda svijetlu, mirisnu sočnost.',
+        'Okus je voćan i lagan, sa blagom kiselošću, bez hlađenja.',
+        'Trifecta Blonde, svijetli list. Dobar svakodnevni voćni okus.'
+      ],
+      en: [
+        'Blue Strawberry blends blueberry and strawberry. The blueberry brings dark, jammy sweetness and the strawberry a bright, fragrant juiciness.',
+        'It is fruity and light, with a slight tartness and no cooling.',
+        'Trifecta Blonde, blonde leaf. A good everyday fruit flavor.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Borovnica', en: 'Blueberry' }, illustration: 'borovnica', color: '#4b5bb5', intensity: 8 },
+      { name: { bs: 'Jagoda', en: 'Strawberry' }, illustration: 'jagoda', color: '#e8354a', intensity: 7 }
+    ],
+    profile: { sweetness: 8, freshness: 6, fruitiness: 9, cooling: 0, strength: 5 },
+    tags: ['vocni', 'bobicasti', 'slatki'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#5a6fd8', secondary: '#ff5a72', accent: '#ffd23f', background: '#14112a', text: '#f2f0ff' },
+    mixIdeas: {
+      bs: [
+        'Blue Strawberry i Twice the Ice, 80/20, za ledene bobice.',
+        'Blue Strawberry i Peppermint Shake, za bobice sa šlagom.',
+        'Blue Strawberry i Ruby, za crveno-plavi miks.'
+      ],
+      en: [
+        'Blue Strawberry with Twice the Ice, 80/20, for icy berries.',
+        'Blue Strawberry with Peppermint Shake for berries and cream.',
+        'Blue Strawberry with Ruby for a red and blue mix.'
+      ]
+    },
+    similar: ['al-fakher-blueberry', 'darkside-wild-forest', 'adalya-blue-ice']
+  },
+  {
+    id: 'trifecta-ruby',
+    brand: 'trifecta',
+    leaf: 'light',
+    name: 'Ruby',
+    shortDescription: {
+      bs: 'Crvene bobice, višnja i dinja sa daškom cimeta.',
+      en: 'Red berries, cherry and melon with a hint of cinnamon.'
+    },
+    description: {
+      bs: [
+        'Ruby je voćni miks crvene boje: crvene bobice i višnja vode, dinja ga omekšava, a na kraju se osjeti mali dašak cimeta.',
+        'Cimet je jedva primjetan, ali daje okusu toplinu i čini ga zanimljivijim od običnog voćnog miksa.',
+        'Svijetli list, lagan i sladak. Dobar za one koji vole voće, ali žele nešto drugačije.'
+      ],
+      en: [
+        'Ruby is a red fruit blend: red berries and cherry lead, melon softens it, and a small hint of cinnamon shows up at the end.',
+        'The cinnamon is barely there, but it adds warmth and makes this more interesting than a plain fruit mix.',
+        'Blonde leaf, light and sweet. Good for fruit lovers who want something a little different.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Crvene bobice', en: 'Red berries' }, illustration: 'malina', color: '#d62f4a', intensity: 8 },
+      { name: { bs: 'Višnja', en: 'Cherry' }, illustration: 'visnja', color: '#a3122a', intensity: 7 },
+      { name: { bs: 'Dinja', en: 'Melon' }, illustration: 'dinja', color: '#d9ec9f', intensity: 5 },
+      { name: { bs: 'Cimet', en: 'Cinnamon' }, illustration: 'cimet', color: '#a0522d', intensity: 3 }
+    ],
+    profile: { sweetness: 7, freshness: 5, fruitiness: 9, cooling: 0, strength: 5 },
+    tags: ['vocni', 'bobicasti', 'zacinski'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#c8143c', secondary: '#ff8a9a', accent: '#d9ec9f', background: '#1e050c', text: '#ffeef2' },
+    mixIdeas: {
+      bs: [
+        'Ruby i Twice the Ice, 80/20, za ledene crvene bobice.',
+        'Ruby i Peppermint Shake, za voćni desert.',
+        'Ruby i Pineapple Guava, za tropske bobice.'
+      ],
+      en: [
+        'Ruby with Twice the Ice, 80/20, for icy red berries.',
+        'Ruby with Peppermint Shake for a fruit dessert.',
+        'Ruby with Pineapple Guava for tropical berries.'
+      ]
+    },
+    similar: ['true-passion-cinderella', 'fumari-red-gummi-bear', 'tangiers-maraschino-cherry']
+  },
+  {
+    id: 'trifecta-durty-mint',
+    brand: 'trifecta',
+    leaf: 'dark',
+    name: 'Durty Mint',
+    mood: 'frost',
+    shortDescription: {
+      bs: 'Jaka paprena metvica na tamnom listu, za iskusne pušače.',
+      en: 'Strong peppermint on dark leaf, for experienced smokers.'
+    },
+    description: {
+      bs: [
+        'Durty Mint je Trifecta Dark: paprena metvica na jakom tamnom listu. Menta je oštra i svježa, a list ispod nje daje pun, "duhanski" karakter.',
+        'Hlađenje je izraženo, ali ne ledeno kao kod Twice the Ice. Više je klasična, snažna menta.',
+        'Tamni list znači jači udarac: pakuj rastresito, zagrijavaj polako i ne žuri.'
+      ],
+      en: [
+        'Durty Mint is Trifecta Dark: peppermint on strong dark leaf. The mint is sharp and fresh, and the leaf underneath gives it a full, "tobacco-forward" character.',
+        'The cooling is pronounced but not as icy as Twice the Ice. It is more of a classic, powerful mint.',
+        'Dark leaf means a bigger punch: pack it loose, heat it slowly and take your time.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Paprena metvica', en: 'Peppermint' }, illustration: 'pepermint', color: '#1fa874', intensity: 9 }
+    ],
+    profile: { sweetness: 2, freshness: 9, fruitiness: 0, cooling: 8, strength: 9 },
+    tags: ['mint', 'osvjezavajuci'],
+    tobaccoType: { bs: 'Tamni list (Trifecta Dark)', en: 'Dark leaf (Trifecta Dark)' },
+    palette: { primary: '#1fa874', secondary: '#9fe6c4', accent: '#e8fff4', background: '#06140e', text: '#eafff4' },
+    mixIdeas: {
+      bs: [
+        'Durty Mint i Ruby, 30/70, za jače crvene bobice sa mentom.',
+        'Durty Mint i Peppermint Shake, za jaču mint kremu.',
+        'Durty Mint i Pineapple Guava, 30/70, za tropsku mentu.'
+      ],
+      en: [
+        'Durty Mint with Ruby, 30/70, for stronger red berries with mint.',
+        'Durty Mint with Peppermint Shake for a stronger mint cream.',
+        'Durty Mint with Pineapple Guava, 30/70, for a tropical mint.'
+      ]
+    },
+    similar: ['tangiers-cane-mint', 'trifecta-twice-the-ice', 'haze-mint-supreme']
+  },
+  {
+    id: 'nakhla-double-apple',
+    brand: 'nakhla',
+    leaf: 'dark',
+    name: 'Double Apple',
+    mood: 'honey',
+    shortDescription: {
+      bs: 'Crvena i zelena jabuka sa jakim anisom: originalna, stara dvostruka jabuka.',
+      en: 'Red and green apple with strong anise: the original, old-school double apple.'
+    },
+    description: {
+      bs: [
+        'Nakhla Double Apple mnogi smatraju originalom dvostruke jabuke. Crvena i zelena jabuka daju slatko-kiselu osnovu, a anis je jak i jasan, skoro kao liker.',
+        'Anis je izraženiji nego kod Al Fakhera, pa okus ima onaj stari, "kafanski" karakter koji ljudi ili vole ili ne podnose.',
+        'Duhan je jak i grublji od modernih svijetlih listova. Pakuj rastresito i ne pretjeruj sa toplotom.'
+      ],
+      en: [
+        'Many consider Nakhla Double Apple the original double apple. Red and green apple give a sweet and sour base, and the anise is strong and clear, almost like a liqueur.',
+        'The anise is more pronounced than in Al Fakher, which gives it that old-school café character people either love or cannot stand.',
+        'The tobacco is strong and coarser than modern blonde leaf. Pack it loose and go easy on the heat.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Crvena jabuka', en: 'Red apple' }, illustration: 'jabuka', color: '#c8323c', intensity: 7 },
+      { name: { bs: 'Zelena jabuka', en: 'Green apple' }, illustration: 'zelena-jabuka', color: '#8cc63f', intensity: 6 },
+      { name: { bs: 'Anis', en: 'Anise' }, illustration: 'anis', color: '#6b4a2a', intensity: 9 }
+    ],
+    profile: { sweetness: 6, freshness: 4, fruitiness: 7, cooling: 0, strength: 9 },
+    tags: ['klasicni', 'zacinski', 'vocni'],
+    tobaccoType: { bs: 'Tamni list (tradicionalni moassel)', en: 'Dark leaf (traditional moassel)' },
+    palette: { primary: '#c8323c', secondary: '#8cc63f', accent: '#e8c27a', background: '#1e0f0a', text: '#fff2e0', smoke: ['#fff6ea', '#e8d2b0', '#b8946a'] },
+    mixIdeas: {
+      bs: [
+        'Nakhla Double Apple i Al Fakher Mint, 70/30, za klasičnu jabuku sa mentom.',
+        'Nakhla Double Apple i Grape Mint, za stari orijentalni miks.',
+        'Nakhla Double Apple i Spiced Chai, za jabuku sa začinima.'
+      ],
+      en: [
+        'Nakhla Double Apple with Al Fakher Mint, 70/30, for a classic apple and mint.',
+        'Nakhla Double Apple with Grape Mint for an old-school café mix.',
+        'Nakhla Double Apple with Spiced Chai for spiced apple.'
+      ]
+    },
+    similar: ['al-fakher-double-apple', 'revoshi-d-app-strong', 'al-fakher-mint']
+  },
+  {
+    id: 'mazaya-gum-mint',
+    brand: 'mazaya',
+    leaf: 'light',
+    name: 'Gum Mint',
+    shortDescription: {
+      bs: 'Žvakaća guma sa mentom: slatko, svježe i lagano.',
+      en: 'Chewing gum with spearmint: sweet, fresh and light.'
+    },
+    description: {
+      bs: [
+        'Gum Mint je okus mint žvakaće gume. Slatka guma i nana (spearmint) daju mekan, svjež okus koji podsjeća na žvaku iz trafike.',
+        'Menta je blaža od paprene metvice, pa okus nije oštar, nego ugodno osvježavajući.',
+        'Svijetli list, lagan za pušenje. Dobar samostalno ili uz voće.'
+      ],
+      en: [
+        'Gum Mint is the flavor of mint chewing gum. Sweet gum and spearmint give a soft, fresh taste that recalls a pack of gum from the corner shop.',
+        'Spearmint is milder than peppermint, so it is not sharp, just pleasantly refreshing.',
+        'Blonde leaf, easy to smoke. Good on its own or with fruit.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Žvakaća guma', en: 'Chewing gum' }, illustration: 'zvaka', color: '#ff8fc0', intensity: 7 },
+      { name: { bs: 'Nana', en: 'Spearmint' }, illustration: 'menta', color: '#2fae78', intensity: 7 }
+    ],
+    profile: { sweetness: 7, freshness: 8, fruitiness: 2, cooling: 5, strength: 4 },
+    tags: ['bombon', 'mint', 'slatki', 'osvjezavajuci'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#5fd0a0', secondary: '#ffc0dc', accent: '#ff7ab6', background: '#eafbf3', text: '#0a2a1c' },
+    mixIdeas: {
+      bs: [
+        'Gum Mint i Lemon Mint, za limun žvaku.',
+        'Gum Mint i Al Fakher Watermelon Mint, za žvaku od lubenice.',
+        'Gum Mint i Al Fakher Blueberry, za žvaku od borovnice.'
+      ],
+      en: [
+        'Gum Mint with Lemon Mint for lemon gum.',
+        'Gum Mint with Al Fakher Watermelon Mint for watermelon gum.',
+        'Gum Mint with Al Fakher Blueberry for blueberry gum.'
+      ]
+    },
+    similar: ['haze-double-bubble', 'adalya-swiss-bonbon', 'al-fakher-mint']
+  },
+  {
+    id: 'mazaya-lemon-mint',
+    brand: 'mazaya',
+    leaf: 'light',
+    name: 'Lemon Mint',
+    shortDescription: {
+      bs: 'Sladak limun i mekana menta: blaga, ugodna limunada.',
+      en: 'Sweet lemon and soft mint: a mild, easygoing lemonade.'
+    },
+    description: {
+      bs: [
+        'Mazaya Lemon Mint je najmekši od tri Lemon Mint okusa na stranici. Limun je sladak i zreo, sa manje kiselosti, a menta je blaga i ugodna.',
+        'Okus podsjeća na zaslađenu limunadu sa mentom, laganu i lako pitku.',
+        'Svijetli list. Dobar izbor ako ti je Fumari previše oštar, a Al Fakher previše klasičan.'
+      ],
+      en: [
+        'Mazaya Lemon Mint is the softest of the three Lemon Mint flavors on the site. The lemon is sweet and ripe with less tartness, and the mint is gentle and pleasant.',
+        'It tastes like sweetened lemonade with mint, light and easy going.',
+        'Blonde leaf. A good pick if Fumari feels too sharp and Al Fakher too classic.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Limun', en: 'Lemon' }, illustration: 'limun', color: '#f7e04b', intensity: 7 },
+      { name: { bs: 'Menta', en: 'Mint' }, illustration: 'menta', color: '#2fae78', intensity: 6 }
+    ],
+    profile: { sweetness: 6, freshness: 8, fruitiness: 6, cooling: 5, strength: 4 },
+    tags: ['citrusni', 'mint', 'osvjezavajuci'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#f2d24a', secondary: '#3fae6a', accent: '#fff3a8', background: '#0f1f14', text: '#fbffe8' },
+    mixIdeas: {
+      bs: [
+        'Lemon Mint i Gum Mint, za limun žvaku.',
+        'Lemon Mint i Al Fakher Blueberry, za borovnicu-limunadu.',
+        'Lemon Mint i Starbuzz Pink, za roze limunadu sa mentom.'
+      ],
+      en: [
+        'Lemon Mint with Gum Mint for lemon gum.',
+        'Lemon Mint with Al Fakher Blueberry for a blueberry lemonade.',
+        'Lemon Mint with Starbuzz Pink for a pink lemonade with mint.'
+      ]
+    },
+    similar: ['al-fakher-lemon-mint', 'fumari-lemon-mint', 'adalya-lemon-cocktail']
+  },
+  {
+    id: 'al-waha-big-boy',
+    brand: 'al-waha',
+    leaf: 'light',
+    name: 'Big Boy',
+    mood: 'ice',
+    shortDescription: {
+      bs: 'Lubenica, limun i led: sočan, kiselkast i jako hladan.',
+      en: 'Watermelon, lemon and ice: juicy, tangy and very cold.'
+    },
+    description: {
+      bs: [
+        'Big Boy je najpoznatiji Al Waha okus. Sočna lubenica je u prvom planu, limun joj dodaje kiselkastu iskru, a led sve to rashlađuje.',
+        'Hlađenje je jako, ali voće ostaje jasno. Okus podsjeća na ledenu limunadu od lubenice.',
+        'Svijetli list, lagan. Odličan za ljeto.'
+      ],
+      en: [
+        'Big Boy is the best known Al Waha flavor. Juicy watermelon leads, lemon adds a tangy spark, and ice cools it all down.',
+        'The cooling is strong, but the fruit stays clear. It tastes like an iced watermelon lemonade.',
+        'Blonde leaf, light. Great for summer.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Lubenica', en: 'Watermelon' }, illustration: 'lubenica', color: '#e8434f', intensity: 8 },
+      { name: { bs: 'Limun', en: 'Lemon' }, illustration: 'limun', color: '#f7e04b', intensity: 6 },
+      { name: { bs: 'Led', en: 'Ice' }, illustration: 'kristal', color: '#cdefff', intensity: 8 }
+    ],
+    profile: { sweetness: 7, freshness: 9, fruitiness: 8, cooling: 8, strength: 5 },
+    tags: ['vocni', 'citrusni', 'ledeni', 'ljetni'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#e8434f', secondary: '#f7e04b', accent: '#7fd3f0', background: '#0e1c26', text: '#fff0f2', water: '#c8efff' },
+    mixIdeas: {
+      bs: [
+        'Big Boy i Grape Mint, za ledeni voćni miks.',
+        'Big Boy i Al Fakher Blueberry, za lubenicu sa borovnicom.',
+        'Big Boy i Adalya Hawaii, za tropsku lubenicu.'
+      ],
+      en: [
+        'Big Boy with Grape Mint for an icy fruit mix.',
+        'Big Boy with Al Fakher Blueberry for watermelon and blueberry.',
+        'Big Boy with Adalya Hawaii for a tropical watermelon.'
+      ]
+    },
+    similar: ['serbetli-ice-watermelon', 'al-fakher-watermelon-mint', 'adalya-love-66']
+  },
+  {
+    id: 'al-waha-grape-mint',
+    brand: 'al-waha',
+    leaf: 'light',
+    name: 'Grape Mint',
+    shortDescription: {
+      bs: 'Slatko grožđe i menta, mekši i slađi od klasične verzije.',
+      en: 'Sweet grape and mint, softer and sweeter than the classic version.'
+    },
+    description: {
+      bs: [
+        'Al Waha Grape Mint je slatko, sočno grožđe sa mentom. U odnosu na Al Fakher, grožđe je malo slađe i "bombonskije", a menta blaža.',
+        'Okus je lagan i ugodan, dobar za duže sesije.',
+        'Svijetli list. Uporedi ga sa Al Fakher Grape Mint i Nameless Black Nana.'
+      ],
+      en: [
+        'Al Waha Grape Mint is sweet, juicy grape with mint. Compared with Al Fakher, the grape is a little sweeter and more candy-like and the mint is softer.',
+        'It is light and pleasant, good for long sessions.',
+        'Blonde leaf. Compare it with Al Fakher Grape Mint and Nameless Black Nana.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Grožđe', en: 'Grape' }, illustration: 'grozdje', color: '#7a3a9a', intensity: 8 },
+      { name: { bs: 'Menta', en: 'Mint' }, illustration: 'menta', color: '#2fae78', intensity: 6 }
+    ],
+    profile: { sweetness: 8, freshness: 7, fruitiness: 7, cooling: 5, strength: 5 },
+    tags: ['vocni', 'mint', 'slatki'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#8a4ab8', secondary: '#c9a0ff', accent: '#2fae78', background: '#150c1e', text: '#f6eeff' },
+    mixIdeas: {
+      bs: [
+        'Grape Mint i Big Boy, za ledeni voćni miks.',
+        'Grape Mint i Al Fakher Lemon Mint, za limunadu od grožđa.',
+        'Grape Mint i Al Fakher Double Apple, za klasični miks.'
+      ],
+      en: [
+        'Grape Mint with Big Boy for an icy fruit mix.',
+        'Grape Mint with Al Fakher Lemon Mint for a grape lemonade.',
+        'Grape Mint with Al Fakher Double Apple for a classic mix.'
+      ]
+    },
+    similar: ['al-fakher-grape-mint', 'nameless-black-nana', 'haze-purple-krush']
+  },
+  {
+    id: 'afzal-pan-raas',
+    brand: 'afzal',
+    leaf: 'light',
+    name: 'Pan Raas',
+    shortDescription: {
+      bs: 'Betel list, ruža, začini i mentol: okus indijskog paana.',
+      en: 'Betel leaf, rose, spices and menthol: the taste of Indian paan.'
+    },
+    description: {
+      bs: [
+        'Pan Raas je inspirisan indijskim "paanom", zalogajem koji se pravi od betel lista, areka oraha, začina i ružine slatke paste (gulkand). Okus je biljni, cvjetni i začinski u isto vrijeme.',
+        'Ruža daje slatku, parfemsku notu, betel list zelenu, malo gorkastu, a mentol svjež završetak.',
+        'Neobičan okus koji se ne sviđa svakome, ali je u Indiji i među ljubiteljima nargile pravi klasik.'
+      ],
+      en: [
+        'Pan Raas is inspired by Indian "paan", a bite made of betel leaf, areca nut, spices and sweet rose paste (gulkand). It is herbal, floral and spiced all at once.',
+        'Rose brings a sweet, perfumed note, betel leaf a green, slightly bitter one, and menthol a fresh finish.',
+        'An unusual flavor that is not for everyone, but in India and among hookah fans it is a true classic.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Betel list', en: 'Betel leaf' }, illustration: 'betel', color: '#3f9a4a', intensity: 8 },
+      { name: { bs: 'Ruža', en: 'Rose' }, illustration: 'ruza', color: '#e86a8a', intensity: 7 },
+      { name: { bs: 'Začini', en: 'Spices' }, illustration: 'kardamom', color: '#8fae5a', intensity: 5 },
+      { name: { bs: 'Areka orah', en: 'Areca nut' }, illustration: 'karamel', color: '#8a5a3a', intensity: 4 },
+      { name: { bs: 'Mentol', en: 'Menthol' }, illustration: 'kristal', color: '#cdefff', intensity: 5 }
+    ],
+    profile: { sweetness: 6, freshness: 7, fruitiness: 1, cooling: 5, strength: 5 },
+    tags: ['biljni', 'zacinski', 'slatki'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#3f9a4a', secondary: '#e86a8a', accent: '#f2c230', background: '#0f1a0e', text: '#f4ffe9' },
+    mixIdeas: {
+      bs: [
+        'Pan Raas i Al Fakher Mint, 70/30, za svježiji paan.',
+        'Pan Raas i Fumari Spiced Chai, za indijsko veče.',
+        'Pan Raas i Al Fakher Double Apple, za začinjenu jabuku.'
+      ],
+      en: [
+        'Pan Raas with Al Fakher Mint, 70/30, for a fresher paan.',
+        'Pan Raas with Fumari Spiced Chai for an Indian evening.',
+        'Pan Raas with Al Fakher Double Apple for a spiced apple.'
+      ]
+    },
+    similar: ['fumari-spiced-chai', 'adalya-swiss-bonbon', 'al-fakher-mint']
+  },
+  {
+    id: 'serbetli-ice-watermelon',
+    brand: 'serbetli',
+    leaf: 'light',
+    name: 'Ice Watermelon',
+    mood: 'ice',
+    shortDescription: {
+      bs: 'Slatka lubenica sa jakim mentolom: ledena i sočna.',
+      en: 'Sweet watermelon with strong menthol: icy and juicy.'
+    },
+    description: {
+      bs: [
+        'Ice Watermelon je sočna, slatka lubenica sa jakim mentolom. Lubenica je zrela i vodenasta, a mentol joj daje ledenu, osvježavajuću ivicu.',
+        'Hlađenje je jače nego kod Al Fakher Watermelon Mint, pa je ovo pravi izbor za vruće dane.',
+        'Svijetli list, lagan za pušenje.'
+      ],
+      en: [
+        'Ice Watermelon is juicy, sweet watermelon with strong menthol. The watermelon is ripe and watery, and the menthol gives it an icy, refreshing edge.',
+        'The cooling is stronger than in Al Fakher Watermelon Mint, which makes this the right pick for hot days.',
+        'Blonde leaf, easy to smoke.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Lubenica', en: 'Watermelon' }, illustration: 'lubenica', color: '#e8434f', intensity: 8 },
+      { name: { bs: 'Mentol', en: 'Menthol' }, illustration: 'kristal', color: '#cdefff', intensity: 8 }
+    ],
+    profile: { sweetness: 7, freshness: 9, fruitiness: 8, cooling: 8, strength: 5 },
+    tags: ['vocni', 'ledeni', 'ljetni'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#ff5a6a', secondary: '#bfefff', accent: '#3fbf7a', background: '#0b1a26', text: '#fff0f2', water: '#c8efff' },
+    mixIdeas: {
+      bs: [
+        'Ice Watermelon i Ice Blueberry, za ledene bobice sa lubenicom.',
+        'Ice Watermelon i Al Fakher Lemon Mint, za ledenu limunadu.',
+        'Ice Watermelon i Adalya Hawaii, za ledeni tropski miks.'
+      ],
+      en: [
+        'Ice Watermelon with Ice Blueberry for icy berries and watermelon.',
+        'Ice Watermelon with Al Fakher Lemon Mint for an icy lemonade.',
+        'Ice Watermelon with Adalya Hawaii for an icy tropical mix.'
+      ]
+    },
+    similar: ['al-fakher-watermelon-mint', 'al-waha-big-boy', 'adalya-blue-melon', 'serbetli-ice-blueberry']
+  },
+  {
+    id: 'serbetli-ice-blueberry',
+    brand: 'serbetli',
+    leaf: 'light',
+    name: 'Ice Blueberry',
+    mood: 'frost',
+    shortDescription: {
+      bs: 'Borovnica sa mentom i ledom: slatka, tamna i hladna.',
+      en: 'Blueberry with mint and ice: sweet, dark and cold.'
+    },
+    description: {
+      bs: [
+        'Ice Blueberry je slatka, tamna borovnica sa mentom i ledom. Borovnica je džemasta i bogata, a hladnoća je čini svježom i laganom.',
+        'Okus je sličan Adalya Blue Ice, ali je borovnica malo slađa, a menta "zelenija".',
+        'Svijetli list. Dobar za ljubitelje ledenih bobičastih okusa.'
+      ],
+      en: [
+        'Ice Blueberry is sweet, dark blueberry with mint and ice. The blueberry is jammy and rich, and the cold keeps it fresh and light.',
+        'It is close to Adalya Blue Ice, but the blueberry is a little sweeter and the mint more "green".',
+        'Blonde leaf. Good for fans of icy berry flavors.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Borovnica', en: 'Blueberry' }, illustration: 'borovnica', color: '#4b5bb5', intensity: 8 },
+      { name: { bs: 'Menta', en: 'Mint' }, illustration: 'menta', color: '#2fae78', intensity: 6 },
+      { name: { bs: 'Led', en: 'Ice' }, illustration: 'kristal', color: '#cdefff', intensity: 7 }
+    ],
+    profile: { sweetness: 7, freshness: 9, fruitiness: 8, cooling: 8, strength: 5 },
+    tags: ['vocni', 'bobicasti', 'ledeni'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#4b6bd6', secondary: '#bfe6ff', accent: '#2fae78', background: '#0b1226', text: '#eef3ff', water: '#c8e6ff' },
+    mixIdeas: {
+      bs: [
+        'Ice Blueberry i Ice Watermelon, za ledene bobice sa lubenicom.',
+        'Ice Blueberry i Al Fakher Lemon Mint, za ledenu borovnicu-limunadu.',
+        'Ice Blueberry i Adalya Raspberry, za ledene šumske bobice.'
+      ],
+      en: [
+        'Ice Blueberry with Ice Watermelon for icy berries and watermelon.',
+        'Ice Blueberry with Al Fakher Lemon Mint for an icy blueberry lemonade.',
+        'Ice Blueberry with Adalya Raspberry for icy forest berries.'
+      ]
+    },
+    similar: ['adalya-blue-ice', 'al-fakher-blueberry', 'serbetli-ice-watermelon']
+  },
+  {
+    id: 'revoshi-domingo',
+    brand: 'revoshi',
+    leaf: 'light',
+    name: 'Domingo',
+    shortDescription: {
+      bs: 'Breskva, mango, limeta i jagoda: sunčan, voćni miks.',
+      en: 'Peach, mango, lime and strawberry: a sunny fruit blend.'
+    },
+    description: {
+      bs: [
+        'Domingo je jedan od najpoznatijih Revoshi okusa. Breskva i mango daju sočnu, zrelu slatkoću, jagoda crvenu voćnost, a limeta svježu, kiselkastu iskru.',
+        'Nema hlađenja, pa okus ostaje topao i ljetni, kao voćni koktel.',
+        'Svijetli Virginia list, lagan i lako se puši.'
+      ],
+      en: [
+        'Domingo is one of the best known Revoshi flavors. Peach and mango bring juicy, ripe sweetness, strawberry a red fruitiness, and lime a fresh, tangy spark.',
+        'There is no cooling, so it stays warm and summery, like a fruit cocktail.',
+        'Blonde Virginia leaf, light and easy to smoke.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Breskva', en: 'Peach' }, illustration: 'breskva', color: '#ffa66b', intensity: 8 },
+      { name: { bs: 'Mango', en: 'Mango' }, illustration: 'mango', color: '#ffb52e', intensity: 7 },
+      { name: { bs: 'Jagoda', en: 'Strawberry' }, illustration: 'jagoda', color: '#e8354a', intensity: 6 },
+      { name: { bs: 'Limeta', en: 'Lime' }, illustration: 'limeta', color: '#8cd23f', intensity: 5 }
+    ],
+    profile: { sweetness: 8, freshness: 6, fruitiness: 9, cooling: 0, strength: 5 },
+    tags: ['vocni', 'tropski', 'ljetni', 'slatki'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#ff9a5a', secondary: '#ffd36b', accent: '#e8354a', background: '#26120a', text: '#fff4e8' },
+    mixIdeas: {
+      bs: [
+        'Domingo i Eskimo Lemon, 70/30, za ledeni voćni koktel.',
+        'Domingo i Lady Mystique, za još više manga i breskve.',
+        'Domingo i Adalya Mint, 80/20, za osvježen koktel.'
+      ],
+      en: [
+        'Domingo with Eskimo Lemon, 70/30, for an icy fruit cocktail.',
+        'Domingo with Lady Mystique for even more mango and peach.',
+        'Domingo with Adalya Mint, 80/20, for a refreshed cocktail.'
+      ]
+    },
+    similar: ['revoshi-lady-mystique', 'adalya-berlin-nights', 'tangiers-kashmir-peach']
+  },
+  {
+    id: 'revoshi-lady-mystique',
+    brand: 'revoshi',
+    leaf: 'light',
+    name: 'Lady Mystique',
+    mood: 'ice',
+    shortDescription: {
+      bs: 'Mango i breskva sa mentolom: sočno, slatko i hladno.',
+      en: 'Mango and peach with menthol: juicy, sweet and cool.'
+    },
+    description: {
+      bs: [
+        'Lady Mystique spaja zreo mango i sočnu breskvu, a preko njih ide mentol. Voće je slatko i mekano, a hlađenje mu daje svjež završetak.',
+        'Okus podsjeća na Adalya Lady Killer i Hawaii, ali je breskva ovdje jača.',
+        'Svijetli list, lagan. Dobar izbor za ljubitelje voća sa malo leda.'
+      ],
+      en: [
+        'Lady Mystique pairs ripe mango and juicy peach, topped with menthol. The fruit is sweet and soft, and the cooling gives it a fresh finish.',
+        'It recalls Adalya Lady Killer and Hawaii, but the peach is stronger here.',
+        'Blonde leaf, light. A good pick for fruit lovers who like a little ice.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Mango', en: 'Mango' }, illustration: 'mango', color: '#ffb52e', intensity: 8 },
+      { name: { bs: 'Breskva', en: 'Peach' }, illustration: 'breskva', color: '#ffa66b', intensity: 7 },
+      { name: { bs: 'Mentol', en: 'Menthol' }, illustration: 'kristal', color: '#cdefff', intensity: 6 }
+    ],
+    profile: { sweetness: 8, freshness: 8, fruitiness: 9, cooling: 6, strength: 5 },
+    tags: ['vocni', 'tropski', 'slatki', 'osvjezavajuci'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#ffa64d', secondary: '#ffd0b0', accent: '#7fd3f0', background: '#2a1408', text: '#fff4e8', water: '#cdefff' },
+    mixIdeas: {
+      bs: [
+        'Lady Mystique i Domingo, za veliki voćni miks.',
+        'Lady Mystique i Eskimo Lemon, za ledeni mango-limun.',
+        'Lady Mystique i Adalya Blue Melon, za ledeno tropsko voće.'
+      ],
+      en: [
+        'Lady Mystique with Domingo for a big fruit blend.',
+        'Lady Mystique with Eskimo Lemon for an icy mango lemon.',
+        'Lady Mystique with Adalya Blue Melon for icy tropical fruit.'
+      ]
+    },
+    similar: ['adalya-lady-killer', 'adalya-hawaii', 'revoshi-domingo', 'darkside-falling-star']
+  },
+  {
+    id: 'revoshi-eskimo-lemon',
+    brand: 'revoshi',
+    leaf: 'light',
+    name: 'Eskimo Lemon',
+    mood: 'frost',
+    shortDescription: {
+      bs: 'Kiselkast limun na jakom ledu: oštar, čist i hladan.',
+      en: 'Tangy lemon on strong ice: sharp, clean and cold.'
+    },
+    description: {
+      bs: [
+        'Eskimo Lemon je limun sa puno leda. Limun je svjež i kiselkast, sa malo slatkoće, a mentol je jak i hladi već na udahu.',
+        'Okus je čist i oštar, idealan kad želiš nešto što "budi".',
+        'Svijetli list. Odličan i kao ledeni dodatak voćnim okusima.'
+      ],
+      en: [
+        'Eskimo Lemon is lemon with plenty of ice. The lemon is fresh and tangy with a bit of sweetness, and the menthol is strong, cooling right from the inhale.',
+        'It is clean and sharp, ideal when you want something that wakes you up.',
+        'Blonde leaf. Also great as an icy addition to fruit flavors.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Limun', en: 'Lemon' }, illustration: 'limun', color: '#f7e04b', intensity: 8 },
+      { name: { bs: 'Led', en: 'Ice' }, illustration: 'kristal', color: '#cdefff', intensity: 9 }
+    ],
+    profile: { sweetness: 5, freshness: 10, fruitiness: 6, cooling: 9, strength: 5 },
+    tags: ['citrusni', 'ledeni', 'osvjezavajuci'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#f2e04a', secondary: '#d8f4ff', accent: '#2a9ad8', background: '#eef9ff', text: '#1a2a06', water: '#d8f4ff', smoke: ['#ffffff', '#f2fbff', '#d8f0ff'] },
+    mixIdeas: {
+      bs: [
+        'Eskimo Lemon i Domingo, 30/70, za ledeni voćni koktel.',
+        'Eskimo Lemon i Lady Mystique, za ledeni mango-limun.',
+        'Eskimo Lemon i Adalya Raspberry, za ledenu malinovu limunadu.'
+      ],
+      en: [
+        'Eskimo Lemon with Domingo, 30/70, for an icy fruit cocktail.',
+        'Eskimo Lemon with Lady Mystique for an icy mango lemon.',
+        'Eskimo Lemon with Adalya Raspberry for an icy raspberry lemonade.'
+      ]
+    },
+    similar: ['adalya-lemon-cocktail', 'fumari-lemon-mint', 'trifecta-twice-the-ice']
+  },
+  {
+    id: 'revoshi-d-app-strong',
+    brand: 'revoshi',
+    leaf: 'light',
+    name: 'D\'App Strong',
+    mood: 'honey',
+    shortDescription: {
+      bs: 'Jača dvostruka jabuka: crvena i zelena jabuka sa anisom.',
+      en: 'A stronger double apple: red and green apple with anise.'
+    },
+    description: {
+      bs: [
+        'D\'App Strong je Revoshi verzija dvostruke jabuke, napravljena da bude jača od uobičajene. Crvena i zelena jabuka daju slatko-kiselu osnovu, a anis je jasan i topao.',
+        'Anis je između Al Fakhera i Nakhle: izraženiji od prvog, mekši od drugog.',
+        'Svijetli list, ali sa više "udarca" od običnih svijetlih okusa.'
+      ],
+      en: [
+        'D\'App Strong is the Revoshi take on double apple, made to be stronger than usual. Red and green apple give a sweet and sour base, and the anise is clear and warm.',
+        'The anise sits between Al Fakher and Nakhla: more pronounced than the first, softer than the second.',
+        'Blonde leaf, but with more "kick" than regular blonde flavors.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Crvena jabuka', en: 'Red apple' }, illustration: 'jabuka', color: '#c8323c', intensity: 7 },
+      { name: { bs: 'Zelena jabuka', en: 'Green apple' }, illustration: 'zelena-jabuka', color: '#8cc63f', intensity: 6 },
+      { name: { bs: 'Anis', en: 'Anise' }, illustration: 'anis', color: '#6b4a2a', intensity: 7 }
+    ],
+    profile: { sweetness: 6, freshness: 4, fruitiness: 7, cooling: 0, strength: 7 },
+    tags: ['klasicni', 'zacinski', 'vocni'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#d03a3a', secondary: '#9ad04a', accent: '#f2c27a', background: '#200e0a', text: '#fff2e4' },
+    mixIdeas: {
+      bs: [
+        'D\'App Strong i Al Fakher Mint, 70/30, za klasičnu jabuku sa mentom.',
+        'D\'App Strong i Eskimo Lemon, 80/20, za ledenu jabuku.',
+        'D\'App Strong i Fumari Spiced Chai, za pitu od jabuka.'
+      ],
+      en: [
+        'D\'App Strong with Al Fakher Mint, 70/30, for a classic apple and mint.',
+        'D\'App Strong with Eskimo Lemon, 80/20, for an icy apple.',
+        'D\'App Strong with Fumari Spiced Chai for apple pie.'
+      ]
+    },
+    similar: ['al-fakher-double-apple', 'nakhla-double-apple', 'al-fakher-mint']
+  },
+  {
+    id: '187-i-love-hamburg',
+    brand: '187-strassenbande',
+    leaf: 'light',
+    name: 'I Love Hamburg',
+    shortDescription: {
+      bs: 'Marakuja, šumske bobice i lubenica: šaren, sočan voćni miks.',
+      en: 'Passion fruit, wild berries and watermelon: a colorful, juicy blend.'
+    },
+    description: {
+      bs: [
+        'I Love Hamburg je jedan od najprodavanijih 187 okusa. Marakuja daje kiselkast tropski ton, šumske bobice tamnu slatkoću, a lubenica sočnost.',
+        'Okus je slatko-kiseo i živ, bez hlađenja.',
+        'Svijetli list, lagan. Dobar za društvo i ljetne večeri.'
+      ],
+      en: [
+        'I Love Hamburg is one of the best selling 187 flavors. Passion fruit brings a tangy tropical tone, wild berries a dark sweetness, and watermelon juiciness.',
+        'It is sweet and sour and lively, with no cooling.',
+        'Blonde leaf, light. Good for groups and summer evenings.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Marakuja', en: 'Passion fruit' }, illustration: 'marakuja', color: '#f2a03a', intensity: 8 },
+      { name: { bs: 'Šumske bobice', en: 'Wild berries' }, illustration: 'kupina', color: '#5a2a5e', intensity: 7 },
+      { name: { bs: 'Lubenica', en: 'Watermelon' }, illustration: 'lubenica', color: '#e8434f', intensity: 6 }
+    ],
+    profile: { sweetness: 7, freshness: 6, fruitiness: 9, cooling: 0, strength: 5 },
+    tags: ['vocni', 'tropski', 'bobicasti', 'slatki'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#e8304a', secondary: '#f2a03a', accent: '#7a3a9a', background: '#141414', text: '#f5f5f5' },
+    mixIdeas: {
+      bs: [
+        'I Love Hamburg i Beach Vibez, za ljetni voćni miks.',
+        'I Love Hamburg i Adalya Mint, 80/20, za osvježene bobice.',
+        'I Love Hamburg i Wild Beast, za bobice sa čajem.'
+      ],
+      en: [
+        'I Love Hamburg with Beach Vibez for a summer fruit mix.',
+        'I Love Hamburg with Adalya Mint, 80/20, for refreshed berries.',
+        'I Love Hamburg with Wild Beast for berries and tea.'
+      ]
+    },
+    similar: ['adalya-love-66', 'true-passion-cinderella', 'starbuzz-code-69']
+  },
+  {
+    id: '187-beach-vibez',
+    brand: '187-strassenbande',
+    leaf: 'light',
+    name: 'Beach Vibez',
+    shortDescription: {
+      bs: 'Narandža, malina, limeta i menta: svjež ljetni koktel.',
+      en: 'Orange, raspberry, lime and mint: a fresh summer cocktail.'
+    },
+    description: {
+      bs: [
+        'Beach Vibez je ljetni koktel u glavi: slatka narandža i malina, kiselkasta limeta i malo mente na kraju.',
+        'Menta je blaga, više osvježava nego hladi, a citrusi drže okus laganim.',
+        'Svijetli list, lagan. Odličan za plažu, terasu i vruće večeri.'
+      ],
+      en: [
+        'Beach Vibez is a summer cocktail in a bowl: sweet orange and raspberry, tangy lime and a little mint at the end.',
+        'The mint is gentle, more refreshing than cooling, and the citrus keeps it light.',
+        'Blonde leaf, light. Great for the beach, the terrace and hot evenings.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Narandža', en: 'Orange' }, illustration: 'narandza', color: '#ff9a2e', intensity: 7 },
+      { name: { bs: 'Malina', en: 'Raspberry' }, illustration: 'malina', color: '#e0336b', intensity: 7 },
+      { name: { bs: 'Limeta', en: 'Lime' }, illustration: 'limeta', color: '#8cd23f', intensity: 6 },
+      { name: { bs: 'Menta', en: 'Mint' }, illustration: 'menta', color: '#2fae78', intensity: 4 }
+    ],
+    profile: { sweetness: 7, freshness: 8, fruitiness: 9, cooling: 3, strength: 5 },
+    tags: ['citrusni', 'vocni', 'ljetni', 'osvjezavajuci'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#ff8a3d', secondary: '#e0336b', accent: '#8cd23f', background: '#fff2e6', text: '#2b1004' },
+    mixIdeas: {
+      bs: [
+        'Beach Vibez i I Love Hamburg, za ljetni voćni miks.',
+        'Beach Vibez i Starbuzz Pink, za malinovu limunadu.',
+        'Beach Vibez i Revoshi Eskimo Lemon, 80/20, za ledeni koktel.'
+      ],
+      en: [
+        'Beach Vibez with I Love Hamburg for a summer fruit mix.',
+        'Beach Vibez with Starbuzz Pink for a raspberry lemonade.',
+        'Beach Vibez with Revoshi Eskimo Lemon, 80/20, for an icy cocktail.'
+      ]
+    },
+    similar: ['starbuzz-sex-on-the-beach', 'starbuzz-pink', 'adalya-tynky-wynky']
+  },
+  {
+    id: '187-wild-beast',
+    brand: '187-strassenbande',
+    leaf: 'light',
+    name: 'Wild Beast',
+    mood: 'night',
+    shortDescription: {
+      bs: 'Šumske bobice i crni čaj: tamno, voćno i malo trpko.',
+      en: 'Forest berries and black tea: dark, fruity and slightly tannic.'
+    },
+    description: {
+      bs: [
+        'Wild Beast spaja tamne šumske bobice i crni čaj. Bobice su slatke i sočne, a čaj daje blago trpku, toplu dubinu, kao čaj od voća sa šećerom.',
+        'Okus je tamniji i ozbiljniji od običnih voćnih miksova, odličan za večernje sesije.',
+        'Svijetli list, lagan za pušenje.'
+      ],
+      en: [
+        'Wild Beast pairs dark forest berries with black tea. The berries are sweet and juicy, and the tea adds a slightly tannic, warm depth, like a sweetened fruit tea.',
+        'It is darker and more serious than a plain fruit mix, great for evening sessions.',
+        'Blonde leaf, easy to smoke.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Šumske bobice', en: 'Forest berries' }, illustration: 'kupina', color: '#5a2a5e', intensity: 8 },
+      { name: { bs: 'Crni čaj', en: 'Black tea' }, illustration: 'caj', color: '#7a3a12', intensity: 6 }
+    ],
+    profile: { sweetness: 6, freshness: 5, fruitiness: 8, cooling: 0, strength: 5 },
+    tags: ['bobicasti', 'vocni', 'nocni', 'pice'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#7a3a9a', secondary: '#c08a5a', accent: '#e8304a', background: '#0e0812', text: '#f4eeff' },
+    mixIdeas: {
+      bs: [
+        'Wild Beast i I Love Hamburg, za bobice sa čajem.',
+        'Wild Beast i Fumari Spiced Chai, za zimski čaj sa bobicama.',
+        'Wild Beast i Adalya Mint, 80/20, za ledeni čaj od bobica.'
+      ],
+      en: [
+        'Wild Beast with I Love Hamburg for berries and tea.',
+        'Wild Beast with Fumari Spiced Chai for a winter berry tea.',
+        'Wild Beast with Adalya Mint, 80/20, for an iced berry tea.'
+      ]
+    },
+    similar: ['darkside-wild-forest', 'sebero-arctic-mix-spice-fruit', 'fumari-spiced-chai', 'adalya-angel-lips']
+  },
+  {
+    id: 'holster-ice-kaktuz',
+    brand: 'holster',
+    leaf: 'light',
+    name: 'Ice Kaktuz',
+    mood: 'frost',
+    shortDescription: {
+      bs: 'Kaktusova smokva sa ledom: neobično, sočno i hladno.',
+      en: 'Prickly pear on ice: unusual, juicy and cold.'
+    },
+    description: {
+      bs: [
+        'Ice Kaktuz je kaktusova smokva (plod kaktusa) sa jakim hlađenjem. Plod je sočan i blago sladak, sa okusom negdje između lubenice, kivija i kruške.',
+        'Hlađenje je jako, pa okus djeluje kao ledeni sok, svjež i lagan.',
+        'Svijetli list. Dobar kad želiš nešto drugačije od uobičajenog voća.'
+      ],
+      en: [
+        'Ice Kaktuz is prickly pear (cactus fruit) with strong cooling. The fruit is juicy and gently sweet, tasting somewhere between watermelon, kiwi and pear.',
+        'The cooling is strong, so it feels like an iced juice, fresh and light.',
+        'Blonde leaf. Good when you want something different from the usual fruit.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Kaktusova smokva', en: 'Prickly pear' }, illustration: 'kaktus', color: '#e85a9a', intensity: 8 },
+      { name: { bs: 'Led', en: 'Ice' }, illustration: 'kristal', color: '#cdefff', intensity: 8 }
+    ],
+    profile: { sweetness: 6, freshness: 10, fruitiness: 8, cooling: 8, strength: 5 },
+    tags: ['vocni', 'ledeni', 'osvjezavajuci'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#e85a9a', secondary: '#7fcf6a', accent: '#bfefff', background: '#0e1a14', text: '#fff0f6', water: '#c8efff' },
+    mixIdeas: {
+      bs: [
+        'Ice Kaktuz i Adalya Hawaii, za ledeno tropsko voće.',
+        'Ice Kaktuz i Al Fakher Watermelon Mint, za ledenu lubenicu.',
+        'Ice Kaktuz i Haze Cucumberita, za ledeni vrtni koktel.'
+      ],
+      en: [
+        'Ice Kaktuz with Adalya Hawaii for icy tropical fruit.',
+        'Ice Kaktuz with Al Fakher Watermelon Mint for an icy watermelon.',
+        'Ice Kaktuz with Haze Cucumberita for an icy garden cocktail.'
+      ]
+    },
+    similar: ['haze-cucumberita', 'serbetli-ice-watermelon', 'adalya-blue-melon']
+  },
+  {
+    id: 'true-passion-cinderella',
+    brand: 'true-passion',
+    leaf: 'light',
+    name: 'Cinderella',
+    shortDescription: {
+      bs: 'Bobice, mango, marakuja, lubenica i dinja sa mentolom.',
+      en: 'Berries, mango, passion fruit, watermelon and honeydew with menthol.'
+    },
+    description: {
+      bs: [
+        'Cinderella je bogat voćni miks: bobice, mango, marakuja, lubenica i medena dinja, a na kraju lagan mentol.',
+        'Uprkos puno sastojaka, okus nije zbrkan: bobice i tropsko voće vode, dinje daju sočnost, a mentol svjež izdah.',
+        'Svijetli list, lagan. Dobar za one koji vole "sve voće odjednom" sa malo leda.'
+      ],
+      en: [
+        'Cinderella is a rich fruit blend: berries, mango, passion fruit, watermelon and honeydew, with light menthol at the end.',
+        'Despite all the ingredients it is not muddled: berries and tropical fruit lead, the melons add juiciness, and the menthol a fresh exhale.',
+        'Blonde leaf, light. Good for anyone who likes "all the fruit at once" with a little ice.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Bobice', en: 'Berries' }, illustration: 'kupina', color: '#7a2f6b', intensity: 7 },
+      { name: { bs: 'Mango', en: 'Mango' }, illustration: 'mango', color: '#ffb52e', intensity: 6 },
+      { name: { bs: 'Marakuja', en: 'Passion fruit' }, illustration: 'marakuja', color: '#f2a03a', intensity: 6 },
+      { name: { bs: 'Lubenica', en: 'Watermelon' }, illustration: 'lubenica', color: '#e8434f', intensity: 5 },
+      { name: { bs: 'Medena dinja', en: 'Honeydew' }, illustration: 'dinja', color: '#d9ec9f', intensity: 5 },
+      { name: { bs: 'Mentol', en: 'Menthol' }, illustration: 'kristal', color: '#cdefff', intensity: 5 }
+    ],
+    profile: { sweetness: 8, freshness: 7, fruitiness: 10, cooling: 5, strength: 5 },
+    tags: ['vocni', 'tropski', 'bobicasti', 'slatki'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#e85a9a', secondary: '#9b6cf0', accent: '#ffb52e', background: '#1a0c1e', text: '#fff0fa' },
+    mixIdeas: {
+      bs: [
+        'Cinderella i Adalya Mint, 80/20, za ledeniji voćni miks.',
+        'Cinderella i 187 I Love Hamburg, za još više bobica.',
+        'Cinderella i Adalya Hawaii, za tropski koktel.'
+      ],
+      en: [
+        'Cinderella with Adalya Mint, 80/20, for an icier fruit mix.',
+        'Cinderella with 187 I Love Hamburg for even more berries.',
+        'Cinderella with Adalya Hawaii for a tropical cocktail.'
+      ]
+    },
+    similar: ['adalya-love-66', '187-i-love-hamburg', 'starbuzz-code-69', 'trifecta-ruby']
+  },
+  {
+    id: 'nameless-black-nana',
+    brand: 'nameless',
+    leaf: 'light',
+    name: 'Black Nana',
+    mood: 'night',
+    shortDescription: {
+      bs: 'Tamno grožđe i nana: slatko, bogato i svježe.',
+      en: 'Dark grape and mint: sweet, rich and fresh.'
+    },
+    description: {
+      bs: [
+        'Black Nana je jedan od najpoznatijih njemačkih okusa. Tamno grožđe je slatko i bogato, skoro kao sok od crnog grožđa, a nana (menta) ga hladi i osvježava.',
+        'Grožđe je tamnije i dublje nego kod Al Fakher Grape Mint, a menta jasnija.',
+        'Svijetli list. Odličan za večernje sesije i za poređenje sa ostalim Grape Mint okusima.'
+      ],
+      en: [
+        'Black Nana is one of the best known German flavors. The dark grape is sweet and rich, almost like black grape juice, and the "nana" (mint) cools and refreshes it.',
+        'The grape is darker and deeper than in Al Fakher Grape Mint, and the mint clearer.',
+        'Blonde leaf. Great for evening sessions and for comparing with the other Grape Mint flavors.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Tamno grožđe', en: 'Dark grape' }, illustration: 'grozdje', color: '#4a1f5e', intensity: 8 },
+      { name: { bs: 'Nana', en: 'Mint' }, illustration: 'menta', color: '#2fae78', intensity: 7 }
+    ],
+    profile: { sweetness: 7, freshness: 8, fruitiness: 8, cooling: 6, strength: 5 },
+    tags: ['vocni', 'mint', 'nocni'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#6a2a8a', secondary: '#2fae78', accent: '#c9a0ff', background: '#100a16', text: '#f4eeff' },
+    mixIdeas: {
+      bs: [
+        'Black Nana i Adalya Lemon Cocktail, 70/30, za limunadu od grožđa.',
+        'Black Nana i Serbetli Ice Blueberry, za tamne ledene bobice.',
+        'Black Nana i Al Fakher Double Apple, za klasični miks.'
+      ],
+      en: [
+        'Black Nana with Adalya Lemon Cocktail, 70/30, for a grape lemonade.',
+        'Black Nana with Serbetli Ice Blueberry for dark icy berries.',
+        'Black Nana with Al Fakher Double Apple for a classic mix.'
+      ]
+    },
+    similar: ['al-fakher-grape-mint', 'al-waha-grape-mint', 'haze-purple-krush']
   }
 ];
