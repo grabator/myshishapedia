@@ -2604,6 +2604,180 @@ window.FLAVORS = [
     similar: ['starbuzz-blue-mist', 'starbuzz-pirates-cave', 'musthave-pinkman']
   },
   {
+    id: 'haze-mint-supreme',
+    brand: 'haze',
+    leaf: 'light',
+    name: 'Mint Supreme',
+    mood: 'frost',
+    shortDescription: {
+      bs: 'Jaka, čista menta za one kojima obična menta nije dovoljna.',
+      en: 'Strong, clean mint for anyone who finds regular mint too mild.'
+    },
+    description: {
+      bs: [
+        'Mint Supreme je Haze menta pojačana do kraja. Nema voća ni slatkoće u prvom planu, samo jaka, svježa menta koja hladi i udah i izdah.',
+        'Hladnoća je izražena, ali menta ostaje "zelena" i prirodna, a ne čisti mentol.',
+        'Svijetli list, pa je lagan za pušenje. Odličan i u malim količinama uz voćne okuse.'
+      ],
+      en: [
+        'Mint Supreme is Haze mint turned all the way up. No fruit and no sweetness up front, just strong, fresh mint that cools both the inhale and the exhale.',
+        'The cold is pronounced, but the mint stays "green" and natural rather than pure menthol.',
+        'Blonde leaf, so it is easy to smoke. Great in small amounts with fruit flavors, too.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Menta', en: 'Mint' }, illustration: 'menta', color: '#2fae78', intensity: 10 },
+      { name: { bs: 'Mentol', en: 'Menthol' }, illustration: 'kristal', color: '#cdefff', intensity: 7 }
+    ],
+    profile: { sweetness: 2, freshness: 10, fruitiness: 0, cooling: 9, strength: 5 },
+    tags: ['mint', 'ledeni', 'osvjezavajuci'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#2fc48a', secondary: '#c8f7e2', accent: '#0d7a52', background: '#e8fbf2', text: '#062a1c', water: '#c8f7e2' },
+    mixIdeas: {
+      bs: [
+        'Mint Supreme i Purple Krush, 30/70, za ledeno grožđe.',
+        'Mint Supreme i Cucumberita, za mojito.',
+        'Mint Supreme i Pineapple Krush, 30/70, za ledeni ananas.'
+      ],
+      en: [
+        'Mint Supreme with Purple Krush, 30/70, for an icy grape.',
+        'Mint Supreme with Cucumberita for a mojito.',
+        'Mint Supreme with Pineapple Krush, 30/70, for an icy pineapple.'
+      ]
+    },
+    similar: ['al-fakher-mint', 'adalya-mint', 'trifecta-durty-mint', 'tangiers-cane-mint']
+  },
+  {
+    id: 'haze-bananarama',
+    brand: 'haze',
+    leaf: 'light',
+    name: 'Bananarama',
+    shortDescription: {
+      bs: 'Puding od banane i hljeba: kremasto, toplo i desertno.',
+      en: 'Banana bread pudding: creamy, warm and dessert-like.'
+    },
+    description: {
+      bs: [
+        'Bananarama je desert u nargili: zrela banana, mekan "hljeb" i kremasta, puding tekstura. Podsjeća na američki puding od banane i hljeba.',
+        'Okus je topao i sladak, sa notom vanile i pečenog tijesta. Nema hlađenja.',
+        'Svijetli list, mekan i lagan. Dobar za kraj večeri, uz kafu ili čaj.'
+      ],
+      en: [
+        'Bananarama is dessert in a hookah: ripe banana, soft "bread" and a creamy, pudding-like texture. It recalls an American banana bread pudding.',
+        'It is warm and sweet, with notes of vanilla and baked dough. No cooling.',
+        'Blonde leaf, soft and light. Good to end the evening with coffee or tea.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Banana', en: 'Banana' }, illustration: 'banana', color: '#fbe48c', intensity: 8 },
+      { name: { bs: 'Puding', en: 'Pudding' }, illustration: 'vanila', color: '#f1dca7', intensity: 6 },
+      { name: { bs: 'Pecivo', en: 'Baked bread' }, illustration: 'karamel', color: '#c58a52', intensity: 5 }
+    ],
+    profile: { sweetness: 8, freshness: 2, fruitiness: 6, cooling: 0, strength: 4 },
+    tags: ['desertni', 'tropski', 'slatki'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#f2cf5a', secondary: '#c58a52', accent: '#7a4a1f', background: '#1d1508', text: '#fff8e4' },
+    mixIdeas: {
+      bs: [
+        'Bananarama i Mint Supreme, 80/20, za hladni desert.',
+        'Bananarama i Purple Krush, za puding sa grožđem.',
+        'Bananarama i Double Bubble, za bombonsku bananu.'
+      ],
+      en: [
+        'Bananarama with Mint Supreme, 80/20, for a cool dessert.',
+        'Bananarama with Purple Krush for pudding with grape.',
+        'Bananarama with Double Bubble for a candy banana.'
+      ]
+    },
+    similar: ['darkside-bananapapa', 'trifecta-peppermint-shake', 'musthave-candy-cow']
+  },
+  {
+    id: 'haze-pineapple-krush',
+    brand: 'haze',
+    leaf: 'light',
+    name: 'Pineapple Krush',
+    mood: 'ice',
+    shortDescription: {
+      bs: 'Sočni ananas sa hladnim završetkom, kao ledeni ananas sok.',
+      en: 'Juicy pineapple with a cool finish, like iced pineapple juice.'
+    },
+    description: {
+      bs: [
+        'Pineapple Krush je iz Haze "Krush" linije voćnih okusa sa hlađenjem. Ananas je sočan, sladak i blago kiselkast, a na kraju dolazi lagano hlađenje.',
+        'Hlađenje je umjereno, pa ananas ostaje glavna stvar, a izdah je svjež.',
+        'Svijetli list, lagan i ljetni. Dobar izbor za vruće dane.'
+      ],
+      en: [
+        'Pineapple Krush belongs to the Haze "Krush" line of fruit flavors with cooling. The pineapple is juicy, sweet and slightly tart, with a gentle chill at the end.',
+        'The cooling is moderate, so the pineapple stays the main event while the exhale feels fresh.',
+        'Blonde leaf, light and summery. A good pick for hot days.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Ananas', en: 'Pineapple' }, illustration: 'ananas', color: '#f8cf4a', intensity: 9 },
+      { name: { bs: 'Hlađenje', en: 'Cooling' }, illustration: 'kristal', color: '#cdefff', intensity: 5 }
+    ],
+    profile: { sweetness: 7, freshness: 8, fruitiness: 9, cooling: 5, strength: 4 },
+    tags: ['vocni', 'tropski', 'ljetni', 'osvjezavajuci'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#f8cf4a', secondary: '#bfefff', accent: '#2a9a5a', background: '#0f2026', text: '#fffbe6', water: '#cdf3ff' },
+    mixIdeas: {
+      bs: [
+        'Pineapple Krush i Purple Krush, za tropski sok od grožđa.',
+        'Pineapple Krush i Cucumberita, za ananas-mojito.',
+        'Pineapple Krush i Bananarama, za piña coladu.'
+      ],
+      en: [
+        'Pineapple Krush with Purple Krush for a tropical grape juice.',
+        'Pineapple Krush with Cucumberita for a pineapple mojito.',
+        'Pineapple Krush with Bananarama for a piña colada.'
+      ]
+    },
+    similar: ['musthave-pineapple-rings', 'trifecta-pineapple-guava', 'haze-purple-krush']
+  },
+  {
+    id: 'haze-double-bubble',
+    brand: 'haze',
+    leaf: 'light',
+    name: 'Double Bubble',
+    shortDescription: {
+      bs: 'Klasična roze žvakaća guma: slatka, voćna i nostalgična.',
+      en: 'Classic pink bubble gum: sweet, fruity and nostalgic.'
+    },
+    description: {
+      bs: [
+        'Double Bubble je okus stare roze žvakaće gume. Slatka je, voćna i malo cvjetna, baš kao guma iz djetinjstva.',
+        'Nema mentola, pa okus ostaje mekan i bombonski od početka do kraja.',
+        'Svijetli list, lagan za pušenje. Lijep samostalno ili uz voće.'
+      ],
+      en: [
+        'Double Bubble is the flavor of old-school pink bubble gum. It is sweet, fruity and slightly floral, just like the gum you chewed as a kid.',
+        'There is no menthol, so it stays soft and candy-like from start to finish.',
+        'Blonde leaf, easy to smoke. Nice on its own or with fruit.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Žvakaća guma', en: 'Bubble gum' }, illustration: 'zvaka', color: '#ff8fc0', intensity: 9 }
+    ],
+    profile: { sweetness: 9, freshness: 4, fruitiness: 4, cooling: 0, strength: 4 },
+    tags: ['bombon', 'slatki'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#ff7ab6', secondary: '#ffd0e6', accent: '#7ad0ff', background: '#ffeef6', text: '#3a0a22' },
+    mixIdeas: {
+      bs: [
+        'Double Bubble i Mint Supreme, 80/20, za mint žvaku.',
+        'Double Bubble i Purple Krush, za žvaku od grožđa.',
+        'Double Bubble i Pineapple Krush, za tropsku žvaku.'
+      ],
+      en: [
+        'Double Bubble with Mint Supreme, 80/20, for mint gum.',
+        'Double Bubble with Purple Krush for grape gum.',
+        'Double Bubble with Pineapple Krush for tropical gum.'
+      ]
+    },
+    similar: ['mazaya-gum-mint', 'fumari-white-gummi-bear', 'adalya-swiss-bonbon']
+  },
+  {
     id: 'trifecta-peppermint-shake',
     brand: 'trifecta',
     leaf: 'light',
@@ -2690,5 +2864,179 @@ window.FLAVORS = [
       ]
     },
     similar: ['tangiers-cane-mint', 'trifecta-peppermint-shake', 'darkside-supernova']
+  },
+  {
+    id: 'trifecta-pineapple-guava',
+    brand: 'trifecta',
+    leaf: 'light',
+    name: 'Pineapple Guava',
+    shortDescription: {
+      bs: 'Ananas i guava: tropski, sočan i mirisan.',
+      en: 'Pineapple and guava: tropical, juicy and fragrant.'
+    },
+    description: {
+      bs: [
+        'Pineapple Guava spaja sočan ananas i mirisnu, ružičastu guavu. Ananas daje svjetlinu i blagu kiselost, a guava mekan, cvjetno-tropski ton.',
+        'Okus je prirodan i nije previše sladak, bez hlađenja.',
+        'Ovo je Trifecta Blonde, svijetli list, pa je lagan i dobar i za manje iskusne.'
+      ],
+      en: [
+        'Pineapple Guava pairs juicy pineapple with fragrant pink guava. Pineapple brings brightness and a slight tartness, and guava a soft, floral tropical tone.',
+        'It is natural and not too sweet, with no cooling.',
+        'This is Trifecta Blonde, on blonde leaf, so it is light and good for less experienced smokers too.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Ananas', en: 'Pineapple' }, illustration: 'ananas', color: '#f8cf4a', intensity: 8 },
+      { name: { bs: 'Guava', en: 'Guava' }, illustration: 'guava', color: '#f08a9a', intensity: 7 }
+    ],
+    profile: { sweetness: 7, freshness: 7, fruitiness: 9, cooling: 0, strength: 5 },
+    tags: ['vocni', 'tropski', 'ljetni'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#f6a3a8', secondary: '#f8cf4a', accent: '#3aa86a', background: '#24100f', text: '#fff2ee' },
+    mixIdeas: {
+      bs: [
+        'Pineapple Guava i Twice the Ice, 80/20, za ledeno tropsko voće.',
+        'Pineapple Guava i Blue Strawberry, za šareni voćni miks.',
+        'Pineapple Guava i Peppermint Shake, za tropski šejk.'
+      ],
+      en: [
+        'Pineapple Guava with Twice the Ice, 80/20, for icy tropical fruit.',
+        'Pineapple Guava with Blue Strawberry for a colorful fruit mix.',
+        'Pineapple Guava with Peppermint Shake for a tropical shake.'
+      ]
+    },
+    similar: ['musthave-pineapple-rings', 'haze-pineapple-krush', 'sebero-green-pear']
+  },
+  {
+    id: 'trifecta-blue-strawberry',
+    brand: 'trifecta',
+    leaf: 'light',
+    name: 'Blue Strawberry',
+    shortDescription: {
+      bs: 'Borovnica i jagoda: slatki, sočni bobičasti par.',
+      en: 'Blueberry and strawberry: a sweet, juicy berry pair.'
+    },
+    description: {
+      bs: [
+        'Blue Strawberry je spoj borovnice i jagode. Borovnica daje tamnu, džemastu slatkoću, a jagoda svijetlu, mirisnu sočnost.',
+        'Okus je voćan i lagan, sa blagom kiselošću, bez hlađenja.',
+        'Trifecta Blonde, svijetli list. Dobar svakodnevni voćni okus.'
+      ],
+      en: [
+        'Blue Strawberry blends blueberry and strawberry. The blueberry brings dark, jammy sweetness and the strawberry a bright, fragrant juiciness.',
+        'It is fruity and light, with a slight tartness and no cooling.',
+        'Trifecta Blonde, blonde leaf. A good everyday fruit flavor.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Borovnica', en: 'Blueberry' }, illustration: 'borovnica', color: '#4b5bb5', intensity: 8 },
+      { name: { bs: 'Jagoda', en: 'Strawberry' }, illustration: 'jagoda', color: '#e8354a', intensity: 7 }
+    ],
+    profile: { sweetness: 8, freshness: 6, fruitiness: 9, cooling: 0, strength: 5 },
+    tags: ['vocni', 'bobicasti', 'slatki'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#5a6fd8', secondary: '#ff5a72', accent: '#ffd23f', background: '#14112a', text: '#f2f0ff' },
+    mixIdeas: {
+      bs: [
+        'Blue Strawberry i Twice the Ice, 80/20, za ledene bobice.',
+        'Blue Strawberry i Peppermint Shake, za bobice sa šlagom.',
+        'Blue Strawberry i Ruby, za crveno-plavi miks.'
+      ],
+      en: [
+        'Blue Strawberry with Twice the Ice, 80/20, for icy berries.',
+        'Blue Strawberry with Peppermint Shake for berries and cream.',
+        'Blue Strawberry with Ruby for a red and blue mix.'
+      ]
+    },
+    similar: ['al-fakher-blueberry', 'darkside-wild-forest', 'adalya-blue-ice']
+  },
+  {
+    id: 'trifecta-ruby',
+    brand: 'trifecta',
+    leaf: 'light',
+    name: 'Ruby',
+    shortDescription: {
+      bs: 'Crvene bobice, višnja i dinja sa daškom cimeta.',
+      en: 'Red berries, cherry and melon with a hint of cinnamon.'
+    },
+    description: {
+      bs: [
+        'Ruby je voćni miks crvene boje: crvene bobice i višnja vode, dinja ga omekšava, a na kraju se osjeti mali dašak cimeta.',
+        'Cimet je jedva primjetan, ali daje okusu toplinu i čini ga zanimljivijim od običnog voćnog miksa.',
+        'Svijetli list, lagan i sladak. Dobar za one koji vole voće, ali žele nešto drugačije.'
+      ],
+      en: [
+        'Ruby is a red fruit blend: red berries and cherry lead, melon softens it, and a small hint of cinnamon shows up at the end.',
+        'The cinnamon is barely there, but it adds warmth and makes this more interesting than a plain fruit mix.',
+        'Blonde leaf, light and sweet. Good for fruit lovers who want something a little different.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Crvene bobice', en: 'Red berries' }, illustration: 'malina', color: '#d62f4a', intensity: 8 },
+      { name: { bs: 'Višnja', en: 'Cherry' }, illustration: 'visnja', color: '#a3122a', intensity: 7 },
+      { name: { bs: 'Dinja', en: 'Melon' }, illustration: 'dinja', color: '#d9ec9f', intensity: 5 },
+      { name: { bs: 'Cimet', en: 'Cinnamon' }, illustration: 'cimet', color: '#a0522d', intensity: 3 }
+    ],
+    profile: { sweetness: 7, freshness: 5, fruitiness: 9, cooling: 0, strength: 5 },
+    tags: ['vocni', 'bobicasti', 'zacinski'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#c8143c', secondary: '#ff8a9a', accent: '#d9ec9f', background: '#1e050c', text: '#ffeef2' },
+    mixIdeas: {
+      bs: [
+        'Ruby i Twice the Ice, 80/20, za ledene crvene bobice.',
+        'Ruby i Peppermint Shake, za voćni desert.',
+        'Ruby i Pineapple Guava, za tropske bobice.'
+      ],
+      en: [
+        'Ruby with Twice the Ice, 80/20, for icy red berries.',
+        'Ruby with Peppermint Shake for a fruit dessert.',
+        'Ruby with Pineapple Guava for tropical berries.'
+      ]
+    },
+    similar: ['true-passion-cinderella', 'fumari-red-gummi-bear', 'tangiers-maraschino-cherry']
+  },
+  {
+    id: 'trifecta-durty-mint',
+    brand: 'trifecta',
+    leaf: 'dark',
+    name: 'Durty Mint',
+    mood: 'frost',
+    shortDescription: {
+      bs: 'Jaka paprena metvica na tamnom listu, za iskusne pušače.',
+      en: 'Strong peppermint on dark leaf, for experienced smokers.'
+    },
+    description: {
+      bs: [
+        'Durty Mint je Trifecta Dark: paprena metvica na jakom tamnom listu. Menta je oštra i svježa, a list ispod nje daje pun, "duhanski" karakter.',
+        'Hlađenje je izraženo, ali ne ledeno kao kod Twice the Ice. Više je klasična, snažna menta.',
+        'Tamni list znači jači udarac: pakuj rastresito, zagrijavaj polako i ne žuri.'
+      ],
+      en: [
+        'Durty Mint is Trifecta Dark: peppermint on strong dark leaf. The mint is sharp and fresh, and the leaf underneath gives it a full, "tobacco-forward" character.',
+        'The cooling is pronounced but not as icy as Twice the Ice. It is more of a classic, powerful mint.',
+        'Dark leaf means a bigger punch: pack it loose, heat it slowly and take your time.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Paprena metvica', en: 'Peppermint' }, illustration: 'pepermint', color: '#1fa874', intensity: 9 }
+    ],
+    profile: { sweetness: 2, freshness: 9, fruitiness: 0, cooling: 8, strength: 9 },
+    tags: ['mint', 'osvjezavajuci'],
+    tobaccoType: { bs: 'Tamni list (Trifecta Dark)', en: 'Dark leaf (Trifecta Dark)' },
+    palette: { primary: '#1fa874', secondary: '#9fe6c4', accent: '#e8fff4', background: '#06140e', text: '#eafff4' },
+    mixIdeas: {
+      bs: [
+        'Durty Mint i Ruby, 30/70, za jače crvene bobice sa mentom.',
+        'Durty Mint i Peppermint Shake, za jaču mint kremu.',
+        'Durty Mint i Pineapple Guava, 30/70, za tropsku mentu.'
+      ],
+      en: [
+        'Durty Mint with Ruby, 30/70, for stronger red berries with mint.',
+        'Durty Mint with Peppermint Shake for a stronger mint cream.',
+        'Durty Mint with Pineapple Guava, 30/70, for a tropical mint.'
+      ]
+    },
+    similar: ['tangiers-cane-mint', 'trifecta-twice-the-ice', 'haze-mint-supreme']
   }
 ];
