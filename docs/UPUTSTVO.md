@@ -786,6 +786,98 @@ Okusi drugih brendova (dodani u fazi 7, sve PROVJERITI):
 - [ ] **Trifecta Peppermint Shake: sastav (PROVJERITI).** Uneseno: vanila 7, mliječni šejk 7, pepermint bombon 6. Svijetli list. Profil 8 / 7 / 0 / 6 / 5.
 - [ ] Opisi brendova u `data/brands.js` (zemlja, tipičan list, 2-3 rečenice) i da li je vrsta lista tačna za svaki okus.
 
+Novi okusi (55 okusa, 10 novih brendova, sve PROVJERITI):
+
+Sastav je skupljen iz opisa proizvođača i prodavnica (izvori ispod, uz svaki brend). Profil i intenzitet su
+procjene. Tekstovi su napisani svojim riječima.
+
+- Izvori za Adalya: utopiaclouds.com (Adalya flavors explained), hookahvault.com/products/adalya-hawaii, iconhookah.com (best Adalya flavors).
+- [ ] **Adalya Hawaii: sastav (PROVJERITI).** Uneseno: mango 8, ananas 7, mentol 5. Svijetli list. Profil 8 / 7 / 9 / 5 / 5.
+- [ ] **Adalya Blue Melon: sastav (PROVJERITI).** Uneseno: dinja 8, mentol 8. Svijetli list. Profil 7 / 9 / 8 / 8 / 5.
+- [ ] **Adalya Lemon Cocktail: sastav (PROVJERITI).** Uneseno: limun 9, šećerni sirup 4. Svijetli list. Profil 7 / 7 / 8 / 0 / 5.
+- Izvori za Al Fakher: alfakherflavors.com, iconhookah.com (best Al Fakher flavors), worldhookahmarket.com (Al Fakher top 10).
+- [ ] **Al Fakher Grape Mint: sastav (PROVJERITI).** Uneseno: bijelo grožđe 8, menta 7. Svijetli list. Profil 7 / 8 / 7 / 6 / 5.
+- [ ] **Al Fakher Lemon Mint: sastav (PROVJERITI).** Uneseno: limun 8, menta 7. Svijetli list. Profil 5 / 9 / 6 / 6 / 5.
+- [ ] **Al Fakher Watermelon Mint: sastav (PROVJERITI).** Uneseno: lubenica 8, menta 6. Svijetli list. Profil 7 / 8 / 8 / 5 / 5.
+- [ ] **Al Fakher Blueberry: sastav (PROVJERITI).** Uneseno: borovnica 9. Svijetli list. Profil 8 / 5 / 9 / 0 / 5.
+- Izvori za Starbuzz: hookahvault.com (best Starbuzz flavors), smokedex.info (Starbuzz), shopstarbuzz.com.
+- [ ] **Starbuzz Code 69: sastav (PROVJERITI).** Uneseno: voćni punč 8, tropsko voće 7, citrusi 6. Svijetli list. Profil 8 / 6 / 9 / 0 / 5.
+- [ ] **Starbuzz Sex on the Beach: sastav (PROVJERITI).** Uneseno: narandža 8, limun 6. Svijetli list. Profil 7 / 7 / 8 / 0 / 5.
+- [ ] **Starbuzz Safari Melon Dew: sastav (PROVJERITI).** Uneseno: medena dinja 8, kantalupa 7. Svijetli list. Profil 8 / 6 / 9 / 0 / 5.
+- [ ] **Starbuzz Pink: sastav (PROVJERITI).** Uneseno: malina 8, limunada 7. Svijetli list. Profil 7 / 8 / 8 / 0 / 5.
+- Izvori za Tangiers: thehookahlab.com (best Tangiers flavors), hookah.com (best Tangiers flavors), mojo-hookah.com.
+- [ ] **Tangiers Horchata: sastav (PROVJERITI).** Uneseno: cimet 8, slatko mlijeko 7, vanila 6. Tamni list. Profil 7 / 3 / 0 / 0 / 9.
+- [ ] **Tangiers Maraschino Cherry: sastav (PROVJERITI).** Uneseno: višnja 9, badem 4. Tamni list. Profil 8 / 4 / 8 / 0 / 9.
+- [ ] **Tangiers Orange Soda: sastav (PROVJERITI).** Uneseno: narandža 9, gazirani sok 6. Tamni list. Profil 8 / 6 / 7 / 0 / 9.
+- Izvori za Fumari: fumari.com, hookahvault.com i thehookahlab.com (best Fumari flavors).
+- [ ] **Fumari Red Gummi Bear: sastav (PROVJERITI).** Uneseno: divlja višnja 8, malina 7, gumeni bombon 6. Svijetli list. Profil 9 / 5 / 8 / 0 / 4.
+- [ ] **Fumari Lemon Mint: sastav (PROVJERITI).** Uneseno: limun 8, paprena metvica 7. Svijetli list. Profil 4 / 9 / 6 / 6 / 4.
+- [ ] **Fumari Spiced Chai: sastav (PROVJERITI).** Uneseno: vanila 7, cimet 6, kardamom 5, muškatni oraščić 4, čaj 5. Svijetli list. Profil 6 / 3 / 0 / 0 / 4.
+- [ ] **Fumari Mint Chocolate Chill: sastav (PROVJERITI).** Uneseno: čokolada 8, menta 7. Svijetli list. Profil 7 / 7 / 0 / 6 / 4.
+- Izvori za Darkside: hookahvault.com (best Darkside flavors), juicyhookah.com.
+- [ ] **Darkside Falling Star: sastav (PROVJERITI).** Uneseno: mango 8, marakuja 7. Tamni list. Profil 7 / 6 / 9 / 0 / 8.
+- [ ] **Darkside Bananapapa: sastav (PROVJERITI).** Uneseno: zrela banana 9. Tamni list. Profil 8 / 3 / 8 / 0 / 8.
+- [ ] **Darkside Generis Raspberry: sastav (PROVJERITI).** Uneseno: malina 9. Tamni list. Profil 6 / 6 / 9 / 0 / 8.
+- [ ] **Darkside Wild Forest: sastav (PROVJERITI).** Uneseno: šumska jagoda 8, šumske bobice 6. Tamni list. Profil 6 / 6 / 9 / 0 / 8.
+- Izvori za MustHave: hookahvault.com i b2hookah.com (best MustHave flavors), iconhookah.com.
+- [ ] **MustHave Pineapple Rings: sastav (PROVJERITI).** Uneseno: ananas 9, šećerni sirup 5. Tamni list. Profil 8 / 6 / 9 / 0 / 7.
+- [ ] **MustHave Candy Cow: sastav (PROVJERITI).** Uneseno: karamel 9, mlijeko 6. Tamni list. Profil 9 / 2 / 0 / 0 / 7.
+- [ ] **MustHave Cherry-Cola: sastav (PROVJERITI).** Uneseno: kola 8, višnja 7. Tamni list. Profil 8 / 5 / 5 / 0 / 7.
+- Izvori za Sebero: hookahvault.com i b2hookah.com (Sebero), worldhookahmarket.com (Arctic Mix Spice Fruit), seberotobacco.com.
+- [ ] **Sebero Black Amarena Cherry: sastav (PROVJERITI).** Uneseno: amarena višnja 9. Tamni list. Profil 6 / 5 / 9 / 0 / 9.
+- [ ] **Sebero Green Pear: sastav (PROVJERITI).** Uneseno: zelena kruška 8, guava 5. Tamni list. Profil 6 / 7 / 9 / 0 / 7.
+- [ ] **Sebero Mango Yogurt: sastav (PROVJERITI).** Uneseno: mango 8, jogurt 7. Tamni list. Profil 7 / 5 / 7 / 0 / 7.
+- [ ] **Sebero Arctic Mix Spice Fruit: sastav (PROVJERITI).** Uneseno: začinjeni čaj 7, guava 6, jagoda 6, rabarbara 5, hlađenje 7. Tamni list. Profil 6 / 8 / 8 / 7 / 7.
+- Izvori za Haze: smokedex.info (Haze), hookah.com (best Haze flavors), zahrahusa.com, thehookah.com.
+- [ ] **Haze Mint Supreme: sastav (PROVJERITI).** Uneseno: menta 10, mentol 7. Svijetli list. Profil 2 / 10 / 0 / 9 / 5.
+- [ ] **Haze Bananarama: sastav (PROVJERITI).** Uneseno: banana 8, puding 6, pecivo 5. Svijetli list. Profil 8 / 2 / 6 / 0 / 4.
+- [ ] **Haze Pineapple Krush: sastav (PROVJERITI).** Uneseno: ananas 9, hlađenje 5. Svijetli list. Profil 7 / 8 / 9 / 5 / 4.
+- [ ] **Haze Double Bubble: sastav (PROVJERITI).** Uneseno: žvakaća guma 9. Svijetli list. Profil 9 / 4 / 4 / 0 / 4.
+- Izvori za Trifecta: hookahvault.com, utopiaclouds.com, iconhookah.com i smoxygen.com (best Trifecta flavors).
+- [ ] **Trifecta Pineapple Guava: sastav (PROVJERITI).** Uneseno: ananas 8, guava 7. Svijetli list. Profil 7 / 7 / 9 / 0 / 5.
+- [ ] **Trifecta Blue Strawberry: sastav (PROVJERITI).** Uneseno: borovnica 8, jagoda 7. Svijetli list. Profil 8 / 6 / 9 / 0 / 5.
+- [ ] **Trifecta Ruby: sastav (PROVJERITI).** Uneseno: crvene bobice 8, višnja 7, dinja 5, cimet 3. Svijetli list. Profil 7 / 5 / 9 / 0 / 5.
+- [ ] **Trifecta Durty Mint: sastav (PROVJERITI).** Uneseno: paprena metvica 9. Tamni list. Profil 2 / 9 / 0 / 8 / 9.
+- Izvori za Nakhla: hookah.org (Nakhla), hellohookahexpress.com, sevenstarsnj.com.
+- [ ] **Nakhla Double Apple: sastav (PROVJERITI).** Uneseno: crvena jabuka 7, zelena jabuka 6, anis 9. Tamni list (PROVJERITI vrstu lista: uneseno kao tamni, tradicionalni moassel). Profil 6 / 4 / 7 / 0 / 9.
+- Izvori za Mazaya: hookah.com (Mazaya best selling), zahrahusa.com (top 3 Mazaya), officialmazayafamily.com.
+- [ ] **Mazaya Gum Mint: sastav (PROVJERITI).** Uneseno: žvakaća guma 7, nana 7. Svijetli list. Profil 7 / 8 / 2 / 5 / 4.
+- [ ] **Mazaya Lemon Mint: sastav (PROVJERITI).** Uneseno: limun 7, menta 6. Svijetli list. Profil 6 / 8 / 6 / 5 / 4.
+- Izvori za Al Waha: alwaha-tobacco.com, amydeluxe.de (Al Waha Big Boy), hookahparadise.com, shishamax24.de.
+- [ ] **Al Waha Big Boy: sastav (PROVJERITI).** Uneseno: lubenica 8, limun 6, led 8. Svijetli list. Profil 7 / 9 / 8 / 8 / 5.
+- [ ] **Al Waha Grape Mint: sastav (PROVJERITI).** Uneseno: grožđe 8, menta 6. Svijetli list. Profil 8 / 7 / 7 / 5 / 5.
+- Izvori za Afzal: iconhookah.com, a2ztobacco.com, asadsmoking.com, shishapointdelivery.co.uk (Pan Raas).
+- [ ] **Afzal Pan Raas: sastav (PROVJERITI).** Uneseno: betel list 8, ruža 7, začini 5, areka orah 4, mentol 5. Svijetli list. Profil 6 / 7 / 1 / 5 / 5.
+- Izvori za Serbetli: iconhookah.com (Serbetli, Ice Blueberry), hookah.com, guesshookah.com, smokedex.info.
+- [ ] **Serbetli Ice Watermelon: sastav (PROVJERITI).** Uneseno: lubenica 8, mentol 8. Svijetli list. Profil 7 / 9 / 8 / 8 / 5.
+- [ ] **Serbetli Ice Blueberry: sastav (PROVJERITI).** Uneseno: borovnica 8, menta 6, led 7. Svijetli list. Profil 7 / 9 / 8 / 8 / 5.
+- Izvori za Revoshi: smokedex.info (Revoshi), velarshisha.com, revoshi.co.za, shishahub.co.za (Eskimo Lemon), hookain.de.
+- [ ] **Revoshi Domingo: sastav (PROVJERITI).** Uneseno: breskva 8, mango 7, jagoda 6, limeta 5. Svijetli list. Profil 8 / 6 / 9 / 0 / 5.
+- [ ] **Revoshi Lady Mystique: sastav (PROVJERITI).** Uneseno: mango 8, breskva 7, mentol 6. Svijetli list. Profil 8 / 8 / 9 / 6 / 5.
+- [ ] **Revoshi Eskimo Lemon: sastav (PROVJERITI).** Uneseno: limun 8, led 9. Svijetli list. Profil 5 / 10 / 6 / 9 / 5.
+- [ ] **Revoshi D'App Strong: sastav (PROVJERITI).** Uneseno: crvena jabuka 7, zelena jabuka 6, anis 7. Svijetli list. Profil 6 / 4 / 7 / 0 / 7.
+- Izvori za 187 Strassenbande: smkz.de (187 sorte), hookain.de (I Love Hamburg), fair-smoke.com i rauchland.de (Beach Vibez), smokedex.info.
+- [ ] **187 Strassenbande I Love Hamburg: sastav (PROVJERITI).** Uneseno: marakuja 8, šumske bobice 7, lubenica 6. Svijetli list. Profil 7 / 6 / 9 / 0 / 5.
+- [ ] **187 Strassenbande Beach Vibez: sastav (PROVJERITI).** Uneseno: narandža 7, malina 7, limeta 6, menta 4. Svijetli list. Profil 7 / 8 / 9 / 3 / 5.
+- [ ] **187 Strassenbande Wild Beast: sastav (PROVJERITI).** Uneseno: šumske bobice 8, crni čaj 6. Svijetli list. Profil 6 / 5 / 8 / 0 / 5.
+- Izvori za Holster: hookahx.de i shisha-world.com (Ice Kaktuz), hookain.de.
+- [ ] **Holster Ice Kaktuz: sastav (PROVJERITI).** Uneseno: kaktusova smokva 8, led 8. Svijetli list. Profil 6 / 10 / 8 / 8 / 5.
+- Izvori za True Passion: shisha-world.com (True Passion Cinderella).
+- [ ] **True Passion Cinderella: sastav (PROVJERITI).** Uneseno: bobice 7, mango 6, marakuja 6, lubenica 5, medena dinja 5, mentol 5. Svijetli list. Profil 8 / 7 / 10 / 5 / 5.
+- Izvori za Nameless: nameless-tobacco.com (Black Nana), shisha-world.com, mozeshisha.de.
+- [ ] **Nameless Black Nana: sastav (PROVJERITI).** Uneseno: tamno grožđe 8, nana 7. Svijetli list. Profil 7 / 8 / 8 / 6 / 5.
+
+- [ ] Novi brendovi u `data/brands.js`: Nakhla (Egipat), Mazaya (Jordan), Al Waha (Jordan), Afzal (Indija),
+  Serbetli (Turska), Revoshi (Njemačka, proizvodnja u Turskoj), 187 Strassenbande, Holster, True Passion i Nameless
+  (Njemačka). Provjeri zemlju, tipičan list i opis. Novi brendovi su na kraju niza, pa se ne vide na početnoj
+  (tamo je prvi okus prvih 9 brendova).
+- [ ] **Nakhla: vrsta lista (PROVJERITI).** Brend i okus su uneseni kao tamni list (tradicionalni moassel), pa
+  Nakhla nije u kolekciji "Za početnike".
+- [ ] Nove ilustracije u `js/illustrations.js`: kaktus (kaktusova smokva), guava, kruška, čaj, čokolada, cimet,
+  betel list, ruža, rabarbara.
+- [ ] Grupe za poređenje: Grape Mint (Al Fakher, Al Waha, Nameless Black Nana), Double Apple (Al Fakher, Nakhla,
+  Revoshi D'App Strong) i Lemon Mint (Al Fakher, Fumari, Mazaya). Svaki par ima svoju stranicu poređenja.
+
 Adalya, dodani u fazi 6 (sve PROVJERITI):
 
 - [ ] **Adalya Mint: sastav (PROVJERITI).** Uneseno: menta 9. Profil 2 / 10 / 0 / 8 / 6.
@@ -797,7 +889,7 @@ Adalya, dodani u fazi 6 (sve PROVJERITI):
 
 Ranije dodani:
 
-- [ ] **Adalya Lady Killer: sastav (PROVJERITI).** Uneseno: mango 8, dinja 6, jagoda 6, mentol 7. Profil 7 / 8 / 9 / 7 / 7.
+- [x] **Adalya Lady Killer: sastav ispravljen.** Proizvođač navodi mango, dinju, bobičasto voće i mentol (ranije je pisalo jagoda). Uneseno: mango 8, dinja 6, bobičasto voće 6, mentol 7. Profil 7 / 8 / 9 / 7 / 7.
 - [ ] **Adalya Berlin Nights: sastav (PROVJERITI).** Uneseno: breskva 8, med 6, menta 5. Profil 8 / 6 / 7 / 5 / 6.
 - [ ] **Adalya Angel Lips: sastav (PROVJERITI).** Uneseno: lubenica 8, kupina 7, menta 5. Profil 7 / 7 / 9 / 5 / 6.
 - [ ] Adalya Dubai: ananas 8, banana 6, menta 5. Profil 7 / 7 / 8 / 5 / 6.
