@@ -1112,6 +1112,179 @@ window.FLAVORS = [
     similar: ['haze-cucumberita', 'fumari-white-gummi-bear', 'haze-purple-krush']
   },
   {
+    id: 'starbuzz-code-69',
+    brand: 'starbuzz',
+    leaf: 'light',
+    name: 'Code 69',
+    shortDescription: {
+      bs: 'Voćni punč sa tropskim voćem i citrusima: sladak, sočan i šaren.',
+      en: 'A fruit punch of tropical fruit and citrus: sweet, juicy and colorful.'
+    },
+    description: {
+      bs: [
+        'Code 69 je Starbuzz voćni punč. Nema jednog glavnog voća: tropska slatkoća i citrusi se miješaju u sočan, šaren okus koji podsjeća na čašu punča na zabavi.',
+        'Citrusi daju svježinu i drže slatkoću pod kontrolom, pa okus ne postaje težak ni kad glava dugo traje.',
+        'Bez mentola, topao i voćni. Dobar za društvo i za one koji vole "sve voće odjednom".'
+      ],
+      en: [
+        'Code 69 is the Starbuzz fruit punch. There is no single lead fruit: tropical sweetness and citrus blend into a juicy, colorful flavor that recalls a glass of party punch.',
+        'The citrus brings freshness and keeps the sweetness in check, so it never gets heavy, even in a long bowl.',
+        'No menthol, warm and fruity. Good for a group and for anyone who likes "all the fruit at once".'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Voćni punč', en: 'Fruit punch' }, illustration: 'bomboni', color: '#e8457a', intensity: 8 },
+      { name: { bs: 'Tropsko voće', en: 'Tropical fruit' }, illustration: 'marakuja', color: '#f2a03a', intensity: 7 },
+      { name: { bs: 'Citrusi', en: 'Citrus' }, illustration: 'narandza', color: '#ff9a2e', intensity: 6 }
+    ],
+    profile: { sweetness: 8, freshness: 6, fruitiness: 9, cooling: 0, strength: 5 },
+    tags: ['vocni', 'tropski', 'citrusni', 'slatki'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#e8457a', secondary: '#ffb547', accent: '#3fc1c9', background: '#2a0f1f', text: '#fff0f6' },
+    mixIdeas: {
+      bs: [
+        'Code 69 i Blue Mist, za plavi voćni punč.',
+        'Code 69 i Pirate\'s Cave, za punč sa bananom i limetom.',
+        'Code 69 i Mint, 80/20, za osvježen punč.'
+      ],
+      en: [
+        'Code 69 with Blue Mist for a blue fruit punch.',
+        'Code 69 with Pirate\'s Cave for punch with banana and lime.',
+        'Code 69 with Mint, 80/20, for a refreshed punch.'
+      ]
+    },
+    similar: ['starbuzz-sex-on-the-beach', 'true-passion-cinderella', '187-i-love-hamburg', 'adalya-love-66']
+  },
+  {
+    id: 'starbuzz-sex-on-the-beach',
+    brand: 'starbuzz',
+    leaf: 'light',
+    name: 'Sex on the Beach',
+    shortDescription: {
+      bs: 'Okus inspirisan koktelom: slatka narandža i limun, sunčan i lagan.',
+      en: 'A cocktail-inspired flavor: sweet orange and lemon, sunny and light.'
+    },
+    description: {
+      bs: [
+        'Sex on the Beach je dobio ime po poznatom ljetnom koktelu. U glavi su slatka, sočna narandža i kiselkast limun, spojeni u okus koji podsjeća na voćni koktel na plaži.',
+        'Narandža vodi, a limun dodaje svježinu i malo oštrine na kraju. Nema mentola, pa je okus topao i sunčan.',
+        'Lagan i voćni, dobar za ljeto i za mikseve sa tropskim voćem.'
+      ],
+      en: [
+        'Sex on the Beach is named after the well known summer cocktail. The bowl holds sweet, juicy orange and tangy lemon, blended into something like a fruity beach cocktail.',
+        'Orange leads and lemon adds freshness and a little edge at the end. There is no menthol, so it feels warm and sunny.',
+        'Light and fruity, great for summer and for mixes with tropical fruit.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Narandža', en: 'Orange' }, illustration: 'narandza', color: '#ff9a2e', intensity: 8 },
+      { name: { bs: 'Limun', en: 'Lemon' }, illustration: 'limun', color: '#f7e04b', intensity: 6 }
+    ],
+    profile: { sweetness: 7, freshness: 7, fruitiness: 8, cooling: 0, strength: 5 },
+    tags: ['citrusni', 'vocni', 'pice', 'ljetni'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#ff8a3d', secondary: '#ffd36b', accent: '#e8457a', background: '#2b1408', text: '#fff3e6' },
+    mixIdeas: {
+      bs: [
+        'Sex on the Beach i Code 69, za veliki voćni punč.',
+        'Sex on the Beach i Hawaii, za tropski koktel.',
+        'Sex on the Beach i Blue Mist, 70/30, za koktel sa borovnicom.'
+      ],
+      en: [
+        'Sex on the Beach with Code 69 for a big fruit punch.',
+        'Sex on the Beach with Hawaii for a tropical cocktail.',
+        'Sex on the Beach with Blue Mist, 70/30, for a cocktail with blueberry.'
+      ]
+    },
+    similar: ['starbuzz-code-69', 'tangiers-orange-soda', '187-beach-vibez']
+  },
+  {
+    id: 'starbuzz-safari-melon-dew',
+    brand: 'starbuzz',
+    leaf: 'light',
+    name: 'Safari Melon Dew',
+    shortDescription: {
+      bs: 'Dvije dinje, medena i narandžasta: sočne, slatke i mekane.',
+      en: 'Two melons, honeydew and cantaloupe: juicy, sweet and soft.'
+    },
+    description: {
+      bs: [
+        'Safari Melon Dew spaja dvije dinje: zelenkastu medenu dinju i narandžastu kantalupu. Prva daje svježinu, druga gustu, skoro mošusnu slatkoću.',
+        'Okus je mekan i zreo, bez kiselosti i bez hlađenja, pa je ugodan od prve do zadnje dimne.',
+        'Jedan od Starbuzz okusa koje ljudi često preporučuju kao lagan i siguran izbor.'
+      ],
+      en: [
+        'Safari Melon Dew combines two melons: greenish honeydew and orange cantaloupe. The first brings freshness, the second a thick, almost musky sweetness.',
+        'It is soft and ripe with no tartness and no cooling, so it stays pleasant from the first pull to the last.',
+        'One of the Starbuzz flavors people often recommend as a light, safe pick.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Medena dinja', en: 'Honeydew' }, illustration: 'dinja', color: '#d9ec9f', intensity: 8 },
+      { name: { bs: 'Kantalupa', en: 'Cantaloupe' }, illustration: 'dinja', color: '#f6a65a', intensity: 7 }
+    ],
+    profile: { sweetness: 8, freshness: 6, fruitiness: 9, cooling: 0, strength: 5 },
+    tags: ['vocni', 'slatki', 'ljetni'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#b9dd7a', secondary: '#f6a65a', accent: '#3a9a5a', background: '#f3f9e3', text: '#1c2a0c' },
+    mixIdeas: {
+      bs: [
+        'Safari Melon Dew i Blue Mist, za plavu dinju.',
+        'Safari Melon Dew i Mint, 70/30, za dinju sa mentom.',
+        'Safari Melon Dew i Pirate\'s Cave, za tropsku dinju.'
+      ],
+      en: [
+        'Safari Melon Dew with Blue Mist for a blue melon.',
+        'Safari Melon Dew with Mint, 70/30, for melon and mint.',
+        'Safari Melon Dew with Pirate\'s Cave for a tropical melon.'
+      ]
+    },
+    similar: ['adalya-double-melon', 'adalya-blue-melon', 'fumari-ambrosia']
+  },
+  {
+    id: 'starbuzz-pink',
+    brand: 'starbuzz',
+    leaf: 'light',
+    name: 'Pink',
+    shortDescription: {
+      bs: 'Roze limunada sa malinom: kiselkasta, slatka i osvježavajuća.',
+      en: 'Pink lemonade with raspberry: tangy, sweet and refreshing.'
+    },
+    description: {
+      bs: [
+        'Pink je Starbuzz roze limunada. Malina daje slatku, crvenu voćnost, a limunada kiselkast, svjež karakter koji podsjeća na hladno piće sa ledom.',
+        'Okus je živ i lagan. Kiselost je jasna, ali ne oštra, a slatkoća je tu taman koliko treba.',
+        'Dobar izbor za ljeto, samostalno ili kao svježa nota u voćnim miksevima.'
+      ],
+      en: [
+        'Pink is the Starbuzz pink lemonade. Raspberry brings sweet, red fruitiness and the lemonade a tangy, fresh character that recalls a cold drink over ice.',
+        'It is lively and light. The tartness is clear but not sharp, and the sweetness is just right.',
+        'A good summer pick, on its own or as the fresh note in fruit mixes.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Malina', en: 'Raspberry' }, illustration: 'malina', color: '#e0336b', intensity: 8 },
+      { name: { bs: 'Limunada', en: 'Lemonade' }, illustration: 'limun', color: '#f7e04b', intensity: 7 }
+    ],
+    profile: { sweetness: 7, freshness: 8, fruitiness: 8, cooling: 0, strength: 5 },
+    tags: ['vocni', 'bobicasti', 'citrusni', 'pice'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#ff6fa3', secondary: '#ffd0e0', accent: '#f2c230', background: '#ffeef4', text: '#3a0a1c' },
+    mixIdeas: {
+      bs: [
+        'Pink i Blue Mist, za plavo-roze limunadu.',
+        'Pink i Mint, 70/30, za limunadu sa mentom.',
+        'Pink i Safari Melon Dew, za ljetnu limunadu od dinje.'
+      ],
+      en: [
+        'Pink with Blue Mist for a blue and pink lemonade.',
+        'Pink with Mint, 70/30, for lemonade with mint.',
+        'Pink with Safari Melon Dew for a summer melon lemonade.'
+      ]
+    },
+    similar: ['adalya-raspberry', 'darkside-generis-raspberry', 'musthave-pinkman']
+  },
+  {
     id: 'tangiers-cane-mint',
     brand: 'tangiers',
     leaf: 'dark',
@@ -1198,6 +1371,138 @@ window.FLAVORS = [
       ]
     },
     similar: ['adalya-baku-nights', 'fumari-ambrosia', 'al-fakher-double-apple']
+  },
+  {
+    id: 'tangiers-horchata',
+    brand: 'tangiers',
+    leaf: 'dark',
+    name: 'Horchata',
+    mood: 'honey',
+    shortDescription: {
+      bs: 'Cimet, slatko mlijeko i vanila, kao meksičko piće horchata.',
+      en: 'Cinnamon, sweet milk and vanilla, like the Mexican drink horchata.'
+    },
+    description: {
+      bs: [
+        'Horchata je dobila ime po meksičkom napitku od riže, mlijeka i cimeta. Okus je kremast i topao: slatko mlijeko i vanila u osnovi, a cimet preko njih.',
+        'Cimet je jasan, ali mekan, bez ljutine. Zajedno sa vanilom daje okus koji podsjeća na desert ili praznično piće.',
+        'Tangiers je jak tamni list: pakuj rastresito, zagrijavaj polako i daj glavi vremena. Nije za prvu sesiju.'
+      ],
+      en: [
+        'Horchata is named after the Mexican drink made with rice, milk and cinnamon. It is creamy and warm: sweet milk and vanilla at the base, with cinnamon on top.',
+        'The cinnamon is clear but soft, with no heat. Together with the vanilla it tastes like a dessert or a holiday drink.',
+        'Tangiers is strong dark leaf: pack it loose, heat it slowly and give the bowl time. Not for a first session.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Cimet', en: 'Cinnamon' }, illustration: 'cimet', color: '#a0522d', intensity: 8 },
+      { name: { bs: 'Slatko mlijeko', en: 'Sweet milk' }, illustration: 'sejk', color: '#f3ead8', intensity: 7 },
+      { name: { bs: 'Vanila', en: 'Vanilla' }, illustration: 'vanila', color: '#f1dca7', intensity: 6 }
+    ],
+    profile: { sweetness: 7, freshness: 3, fruitiness: 0, cooling: 0, strength: 9 },
+    tags: ['desertni', 'zacinski', 'pice', 'slatki'],
+    tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
+    palette: { primary: '#c58a52', secondary: '#f3ead8', accent: '#8a4a22', background: '#1f140c', text: '#fbf1e4', smoke: ['#fff8ee', '#ead7bd', '#c9a57d'] },
+    mixIdeas: {
+      bs: [
+        'Horchata i Kashmir Peach, za začinjenu breskvu sa kremom.',
+        'Horchata i Cane Mint, 80/20, za hladni cimet.',
+        'Horchata i Double Apple, za pitu od jabuka.'
+      ],
+      en: [
+        'Horchata with Kashmir Peach for spiced peach and cream.',
+        'Horchata with Cane Mint, 80/20, for a cool cinnamon.',
+        'Horchata with Double Apple for apple pie.'
+      ]
+    },
+    similar: ['fumari-spiced-chai', 'tangiers-kashmir-peach', 'trifecta-peppermint-shake']
+  },
+  {
+    id: 'tangiers-maraschino-cherry',
+    brand: 'tangiers',
+    leaf: 'dark',
+    name: 'Maraschino Cherry',
+    shortDescription: {
+      bs: 'Slatka koktel višnja sa blagom notom badema.',
+      en: 'Sweet cocktail cherry with a gentle hint of almond.'
+    },
+    description: {
+      bs: [
+        'Maraschino Cherry je slatka, sirupasta višnja kakvu stavljaju u koktele i na kolače. Ispod nje se osjeti blaga nota badema, kao kod pravih maraskino višanja.',
+        'Okus je bogat i bombonski, ali ne vještački, a badem mu daje dubinu.',
+        'Tamni list: rastresito pakovanje i strpljenje sa toplotom. Odličan za mikseve sa kolom ili vanilom.'
+      ],
+      en: [
+        'Maraschino Cherry is the sweet, syrupy cherry you find in cocktails and on cakes. Underneath it you get a gentle hint of almond, as in real maraschino cherries.',
+        'It is rich and candy-like without feeling artificial, and the almond gives it depth.',
+        'Dark leaf: pack it loose and be patient with the heat. Excellent in mixes with cola or vanilla.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Višnja', en: 'Cherry' }, illustration: 'visnja', color: '#a3122a', intensity: 9 },
+      { name: { bs: 'Badem', en: 'Almond' }, illustration: 'karamel', color: '#d6b48a', intensity: 4 }
+    ],
+    profile: { sweetness: 8, freshness: 4, fruitiness: 8, cooling: 0, strength: 9 },
+    tags: ['vocni', 'slatki', 'bombon'],
+    tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
+    palette: { primary: '#c8102e', secondary: '#ff8fa3', accent: '#f2d2a9', background: '#1e0609', text: '#fff0f2' },
+    mixIdeas: {
+      bs: [
+        'Maraschino Cherry i Darkside Cola, za višnja-kolu.',
+        'Maraschino Cherry i Horchata, za višnju sa kremom.',
+        'Maraschino Cherry i Cane Mint, 80/20, za ledenu višnju.'
+      ],
+      en: [
+        'Maraschino Cherry with Darkside Cola for cherry cola.',
+        'Maraschino Cherry with Horchata for cherries and cream.',
+        'Maraschino Cherry with Cane Mint, 80/20, for an icy cherry.'
+      ]
+    },
+    similar: ['sebero-black-amarena-cherry', 'adalya-cherry-mint', 'musthave-cherry-cola']
+  },
+  {
+    id: 'tangiers-orange-soda',
+    brand: 'tangiers',
+    leaf: 'dark',
+    name: 'Orange Soda',
+    mood: 'fizz',
+    shortDescription: {
+      bs: 'Gazirani sok od narandže: sladak, mjehurast i jako vjeran originalu.',
+      en: 'Fizzy orange soda: sweet, bubbly and very true to the real thing.'
+    },
+    description: {
+      bs: [
+        'Orange Soda je narandža iz limenke: slatka, gazirana i prepoznatljiva već na prvom povlačenju. Nije svježa narandža, nego baš onaj sok koji pamtiš iz djetinjstva.',
+        'Slatkoća je izražena, a blaga "gaziranost" daje okusu živost. Nema mentola.',
+        'Jak tamni list, pa je okus gust i dugotrajan. Pakuj rastresito i ne žuri sa toplotom.'
+      ],
+      en: [
+        'Orange Soda is orange from a can: sweet, fizzy and recognizable from the first pull. Not fresh orange, but exactly the soda you remember from childhood.',
+        'The sweetness is pronounced and a gentle "fizz" keeps it lively. There is no menthol.',
+        'Strong dark leaf, so the flavor is dense and long lasting. Pack it loose and do not rush the heat.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Narandža', en: 'Orange' }, illustration: 'narandza', color: '#ff9a2e', intensity: 9 },
+      { name: { bs: 'Gazirani sok', en: 'Soda' }, illustration: 'kola', color: '#f08a24', intensity: 6 }
+    ],
+    profile: { sweetness: 8, freshness: 6, fruitiness: 7, cooling: 0, strength: 9 },
+    tags: ['citrusni', 'pice', 'slatki'],
+    tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
+    palette: { primary: '#ff8a1f', secondary: '#ffd08a', accent: '#ffffff', background: '#2a1204', text: '#fff4e6', smoke: ['#fff6ea', '#ffd9a8', '#f4a95a'] },
+    mixIdeas: {
+      bs: [
+        'Orange Soda i Horchata, za kremastu narandžu.',
+        'Orange Soda i Cane Mint, 80/20, za ledeni sok.',
+        'Orange Soda i Maraschino Cherry, za voćni sok.'
+      ],
+      en: [
+        'Orange Soda with Horchata for a creamsicle.',
+        'Orange Soda with Cane Mint, 80/20, for an icy soda.',
+        'Orange Soda with Maraschino Cherry for a fruit soda.'
+      ]
+    },
+    similar: ['starbuzz-sex-on-the-beach', 'darkside-cola', 'haze-purple-krush']
   },
   {
     id: 'fumari-white-gummi-bear',
@@ -1287,6 +1592,184 @@ window.FLAVORS = [
       ]
     },
     similar: ['adalya-double-melon', 'fumari-white-gummi-bear', 'tangiers-kashmir-peach']
+  },
+  {
+    id: 'fumari-red-gummi-bear',
+    brand: 'fumari',
+    leaf: 'light',
+    name: 'Red Gummi Bear',
+    shortDescription: {
+      bs: 'Crveni gumeni medo: divlja višnja i malina, slatko kao bombon.',
+      en: 'A red gummy bear: wild cherry and raspberry, sweet as candy.'
+    },
+    description: {
+      bs: [
+        'Red Gummi Bear je crveni brat poznatog White Gummi Bear. Ovdje su divlja višnja i malina, spojene u slatki, bombonski okus gumenih medvjedića.',
+        'Okus je sočan i živ, sa blagom kiselošću bobica, bez hlađenja.',
+        'Fumari je svijetli list, mekan i lagan, pa je ovo dobar izbor i za početnike.'
+      ],
+      en: [
+        'Red Gummi Bear is the red sibling of the famous White Gummi Bear. Here you get wild cherry and raspberry, blended into the sweet, candy flavor of gummy bears.',
+        'It is juicy and lively, with a slight berry tartness and no cooling.',
+        'Fumari is blonde leaf, soft and light, so this is a good pick for beginners too.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Divlja višnja', en: 'Wild cherry' }, illustration: 'visnja', color: '#a3122a', intensity: 8 },
+      { name: { bs: 'Malina', en: 'Raspberry' }, illustration: 'malina', color: '#e0336b', intensity: 7 },
+      { name: { bs: 'Gumeni bombon', en: 'Gummy candy' }, illustration: 'medo', color: '#ff5a6e', intensity: 6 }
+    ],
+    profile: { sweetness: 9, freshness: 5, fruitiness: 8, cooling: 0, strength: 4 },
+    tags: ['bombon', 'vocni', 'bobicasti', 'slatki'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#e8304a', secondary: '#ff9aa8', accent: '#ffd23f', background: '#2a080e', text: '#fff0f2' },
+    mixIdeas: {
+      bs: [
+        'Red Gummi Bear i White Gummi Bear, za cijelu kesicu medvjedića.',
+        'Red Gummi Bear i Mint, 80/20, za osvježene bombone.',
+        'Red Gummi Bear i Ambrosia, za voćni bombon sa dinjom.'
+      ],
+      en: [
+        'Red Gummi Bear with White Gummi Bear for the whole bag of gummies.',
+        'Red Gummi Bear with Mint, 80/20, for refreshed candy.',
+        'Red Gummi Bear with Ambrosia for fruit candy with melon.'
+      ]
+    },
+    similar: ['fumari-white-gummi-bear', 'adalya-raspberry', 'tangiers-maraschino-cherry']
+  },
+  {
+    id: 'fumari-lemon-mint',
+    brand: 'fumari',
+    leaf: 'light',
+    name: 'Lemon Mint',
+    shortDescription: {
+      bs: 'Svjež limun i paprena metvica: čist, kiselkast i jako osvježavajući.',
+      en: 'Fresh lemon and peppermint: clean, tangy and very refreshing.'
+    },
+    description: {
+      bs: [
+        'Fumari Lemon Mint spaja svjež, kiselkast limun sa paprenom metvicom. Metvica je oštrija od obične mente, pa je izdah hladniji i čišći.',
+        'Limun je prirodan i svijetao, više kao korica i sok nego kao bombon.',
+        'Uporedi ga sa Al Fakher i Mazaya Lemon Mint: Fumari je najsvježiji i najmanje sladak od tri.'
+      ],
+      en: [
+        'Fumari Lemon Mint pairs fresh, tangy lemon with peppermint. Peppermint is sharper than regular mint, so the exhale is colder and cleaner.',
+        'The lemon is natural and bright, more like peel and juice than candy.',
+        'Compare it with the Al Fakher and Mazaya Lemon Mint: Fumari is the freshest and the least sweet of the three.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Limun', en: 'Lemon' }, illustration: 'limun', color: '#f7e04b', intensity: 8 },
+      { name: { bs: 'Paprena metvica', en: 'Peppermint' }, illustration: 'pepermint', color: '#1fa874', intensity: 7 }
+    ],
+    profile: { sweetness: 4, freshness: 9, fruitiness: 6, cooling: 6, strength: 4 },
+    tags: ['citrusni', 'mint', 'osvjezavajuci'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#f5e04a', secondary: '#bff0d0', accent: '#1fa874', background: '#f4fde8', text: '#18280c' },
+    mixIdeas: {
+      bs: [
+        'Lemon Mint i Red Gummi Bear, za bombon-limunadu.',
+        'Lemon Mint i Ambrosia, za ljetni miks od dinje.',
+        'Lemon Mint i White Gummi Bear, za kiselkaste bombone.'
+      ],
+      en: [
+        'Lemon Mint with Red Gummi Bear for a candy lemonade.',
+        'Lemon Mint with Ambrosia for a summer melon mix.',
+        'Lemon Mint with White Gummi Bear for tangy candy.'
+      ]
+    },
+    similar: ['al-fakher-lemon-mint', 'mazaya-lemon-mint', 'revoshi-eskimo-lemon']
+  },
+  {
+    id: 'fumari-spiced-chai',
+    brand: 'fumari',
+    leaf: 'light',
+    name: 'Spiced Chai',
+    mood: 'honey',
+    shortDescription: {
+      bs: 'Začinjeni čaj sa vanilom, cimetom, muškatnim oraščićem i kardamomom.',
+      en: 'Spiced tea with vanilla, cinnamon, nutmeg and cardamom.'
+    },
+    description: {
+      bs: [
+        'Spiced Chai je okus indijskog začinjenog čaja sa mlijekom. Vanila daje mekanu, slatku osnovu, a cimet, muškatni oraščić i kardamom grijući, mirisni završetak.',
+        'Začini su skladni i nijedan ne iskače. Okus je topao i umirujuć, idealan za zimske večeri.',
+        'Svijetli list, pa je lagan uprkos bogatom okusu. Odličan i u miksevima sa voćem.'
+      ],
+      en: [
+        'Spiced Chai is the flavor of Indian spiced milk tea. Vanilla gives a soft, sweet base, while cinnamon, nutmeg and cardamom add a warming, fragrant finish.',
+        'The spices are balanced and none of them jumps out. It is warm and calming, perfect for winter evenings.',
+        'Blonde leaf, so it stays light despite the rich flavor. Great in fruit mixes, too.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Vanila', en: 'Vanilla' }, illustration: 'vanila', color: '#f1dca7', intensity: 7 },
+      { name: { bs: 'Cimet', en: 'Cinnamon' }, illustration: 'cimet', color: '#a0522d', intensity: 6 },
+      { name: { bs: 'Kardamom', en: 'Cardamom' }, illustration: 'kardamom', color: '#8fae5a', intensity: 5 },
+      { name: { bs: 'Muškatni oraščić', en: 'Nutmeg' }, illustration: 'bilje', color: '#8a5a3a', intensity: 4 },
+      { name: { bs: 'Čaj', en: 'Tea' }, illustration: 'caj', color: '#b5651d', intensity: 5 }
+    ],
+    profile: { sweetness: 6, freshness: 3, fruitiness: 0, cooling: 0, strength: 4 },
+    tags: ['zacinski', 'desertni', 'pice'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#c47a3a', secondary: '#f1dca7', accent: '#8fae5a', background: '#1d120a', text: '#fbf0e2', smoke: ['#fff7ea', '#ead2b0', '#c79a68'] },
+    mixIdeas: {
+      bs: [
+        'Spiced Chai i Double Apple, za jabuku sa cimetom.',
+        'Spiced Chai i Kashmir Peach, za začinjenu breskvu.',
+        'Spiced Chai i Peppermint Shake, za zimski desert.'
+      ],
+      en: [
+        'Spiced Chai with Double Apple for apple and cinnamon.',
+        'Spiced Chai with Kashmir Peach for a spiced peach.',
+        'Spiced Chai with Peppermint Shake for a winter dessert.'
+      ]
+    },
+    similar: ['tangiers-horchata', 'tangiers-kashmir-peach', '187-wild-beast']
+  },
+  {
+    id: 'fumari-mint-chocolate-chill',
+    brand: 'fumari',
+    leaf: 'light',
+    name: 'Mint Chocolate Chill',
+    mood: 'frost',
+    shortDescription: {
+      bs: 'Slatka tamna čokolada i hladna menta: desert koji osvježava.',
+      en: 'Sweet dark chocolate and cool mint: a dessert that refreshes.'
+    },
+    description: {
+      bs: [
+        'Mint Chocolate Chill je desertni okus: tamna, slatka čokolada i hladna menta, kao sladoled od mente sa komadićima čokolade.',
+        'Čokolada daje toplu, kremastu osnovu, a menta hladi izdah. Spoj je skladan i nije previše sladak.',
+        'Svijetli list, mekan i lagan. Dobar izbor kad želiš nešto drugačije od voća.'
+      ],
+      en: [
+        'Mint Chocolate Chill is a dessert flavor: dark, sweet chocolate and cool mint, like mint chocolate chip ice cream.',
+        'The chocolate gives a warm, creamy base and the mint cools the exhale. The pairing is balanced and not too sweet.',
+        'Blonde leaf, soft and light. A good pick when you want something other than fruit.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Čokolada', en: 'Chocolate' }, illustration: 'cokolada', color: '#5a3220', intensity: 8 },
+      { name: { bs: 'Menta', en: 'Mint' }, illustration: 'menta', color: '#2fae78', intensity: 7 }
+    ],
+    profile: { sweetness: 7, freshness: 7, fruitiness: 0, cooling: 6, strength: 4 },
+    tags: ['desertni', 'mint', 'slatki'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#6fd3a8', secondary: '#5a3220', accent: '#e9fff4', background: '#170d08', text: '#effff7' },
+    mixIdeas: {
+      bs: [
+        'Mint Chocolate Chill i Peppermint Shake, za mliječni šejk sa čokoladom.',
+        'Mint Chocolate Chill i Raspberry, za čokoladu sa malinom.',
+        'Mint Chocolate Chill i Bananarama, za čokoladnu bananu.'
+      ],
+      en: [
+        'Mint Chocolate Chill with Peppermint Shake for a chocolate milkshake.',
+        'Mint Chocolate Chill with Raspberry for chocolate and raspberry.',
+        'Mint Chocolate Chill with Bananarama for a chocolate banana.'
+      ]
+    },
+    similar: ['trifecta-peppermint-shake', 'haze-mint-supreme', 'tangiers-horchata']
   },
   {
     id: 'darkside-supernova',
