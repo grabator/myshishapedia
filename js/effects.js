@@ -677,10 +677,40 @@
       if (holding || settling) raf = requestAnimationFrame(frame);
     }
 
+    // Dodir prstom na samu nargilu: dim kreće tek kad se prst zadrži bez pomjeranja, da prevlačenje
+    // preko nargile skrola stranicu (dugme "Drži za dim" reaguje odmah).
+    var TOUCH_HOLD_MS = 180;
+    var touchWait = null;
+
+    function cancelTouchWait() {
+      if (!touchWait) return;
+      clearTimeout(touchWait.timer);
+      touchWait = null;
+    }
+
+    function onTouchMove(e) {
+      if (!touchWait || e.pointerId !== touchWait.id) return;
+      if (Math.abs(e.clientX - touchWait.x) > 10 || Math.abs(e.clientY - touchWait.y) > 10) cancelTouchWait();
+    }
+
     function start(e) {
       if (holding || !alive) return;
       if (e && e.type === 'pointerdown') {
         if (e.button !== 0) return;
+        if (e.pointerType === 'touch' && e.currentTarget === svg) {
+          cancelTouchWait();
+          var target = e.currentTarget;
+          var id = e.pointerId;
+          touchWait = {
+            id: id, x: e.clientX, y: e.clientY,
+            timer: setTimeout(function () {
+              touchWait = null;
+              try { target.setPointerCapture(id); } catch (err) { /* nije kritično */ }
+              start(null);
+            }, TOUCH_HOLD_MS)
+          };
+          return;
+        }
         e.preventDefault();
         try { e.currentTarget.setPointerCapture(e.pointerId); } catch (err) { /* nije kritično */ }
       }
@@ -700,6 +730,7 @@
     }
 
     function release() {
+      cancelTouchWait();
       if (!holding) return;
       holding = false;
       var held = (performance.now() - holdStart) / 1000;
@@ -737,6 +768,7 @@
       t.addEventListener('lostpointercapture', release);
       t.addEventListener('contextmenu', block);
     });
+    if (svg) svg.addEventListener('pointermove', onTouchMove);
     if (button) {
       button.addEventListener('keydown', onKeyDown);
       button.addEventListener('keyup', onKeyUp);
@@ -747,6 +779,8 @@
     return function () {
       alive = false;
       holding = false;
+      cancelTouchWait();
+      if (svg) svg.removeEventListener('pointermove', onTouchMove);
       cancelAnimationFrame(raf);
       timers.forEach(clearTimeout);
       if (emitterId) Field.removeEmitter(emitterId);
