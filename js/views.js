@@ -612,25 +612,89 @@
     }).join('');
   }
 
-  /** Mobilni meni: iste grupe, kao sekcije jedna ispod druge. */
-  function menuGroups(desc) {
-    var groups = [
-      { key: 'groupFlavors', items: NAV[0].items.concat([NAV[1], NAV[2]]) },
-      { key: 'groupHookah', items: NAV[3].items },
-      { key: 'groupOther', items: [NAV[4]] }
-    ];
+  /** Mobilni meni: pločice za glavne stranice i dvije kratke liste. */
+  var MENU_TILES = [
+    { n: NAV[0].items[0], fx: 'lava', color: '#ff8a3d' },
+    { n: NAV[0].items[1], fx: 'ring', color: '#e8457a' },
+    { n: NAV[1], fx: 'mix', color: '#3fc1c9' },
+    { n: NAV[2], fx: 'quiz', color: '#9b6cf0' }
+  ];
+  var MENU_LISTS = [
+    { key: 'groupDiscover', items: [
+      { n: NAV[0].items[2], color: '#ffb547' }, { n: NAV[0].items[3], color: '#e8457a' },
+      { n: NAV[0].items[4], color: '#9b6cf0' }, { n: NAV[0].items[5], color: '#f2c230' }
+    ] },
+    { key: 'groupHookah', items: [
+      { n: NAV[3].items[0], color: '#3fc1c9' }, { n: NAV[3].items[3], color: '#2fae78' },
+      { n: NAV[3].items[2], color: '#c58a52' }, { n: NAV[3].items[1], color: '#a99a8a' }
+    ] }
+  ];
+
+  function isCurrent(n, desc) { return n.match.indexOf(desc.page) !== -1; }
+  function curAttr(n, desc) { return isCurrent(n, desc) ? ' aria-current="page"' : ''; }
+
+  function menuTileFx(fx) {
+    if (fx === 'lava') return '<span class="mfx mfx--lava"><i></i><b></b></span>';
+    if (fx === 'mix') return '<span class="mfx mfx--mix"><i></i><b></b></span>';
+    if (fx === 'quiz') return '<span class="mfx mfx--quiz"><em>?</em><i></i><i></i><i></i></span>';
+    var names = V.brands().slice(0, 6).map(function (b) { return b.name.toUpperCase(); }).join(' · ') + ' · ';
+    return (
+      '<span class="mfx mfx--ring"><svg viewBox="0 0 100 100" focusable="false">' +
+        '<defs><path id="mring-path" d="M50 50m-37 0a37 37 0 1 1 74 0a37 37 0 1 1-74 0"/></defs>' +
+        '<text><textPath href="#mring-path" textLength="232" lengthAdjust="spacingAndGlyphs">' + esc(names) + '</textPath></text>' +
+      '</svg><em>' + V.brands().length + '</em></span>'
+    );
+  }
+
+  function menuTileSub(n) {
+    if (n.page === 'flavors') return MSP.plural('collections.count', V.flavors().length);
+    if (n.page === 'brands') return MSP.plural('brands.count', V.brands().length);
+    return t('nav.' + n.page + 'Sub');
+  }
+
+  function menuBody(desc) {
     var k = 0;
-    return groups.map(function (g, gi) {
+    var tiles = MENU_TILES.map(function (tl) {
+      return (
+        '<a class="menu-link mtile mtile--' + tl.fx + '" href="' + navHref(tl.n, desc) + '"' + curAttr(tl.n, desc) + ' style="--tc:' + tl.color + ';--i:' + (k++) + '">' +
+          menuTileFx(tl.fx) +
+          '<span class="mtile__name">' + esc(t('nav.' + tl.n.key)) + '</span>' +
+          '<span class="mtile__sub">' + esc(menuTileSub(tl.n)) + '</span>' +
+        '</a>'
+      );
+    }).join('');
+    var shelfNav = NAV[0].items[6];
+    var lists = MENU_LISTS.map(function (g, gi) {
       var id = 'mgroup-' + gi;
       return (
-        '<div class="mgroup">' +
-          '<p class="mgroup__title" id="' + id + '">' + esc(t('nav.' + g.key)) + '</p>' +
-          '<ul class="menu-list" role="list" aria-labelledby="' + id + '">' +
-            g.items.map(function (it) { return navLink(it, desc, 'menu-link', k++); }).join('') +
+        '<div class="mlist" style="--i:' + (k + 3) + '">' +
+          '<p class="mlist__title" id="' + id + '">' + esc(t('nav.' + g.key)) + '</p>' +
+          '<ul role="list" aria-labelledby="' + id + '">' +
+            g.items.map(function (it) {
+              return '<li><a class="menu-link mlist__link" href="' + navHref(it.n, desc) + '"' + curAttr(it.n, desc) + ' style="--dc:' + it.color + '">' + esc(t('nav.' + it.n.key)) + '</a></li>';
+            }).join('') +
           '</ul>' +
         '</div>'
       );
     }).join('');
+    return (
+      '<a class="msearch" href="' + V.url('search') + '" data-gsearch style="--i:0">' + icon('search') +
+        '<span class="msearch__text"><span class="msearch__hint">' + esc(t('nav.menuSearch')) + '</span><span class="msearch__typed" aria-hidden="true"></span></span>' +
+      '</a>' +
+      '<div class="mtiles">' + tiles + '</div>' +
+      '<button type="button" class="msurprise" style="--i:' + (k++) + '">' +
+        '<span class="msurprise__coal" aria-hidden="true"><i></i><i></i><i></i></span>' +
+        '<span class="msurprise__name">' + esc(t('nav.surprise')) + '</span>' +
+        '<span class="msurprise__sub" aria-live="polite">' + esc(t('nav.surpriseSub')) + '</span>' +
+        icon('arrowRight') +
+      '</button>' +
+      '<a class="menu-link mshelf" href="' + navHref(shelfNav, desc) + '"' + curAttr(shelfNav, desc) + ' style="--i:' + (k++) + '">' +
+        '<span class="mshelf__dots" aria-hidden="true"><i></i><i></i><i></i><i></i></span>' +
+        '<span class="mshelf__text"><span class="mshelf__name">' + esc(t('nav.shelf')) + '</span><span class="mshelf__sub">' + esc(t('nav.shelfSub')) + '</span></span>' +
+        '<span class="mshelf__count" hidden></span>' +
+      '</a>' +
+      '<div class="mlists">' + lists + '</div>'
+    );
   }
 
   function langSwitch(desc, cls) {
@@ -667,18 +731,20 @@
 
   /** Mobilni meni preko cijelog ekrana (van headera, vidi app.js). */
   V.menu = function (desc) {
+    var about = NAV[4];
     return (
       '<div class="menu-overlay" id="menu-overlay" role="dialog" aria-modal="true" aria-label="' + esc(t('a11y.mainNav')) + '" hidden>' +
         '<div class="menu-overlay__smoke" aria-hidden="true"><span></span><span></span><span></span></div>' +
-        '<div class="container menu-overlay__top">' +
-          logo('logo--menu') +
-          '<a class="search-btn search-btn--menu" href="' + V.url('search') + '" data-gsearch>' + icon('search') + '<span>' + esc(t('nav.search')) + '</span></a>' +
-          '<button type="button" class="menu-close" aria-label="' + esc(t('a11y.closeMenu')) + '">' + icon('close') + '</button>' +
+        '<div class="menu-overlay__inner">' +
+          '<div class="menu-overlay__top">' +
+            logo('logo--menu') +
+            '<button type="button" class="menu-close" aria-label="' + esc(t('a11y.closeMenu')) + '">' + icon('close') + '</button>' +
+          '</div>' +
+          '<nav class="menu-overlay__nav" aria-label="' + esc(t('a11y.mainNav')) + '">' + menuBody(desc) + '</nav>' +
+          '<div class="menu-overlay__foot">' + langSwitch(desc, 'lang--menu') +
+            '<a class="menu-link mabout" href="' + navHref(about, desc) + '"' + curAttr(about, desc) + '>' + esc(t('nav.about')) + icon('arrowRight') + '</a>' +
+          '</div>' +
         '</div>' +
-        '<nav class="container menu-overlay__nav" aria-label="' + esc(t('a11y.mainNav')) + '">' +
-          '<div class="menu-groups">' + menuGroups(desc) + '</div>' +
-        '</nav>' +
-        '<div class="container menu-overlay__foot">' + langSwitch(desc, 'lang--menu') + '<p>' + esc(t('nav.menuFooter')) + '</p></div>' +
       '</div>'
     );
   };

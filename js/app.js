@@ -470,12 +470,123 @@
 
   var menuOpen = false;
 
+  /** Živi dijelovi menija: boje okusa, pretraga koja "kuca", polica i "Iznenadi me". */
+  var MenuFx = (function () {
+    var timers = [];
+    var overlay = null;
+    var busy = false;
+    function later(fn, ms) { timers.push(window.setTimeout(fn, ms)); }
+    function stop() { timers.forEach(window.clearTimeout); timers = []; }
+    function pick(list) { return list[Math.floor(Math.random() * list.length)]; }
+    function colors(f) { var p = f.palette || {}; return [p.primary || '#ff8a3d', p.secondary || p.primary || '#e8457a']; }
+
+    function paint(sel, every) {
+      var el = overlay.querySelector(sel);
+      if (!el) return;
+      var step = function () {
+        var a = colors(pick(V.flavors())), b = colors(pick(V.flavors()));
+        el.style.setProperty('--a', a[0]);
+        el.style.setProperty('--b', b[0] === a[0] ? b[1] : b[0]);
+        if (every) later(step, every);
+      };
+      step();
+    }
+
+    function shelf() {
+      var box = overlay.querySelector('.mshelf');
+      if (!box) return;
+      var ids = MSP.Shelf ? MSP.Shelf.list() : [];
+      var list = ids.map(V.flavorById).filter(Boolean);
+      var count = box.querySelector('.mshelf__count');
+      count.hidden = !list.length;
+      count.textContent = list.length;
+      box.querySelector('.mshelf__sub').textContent = t(list.length ? 'nav.shelfSub' : 'nav.shelfSubEmpty');
+      box.classList.toggle('is-empty', !list.length);
+      var dots = box.querySelectorAll('.mshelf__dots i');
+      for (var i = 0; i < dots.length; i++) {
+        var f = list[list.length - 1 - i];
+        dots[i].style.background = f ? colors(f)[0] : '';
+      }
+    }
+
+    function words() {
+      var fl = V.flavors().slice().sort(function () { return Math.random() - 0.5; });
+      var out = [];
+      fl.slice(0, 5).forEach(function (f) { out.push(f.name); });
+      fl.slice(5, 8).forEach(function (f) { if (f.ingredients[0]) out.push(MSP.L(f.ingredients[0].name).toLowerCase()); });
+      out.push(pick(V.brands()).name);
+      return out.sort(function () { return Math.random() - 0.5; });
+    }
+
+    function typer() {
+      var box = overlay.querySelector('.msearch');
+      if (!box) return;
+      var typed = box.querySelector('.msearch__typed');
+      var list = words();
+      var w = 0;
+      box.classList.remove('is-typing');
+      typed.textContent = '';
+      var type = function (word, n) {
+        typed.textContent = word.slice(0, n);
+        if (n < word.length) later(function () { type(word, n + 1); }, 60 + Math.random() * 60);
+        else later(function () { erase(word, word.length); }, 1400);
+      };
+      var erase = function (word, n) {
+        typed.textContent = word.slice(0, n);
+        if (n > 0) later(function () { erase(word, n - 1); }, 32);
+        else later(next, 280);
+      };
+      var next = function () {
+        box.classList.add('is-typing');
+        type(list[w++ % list.length], 1);
+      };
+      later(next, 2200);
+    }
+
+    function start(el) {
+      overlay = el;
+      busy = false;
+      stop();
+      shelf();
+      paint('.mfx--lava', FX.reducedMotion() ? 0 : 2600);
+      paint('.mfx--mix', FX.reducedMotion() ? 0 : 3400);
+      var sub = overlay.querySelector('.msurprise__sub');
+      if (sub) sub.textContent = t('nav.surpriseSub');
+      if (!FX.reducedMotion()) typer();
+    }
+
+    function surprise(btn) {
+      if (busy) return;
+      var list = V.flavors().filter(function (f) { return f.id !== pageId; });
+      if (!list.length) return;
+      busy = true;
+      var f = pick(list);
+      var go = function () { window.location.href = V.flavorUrl(f); };
+      if (FX.reducedMotion()) { go(); return; }
+      var sub = btn.querySelector('.msurprise__sub');
+      btn.classList.add('is-rolling');
+      var delay = 45, spent = 0;
+      var roll = function () {
+        var g = spent < 1100 ? pick(list) : f;
+        sub.textContent = g.brand + ' ' + g.name;
+        if (g === f && spent >= 1100) { btn.classList.add('is-picked'); later(go, 420); return; }
+        spent += delay;
+        delay = Math.min(delay * 1.13, 190);
+        later(roll, delay);
+      };
+      roll();
+    }
+
+    return { start: start, stop: stop, surprise: surprise };
+  })();
+
   function openMenu() {
     var overlay = document.getElementById('menu-overlay');
     var btn = els.header.querySelector('.menu-btn');
     if (!overlay || menuOpen) return;
     menuOpen = true;
     overlay.hidden = false;
+    MenuFx.start(overlay);
     requestAnimationFrame(function () { overlay.classList.add('is-open'); });
     btn.setAttribute('aria-expanded', 'true');
     els.main.inert = true;
@@ -503,6 +614,7 @@
     els.header.inert = false;
     if (isAgeOk()) document.body.classList.remove('is-locked');
     if (btn) btn.setAttribute('aria-expanded', 'false');
+    MenuFx.stop();
     if (overlay) {
       overlay.classList.remove('is-open');
       window.setTimeout(function () { if (!menuOpen) overlay.hidden = true; }, FX.reducedMotion() ? 0 : 320);
@@ -639,6 +751,8 @@
     if (menuRoot) {
       menuRoot.addEventListener('click', function (e) {
         if (e.target.closest('.menu-close')) { closeMenu(true); return; }
+        var sp = e.target.closest('.msurprise');
+        if (sp) { MenuFx.surprise(sp); return; }
         if (e.target.closest('.menu-link')) closeMenu(false);
       });
     }
