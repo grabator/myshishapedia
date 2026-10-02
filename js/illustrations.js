@@ -1308,6 +1308,203 @@
       );
     },
 
+    /* Kaktusova smokva: dva ovalna ploda sa sitnim tačkicama i zeleni list kaktusa. */
+    kaktus: function (c) {
+      var id = uid('kaktus');
+      var dots = '';
+      [[78, 104], [92, 132], [70, 140], [96, 98], [84, 160], [140, 118], [154, 140], [132, 150], [148, 100]].forEach(function (d) {
+        dots += '<circle cx="' + d[0] + '" cy="' + d[1] + '" r="2.4"/>';
+      });
+      return (
+        '<defs>' +
+          '<radialGradient id="' + id + '-f" cx="0.38" cy="0.32" r="0.8">' +
+            '<stop offset="0" stop-color="' + lighten(c, 0.35) + '"/>' +
+            '<stop offset="0.6" stop-color="' + c + '"/>' +
+            '<stop offset="1" stop-color="' + darken(c, 0.35) + '"/>' +
+          '</radialGradient>' +
+          '<linearGradient id="' + id + '-p" x1="0" y1="0" x2="1" y2="1">' +
+            '<stop offset="0" stop-color="#7cc46a"/><stop offset="1" stop-color="#3f8a46"/>' +
+          '</linearGradient>' +
+        '</defs>' +
+        '<ellipse cx="60" cy="70" rx="34" ry="46" transform="rotate(-24 60 70)" fill="url(#' + id + '-p)" stroke="#2f6b35" stroke-width="2"/>' +
+        '<g fill="#e9f5d0" opacity="0.8"><circle cx="52" cy="54" r="2"/><circle cx="66" cy="72" r="2"/><circle cx="48" cy="84" r="2"/><circle cx="70" cy="44" r="2"/></g>' +
+        '<ellipse cx="86" cy="128" rx="34" ry="44" fill="url(#' + id + '-f)" stroke="' + darken(c, 0.45) + '" stroke-width="1.6"/>' +
+        '<ellipse cx="142" cy="126" rx="30" ry="40" transform="rotate(14 142 126)" fill="url(#' + id + '-f)" stroke="' + darken(c, 0.45) + '" stroke-width="1.6"/>' +
+        '<g fill="' + darken(c, 0.5) + '" opacity="0.55">' + dots + '</g>' +
+        '<path d="M78 86l8-6 8 6M134 88l8-6 8 6" stroke="' + darken(c, 0.4) + '" stroke-width="3" stroke-linecap="round" fill="none"/>' +
+        '<ellipse cx="74" cy="110" rx="7" ry="13" fill="#fff" opacity="0.3"/>'
+      );
+    },
+
+    /* Guava: cijela zelena guava i prepolovljena, ružičasta iznutra sa sjemenkama. */
+    guava: function (c) {
+      var id = uid('guava');
+      var seeds = '';
+      for (var i = 0; i < 10; i++) {
+        var a = (i / 10) * Math.PI * 2;
+        seeds += '<ellipse cx="' + (128 + Math.cos(a) * 18).toFixed(1) + '" cy="' + (124 + Math.sin(a) * 18).toFixed(1) + '" rx="3" ry="2" fill="#f6e2b8"/>';
+      }
+      return (
+        '<defs>' +
+          '<radialGradient id="' + id + '-s" cx="0.4" cy="0.35" r="0.8">' +
+            '<stop offset="0" stop-color="#cfe98a"/><stop offset="1" stop-color="#6f9e34"/>' +
+          '</radialGradient>' +
+          '<radialGradient id="' + id + '-i" cx="0.5" cy="0.5" r="0.6">' +
+            '<stop offset="0" stop-color="' + lighten(c, 0.3) + '"/><stop offset="1" stop-color="' + c + '"/>' +
+          '</radialGradient>' +
+        '</defs>' +
+        '<ellipse cx="70" cy="86" rx="40" ry="46" fill="url(#' + id + '-s)" stroke="#4f7a26" stroke-width="2"/>' +
+        '<path d="M70 40l-4-12" stroke="#5a3a1a" stroke-width="5" stroke-linecap="round"/>' +
+        '<ellipse cx="56" cy="70" rx="9" ry="15" fill="#fff" opacity="0.3"/>' +
+        '<circle cx="128" cy="124" r="46" fill="url(#' + id + '-s)" stroke="#4f7a26" stroke-width="2"/>' +
+        '<circle cx="128" cy="124" r="39" fill="url(#' + id + '-i)"/>' +
+        '<circle cx="128" cy="124" r="14" fill="' + darken(c, 0.12) + '"/>' +
+        seeds
+      );
+    },
+
+    /* Kruška: zelena kruška sa peteljkom i listom. */
+    kruska: function (c) {
+      var id = uid('kruska');
+      return (
+        '<defs>' +
+          '<radialGradient id="' + id + '-g" cx="0.38" cy="0.55" r="0.75">' +
+            '<stop offset="0" stop-color="' + lighten(c, 0.4) + '"/>' +
+            '<stop offset="0.6" stop-color="' + c + '"/>' +
+            '<stop offset="1" stop-color="' + darken(c, 0.3) + '"/>' +
+          '</radialGradient>' +
+        '</defs>' +
+        '<path d="M100 40C84 40 80 62 78 80C76 98 50 110 50 142C50 170 74 186 100 186C126 186 150 170 150 142C150 110 124 98 122 80C120 62 116 40 100 40Z" fill="url(#' + id + '-g)" stroke="' + darken(c, 0.4) + '" stroke-width="1.8"/>' +
+        '<path d="M100 42C100 30 103 22 110 16" stroke="#6b4a2a" stroke-width="5" stroke-linecap="round" fill="none"/>' +
+        '<path d="M106 30C118 16 140 16 148 26C136 30 130 40 116 40C110 40 106 36 106 30Z" fill="#5aa84a" stroke="#2f6b2a" stroke-width="1.5"/>' +
+        '<ellipse cx="76" cy="130" rx="10" ry="22" fill="#fff" opacity="0.28"/>' +
+        '<circle cx="118" cy="150" r="2.4" fill="' + darken(c, 0.4) + '" opacity="0.5"/><circle cx="90" cy="162" r="2" fill="' + darken(c, 0.4) + '" opacity="0.5"/>'
+      );
+    },
+
+    /* Čaj: šolja čaja na tanjiriću, sa kriškom limuna i parom. */
+    caj: function (c) {
+      var id = uid('caj');
+      return (
+        '<defs>' +
+          '<linearGradient id="' + id + '-t" x1="0" y1="0" x2="0" y2="1">' +
+            '<stop offset="0" stop-color="' + lighten(c, 0.2) + '"/><stop offset="1" stop-color="' + darken(c, 0.25) + '"/>' +
+          '</linearGradient>' +
+        '</defs>' +
+        '<path d="M78 50C70 40 86 34 78 22M100 46C92 36 108 30 100 18M122 50C114 40 130 34 122 22" stroke="#fff" stroke-width="4" stroke-linecap="round" fill="none" opacity="0.7"/>' +
+        '<ellipse cx="100" cy="176" rx="74" ry="14" fill="#f3ece2" stroke="#c9b9a2" stroke-width="2"/>' +
+        '<path d="M48 76H152L142 156Q138 170 124 170H76Q62 170 58 156Z" fill="#fbf7f0" stroke="#c9b9a2" stroke-width="2.5"/>' +
+        '<path d="M152 92C178 92 178 136 146 136" fill="none" stroke="#c9b9a2" stroke-width="7"/>' +
+        '<ellipse cx="100" cy="80" rx="50" ry="10" fill="url(#' + id + '-t)"/>' +
+        '<circle cx="120" cy="80" r="11" fill="#f5d63d" stroke="#d8b21c" stroke-width="2"/>' +
+        '<path d="M120 70V90M110 80H130M113 73l14 14M127 73l-14 14" stroke="#d8b21c" stroke-width="1.2" opacity="0.7"/>' +
+        '<path d="M64 96L72 152" stroke="#fff" stroke-width="5" stroke-linecap="round" opacity="0.6"/>'
+      );
+    },
+
+    /* Čokolada: odlomljena tabla čokolade sa kockicama. */
+    cokolada: function (c) {
+      var id = uid('cok');
+      var cells = '';
+      for (var r = 0; r < 3; r++) {
+        for (var k = 0; k < 3; k++) {
+          var x = 46 + k * 36, y = 50 + r * 36;
+          cells += '<rect x="' + (x + 3) + '" y="' + (y + 3) + '" width="30" height="30" rx="4" fill="url(#' + id + '-g)" stroke="' + darken(c, 0.35) + '" stroke-width="1.2"/>' +
+            '<path d="M' + (x + 7) + ' ' + (y + 8) + 'H' + (x + 26) + '" stroke="#fff" stroke-width="2" opacity="0.25" stroke-linecap="round"/>';
+        }
+      }
+      return (
+        '<defs>' +
+          '<linearGradient id="' + id + '-g" x1="0" y1="0" x2="1" y2="1">' +
+            '<stop offset="0" stop-color="' + lighten(c, 0.2) + '"/><stop offset="1" stop-color="' + darken(c, 0.25) + '"/>' +
+          '</linearGradient>' +
+        '</defs>' +
+        '<g transform="rotate(-10 100 100)">' +
+          '<path d="M40 44H158V152L146 160L132 150L118 162L102 152L88 162L72 150L58 160L40 152Z" fill="' + darken(c, 0.3) + '"/>' +
+          cells +
+        '</g>' +
+        '<path d="M150 150l14 8-6 10-12-6z" fill="' + darken(c, 0.15) + '"/>'
+      );
+    },
+
+    /* Cimet: svezane rolnice cimeta. */
+    cimet: function (c) {
+      var id = uid('cimet');
+      function stick(x, y, rot) {
+        return (
+          '<g transform="translate(' + x + ' ' + y + ') rotate(' + rot + ')">' +
+            '<rect x="-60" y="-11" width="120" height="22" rx="10" fill="url(#' + id + '-g)" stroke="' + darken(c, 0.4) + '" stroke-width="1.5"/>' +
+            '<path d="M-56 -3H52M-50 4H46" stroke="' + darken(c, 0.35) + '" stroke-width="1.3" opacity="0.6"/>' +
+            '<ellipse cx="60" cy="0" rx="6" ry="11" fill="' + lighten(c, 0.15) + '" stroke="' + darken(c, 0.4) + '" stroke-width="1.5"/>' +
+            '<path d="M60 -5a4 4 0 1 1 -2 6" fill="none" stroke="' + darken(c, 0.45) + '" stroke-width="1.4"/>' +
+          '</g>'
+        );
+      }
+      return (
+        '<defs>' +
+          '<linearGradient id="' + id + '-g" x1="0" y1="0" x2="0" y2="1">' +
+            '<stop offset="0" stop-color="' + lighten(c, 0.25) + '"/><stop offset="1" stop-color="' + darken(c, 0.2) + '"/>' +
+          '</linearGradient>' +
+        '</defs>' +
+        stick(100, 80, -20) + stick(100, 104, -14) + stick(100, 128, -8) +
+        '<path d="M94 64C88 96 92 124 98 150" stroke="#c84a3a" stroke-width="6" fill="none" stroke-linecap="round"/>' +
+        '<path d="M98 150c-10 6-14 14-10 20M98 150c10 6 16 12 14 20" stroke="#c84a3a" stroke-width="4" fill="none" stroke-linecap="round"/>'
+      );
+    },
+
+    /* Betel: list u obliku srca sa izraženim žilama (indijski "paan"). */
+    betel: function (c) {
+      var id = uid('betel');
+      return (
+        '<defs>' +
+          '<linearGradient id="' + id + '-g" x1="0" y1="0" x2="1" y2="1">' +
+            '<stop offset="0" stop-color="' + lighten(c, 0.3) + '"/><stop offset="1" stop-color="' + darken(c, 0.25) + '"/>' +
+          '</linearGradient>' +
+        '</defs>' +
+        '<path d="M100 184C60 150 30 120 30 84C30 56 52 38 74 40C88 41 96 50 100 58C104 50 112 41 126 40C148 38 170 56 170 84C170 120 140 150 100 184Z" fill="url(#' + id + '-g)" stroke="' + darken(c, 0.4) + '" stroke-width="2"/>' +
+        '<path d="M100 60V178M100 90C84 80 64 76 46 80M100 90C116 80 136 76 154 80M100 120C84 110 66 108 52 114M100 120C116 110 134 108 148 114M100 148C88 140 78 140 70 144M100 148C112 140 122 140 130 144" stroke="' + darken(c, 0.35) + '" stroke-width="2" fill="none" opacity="0.6"/>' +
+        '<path d="M100 184C100 192 96 196 90 198" stroke="' + darken(c, 0.4) + '" stroke-width="4" stroke-linecap="round" fill="none"/>' +
+        '<ellipse cx="66" cy="76" rx="8" ry="16" transform="rotate(-30 66 76)" fill="#fff" opacity="0.25"/>'
+      );
+    },
+
+    /* Ruža: cvijet ruže sa spiralnim laticama i dva lista. */
+    ruza: function (c) {
+      var id = uid('ruza');
+      return (
+        '<defs>' +
+          '<radialGradient id="' + id + '-g" cx="0.45" cy="0.4" r="0.7">' +
+            '<stop offset="0" stop-color="' + lighten(c, 0.35) + '"/><stop offset="1" stop-color="' + darken(c, 0.25) + '"/>' +
+          '</radialGradient>' +
+        '</defs>' +
+        '<path d="M100 150C100 170 98 184 94 196" stroke="#3f7a3a" stroke-width="6" stroke-linecap="round" fill="none"/>' +
+        '<path d="M98 166C80 150 58 156 52 168C68 174 86 174 98 166Z" fill="#5aa84a" stroke="#2f6b2a" stroke-width="1.5"/>' +
+        '<path d="M100 178C118 164 140 168 146 180C130 186 112 186 100 178Z" fill="#5aa84a" stroke="#2f6b2a" stroke-width="1.5"/>' +
+        '<circle cx="100" cy="92" r="58" fill="url(#' + id + '-g)" stroke="' + darken(c, 0.4) + '" stroke-width="2"/>' +
+        '<path d="M100 92m-10 0a10 10 0 1 1 20 0c0 16 -26 18 -32 0c-4 -22 32 -32 46 -8c14 26 -16 50 -40 40c-30 -12 -26 -56 4 -66c34 -10 62 18 52 48" fill="none" stroke="' + darken(c, 0.38) + '" stroke-width="3" stroke-linecap="round" opacity="0.7"/>' +
+        '<ellipse cx="78" cy="66" rx="10" ry="6" transform="rotate(-30 78 66)" fill="#fff" opacity="0.3"/>'
+      );
+    },
+
+    /* Rabarbara: tri crveno-zelene stabljike sa listom. */
+    rabarbara: function (c) {
+      var id = uid('rab');
+      function stalk(x, rot) {
+        return '<g transform="translate(' + x + ' 186) rotate(' + rot + ')"><path d="M-9 0L-7 -140Q0 -150 7 -140L9 0Z" fill="url(#' + id + '-g)" stroke="' + darken(c, 0.35) + '" stroke-width="1.5"/>' +
+          '<path d="M-3 -10V-130" stroke="#fff" stroke-width="2.5" opacity="0.35" stroke-linecap="round"/></g>';
+      }
+      return (
+        '<defs>' +
+          '<linearGradient id="' + id + '-g" x1="0" y1="1" x2="0" y2="0">' +
+            '<stop offset="0" stop-color="' + c + '"/><stop offset="0.75" stop-color="' + lighten(c, 0.15) + '"/><stop offset="1" stop-color="#9ccc5a"/>' +
+          '</linearGradient>' +
+        '</defs>' +
+        '<path d="M70 52C40 20 70 0 100 20C130 0 160 20 132 52C120 66 82 66 70 52Z" fill="#5aa84a" stroke="#2f6b2a" stroke-width="2"/>' +
+        '<path d="M100 22V58M100 40L80 30M100 40L120 30" stroke="#2f6b2a" stroke-width="1.5" opacity="0.6"/>' +
+        stalk(82, -8) + stalk(104, 2) + stalk(126, 10)
+      );
+    },
+
     /* Rezerva za sastojak koji još nema svoju ilustraciju. */
     fallback: function (c) {
       var id = uid('voce');
