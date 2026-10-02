@@ -1862,6 +1862,176 @@ window.FLAVORS = [
     similar: ['musthave-cola', 'sebero-black-cola', 'adalya-cherry-mint']
   },
   {
+    id: 'darkside-falling-star',
+    brand: 'darkside',
+    leaf: 'dark',
+    name: 'Falling Star',
+    shortDescription: {
+      bs: 'Mango i marakuja: tropski, sočan i blago kiselkast.',
+      en: 'Mango and passion fruit: tropical, juicy and slightly tart.'
+    },
+    description: {
+      bs: [
+        'Falling Star je jedan od najpoznatijih Darkside okusa. Zreo mango daje gustu slatkoću, a marakuja kiselkast, mirisni tropski ton.',
+        'Okus je sočan i jasan, bez hlađenja, a marakuja sprečava da mango postane težak.',
+        'Darkside je jak tamni list: pakuj rastresito, ne pretjeruj sa toplotom i nemoj ga davati nekome ko tek počinje.'
+      ],
+      en: [
+        'Falling Star is one of the best known Darkside flavors. Ripe mango brings a thick sweetness and passion fruit a tangy, fragrant tropical tone.',
+        'It is juicy and clear with no cooling, and the passion fruit keeps the mango from getting heavy.',
+        'Darkside is strong dark leaf: pack it loose, go easy on the heat and do not hand it to someone who is just starting out.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Mango', en: 'Mango' }, illustration: 'mango', color: '#ffb52e', intensity: 8 },
+      { name: { bs: 'Marakuja', en: 'Passion fruit' }, illustration: 'marakuja', color: '#f2a03a', intensity: 7 }
+    ],
+    profile: { sweetness: 7, freshness: 6, fruitiness: 9, cooling: 0, strength: 8 },
+    tags: ['vocni', 'tropski', 'ljetni'],
+    tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
+    palette: { primary: '#ffb52e', secondary: '#9b4dca', accent: '#ffe08a', background: '#140b1f', text: '#fff4e2' },
+    mixIdeas: {
+      bs: [
+        'Falling Star i Supernova, 80/20, za ledeni mango.',
+        'Falling Star i Bananapapa, za tropski smoothie.',
+        'Falling Star i Generis Raspberry, za mango sa malinom.'
+      ],
+      en: [
+        'Falling Star with Supernova, 80/20, for an icy mango.',
+        'Falling Star with Bananapapa for a tropical smoothie.',
+        'Falling Star with Generis Raspberry for mango and raspberry.'
+      ]
+    },
+    similar: ['adalya-hawaii', 'revoshi-lady-mystique', 'sebero-mango-yogurt']
+  },
+  {
+    id: 'darkside-bananapapa',
+    brand: 'darkside',
+    leaf: 'dark',
+    name: 'Bananapapa',
+    shortDescription: {
+      bs: 'Zrela, kremasta banana: slatka, mekana i jako prirodna.',
+      en: 'Ripe, creamy banana: sweet, soft and very natural.'
+    },
+    description: {
+      bs: [
+        'Bananapapa je čista banana, zrela i kremasta, onakva kakva je kad se tek ogulji. Nije bombonska, nego prirodna i mekana.',
+        'Nema kiselosti ni hlađenja, pa je okus topao i pun, skoro kao desert.',
+        'Odlična baza za mikseve sa bobicama, čokoladom ili kolom. Tamni list, pa ga pakuj rastresito.'
+      ],
+      en: [
+        'Bananapapa is pure banana, ripe and creamy, the way it is right after peeling. Not candy-like, but natural and soft.',
+        'There is no tartness and no cooling, so it is warm and full, almost like a dessert.',
+        'A great base for mixes with berries, chocolate or cola. Dark leaf, so pack it loose.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Zrela banana', en: 'Ripe banana' }, illustration: 'banana', color: '#fbe48c', intensity: 9 }
+    ],
+    profile: { sweetness: 8, freshness: 3, fruitiness: 8, cooling: 0, strength: 8 },
+    tags: ['vocni', 'tropski', 'desertni'],
+    tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
+    palette: { primary: '#f7d84a', secondary: '#fff1b0', accent: '#6b4a1f', background: '#1c1606', text: '#fffbe6' },
+    mixIdeas: {
+      bs: [
+        'Bananapapa i Generis Raspberry, za bananu sa malinom.',
+        'Bananapapa i Darkside Cola, za bananu u koli.',
+        'Bananapapa i Falling Star, za tropski smoothie.'
+      ],
+      en: [
+        'Bananapapa with Generis Raspberry for banana and raspberry.',
+        'Bananapapa with Darkside Cola for banana cola.',
+        'Bananapapa with Falling Star for a tropical smoothie.'
+      ]
+    },
+    similar: ['haze-bananarama', 'adalya-dubai', 'starbuzz-pirates-cave']
+  },
+  {
+    id: 'darkside-generis-raspberry',
+    brand: 'darkside',
+    leaf: 'dark',
+    name: 'Generis Raspberry',
+    shortDescription: {
+      bs: 'Prava malina: slatka, kiselkasta i prirodna, bez bombonskog ukusa.',
+      en: 'Real raspberry: sweet, tart and natural, with no candy taste.'
+    },
+    description: {
+      bs: [
+        'Generis Raspberry je iz Darkside Generis linije, gdje je cilj što prirodniji okus. Malina je slatka i kiselkasta, sa onom blagom "zelenom" notom svježih bobica.',
+        'Nema mentola ni dodatne slatkoće. Okus je čist i lako se kombinuje.',
+        'Tamni list: rastresito pakovanje i umjerena toplota. Odličan za mikseve sa mentom ili limunom.'
+      ],
+      en: [
+        'Generis Raspberry comes from the Darkside Generis line, which aims for flavors as natural as possible. The raspberry is sweet and tart, with that slight "green" note of fresh berries.',
+        'No menthol and no added sweetness. It is clean and easy to mix.',
+        'Dark leaf: pack it loose and keep the heat moderate. Excellent in mixes with mint or lemon.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Malina', en: 'Raspberry' }, illustration: 'malina', color: '#e0336b', intensity: 9 }
+    ],
+    profile: { sweetness: 6, freshness: 6, fruitiness: 9, cooling: 0, strength: 8 },
+    tags: ['vocni', 'bobicasti'],
+    tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
+    palette: { primary: '#d62f63', secondary: '#ff9cbc', accent: '#5fbf7a', background: '#1f070f', text: '#fff0f5' },
+    mixIdeas: {
+      bs: [
+        'Generis Raspberry i Supernova, 80/20, za ledenu malinu.',
+        'Generis Raspberry i Bananapapa, za smoothie od maline i banane.',
+        'Generis Raspberry i Wild Forest, za šumske bobice.'
+      ],
+      en: [
+        'Generis Raspberry with Supernova, 80/20, for an icy raspberry.',
+        'Generis Raspberry with Bananapapa for a raspberry banana smoothie.',
+        'Generis Raspberry with Wild Forest for forest berries.'
+      ]
+    },
+    similar: ['adalya-raspberry', 'starbuzz-pink', 'darkside-wild-forest', 'musthave-pinkman']
+  },
+  {
+    id: 'darkside-wild-forest',
+    brand: 'darkside',
+    leaf: 'dark',
+    name: 'Wild Forest',
+    shortDescription: {
+      bs: 'Šumska jagoda i bobice: slatko, mirisno i malo divlje.',
+      en: 'Wild strawberry and forest berries: sweet, fragrant and a little wild.'
+    },
+    description: {
+      bs: [
+        'Wild Forest je šumska jagoda sa miješanim šumskim bobicama. Jagoda je sitna i mirisna, kao ona ubrana u šumi, a bobice dodaju tamniju, kiselkastu dubinu.',
+        'Okus je prirodan i nije previše sladak. Nema hlađenja.',
+        'Darkside je jak tamni list: pakuj rastresito i daj glavi par minuta da se zagrije.'
+      ],
+      en: [
+        'Wild Forest is wild strawberry with mixed forest berries. The strawberry is small and fragrant, like one picked in the woods, and the berries add a darker, tart depth.',
+        'It is natural and not too sweet. No cooling.',
+        'Darkside is strong dark leaf: pack it loose and give the bowl a few minutes to heat up.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Šumska jagoda', en: 'Wild strawberry' }, illustration: 'jagoda', color: '#e8354a', intensity: 8 },
+      { name: { bs: 'Šumske bobice', en: 'Forest berries' }, illustration: 'kupina', color: '#5a2a5e', intensity: 6 }
+    ],
+    profile: { sweetness: 6, freshness: 6, fruitiness: 9, cooling: 0, strength: 8 },
+    tags: ['vocni', 'bobicasti'],
+    tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
+    palette: { primary: '#d8344c', secondary: '#7a3a7e', accent: '#7cc46a', background: '#140a10', text: '#fff0f2' },
+    mixIdeas: {
+      bs: [
+        'Wild Forest i Generis Raspberry, za korpu šumskog voća.',
+        'Wild Forest i Supernova, 80/20, za ledene bobice.',
+        'Wild Forest i Bananapapa, za jagodu sa bananom.'
+      ],
+      en: [
+        'Wild Forest with Generis Raspberry for a basket of forest fruit.',
+        'Wild Forest with Supernova, 80/20, for icy berries.',
+        'Wild Forest with Bananapapa for strawberry and banana.'
+      ]
+    },
+    similar: ['darkside-generis-raspberry', '187-wild-beast', 'trifecta-blue-strawberry']
+  },
+  {
     id: 'musthave-pinkman',
     brand: 'musthave',
     leaf: 'dark',
@@ -1948,6 +2118,136 @@ window.FLAVORS = [
       ]
     },
     similar: ['darkside-cola', 'sebero-black-cola', 'starbuzz-pirates-cave']
+  },
+  {
+    id: 'musthave-pineapple-rings',
+    brand: 'musthave',
+    leaf: 'dark',
+    name: 'Pineapple Rings',
+    shortDescription: {
+      bs: 'Kolutovi ananasa iz konzerve: slatki, sirupasti i jako sočni.',
+      en: 'Canned pineapple rings: sweet, syrupy and very juicy.'
+    },
+    description: {
+      bs: [
+        'Pineapple Rings je ananas iz konzerve, sa sve slatkim sirupom. Nije oštar i kiseo kao svjež ananas, nego mekan, sladak i sočan.',
+        'Okus je jednostavan i jako prepoznatljiv, a blaga kiselost ga drži živim do kraja glave.',
+        'Tamni list: pakuj rastresito. Odličan je i u tropskim miksevima.'
+      ],
+      en: [
+        'Pineapple Rings is canned pineapple, syrup and all. Not sharp and sour like fresh pineapple, but soft, sweet and juicy.',
+        'It is simple and very recognizable, and a slight tartness keeps it lively to the end of the bowl.',
+        'Dark leaf: pack it loose. It also shines in tropical mixes.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Ananas', en: 'Pineapple' }, illustration: 'ananas', color: '#f8cf4a', intensity: 9 },
+      { name: { bs: 'Šećerni sirup', en: 'Sugar syrup' }, illustration: 'med', color: '#f3c96b', intensity: 5 }
+    ],
+    profile: { sweetness: 8, freshness: 6, fruitiness: 9, cooling: 0, strength: 7 },
+    tags: ['vocni', 'tropski', 'slatki'],
+    tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
+    palette: { primary: '#f8cf4a', secondary: '#fff0a0', accent: '#4caf50', background: '#1f1805', text: '#fffbe2' },
+    mixIdeas: {
+      bs: [
+        'Pineapple Rings i Pinkman, za ananas sa grejpfrutom.',
+        'Pineapple Rings i Candy Cow, za karamelizovani ananas.',
+        'Pineapple Rings i MustHave Cola, za tropsku kolu.'
+      ],
+      en: [
+        'Pineapple Rings with Pinkman for pineapple and grapefruit.',
+        'Pineapple Rings with Candy Cow for caramelized pineapple.',
+        'Pineapple Rings with MustHave Cola for a tropical cola.'
+      ]
+    },
+    similar: ['haze-pineapple-krush', 'trifecta-pineapple-guava', 'adalya-dubai']
+  },
+  {
+    id: 'musthave-candy-cow',
+    brand: 'musthave',
+    leaf: 'dark',
+    name: 'Candy Cow',
+    shortDescription: {
+      bs: 'Mliječna karamela, kao poznati bombon "kravica".',
+      en: 'Milky caramel, like the classic "little cow" toffee candy.'
+    },
+    description: {
+      bs: [
+        'Candy Cow je okus mliječne karamele, onih mekanih bombona sa kravicom na omotu. Slatko, kremasto i toplo, sa notom prženog šećera.',
+        'Nema voća ni hlađenja. Okus je gust i desertni, pa ga mnogi koriste u miksevima da "zaobli" voće.',
+        'Tamni list: rastresito pakovanje i strpljenje. Dobar uz kafu ili čaj.'
+      ],
+      en: [
+        'Candy Cow is the flavor of milky caramel, those soft toffees with a cow on the wrapper. Sweet, creamy and warm, with a note of toasted sugar.',
+        'No fruit and no cooling. It is dense and dessert-like, which is why many people use it in mixes to round off fruit.',
+        'Dark leaf: pack it loose and be patient. Goes well with coffee or tea.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Karamel', en: 'Caramel' }, illustration: 'karamel', color: '#b7742f', intensity: 9 },
+      { name: { bs: 'Mlijeko', en: 'Milk' }, illustration: 'sejk', color: '#f3ead8', intensity: 6 }
+    ],
+    profile: { sweetness: 9, freshness: 2, fruitiness: 0, cooling: 0, strength: 7 },
+    tags: ['desertni', 'slatki', 'bombon'],
+    tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
+    palette: { primary: '#c9873e', secondary: '#f3ead8', accent: '#6b3a1a', background: '#1c120a', text: '#fff5e8' },
+    mixIdeas: {
+      bs: [
+        'Candy Cow i Pineapple Rings, za karamelizovani ananas.',
+        'Candy Cow i MustHave Cola, za karamel-kolu.',
+        'Candy Cow i Bananapapa, za bananu sa karamelom.'
+      ],
+      en: [
+        'Candy Cow with Pineapple Rings for caramelized pineapple.',
+        'Candy Cow with MustHave Cola for caramel cola.',
+        'Candy Cow with Bananapapa for banana and caramel.'
+      ]
+    },
+    similar: ['tangiers-horchata', 'trifecta-peppermint-shake', 'haze-bananarama']
+  },
+  {
+    id: 'musthave-cherry-cola',
+    brand: 'musthave',
+    leaf: 'dark',
+    name: 'Cherry-Cola',
+    mood: 'fizz',
+    shortDescription: {
+      bs: 'Kola sa višnjom: slatka, gazirana i malo voćna.',
+      en: 'Cola with cherry: sweet, fizzy and a little fruity.'
+    },
+    description: {
+      bs: [
+        'Cherry-Cola je klasična kola sa jasnom notom višnje, kao poznata višnja-kola iz limenke. Kola daje začinsku, karamelnu osnovu, a višnja voćnu slatkoću.',
+        'Okus je gust i dobro izbalansiran: višnja ne pokriva kolu, nego je obogaćuje.',
+        'Tamni list: rastresito pakovanje. Uporedi sa običnom MustHave Colom da osjetiš razliku.'
+      ],
+      en: [
+        'Cherry-Cola is classic cola with a clear cherry note, like the familiar cherry cola in a can. The cola gives a spiced, caramel base and the cherry a fruity sweetness.',
+        'It is dense and well balanced: the cherry does not cover the cola, it enriches it.',
+        'Dark leaf: pack it loose. Compare it with the plain MustHave Cola to taste the difference.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Kola', en: 'Cola' }, illustration: 'kola', color: '#3e1a0e', intensity: 8 },
+      { name: { bs: 'Višnja', en: 'Cherry' }, illustration: 'visnja', color: '#a3122a', intensity: 7 }
+    ],
+    profile: { sweetness: 8, freshness: 5, fruitiness: 5, cooling: 0, strength: 7 },
+    tags: ['pice', 'slatki', 'vocni'],
+    tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
+    palette: { primary: '#8a1a2a', secondary: '#c28a54', accent: '#ff6a7a', background: '#140608', text: '#fbeaea', smoke: ['#fff0f0', '#e0b0a8', '#a86a60'] },
+    mixIdeas: {
+      bs: [
+        'Cherry-Cola i Candy Cow, za kolu sa karamelom.',
+        'Cherry-Cola i Supernova, 85/15, za ledenu višnja-kolu.',
+        'Cherry-Cola i Pineapple Rings, za tropsku kolu.'
+      ],
+      en: [
+        'Cherry-Cola with Candy Cow for cola with caramel.',
+        'Cherry-Cola with Supernova, 85/15, for an icy cherry cola.',
+        'Cherry-Cola with Pineapple Rings for a tropical cola.'
+      ]
+    },
+    similar: ['musthave-cola', 'darkside-cola', 'tangiers-maraschino-cherry', 'sebero-black-amarena-cherry']
   },
   {
     id: 'sebero-arctic-mix-jelly-fruit',
@@ -2039,6 +2339,181 @@ window.FLAVORS = [
       ]
     },
     similar: ['darkside-cola', 'musthave-cola', 'al-fakher-double-apple']
+  },
+  {
+    id: 'sebero-black-amarena-cherry',
+    brand: 'sebero',
+    leaf: 'dark',
+    name: 'Black Amarena Cherry',
+    shortDescription: {
+      bs: 'Tamna, kiselkasta amarena višnja: bogata, sočna i jaka.',
+      en: 'Dark, tart amarena cherry: rich, juicy and strong.'
+    },
+    description: {
+      bs: [
+        'Black Amarena Cherry je iz Sebero Black linije jačih duhana. Amarena je tamna talijanska višnja, kiselkasta i bogata, sa notom višnjevog sirupa.',
+        'Kiselost je jasna i drži okus svježim, a slatkoća je dovoljna da ne bude oštar.',
+        'Jak tamni list: pakuj rastresito, zagrijavaj polako i ne daj ga početnicima.'
+      ],
+      en: [
+        'Black Amarena Cherry is from the Sebero Black line of stronger tobaccos. Amarena is a dark Italian cherry, tart and rich, with a note of cherry syrup.',
+        'The tartness is clear and keeps it fresh, while the sweetness is enough to keep it from turning sharp.',
+        'Strong dark leaf: pack it loose, heat it slowly and keep it away from beginners.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Amarena višnja', en: 'Amarena cherry' }, illustration: 'visnja', color: '#6a0a1c', intensity: 9 }
+    ],
+    profile: { sweetness: 6, freshness: 5, fruitiness: 9, cooling: 0, strength: 9 },
+    tags: ['vocni', 'bobicasti'],
+    tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
+    palette: { primary: '#8c0f26', secondary: '#e05a72', accent: '#f5c6cf', background: '#120306', text: '#ffeef1' },
+    mixIdeas: {
+      bs: [
+        'Black Amarena Cherry i Black Cola, za tamnu višnja-kolu.',
+        'Black Amarena Cherry i Arctic Mix Jelly Fruit, za ledenu višnju.',
+        'Black Amarena Cherry i Mango Yogurt, za višnju sa jogurtom.'
+      ],
+      en: [
+        'Black Amarena Cherry with Black Cola for a dark cherry cola.',
+        'Black Amarena Cherry with Arctic Mix Jelly Fruit for an icy cherry.',
+        'Black Amarena Cherry with Mango Yogurt for cherry and yogurt.'
+      ]
+    },
+    similar: ['tangiers-maraschino-cherry', 'adalya-cherry-mint', 'musthave-cherry-cola']
+  },
+  {
+    id: 'sebero-green-pear',
+    brand: 'sebero',
+    leaf: 'dark',
+    name: 'Green Pear',
+    shortDescription: {
+      bs: 'Sočna zelena kruška sa notom guave: svježa i blago slatka.',
+      en: 'Juicy green pear with a note of guava: fresh and gently sweet.'
+    },
+    description: {
+      bs: [
+        'Green Pear je iz Sebero Classic linije. Glavna je sočna zelena kruška, svježa i hrskava, a guava joj dodaje mekanu, tropsku notu.',
+        'Okus je prirodan i ne pretjerano sladak, sa blagom svježinom bez hlađenja.',
+        'Tamni list, ali Classic linija je blaža od Sebero Black. Dobar za one koji vole neobične voćne okuse.'
+      ],
+      en: [
+        'Green Pear comes from the Sebero Classic line. The star is a juicy green pear, fresh and crisp, with guava adding a soft, tropical note.',
+        'It is natural and not overly sweet, with a gentle freshness and no cooling.',
+        'Dark leaf, though the Classic line is milder than Sebero Black. Good for anyone who likes unusual fruit flavors.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Zelena kruška', en: 'Green pear' }, illustration: 'kruska', color: '#b5d65a', intensity: 8 },
+      { name: { bs: 'Guava', en: 'Guava' }, illustration: 'guava', color: '#f08a9a', intensity: 5 }
+    ],
+    profile: { sweetness: 6, freshness: 7, fruitiness: 9, cooling: 0, strength: 7 },
+    tags: ['vocni', 'osvjezavajuci'],
+    tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
+    palette: { primary: '#a9cf4f', secondary: '#f2a0ae', accent: '#2f8a4a', background: '#141c08', text: '#f6ffe6' },
+    mixIdeas: {
+      bs: [
+        'Green Pear i Arctic Mix Jelly Fruit, za ledenu krušku.',
+        'Green Pear i Mango Yogurt, za voćni jogurt.',
+        'Green Pear i Pinkman, za krušku sa grejpfrutom.'
+      ],
+      en: [
+        'Green Pear with Arctic Mix Jelly Fruit for an icy pear.',
+        'Green Pear with Mango Yogurt for a fruit yogurt.',
+        'Green Pear with Pinkman for pear and grapefruit.'
+      ]
+    },
+    similar: ['trifecta-pineapple-guava', 'al-fakher-double-apple', 'haze-cucumberita']
+  },
+  {
+    id: 'sebero-mango-yogurt',
+    brand: 'sebero',
+    leaf: 'dark',
+    name: 'Mango Yogurt',
+    shortDescription: {
+      bs: 'Mango sa kremastim jogurtom: kao voćni jogurt ili mango lassi.',
+      en: 'Mango with creamy yogurt: like a fruit yogurt or a mango lassi.'
+    },
+    description: {
+      bs: [
+        'Mango Yogurt spaja zreo, sladak mango i kremast, blago kiselkast jogurt. Podsjeća na voćni jogurt ili indijski napitak mango lassi.',
+        'Jogurt smiruje slatkoću manga i daje okusu mekan, mliječni završetak.',
+        'Tamni list, pa ga pakuj rastresito. Lijep desertni izbor za kraj dana.'
+      ],
+      en: [
+        'Mango Yogurt combines ripe, sweet mango with creamy, slightly tangy yogurt. It recalls a fruit yogurt or an Indian mango lassi.',
+        'The yogurt calms the mango sweetness and gives the flavor a soft, milky finish.',
+        'Dark leaf, so pack it loose. A nice dessert pick to end the day.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Mango', en: 'Mango' }, illustration: 'mango', color: '#ffb52e', intensity: 8 },
+      { name: { bs: 'Jogurt', en: 'Yogurt' }, illustration: 'sejk', color: '#f6f1e6', intensity: 7 }
+    ],
+    profile: { sweetness: 7, freshness: 5, fruitiness: 7, cooling: 0, strength: 7 },
+    tags: ['desertni', 'tropski', 'vocni'],
+    tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
+    palette: { primary: '#ffb52e', secondary: '#fff6e6', accent: '#e07a2a', background: '#fff4e0', text: '#2b1600' },
+    mixIdeas: {
+      bs: [
+        'Mango Yogurt i Black Amarena Cherry, za jogurt sa višnjom.',
+        'Mango Yogurt i Green Pear, za voćni jogurt.',
+        'Mango Yogurt i Falling Star, za još tropskiji lassi.'
+      ],
+      en: [
+        'Mango Yogurt with Black Amarena Cherry for cherry yogurt.',
+        'Mango Yogurt with Green Pear for a fruit yogurt.',
+        'Mango Yogurt with Falling Star for an even more tropical lassi.'
+      ]
+    },
+    similar: ['darkside-falling-star', 'adalya-hawaii', 'trifecta-peppermint-shake']
+  },
+  {
+    id: 'sebero-arctic-mix-spice-fruit',
+    brand: 'sebero',
+    leaf: 'dark',
+    name: 'Arctic Mix Spice Fruit',
+    mood: 'frost',
+    shortDescription: {
+      bs: 'Začinjeni čaj, guava, jagoda, rabarbara i ribizla, sa hlađenjem.',
+      en: 'Spiced tea, guava, strawberry, rhubarb and blackcurrant, with cooling.'
+    },
+    description: {
+      bs: [
+        'Arctic Mix Spice Fruit je iz Sebero Arctic Mix linije: gotovi miksevi sa hlađenjem. Ovdje je osnova začinjeni čaj, a preko njega guava, jagoda, rabarbara i crna ribizla.',
+        'Voće je kiselkasto i bogato, čaj daje toplu, začinsku dubinu, a hlađenje sve to drži svježim.',
+        'Neobičan, slojevit okus. Tamni list: pakuj rastresito i ne pretjeruj sa toplotom.'
+      ],
+      en: [
+        'Arctic Mix Spice Fruit comes from the Sebero Arctic Mix line of ready-made mixes with cooling. The base is spiced tea, topped with guava, strawberry, rhubarb and blackcurrant.',
+        'The fruit is tart and rich, the tea adds warm, spiced depth, and the cooling keeps it all fresh.',
+        'An unusual, layered flavor. Dark leaf: pack it loose and go easy on the heat.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Začinjeni čaj', en: 'Spiced tea' }, illustration: 'caj', color: '#b5651d', intensity: 7 },
+      { name: { bs: 'Guava', en: 'Guava' }, illustration: 'guava', color: '#f08a9a', intensity: 6 },
+      { name: { bs: 'Jagoda', en: 'Strawberry' }, illustration: 'jagoda', color: '#e8354a', intensity: 6 },
+      { name: { bs: 'Rabarbara', en: 'Rhubarb' }, illustration: 'rabarbara', color: '#d9455f', intensity: 5 },
+      { name: { bs: 'Hlađenje', en: 'Cooling' }, illustration: 'kristal', color: '#cdefff', intensity: 7 }
+    ],
+    profile: { sweetness: 6, freshness: 8, fruitiness: 8, cooling: 7, strength: 7 },
+    tags: ['vocni', 'zacinski', 'ledeni', 'bobicasti'],
+    tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
+    palette: { primary: '#d9455f', secondary: '#b5651d', accent: '#8fd8f0', background: '#160a10', text: '#fff0f2', water: '#c8efff' },
+    mixIdeas: {
+      bs: [
+        'Arctic Mix Spice Fruit i Green Pear, za začinjenu krušku.',
+        'Arctic Mix Spice Fruit i Black Amarena Cherry, za zimsko voće.',
+        'Arctic Mix Spice Fruit i Spiced Chai, za još više začina.'
+      ],
+      en: [
+        'Arctic Mix Spice Fruit with Green Pear for a spiced pear.',
+        'Arctic Mix Spice Fruit with Black Amarena Cherry for winter fruit.',
+        'Arctic Mix Spice Fruit with Spiced Chai for even more spice.'
+      ]
+    },
+    similar: ['sebero-arctic-mix-jelly-fruit', 'fumari-spiced-chai', '187-wild-beast']
   },
   {
     id: 'haze-cucumberita',
