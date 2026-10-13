@@ -2288,7 +2288,7 @@ window.FLAVORS = [
         'Watermelon and Ice Mint, for a cool summer bowl.'
       ]
     },
-    similar: ['musthave-sweet-melon', 'al-fakher-watermelon-mint', 'serbetli-ice-watermelon']
+    similar: ['musthave-sweet-melon', 'musthave-melonade', 'al-fakher-watermelon-mint', 'serbetli-ice-watermelon']
   },
   {
     id: 'musthave-sweet-melon',
@@ -2328,7 +2328,7 @@ window.FLAVORS = [
         'Sweet Melon and Sweet Peach, for a soft, juicy bowl.'
       ]
     },
-    similar: ['musthave-watermelon', 'adalya-double-melon', 'starbuzz-safari-melon-dew', 'musthave-sweet-peach']
+    similar: ['musthave-watermelon', 'musthave-melonade', 'adalya-double-melon', 'starbuzz-safari-melon-dew']
   },
   {
     id: 'musthave-sweet-peach',
@@ -2408,7 +2408,7 @@ window.FLAVORS = [
         'Strawberry and Lemon-Lime, for a tangy strawberry lemonade.'
       ]
     },
-    similar: ['musthave-strawberry-lychee', 'musthave-raspberry', 'trifecta-blue-strawberry']
+    similar: ['musthave-strawberry-lychee', 'musthave-raspberry', 'trifecta-blue-strawberry', 'musthave-rocketman']
   },
   {
     id: 'musthave-strawberry-lychee',
@@ -2733,7 +2733,7 @@ window.FLAVORS = [
         'Cranberry and Orange Team, for a winter fruit bowl.'
       ]
     },
-    similar: ['musthave-gooseberry', 'musthave-elderberry']
+    similar: ['musthave-gooseberry', 'musthave-berry-mors', 'musthave-elderberry']
   },
   {
     id: 'musthave-elderberry',
@@ -2894,7 +2894,7 @@ window.FLAVORS = [
         'Orange Team and Vanilla Cream, for an orange creamsicle.'
       ]
     },
-    similar: ['musthave-mandarin', 'musthave-grapefruit', 'tangiers-orange-soda']
+    similar: ['musthave-mandarin', 'musthave-grapefruit', 'tangiers-orange-soda', 'musthave-citrus-spritz']
   },
   {
     id: 'musthave-grapefruit',
@@ -2976,7 +2976,7 @@ window.FLAVORS = [
         'Lemon-Lime and Ice Mint, for a virgin mojito.'
       ]
     },
-    similar: ['musthave-grapefruit', 'adalya-lemon-cocktail', 'fumari-lemon-mint']
+    similar: ['musthave-grapefruit', 'adalya-lemon-cocktail', 'fumari-lemon-mint', 'musthave-lemon-tonic']
   },
   {
     id: 'musthave-mad-pear',
@@ -3057,7 +3057,848 @@ window.FLAVORS = [
         'Tropic Juice and Frosty, for an iced tropical juice.'
       ]
     },
-    similar: ['musthave-pineapple-rings', 'trifecta-pineapple-guava']
+    similar: ['musthave-pineapple-rings', 'trifecta-pineapple-guava', 'musthave-mango-sling', 'musthave-jumango']
+  },
+  {
+    id: 'musthave-cream-soda',
+    brand: 'musthave',
+    leaf: 'dark',
+    name: 'Cream Soda',
+    shortDescription: {
+      bs: 'Kremasti gazirani sok sa nježnom notom vanile.',
+      en: 'A creamy soda with a delicate hint of vanilla.'
+    },
+    description: {
+      bs: [
+        'Cream Soda je omiljeni gazirani sok u kremastoj verziji: pjenušav, sladak i mekan, sa nježnom vanilom.',
+        'Podsjeća na sok sa kuglom sladoleda. Lagan i desertni u isto vrijeme.',
+        'Tamni list: pakuj rastresito i ne pregrijavaj, da svjež, pitak karakter ostane čist.'
+      ],
+      en: [
+        'Cream Soda is a favorite fizzy drink in its creamy version: sparkling, sweet and smooth, with delicate vanilla.',
+        'It is like soda with a scoop of ice cream. Light and dessert-like at the same time.',
+        'Dark leaf: pack it loose and do not overheat it, so the fresh, drinkable character stays clean.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Gazirani sok', en: 'Soda' }, illustration: 'kola', color: '#e9c27a', intensity: 8 },
+      { name: { bs: 'Vanila', en: 'Vanilla' }, illustration: 'vanila', color: '#f3e2b3', intensity: 6 }
+    ],
+    profile: { sweetness: 8, freshness: 5, fruitiness: 1, cooling: 0, strength: 7 },
+    tags: ['pice', 'slatki', 'desertni'],
+    tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
+    mood: 'fizz',
+    palette: { primary: '#e9c27a', secondary: '#f3e2b3', accent: '#f5e4c3', background: '#2f2518', text: '#fff4ea' },
+    mixIdeas: {
+      bs: [
+        'Cream Soda i Cherry Juice, za višnja sodu sa kremom.',
+        'Cream Soda i Raspberry, za malina sodu.'
+      ],
+      en: [
+        'Cream Soda and Cherry Juice, for a creamy cherry soda.',
+        'Cream Soda and Raspberry, for a raspberry soda.'
+      ]
+    },
+    similar: ['musthave-cola', 'musthave-fizzy-dizzy']
+  },
+  {
+    id: 'musthave-lemon-tonic',
+    brand: 'musthave',
+    leaf: 'dark',
+    name: 'Lemon Tonic',
+    shortDescription: {
+      bs: 'Gazirano piće od kiselog limuna sa notom gorkog bitera.',
+      en: 'A fizzy drink of sour lemon with a hint of bitter tonic.'
+    },
+    description: {
+      bs: [
+        'Lemon Tonic je gazirani limun sa tonikom: kiseo, pjenušav i sa laganom gorčinom bitera na kraju.',
+        'Kiselina i gorčina su dobro izbalansirani, pa okus osvježava, a ne grize.',
+        'Tamni list: pakuj rastresito i ne pregrijavaj, da svjež, pitak karakter ostane čist.'
+      ],
+      en: [
+        'Lemon Tonic is fizzy lemon with tonic: sour, sparkling and with a light bitter edge at the end.',
+        'The sourness and bitterness are well balanced, so it refreshes rather than bites.',
+        'Dark leaf: pack it loose and do not overheat it, so the fresh, drinkable character stays clean.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Limun', en: 'Lemon' }, illustration: 'limun', color: '#f7d84a', intensity: 9 },
+      { name: { bs: 'Tonik', en: 'Tonic' }, illustration: 'kola', color: '#dff0e6', intensity: 6 }
+    ],
+    profile: { sweetness: 4, freshness: 9, fruitiness: 6, cooling: 0, strength: 7 },
+    tags: ['pice', 'citrusni', 'osvjezavajuci'],
+    tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
+    mood: 'fizz',
+    palette: { primary: '#f7d84a', secondary: '#dff0e6', accent: '#fbedae', background: '#312810', text: '#fff4ea' },
+    mixIdeas: {
+      bs: [
+        'Lemon Tonic i Grapefruit, za gorko-kiseli koktel.',
+        'Lemon Tonic i Yolka, za džin i tonik sa četinama.'
+      ],
+      en: [
+        'Lemon Tonic and Grapefruit, for a bitter-sour cocktail.',
+        'Lemon Tonic and Yolka, for a piney gin and tonic.'
+      ]
+    },
+    similar: ['musthave-lemon-lime', 'musthave-lemongrass', 'musthave-grapefruit', 'musthave-citrus-spritz']
+  },
+  {
+    id: 'musthave-fizzy-dizzy',
+    brand: 'musthave',
+    leaf: 'dark',
+    name: 'Fizzy Dizzy',
+    shortDescription: {
+      bs: 'Pjenušavo piće sa slatko-kiselom notom žutike.',
+      en: 'A sparkling drink with sweet and sour barberry notes.'
+    },
+    description: {
+      bs: [
+        'Fizzy Dizzy je gazirano piće sa sirupom od žutike (barberry): pjenušavo, slatko-kiselo i pomalo bombonasto.',
+        'Žutika je kisela crvena bobica koja daje živ, osvježavajući ukus. Okus podsjeća na limunadu iz djetinjstva.',
+        'Tamni list: pakuj rastresito i ne pregrijavaj, da svjež, pitak karakter ostane čist.'
+      ],
+      en: [
+        'Fizzy Dizzy is a sparkling drink with barberry syrup: fizzy, sweet and sour, a little candy-like.',
+        'Barberry is a sour red berry that gives a lively, refreshing taste. It recalls a childhood lemonade.',
+        'Dark leaf: pack it loose and do not overheat it, so the fresh, drinkable character stays clean.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Gazirani sok', en: 'Soda' }, illustration: 'kola', color: '#f2a0b4', intensity: 7 },
+      { name: { bs: 'Žutika', en: 'Barberry' }, illustration: 'grozdic', color: '#d1213b', intensity: 8 }
+    ],
+    profile: { sweetness: 7, freshness: 7, fruitiness: 6, cooling: 0, strength: 7 },
+    tags: ['pice', 'bombon', 'osvjezavajuci'],
+    tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
+    mood: 'fizz',
+    palette: { primary: '#f2a0b4', secondary: '#d1213b', accent: '#f9d4dd', background: '#301f21', text: '#fff4ea' },
+    mixIdeas: {
+      bs: [
+        'Fizzy Dizzy i Lemon-Lime, za kiseliju limunadu.',
+        'Fizzy Dizzy i Frosty, za ledeno piće.'
+      ],
+      en: [
+        'Fizzy Dizzy and Lemon-Lime, for a sharper lemonade.',
+        'Fizzy Dizzy and Frosty, for an iced drink.'
+      ]
+    },
+    similar: ['musthave-melonade', 'musthave-cream-soda', 'musthave-rocketman']
+  },
+  {
+    id: 'musthave-rocketman',
+    brand: 'musthave',
+    leaf: 'dark',
+    name: 'Rocketman',
+    shortDescription: {
+      bs: 'Jarka soda od jagode sa kriškama kivija i grejpfruta.',
+      en: 'Bright strawberry soda with kiwi and grapefruit slices.'
+    },
+    description: {
+      bs: [
+        'Rocketman je soda od jagode u koju su ubačene kriške kivija i grejpfruta. Jarka, osvježavajuća i pjenušava.',
+        'Jagoda daje slatkoću, kivi kiselinu, a grejpfrut onu laganu gorčinu koja okus drži svježim.',
+        'Tamni list: pakuj rastresito i ne pregrijavaj, da svjež, pitak karakter ostane čist.'
+      ],
+      en: [
+        'Rocketman is a strawberry soda with slices of kiwi and grapefruit dropped in. Bright, refreshing and fizzy.',
+        'Strawberry brings sweetness, kiwi the tang and grapefruit a slight bitterness that keeps it fresh.',
+        'Dark leaf: pack it loose and do not overheat it, so the fresh, drinkable character stays clean.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Soda od jagode', en: 'Strawberry soda' }, illustration: 'kola', color: '#ff5a7a', intensity: 8 },
+      { name: { bs: 'Kivi', en: 'Kiwi' }, illustration: 'kivi', color: '#7cbf3a', intensity: 6 },
+      { name: { bs: 'Grejpfrut', en: 'Grapefruit' }, illustration: 'grejpfrut', color: '#f26b6b', intensity: 5 }
+    ],
+    profile: { sweetness: 7, freshness: 8, fruitiness: 8, cooling: 0, strength: 7 },
+    tags: ['pice', 'vocni', 'osvjezavajuci'],
+    tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
+    mood: 'fizz',
+    palette: { primary: '#ff5a7a', secondary: '#7cbf3a', accent: '#f26b6b', background: '#321418', text: '#fff4ea' },
+    mixIdeas: {
+      bs: [
+        'Rocketman i Ice Mint, za ledenu sodu.',
+        'Rocketman i Watermelon, za ljetni koktel.'
+      ],
+      en: [
+        'Rocketman and Ice Mint, for an icy soda.',
+        'Rocketman and Watermelon, for a summer cocktail.'
+      ]
+    },
+    similar: ['musthave-strawberry', 'musthave-fizzy-dizzy']
+  },
+  {
+    id: 'musthave-melonade',
+    brand: 'musthave',
+    leaf: 'dark',
+    name: 'Melonade',
+    shortDescription: {
+      bs: 'Limunada od soka lubenice, kriški dinje i sirupa od žutike.',
+      en: 'Lemonade made with watermelon juice, melon slices and barberry syrup.'
+    },
+    description: {
+      bs: [
+        'Melonade je jarka limunada na bazi soka od lubenice, sa kriškama zrele dinje i sirupom od žutike.',
+        'Bostan daje sočnu slatkoću, a žutika kiselkastu notu. Savršen ljetni okus.',
+        'Tamni list: pakuj rastresito i ne pregrijavaj, da svjež, pitak karakter ostane čist.'
+      ],
+      en: [
+        'Melonade is a bright lemonade based on watermelon juice, with slices of ripe melon and barberry syrup.',
+        'The melons bring juicy sweetness and barberry a tangy note. A perfect summer flavor.',
+        'Dark leaf: pack it loose and do not overheat it, so the fresh, drinkable character stays clean.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Lubenica', en: 'Watermelon' }, illustration: 'lubenica', color: '#e8455a', intensity: 8 },
+      { name: { bs: 'Dinja', en: 'Melon' }, illustration: 'dinja', color: '#f5b04a', intensity: 6 },
+      { name: { bs: 'Žutika', en: 'Barberry' }, illustration: 'grozdic', color: '#d1213b', intensity: 5 }
+    ],
+    profile: { sweetness: 7, freshness: 8, fruitiness: 9, cooling: 0, strength: 7 },
+    tags: ['pice', 'vocni', 'ljetni'],
+    tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
+    mood: 'fizz',
+    palette: { primary: '#e8455a', secondary: '#f5b04a', accent: '#d1213b', background: '#2e1113', text: '#fff4ea' },
+    mixIdeas: {
+      bs: [
+        'Melonade i Ice Mint, za ledenu limunadu.',
+        'Melonade i Strawberry, za bostan sa jagodom.'
+      ],
+      en: [
+        'Melonade and Ice Mint, for an icy lemonade.',
+        'Melonade and Strawberry, for melons with strawberry.'
+      ]
+    },
+    similar: ['musthave-watermelon', 'musthave-sweet-melon', 'musthave-fizzy-dizzy']
+  },
+  {
+    id: 'musthave-cucunade',
+    brand: 'musthave',
+    leaf: 'dark',
+    name: 'Cucunade',
+    shortDescription: {
+      bs: 'Limunada od sirupa krastavca, svježeg limuna i listića peperminta.',
+      en: 'Lemonade with cucumber syrup, fresh lemon wedges and peppermint leaves.'
+    },
+    description: {
+      bs: [
+        'Cucunade je svježa, jarka limunada od sirupa krastavca, sa kriškama limuna i listićima peperminta.',
+        'Krastavac daje zelenu, vodenastu svježinu, a limun i pepermint je pojačaju. Jedan od najosvježavajućih okusa.',
+        'Tamni list: pakuj rastresito i ne pregrijavaj, da svjež, pitak karakter ostane čist.'
+      ],
+      en: [
+        'Cucunade is a fresh, bright lemonade of cucumber syrup with lemon wedges and peppermint leaves.',
+        'Cucumber brings green, watery freshness, and lemon and peppermint lift it further. One of the most refreshing flavors.',
+        'Dark leaf: pack it loose and do not overheat it, so the fresh, drinkable character stays clean.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Krastavac', en: 'Cucumber' }, illustration: 'krastavac', color: '#5fae4f', intensity: 8 },
+      { name: { bs: 'Limun', en: 'Lemon' }, illustration: 'limun', color: '#f7d84a', intensity: 6 },
+      { name: { bs: 'Pepermint', en: 'Peppermint' }, illustration: 'pepermint', color: '#3fc08a', intensity: 4 }
+    ],
+    profile: { sweetness: 5, freshness: 10, fruitiness: 4, cooling: 3, strength: 7 },
+    tags: ['pice', 'osvjezavajuci', 'ljetni'],
+    tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
+    mood: 'fizz',
+    palette: { primary: '#5fae4f', secondary: '#f7d84a', accent: '#3fc08a', background: '#182211', text: '#fff4ea' },
+    mixIdeas: {
+      bs: [
+        'Cucunade i Watermelon, za ljetnu limunadu.',
+        'Cucunade i Lemongrass, za još više zelene svježine.'
+      ],
+      en: [
+        'Cucunade and Watermelon, for a summer lemonade.',
+        'Cucunade and Lemongrass, for even more green freshness.'
+      ]
+    },
+    similar: ['haze-cucumberita', 'musthave-lemongrass', 'musthave-estragon']
+  },
+  {
+    id: 'musthave-lemongrass',
+    brand: 'musthave',
+    leaf: 'dark',
+    name: 'Lemongrass',
+    shortDescription: {
+      bs: 'Slatko-kisela limunada od limunske trave sa kriškama limete.',
+      en: 'Sweet and sour lemongrass lemonade with lime slices.'
+    },
+    description: {
+      bs: [
+        'Lemongrass je limunada na bazi limunske trave, sa kriškama limete. Slatko-kisela i biljno svježa.',
+        'Limunska trava daje citrus koji je mekši i zeleniji od limuna. Okus podsjeća na tajlandska pića.',
+        'Tamni list: pakuj rastresito i ne pregrijavaj, da svjež, pitak karakter ostane čist.'
+      ],
+      en: [
+        'Lemongrass is a lemonade based on lemongrass with slices of lime. Sweet and sour, with a herbal freshness.',
+        'Lemongrass gives a citrus note softer and greener than lemon. It recalls Thai drinks.',
+        'Dark leaf: pack it loose and do not overheat it, so the fresh, drinkable character stays clean.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Limunska trava', en: 'Lemongrass' }, illustration: 'bilje', color: '#b9c94a', intensity: 8 },
+      { name: { bs: 'Limeta', en: 'Lime' }, illustration: 'limeta', color: '#7cc242', intensity: 6 }
+    ],
+    profile: { sweetness: 5, freshness: 9, fruitiness: 5, cooling: 0, strength: 7 },
+    tags: ['pice', 'citrusni', 'biljni'],
+    tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
+    mood: 'fizz',
+    palette: { primary: '#b9c94a', secondary: '#7cc242', accent: '#e0e7ae', background: '#272610', text: '#fff4ea' },
+    mixIdeas: {
+      bs: [
+        'Lemongrass i Mango Sling, za tajlandsku limunadu.',
+        'Lemongrass i Ice Mint, za ledeni biljni miks.'
+      ],
+      en: [
+        'Lemongrass and Mango Sling, for a Thai lemonade.',
+        'Lemongrass and Ice Mint, for an icy herbal bowl.'
+      ]
+    },
+    similar: ['musthave-lemon-lime', 'musthave-cucunade', 'musthave-lemon-tonic']
+  },
+  {
+    id: 'musthave-mango-sling',
+    brand: 'musthave',
+    leaf: 'dark',
+    name: 'Mango Sling',
+    shortDescription: {
+      bs: 'Osvježavajuća limunada od tajlandskog manga sa začinima i mentom.',
+      en: 'Refreshing Thai mango lemonade with spices and mint.'
+    },
+    description: {
+      bs: [
+        'Mango Sling je limunada na bazi tajlandskog manga, začinjena blagim začinima i listićima mente.',
+        'Mango je sočan i sladak, menta osvježava, a začin daje toplu notu u pozadini. Jedan od najpoznatijih okusa brenda.',
+        'Tamni list: pakuj rastresito i ne pregrijavaj, da svjež, pitak karakter ostane čist.'
+      ],
+      en: [
+        'Mango Sling is a lemonade based on Thai mango, seasoned with mild spices and mint leaves.',
+        'Mango is juicy and sweet, mint refreshes and the spice adds a warm background note. One of the brand\'s best known flavors.',
+        'Dark leaf: pack it loose and do not overheat it, so the fresh, drinkable character stays clean.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Mango', en: 'Mango' }, illustration: 'mango', color: '#ffb020', intensity: 9 },
+      { name: { bs: 'Menta', en: 'Mint' }, illustration: 'menta', color: '#3fc08a', intensity: 4 },
+      { name: { bs: 'Začini', en: 'Spices' }, illustration: 'cimet', color: '#a0522d', intensity: 3 }
+    ],
+    profile: { sweetness: 7, freshness: 7, fruitiness: 9, cooling: 2, strength: 7 },
+    tags: ['pice', 'tropski', 'vocni'],
+    tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
+    palette: { primary: '#ffb020', secondary: '#3fc08a', accent: '#a0522d', background: '#322209', text: '#fff4ea' },
+    mixIdeas: {
+      bs: [
+        'Mango Sling i Tropic Juice, za tropski koktel.',
+        'Mango Sling i Lemongrass, za tajlandsku limunadu.'
+      ],
+      en: [
+        'Mango Sling and Tropic Juice, for a tropical cocktail.',
+        'Mango Sling and Lemongrass, for a Thai lemonade.'
+      ]
+    },
+    similar: ['musthave-jumango', 'musthave-tropic-juice', 'sebero-mango-yogurt']
+  },
+  {
+    id: 'musthave-estragon',
+    brand: 'musthave',
+    leaf: 'dark',
+    name: 'Estragon',
+    shortDescription: {
+      bs: 'Osvježavajući "Tarhun" iz djetinjstva, sa notom svježeg estragona.',
+      en: 'The refreshing "Tarhun" soda from childhood, with fresh tarragon.'
+    },
+    description: {
+      bs: [
+        'Estragon je okus poznatog gaziranog pića "Tarhun": zelena soda sa estragonom, slatka i biljna.',
+        'Estragon ima blagu anisnu notu, pa je okus neobičan i vrlo svjež. Za one koji vole biljne okuse.',
+        'Tamni list: pakuj rastresito i ne pregrijavaj, da svjež, pitak karakter ostane čist.'
+      ],
+      en: [
+        'Estragon is the taste of the well known "Tarhun" soda: a green tarragon soda, sweet and herbal.',
+        'Tarragon has a light aniseed note, so the flavor is unusual and very fresh. For lovers of herbal flavors.',
+        'Dark leaf: pack it loose and do not overheat it, so the fresh, drinkable character stays clean.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Estragon', en: 'Tarragon' }, illustration: 'bilje', color: '#4caf50', intensity: 8 },
+      { name: { bs: 'Gazirani sok', en: 'Soda' }, illustration: 'kola', color: '#8fd16a', intensity: 6 }
+    ],
+    profile: { sweetness: 7, freshness: 8, fruitiness: 2, cooling: 0, strength: 7 },
+    tags: ['pice', 'biljni', 'osvjezavajuci'],
+    tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
+    mood: 'fizz',
+    palette: { primary: '#4caf50', secondary: '#8fd16a', accent: '#aedbb0', background: '#152211', text: '#fff4ea' },
+    mixIdeas: {
+      bs: [
+        'Estragon i Mad Pear, za krušku sa tarhunom.',
+        'Estragon i Lemon-Lime, za citrusni tarhun.'
+      ],
+      en: [
+        'Estragon and Mad Pear, for pear with tarragon.',
+        'Estragon and Lemon-Lime, for a citrus tarhun.'
+      ]
+    },
+    similar: ['musthave-cucunade', 'musthave-green-fizz']
+  },
+  {
+    id: 'musthave-green-fizz',
+    brand: 'musthave',
+    leaf: 'dark',
+    name: 'Green Fizz',
+    shortDescription: {
+      bs: 'Slatko-kiseli koktel od soka kaktusa, apsinta i kivija.',
+      en: 'A sweet and sour cocktail of cactus juice, absinthe and kiwi.'
+    },
+    description: {
+      bs: [
+        'Green Fizz je zeleni koktel: sok od kaktusa, opori apsint i sočne kriške kivija. Slatko-kiseo i neobičan.',
+        'Apsint daje biljnu, anisnu oštrinu, kaktus svježinu, a kivi voćnu kiselinu.',
+        'Tamni list: pakuj rastresito i ne pregrijavaj, da svjež, pitak karakter ostane čist.'
+      ],
+      en: [
+        'Green Fizz is a green cocktail: cactus juice, tart absinthe and juicy kiwi slices. Sweet, sour and unusual.',
+        'Absinthe brings a herbal, aniseed edge, cactus the freshness and kiwi a fruity tang.',
+        'Dark leaf: pack it loose and do not overheat it, so the fresh, drinkable character stays clean.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Kaktus', en: 'Cactus' }, illustration: 'kaktus', color: '#6cbf5a', intensity: 8 },
+      { name: { bs: 'Apsint', en: 'Absinthe' }, illustration: 'liker', color: '#9ccc3a', intensity: 6 },
+      { name: { bs: 'Kivi', en: 'Kiwi' }, illustration: 'kivi', color: '#7cbf3a', intensity: 6 }
+    ],
+    profile: { sweetness: 5, freshness: 8, fruitiness: 6, cooling: 0, strength: 7 },
+    tags: ['pice', 'biljni', 'osvjezavajuci'],
+    tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
+    mood: 'fizz',
+    palette: { primary: '#6cbf5a', secondary: '#9ccc3a', accent: '#7cbf3a', background: '#1b2413', text: '#fff4ea' },
+    mixIdeas: {
+      bs: [
+        'Green Fizz i Lemon-Lime, za kiseliji koktel.',
+        'Green Fizz i Frosty, za ledeni zeleni koktel.'
+      ],
+      en: [
+        'Green Fizz and Lemon-Lime, for a sharper cocktail.',
+        'Green Fizz and Frosty, for an icy green cocktail.'
+      ]
+    },
+    similar: ['holster-ice-kaktuz', 'musthave-estragon']
+  },
+  {
+    id: 'musthave-prosecco',
+    brand: 'musthave',
+    leaf: 'dark',
+    name: 'Prosecco',
+    shortDescription: {
+      bs: 'Lagano polusuho pjenušavo vino sa blagom kiselinom.',
+      en: 'A light semi-dry sparkling wine with a slight sourness.'
+    },
+    description: {
+      bs: [
+        'Prosecco je lagano polusuho pjenušavo vino: voćno, svijetlo i sa blagom kiselinom.',
+        'Okus je elegantan i nije preslatak. Odlično podiže voćne okuse u miksu.',
+        'Tamni list: pakuj rastresito i ne pregrijavaj, da svjež, pitak karakter ostane čist.'
+      ],
+      en: [
+        'Prosecco is a light semi-dry sparkling wine: fruity, bright and slightly sour.',
+        'It is elegant and not too sweet. Great for lifting fruit flavors in a mix.',
+        'Dark leaf: pack it loose and do not overheat it, so the fresh, drinkable character stays clean.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Pjenušavo vino', en: 'Sparkling wine' }, illustration: 'sampanjac', color: '#f3dc8a', intensity: 9 }
+    ],
+    profile: { sweetness: 5, freshness: 7, fruitiness: 5, cooling: 0, strength: 7 },
+    tags: ['pice', 'osvjezavajuci'],
+    tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
+    mood: 'fizz',
+    palette: { primary: '#f3dc8a', secondary: '#f7e8b3', accent: '#faefca', background: '#30291a', text: '#fff4ea' },
+    mixIdeas: {
+      bs: [
+        'Prosecco i Strawberry, za jagode i pjenušac.',
+        'Prosecco i Elderberry, za spritz sa bazgom.'
+      ],
+      en: [
+        'Prosecco and Strawberry, for strawberries and bubbly.',
+        'Prosecco and Elderberry, for an elderberry spritz.'
+      ]
+    },
+    similar: ['musthave-citrus-spritz', 'musthave-christmas-drink', 'musthave-ruby-grape']
+  },
+  {
+    id: 'musthave-citrus-spritz',
+    brand: 'musthave',
+    leaf: 'dark',
+    name: 'Citrus Spritz',
+    shortDescription: {
+      bs: 'Opor, osvježavajući citrusni koktel sa prosekom i kriškom narandže.',
+      en: 'A tart, refreshing citrus cocktail with prosecco and an orange slice.'
+    },
+    description: {
+      bs: [
+        'Citrus Spritz je citrusni koktel sa prosekom, ukrašen kriškom narandže. Opor, pjenušav i osvježavajući.',
+        'Okus podsjeća na ljetni aperitiv na terasi: gorko-kiseli citrus i suho pjenušavo vino.',
+        'Tamni list: pakuj rastresito i ne pregrijavaj, da svjež, pitak karakter ostane čist.'
+      ],
+      en: [
+        'Citrus Spritz is a citrus cocktail with prosecco, garnished with an orange slice. Tart, sparkling and refreshing.',
+        'It recalls a summer aperitif on a terrace: bitter-sour citrus and dry sparkling wine.',
+        'Dark leaf: pack it loose and do not overheat it, so the fresh, drinkable character stays clean.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Narandža', en: 'Orange' }, illustration: 'narandza', color: '#ff7a00', intensity: 8 },
+      { name: { bs: 'Pjenušavo vino', en: 'Sparkling wine' }, illustration: 'sampanjac', color: '#f3dc8a', intensity: 7 }
+    ],
+    profile: { sweetness: 5, freshness: 8, fruitiness: 6, cooling: 0, strength: 7 },
+    tags: ['pice', 'citrusni', 'osvjezavajuci'],
+    tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
+    mood: 'fizz',
+    palette: { primary: '#ff7a00', secondary: '#f3dc8a', accent: '#ffc38c', background: '#321904', text: '#fff4ea' },
+    mixIdeas: {
+      bs: [
+        'Citrus Spritz i Grapefruit, za gorči aperitiv.',
+        'Citrus Spritz i Sweet Peach, za Bellini.'
+      ],
+      en: [
+        'Citrus Spritz and Grapefruit, for a more bitter aperitif.',
+        'Citrus Spritz and Sweet Peach, for a Bellini.'
+      ]
+    },
+    similar: ['musthave-prosecco', 'musthave-orange-team', 'musthave-lemon-tonic', 'musthave-christmas-drink']
+  },
+  {
+    id: 'musthave-christmas-drink',
+    brand: 'musthave',
+    leaf: 'dark',
+    name: 'Christmas Drink',
+    shortDescription: {
+      bs: 'Profinjen, nježan miris šampanjca.',
+      en: 'The refined, delicate aroma of champagne.'
+    },
+    description: {
+      bs: [
+        'Christmas Drink je okus šampanjca: nježan, profinjen i svečan, sa sitnim mjehurićima i blagom voćnošću.',
+        'Praznični okus koji je lagan i nenametljiv. Lijepo se slaže sa bobicama i citrusima.',
+        'Tamni list: pakuj rastresito i ne pregrijavaj, da svjež, pitak karakter ostane čist.'
+      ],
+      en: [
+        'Christmas Drink is the taste of champagne: delicate, refined and festive, with fine bubbles and a light fruitiness.',
+        'A holiday flavor that is light and unobtrusive. Lovely with berries and citrus.',
+        'Dark leaf: pack it loose and do not overheat it, so the fresh, drinkable character stays clean.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Šampanjac', en: 'Champagne' }, illustration: 'sampanjac', color: '#f6e7a6', intensity: 9 }
+    ],
+    profile: { sweetness: 5, freshness: 6, fruitiness: 4, cooling: 0, strength: 7 },
+    tags: ['pice', 'klasicni'],
+    tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
+    mood: 'fizz',
+    palette: { primary: '#f6e7a6', secondary: '#f9efc5', accent: '#fbf4d7', background: '#312b1f', text: '#fff4ea' },
+    mixIdeas: {
+      bs: [
+        'Christmas Drink i Strawberry, za šampanjac sa jagodama.',
+        'Christmas Drink i Mandarin, za praznični miks.'
+      ],
+      en: [
+        'Christmas Drink and Strawberry, for champagne and strawberries.',
+        'Christmas Drink and Mandarin, for a holiday bowl.'
+      ]
+    },
+    similar: ['musthave-prosecco', 'musthave-citrus-spritz']
+  },
+  {
+    id: 'musthave-caribbean-rum',
+    brand: 'musthave',
+    leaf: 'dark',
+    name: 'Caribbean Rum',
+    shortDescription: {
+      bs: 'Plemeniti ukus ruma sa plantaža šećerne trske na karipskom suncu.',
+      en: 'The noble taste of rum from sugar cane plantations under the Caribbean sun.'
+    },
+    description: {
+      bs: [
+        'Caribbean Rum je okus tamnog ruma od šećerne trske: topao, pomalo karamelast i drven.',
+        'Nema alkohola, samo ukus. Dobar je kao baza za koktel mikseve sa voćem i kolom.',
+        'Tamni list: rastresito pakovanje i strpljenje. Dobar uz kafu ili čaj.'
+      ],
+      en: [
+        'Caribbean Rum is the taste of dark sugar cane rum: warm, a little caramel-like and woody.',
+        'No alcohol, only the taste. A good base for cocktail mixes with fruit and cola.',
+        'Dark leaf: pack it loose and be patient. Goes well with coffee or tea.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Tamni rum', en: 'Dark rum' }, illustration: 'liker', color: '#b5651d', intensity: 9 }
+    ],
+    profile: { sweetness: 6, freshness: 3, fruitiness: 2, cooling: 0, strength: 8 },
+    tags: ['pice', 'nocni'],
+    tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
+    mood: 'honey',
+    palette: { primary: '#b5651d', secondary: '#cf9b6c', accent: '#deba99', background: '#261609', text: '#fff4ea' },
+    mixIdeas: {
+      bs: [
+        'Caribbean Rum i Cola, za rum i kolu.',
+        'Caribbean Rum i Coconut Shake, za pina coladu.'
+      ],
+      en: [
+        'Caribbean Rum and Cola, for a rum and cola.',
+        'Caribbean Rum and Coconut Shake, for a pina colada.'
+      ]
+    },
+    similar: ['musthave-cola', 'musthave-tipsy', 'musthave-mulled-wine']
+  },
+  {
+    id: 'musthave-mulled-wine',
+    brand: 'musthave',
+    leaf: 'dark',
+    name: 'Mulled Wine',
+    shortDescription: {
+      bs: 'Toplo, začinjeno crno vino sa kriškama narandže i jabuke.',
+      en: 'Warm, spiced red wine with orange and apple slices.'
+    },
+    description: {
+      bs: [
+        'Mulled Wine je kuhano vino: crno polusuho vino zagrijano sa začinima i kriškama narandže i jabuke.',
+        'Topao, začinski i voćni okus za zimske večeri. Cimet i citrus se osjete od prvog dima.',
+        'Tamni list: rastresito pakovanje i blaga toplota, da se čajne i začinske note ne zapeku.'
+      ],
+      en: [
+        'Mulled Wine is hot spiced wine: semi-sweet red wine warmed with spices and slices of orange and apple.',
+        'A warm, spiced and fruity flavor for winter evenings. Cinnamon and citrus come through from the first pull.',
+        'Dark leaf: pack it loose and keep the heat gentle, so the tea and spice notes do not burn.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Crno vino', en: 'Red wine' }, illustration: 'vino', color: '#7a1022', intensity: 8 },
+      { name: { bs: 'Cimet', en: 'Cinnamon' }, illustration: 'cimet', color: '#a0522d', intensity: 6 },
+      { name: { bs: 'Narandža', en: 'Orange' }, illustration: 'narandza', color: '#ff7a00', intensity: 5 },
+      { name: { bs: 'Jabuka', en: 'Apple' }, illustration: 'jabuka', color: '#d9302c', intensity: 4 }
+    ],
+    profile: { sweetness: 6, freshness: 2, fruitiness: 6, cooling: 0, strength: 8 },
+    tags: ['pice', 'zacinski', 'nocni'],
+    tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
+    mood: 'honey',
+    palette: { primary: '#7a1022', secondary: '#a0522d', accent: '#ff7a00', background: '#1d080a', text: '#fff4ea' },
+    mixIdeas: {
+      bs: [
+        'Mulled Wine i Cinnamon, za još toplije kuhano vino.',
+        'Mulled Wine i Mandarin, za praznični miks.'
+      ],
+      en: [
+        'Mulled Wine and Cinnamon, for an even warmer mulled wine.',
+        'Mulled Wine and Mandarin, for a holiday bowl.'
+      ]
+    },
+    similar: ['musthave-caribbean-rum']
+  },
+  {
+    id: 'musthave-tipsy',
+    brand: 'musthave',
+    leaf: 'dark',
+    name: 'Tipsy',
+    shortDescription: {
+      bs: 'Aperitiv od jakog likera i soka lubenice, sa šlagom i bobičastim preljevom.',
+      en: 'An aperitif of strong liqueur and watermelon juice, with whipped cream and berry topping.'
+    },
+    description: {
+      bs: [
+        'Tipsy je raskošan aperitiv: jak liker i sok od lubenice, ublaženi šlagom i nježnim preljevom od bobica.',
+        'Okus je sočan, kremast i pomalo "pijan". Neobična kombinacija koja se pamti.',
+        'Tamni list: rastresito pakovanje i strpljenje. Dobar uz kafu ili čaj.'
+      ],
+      en: [
+        'Tipsy is a lavish aperitif: strong liqueur and watermelon juice, softened by whipped cream and a delicate berry topping.',
+        'It is juicy, creamy and a little boozy. An unusual combination that sticks with you.',
+        'Dark leaf: pack it loose and be patient. Goes well with coffee or tea.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Lubenica', en: 'Watermelon' }, illustration: 'lubenica', color: '#e8455a', intensity: 8 },
+      { name: { bs: 'Liker', en: 'Liqueur' }, illustration: 'liker', color: '#c0392b', intensity: 6 },
+      { name: { bs: 'Šlag', en: 'Whipped cream' }, illustration: 'sejk', color: '#fbf3e3', intensity: 5 },
+      { name: { bs: 'Bobičasti preljev', en: 'Berry topping' }, illustration: 'malina', color: '#d61f5b', intensity: 3 }
+    ],
+    profile: { sweetness: 8, freshness: 5, fruitiness: 8, cooling: 0, strength: 7 },
+    tags: ['pice', 'desertni', 'vocni'],
+    tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
+    palette: { primary: '#e8455a', secondary: '#c0392b', accent: '#fbf3e3', background: '#2e1113', text: '#fff4ea' },
+    mixIdeas: {
+      bs: [
+        'Tipsy i Watermelon, za više lubenice.',
+        'Tipsy i Ice Mint, za ledeni koktel.'
+      ],
+      en: [
+        'Tipsy and Watermelon, for more watermelon.',
+        'Tipsy and Ice Mint, for an icy cocktail.'
+      ]
+    },
+    similar: ['musthave-watermelon', 'musthave-caribbean-rum']
+  },
+  {
+    id: 'musthave-ruby-grape',
+    brand: 'musthave',
+    leaf: 'dark',
+    name: 'Ruby Grape',
+    shortDescription: {
+      bs: 'Osvježavajući koktel u kojem dominira rubin crveno grožđe.',
+      en: 'A refreshing cocktail dominated by ruby red grapes.'
+    },
+    description: {
+      bs: [
+        'Ruby Grape je osvježavajući koktel sa crvenim grožđem kao glavnim okusom: sočan, slatkast i pomalo vinski.',
+        'Grožđe je ovdje svjetlije i svježije nego u klasičnim okusima grožđa, više kao sok nego kao bombon.',
+        'Tamni list: pakuj rastresito i ne pregrijavaj, da svjež, pitak karakter ostane čist.'
+      ],
+      en: [
+        'Ruby Grape is a refreshing cocktail with red grape as the lead: juicy, sweet and a little wine-like.',
+        'The grape here is brighter and fresher than in classic grape flavors, more juice than candy.',
+        'Dark leaf: pack it loose and do not overheat it, so the fresh, drinkable character stays clean.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Crveno grožđe', en: 'Red grape' }, illustration: 'grozdje', color: '#9b2242', intensity: 9 }
+    ],
+    profile: { sweetness: 7, freshness: 7, fruitiness: 9, cooling: 0, strength: 7 },
+    tags: ['pice', 'vocni', 'osvjezavajuci'],
+    tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
+    palette: { primary: '#9b2242', secondary: '#be6f84', accent: '#d29caa', background: '#220b0f', text: '#fff4ea' },
+    mixIdeas: {
+      bs: [
+        'Ruby Grape i Garnet Grape, za grožđe i nar.',
+        'Ruby Grape i Ice Mint, za ledeno grožđe.'
+      ],
+      en: [
+        'Ruby Grape and Garnet Grape, for grape and pomegranate.',
+        'Ruby Grape and Ice Mint, for icy grape.'
+      ]
+    },
+    similar: ['haze-purple-krush', 'al-fakher-grape-mint', 'musthave-prosecco']
+  },
+  {
+    id: 'musthave-cherry-juice',
+    brand: 'musthave',
+    leaf: 'dark',
+    name: 'Cherry Juice',
+    shortDescription: {
+      bs: 'Sok od višnje sa jedva primjetnom oporošću koštice.',
+      en: 'Cherry juice with a faint tartness of the stone.'
+    },
+    description: {
+      bs: [
+        'Cherry Juice je okus soka od višnje, sa jedva primjetnom oporom notom koštice.',
+        'Sočan, slatko-kiseo i prirodan. Bliži je pravom soku nego bombonu od višnje.',
+        'Tamni list: pakuj rastresito i ne pregrijavaj, da svjež, pitak karakter ostane čist.'
+      ],
+      en: [
+        'Cherry Juice is the taste of cherry juice, with a barely noticeable tart note of the stone.',
+        'Juicy, sweet and sour, and natural. Closer to real juice than to cherry candy.',
+        'Dark leaf: pack it loose and do not overheat it, so the fresh, drinkable character stays clean.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Višnja', en: 'Sour cherry' }, illustration: 'visnja', color: '#a3122e', intensity: 9 }
+    ],
+    profile: { sweetness: 6, freshness: 6, fruitiness: 9, cooling: 0, strength: 7 },
+    tags: ['pice', 'vocni'],
+    tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
+    palette: { primary: '#a3122e', secondary: '#c36577', accent: '#d694a1', background: '#23090c', text: '#fff4ea' },
+    mixIdeas: {
+      bs: [
+        'Cherry Juice i Cola, za višnja kolu.',
+        'Cherry Juice i Vanilla Cream, za višnju sa kremom.'
+      ],
+      en: [
+        'Cherry Juice and Cola, for a cherry cola.',
+        'Cherry Juice and Vanilla Cream, for cherries and cream.'
+      ]
+    },
+    similar: ['musthave-cherry-cola', 'tangiers-maraschino-cherry', 'musthave-berry-mors']
+  },
+  {
+    id: 'musthave-berry-mors',
+    brand: 'musthave',
+    leaf: 'dark',
+    name: 'Berry Mors',
+    shortDescription: {
+      bs: 'Domaći mors, sok od zrelih brusnica, trešanja i malina.',
+      en: 'Homemade mors, a drink of ripe lingonberries, cherries and raspberries.'
+    },
+    description: {
+      bs: [
+        'Berry Mors je tradicionalni domaći sok od bobica (mors): brusnica, trešnja i malina.',
+        'Okus je sočan, kiselkast i lagano sladak, kao osvježavajući voćni napitak iz bokala.',
+        'Tamni list: pakuj rastresito i ne pregrijavaj, da svjež, pitak karakter ostane čist.'
+      ],
+      en: [
+        'Berry Mors is a traditional homemade berry drink (mors): lingonberry, cherry and raspberry.',
+        'It is juicy, tart and lightly sweet, like a refreshing fruit drink poured from a jug.',
+        'Dark leaf: pack it loose and do not overheat it, so the fresh, drinkable character stays clean.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Brusnica', en: 'Lingonberry' }, illustration: 'bobice', color: '#c8102e', intensity: 8 },
+      { name: { bs: 'Trešnja', en: 'Cherry' }, illustration: 'visnja', color: '#c0233f', intensity: 6 },
+      { name: { bs: 'Malina', en: 'Raspberry' }, illustration: 'malina', color: '#d61f5b', intensity: 6 }
+    ],
+    profile: { sweetness: 6, freshness: 6, fruitiness: 9, cooling: 0, strength: 7 },
+    tags: ['pice', 'bobicasti', 'vocni'],
+    tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
+    palette: { primary: '#c8102e', secondary: '#c0233f', accent: '#d61f5b', background: '#29080c', text: '#fff4ea' },
+    mixIdeas: {
+      bs: [
+        'Berry Mors i Frosty, za ledeni sok od bobica.',
+        'Berry Mors i Lemon-Lime, za kiseliji sok.'
+      ],
+      en: [
+        'Berry Mors and Frosty, for an iced berry drink.',
+        'Berry Mors and Lemon-Lime, for a sharper drink.'
+      ]
+    },
+    similar: ['musthave-cranberry', 'musthave-forest-berries', 'musthave-cherry-juice']
+  },
+  {
+    id: 'musthave-jumango',
+    brand: 'musthave',
+    leaf: 'dark',
+    name: 'Jumango',
+    shortDescription: {
+      bs: 'Tropski sok od tajlandskog manga, cvjetnog meda i malina.',
+      en: 'A tropical juice of Thai mango, blossom honey and raspberries.'
+    },
+    description: {
+      bs: [
+        'Jumango je tropski sok na bazi sočnog tajlandskog manga, sa cvjetnim medom i bobicama maline.',
+        'Mango je glavni, med ga zaokruži, a malina doda kiselkast, bobičast vrh.',
+        'Tamni list: pakuj rastresito i ne pregrijavaj, da svjež, pitak karakter ostane čist.'
+      ],
+      en: [
+        'Jumango is a tropical juice based on juicy Thai mango, with blossom honey and raspberries.',
+        'Mango leads, honey rounds it off and raspberry adds a tangy berry top note.',
+        'Dark leaf: pack it loose and do not overheat it, so the fresh, drinkable character stays clean.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Mango', en: 'Mango' }, illustration: 'mango', color: '#ffb020', intensity: 9 },
+      { name: { bs: 'Med', en: 'Honey' }, illustration: 'med', color: '#e0a43a', intensity: 5 },
+      { name: { bs: 'Malina', en: 'Raspberry' }, illustration: 'malina', color: '#d61f5b', intensity: 5 }
+    ],
+    profile: { sweetness: 8, freshness: 5, fruitiness: 9, cooling: 0, strength: 7 },
+    tags: ['pice', 'tropski', 'medeni'],
+    tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
+    mood: 'honey',
+    palette: { primary: '#ffb020', secondary: '#e0a43a', accent: '#d61f5b', background: '#322209', text: '#fff4ea' },
+    mixIdeas: {
+      bs: [
+        'Jumango i Mango Sling, za duplo mango.',
+        'Jumango i Vanilla Cream, za mango smoothie.'
+      ],
+      en: [
+        'Jumango and Mango Sling, for double mango.',
+        'Jumango and Vanilla Cream, for a mango smoothie.'
+      ]
+    },
+    similar: ['musthave-mango-sling', 'musthave-tropic-juice', 'musthave-raspberry']
   },
   // ---- kraj MUSTHAVE linije ----
   {
