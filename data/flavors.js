@@ -2449,7 +2449,7 @@ window.FLAVORS = [
         'Strawberry Lychee and Space Flavour, for an even more exotic mix.'
       ]
     },
-    similar: ['musthave-strawberry', 'musthave-pinkman']
+    similar: ['musthave-strawberry', 'musthave-pinkman', 'musthave-strawberry-sorbet']
   },
   {
     id: 'musthave-raspberry',
@@ -2813,7 +2813,7 @@ window.FLAVORS = [
         'Banana Mama and Cacao, for chocolate banana.'
       ]
     },
-    similar: ['darkside-bananapapa', 'haze-bananarama']
+    similar: ['musthave-paradise', 'darkside-bananapapa', 'haze-bananarama']
   },
   {
     id: 'musthave-mandarin',
@@ -3099,7 +3099,7 @@ window.FLAVORS = [
         'Cream Soda and Raspberry, for a raspberry soda.'
       ]
     },
-    similar: ['musthave-cola', 'musthave-fizzy-dizzy']
+    similar: ['musthave-cola', 'musthave-vanilla-cream', 'musthave-fizzy-dizzy']
   },
   {
     id: 'musthave-lemon-tonic',
@@ -3183,7 +3183,7 @@ window.FLAVORS = [
         'Fizzy Dizzy and Frosty, for an iced drink.'
       ]
     },
-    similar: ['musthave-melonade', 'musthave-cream-soda', 'musthave-rocketman']
+    similar: ['musthave-barberry-candy', 'musthave-melonade', 'musthave-cream-soda', 'musthave-rocketman']
   },
   {
     id: 'musthave-rocketman',
@@ -3733,7 +3733,7 @@ window.FLAVORS = [
         'Tipsy and Ice Mint, for an icy cocktail.'
       ]
     },
-    similar: ['musthave-watermelon', 'musthave-caribbean-rum']
+    similar: ['musthave-watermelon', 'musthave-caribbean-rum', 'musthave-violet']
   },
   {
     id: 'musthave-ruby-grape',
@@ -3899,6 +3899,840 @@ window.FLAVORS = [
       ]
     },
     similar: ['musthave-mango-sling', 'musthave-tropic-juice', 'musthave-raspberry']
+  },
+  {
+    id: 'musthave-vanilla-cream',
+    brand: 'musthave',
+    leaf: 'dark',
+    name: 'Vanilla Cream',
+    shortDescription: {
+      bs: 'Nježna, kremasta vanilin krema, dobar dodatak svakom desertu.',
+      en: 'Delicate, creamy vanilla cream, a great addition to any dessert.'
+    },
+    description: {
+      bs: [
+        'Vanilla Cream je mekana vanilin krema: nježna, kremasta i slatka, bez oštrih nota.',
+        'Sama je lagana, a u miksu zaobli voće i kolače. Jedan od najkorisnijih okusa za mikseve.',
+        'Tamni list: rastresito pakovanje i strpljenje. Dobar uz kafu ili čaj.'
+      ],
+      en: [
+        'Vanilla Cream is a soft vanilla custard: delicate, creamy and sweet, with no sharp notes.',
+        'Light on its own, and in a mix it rounds off fruit and pastry flavors. One of the most useful mixing flavors.',
+        'Dark leaf: pack it loose and be patient. Goes well with coffee or tea.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Vanila', en: 'Vanilla' }, illustration: 'vanila', color: '#f3e2b3', intensity: 9 },
+      { name: { bs: 'Krema', en: 'Cream' }, illustration: 'sejk', color: '#fbf3e3', intensity: 6 }
+    ],
+    profile: { sweetness: 8, freshness: 2, fruitiness: 0, cooling: 0, strength: 7 },
+    tags: ['desertni', 'slatki'],
+    tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
+    palette: { primary: '#f3e2b3', secondary: '#fbf3e3', accent: '#faf2dd', background: '#302a21', text: '#fff4ea' },
+    mixIdeas: {
+      bs: [
+        'Vanilla Cream i Raspberry, za malinu sa kremom.',
+        'Vanilla Cream i Orange Team, za narandžasti krem.'
+      ],
+      en: [
+        'Vanilla Cream and Raspberry, for raspberries and cream.',
+        'Vanilla Cream and Orange Team, for an orange creamsicle.'
+      ]
+    },
+    similar: ['musthave-ice-cream', 'musthave-cream-soda', 'tangiers-horchata', 'musthave-cheesecake']
+  },
+  {
+    id: 'musthave-ice-cream',
+    brand: 'musthave',
+    leaf: 'dark',
+    name: 'Ice Cream',
+    shortDescription: {
+      bs: 'Nježan okus pravog sladoleda sa mekanim, kremastim krajem.',
+      en: 'The delicate taste of real ice cream with a soft, creamy finish.'
+    },
+    description: {
+      bs: [
+        'Ice Cream je okus klasičnog mliječnog sladoleda (plombir): bogat, kremast i nježan.',
+        'Nije hladan kao mentol, nego mliječan i mekan. Odlično ide uz voće i čokoladu.',
+        'Tamni list: rastresito pakovanje i strpljenje. Dobar uz kafu ili čaj.'
+      ],
+      en: [
+        'Ice Cream is the taste of classic milk ice cream (plombir): rich, creamy and delicate.',
+        'It is not cold like menthol, but milky and soft. Goes great with fruit and chocolate.',
+        'Dark leaf: pack it loose and be patient. Goes well with coffee or tea.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Sladoled', en: 'Ice cream' }, illustration: 'sladoled', color: '#f5e9c8', intensity: 9 },
+      { name: { bs: 'Mlijeko', en: 'Milk' }, illustration: 'sejk', color: '#fbf3e3', intensity: 5 }
+    ],
+    profile: { sweetness: 8, freshness: 3, fruitiness: 0, cooling: 0, strength: 7 },
+    tags: ['desertni', 'slatki'],
+    tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
+    palette: { primary: '#f5e9c8', secondary: '#fbf3e3', accent: '#fbf5e6', background: '#302b24', text: '#fff4ea' },
+    mixIdeas: {
+      bs: [
+        'Ice Cream i Strawberry, za jagode sa sladoledom.',
+        'Ice Cream i Cola, za kolu sa sladoledom.'
+      ],
+      en: [
+        'Ice Cream and Strawberry, for strawberries and ice cream.',
+        'Ice Cream and Cola, for a cola float.'
+      ]
+    },
+    similar: ['musthave-vanilla-cream', 'musthave-strawberry-sorbet', 'musthave-coconut-shake', 'musthave-cookie']
+  },
+  {
+    id: 'musthave-strawberry-sorbet',
+    brand: 'musthave',
+    leaf: 'dark',
+    name: 'Strawberry Sorbet',
+    shortDescription: {
+      bs: 'Lagan, osvježavajući desert sa bogatim okusom zrele jagode.',
+      en: 'A light, refreshing dessert with a rich ripe strawberry taste.'
+    },
+    description: {
+      bs: [
+        'Strawberry Sorbet (Клубничный сорбет) je sorbet od jagode: lagan, voćan i osvježavajući desert.',
+        'Jagoda je zrela i bogata, a sorbet je mekši od sladoleda i bez mliječne težine.',
+        'Tamni list: rastresito pakovanje i strpljenje. Dobar uz kafu ili čaj.'
+      ],
+      en: [
+        'Strawberry Sorbet (Клубничный сорбет) is a strawberry sorbet: a light, fruity, refreshing dessert.',
+        'The strawberry is ripe and rich, and sorbet is lighter than ice cream, without the dairy weight.',
+        'Dark leaf: pack it loose and be patient. Goes well with coffee or tea.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Jagoda', en: 'Strawberry' }, illustration: 'jagoda', color: '#e63946', intensity: 9 },
+      { name: { bs: 'Sorbet', en: 'Sorbet' }, illustration: 'sladoled', color: '#ff8fa3', intensity: 6 }
+    ],
+    profile: { sweetness: 8, freshness: 6, fruitiness: 9, cooling: 0, strength: 7 },
+    tags: ['desertni', 'vocni', 'ljetni'],
+    tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
+    palette: { primary: '#e63946', secondary: '#ff8fa3', accent: '#f4a6ac', background: '#2e0f0f', text: '#fff4ea' },
+    mixIdeas: {
+      bs: [
+        'Strawberry Sorbet i Prosecco, za sorbet u pjenušcu.',
+        'Strawberry Sorbet i Lemon-Lime, za kiseliji sorbet.'
+      ],
+      en: [
+        'Strawberry Sorbet and Prosecco, for sorbet in bubbly.',
+        'Strawberry Sorbet and Lemon-Lime, for a sharper sorbet.'
+      ]
+    },
+    similar: ['musthave-strawberry', 'musthave-ice-cream', 'musthave-strawberry-lychee']
+  },
+  {
+    id: 'musthave-coconut-shake',
+    brand: 'musthave',
+    leaf: 'dark',
+    name: 'Coconut Shake',
+    shortDescription: {
+      bs: 'Slatki egzotični šejk od svježeg kokosa.',
+      en: 'A sweet exotic shake of fresh coconut.'
+    },
+    description: {
+      bs: [
+        'Coconut Shake je kokosov šejk izmiješan u hladu palmi: sladak, kremast i egzotičan.',
+        'Kokos je svjež i mliječan, ne prepečen. Odličan je uz ananas, mango i čokoladu.',
+        'Tamni list: rastresito pakovanje i strpljenje. Dobar uz kafu ili čaj.'
+      ],
+      en: [
+        'Coconut Shake is a coconut shake blended in the shade of palm trees: sweet, creamy and exotic.',
+        'The coconut is fresh and milky, not toasted. Excellent with pineapple, mango and chocolate.',
+        'Dark leaf: pack it loose and be patient. Goes well with coffee or tea.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Kokos', en: 'Coconut' }, illustration: 'kokos', color: '#f7f4ec', intensity: 9 },
+      { name: { bs: 'Šejk', en: 'Shake' }, illustration: 'sejk', color: '#fbf3e3', intensity: 5 }
+    ],
+    profile: { sweetness: 8, freshness: 3, fruitiness: 4, cooling: 0, strength: 7 },
+    tags: ['desertni', 'tropski', 'slatki'],
+    tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
+    palette: { primary: '#f7f4ec', secondary: '#fbf3e3', accent: '#fbfaf6', background: '#312d2a', text: '#fff4ea' },
+    mixIdeas: {
+      bs: [
+        'Coconut Shake i Pineapple Rings, za pina coladu.',
+        'Coconut Shake i Cacao, za čokoladu sa kokosom.'
+      ],
+      en: [
+        'Coconut Shake and Pineapple Rings, for a pina colada.',
+        'Coconut Shake and Cacao, for chocolate and coconut.'
+      ]
+    },
+    similar: ['musthave-paradise', 'musthave-ice-cream', 'musthave-tropic-juice']
+  },
+  {
+    id: 'musthave-paradise',
+    brand: 'musthave',
+    leaf: 'dark',
+    name: 'Paradise',
+    shortDescription: {
+      bs: 'Karamelizovana banana posuta kokosovim listićima.',
+      en: 'Caramelised banana sprinkled with coconut flakes.'
+    },
+    description: {
+      bs: [
+        'Paradise je banana pržena u karameli i posuta kokosovim listićima. Ekstravagantan, topao desert.',
+        'Banana i karamela su glavne, a kokos daje egzotičan, kremast kraj.',
+        'Tamni list: rastresito pakovanje i strpljenje. Dobar uz kafu ili čaj.'
+      ],
+      en: [
+        'Paradise is banana fried in caramel and sprinkled with coconut flakes. An extravagant, warm dessert.',
+        'Banana and caramel lead, and coconut adds an exotic, creamy finish.',
+        'Dark leaf: pack it loose and be patient. Goes well with coffee or tea.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Banana', en: 'Banana' }, illustration: 'banana', color: '#f5d33c', intensity: 8 },
+      { name: { bs: 'Karamel', en: 'Caramel' }, illustration: 'karamel', color: '#b7742f', intensity: 7 },
+      { name: { bs: 'Kokos', en: 'Coconut' }, illustration: 'kokos', color: '#f7f4ec', intensity: 5 }
+    ],
+    profile: { sweetness: 9, freshness: 2, fruitiness: 6, cooling: 0, strength: 7 },
+    tags: ['desertni', 'tropski', 'slatki'],
+    tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
+    mood: 'honey',
+    palette: { primary: '#f5d33c', secondary: '#b7742f', accent: '#f7f4ec', background: '#30280e', text: '#fff4ea' },
+    mixIdeas: {
+      bs: [
+        'Paradise i Ice Cream, za bananu split.',
+        'Paradise i Cacao, za čokoladnu bananu.'
+      ],
+      en: [
+        'Paradise and Ice Cream, for a banana split.',
+        'Paradise and Cacao, for chocolate banana.'
+      ]
+    },
+    similar: ['musthave-banana-mama', 'musthave-coconut-shake', 'musthave-candy-cow']
+  },
+  {
+    id: 'musthave-cheesecake',
+    brand: 'musthave',
+    leaf: 'dark',
+    name: 'Cheesecake',
+    shortDescription: {
+      bs: 'Prhko tijesto sa notom oraha i baršunast fil od sira sa vanilom i limunom.',
+      en: 'Shortcrust with a nutty note and a velvety curd filling with vanilla and lemon.'
+    },
+    description: {
+      bs: [
+        'Cheesecake je prhko tijesto sa blagom notom oraha i baršunast, kremast fil od svježeg sira.',
+        'Vanila daje slatkoću, a limun blagu kiselinu koja kolač drži laganim.',
+        'Tamni list: rastresito pakovanje i strpljenje. Dobar uz kafu ili čaj.'
+      ],
+      en: [
+        'Cheesecake is shortcrust with a light nutty note and a velvety, creamy curd filling.',
+        'Vanilla brings sweetness and lemon a gentle tang that keeps the cake light.',
+        'Dark leaf: pack it loose and be patient. Goes well with coffee or tea.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Fil od sira', en: 'Curd filling' }, illustration: 'kolac', color: '#f6ecd0', intensity: 8 },
+      { name: { bs: 'Vanila', en: 'Vanilla' }, illustration: 'vanila', color: '#f3e2b3', intensity: 5 },
+      { name: { bs: 'Limun', en: 'Lemon' }, illustration: 'limun', color: '#f7d84a', intensity: 4 }
+    ],
+    profile: { sweetness: 8, freshness: 3, fruitiness: 2, cooling: 0, strength: 7 },
+    tags: ['desertni', 'slatki'],
+    tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
+    palette: { primary: '#f6ecd0', secondary: '#f3e2b3', accent: '#f7d84a', background: '#312c25', text: '#fff4ea' },
+    mixIdeas: {
+      bs: [
+        'Cheesecake i Raspberry, za cheesecake sa malinom.',
+        'Cheesecake i Blueberry, za cheesecake sa borovnicom.'
+      ],
+      en: [
+        'Cheesecake and Raspberry, for raspberry cheesecake.',
+        'Cheesecake and Blueberry, for blueberry cheesecake.'
+      ]
+    },
+    similar: ['musthave-lemon-pie', 'musthave-vanilla-cream', 'musthave-pistachio-cake']
+  },
+  {
+    id: 'musthave-charlotte-pie',
+    brand: 'musthave',
+    leaf: 'dark',
+    name: 'Charlotte Pie',
+    shortDescription: {
+      bs: 'Topao kolač od dizanog tijesta sa filom od karamelizovane jabuke.',
+      en: 'Warm sweet pastry filled with caramelised apple.'
+    },
+    description: {
+      bs: [
+        'Charlotte Pie je topao kolač od mekog tijesta, punjen jabukom u karameli. Podsjeća na pitu od jabuka.',
+        'Jabuka je sočna, karamela slatka, a tijesto daje toplu, pečenu notu.',
+        'Tamni list: rastresito pakovanje i strpljenje. Dobar uz kafu ili čaj.'
+      ],
+      en: [
+        'Charlotte Pie is a warm cake of soft pastry filled with apple in caramel. It recalls an apple pie.',
+        'The apple is juicy, the caramel sweet, and the pastry adds a warm baked note.',
+        'Dark leaf: pack it loose and be patient. Goes well with coffee or tea.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Jabuka', en: 'Apple' }, illustration: 'jabuka', color: '#d9302c', intensity: 8 },
+      { name: { bs: 'Karamel', en: 'Caramel' }, illustration: 'karamel', color: '#b7742f', intensity: 6 },
+      { name: { bs: 'Tijesto', en: 'Pastry' }, illustration: 'kolac', color: '#e8b46a', intensity: 5 }
+    ],
+    profile: { sweetness: 8, freshness: 2, fruitiness: 6, cooling: 0, strength: 7 },
+    tags: ['desertni', 'slatki', 'vocni'],
+    tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
+    mood: 'honey',
+    palette: { primary: '#d9302c', secondary: '#b7742f', accent: '#e8b46a', background: '#2c0e0b', text: '#fff4ea' },
+    mixIdeas: {
+      bs: [
+        'Charlotte Pie i Cinnamon, za pitu od jabuka sa cimetom.',
+        'Charlotte Pie i Ice Cream, za pitu sa sladoledom.'
+      ],
+      en: [
+        'Charlotte Pie and Cinnamon, for apple pie with cinnamon.',
+        'Charlotte Pie and Ice Cream, for pie à la mode.'
+      ]
+    },
+    similar: ['musthave-cinnamon-roll', 'musthave-apple-drops', 'al-fakher-double-apple']
+  },
+  {
+    id: 'musthave-lemon-pie',
+    brand: 'musthave',
+    leaf: 'dark',
+    name: 'Lemon Pie',
+    shortDescription: {
+      bs: 'Topli domaći kolač sa osvježavajućom kiselinom svježeg limuna.',
+      en: 'A warm homemade cake with the bright sourness of fresh lemon.'
+    },
+    description: {
+      bs: [
+        'Lemon Pie je topao domaći kolač sa limunom: mekano tijesto i svježa, kisela nota limuna.',
+        'Slatko i kiselo su u dobrom balansu, pa okus nije težak kao drugi deserti.',
+        'Tamni list: rastresito pakovanje i strpljenje. Dobar uz kafu ili čaj.'
+      ],
+      en: [
+        'Lemon Pie is a warm homemade lemon cake: soft pastry and a fresh, sour lemon note.',
+        'Sweet and sour are well balanced, so it is not as heavy as other desserts.',
+        'Dark leaf: pack it loose and be patient. Goes well with coffee or tea.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Limun', en: 'Lemon' }, illustration: 'limun', color: '#f7d84a', intensity: 8 },
+      { name: { bs: 'Kolač', en: 'Cake' }, illustration: 'kolac', color: '#f7e08a', intensity: 7 }
+    ],
+    profile: { sweetness: 7, freshness: 5, fruitiness: 4, cooling: 0, strength: 7 },
+    tags: ['desertni', 'citrusni'],
+    tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
+    palette: { primary: '#f7d84a', secondary: '#f7e08a', accent: '#fbedae', background: '#312810', text: '#fff4ea' },
+    mixIdeas: {
+      bs: [
+        'Lemon Pie i Vanilla Cream, za limun tart sa kremom.',
+        'Lemon Pie i Blueberry, za kolač sa borovnicama.'
+      ],
+      en: [
+        'Lemon Pie and Vanilla Cream, for lemon tart with cream.',
+        'Lemon Pie and Blueberry, for a blueberry lemon cake.'
+      ]
+    },
+    similar: ['musthave-cheesecake', 'musthave-lemon-lime']
+  },
+  {
+    id: 'musthave-pistachio-cake',
+    brand: 'musthave',
+    leaf: 'dark',
+    name: 'Pistachio Cake',
+    shortDescription: {
+      bs: 'Nježan miris čuvenog kolača od pistacija i malina iz Riminija.',
+      en: 'The delicate aroma of the famous pistachio and raspberry cake from Rimini.'
+    },
+    description: {
+      bs: [
+        'Pistachio Cake je inspirisan italijanskim kolačem od pistacija sa malinama iz Riminija.',
+        'Pistacija daje kremastu, orašastu notu, a malina svjež, kiselkast kontrast.',
+        'Tamni list: rastresito pakovanje i strpljenje. Dobar uz kafu ili čaj.'
+      ],
+      en: [
+        'Pistachio Cake is inspired by the Italian pistachio and raspberry cake from Rimini.',
+        'Pistachio brings a creamy, nutty note and raspberry a fresh, tangy contrast.',
+        'Dark leaf: pack it loose and be patient. Goes well with coffee or tea.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Pistacija', en: 'Pistachio' }, illustration: 'pistacija', color: '#8fbf4a', intensity: 8 },
+      { name: { bs: 'Malina', en: 'Raspberry' }, illustration: 'malina', color: '#d61f5b', intensity: 6 },
+      { name: { bs: 'Kolač', en: 'Cake' }, illustration: 'kolac', color: '#b8d98a', intensity: 5 }
+    ],
+    profile: { sweetness: 8, freshness: 3, fruitiness: 4, cooling: 0, strength: 7 },
+    tags: ['desertni', 'slatki'],
+    tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
+    palette: { primary: '#8fbf4a', secondary: '#d61f5b', accent: '#b8d98a', background: '#202410', text: '#fff4ea' },
+    mixIdeas: {
+      bs: [
+        'Pistachio Cake i Vanilla Cream, za još kremastiji kolač.',
+        'Pistachio Cake i Raspberry, za više maline.'
+      ],
+      en: [
+        'Pistachio Cake and Vanilla Cream, for an even creamier cake.',
+        'Pistachio Cake and Raspberry, for more raspberry.'
+      ]
+    },
+    similar: ['musthave-pistachio', 'musthave-cheesecake', 'musthave-raspberry']
+  },
+  {
+    id: 'musthave-pistachio',
+    brand: 'musthave',
+    leaf: 'dark',
+    name: 'Pistachio',
+    shortDescription: {
+      bs: 'Slatkasta, blago pržena zrela pistacija.',
+      en: 'Sweetish, lightly roasted ripe pistachio.'
+    },
+    description: {
+      bs: [
+        'Pistachio je zrela, lagano pržena pistacija: slatkasta, nježna i orašasta.',
+        'Okus je fin i kremast, bez gorčine. Dobar je uz kafu, vanilu i čokoladu.',
+        'Tamni list: rastresito pakovanje i strpljenje. Dobar uz kafu ili čaj.'
+      ],
+      en: [
+        'Pistachio is a ripe, lightly roasted pistachio: sweetish, delicate and nutty.',
+        'It is fine and creamy, with no bitterness. Good with coffee, vanilla and chocolate.',
+        'Dark leaf: pack it loose and be patient. Goes well with coffee or tea.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Pistacija', en: 'Pistachio' }, illustration: 'pistacija', color: '#8fbf4a', intensity: 9 },
+      { name: { bs: 'Pržena nota', en: 'Roasted note' }, illustration: 'orah', color: '#a8763e', intensity: 3 }
+    ],
+    profile: { sweetness: 6, freshness: 2, fruitiness: 1, cooling: 0, strength: 7 },
+    tags: ['desertni'],
+    tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
+    palette: { primary: '#8fbf4a', secondary: '#a8763e', accent: '#cde2ae', background: '#202410', text: '#fff4ea' },
+    mixIdeas: {
+      bs: [
+        'Pistachio i Vanilla Cream, za sladoled od pistacija.',
+        'Pistachio i Cacao, za čokoladu sa pistacijom.'
+      ],
+      en: [
+        'Pistachio and Vanilla Cream, for pistachio ice cream.',
+        'Pistachio and Cacao, for chocolate with pistachio.'
+      ]
+    },
+    similar: ['musthave-pistachio-cake', 'musthave-maple-pecan']
+  },
+  {
+    id: 'musthave-maple-pecan',
+    brand: 'musthave',
+    leaf: 'dark',
+    name: 'Maple Pecan',
+    shortDescription: {
+      bs: 'Lisnato tijesto, javorov sirup i orah pekan.',
+      en: 'Puff pastry, maple syrup and pecan.'
+    },
+    description: {
+      bs: [
+        'Maple Pecan je topla kombinacija lisnatog tijesta, javorovog sirupa i oraha pekana.',
+        'Sirup daje gustu, karamelastu slatkoću, a pekan prženu, orašastu dubinu. Okus kao pecivo za doručak.',
+        'Tamni list: rastresito pakovanje i strpljenje. Dobar uz kafu ili čaj.'
+      ],
+      en: [
+        'Maple Pecan is a warm combination of puff pastry, maple syrup and pecan.',
+        'The syrup brings thick, caramel-like sweetness and pecan a roasted, nutty depth. Tastes like a breakfast pastry.',
+        'Dark leaf: pack it loose and be patient. Goes well with coffee or tea.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Javorov sirup', en: 'Maple syrup' }, illustration: 'med', color: '#b5651d', intensity: 8 },
+      { name: { bs: 'Pekan', en: 'Pecan' }, illustration: 'orah', color: '#8a5a2e', intensity: 7 },
+      { name: { bs: 'Lisnato tijesto', en: 'Puff pastry' }, illustration: 'kroasan', color: '#c98a45', intensity: 6 }
+    ],
+    profile: { sweetness: 9, freshness: 1, fruitiness: 1, cooling: 0, strength: 7 },
+    tags: ['desertni', 'slatki', 'medeni'],
+    tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
+    mood: 'honey',
+    palette: { primary: '#b5651d', secondary: '#8a5a2e', accent: '#c98a45', background: '#261609', text: '#fff4ea' },
+    mixIdeas: {
+      bs: [
+        'Maple Pecan i Banana Mama, za palačinke sa bananom.',
+        'Maple Pecan i Cinnamon Roll, za pekaru.'
+      ],
+      en: [
+        'Maple Pecan and Banana Mama, for banana pancakes.',
+        'Maple Pecan and Cinnamon Roll, for a bakery bowl.'
+      ]
+    },
+    similar: ['musthave-cinnamon-roll', 'musthave-pistachio', 'musthave-candy-cow']
+  },
+  {
+    id: 'musthave-cinnamon-roll',
+    brand: 'musthave',
+    leaf: 'dark',
+    name: 'Cinnamon Roll',
+    shortDescription: {
+      bs: 'Miris tek pečene kiflice sa cimetom.',
+      en: 'The aroma of a freshly baked cinnamon roll.'
+    },
+    description: {
+      bs: [
+        'Cinnamon Roll je okus tek pečene kiflice sa cimetom: mekano tijesto, topao cimet i slatka glazura.',
+        'Topao, mirisan i desertni okus. Odličan za hladne večeri.',
+        'Tamni list: rastresito pakovanje i strpljenje. Dobar uz kafu ili čaj.'
+      ],
+      en: [
+        'Cinnamon Roll is the taste of a freshly baked cinnamon bun: soft dough, warm cinnamon and sweet icing.',
+        'Warm, fragrant and dessert-like. Great for cold evenings.',
+        'Dark leaf: pack it loose and be patient. Goes well with coffee or tea.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Cimet', en: 'Cinnamon' }, illustration: 'rolat', color: '#8a4a20', intensity: 8 },
+      { name: { bs: 'Glazura', en: 'Icing' }, illustration: 'vanila', color: '#f3e2b3', intensity: 5 }
+    ],
+    profile: { sweetness: 8, freshness: 1, fruitiness: 0, cooling: 0, strength: 7 },
+    tags: ['desertni', 'zacinski'],
+    tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
+    mood: 'honey',
+    palette: { primary: '#8a4a20', secondary: '#f3e2b3', accent: '#caae9b', background: '#1f1209', text: '#fff4ea' },
+    mixIdeas: {
+      bs: [
+        'Cinnamon Roll i Charlotte Pie, za pitu od jabuka.',
+        'Cinnamon Roll i Vanilla Cream, za još više glazure.'
+      ],
+      en: [
+        'Cinnamon Roll and Charlotte Pie, for apple pie.',
+        'Cinnamon Roll and Vanilla Cream, for extra icing.'
+      ]
+    },
+    similar: ['musthave-maple-pecan', 'musthave-charlotte-pie']
+  },
+  {
+    id: 'musthave-cookie',
+    brand: 'musthave',
+    leaf: 'dark',
+    name: 'Cookie',
+    shortDescription: {
+      bs: 'Hrskavi čokoladni keks sa kremastim filom.',
+      en: 'Crunchy chocolate shortbread cookies with a creamy filling.'
+    },
+    description: {
+      bs: [
+        'Cookie je hrskavi čokoladni keks sa kremastim filom u sredini, kao poznati keks za umakanje u mlijeko.',
+        'Čokolada je tamna i pečena, a fil mekan i sladak.',
+        'Tamni list: rastresito pakovanje i strpljenje. Dobar uz kafu ili čaj.'
+      ],
+      en: [
+        'Cookie is a crunchy chocolate cookie with a creamy filling, like the famous one you dunk in milk.',
+        'The chocolate is dark and baked, and the filling soft and sweet.',
+        'Dark leaf: pack it loose and be patient. Goes well with coffee or tea.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Čokoladni keks', en: 'Chocolate cookie' }, illustration: 'keks', color: '#4a2c1a', intensity: 8 },
+      { name: { bs: 'Krem fil', en: 'Cream filling' }, illustration: 'sejk', color: '#fbf3e3', intensity: 6 }
+    ],
+    profile: { sweetness: 8, freshness: 1, fruitiness: 0, cooling: 0, strength: 7 },
+    tags: ['desertni', 'slatki'],
+    tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
+    palette: { primary: '#4a2c1a', secondary: '#fbf3e3', accent: '#aea098', background: '#150d08', text: '#fff4ea' },
+    mixIdeas: {
+      bs: [
+        'Cookie i Ice Cream, za sladoled sa keksom.',
+        'Cookie i Choco Mint, za mint keks.'
+      ],
+      en: [
+        'Cookie and Ice Cream, for cookies and cream.',
+        'Cookie and Choco Mint, for a mint cookie.'
+      ]
+    },
+    similar: ['musthave-cacao', 'musthave-choco-mint', 'musthave-ice-cream']
+  },
+  {
+    id: 'musthave-cacao',
+    brand: 'musthave',
+    leaf: 'dark',
+    name: 'Cacao',
+    shortDescription: {
+      bs: 'Topla čokolada sa prozračnim marshmallowom.',
+      en: 'Hot chocolate with fluffy marshmallows.'
+    },
+    description: {
+      bs: [
+        'Cacao je šolja tople čokolade sa marshmallowom na vrhu: slatka, kremasta i utješna.',
+        'Čokolada je mliječna, ne gorka, a marshmallow joj daje mekan, šećerni kraj.',
+        'Tamni list: rastresito pakovanje i strpljenje. Dobar uz kafu ili čaj.'
+      ],
+      en: [
+        'Cacao is a cup of hot chocolate with marshmallows on top: sweet, creamy and comforting.',
+        'The chocolate is milky, not bitter, and the marshmallow gives a soft, sugary finish.',
+        'Dark leaf: pack it loose and be patient. Goes well with coffee or tea.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Topla čokolada', en: 'Hot chocolate' }, illustration: 'cokolada', color: '#5a3520', intensity: 9 },
+      { name: { bs: 'Marshmallow', en: 'Marshmallow' }, illustration: 'marshmallow', color: '#fbe3ec', intensity: 5 }
+    ],
+    profile: { sweetness: 8, freshness: 1, fruitiness: 0, cooling: 0, strength: 7 },
+    tags: ['desertni', 'slatki'],
+    tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
+    mood: 'honey',
+    palette: { primary: '#5a3520', secondary: '#fbe3ec', accent: '#b5a49b', background: '#180e09', text: '#fff4ea' },
+    mixIdeas: {
+      bs: [
+        'Cacao i Cinnamon, za začinjenu čokoladu.',
+        'Cacao i Coconut Shake, za čokoladu sa kokosom.'
+      ],
+      en: [
+        'Cacao and Cinnamon, for spiced hot chocolate.',
+        'Cacao and Coconut Shake, for chocolate and coconut.'
+      ]
+    },
+    similar: ['musthave-cookie', 'musthave-choco-mint', 'fumari-mint-chocolate-chill', 'musthave-unicorn-treats']
+  },
+  {
+    id: 'musthave-milky-rice',
+    brand: 'musthave',
+    leaf: 'dark',
+    name: 'Milky Rice',
+    shortDescription: {
+      bs: 'Nježan, nostalgičan miris slatke riže na mlijeku.',
+      en: 'The delicate, nostalgic aroma of sweet milk rice pudding.'
+    },
+    description: {
+      bs: [
+        'Milky Rice je okus slatke riže na mlijeku: nježan, mliječan i nostalgičan, kao kod nane.',
+        'Lagan je i nenametljiv, sa mekom slatkoćom. Lijepo se slaže sa cimetom i voćem.',
+        'Tamni list: rastresito pakovanje i strpljenje. Dobar uz kafu ili čaj.'
+      ],
+      en: [
+        'Milky Rice is the taste of sweet rice pudding: delicate, milky and nostalgic, like grandma\'s.',
+        'Light and unobtrusive, with a soft sweetness. Pairs nicely with cinnamon and fruit.',
+        'Dark leaf: pack it loose and be patient. Goes well with coffee or tea.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Riža na mlijeku', en: 'Rice pudding' }, illustration: 'riza', color: '#3d6fb6', intensity: 8 },
+      { name: { bs: 'Mlijeko', en: 'Milk' }, illustration: 'sejk', color: '#fbf3e3', intensity: 6 }
+    ],
+    profile: { sweetness: 7, freshness: 2, fruitiness: 0, cooling: 0, strength: 7 },
+    tags: ['desertni'],
+    tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
+    palette: { primary: '#3d6fb6', secondary: '#fbf3e3', accent: '#a8bede', background: '#131821', text: '#fff4ea' },
+    mixIdeas: {
+      bs: [
+        'Milky Rice i Cinnamon, za rižu sa cimetom.',
+        'Milky Rice i Raspberry, za rižu sa džemom.'
+      ],
+      en: [
+        'Milky Rice and Cinnamon, for rice pudding with cinnamon.',
+        'Milky Rice and Raspberry, for rice pudding with jam.'
+      ]
+    },
+    similar: ['musthave-vanilla-cream', 'tangiers-horchata', 'musthave-unicorn-treats']
+  },
+  {
+    id: 'musthave-unicorn-treats',
+    brand: 'musthave',
+    leaf: 'dark',
+    name: 'Unicorn Treats',
+    shortDescription: {
+      bs: 'Slatki hrskavi kukuruzni štapići sa notama beze i marshmallowa.',
+      en: 'Sweet crunchy corn puffs with notes of meringue and marshmallow.'
+    },
+    description: {
+      bs: [
+        'Unicorn Treats je okus slatkih hrskavih kukuruznih štapića, sa kremastim notama puslica (beze) i marshmallowa.',
+        'Šećeran, kremast i razigran okus, kao slatkiši sa vašara.',
+        'Tamni list: rastresito pakovanje i strpljenje. Dobar uz kafu ili čaj.'
+      ],
+      en: [
+        'Unicorn Treats is the taste of sweet crunchy corn puffs, with creamy notes of meringue and marshmallow.',
+        'Sugary, creamy and playful, like treats from a fair.',
+        'Dark leaf: pack it loose and be patient. Goes well with coffee or tea.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Kukuruzni štapići', en: 'Corn puffs' }, illustration: 'stapici', color: '#f1c84b', intensity: 8 },
+      { name: { bs: 'Puslica', en: 'Meringue' }, illustration: 'puslica', color: '#ffd6e6', intensity: 6 },
+      { name: { bs: 'Marshmallow', en: 'Marshmallow' }, illustration: 'marshmallow', color: '#fbe3ec', intensity: 5 }
+    ],
+    profile: { sweetness: 9, freshness: 2, fruitiness: 0, cooling: 0, strength: 7 },
+    tags: ['desertni', 'bombon', 'slatki'],
+    tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
+    palette: { primary: '#f1c84b', secondary: '#ffd6e6', accent: '#fbe3ec', background: '#302610', text: '#fff4ea' },
+    mixIdeas: {
+      bs: [
+        'Unicorn Treats i Strawberry, za jagode sa šlagom.',
+        'Unicorn Treats i Vanilla Cream, za još slađi desert.'
+      ],
+      en: [
+        'Unicorn Treats and Strawberry, for strawberries and cream.',
+        'Unicorn Treats and Vanilla Cream, for an even sweeter dessert.'
+      ]
+    },
+    similar: ['musthave-milky-rice', 'musthave-cacao']
+  },
+  {
+    id: 'musthave-violet',
+    brand: 'musthave',
+    leaf: 'dark',
+    name: 'Violet',
+    shortDescription: {
+      bs: 'Egzotični kremasti šejk od borovnice i zlatne dinje, sa začinima.',
+      en: 'An exotic creamy shake of blueberry and golden melon, with spices.'
+    },
+    description: {
+      bs: [
+        'Violet je kremasti šejk sa nježnom borovnicom i svježinom zlatne dinje, začinjen toplim mirisom začina.',
+        'Neobična kombinacija: voćna, kremasta i blago začinska u isto vrijeme.',
+        'Tamni list: rastresito pakovanje i strpljenje. Dobar uz kafu ili čaj.'
+      ],
+      en: [
+        'Violet is a creamy shake with delicate blueberry and the freshness of golden melon, seasoned with warm spices.',
+        'An unusual combination: fruity, creamy and lightly spiced at the same time.',
+        'Dark leaf: pack it loose and be patient. Goes well with coffee or tea.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Borovnica', en: 'Blueberry' }, illustration: 'borovnica', color: '#4a5fc1', intensity: 8 },
+      { name: { bs: 'Dinja', en: 'Melon' }, illustration: 'dinja', color: '#f5b04a', intensity: 6 },
+      { name: { bs: 'Šejk', en: 'Shake' }, illustration: 'sejk', color: '#ede6f5', intensity: 5 },
+      { name: { bs: 'Začini', en: 'Spices' }, illustration: 'kardamom', color: '#9a8a4a', intensity: 3 }
+    ],
+    profile: { sweetness: 7, freshness: 4, fruitiness: 7, cooling: 0, strength: 7 },
+    tags: ['desertni', 'vocni', 'zacinski'],
+    tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
+    palette: { primary: '#4a5fc1', secondary: '#f5b04a', accent: '#ede6f5', background: '#151523', text: '#fff4ea' },
+    mixIdeas: {
+      bs: [
+        'Violet i Blueberry, za više borovnice.',
+        'Violet i Vanilla Cream, za kremastiji šejk.'
+      ],
+      en: [
+        'Violet and Blueberry, for more blueberry.',
+        'Violet and Vanilla Cream, for a creamier shake.'
+      ]
+    },
+    similar: ['musthave-blueberry', 'musthave-sweet-melon', 'musthave-tipsy']
+  },
+  {
+    id: 'musthave-choco-mint',
+    brand: 'musthave',
+    leaf: 'dark',
+    name: 'Choco Mint',
+    shortDescription: {
+      bs: 'Tamna čokolada sa nježnim hladnim dahom krem mente.',
+      en: 'Dark chocolate with the gentle chill of mint cream.'
+    },
+    description: {
+      bs: [
+        'Choco Mint je elegantna kombinacija tamne čokolade i nježne krem mente, kao poznata čokoladica sa mentom.',
+        'Hlađenje je blago i kremasto, ne oštro, pa čokolada ostaje glavna.',
+        'Tamni list sa hlađenjem: rastresito pakovanje i umjerena toplota, jer previše uglja ubije svježinu.'
+      ],
+      en: [
+        'Choco Mint is an elegant pairing of dark chocolate and delicate mint cream, like the famous after-dinner mints.',
+        'The cooling is light and creamy, not sharp, so the chocolate stays in front.',
+        'Dark leaf with cooling: pack it loose and keep the heat moderate, because too much coal kills the freshness.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Tamna čokolada', en: 'Dark chocolate' }, illustration: 'cokolada', color: '#3e2316', intensity: 8 },
+      { name: { bs: 'Krem menta', en: 'Mint cream' }, illustration: 'menta', color: '#7fd6a8', intensity: 6 }
+    ],
+    profile: { sweetness: 7, freshness: 6, fruitiness: 0, cooling: 4, strength: 7 },
+    tags: ['desertni', 'mint'],
+    tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
+    mood: 'frost',
+    palette: { primary: '#3e2316', secondary: '#7fd6a8', accent: '#a89c96', background: '#130b08', text: '#fff4ea' },
+    mixIdeas: {
+      bs: [
+        'Choco Mint i Cookie, za mint keks.',
+        'Choco Mint i Cacao, za toplu čokoladu sa mentom.'
+      ],
+      en: [
+        'Choco Mint and Cookie, for a mint cookie.',
+        'Choco Mint and Cacao, for hot chocolate with mint.'
+      ]
+    },
+    similar: ['fumari-mint-chocolate-chill', 'musthave-cacao', 'musthave-cookie']
+  },
+  {
+    id: 'musthave-apple-drops',
+    brand: 'musthave',
+    leaf: 'dark',
+    name: 'Apple Drops',
+    shortDescription: {
+      bs: 'Sočan, prirodan okus slatkih bombona od jabuke koji se tope u ustima.',
+      en: 'The juicy, natural taste of sweet apple candies that melt in your mouth.'
+    },
+    description: {
+      bs: [
+        'Apple Drops je okus bombona od svježe jabuke: sočan, sladak i prirodan, kao lizalica od zelene jabuke.',
+        'Jabuka je svježa i hrskava, a bombonasta slatkoća je mekana.',
+        'Tamni list MUSTHAVE: rastresito pakovanje, srednja toplota i par minuta zagrijavanja prije prvog dima.'
+      ],
+      en: [
+        'Apple Drops is the taste of fresh apple candy: juicy, sweet and natural, like a green apple drop.',
+        'The apple is fresh and crisp, and the candy sweetness is soft.',
+        'MUSTHAVE dark leaf: pack it loose, keep the heat medium and give the bowl a few minutes to warm up before the first pull.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Jabuka', en: 'Apple' }, illustration: 'jabuka', color: '#8cc63f', intensity: 9 },
+      { name: { bs: 'Bombon', en: 'Candy' }, illustration: 'bombon', color: '#c8e86a', intensity: 5 }
+    ],
+    profile: { sweetness: 8, freshness: 6, fruitiness: 8, cooling: 0, strength: 7 },
+    tags: ['vocni', 'bombon', 'slatki'],
+    tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
+    palette: { primary: '#8cc63f', secondary: '#c8e86a', accent: '#cbe5a9', background: '#20260e', text: '#fff4ea' },
+    mixIdeas: {
+      bs: [
+        'Apple Drops i Cinnamon, za jabuku sa cimetom.',
+        'Apple Drops i Ice Mint, za ledenu jabuku.'
+      ],
+      en: [
+        'Apple Drops and Cinnamon, for apple and cinnamon.',
+        'Apple Drops and Ice Mint, for icy apple.'
+      ]
+    },
+    similar: ['musthave-charlotte-pie', 'al-fakher-double-apple', 'musthave-barberry-candy']
+  },
+  {
+    id: 'musthave-barberry-candy',
+    brand: 'musthave',
+    leaf: 'dark',
+    name: 'Barberry Candy',
+    shortDescription: {
+      bs: 'Nostalgičan, bogat okus omiljene bombone od žutike iz djetinjstva.',
+      en: 'The nostalgic, rich taste of the favorite childhood barberry candy.'
+    },
+    description: {
+      bs: [
+        'Barberry Candy je okus bombone od žutike (barberry): slatke, kiselkaste i pomalo voćne.',
+        'Poznat okus iz djetinjstva u istočnoj Evropi. Bombonast, ali sa živom kiselinom.',
+        'Tamni list MUSTHAVE: rastresito pakovanje, srednja toplota i par minuta zagrijavanja prije prvog dima.'
+      ],
+      en: [
+        'Barberry Candy is the taste of barberry hard candy: sweet, tangy and a little fruity.',
+        'A well known childhood taste in Eastern Europe. Candy-like, but with a lively tang.',
+        'MUSTHAVE dark leaf: pack it loose, keep the heat medium and give the bowl a few minutes to warm up before the first pull.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Žutika', en: 'Barberry' }, illustration: 'grozdic', color: '#d1213b', intensity: 8 },
+      { name: { bs: 'Bombon', en: 'Candy' }, illustration: 'bombon', color: '#e8455a', intensity: 7 }
+    ],
+    profile: { sweetness: 8, freshness: 5, fruitiness: 6, cooling: 0, strength: 7 },
+    tags: ['bombon', 'slatki'],
+    tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
+    palette: { primary: '#d1213b', secondary: '#e8455a', accent: '#ea9ba7', background: '#2b0b0e', text: '#fff4ea' },
+    mixIdeas: {
+      bs: [
+        'Barberry Candy i Lemon-Lime, za kiseliju bombonu.',
+        'Barberry Candy i Ice Mint, za ledenu bombonu.'
+      ],
+      en: [
+        'Barberry Candy and Lemon-Lime, for a sourer candy.',
+        'Barberry Candy and Ice Mint, for an icy candy.'
+      ]
+    },
+    similar: ['musthave-fizzy-dizzy', 'musthave-candy-cow', 'musthave-apple-drops']
   },
   // ---- kraj MUSTHAVE linije ----
   {
