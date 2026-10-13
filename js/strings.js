@@ -576,7 +576,9 @@
         klasicni: 'Klasični',
         zacinski: 'Začinski',
         desertni: 'Desertni',
-        pice: 'Piće'
+        pice: 'Piće',
+        caj: 'Čaj',
+        kiseli: 'Kiseli'
       },
 
       notFound: {
@@ -1316,7 +1318,9 @@
         klasicni: 'Classic',
         zacinski: 'Spiced',
         desertni: 'Dessert',
-        pice: 'Drinks'
+        pice: 'Drinks',
+        caj: 'Tea',
+        kiseli: 'Sour'
       },
 
       notFound: {

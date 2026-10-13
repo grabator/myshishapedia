@@ -2693,7 +2693,7 @@ window.FLAVORS = [
         'Gooseberry and Strawberry, to soften the sourness.'
       ]
     },
-    similar: ['musthave-cranberry', 'musthave-black-currant']
+    similar: ['musthave-feijoa', 'musthave-cranberry', 'musthave-black-currant']
   },
   {
     id: 'musthave-cranberry',
@@ -3016,7 +3016,7 @@ window.FLAVORS = [
         'Mad Pear and Candy Cow, for caramelised pear.'
       ]
     },
-    similar: ['sebero-green-pear']
+    similar: ['sebero-green-pear', 'musthave-quince']
   },
   {
     id: 'musthave-tropic-juice',
@@ -3438,7 +3438,7 @@ window.FLAVORS = [
         'Estragon and Lemon-Lime, for a citrus tarhun.'
       ]
     },
-    similar: ['musthave-cucunade', 'musthave-green-fizz']
+    similar: ['musthave-cucunade', 'musthave-baikal', 'musthave-green-fizz']
   },
   {
     id: 'musthave-green-fizz',
@@ -3605,7 +3605,7 @@ window.FLAVORS = [
         'Christmas Drink and Mandarin, for a holiday bowl.'
       ]
     },
-    similar: ['musthave-prosecco', 'musthave-citrus-spritz']
+    similar: ['musthave-prosecco', 'musthave-citrus-spritz', 'musthave-yolka']
   },
   {
     id: 'musthave-caribbean-rum',
@@ -3690,7 +3690,7 @@ window.FLAVORS = [
         'Mulled Wine and Mandarin, for a holiday bowl.'
       ]
     },
-    similar: ['musthave-caribbean-rum']
+    similar: ['musthave-masala-tea', 'musthave-cinnamon', 'musthave-caribbean-rum']
   },
   {
     id: 'musthave-tipsy',
@@ -4399,7 +4399,7 @@ window.FLAVORS = [
         'Cinnamon Roll and Vanilla Cream, for extra icing.'
       ]
     },
-    similar: ['musthave-maple-pecan', 'musthave-charlotte-pie']
+    similar: ['musthave-cinnamon', 'musthave-maple-pecan', 'musthave-charlotte-pie']
   },
   {
     id: 'musthave-cookie',
@@ -4523,7 +4523,7 @@ window.FLAVORS = [
         'Milky Rice and Raspberry, for rice pudding with jam.'
       ]
     },
-    similar: ['musthave-vanilla-cream', 'tangiers-horchata', 'musthave-unicorn-treats']
+    similar: ['musthave-vanilla-cream', 'tangiers-horchata', 'musthave-milk-oolong', 'musthave-unicorn-treats']
   },
   {
     id: 'musthave-unicorn-treats',
@@ -4733,6 +4733,841 @@ window.FLAVORS = [
       ]
     },
     similar: ['musthave-fizzy-dizzy', 'musthave-candy-cow', 'musthave-apple-drops']
+  },
+  {
+    id: 'musthave-earl-grey',
+    brand: 'musthave',
+    leaf: 'dark',
+    name: 'Earl Grey',
+    shortDescription: {
+      bs: 'Klasičan, dubok ukus čaja sa jarkim bergamotom.',
+      en: 'A classic, deep tea taste with bright bergamot.'
+    },
+    description: {
+      bs: [
+        'Earl Grey je crni čaj sa bergamotom: dubok, pomalo opor i citrusno mirisan.',
+        'Bergamot daje cvjetni citrus koji ovaj čaj čini prepoznatljivim. Okus za mirne večeri.',
+        'Tamni list: rastresito pakovanje i blaga toplota, da se čajne i začinske note ne zapeku.'
+      ],
+      en: [
+        'Earl Grey is black tea with bergamot: deep, slightly astringent and citrus-scented.',
+        'Bergamot gives the floral citrus note that makes this tea recognisable. A flavor for quiet evenings.',
+        'Dark leaf: pack it loose and keep the heat gentle, so the tea and spice notes do not burn.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Crni čaj', en: 'Black tea' }, illustration: 'caj', color: '#8a4a1c', intensity: 8 },
+      { name: { bs: 'Bergamot', en: 'Bergamot' }, illustration: 'limun', color: '#c9d65a', intensity: 6 }
+    ],
+    profile: { sweetness: 4, freshness: 4, fruitiness: 3, cooling: 0, strength: 7 },
+    tags: ['caj', 'klasicni', 'citrusni'],
+    tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
+    palette: { primary: '#8a4a1c', secondary: '#c9d65a', accent: '#caae99', background: '#1f1209', text: '#fff4ea' },
+    mixIdeas: {
+      bs: [
+        'Earl Grey i Sweet Peach, za ledeni čaj od breskve.',
+        'Earl Grey i Lemon-Lime, za čaj sa limunom.'
+      ],
+      en: [
+        'Earl Grey and Sweet Peach, for a peach iced tea.',
+        'Earl Grey and Lemon-Lime, for tea with lemon.'
+      ]
+    },
+    similar: ['musthave-milk-oolong', 'musthave-red-tea', 'musthave-masala-tea', 'musthave-morocco']
+  },
+  {
+    id: 'musthave-milk-oolong',
+    brand: 'musthave',
+    leaf: 'dark',
+    name: 'Milk Oolong',
+    shortDescription: {
+      bs: 'Nježan kineski zeleni čaj sa mliječnim mirisom.',
+      en: 'Delicate Chinese green tea with a milky aroma.'
+    },
+    description: {
+      bs: [
+        'Milk Oolong je kineski oolong čaj sa prirodnim mliječnim mirisom: nježan, kremast i blago cvjetan.',
+        'Lagan i smiren okus, bez kiseline. Za ljubitelje čaja i mekih okusa.',
+        'Tamni list: rastresito pakovanje i blaga toplota, da se čajne i začinske note ne zapeku.'
+      ],
+      en: [
+        'Milk Oolong is Chinese oolong tea with a natural milky aroma: delicate, creamy and lightly floral.',
+        'A light, calm flavor with no sourness. For tea lovers and fans of soft flavors.',
+        'Dark leaf: pack it loose and keep the heat gentle, so the tea and spice notes do not burn.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Oolong čaj', en: 'Oolong tea' }, illustration: 'caj', color: '#9cb04a', intensity: 8 },
+      { name: { bs: 'Mlijeko', en: 'Milk' }, illustration: 'sejk', color: '#fbf3e3', intensity: 6 }
+    ],
+    profile: { sweetness: 5, freshness: 4, fruitiness: 0, cooling: 0, strength: 7 },
+    tags: ['caj', 'klasicni'],
+    tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
+    palette: { primary: '#9cb04a', secondary: '#fbf3e3', accent: '#d2dbae', background: '#222210', text: '#fff4ea' },
+    mixIdeas: {
+      bs: [
+        'Milk Oolong i Mad Pear, za čaj sa kruškom.',
+        'Milk Oolong i Vanilla Cream, za mliječni čaj.'
+      ],
+      en: [
+        'Milk Oolong and Mad Pear, for tea with pear.',
+        'Milk Oolong and Vanilla Cream, for a milk tea.'
+      ]
+    },
+    similar: ['musthave-earl-grey', 'musthave-milky-rice', 'musthave-masala-tea']
+  },
+  {
+    id: 'musthave-masala-tea',
+    brand: 'musthave',
+    leaf: 'dark',
+    name: 'Masala Tea',
+    shortDescription: {
+      bs: 'Sladak, začinjen čaj sa finim notama orijentalnih začina.',
+      en: 'A sweet spiced tea with fine notes of oriental spices.'
+    },
+    description: {
+      bs: [
+        'Masala Tea je indijski začinjeni čaj (masala chai): slatki crni čaj sa mlijekom, kardamomom, cimetom i đumbirom.',
+        'Topao, mirisan i kremast okus koji grije. Odličan za zimu.',
+        'Tamni list: rastresito pakovanje i blaga toplota, da se čajne i začinske note ne zapeku.'
+      ],
+      en: [
+        'Masala Tea is Indian spiced tea (masala chai): sweet black tea with milk, cardamom, cinnamon and ginger.',
+        'A warm, fragrant and creamy flavor that heats you up. Great for winter.',
+        'Dark leaf: pack it loose and keep the heat gentle, so the tea and spice notes do not burn.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Crni čaj', en: 'Black tea' }, illustration: 'caj', color: '#8a4a1c', intensity: 7 },
+      { name: { bs: 'Kardamom', en: 'Cardamom' }, illustration: 'kardamom', color: '#9a8a4a', intensity: 6 },
+      { name: { bs: 'Cimet', en: 'Cinnamon' }, illustration: 'cimet', color: '#a0522d', intensity: 5 },
+      { name: { bs: 'Đumbir', en: 'Ginger' }, illustration: 'djumbir', color: '#f2d27a', intensity: 4 }
+    ],
+    profile: { sweetness: 7, freshness: 2, fruitiness: 0, cooling: 0, strength: 7 },
+    tags: ['caj', 'zacinski'],
+    tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
+    mood: 'honey',
+    palette: { primary: '#8a4a1c', secondary: '#9a8a4a', accent: '#a0522d', background: '#1f1209', text: '#fff4ea' },
+    mixIdeas: {
+      bs: [
+        'Masala Tea i Vanilla Cream, za chai latte.',
+        'Masala Tea i Cinnamon Roll, za čaj i kiflicu.'
+      ],
+      en: [
+        'Masala Tea and Vanilla Cream, for a chai latte.',
+        'Masala Tea and Cinnamon Roll, for tea and a bun.'
+      ]
+    },
+    similar: ['fumari-spiced-chai', 'musthave-morocco', 'musthave-earl-grey', 'musthave-mulled-wine']
+  },
+  {
+    id: 'musthave-morocco',
+    brand: 'musthave',
+    leaf: 'dark',
+    name: 'Morocco',
+    shortDescription: {
+      bs: 'Topao miris tradicionalnog marokanskog citrusnog čaja sa začinima.',
+      en: 'The warm aroma of traditional Moroccan citrus tea with spices.'
+    },
+    description: {
+      bs: [
+        'Morocco je tradicionalni marokanski čaj sa citrusima i začinima: nježan, topao i mirisan.',
+        'Citrus daje svježinu, a začini toplinu. Okus podsjeća na čaj poslije večere u Marakešu.',
+        'Tamni list: rastresito pakovanje i blaga toplota, da se čajne i začinske note ne zapeku.'
+      ],
+      en: [
+        'Morocco is a traditional Moroccan tea with citrus and spices: subtle, warm and fragrant.',
+        'Citrus brings freshness and spices the warmth. It recalls an after-dinner tea in Marrakesh.',
+        'Dark leaf: pack it loose and keep the heat gentle, so the tea and spice notes do not burn.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Čaj', en: 'Tea' }, illustration: 'caj', color: '#a8632a', intensity: 7 },
+      { name: { bs: 'Narandža', en: 'Orange' }, illustration: 'narandza', color: '#ff7a00', intensity: 5 },
+      { name: { bs: 'Začini', en: 'Spices' }, illustration: 'cimet', color: '#a0522d', intensity: 5 }
+    ],
+    profile: { sweetness: 5, freshness: 4, fruitiness: 3, cooling: 0, strength: 7 },
+    tags: ['caj', 'zacinski', 'citrusni'],
+    tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
+    mood: 'honey',
+    palette: { primary: '#a8632a', secondary: '#ff7a00', accent: '#a0522d', background: '#24160b', text: '#fff4ea' },
+    mixIdeas: {
+      bs: [
+        'Morocco i Ice Mint, za marokanski čaj od mente.',
+        'Morocco i Mandarin, za više citrusa.'
+      ],
+      en: [
+        'Morocco and Ice Mint, for a Moroccan mint tea.',
+        'Morocco and Mandarin, for more citrus.'
+      ]
+    },
+    similar: ['musthave-masala-tea', 'musthave-red-tea', 'musthave-earl-grey']
+  },
+  {
+    id: 'musthave-red-tea',
+    brand: 'musthave',
+    leaf: 'dark',
+    name: 'Red Tea',
+    shortDescription: {
+      bs: 'Opor miris crvenog voćnog čaja.',
+      en: 'The tart aroma of red fruit tea.'
+    },
+    description: {
+      bs: [
+        'Red Tea je crveni voćni čaj, kao onaj od hibiskusa i crvenog voća: opor, kiselkast i voćan.',
+        'Lagan je i osvježavajući, sa bobičastom kiselinom. Pije se i topao i hladan.',
+        'Tamni list: rastresito pakovanje i blaga toplota, da se čajne i začinske note ne zapeku.'
+      ],
+      en: [
+        'Red Tea is a red fruit tea, like one made with hibiscus and red fruit: tart, tangy and fruity.',
+        'Light and refreshing, with a berry sourness. Works hot or iced.',
+        'Dark leaf: pack it loose and keep the heat gentle, so the tea and spice notes do not burn.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Crveni čaj', en: 'Red tea' }, illustration: 'caj', color: '#b0233a', intensity: 8 },
+      { name: { bs: 'Crveno voće', en: 'Red fruit' }, illustration: 'malina', color: '#d61f5b', intensity: 5 }
+    ],
+    profile: { sweetness: 5, freshness: 5, fruitiness: 6, cooling: 0, strength: 7 },
+    tags: ['caj', 'bobicasti'],
+    tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
+    palette: { primary: '#b0233a', secondary: '#d61f5b', accent: '#db9ca6', background: '#250b0d', text: '#fff4ea' },
+    mixIdeas: {
+      bs: [
+        'Red Tea i Raspberry, za čaj sa malinom.',
+        'Red Tea i Frosty, za ledeni čaj.'
+      ],
+      en: [
+        'Red Tea and Raspberry, for raspberry tea.',
+        'Red Tea and Frosty, for an iced tea.'
+      ]
+    },
+    similar: ['musthave-earl-grey', 'musthave-sea-buckthorn-tea', 'musthave-morocco']
+  },
+  {
+    id: 'musthave-sea-buckthorn-tea',
+    brand: 'musthave',
+    leaf: 'dark',
+    name: 'Sea Buckthorn Tea',
+    shortDescription: {
+      bs: 'Zreli, sočni pasji trn sa notama grejpfruta i đumbira.',
+      en: 'Ripe, juicy sea buckthorn with hints of grapefruit and ginger.'
+    },
+    description: {
+      bs: [
+        'Sea Buckthorn Tea je čaj od pasjeg trna (rakitovca): narandžastih bobica kiselkastog, tropskog ukusa.',
+        'Grejpfrut dodaje citrus, a đumbir blagu ljutinu. Topao, voćan i drugačiji čaj.',
+        'Tamni list: rastresito pakovanje i blaga toplota, da se čajne i začinske note ne zapeku.'
+      ],
+      en: [
+        'Sea Buckthorn Tea is a tea of sea buckthorn: orange berries with a tangy, almost tropical taste.',
+        'Grapefruit adds citrus and ginger a light heat. A warm, fruity and different tea.',
+        'Dark leaf: pack it loose and keep the heat gentle, so the tea and spice notes do not burn.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Pasji trn', en: 'Sea buckthorn' }, illustration: 'grozdic', color: '#f59a1c', intensity: 8 },
+      { name: { bs: 'Grejpfrut', en: 'Grapefruit' }, illustration: 'grejpfrut', color: '#f26b6b', intensity: 5 },
+      { name: { bs: 'Đumbir', en: 'Ginger' }, illustration: 'djumbir', color: '#f2d27a', intensity: 4 }
+    ],
+    profile: { sweetness: 5, freshness: 6, fruitiness: 7, cooling: 0, strength: 7 },
+    tags: ['caj', 'vocni', 'zacinski'],
+    tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
+    mood: 'honey',
+    palette: { primary: '#f59a1c', secondary: '#f26b6b', accent: '#f2d27a', background: '#301f09', text: '#fff4ea' },
+    mixIdeas: {
+      bs: [
+        'Sea Buckthorn Tea i Honey Holls, za čaj sa medom.',
+        'Sea Buckthorn Tea i Mandarin, za zimski citrus.'
+      ],
+      en: [
+        'Sea Buckthorn Tea and Honey Holls, for tea with honey.',
+        'Sea Buckthorn Tea and Mandarin, for winter citrus.'
+      ]
+    },
+    similar: ['musthave-red-tea', 'musthave-masala-tea', 'musthave-grapefruit']
+  },
+  {
+    id: 'musthave-cinnamon',
+    brand: 'musthave',
+    leaf: 'dark',
+    name: 'Cinnamon',
+    shortDescription: {
+      bs: 'Prijatan, začinsko-sladak, topao i baršunast cimet sa Šri Lanke.',
+      en: 'Pleasant, spicy-sweet, warm and velvety Sri Lankan cinnamon.'
+    },
+    description: {
+      bs: [
+        'Cinnamon je cejlonski cimet sa Šri Lanke: sladak, topao i baršunast, bez oštre ljutine.',
+        'Sam je za ljubitelje začina, a u miksu daje toplinu jabuci, čokoladi i kafi.',
+        'Tamni list: rastresito pakovanje i blaga toplota, da se čajne i začinske note ne zapeku.'
+      ],
+      en: [
+        'Cinnamon is Ceylon cinnamon from Sri Lanka: sweet, warm and velvety, without a harsh bite.',
+        'On its own it is for spice lovers, and in a mix it adds warmth to apple, chocolate and coffee.',
+        'Dark leaf: pack it loose and keep the heat gentle, so the tea and spice notes do not burn.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Cimet', en: 'Cinnamon' }, illustration: 'cimet', color: '#a0522d', intensity: 9 }
+    ],
+    profile: { sweetness: 5, freshness: 1, fruitiness: 0, cooling: 0, strength: 7 },
+    tags: ['zacinski'],
+    tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
+    mood: 'honey',
+    palette: { primary: '#a0522d', secondary: '#c18f77', accent: '#d4b1a1', background: '#23130b', text: '#fff4ea' },
+    mixIdeas: {
+      bs: [
+        'Cinnamon i Apple Drops, za jabuku sa cimetom.',
+        'Cinnamon i Cacao, za začinjenu čokoladu.'
+      ],
+      en: [
+        'Cinnamon and Apple Drops, for apple and cinnamon.',
+        'Cinnamon and Cacao, for spiced hot chocolate.'
+      ]
+    },
+    similar: ['musthave-cinnamon-roll', 'musthave-mulled-wine', 'musthave-masala-tea']
+  },
+  {
+    id: 'musthave-baikal',
+    brand: 'musthave',
+    leaf: 'dark',
+    name: 'Baikal',
+    shortDescription: {
+      bs: 'Složena kombinacija šumskog bilja obavijena mirisom četinara.',
+      en: 'A complex blend of forest herbs wrapped in the scent of conifers.'
+    },
+    description: {
+      bs: [
+        'Baikal je okus poznatog biljnog osvježavajućeg pića: šumsko bilje i četinari, plemenit i složen.',
+        'Okus je biljni, blago smolast i svjež. Neobičan, za one koji traže nešto drugačije.',
+        'Tamni list: rastresito pakovanje i blaga toplota, da se čajne i začinske note ne zapeku.'
+      ],
+      en: [
+        'Baikal is the taste of a well known herbal soft drink: forest herbs and conifers, noble and complex.',
+        'It is herbal, lightly resinous and fresh. Unusual, for those looking for something different.',
+        'Dark leaf: pack it loose and keep the heat gentle, so the tea and spice notes do not burn.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Šumsko bilje', en: 'Forest herbs' }, illustration: 'bilje', color: '#5e8a3a', intensity: 8 },
+      { name: { bs: 'Četinari', en: 'Conifers' }, illustration: 'jelka', color: '#2f6b3a', intensity: 6 }
+    ],
+    profile: { sweetness: 5, freshness: 7, fruitiness: 0, cooling: 0, strength: 7 },
+    tags: ['biljni', 'pice'],
+    tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
+    mood: 'mist',
+    palette: { primary: '#5e8a3a', secondary: '#2f6b3a', accent: '#b7caa6', background: '#181c0d', text: '#fff4ea' },
+    mixIdeas: {
+      bs: [
+        'Baikal i Lemon-Lime, za biljnu limunadu.',
+        'Baikal i Cola, za biljnu kolu.'
+      ],
+      en: [
+        'Baikal and Lemon-Lime, for a herbal lemonade.',
+        'Baikal and Cola, for a herbal cola.'
+      ]
+    },
+    similar: ['musthave-yolka', 'musthave-estragon']
+  },
+  {
+    id: 'musthave-yolka',
+    brand: 'musthave',
+    leaf: 'dark',
+    name: 'Yolka',
+    shortDescription: {
+      bs: 'Miris jelke koji vodi u četinarsku šumu poslije jake kiše.',
+      en: 'The scent of a fir tree that takes you to a pine forest after heavy rain.'
+    },
+    description: {
+      bs: [
+        'Yolka (Ёлка, jelka) je miris božićne jelke: svjež, smolast i zelen, kao šuma četinara poslije kiše.',
+        'Nije menta, nego čist miris četina. Praznični okus koji se rijetko nalazi.',
+        'Tamni list: rastresito pakovanje i blaga toplota, da se čajne i začinske note ne zapeku.'
+      ],
+      en: [
+        'Yolka (Ёлка, fir tree) is the scent of a Christmas tree: fresh, resinous and green, like a pine forest after rain.',
+        'It is not mint but the pure smell of pine needles. A festive flavor you rarely find.',
+        'Dark leaf: pack it loose and keep the heat gentle, so the tea and spice notes do not burn.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Jelka', en: 'Fir' }, illustration: 'jelka', color: '#2f6b3a', intensity: 9 }
+    ],
+    profile: { sweetness: 3, freshness: 8, fruitiness: 0, cooling: 1, strength: 7 },
+    tags: ['biljni', 'osvjezavajuci'],
+    tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
+    mood: 'mist',
+    palette: { primary: '#2f6b3a', secondary: '#789f7f', accent: '#a1bca6', background: '#11170d', text: '#fff4ea' },
+    mixIdeas: {
+      bs: [
+        'Yolka i Mandarin, za novogodišnji miks.',
+        'Yolka i Lemon Tonic, za džin i tonik.'
+      ],
+      en: [
+        'Yolka and Mandarin, for a New Year bowl.',
+        'Yolka and Lemon Tonic, for a gin and tonic.'
+      ]
+    },
+    similar: ['musthave-baikal', 'musthave-christmas-drink']
+  },
+  {
+    id: 'musthave-peppermint',
+    brand: 'musthave',
+    leaf: 'dark',
+    name: 'Peppermint',
+    shortDescription: {
+      bs: 'Dubok, bogat pepermint sa nevjerovatno slatkim krajem.',
+      en: 'Deep, rich peppermint with an incredibly sweet aftertaste.'
+    },
+    description: {
+      bs: [
+        'Peppermint je dubok, bogat pepermint sa slatkim krajem, kao bombon od mente.',
+        'Hladi, ali nije ledeni mentol. Klasičan dodatak voćnim miksevima.',
+        'Tamni list sa hlađenjem: rastresito pakovanje i umjerena toplota, jer previše uglja ubije svježinu.'
+      ],
+      en: [
+        'Peppermint is a deep, rich peppermint with a sweet finish, like a mint candy.',
+        'It cools, but it is not icy menthol. A classic addition to fruit mixes.',
+        'Dark leaf with cooling: pack it loose and keep the heat moderate, because too much coal kills the freshness.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Pepermint', en: 'Peppermint' }, illustration: 'pepermint', color: '#3fc08a', intensity: 9 }
+    ],
+    profile: { sweetness: 7, freshness: 9, fruitiness: 0, cooling: 5, strength: 7 },
+    tags: ['mint', 'osvjezavajuci'],
+    tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
+    mood: 'frost',
+    palette: { primary: '#3fc08a', secondary: '#82d6b3', accent: '#a9e3ca', background: '#13251a', text: '#fff4ea' },
+    mixIdeas: {
+      bs: [
+        'Peppermint i Watermelon, za lubenicu sa mentom.',
+        'Peppermint i Cacao, za čokoladu sa mentom.'
+      ],
+      en: [
+        'Peppermint and Watermelon, for watermelon mint.',
+        'Peppermint and Cacao, for chocolate mint.'
+      ]
+    },
+    similar: ['musthave-ice-mint', 'trifecta-peppermint-shake', 'al-fakher-mint']
+  },
+  {
+    id: 'musthave-ice-mint',
+    brand: 'musthave',
+    leaf: 'dark',
+    name: 'Ice Mint',
+    shortDescription: {
+      bs: 'Jarka žvaka od mente sa bogatim efektom hlađenja.',
+      en: 'Bright mint chewing gum with a rich cooling effect.'
+    },
+    description: {
+      bs: [
+        'Ice Mint je okus mint žvake sa jakim hlađenjem: slatko, mentolno i ledeno.',
+        'Hladi jasno i dugo. Sam je za ljubitelje leda, a u miksu doda svježinu bilo kojem voću.',
+        'Tamni list sa hlađenjem: rastresito pakovanje i umjerena toplota, jer previše uglja ubije svježinu.'
+      ],
+      en: [
+        'Ice Mint is the taste of mint chewing gum with strong cooling: sweet, minty and icy.',
+        'It cools clearly and for a long time. Alone it is for ice lovers, and in a mix it freshens any fruit.',
+        'Dark leaf with cooling: pack it loose and keep the heat moderate, because too much coal kills the freshness.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Menta', en: 'Mint' }, illustration: 'menta', color: '#3fc08a', intensity: 8 },
+      { name: { bs: 'Žvaka', en: 'Chewing gum' }, illustration: 'zvaka', color: '#7fd6c8', intensity: 6 },
+      { name: { bs: 'Hlađenje', en: 'Cooling' }, illustration: 'kristal', color: '#bfeeff', intensity: 7 }
+    ],
+    profile: { sweetness: 6, freshness: 10, fruitiness: 0, cooling: 8, strength: 7 },
+    tags: ['mint', 'ledeni', 'osvjezavajuci'],
+    tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
+    mood: 'frost',
+    palette: { primary: '#3fc08a', secondary: '#7fd6c8', accent: '#bfeeff', background: '#13251a', text: '#fff4ea' },
+    mixIdeas: {
+      bs: [
+        'Ice Mint i Watermelon, za ledenu lubenicu.',
+        'Ice Mint i Lemon-Lime, za mohito.'
+      ],
+      en: [
+        'Ice Mint and Watermelon, for icy watermelon.',
+        'Ice Mint and Lemon-Lime, for a mojito.'
+      ]
+    },
+    similar: ['musthave-peppermint', 'musthave-frosty', 'mazaya-gum-mint', 'musthave-honey-holls']
+  },
+  {
+    id: 'musthave-frosty',
+    brand: 'musthave',
+    leaf: 'dark',
+    name: 'Frosty',
+    shortDescription: {
+      bs: 'Okrepljujuć i svjež, kao dah mraznog jutarnjeg zraka poslije snijega.',
+      en: 'Invigorating and fresh, like a breath of frosty morning air after snowfall.'
+    },
+    description: {
+      bs: [
+        'Frosty je čisto hlađenje, bez mente i bez voća: kao udah mraznog zraka poslije dugog snijega.',
+        'Koristi se kao dodatak drugim okusima, da im se doda led. Sam je samo za one koji vole čist hlad.',
+        'Tamni list sa hlađenjem: rastresito pakovanje i umjerena toplota, jer previše uglja ubije svježinu.'
+      ],
+      en: [
+        'Frosty is pure cooling, with no mint and no fruit: like a breath of frosty air after a long snowfall.',
+        'It is used as an add-on to other flavors to bring the ice. On its own it is only for lovers of pure cold.',
+        'Dark leaf with cooling: pack it loose and keep the heat moderate, because too much coal kills the freshness.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Hlađenje', en: 'Cooling' }, illustration: 'kristal', color: '#bfeeff', intensity: 10 }
+    ],
+    profile: { sweetness: 2, freshness: 10, fruitiness: 0, cooling: 10, strength: 6 },
+    tags: ['ledeni', 'osvjezavajuci'],
+    tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
+    mood: 'frost',
+    mixRole: 'cooler',
+    palette: { primary: '#bfeeff', secondary: '#d5f4ff', accent: '#e2f7ff', background: '#282c2d', text: '#fff4ea' },
+    mixIdeas: {
+      bs: [
+        'Frosty i Watermelon, za ledenu lubenicu (Frosty oko 20%).',
+        'Frosty i Forest Berries, za ledene bobice.'
+      ],
+      en: [
+        'Frosty and Watermelon, for icy watermelon (Frosty around 20%).',
+        'Frosty and Forest Berries, for icy berries.'
+      ]
+    },
+    similar: ['musthave-ice-mint', 'darkside-supernova', 'trifecta-twice-the-ice']
+  },
+  {
+    id: 'musthave-honey-holls',
+    brand: 'musthave',
+    leaf: 'dark',
+    name: 'Honey Holls',
+    shortDescription: {
+      bs: 'Svježina mraznog zimskog dana sa toplim mirisom opornog meda.',
+      en: 'The freshness of a frosty winter day with the warm aroma of tart honey.'
+    },
+    description: {
+      bs: [
+        'Honey Holls je okus medene bombone za grlo: hladna svježina i topao, pomalo opor med.',
+        'Hlađenje i med se lijepo dopunjuju, kao bombon od meda i mentola zimi.',
+        'Tamni list sa hlađenjem: rastresito pakovanje i umjerena toplota, jer previše uglja ubije svježinu.'
+      ],
+      en: [
+        'Honey Holls is the taste of a honey throat drop: cold freshness and warm, slightly tart honey.',
+        'The cooling and honey complement each other nicely, like a honey menthol drop in winter.',
+        'Dark leaf with cooling: pack it loose and keep the heat moderate, because too much coal kills the freshness.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Med', en: 'Honey' }, illustration: 'med', color: '#e0a43a', intensity: 8 },
+      { name: { bs: 'Hlađenje', en: 'Cooling' }, illustration: 'kristal', color: '#bfeeff', intensity: 7 },
+      { name: { bs: 'Bombon', en: 'Candy' }, illustration: 'bombon', color: '#f2c14e', intensity: 4 }
+    ],
+    profile: { sweetness: 7, freshness: 9, fruitiness: 0, cooling: 7, strength: 7 },
+    tags: ['medeni', 'ledeni', 'bombon'],
+    tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
+    mood: 'frost',
+    palette: { primary: '#e0a43a', secondary: '#bfeeff', accent: '#f2c14e', background: '#2d200d', text: '#fff4ea' },
+    mixIdeas: {
+      bs: [
+        'Honey Holls i Lemon-Lime, za med i limun.',
+        'Honey Holls i Sea Buckthorn Tea, za čaj sa medom.'
+      ],
+      en: [
+        'Honey Holls and Lemon-Lime, for honey and lemon.',
+        'Honey Holls and Sea Buckthorn Tea, for tea with honey.'
+      ]
+    },
+    similar: ['musthave-berry-holls', 'musthave-ice-mint']
+  },
+  {
+    id: 'musthave-berry-holls',
+    brand: 'musthave',
+    leaf: 'dark',
+    name: 'Berry Holls',
+    shortDescription: {
+      bs: 'Svježe šumske bobice sa hladnim dahom eukaliptusa.',
+      en: 'Fresh wild berries with the cold breath of eucalyptus.'
+    },
+    description: {
+      bs: [
+        'Berry Holls je okus šumskih bobica sa eukaliptusom, kao bombon za grlo od bobica.',
+        'Bobice su slatke i sočne, a eukaliptus daje hladnu, biljnu svježinu.',
+        'Tamni list sa hlađenjem: rastresito pakovanje i umjerena toplota, jer previše uglja ubije svježinu.'
+      ],
+      en: [
+        'Berry Holls is the taste of wild berries with eucalyptus, like a berry throat drop.',
+        'The berries are sweet and juicy, and eucalyptus brings a cold, herbal freshness.',
+        'Dark leaf with cooling: pack it loose and keep the heat moderate, because too much coal kills the freshness.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Šumske bobice', en: 'Wild berries' }, illustration: 'malina', color: '#c2185b', intensity: 8 },
+      { name: { bs: 'Eukaliptus', en: 'Eucalyptus' }, illustration: 'bilje', color: '#5fa8a0', intensity: 6 },
+      { name: { bs: 'Hlađenje', en: 'Cooling' }, illustration: 'kristal', color: '#bfeeff', intensity: 6 }
+    ],
+    profile: { sweetness: 6, freshness: 9, fruitiness: 7, cooling: 7, strength: 7 },
+    tags: ['bobicasti', 'ledeni', 'osvjezavajuci'],
+    tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
+    mood: 'frost',
+    palette: { primary: '#c2185b', secondary: '#5fa8a0', accent: '#bfeeff', background: '#280a13', text: '#fff4ea' },
+    mixIdeas: {
+      bs: [
+        'Berry Holls i Forest Berries, za više bobica.',
+        'Berry Holls i Lemon-Lime, za kiseliju svježinu.'
+      ],
+      en: [
+        'Berry Holls and Forest Berries, for more berries.',
+        'Berry Holls and Lemon-Lime, for a sharper freshness.'
+      ]
+    },
+    similar: ['musthave-honey-holls', 'musthave-forest-berries', 'musthave-ice-mint']
+  },
+  {
+    id: 'musthave-quince',
+    brand: 'musthave',
+    leaf: 'dark',
+    name: 'Quince',
+    shortDescription: {
+      bs: 'Slatka, opora zrela dunja, fino začinjena notama anisa.',
+      en: 'Sweet, tart ripe quince, nicely spiced with notes of anise.'
+    },
+    description: {
+      bs: [
+        'Quince je zrela dunja: slatka, mirisna i pomalo opora, sa laganom notom anisa.',
+        'Dunja ima poseban, gotovo parfemski miris. Anis ga zaokruži i doda blagu začinsku notu.',
+        'Tamni list MUSTHAVE: rastresito pakovanje, srednja toplota i par minuta zagrijavanja prije prvog dima.'
+      ],
+      en: [
+        'Quince is ripe quince: sweet, fragrant and slightly tart, with a light note of anise.',
+        'Quince has a special, almost perfumed aroma. Anise rounds it off with a gentle spice.',
+        'MUSTHAVE dark leaf: pack it loose, keep the heat medium and give the bowl a few minutes to warm up before the first pull.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Dunja', en: 'Quince' }, illustration: 'kruska', color: '#e8c547', intensity: 9 },
+      { name: { bs: 'Anis', en: 'Anise' }, illustration: 'anis', color: '#8a6a3a', intensity: 3 }
+    ],
+    profile: { sweetness: 7, freshness: 4, fruitiness: 8, cooling: 0, strength: 7 },
+    tags: ['vocni', 'zacinski'],
+    tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
+    mood: 'honey',
+    palette: { primary: '#e8c547', secondary: '#8a6a3a', accent: '#f5e5ac', background: '#2e2510', text: '#fff4ea' },
+    mixIdeas: {
+      bs: [
+        'Quince i Cinnamon, za pečenu dunju.',
+        'Quince i Mad Pear, za dunju i krušku.'
+      ],
+      en: [
+        'Quince and Cinnamon, for baked quince.',
+        'Quince and Mad Pear, for quince and pear.'
+      ]
+    },
+    similar: ['musthave-mad-pear', 'musthave-feijoa']
+  },
+  {
+    id: 'musthave-feijoa',
+    brand: 'musthave',
+    leaf: 'dark',
+    name: 'Feijoa',
+    shortDescription: {
+      bs: 'Opor, opojan miris zrele feijoe sa južnog sunca.',
+      en: 'The tart, heady aroma of ripe feijoa from the southern sun.'
+    },
+    description: {
+      bs: [
+        'Feijoa je zeleni egzotični plod koji podsjeća na mješavinu ananasa, guave i jagode, sa opornim krajem.',
+        'Okus je mirisan, kiselkast i neobičan. Za one koji vole da probaju nove voćke.',
+        'Tamni list MUSTHAVE: rastresito pakovanje, srednja toplota i par minuta zagrijavanja prije prvog dima.'
+      ],
+      en: [
+        'Feijoa is a green exotic fruit that tastes like a mix of pineapple, guava and strawberry, with a tart finish.',
+        'It is fragrant, tangy and unusual. For those who like to try new fruits.',
+        'MUSTHAVE dark leaf: pack it loose, keep the heat medium and give the bowl a few minutes to warm up before the first pull.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Zrela feijoa', en: 'Ripe feijoa' }, illustration: 'plod', color: '#7fae3e', intensity: 9 }
+    ],
+    profile: { sweetness: 6, freshness: 6, fruitiness: 9, cooling: 0, strength: 7 },
+    tags: ['vocni', 'tropski'],
+    tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
+    palette: { primary: '#7fae3e', secondary: '#acca82', accent: '#c5dba8', background: '#1e220e', text: '#fff4ea' },
+    mixIdeas: {
+      bs: [
+        'Feijoa i Gooseberry, za zeleno kiselo voće.',
+        'Feijoa i Strawberry, za slađi miks.'
+      ],
+      en: [
+        'Feijoa and Gooseberry, for green tart fruit.',
+        'Feijoa and Strawberry, for a sweeter bowl.'
+      ]
+    },
+    similar: ['musthave-gooseberry', 'musthave-guanapapa', 'musthave-quince', 'musthave-marula']
+  },
+  {
+    id: 'musthave-marula',
+    brand: 'musthave',
+    leaf: 'dark',
+    name: 'Marula',
+    shortDescription: {
+      bs: 'Sladak, složen ukus egzotične afričke voćke marule.',
+      en: 'The sweet, complex taste of the exotic African marula fruit.'
+    },
+    description: {
+      bs: [
+        'Marula je žuta afrička voćka slatkog, složenog ukusa: između manga, šljive i citrusa.',
+        'Okus je sočan i egzotičan, sa blagom kiselinom. Rijetka voćka u svijetu nargile.',
+        'Tamni list MUSTHAVE: rastresito pakovanje, srednja toplota i par minuta zagrijavanja prije prvog dima.'
+      ],
+      en: [
+        'Marula is a yellow African fruit with a sweet, complex taste: somewhere between mango, plum and citrus.',
+        'It is juicy and exotic, with a light tang. A rare fruit in the hookah world.',
+        'MUSTHAVE dark leaf: pack it loose, keep the heat medium and give the bowl a few minutes to warm up before the first pull.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Marula', en: 'Marula fruit' }, illustration: 'plod', color: '#f0c040', intensity: 9 }
+    ],
+    profile: { sweetness: 7, freshness: 5, fruitiness: 9, cooling: 0, strength: 7 },
+    tags: ['vocni', 'tropski'],
+    tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
+    palette: { primary: '#f0c040', secondary: '#f5d683', accent: '#f8e3a9', background: '#30250e', text: '#fff4ea' },
+    mixIdeas: {
+      bs: [
+        'Marula i Vanilla Cream, za kremasti egzotični miks.',
+        'Marula i Mango Sling, za tropsku limunadu.'
+      ],
+      en: [
+        'Marula and Vanilla Cream, for a creamy exotic bowl.',
+        'Marula and Mango Sling, for a tropical lemonade.'
+      ]
+    },
+    similar: ['musthave-guanapapa', 'musthave-feijoa', 'musthave-tropic-juice']
+  },
+  {
+    id: 'musthave-guanapapa',
+    brand: 'musthave',
+    leaf: 'dark',
+    name: 'Guanapapa',
+    shortDescription: {
+      bs: 'Egzotični miris kremaste guanabane sa nježnom papajom.',
+      en: 'The exotic aroma of creamy soursop with delicate papaya.'
+    },
+    description: {
+      bs: [
+        'Guanapapa spaja guanabanu (soursop), kremastu tropsku voćku, i nježnu papaju.',
+        'Okus je kremast, sladak i blago kiselkast. Tropski, ali mekan.',
+        'Tamni list MUSTHAVE: rastresito pakovanje, srednja toplota i par minuta zagrijavanja prije prvog dima.'
+      ],
+      en: [
+        'Guanapapa combines guanabana (soursop), a creamy tropical fruit, and delicate papaya.',
+        'It is creamy, sweet and lightly tangy. Tropical, yet soft.',
+        'MUSTHAVE dark leaf: pack it loose, keep the heat medium and give the bowl a few minutes to warm up before the first pull.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Guanabana', en: 'Soursop' }, illustration: 'guanabana', color: '#5a9a3a', intensity: 8 },
+      { name: { bs: 'Papaja', en: 'Papaya' }, illustration: 'papaja', color: '#ff8a3d', intensity: 6 }
+    ],
+    profile: { sweetness: 7, freshness: 5, fruitiness: 9, cooling: 0, strength: 7 },
+    tags: ['vocni', 'tropski'],
+    tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
+    palette: { primary: '#5a9a3a', secondary: '#ff8a3d', accent: '#b5d2a6', background: '#181f0d', text: '#fff4ea' },
+    mixIdeas: {
+      bs: [
+        'Guanapapa i Coconut Shake, za tropski šejk.',
+        'Guanapapa i Lemon-Lime, za kiseliji tropski miks.'
+      ],
+      en: [
+        'Guanapapa and Coconut Shake, for a tropical shake.',
+        'Guanapapa and Lemon-Lime, for a tangier tropical bowl.'
+      ]
+    },
+    similar: ['musthave-marula', 'musthave-alova', 'musthave-pearl-pool', 'musthave-feijoa']
+  },
+  {
+    id: 'musthave-alova',
+    brand: 'musthave',
+    leaf: 'dark',
+    name: 'Alova',
+    shortDescription: {
+      bs: 'Jarak miks kriški roze guave i sočne aloje.',
+      en: 'A bright mix of pink guava slices and juicy aloe.'
+    },
+    description: {
+      bs: [
+        'Alova je miks roze guave i sočne aloje: slatko, tropsko voće i svježa, zelena aloja.',
+        'Aloja daje čist, vodenast osvježavajući ukus, a guava slatkoću i miris.',
+        'Tamni list MUSTHAVE: rastresito pakovanje, srednja toplota i par minuta zagrijavanja prije prvog dima.'
+      ],
+      en: [
+        'Alova is a mix of pink guava and juicy aloe: sweet tropical fruit and fresh, green aloe.',
+        'Aloe brings a clean, watery refreshment and guava the sweetness and aroma.',
+        'MUSTHAVE dark leaf: pack it loose, keep the heat medium and give the bowl a few minutes to warm up before the first pull.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Roze guava', en: 'Pink guava' }, illustration: 'guava', color: '#f47a8a', intensity: 8 },
+      { name: { bs: 'Aloja', en: 'Aloe' }, illustration: 'aloja', color: '#6aa84f', intensity: 7 }
+    ],
+    profile: { sweetness: 7, freshness: 8, fruitiness: 8, cooling: 0, strength: 7 },
+    tags: ['vocni', 'tropski', 'osvjezavajuci'],
+    tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
+    palette: { primary: '#f47a8a', secondary: '#6aa84f', accent: '#fac3ca', background: '#30191a', text: '#fff4ea' },
+    mixIdeas: {
+      bs: [
+        'Alova i Ice Mint, za ledenu aloju.',
+        'Alova i Strawberry, za roze tropski miks.'
+      ],
+      en: [
+        'Alova and Ice Mint, for icy aloe.',
+        'Alova and Strawberry, for a pink tropical bowl.'
+      ]
+    },
+    similar: ['trifecta-pineapple-guava', 'musthave-guanapapa', 'musthave-pearl-pool']
+  },
+  {
+    id: 'musthave-pearl-pool',
+    brand: 'musthave',
+    leaf: 'dark',
+    name: 'Pearl Pool',
+    shortDescription: {
+      bs: 'Prozračni mus od svježeg tropskog voća sa slatko-kiselom notom moringe.',
+      en: 'An airy mousse of fresh tropical fruit with a sweet and sour note of moringa.'
+    },
+    description: {
+      bs: [
+        'Pearl Pool je prozračni mus od tropskog voća, sa slatko-kiselom notom moringe.',
+        'Mango i ananas daju voćnost, mus kremastu mekoću, a moringa neobičnu biljnu kiselinu.',
+        'Tamni list MUSTHAVE: rastresito pakovanje, srednja toplota i par minuta zagrijavanja prije prvog dima.'
+      ],
+      en: [
+        'Pearl Pool is an airy mousse of tropical fruit with a sweet and sour note of moringa.',
+        'Mango and pineapple bring the fruit, the mousse a creamy softness and moringa an unusual herbal tang.',
+        'MUSTHAVE dark leaf: pack it loose, keep the heat medium and give the bowl a few minutes to warm up before the first pull.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Tropsko voće', en: 'Tropical fruit' }, illustration: 'mango', color: '#ffb020', intensity: 8 },
+      { name: { bs: 'Moringa', en: 'Moringa' }, illustration: 'bilje', color: '#7aa84a', intensity: 5 },
+      { name: { bs: 'Mus', en: 'Mousse' }, illustration: 'sejk', color: '#fbf3e3', intensity: 5 }
+    ],
+    profile: { sweetness: 7, freshness: 6, fruitiness: 9, cooling: 0, strength: 7 },
+    tags: ['vocni', 'tropski', 'desertni'],
+    tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
+    palette: { primary: '#ffb020', secondary: '#7aa84a', accent: '#fbf3e3', background: '#322209', text: '#fff4ea' },
+    mixIdeas: {
+      bs: [
+        'Pearl Pool i Coconut Shake, za tropski desert.',
+        'Pearl Pool i Lemon-Lime, za kiseliji miks.'
+      ],
+      en: [
+        'Pearl Pool and Coconut Shake, for a tropical dessert.',
+        'Pearl Pool and Lemon-Lime, for a tangier bowl.'
+      ]
+    },
+    similar: ['musthave-alova', 'musthave-tropic-juice', 'musthave-guanapapa']
   },
   // ---- kraj MUSTHAVE linije ----
   {
