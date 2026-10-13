@@ -1830,12 +1830,12 @@ window.FLAVORS = [
       bs: [
         'Darkside Cola ima okus prave, sipane kole, a ne bombona sa okusom kole. Na početku je topla karamel slatkoća poznata iz pića.',
         'U sredini se pojavi lagan začin, nalik na cimet i vaniliju iz recepta za kolu, koji okusu daje dubinu, a završetak je čist i ostavlja jasan okus kole.',
-        'Tamni list, pa traži umjerenu, stabilnu toplotu. Zato je zanimljivo uporediti ga sa MustHave Colom i Sebero Black Colom: isti okus, tri različita karaktera.'
+        'Tamni list, pa traži umjerenu, stabilnu toplotu. Zato je zanimljivo uporediti ga sa MUSTHAVE Colom i Sebero Black Colom: isti okus, tri različita karaktera.'
       ],
       en: [
         'Darkside Cola tastes like real poured cola, not cola-flavored candy. It opens with the warm caramel sweetness you know from the drink.',
         'Mid-pull a light spice comes through, like the cinnamon and vanilla in a cola recipe, giving it depth, and the finish is clean with a clear cola aftertaste.',
-        'It is dark leaf, so it wants steady, moderate heat. That makes it fun to compare with MustHave Cola and Sebero Black Cola: the same flavor, three different characters.'
+        'It is dark leaf, so it wants steady, moderate heat. That makes it fun to compare with MUSTHAVE Cola and Sebero Black Cola: the same flavor, three different characters.'
       ]
     },
     ingredients: [
@@ -2082,27 +2082,26 @@ window.FLAVORS = [
     name: 'Cola',
     mood: 'fizz',
     shortDescription: {
-      bs: 'Hladna, gazirana kola pravo iz frižidera: osvježavajuća i ljetna.',
-      en: 'Ice-cold fizzy cola straight from the fridge: refreshing and summery.'
+      bs: 'Klasična gazirana kola: slatka i pjenušava, bez leda i bez hlađenja.',
+      en: 'Classic fizzy cola: sweet and sparkling, with no ice and no cooling.'
     },
     description: {
       bs: [
-        'MustHave Cola je kola kakvu piješ ljeti: hladna, gazirana i osvježavajuća. Slatkoća je tu, ali je lakša i "pjenušavija" nego kod Darkside Cole.',
-        'Osjećaj hladnog pića dolazi od blagog hlađenja na izdahu, pa okus djeluje kao čaša sa kockama leda.',
-        'Tamni list i dosta jak, kao i ostali MustHave okusi. Ako voliš kolu, uporedi je sa Darkside Colom i Sebero Black Colom.'
+        'MUSTHAVE Cola je čista kola: gazirana, slatka i pjenušava. Slatkoća je tu, ali je lakša i "pjenušavija" nego kod Darkside Cole.',
+        'Nema leda ni hlađenja, to je sama kola. Ako želiš ledenu kolu, dodaj malo mente ili ledenog okusa u miks.',
+        'Tamni list i dosta jak, kao i ostali MUSTHAVE okusi. Ako voliš kolu, uporedi je sa Darkside Colom i Sebero Black Colom.'
       ],
       en: [
-        'MustHave Cola is the cola you drink in summer: cold, fizzy and refreshing. The sweetness is there, but lighter and more "sparkling" than in Darkside Cola.',
-        'The cold-drink feel comes from a gentle cooling on the exhale, so it tastes like a glass with ice cubes.',
-        'Dark leaf and fairly strong, like the rest of MustHave. If you love cola, compare it with Darkside Cola and Sebero Black Cola.'
+        'MUSTHAVE Cola is pure cola: fizzy, sweet and sparkling. The sweetness is there, but lighter and more "sparkling" than in Darkside Cola.',
+        'There is no ice and no cooling, just cola. If you want an iced cola, add a little mint or an ice flavor to the mix.',
+        'Dark leaf and fairly strong, like the rest of MUSTHAVE. If you love cola, compare it with Darkside Cola and Sebero Black Cola.'
       ]
     },
     ingredients: [
-      { name: { bs: 'Kola', en: 'Cola' }, illustration: 'kola', color: '#6a2a16', intensity: 9 },
-      { name: { bs: 'Led', en: 'Ice' }, illustration: 'kocka', color: '#d8f2ff', intensity: 4 }
+      { name: { bs: 'Kola', en: 'Cola' }, illustration: 'kola', color: '#6a2a16', intensity: 9 }
     ],
-    profile: { sweetness: 6, freshness: 7, fruitiness: 1, cooling: 3, strength: 8 },
-    tags: ['pice', 'osvjezavajuci', 'ljetni'],
+    profile: { sweetness: 6, freshness: 5, fruitiness: 1, cooling: 0, strength: 8 },
+    tags: ['pice', 'slatki', 'ljetni'],
     tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
     palette: { primary: '#b0281f', secondary: '#f3ece6', accent: '#ef4b3f', background: '#220c0c', text: '#fbeeee', smoke: ['#ffffff', '#ffe6e3', '#e9c3bd'] },
     mixIdeas: {
@@ -2152,12 +2151,12 @@ window.FLAVORS = [
       bs: [
         'Pineapple Rings i Pinkman, za ananas sa grejpfrutom.',
         'Pineapple Rings i Candy Cow, za karamelizovani ananas.',
-        'Pineapple Rings i MustHave Cola, za tropsku kolu.'
+        'Pineapple Rings i MUSTHAVE Cola, za tropsku kolu.'
       ],
       en: [
         'Pineapple Rings with Pinkman for pineapple and grapefruit.',
         'Pineapple Rings with Candy Cow for caramelized pineapple.',
-        'Pineapple Rings with MustHave Cola for a tropical cola.'
+        'Pineapple Rings with MUSTHAVE Cola for a tropical cola.'
       ]
     },
     similar: ['haze-pineapple-krush', 'trifecta-pineapple-guava', 'adalya-dubai']
@@ -2168,24 +2167,25 @@ window.FLAVORS = [
     leaf: 'dark',
     name: 'Candy Cow',
     shortDescription: {
-      bs: 'Mliječna karamela, kao poznati bombon "kravica".',
-      en: 'Milky caramel, like the classic "little cow" toffee candy.'
+      bs: 'Karamela, mlijeko i kondenzovano mlijeko, kao poznati bombon "kravica".',
+      en: 'Caramel, milk and condensed milk, like the classic "little cow" toffee candy.'
     },
     description: {
       bs: [
-        'Candy Cow je okus mliječne karamele, onih mekanih bombona sa kravicom na omotu. Slatko, kremasto i toplo, sa notom prženog šećera.',
+        'Candy Cow je okus mliječne karamele, onih mekanih bombona sa kravicom na omotu. Karamela, mlijeko i kondenzovano mlijeko: slatko, kremasto i gusto.',
         'Nema voća ni hlađenja. Okus je gust i desertni, pa ga mnogi koriste u miksevima da "zaobli" voće.',
         'Tamni list: rastresito pakovanje i strpljenje. Dobar uz kafu ili čaj.'
       ],
       en: [
-        'Candy Cow is the flavor of milky caramel, those soft toffees with a cow on the wrapper. Sweet, creamy and warm, with a note of toasted sugar.',
+        'Candy Cow is the flavor of milky caramel, those soft toffees with a cow on the wrapper. Caramel, milk and condensed milk: sweet, creamy and thick.',
         'No fruit and no cooling. It is dense and dessert-like, which is why many people use it in mixes to round off fruit.',
         'Dark leaf: pack it loose and be patient. Goes well with coffee or tea.'
       ]
     },
     ingredients: [
       { name: { bs: 'Karamel', en: 'Caramel' }, illustration: 'karamel', color: '#b7742f', intensity: 9 },
-      { name: { bs: 'Mlijeko', en: 'Milk' }, illustration: 'sejk', color: '#f3ead8', intensity: 6 }
+      { name: { bs: 'Mlijeko', en: 'Milk' }, illustration: 'sejk', color: '#f3ead8', intensity: 6 },
+      { name: { bs: 'Kondenzovano mlijeko', en: 'Condensed milk' }, illustration: 'kondenzovano', color: '#3d6fb6', intensity: 6 }
     ],
     profile: { sweetness: 9, freshness: 2, fruitiness: 0, cooling: 0, strength: 7 },
     tags: ['desertni', 'slatki', 'bombon'],
@@ -2194,12 +2194,12 @@ window.FLAVORS = [
     mixIdeas: {
       bs: [
         'Candy Cow i Pineapple Rings, za karamelizovani ananas.',
-        'Candy Cow i MustHave Cola, za karamel-kolu.',
+        'Candy Cow i MUSTHAVE Cola, za karamel-kolu.',
         'Candy Cow i Bananapapa, za bananu sa karamelom.'
       ],
       en: [
         'Candy Cow with Pineapple Rings for caramelized pineapple.',
-        'Candy Cow with MustHave Cola for caramel cola.',
+        'Candy Cow with MUSTHAVE Cola for caramel cola.',
         'Candy Cow with Bananapapa for banana and caramel.'
       ]
     },
@@ -2219,12 +2219,12 @@ window.FLAVORS = [
       bs: [
         'Cherry-Cola je klasična kola sa jasnom notom višnje, kao poznata višnja-kola iz limenke. Kola daje začinsku, karamelnu osnovu, a višnja voćnu slatkoću.',
         'Okus je gust i dobro izbalansiran: višnja ne pokriva kolu, nego je obogaćuje.',
-        'Tamni list: rastresito pakovanje. Uporedi sa običnom MustHave Colom da osjetiš razliku.'
+        'Tamni list: rastresito pakovanje. Uporedi sa običnom MUSTHAVE Colom da osjetiš razliku.'
       ],
       en: [
         'Cherry-Cola is classic cola with a clear cherry note, like the familiar cherry cola in a can. The cola gives a spiced, caramel base and the cherry a fruity sweetness.',
         'It is dense and well balanced: the cherry does not cover the cola, it enriches it.',
-        'Dark leaf: pack it loose. Compare it with the plain MustHave Cola to taste the difference.'
+        'Dark leaf: pack it loose. Compare it with the plain MUSTHAVE Cola to taste the difference.'
       ]
     },
     ingredients: [
@@ -2308,14 +2308,14 @@ window.FLAVORS = [
     },
     description: {
       bs: [
-        'Black Cola je dio Sebero Black linije, jačih tamnih duhana. Okus je bogata kola sa izraženom slatkoćom, punija i "sirupastija" od MustHave Cole.',
+        'Black Cola je dio Sebero Black linije, jačih tamnih duhana. Okus je bogata kola sa izraženom slatkoćom, punija i "sirupastija" od MUSTHAVE Cole.',
         'Završetak je mekan i baršunast, bez kiselosti i bez hlađenja, pa okus ostaje topao od prvog do zadnjeg povlačenja.',
-        'Jak tamni list: pakuj ga malo rastresito i ne pretjeruj sa toplotom. Treća kola za poređenje, uz Darkside i MustHave.'
+        'Jak tamni list: pakuj ga malo rastresito i ne pretjeruj sa toplotom. Treća kola za poređenje, uz Darkside i MUSTHAVE.'
       ],
       en: [
-        'Black Cola belongs to the Sebero Black line of stronger dark tobaccos. It is a rich cola with pronounced sweetness, fuller and more "syrupy" than MustHave Cola.',
+        'Black Cola belongs to the Sebero Black line of stronger dark tobaccos. It is a rich cola with pronounced sweetness, fuller and more "syrupy" than MUSTHAVE Cola.',
         'The finish is soft and velvety, with no tartness and no cooling, so it stays warm from the first pull to the last.',
-        'Strong dark leaf: pack it a little loose and go easy on the heat. The third cola to compare, alongside Darkside and MustHave.'
+        'Strong dark leaf: pack it a little loose and go easy on the heat. The third cola to compare, alongside Darkside and MUSTHAVE.'
       ]
     },
     ingredients: [

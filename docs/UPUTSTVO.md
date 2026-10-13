@@ -346,6 +346,32 @@ Pravila:
 - **Svaki brend mora imati bar jedan okus**, inače build javi grešku. Prvo dodaj brend, pa okus sa `brand: '<slug>'`.
 - Napomena da stranica nije povezana sa brendom ispisuje se automatski na stranici brenda.
 
+### Sastav provjerio brend (oznaka "Verified")
+
+Kad brend sam potvrdi sastav okusa, okus u `data/flavors.js` dobije polje `verified` sa datumom potvrde:
+
+```js
+{
+  id: 'musthave-candy-cow',
+  ...
+  verified: '2026-10-20'               // YYYY-MM-DD: dan kad je brend potvrdio sastojke
+}
+```
+
+Šta se tad pojavi:
+
+- na stranici okusa zelena oznaka "Provjerio MUSTHAVE, sastav potvrđen 20. 10. 2026." i red "Sastav" u kutiji "Ukratko";
+- na kartici okusa mala zelena kvačica uz ime brenda;
+- na stranici brenda traka "Sastav 2 od 5 okusa provjerio je MUSTHAVE" sa datumom zadnje provjere.
+
+Okus bez polja `verified` nema nikakvu oznaku. Build javi grešku ako datum nije pravi datum u obliku YYYY-MM-DD
+ili ako je u budućnosti. Polje se dodaje **samo kad brend pisano potvrdi sastav** (poruka ili email), nikad unaprijed.
+Ako se sastav kasnije promijeni, obriši `verified` dok brend ponovo ne potvrdi.
+
+Na svakoj stranici brenda je i sekcija "Sastav na prvi pogled" (`#sastav`): svi okusi brenda sa sastojcima i
+jačinom na jednom mjestu. To je link koji se šalje brendu na pregled, npr.
+`https://myshishapedia.com/bs/brendovi/musthave/#sastav`.
+
 ### Okus novog brenda, korak po korak
 
 1. Dodaj brend u `data/brands.js` (gore).
@@ -781,12 +807,12 @@ Drugi okus za svaki brend (najpoznatiji okusi brenda, sve PROVJERITI):
 - [ ] **Tangiers Kashmir Peach: sastav (PROVJERITI).** Uneseno: breskva 9, kardamom 6, topli začini 5. Tamni list. Profil 6 / 4 / 8 / 0 / 9.
 - [ ] **Fumari Ambrosia: sastav (PROVJERITI).** Uneseno: dinja (kantalupa) 9, narandža 6, marshmallow 5. Svijetli list. Profil 9 / 5 / 8 / 0 / 4.
 - [ ] **Darkside Cola: sastav (PROVJERITI).** Uneseno: kola 9, karamel 6, lagani začin 3. Tamni list. Profil 7 / 5 / 1 / 0 / 8.
-- [ ] **MustHave Cola: sastav (PROVJERITI).** Uneseno: kola 9, led 4. Tamni list. Profil 6 / 7 / 1 / 3 / 8.
+- [x] **MUSTHAVE Cola: sastav ispravio brend (10. 2026.).** Uneseno: kola 9, bez leda i bez hlađenja. Tamni list. Profil 6 / 5 / 1 / 0 / 8.
 - [ ] **Sebero Black Cola: sastav (PROVJERITI).** Uneseno: kola 9, karamel 5. Tamni list (Sebero Black linija). Profil 8 / 4 / 1 / 0 / 8.
 - [ ] **Haze Purple Krush: sastav (PROVJERITI).** Uneseno: grožđe 9, bobičasto voće 4, hlađenje 3. Svijetli list. Profil 8 / 6 / 8 / 3 / 5.
   Umjesto Haze Nice Dreams, jer je Nice Dreams ograničeno izdanje (Haze × Cheech & Chong).
 - [ ] **Trifecta Twice the Ice: sastav (PROVJERITI).** Uneseno: ledeni mentol 10, pepermint 8. Svijetli list (Trifecta Blonde). Profil 1 / 10 / 0 / 10 / 6.
-- [ ] Nove ilustracije u `js/illustrations.js`: kola, karamel, marshmallow, kardamom, grožđe.
+- [ ] Nove ilustracije u `js/illustrations.js`: kola (bez leda, MUSTHAVE je rekao da Cola nema led), karamel, marshmallow, kardamom, grožđe, kondenzovano mlijeko (limenka).
 - [ ] Police: tri Cole su u "Ostalo" (nijedna kolekcija im ne odgovara), Kashmir Peach u "Noćnim", Al Fakher Mint i
   Twice the Ice u "Ledenim", a Pirate's Cave, Ambrosia i Purple Krush u "Za početnike".
 
@@ -798,7 +824,7 @@ Okusi drugih brendova (dodani u fazi 7, sve PROVJERITI):
 - [ ] **Tangiers Cane Mint: sastav (PROVJERITI).** Uneseno: pepermint 10. Tamni list. Profil 3 / 10 / 0 / 9 / 9.
 - [ ] **Fumari White Gummi Bear: sastav (PROVJERITI).** Uneseno: gumeni bombon 8, ananas 7, limun 6, narandža 5. Svijetli list. Profil 9 / 6 / 8 / 0 / 4.
 - [ ] **Darkside Supernova: sastav (PROVJERITI).** Uneseno: ledeni mentol 10, menta 4. Tamni list. Profil 1 / 10 / 0 / 10 / 8.
-- [ ] **MustHave Pinkman: sastav (PROVJERITI).** Uneseno: roze grejpfrut 8, malina 7, jagoda 6. Tamni list. Profil 7 / 7 / 9 / 0 / 7.
+- [ ] **MUSTHAVE Pinkman: sastav (brend kaže da je tačno, čeka konačnu potvrdu).** Uneseno: roze grejpfrut 8, malina 7, jagoda 6. Tamni list. Profil 7 / 7 / 9 / 0 / 7.
 - [ ] **Sebero Arctic Mix Jelly Fruit: sastav (PROVJERITI).** Uneseno: hlađenje 7, grejpfrut 6, žvakaća guma 6, jagoda 6, narandža 5. Tamni list. Profil 8 / 8 / 8 / 7 / 7.
 - [ ] **Haze Cucumberita: sastav (PROVJERITI).** Uneseno: krastavac 8, limeta 6. Svijetli list. Profil 3 / 10 / 5 / 2 / 4.
 - [ ] **Trifecta Peppermint Shake: sastav (PROVJERITI).** Uneseno: vanila 7, mliječni šejk 7, pepermint bombon 6. Svijetli list. Profil 8 / 7 / 0 / 6 / 5.
@@ -837,10 +863,10 @@ procjene. Tekstovi su napisani svojim riječima.
 - [ ] **Darkside Bananapapa: sastav (PROVJERITI).** Uneseno: zrela banana 9. Tamni list. Profil 8 / 3 / 8 / 0 / 8.
 - [ ] **Darkside Generis Raspberry: sastav (PROVJERITI).** Uneseno: malina 9. Tamni list. Profil 6 / 6 / 9 / 0 / 8.
 - [ ] **Darkside Wild Forest: sastav (PROVJERITI).** Uneseno: šumska jagoda 8, šumske bobice 6. Tamni list. Profil 6 / 6 / 9 / 0 / 8.
-- Izvori za MustHave: hookahvault.com i b2hookah.com (best MustHave flavors), iconhookah.com.
-- [ ] **MustHave Pineapple Rings: sastav (PROVJERITI).** Uneseno: ananas 9, šećerni sirup 5. Tamni list. Profil 8 / 6 / 9 / 0 / 7.
-- [ ] **MustHave Candy Cow: sastav (PROVJERITI).** Uneseno: karamel 9, mlijeko 6. Tamni list. Profil 9 / 2 / 0 / 0 / 7.
-- [ ] **MustHave Cherry-Cola: sastav (PROVJERITI).** Uneseno: kola 8, višnja 7. Tamni list. Profil 8 / 5 / 5 / 0 / 7.
+- Izvori za MUSTHAVE: hookahvault.com i b2hookah.com (best MustHave flavors), iconhookah.com.
+- [ ] **MUSTHAVE Pineapple Rings: sastav (brend kaže da je tačno, čeka konačnu potvrdu).** Uneseno: ananas 9, šećerni sirup 5. Tamni list. Profil 8 / 6 / 9 / 0 / 7.
+- [x] **MUSTHAVE Candy Cow: sastav ispravio brend (10. 2026.).** Uneseno: karamel 9, mlijeko 6, kondenzovano mlijeko 6. Tamni list. Profil 9 / 2 / 0 / 0 / 7.
+- [ ] **MUSTHAVE Cherry-Cola: sastav (brend kaže da je tačno, čeka konačnu potvrdu).** Uneseno: kola 8, višnja 7. Tamni list. Profil 8 / 5 / 5 / 0 / 7.
 - Izvori za Sebero: hookahvault.com i b2hookah.com (Sebero), worldhookahmarket.com (Arctic Mix Spice Fruit), seberotobacco.com.
 - [ ] **Sebero Black Amarena Cherry: sastav (PROVJERITI).** Uneseno: amarena višnja 9. Tamni list. Profil 6 / 5 / 9 / 0 / 9.
 - [ ] **Sebero Green Pear: sastav (PROVJERITI).** Uneseno: zelena kruška 8, guava 5. Tamni list. Profil 6 / 7 / 9 / 0 / 7.
@@ -1004,7 +1030,7 @@ Tekst je u `data/about.js`. Namjerno nema izmišljenih činjenica o autoru. Pro�
 Tekst je u `data/tips.js`. Provjeri da odgovara tvom iskustvu, posebno brojke:
 
 - [ ] Pakovanje: duhan 2-3 mm ispod ivice posude; oko 12-20 g duhana u posudi.
-- [ ] Pakovanje: svijetli list (Adalya, Al Fakher, Fumari) rastresito, a tamni list (Darkside, MustHave, Tangiers)
+- [ ] Pakovanje: svijetli list (Adalya, Al Fakher, Fumari) rastresito, a tamni list (Darkside, MUSTHAVE, Tangiers)
   podnosi gušće punjenje.
 - [ ] Toplota: kokosovi ugljevi 8-10 minuta paljenja; za početak 3 kocke uz ivicu; predgrijavanje 3-5 minuta;
   ugljeve okretati ili pomjerati svakih 10-15 minuta.

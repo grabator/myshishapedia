@@ -329,6 +329,44 @@
     );
   }
 
+  /** Traka u zaglavlju brenda: koliko okusa je brend sam provjerio i kad (samo ako ima takvih). */
+  function brandVerified(b, fl) {
+    var done = fl.filter(function (f) { return f.verified; });
+    if (!done.length) return '';
+    var last = done.map(function (f) { return f.verified; }).sort().pop();
+    return '<p class="bverified anim-in" style="--i:6">' + icon('check') + '<span>' +
+      esc(MSP.plural('verified.brandBanner', done.length, { name: b.name, total: fl.length })) +
+      ' <span class="bverified__when">' + esc(t('verified.lastCheck', { date: V.verifiedDate(last) })) + '</span></span></p>';
+  }
+
+  /** Sastav svih okusa brenda na jednom mjestu (jedan link koji brend može pregledati). */
+  function brandGlance(b, fl) {
+    var th = V.brandTheme(b);
+    var c = MSP.color;
+    var rows = fl.map(function (f) {
+      var ings = V.byIntensity(f).map(function (ing) {
+        var v = Math.max(0, Math.min(10, ing.intensity));
+        // tamna boja (npr. kola) na tamnoj pozadini se ne vidi: tad traka ide prema boji teksta
+        var ink = c.contrast(ing.color, th.surface) >= 2.4 ? ing.color : c.mix(th.text, ing.color, 0.3);
+        return '<li class="gi" style="--ing:' + ink + ';--v:' + v + '">' +
+          '<span class="gi__name">' + esc(L(ing.name)) + '</span>' +
+          '<span class="gi__val"><b>' + v + '</b>/10</span>' +
+          '<span class="gi__bar" aria-hidden="true"><span></span></span>' +
+        '</li>';
+      }).join('');
+      return '<li class="glance__row">' +
+        '<p class="glance__head"><a class="glance__name" href="' + V.flavorUrl(f) + '">' + esc(f.name) + '</a>' + V.verifiedBadge(f, 'card') + '</p>' +
+        '<p class="glance__short">' + esc(L(f.shortDescription)) + '</p>' +
+        '<ul class="glance__ings" role="list">' + ings + '</ul>' +
+      '</li>';
+    }).join('');
+    return '<section class="fsec fsec--tight" aria-labelledby="brand-glance" id="sastav"><div class="container">' +
+      '<h2 class="mix__h" id="brand-glance">' + esc(t('brands.glanceTitle')) + '</h2>' +
+      '<p class="glance__lead">' + esc(t('brands.glanceLead')) + '</p>' +
+      '<ul class="glance" role="list">' + rows + '</ul>' +
+    '</div></section>';
+  }
+
   function pageBrand(b, crumbs) {
     var fl = V.brandFlavors(b);
     var about = L(b.about) || [];
@@ -348,6 +386,7 @@
             '<li><span class="bhero__k">' + esc(t('brands.flavorsTitle')) + '</span><span class="bhero__v">' + esc(MSP.plural('brands.flavorsCount', fl.length)) + '</span></li>' +
           '</ul>' +
           '<div class="bhero__about">' + about.map(function (p, k) { return '<p class="anim-in" style="--i:' + (k + 3) + '">' + esc(p) + '</p>'; }).join('') + '</div>' +
+          brandVerified(b, fl) +
         '</div>' +
       '</section>' +
       '<section class="fsec fsec--tight" aria-labelledby="brand-flavors"><div class="container">' +
@@ -357,6 +396,7 @@
         }).join('') + '</ul>' +
         '<p class="mix__note bnote" role="note">' + icon('alert') + '<span>' + esc(t('brands.disclaimer', { name: b.name })) + '</span></p>' +
       '</div></section>' +
+      brandGlance(b, fl) +
       '<section class="fsec fsec--alt" aria-labelledby="brand-others"><div class="container">' +
         '<h2 class="mix__h" id="brand-others">' + esc(t('brands.otherTitle')) + '</h2>' +
         '<ul class="bcards bcards--small" role="list">' + others.map(function (x, k) { return '<li class="bcards__item">' + V.brandCard(x, 'h3', k) + '</li>'; }).join('') + '</ul>' +

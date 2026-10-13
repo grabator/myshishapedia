@@ -41,8 +41,8 @@ window.TIPS = {
         {
           title: { bs: 'List bira način punjenja', en: 'Let the leaf decide' },
           text: {
-            bs: '[[svijetli-list|Svijetli list]] (npr. Adalya, Al Fakher, Fumari) voli rastresito. [[tamni-list|Tamni list]] (npr. Darkside, MustHave, Tangiers) podnosi [[gusto-punjenje|gušće punjenje]] i više toplote.',
-            en: '[[svijetli-list|Blonde leaf]] (such as Adalya, Al Fakher, Fumari) likes a fluff pack. [[tamni-list|Dark leaf]] (such as Darkside, MustHave, Tangiers) can take a [[gusto-punjenje|denser pack]] and more heat.'
+            bs: '[[svijetli-list|Svijetli list]] (npr. Adalya, Al Fakher, Fumari) voli rastresito. [[tamni-list|Tamni list]] (npr. Darkside, MUSTHAVE, Tangiers) podnosi [[gusto-punjenje|gušće punjenje]] i više toplote.',
+            en: '[[svijetli-list|Blonde leaf]] (such as Adalya, Al Fakher, Fumari) likes a fluff pack. [[tamni-list|Dark leaf]] (such as Darkside, MUSTHAVE, Tangiers) can take a [[gusto-punjenje|denser pack]] and more heat.'
           }
         },
         {

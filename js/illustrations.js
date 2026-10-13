@@ -1166,11 +1166,11 @@
       );
     },
 
-    /* Kola: čaša tamne kole sa pjenom, kockama leda, mjehurićima i slamkom. */
+    /* Kola: čaša tamne kole sa pjenom, mjehurićima i slamkom (bez leda). */
     kola: function (c) {
       var id = uid('kola');
       var glass = 'M54 56L146 56L135 176Q134 186 124 186L76 186Q66 186 65 176Z';
-      var bubbles = [[84, 120, 3], [112, 140, 2.5], [96, 160, 3.5], [122, 108, 2], [78, 150, 2], [106, 98, 2.5], [90, 92, 2]].map(function (b) {
+      var bubbles = [[84, 120, 3], [112, 140, 2.5], [96, 160, 3.5], [122, 108, 2], [78, 150, 2], [106, 98, 2.5], [90, 92, 2], [72, 100, 2.5], [118, 124, 3], [100, 128, 2], [128, 92, 2.5], [86, 170, 2.5], [112, 166, 2]].map(function (b) {
         return '<circle cx="' + b[0] + '" cy="' + b[1] + '" r="' + b[2] + '"/>';
       }).join('');
       return (
@@ -1187,8 +1187,6 @@
         '<g clip-path="url(#' + id + '-g)">' +
           '<rect x="40" y="76" width="120" height="120" fill="url(#' + id + '-c)"/>' +
           '<path d="M40 80C60 70 72 86 92 76S126 70 160 78V68H40Z" fill="' + mix(c, '#f3dcc0', 0.75) + '"/>' +
-          '<rect x="66" y="82" width="34" height="30" rx="6" fill="#ffffff" opacity="0.4" transform="rotate(-12 83 97)"/>' +
-          '<rect x="100" y="90" width="30" height="28" rx="6" fill="#ffffff" opacity="0.32" transform="rotate(14 115 104)"/>' +
           '<g fill="#ffffff" opacity="0.55">' + bubbles + '</g>' +
         '</g>' +
         '<path d="' + glass + '" fill="none" stroke="#fff" stroke-width="3" stroke-linejoin="round" opacity="0.75"/>' +
@@ -1502,6 +1500,37 @@
         '<path d="M70 52C40 20 70 0 100 20C130 0 160 20 132 52C120 66 82 66 70 52Z" fill="#5aa84a" stroke="#2f6b2a" stroke-width="2"/>' +
         '<path d="M100 22V58M100 40L80 30M100 40L120 30" stroke="#2f6b2a" stroke-width="1.5" opacity="0.6"/>' +
         stalk(82, -8) + stalk(104, 2) + stalk(126, 10)
+      );
+    },
+
+    /* Konzerva kondenzovanog mlijeka: limena konzerva sa etiketom i gusto mlijeko koje curi preko ruba. */
+    kondenzovano: function (c) {
+      var id = uid('kondenzovano');
+      var milk = '#fbf3e1';
+      var milkShade = '#ecdcbc';
+      return (
+        '<defs>' +
+          '<linearGradient id="' + id + '-t" x1="0" y1="0" x2="1" y2="0">' +
+            '<stop offset="0" stop-color="#8d939b"/><stop offset="0.35" stop-color="#e9edf1"/>' +
+            '<stop offset="0.7" stop-color="#b9c0c8"/><stop offset="1" stop-color="#7d838b"/>' +
+          '</linearGradient>' +
+          '<linearGradient id="' + id + '-l" x1="0" y1="0" x2="1" y2="0">' +
+            '<stop offset="0" stop-color="' + darken(c, 0.25) + '"/><stop offset="0.4" stop-color="' + lighten(c, 0.15) + '"/>' +
+            '<stop offset="1" stop-color="' + darken(c, 0.3) + '"/>' +
+          '</linearGradient>' +
+        '</defs>' +
+        '<ellipse cx="100" cy="178" rx="50" ry="9" fill="#000" opacity="0.12"/>' +
+        '<path d="M56 74V170A44 11 0 0 0 144 170V74Z" fill="url(#' + id + '-t)"/>' +
+        '<path d="M56 96H144V150H56Z" fill="url(#' + id + '-l)"/>' +
+        '<path d="M56 96H144M56 150H144" stroke="' + darken(c, 0.4) + '" stroke-width="2" opacity="0.5"/>' +
+        '<path d="M56 160H144M56 84H144" stroke="#6f757d" stroke-width="2" opacity="0.35"/>' +
+        '<ellipse cx="100" cy="123" rx="22" ry="14" fill="' + milk + '" opacity="0.92"/>' +
+        '<path d="M88 123C92 116 108 116 112 123" stroke="' + darken(c, 0.35) + '" stroke-width="3" fill="none" stroke-linecap="round"/>' +
+        '<ellipse cx="100" cy="74" rx="44" ry="11" fill="#c9cfd6" stroke="#8d939b" stroke-width="2"/>' +
+        '<ellipse cx="100" cy="74" rx="36" ry="8" fill="' + milk + '"/>' +
+        '<path d="M70 76C70 92 78 96 78 104C78 112 88 112 88 104C88 96 92 90 96 84C100 92 100 120 108 120C116 120 116 110 114 98C112 88 118 84 122 80C126 86 126 92 132 92C138 92 136 82 132 76Z" fill="' + milk + '" stroke="' + milkShade + '" stroke-width="2" stroke-linejoin="round"/>' +
+        '<path d="M80 78C88 82 112 82 122 78" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round" opacity="0.8"/>' +
+        '<path d="M64 100V146" stroke="#fff" stroke-width="5" stroke-linecap="round" opacity="0.35"/>'
       );
     },
 
