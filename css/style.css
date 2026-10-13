@@ -6609,3 +6609,24 @@ html:not(.js) .localnote { display: none; }
 .gi__val b { color: var(--c-text); font-size: 0.9375rem; }
 .gi__bar { grid-column: 1 / -1; height: 6px; border-radius: 3px; background: var(--c-line); overflow: hidden; }
 .gi__bar span { display: block; width: calc(var(--v) * 10%); height: 100%; border-radius: inherit; background: var(--ing); }
+
+/* Brend sa puno okusa: dugme za sve okuse i kompaktan sastav na otvaranje */
+.bmore { display: flex; justify-content: center; margin: 28px 0 0; }
+.glance-fold { border: 1px solid var(--c-line); border-radius: 18px; background: color-mix(in srgb, var(--c-surface) 60%, transparent); }
+.glance-fold__sum { display: flex; align-items: center; gap: 12px; padding: 18px 20px; cursor: pointer; list-style: none; }
+.glance-fold__sum::-webkit-details-marker { display: none; }
+.glance-fold__sum .mix__h { margin: 0; }
+.glance-fold__count { margin-left: auto; font-size: 0.875rem; color: var(--c-muted); }
+.glance-fold__sum > .icon { width: 22px; height: 22px; flex-shrink: 0; transition: transform 0.2s ease; }
+.glance-fold[open] > .glance-fold__sum > .icon { transform: rotate(180deg); }
+.glance-fold > .glance__lead { margin: 0 20px 14px; }
+.glines { margin: 0; padding: 0 20px 18px; list-style: none; columns: 2 420px; column-gap: 32px; }
+.gline { break-inside: avoid; padding: 10px 0; border-top: 1px solid var(--c-line); }
+.gline__head { display: flex; align-items: center; margin: 0 0 6px; }
+.gline__name { font-weight: 800; color: var(--c-text); text-decoration: none; }
+.gline__name:hover, .gline__name:focus-visible { text-decoration: underline; text-underline-offset: 3px; }
+.gline__ings { display: flex; flex-wrap: wrap; gap: 6px; margin: 0; padding: 0; list-style: none; }
+.gchip { display: inline-flex; align-items: center; gap: 6px; padding: 3px 10px 3px 8px; border-radius: 999px; background: var(--c-line); font-size: 0.8125rem; }
+.gchip__dot { width: 9px; height: 9px; border-radius: 50%; background: var(--ing); box-shadow: 0 0 0 1px color-mix(in srgb, var(--c-text) 30%, transparent); }
+.gchip b { font-weight: 800; }
+@media (prefers-reduced-motion: reduce) { .glance-fold__sum > .icon { transition: none; } }

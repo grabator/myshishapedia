@@ -944,6 +944,129 @@ Ranije dodani:
 - [ ] Adalya Ice Bonbon: mješavina bombona 7, ledeni pepermint 9, mentol 10. Profil 8 / 10 / 4 / 10 / 7.
 - [ ] Tip duhana ("Virginia (svijetli list)") za sve okuse, tagovi, opisi i ideje za mikseve na oba jezika.
 
+### MUSTHAVE linija (96 okusa sa musthave.ru, 10. 2026.)
+
+Okusi su dodani iz službenog kataloga (musthave.ru i musthavetobacco.com). **Sastojci su uzeti iz službenih
+nota brenda**, a opisi su pisani svojim riječima. **Jačine sastojaka i profil su naša procjena** i treba ih
+provjeriti (najbolje da ih MUSTHAVE potvrdi, pa okus dobije `verified`, vidi "Sastav provjerio brend").
+
+Napomene:
+
+- **Holland Pie nije dodan:** službeni opis je samo "Tot samyj keksik s gollandskim akcentom" (kolačić sa
+  holandskim akcentom), bez ijednog sastojka. Dodati kad brend kaže šta je unutra.
+- **Violet:** na engleskom sajtu stoji pogrešan opis (od okusa Tipsy). Korišten je ruski opis: kremasti šejk
+  od borovnice i dinje sa začinima.
+- **Gotovi miksevi sa ruskim imenima** dobili su englesko ime (prijevod), a rusko ime je u opisu. Provjeriti
+  kako se zovu na pakovanju: Blueberry Lemon Mint (Голубика, лимон и мята), Pear Lemon Tarragon (Груша, лимон и
+  тархун), Kiwi Apple Lime (Киви, яблоко и лайм), Strawberry Lemon Watermelon (Клубника, лимон и арбуз),
+  Currant Orange Grape (Смородина, апельсин и виноград) i Strawberry Sorbet (Клубничный сорбет).
+- **Christmas Drink, Cinnamon i Peppermint** postoje samo na engleskom sajtu (možda sezonski ili samo za SAD).
+- **Sour Tropic:** službeni opis kaže samo "tropski koktel sa izraženom kiselinom", pa su sastojci opšti
+  ("Tropsko voće" i "Kiselost").
+- **Stranica brenda** sa više od 12 okusa prikazuje 12 kartica i dugme "Prikaži sve okuse", koje vodi na
+  stranicu svih okusa sa filterom brenda (`?brand=musthave`). "Sastav na prvi pogled" je tada kompaktna
+  lista na otvaranje; link sa `#sastav` je sam otvori.
+- Okusi se prave iz kratkih zapisa skriptom (van repozitorija), a u `data/flavors.js` su između komentara
+  "MUSTHAVE linija" i "kraj MUSTHAVE linije". Mogu se mijenjati ručno kao i svi drugi okusi.
+
+- [ ] **Watermelon**: lubenica 9.
+- [ ] **Sweet Melon**: dinja 9.
+- [ ] **Sweet Peach**: breskva 9.
+- [ ] **Strawberry**: jagoda 9.
+- [ ] **Strawberry Lychee**: šumska jagoda 8, liči 7.
+- [ ] **Raspberry**: malina 9, džem 6.
+- [ ] **Blackberry**: kupina 9.
+- [ ] **Blueberry**: borovnica 9, jogurt 3.
+- [ ] **Black Currant**: crna ribizla 9.
+- [ ] **Forest Berries**: kupina 8, malina 6, borovnica 5.
+- [ ] **Gooseberry**: ogrozd 9.
+- [ ] **Cranberry**: brusnica 9.
+- [ ] **Elderberry**: bazga 9.
+- [ ] **Banana Mama**: zrela banana 9.
+- [ ] **Mandarin**: mandarina 9.
+- [ ] **Orange Team**: narandža 8, mandarina 7.
+- [ ] **Grapefruit**: roze grejpfrut 8, grejpfrut 7.
+- [ ] **Lemon-Lime**: limeta 8, limun 8.
+- [ ] **Mad Pear**: kruška 9.
+- [ ] **Tropic Juice**: ananas 8, marakuja 8.
+- [ ] **Cream Soda**: gazirani sok 8, vanila 6.
+- [ ] **Lemon Tonic**: limun 9, tonik 6.
+- [ ] **Fizzy Dizzy**: gazirani sok 7, žutika 8.
+- [ ] **Rocketman**: soda od jagode 8, kivi 6, grejpfrut 5.
+- [ ] **Melonade**: lubenica 8, dinja 6, žutika 5.
+- [ ] **Cucunade**: krastavac 8, limun 6, pepermint 4.
+- [ ] **Lemongrass**: limunska trava 8, limeta 6.
+- [ ] **Mango Sling**: mango 9, menta 4, začini 3.
+- [ ] **Estragon**: estragon 8, gazirani sok 6.
+- [ ] **Green Fizz**: kaktus 8, apsint 6, kivi 6.
+- [ ] **Prosecco**: pjenušavo vino 9.
+- [ ] **Citrus Spritz**: narandža 8, pjenušavo vino 7.
+- [ ] **Christmas Drink**: šampanjac 9.
+- [ ] **Caribbean Rum**: tamni rum 9.
+- [ ] **Mulled Wine**: crno vino 8, cimet 6, narandža 5, jabuka 4.
+- [ ] **Tipsy**: lubenica 8, liker 6, šlag 5, bobičasti preljev 3.
+- [ ] **Ruby Grape**: crveno grožđe 9.
+- [ ] **Cherry Juice**: višnja 9.
+- [ ] **Berry Mors**: brusnica 8, trešnja 6, malina 6.
+- [ ] **Jumango**: mango 9, med 5, malina 5.
+- [ ] **Vanilla Cream**: vanila 9, krema 6.
+- [ ] **Ice Cream**: sladoled 9, mlijeko 5.
+- [ ] **Strawberry Sorbet**: jagoda 9, sorbet 6.
+- [ ] **Coconut Shake**: kokos 9, šejk 5.
+- [ ] **Paradise**: banana 8, karamel 7, kokos 5.
+- [ ] **Cheesecake**: fil od sira 8, vanila 5, limun 4.
+- [ ] **Charlotte Pie**: jabuka 8, karamel 6, tijesto 5.
+- [ ] **Lemon Pie**: limun 8, kolač 7.
+- [ ] **Pistachio Cake**: pistacija 8, malina 6, kolač 5.
+- [ ] **Pistachio**: pistacija 9, pržena nota 3.
+- [ ] **Maple Pecan**: javorov sirup 8, pekan 7, lisnato tijesto 6.
+- [ ] **Cinnamon Roll**: cimet 8, glazura 5.
+- [ ] **Cookie**: čokoladni keks 8, krem fil 6.
+- [ ] **Cacao**: topla čokolada 9, marshmallow 5.
+- [ ] **Milky Rice**: riža na mlijeku 8, mlijeko 6.
+- [ ] **Unicorn Treats**: kukuruzni štapići 8, puslica 6, marshmallow 5.
+- [ ] **Violet**: borovnica 8, dinja 6, šejk 5, začini 3.
+- [ ] **Choco Mint**: tamna čokolada 8, krem menta 6.
+- [ ] **Apple Drops**: jabuka 9, bombon 5.
+- [ ] **Barberry Candy**: žutika 8, bombon 7.
+- [ ] **Earl Grey**: crni čaj 8, bergamot 6.
+- [ ] **Milk Oolong**: oolong čaj 8, mlijeko 6.
+- [ ] **Masala Tea**: crni čaj 7, kardamom 6, cimet 5, đumbir 4.
+- [ ] **Morocco**: čaj 7, narandža 5, začini 5.
+- [ ] **Red Tea**: crveni čaj 8, crveno voće 5.
+- [ ] **Sea Buckthorn Tea**: pasji trn 8, grejpfrut 5, đumbir 4.
+- [ ] **Cinnamon**: cimet 9.
+- [ ] **Baikal**: šumsko bilje 8, četinari 6.
+- [ ] **Yolka**: jelka 9.
+- [ ] **Peppermint**: pepermint 9.
+- [ ] **Ice Mint**: menta 8, žvaka 6, hlađenje 7.
+- [ ] **Frosty**: hlađenje 10.
+- [ ] **Honey Holls**: med 8, hlađenje 7, bombon 4.
+- [ ] **Berry Holls**: šumske bobice 8, eukaliptus 6, hlađenje 6.
+- [ ] **Quince**: dunja 9, anis 3.
+- [ ] **Feijoa**: zrela feijoa 9.
+- [ ] **Marula**: marula 9.
+- [ ] **Guanapapa**: guanabana 8, papaja 6.
+- [ ] **Alova**: roze guava 8, aloja 7.
+- [ ] **Pearl Pool**: tropsko voće 8, moringa 5, mus 5.
+- [ ] **Nord Star**: višnja 9.
+- [ ] **Red Bomb**: nar 9.
+- [ ] **Garnet Grape**: nar 8, grožđe 7.
+- [ ] **Passion Plum**: šljiva 8, marakuja 7.
+- [ ] **Araram**: lubenica 7, grožđe 7, suha šljiva 5, menta 3.
+- [ ] **Space Flavour**: mango 7, marakuja 6, liči 6, ruža 4.
+- [ ] **Kiwi Smoothie**: kivi 9, jabuka 5, pepermint 4.
+- [ ] **Blueberry Lemon Mint**: borovnica 8, menta 6, limun 4.
+- [ ] **Pear Lemon Tarragon**: kruška 8, estragon 6, limun 5.
+- [ ] **Kiwi Apple Lime**: kivi 8, jabuka 6, limeta 5.
+- [ ] **Strawberry Lemon Watermelon**: jagoda 8, lubenica 7, limun 5.
+- [ ] **Currant Orange Grape**: crna ribizla 8, narandža 6, grožđe 6.
+- [ ] **Sour Apple**: zelena jabuka 9, kiselost 6.
+- [ ] **Sour Berries**: šumske bobice 8, brusnica 6, kiselost 6.
+- [ ] **Sour Citrus**: narandža 7, limeta 7, grejpfrut 4.
+- [ ] **Sour Tropic**: tropsko voće 8, kiselost 6.
+
+
 ### Recepti miksova (PRIJEDLOZI: Graba treba isprobati i potvrditi)
 
 Svih 20 recepata su prijedlozi napravljeni na osnovu sastojaka i profila. Treba ih isprobati, pa

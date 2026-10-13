@@ -512,6 +512,7 @@
         otherTitle: 'Ostali brendovi',
         allBrands: 'Svi brendovi',
         metaIn: 'Okusi: {list}.',
+        showAll: 'Prikaži sve okuse ({n})',
         glanceTitle: 'Sastav na prvi pogled',
         glanceLead: 'Svi okusi i njihovi sastojci na jednom mjestu. Broj pokazuje koliko se sastojak osjeti, od 1 do 10.'
       },
@@ -1254,6 +1255,7 @@
         otherTitle: 'Other brands',
         allBrands: 'All brands',
         metaIn: 'Flavors: {list}.',
+        showAll: 'Show all flavors ({n})',
         glanceTitle: 'Ingredients at a glance',
         glanceLead: 'Every flavor and its ingredients in one place. The number shows how strong each ingredient comes through, from 1 to 10.'
       },

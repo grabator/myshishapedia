@@ -2073,7 +2073,7 @@ window.FLAVORS = [
         'Pinkman with Tynky Wynky for a citrusy summer mix.'
       ]
     },
-    similar: ['adalya-raspberry', 'sebero-arctic-mix-jelly-fruit', 'adalya-angel-lips']
+    similar: ['adalya-raspberry', 'sebero-arctic-mix-jelly-fruit', 'adalya-angel-lips', 'musthave-grapefruit']
   },
   {
     id: 'musthave-cola',
@@ -2159,7 +2159,7 @@ window.FLAVORS = [
         'Pineapple Rings with MUSTHAVE Cola for a tropical cola.'
       ]
     },
-    similar: ['haze-pineapple-krush', 'trifecta-pineapple-guava', 'adalya-dubai']
+    similar: ['haze-pineapple-krush', 'trifecta-pineapple-guava', 'adalya-dubai', 'musthave-tropic-juice']
   },
   {
     id: 'musthave-candy-cow',
@@ -2203,7 +2203,7 @@ window.FLAVORS = [
         'Candy Cow with Bananapapa for banana and caramel.'
       ]
     },
-    similar: ['tangiers-horchata', 'trifecta-peppermint-shake', 'haze-bananarama']
+    similar: ['tangiers-horchata', 'trifecta-peppermint-shake', 'haze-bananarama', 'musthave-paradise']
   },
   {
     id: 'musthave-cherry-cola',
@@ -2449,7 +2449,7 @@ window.FLAVORS = [
         'Strawberry Lychee and Space Flavour, for an even more exotic mix.'
       ]
     },
-    similar: ['musthave-strawberry', 'musthave-pinkman', 'musthave-strawberry-sorbet']
+    similar: ['musthave-strawberry', 'musthave-space-flavour', 'musthave-pinkman', 'musthave-strawberry-sorbet']
   },
   {
     id: 'musthave-raspberry',
@@ -2733,7 +2733,7 @@ window.FLAVORS = [
         'Cranberry and Orange Team, for a winter fruit bowl.'
       ]
     },
-    similar: ['musthave-gooseberry', 'musthave-berry-mors', 'musthave-elderberry']
+    similar: ['musthave-gooseberry', 'musthave-berry-mors', 'musthave-elderberry', 'musthave-red-bomb']
   },
   {
     id: 'musthave-elderberry',
@@ -3016,7 +3016,7 @@ window.FLAVORS = [
         'Mad Pear and Candy Cow, for caramelised pear.'
       ]
     },
-    similar: ['sebero-green-pear', 'musthave-quince']
+    similar: ['sebero-green-pear', 'musthave-quince', 'musthave-pear-lemon-tarragon']
   },
   {
     id: 'musthave-tropic-juice',
@@ -3057,7 +3057,7 @@ window.FLAVORS = [
         'Tropic Juice and Frosty, for an iced tropical juice.'
       ]
     },
-    similar: ['musthave-pineapple-rings', 'trifecta-pineapple-guava', 'musthave-mango-sling', 'musthave-jumango']
+    similar: ['musthave-pineapple-rings', 'trifecta-pineapple-guava', 'musthave-space-flavour', 'musthave-mango-sling']
   },
   {
     id: 'musthave-cream-soda',
@@ -3226,7 +3226,7 @@ window.FLAVORS = [
         'Rocketman and Watermelon, for a summer cocktail.'
       ]
     },
-    similar: ['musthave-strawberry', 'musthave-fizzy-dizzy']
+    similar: ['musthave-strawberry', 'musthave-kiwi-smoothie', 'musthave-fizzy-dizzy']
   },
   {
     id: 'musthave-melonade',
@@ -3269,7 +3269,7 @@ window.FLAVORS = [
         'Melonade and Strawberry, for melons with strawberry.'
       ]
     },
-    similar: ['musthave-watermelon', 'musthave-sweet-melon', 'musthave-fizzy-dizzy']
+    similar: ['musthave-watermelon', 'musthave-sweet-melon', 'musthave-fizzy-dizzy', 'musthave-strawberry-lemon-watermelon']
   },
   {
     id: 'musthave-cucunade',
@@ -3396,7 +3396,7 @@ window.FLAVORS = [
         'Mango Sling and Lemongrass, for a Thai lemonade.'
       ]
     },
-    similar: ['musthave-jumango', 'musthave-tropic-juice', 'sebero-mango-yogurt']
+    similar: ['musthave-jumango', 'musthave-tropic-juice', 'sebero-mango-yogurt', 'musthave-space-flavour']
   },
   {
     id: 'musthave-estragon',
@@ -3438,7 +3438,7 @@ window.FLAVORS = [
         'Estragon and Lemon-Lime, for a citrus tarhun.'
       ]
     },
-    similar: ['musthave-cucunade', 'musthave-baikal', 'musthave-green-fizz']
+    similar: ['musthave-cucunade', 'musthave-baikal', 'musthave-green-fizz', 'musthave-pear-lemon-tarragon']
   },
   {
     id: 'musthave-green-fizz',
@@ -3481,7 +3481,7 @@ window.FLAVORS = [
         'Green Fizz and Frosty, for an icy green cocktail.'
       ]
     },
-    similar: ['holster-ice-kaktuz', 'musthave-estragon']
+    similar: ['holster-ice-kaktuz', 'musthave-kiwi-smoothie', 'musthave-estragon']
   },
   {
     id: 'musthave-prosecco',
@@ -3773,7 +3773,7 @@ window.FLAVORS = [
         'Ruby Grape and Ice Mint, for icy grape.'
       ]
     },
-    similar: ['haze-purple-krush', 'al-fakher-grape-mint', 'musthave-prosecco']
+    similar: ['musthave-garnet-grape', 'haze-purple-krush', 'al-fakher-grape-mint', 'musthave-prosecco']
   },
   {
     id: 'musthave-cherry-juice',
@@ -3813,7 +3813,7 @@ window.FLAVORS = [
         'Cherry Juice and Vanilla Cream, for cherries and cream.'
       ]
     },
-    similar: ['musthave-cherry-cola', 'tangiers-maraschino-cherry', 'musthave-berry-mors']
+    similar: ['musthave-nord-star', 'musthave-cherry-cola', 'tangiers-maraschino-cherry', 'musthave-berry-mors']
   },
   {
     id: 'musthave-berry-mors',
@@ -4691,7 +4691,7 @@ window.FLAVORS = [
         'Apple Drops and Ice Mint, for icy apple.'
       ]
     },
-    similar: ['musthave-charlotte-pie', 'al-fakher-double-apple', 'musthave-barberry-candy']
+    similar: ['musthave-sour-apple', 'musthave-charlotte-pie', 'al-fakher-double-apple', 'musthave-barberry-candy']
   },
   {
     id: 'musthave-barberry-candy',
@@ -5567,7 +5567,675 @@ window.FLAVORS = [
         'Pearl Pool and Lemon-Lime, for a tangier bowl.'
       ]
     },
-    similar: ['musthave-alova', 'musthave-tropic-juice', 'musthave-guanapapa']
+    similar: ['musthave-alova', 'musthave-tropic-juice', 'musthave-guanapapa', 'musthave-sour-tropic']
+  },
+  {
+    id: 'musthave-nord-star',
+    brand: 'musthave',
+    leaf: 'dark',
+    name: 'Nord Star',
+    shortDescription: {
+      bs: 'Okrepljujuća slatko-kisela višnja sjevernoameričke sorte Nord Star.',
+      en: 'Invigorating sweet and sour cherry of the North American Nord Star variety.'
+    },
+    description: {
+      bs: [
+        'Nord Star je višnja sjevernoameričke sorte Nord Star: sočna, slatko-kisela i živa.',
+        'Kiselina je naglašena, pa je okus svjež i budi. Jedan od omiljenih okusa višnje.',
+        'Tamni list MUSTHAVE: rastresito pakovanje, srednja toplota i par minuta zagrijavanja prije prvog dima.'
+      ],
+      en: [
+        'Nord Star is a cherry of the North American Nord Star variety: juicy, sweet and sour, and lively.',
+        'The sourness is pronounced, so it tastes fresh and wakes you up. A favorite cherry flavor.',
+        'MUSTHAVE dark leaf: pack it loose, keep the heat medium and give the bowl a few minutes to warm up before the first pull.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Višnja', en: 'Sour cherry' }, illustration: 'visnja', color: '#a3122e', intensity: 9 }
+    ],
+    profile: { sweetness: 6, freshness: 7, fruitiness: 9, cooling: 0, strength: 7 },
+    tags: ['vocni', 'kiseli'],
+    tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
+    palette: { primary: '#a3122e', secondary: '#c36577', accent: '#d694a1', background: '#23090c', text: '#fff4ea' },
+    mixIdeas: {
+      bs: [
+        'Nord Star i Cola, za višnja kolu.',
+        'Nord Star i Ice Mint, za ledenu višnju.'
+      ],
+      en: [
+        'Nord Star and Cola, for a cherry cola.',
+        'Nord Star and Ice Mint, for icy cherry.'
+      ]
+    },
+    similar: ['musthave-cherry-juice', 'musthave-cherry-cola', 'adalya-cherry-mint']
+  },
+  {
+    id: 'musthave-red-bomb',
+    brand: 'musthave',
+    leaf: 'dark',
+    name: 'Red Bomb',
+    shortDescription: {
+      bs: 'Raskošan, opor buket mirisnog južnog nara sa pikantnom gorčinom na kraju.',
+      en: 'A lavish, tart bouquet of fragrant southern pomegranate with a piquant bitter finish.'
+    },
+    description: {
+      bs: [
+        'Red Bomb je zreo južni nar: opor, mirisan i sočan, sa blagom pikantnom gorčinom na kraju.',
+        'Ta gorčina podsjeća na pravi nar i čini okus odraslim i složenim.',
+        'Tamni list MUSTHAVE: rastresito pakovanje, srednja toplota i par minuta zagrijavanja prije prvog dima.'
+      ],
+      en: [
+        'Red Bomb is a ripe southern pomegranate: tart, fragrant and juicy, with a light piquant bitterness at the end.',
+        'That bitterness recalls real pomegranate and makes the flavor grown-up and complex.',
+        'MUSTHAVE dark leaf: pack it loose, keep the heat medium and give the bowl a few minutes to warm up before the first pull.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Nar', en: 'Pomegranate' }, illustration: 'nar', color: '#b3122e', intensity: 9 }
+    ],
+    profile: { sweetness: 5, freshness: 6, fruitiness: 9, cooling: 0, strength: 7 },
+    tags: ['vocni', 'kiseli'],
+    tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
+    palette: { primary: '#b3122e', secondary: '#ce6577', accent: '#dd94a1', background: '#26090c', text: '#fff4ea' },
+    mixIdeas: {
+      bs: [
+        'Red Bomb i Lemon Tonic, za gorko-kiseli koktel.',
+        'Red Bomb i Vanilla Cream, za ublaženi nar.'
+      ],
+      en: [
+        'Red Bomb and Lemon Tonic, for a bitter-sour cocktail.',
+        'Red Bomb and Vanilla Cream, for a softer pomegranate.'
+      ]
+    },
+    similar: ['musthave-garnet-grape', 'musthave-cranberry']
+  },
+  {
+    id: 'musthave-garnet-grape',
+    brand: 'musthave',
+    leaf: 'dark',
+    name: 'Garnet Grape',
+    shortDescription: {
+      bs: 'Slatko-kiseli miris južnog nara i sočnog grožđa.',
+      en: 'The sweet and tangy aroma of southern pomegranate and juicy grapes.'
+    },
+    description: {
+      bs: [
+        'Garnet Grape spaja južni nar i sočno grožđe: slatko-kiseo i voćan okus.',
+        'Grožđe daje slatkoću i sok, a nar kiselinu i oporost.',
+        'Tamni list MUSTHAVE: rastresito pakovanje, srednja toplota i par minuta zagrijavanja prije prvog dima.'
+      ],
+      en: [
+        'Garnet Grape brings together southern pomegranate and juicy grapes: sweet, tangy and fruity.',
+        'Grape adds sweetness and juice, pomegranate the tang and tartness.',
+        'MUSTHAVE dark leaf: pack it loose, keep the heat medium and give the bowl a few minutes to warm up before the first pull.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Nar', en: 'Pomegranate' }, illustration: 'nar', color: '#b3122e', intensity: 8 },
+      { name: { bs: 'Grožđe', en: 'Grape' }, illustration: 'grozdje', color: '#6b2c7a', intensity: 7 }
+    ],
+    profile: { sweetness: 6, freshness: 6, fruitiness: 9, cooling: 0, strength: 7 },
+    tags: ['vocni'],
+    tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
+    palette: { primary: '#b3122e', secondary: '#6b2c7a', accent: '#dd94a1', background: '#26090c', text: '#fff4ea' },
+    mixIdeas: {
+      bs: [
+        'Garnet Grape i Ice Mint, za ledeno grožđe.',
+        'Garnet Grape i Ruby Grape, za duplo grožđe.'
+      ],
+      en: [
+        'Garnet Grape and Ice Mint, for icy grape.',
+        'Garnet Grape and Ruby Grape, for double grape.'
+      ]
+    },
+    similar: ['musthave-red-bomb', 'musthave-ruby-grape', 'al-fakher-grape-mint', 'musthave-araram']
+  },
+  {
+    id: 'musthave-passion-plum',
+    brand: 'musthave',
+    leaf: 'dark',
+    name: 'Passion Plum',
+    shortDescription: {
+      bs: 'Višeslojan miris kiselkaste šljive i marakuje.',
+      en: 'The layered aroma of tangy plum and passion fruit.'
+    },
+    description: {
+      bs: [
+        'Passion Plum spaja kiselkastu šljivu i egzotičnu marakuju. Okus je sočan, višeslojan i živ.',
+        'Šljiva daje tamnu voćnost, a marakuja mirisni, kiseli vrh.',
+        'Tamni list MUSTHAVE: rastresito pakovanje, srednja toplota i par minuta zagrijavanja prije prvog dima.'
+      ],
+      en: [
+        'Passion Plum combines tangy plum and exotic passion fruit. Juicy, layered and lively.',
+        'Plum brings a dark fruitiness and passion fruit a fragrant, sour top note.',
+        'MUSTHAVE dark leaf: pack it loose, keep the heat medium and give the bowl a few minutes to warm up before the first pull.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Šljiva', en: 'Plum' }, illustration: 'sljiva', color: '#5b2a6e', intensity: 8 },
+      { name: { bs: 'Marakuja', en: 'Passion fruit' }, illustration: 'marakuja', color: '#8a3f8f', intensity: 7 }
+    ],
+    profile: { sweetness: 6, freshness: 6, fruitiness: 9, cooling: 0, strength: 7 },
+    tags: ['vocni', 'tropski', 'kiseli'],
+    tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
+    palette: { primary: '#5b2a6e', secondary: '#8a3f8f', accent: '#b59fbe', background: '#180d16', text: '#fff4ea' },
+    mixIdeas: {
+      bs: [
+        'Passion Plum i Vanilla Cream, za kremastu šljivu.',
+        'Passion Plum i Cinnamon, za začinjenu šljivu.'
+      ],
+      en: [
+        'Passion Plum and Vanilla Cream, for creamy plum.',
+        'Passion Plum and Cinnamon, for spiced plum.'
+      ]
+    },
+    similar: ['musthave-tropic-juice', 'musthave-araram']
+  },
+  {
+    id: 'musthave-araram',
+    brand: 'musthave',
+    leaf: 'dark',
+    name: 'Araram',
+    shortDescription: {
+      bs: 'Slatka lubenica, sočno grožđe i suha šljiva, začinjeni listićima mente.',
+      en: 'Sweet watermelon, juicy grapes and fragrant prunes, seasoned with mint leaves.'
+    },
+    description: {
+      bs: [
+        'Araram spaja slatku lubenicu, sočno grožđe i mirisnu suhu šljivu, uz listiće mente.',
+        'Lubenica i grožđe daju svježinu, suha šljiva dubinu, a menta lagano osvježenje.',
+        'Tamni list MUSTHAVE: rastresito pakovanje, srednja toplota i par minuta zagrijavanja prije prvog dima.'
+      ],
+      en: [
+        'Araram combines sweet watermelon, juicy grapes and fragrant prunes, with mint leaves.',
+        'Watermelon and grape bring freshness, prunes the depth and mint a light lift.',
+        'MUSTHAVE dark leaf: pack it loose, keep the heat medium and give the bowl a few minutes to warm up before the first pull.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Lubenica', en: 'Watermelon' }, illustration: 'lubenica', color: '#e8455a', intensity: 7 },
+      { name: { bs: 'Grožđe', en: 'Grape' }, illustration: 'grozdje', color: '#6b2c7a', intensity: 7 },
+      { name: { bs: 'Suha šljiva', en: 'Prune' }, illustration: 'sljiva', color: '#3a1a2e', intensity: 5 },
+      { name: { bs: 'Menta', en: 'Mint' }, illustration: 'menta', color: '#3fc08a', intensity: 3 }
+    ],
+    profile: { sweetness: 7, freshness: 6, fruitiness: 9, cooling: 2, strength: 7 },
+    tags: ['vocni', 'ljetni'],
+    tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
+    palette: { primary: '#e8455a', secondary: '#6b2c7a', accent: '#3a1a2e', background: '#2e1113', text: '#fff4ea' },
+    mixIdeas: {
+      bs: [
+        'Araram i Ice Mint, za više svježine.',
+        'Araram i Watermelon, za više lubenice.'
+      ],
+      en: [
+        'Araram and Ice Mint, for more freshness.',
+        'Araram and Watermelon, for more watermelon.'
+      ]
+    },
+    similar: ['musthave-watermelon', 'musthave-garnet-grape', 'musthave-passion-plum']
+  },
+  {
+    id: 'musthave-space-flavour',
+    brand: 'musthave',
+    leaf: 'dark',
+    name: 'Space Flavour',
+    shortDescription: {
+      bs: 'Kosmička kombinacija manga, marakuje i ličija sa laticama ruže.',
+      en: 'A cosmic combination of mango, passion fruit and lychee with rose petals.'
+    },
+    description: {
+      bs: [
+        'Space Flavour spaja mango, marakuju i liči, začinjene laticama ruže sa hladnom jutarnjom rosom.',
+        'Okus je tropski, cvjetni i sočan. Ruža daje parfemsku notu koja ga izdvaja od drugih tropskih okusa.',
+        'Tamni list MUSTHAVE: rastresito pakovanje, srednja toplota i par minuta zagrijavanja prije prvog dima.'
+      ],
+      en: [
+        'Space Flavour brings together mango, passion fruit and lychee, seasoned with rose petals covered in cool morning dew.',
+        'It is tropical, floral and juicy. The rose gives a perfumed note that sets it apart from other tropical flavors.',
+        'MUSTHAVE dark leaf: pack it loose, keep the heat medium and give the bowl a few minutes to warm up before the first pull.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Mango', en: 'Mango' }, illustration: 'mango', color: '#ffb020', intensity: 7 },
+      { name: { bs: 'Marakuja', en: 'Passion fruit' }, illustration: 'marakuja', color: '#8a3f8f', intensity: 6 },
+      { name: { bs: 'Liči', en: 'Lychee' }, illustration: 'lici', color: '#d8344a', intensity: 6 },
+      { name: { bs: 'Ruža', en: 'Rose' }, illustration: 'ruza', color: '#e86a9a', intensity: 4 }
+    ],
+    profile: { sweetness: 8, freshness: 6, fruitiness: 9, cooling: 1, strength: 7 },
+    tags: ['vocni', 'tropski'],
+    tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
+    mood: 'supernova',
+    palette: { primary: '#ffb020', secondary: '#8a3f8f', accent: '#d8344a', background: '#322209', text: '#fff4ea' },
+    mixIdeas: {
+      bs: [
+        'Space Flavour i Strawberry Lychee, za više ličija.',
+        'Space Flavour i Frosty, za rosnu svježinu.'
+      ],
+      en: [
+        'Space Flavour and Strawberry Lychee, for more lychee.',
+        'Space Flavour and Frosty, for a dewy freshness.'
+      ]
+    },
+    similar: ['musthave-strawberry-lychee', 'musthave-tropic-juice', 'musthave-mango-sling']
+  },
+  {
+    id: 'musthave-kiwi-smoothie',
+    brand: 'musthave',
+    leaf: 'dark',
+    name: 'Kiwi Smoothie',
+    shortDescription: {
+      bs: 'Slatko-kiseli australijski kivi sa pepermintom i sokom od jabuke.',
+      en: 'Sweet and sour Australian kiwi with peppermint and apple juice.'
+    },
+    description: {
+      bs: [
+        'Kiwi Smoothie je slatko-kiseli australijski kivi, ublažen sokom od jabuke i osvježen pepermintom.',
+        'Kivi je glavni i jasno kiseo, jabuka ga zaokruži, a pepermint doda svježinu.',
+        'Tamni list MUSTHAVE: rastresito pakovanje, srednja toplota i par minuta zagrijavanja prije prvog dima.'
+      ],
+      en: [
+        'Kiwi Smoothie is sweet and sour Australian kiwi, softened with apple juice and lifted with peppermint.',
+        'Kiwi leads with a clear tang, apple rounds it off and peppermint adds freshness.',
+        'MUSTHAVE dark leaf: pack it loose, keep the heat medium and give the bowl a few minutes to warm up before the first pull.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Kivi', en: 'Kiwi' }, illustration: 'kivi', color: '#7cbf3a', intensity: 9 },
+      { name: { bs: 'Jabuka', en: 'Apple' }, illustration: 'jabuka', color: '#8cc63f', intensity: 5 },
+      { name: { bs: 'Pepermint', en: 'Peppermint' }, illustration: 'pepermint', color: '#3fc08a', intensity: 4 }
+    ],
+    profile: { sweetness: 6, freshness: 8, fruitiness: 9, cooling: 3, strength: 7 },
+    tags: ['vocni', 'osvjezavajuci'],
+    tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
+    palette: { primary: '#7cbf3a', secondary: '#8cc63f', accent: '#3fc08a', background: '#1d240d', text: '#fff4ea' },
+    mixIdeas: {
+      bs: [
+        'Kiwi Smoothie i Strawberry, za kivi i jagodu.',
+        'Kiwi Smoothie i Ice Mint, za ledeni smoothie.'
+      ],
+      en: [
+        'Kiwi Smoothie and Strawberry, for kiwi and strawberry.',
+        'Kiwi Smoothie and Ice Mint, for an icy smoothie.'
+      ]
+    },
+    similar: ['musthave-kiwi-apple-lime', 'musthave-green-fizz', 'musthave-rocketman']
+  },
+  {
+    id: 'musthave-blueberry-lemon-mint',
+    brand: 'musthave',
+    leaf: 'dark',
+    name: 'Blueberry Lemon Mint',
+    shortDescription: {
+      bs: 'Bogata borovnica sa hladom mente i laganim citrusnim akcentom.',
+      en: 'Rich blueberry with a minty chill and a light citrus accent.'
+    },
+    description: {
+      bs: [
+        'Blueberry Lemon Mint (Голубика, лимон и мята) je gotov miks brenda: bogata borovnica, hlad mente i lagan limun.',
+        'Borovnica je glavna, menta osvježava, a limun daje kiselkast vrh.',
+        'Tamni list sa hlađenjem: rastresito pakovanje i umjerena toplota, jer previše uglja ubije svježinu.'
+      ],
+      en: [
+        'Blueberry Lemon Mint (Голубика, лимон и мята) is a ready-made blend from the brand: rich blueberry, a minty chill and light lemon.',
+        'Blueberry leads, mint refreshes and lemon adds a tangy top note.',
+        'Dark leaf with cooling: pack it loose and keep the heat moderate, because too much coal kills the freshness.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Borovnica', en: 'Blueberry' }, illustration: 'borovnica', color: '#4a5fc1', intensity: 8 },
+      { name: { bs: 'Menta', en: 'Mint' }, illustration: 'menta', color: '#3fc08a', intensity: 6 },
+      { name: { bs: 'Limun', en: 'Lemon' }, illustration: 'limun', color: '#f7d84a', intensity: 4 }
+    ],
+    profile: { sweetness: 6, freshness: 9, fruitiness: 8, cooling: 5, strength: 7 },
+    tags: ['bobicasti', 'mint', 'osvjezavajuci'],
+    tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
+    mood: 'frost',
+    palette: { primary: '#4a5fc1', secondary: '#3fc08a', accent: '#f7d84a', background: '#151523', text: '#fff4ea' },
+    mixIdeas: {
+      bs: [
+        'Blueberry Lemon Mint i Vanilla Cream, za kremastiji miks.',
+        'Blueberry Lemon Mint i Blueberry, za više borovnice.'
+      ],
+      en: [
+        'Blueberry Lemon Mint and Vanilla Cream, for a creamier bowl.',
+        'Blueberry Lemon Mint and Blueberry, for more blueberry.'
+      ]
+    },
+    similar: ['musthave-blueberry', 'serbetli-ice-blueberry', 'al-fakher-blueberry']
+  },
+  {
+    id: 'musthave-pear-lemon-tarragon',
+    brand: 'musthave',
+    leaf: 'dark',
+    name: 'Pear Lemon Tarragon',
+    shortDescription: {
+      bs: 'Slatka kruška, začinski estragon i svježina limuna u balansu.',
+      en: 'Sweet pear, spicy tarragon and lemon freshness in balance.'
+    },
+    description: {
+      bs: [
+        'Pear Lemon Tarragon (Груша, лимон и тархун) je gotov miks brenda: slatka kruška, začinski estragon i svježi limun.',
+        'Okus podsjeća na tarhun sa kruškom: biljan, sočan i osvježavajući.',
+        'Tamni list: pakuj rastresito i ne pregrijavaj, da svjež, pitak karakter ostane čist.'
+      ],
+      en: [
+        'Pear Lemon Tarragon (Груша, лимон и тархун) is a ready-made blend from the brand: sweet pear, spicy tarragon and fresh lemon.',
+        'It tastes like a pear tarhun soda: herbal, juicy and refreshing.',
+        'Dark leaf: pack it loose and do not overheat it, so the fresh, drinkable character stays clean.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Kruška', en: 'Pear' }, illustration: 'kruska', color: '#d4c64a', intensity: 8 },
+      { name: { bs: 'Estragon', en: 'Tarragon' }, illustration: 'bilje', color: '#4caf50', intensity: 6 },
+      { name: { bs: 'Limun', en: 'Lemon' }, illustration: 'limun', color: '#f7d84a', intensity: 5 }
+    ],
+    profile: { sweetness: 6, freshness: 8, fruitiness: 7, cooling: 0, strength: 7 },
+    tags: ['vocni', 'biljni', 'osvjezavajuci'],
+    tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
+    palette: { primary: '#d4c64a', secondary: '#4caf50', accent: '#f7d84a', background: '#2b2610', text: '#fff4ea' },
+    mixIdeas: {
+      bs: [
+        'Pear Lemon Tarragon i Estragon, za više tarhuna.',
+        'Pear Lemon Tarragon i Mad Pear, za više kruške.'
+      ],
+      en: [
+        'Pear Lemon Tarragon and Estragon, for more tarhun.',
+        'Pear Lemon Tarragon and Mad Pear, for more pear.'
+      ]
+    },
+    similar: ['musthave-estragon', 'musthave-mad-pear', 'sebero-green-pear']
+  },
+  {
+    id: 'musthave-kiwi-apple-lime',
+    brand: 'musthave',
+    leaf: 'dark',
+    name: 'Kiwi Apple Lime',
+    shortDescription: {
+      bs: 'Sočan kivi, hrskava jabuka i opora limeta.',
+      en: 'Juicy kiwi, crisp apple and tart lime.'
+    },
+    description: {
+      bs: [
+        'Kiwi Apple Lime (Киви, яблоко и лайм) je gotov miks brenda: sočan kivi, hrskava jabuka i opora limeta.',
+        'Zeleno, kiselkasto i svježe voće. Odličan ljetni okus.',
+        'Tamni list MUSTHAVE: rastresito pakovanje, srednja toplota i par minuta zagrijavanja prije prvog dima.'
+      ],
+      en: [
+        'Kiwi Apple Lime (Киви, яблоко и лайм) is a ready-made blend from the brand: juicy kiwi, crisp apple and tart lime.',
+        'Green, tangy and fresh fruit. A great summer flavor.',
+        'MUSTHAVE dark leaf: pack it loose, keep the heat medium and give the bowl a few minutes to warm up before the first pull.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Kivi', en: 'Kiwi' }, illustration: 'kivi', color: '#7cbf3a', intensity: 8 },
+      { name: { bs: 'Jabuka', en: 'Apple' }, illustration: 'jabuka', color: '#8cc63f', intensity: 6 },
+      { name: { bs: 'Limeta', en: 'Lime' }, illustration: 'limeta', color: '#7cc242', intensity: 5 }
+    ],
+    profile: { sweetness: 5, freshness: 8, fruitiness: 9, cooling: 0, strength: 7 },
+    tags: ['vocni', 'kiseli', 'osvjezavajuci'],
+    tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
+    palette: { primary: '#7cbf3a', secondary: '#8cc63f', accent: '#7cc242', background: '#1d240d', text: '#fff4ea' },
+    mixIdeas: {
+      bs: [
+        'Kiwi Apple Lime i Ice Mint, za ledeni zeleni miks.',
+        'Kiwi Apple Lime i Strawberry, za slađi miks.'
+      ],
+      en: [
+        'Kiwi Apple Lime and Ice Mint, for an icy green bowl.',
+        'Kiwi Apple Lime and Strawberry, for a sweeter bowl.'
+      ]
+    },
+    similar: ['musthave-kiwi-smoothie', 'musthave-sour-apple', 'musthave-apple-drops']
+  },
+  {
+    id: 'musthave-strawberry-lemon-watermelon',
+    brand: 'musthave',
+    leaf: 'dark',
+    name: 'Strawberry Lemon Watermelon',
+    shortDescription: {
+      bs: 'Zrela jagoda i sočna lubenica sa osvježavajućom kiselinom limuna.',
+      en: 'Ripe strawberry and juicy watermelon with a refreshing lemon tang.'
+    },
+    description: {
+      bs: [
+        'Strawberry Lemon Watermelon (Клубника, лимон и арбуз) je gotov miks brenda: zrela jagoda, sočna lubenica i limun.',
+        'Ljetni voćni miks: sladak, sočan i sa kiselkastim citrusnim vrhom.',
+        'Tamni list MUSTHAVE: rastresito pakovanje, srednja toplota i par minuta zagrijavanja prije prvog dima.'
+      ],
+      en: [
+        'Strawberry Lemon Watermelon (Клубника, лимон и арбуз) is a ready-made blend from the brand: ripe strawberry, juicy watermelon and lemon.',
+        'A summer fruit blend: sweet, juicy and with a tangy citrus top.',
+        'MUSTHAVE dark leaf: pack it loose, keep the heat medium and give the bowl a few minutes to warm up before the first pull.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Jagoda', en: 'Strawberry' }, illustration: 'jagoda', color: '#e63946', intensity: 8 },
+      { name: { bs: 'Lubenica', en: 'Watermelon' }, illustration: 'lubenica', color: '#e8455a', intensity: 7 },
+      { name: { bs: 'Limun', en: 'Lemon' }, illustration: 'limun', color: '#f7d84a', intensity: 5 }
+    ],
+    profile: { sweetness: 7, freshness: 7, fruitiness: 9, cooling: 0, strength: 7 },
+    tags: ['vocni', 'ljetni', 'osvjezavajuci'],
+    tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
+    palette: { primary: '#e63946', secondary: '#e8455a', accent: '#f7d84a', background: '#2e0f0f', text: '#fff4ea' },
+    mixIdeas: {
+      bs: [
+        'Strawberry Lemon Watermelon i Ice Mint, za ledeni ljetni miks.',
+        'Strawberry Lemon Watermelon i Prosecco, za ljetni koktel.'
+      ],
+      en: [
+        'Strawberry Lemon Watermelon and Ice Mint, for an icy summer bowl.',
+        'Strawberry Lemon Watermelon and Prosecco, for a summer cocktail.'
+      ]
+    },
+    similar: ['musthave-strawberry', 'musthave-watermelon', 'musthave-melonade']
+  },
+  {
+    id: 'musthave-currant-orange-grape',
+    brand: 'musthave',
+    leaf: 'dark',
+    name: 'Currant Orange Grape',
+    shortDescription: {
+      bs: 'Duboka crna ribizla, sunčana narandža i slatko zrelo grožđe.',
+      en: 'Deep black currant, sunny orange and sweet ripe grapes.'
+    },
+    description: {
+      bs: [
+        'Currant Orange Grape (Смородина, апельсин и виноград) je gotov miks brenda: crna ribizla, narandža i zrelo grožđe.',
+        'Slatko-kiseo miks u kojem ribizla daje dubinu, narandža sunce, a grožđe slatkoću.',
+        'Tamni list MUSTHAVE: rastresito pakovanje, srednja toplota i par minuta zagrijavanja prije prvog dima.'
+      ],
+      en: [
+        'Currant Orange Grape (Смородина, апельсин и виноград) is a ready-made blend from the brand: black currant, orange and ripe grapes.',
+        'A sweet and sour blend where currant brings depth, orange the sunshine and grape the sweetness.',
+        'MUSTHAVE dark leaf: pack it loose, keep the heat medium and give the bowl a few minutes to warm up before the first pull.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Crna ribizla', en: 'Black currant' }, illustration: 'grozdic', color: '#2a1630', intensity: 8 },
+      { name: { bs: 'Narandža', en: 'Orange' }, illustration: 'narandza', color: '#ff7a00', intensity: 6 },
+      { name: { bs: 'Grožđe', en: 'Grape' }, illustration: 'grozdje', color: '#6b2c7a', intensity: 6 }
+    ],
+    profile: { sweetness: 7, freshness: 5, fruitiness: 9, cooling: 0, strength: 7 },
+    tags: ['vocni', 'bobicasti'],
+    tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
+    palette: { primary: '#2a1630', secondary: '#ff7a00', accent: '#6b2c7a', background: '#10090c', text: '#fff4ea' },
+    mixIdeas: {
+      bs: [
+        'Currant Orange Grape i Ice Mint, za ledeni voćni miks.',
+        'Currant Orange Grape i Black Currant, za više ribizle.'
+      ],
+      en: [
+        'Currant Orange Grape and Ice Mint, for an icy fruit bowl.',
+        'Currant Orange Grape and Black Currant, for more currant.'
+      ]
+    },
+    similar: ['musthave-black-currant', 'musthave-orange-team', 'musthave-garnet-grape']
+  },
+  {
+    id: 'musthave-sour-apple',
+    brand: 'musthave',
+    leaf: 'dark',
+    name: 'Sour Apple',
+    shortDescription: {
+      bs: 'Svjež miris kiselih, zelenih, sočnih jabuka.',
+      en: 'The fresh aroma of sour, green, juicy apples.'
+    },
+    description: {
+      bs: [
+        'Sour Apple je iz kisele (Sour) linije: zelena, sočna i jasno kisela jabuka.',
+        'Kiselina je glavna, pa okus budi i osvježava. Za ljubitelje kiselih bombona.',
+        'Tamni list MUSTHAVE: rastresito pakovanje, srednja toplota i par minuta zagrijavanja prije prvog dima.'
+      ],
+      en: [
+        'Sour Apple is from the Sour line: a green, juicy and clearly sour apple.',
+        'The sourness is the star, so it wakes you up and refreshes. For fans of sour candy.',
+        'MUSTHAVE dark leaf: pack it loose, keep the heat medium and give the bowl a few minutes to warm up before the first pull.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Zelena jabuka', en: 'Green apple' }, illustration: 'jabuka', color: '#8cc63f', intensity: 9 },
+      { name: { bs: 'Kiselost', en: 'Sourness' }, illustration: 'limeta', color: '#b5d84a', intensity: 6 }
+    ],
+    profile: { sweetness: 4, freshness: 8, fruitiness: 8, cooling: 0, strength: 7 },
+    tags: ['vocni', 'kiseli'],
+    tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
+    palette: { primary: '#8cc63f', secondary: '#b5d84a', accent: '#cbe5a9', background: '#20260e', text: '#fff4ea' },
+    mixIdeas: {
+      bs: [
+        'Sour Apple i Cinnamon, za kiselu jabuku sa cimetom.',
+        'Sour Apple i Ice Mint, za ledenu kiselu jabuku.'
+      ],
+      en: [
+        'Sour Apple and Cinnamon, for sour apple and cinnamon.',
+        'Sour Apple and Ice Mint, for icy sour apple.'
+      ]
+    },
+    similar: ['musthave-apple-drops', 'musthave-kiwi-apple-lime', 'musthave-sour-citrus']
+  },
+  {
+    id: 'musthave-sour-berries',
+    brand: 'musthave',
+    leaf: 'dark',
+    name: 'Sour Berries',
+    shortDescription: {
+      bs: 'Jarak miks kiselih šumskih bobica.',
+      en: 'A bright mix of sour forest berries.'
+    },
+    description: {
+      bs: [
+        'Sour Berries je iz kisele (Sour) linije: miks šumskih bobica sa naglašenom kiselinom.',
+        'Bobice su sočne, a kiselina jasna, kao kisele gumene bobice.',
+        'Tamni list MUSTHAVE: rastresito pakovanje, srednja toplota i par minuta zagrijavanja prije prvog dima.'
+      ],
+      en: [
+        'Sour Berries is from the Sour line: a mix of forest berries with a pronounced sourness.',
+        'The berries are juicy and the sourness clear, like sour gummy berries.',
+        'MUSTHAVE dark leaf: pack it loose, keep the heat medium and give the bowl a few minutes to warm up before the first pull.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Šumske bobice', en: 'Forest berries' }, illustration: 'kupina', color: '#3b1a3f', intensity: 8 },
+      { name: { bs: 'Brusnica', en: 'Cranberry' }, illustration: 'bobice', color: '#c8102e', intensity: 6 },
+      { name: { bs: 'Kiselost', en: 'Sourness' }, illustration: 'limeta', color: '#b5d84a', intensity: 6 }
+    ],
+    profile: { sweetness: 5, freshness: 7, fruitiness: 9, cooling: 0, strength: 7 },
+    tags: ['bobicasti', 'kiseli'],
+    tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
+    palette: { primary: '#3b1a3f', secondary: '#c8102e', accent: '#b5d84a', background: '#130a0e', text: '#fff4ea' },
+    mixIdeas: {
+      bs: [
+        'Sour Berries i Vanilla Cream, za ublažene bobice.',
+        'Sour Berries i Frosty, za ledene kisele bobice.'
+      ],
+      en: [
+        'Sour Berries and Vanilla Cream, for softer berries.',
+        'Sour Berries and Frosty, for icy sour berries.'
+      ]
+    },
+    similar: ['musthave-forest-berries', 'musthave-cranberry', 'musthave-sour-tropic']
+  },
+  {
+    id: 'musthave-sour-citrus',
+    brand: 'musthave',
+    leaf: 'dark',
+    name: 'Sour Citrus',
+    shortDescription: {
+      bs: 'Citrusni miks od zrele narandže i kisele limete sa blagom gorčinom grejpfruta.',
+      en: 'A citrus mix of ripe orange and sour lime with a faint grapefruit bitterness.'
+    },
+    description: {
+      bs: [
+        'Sour Citrus je iz kisele (Sour) linije: zrela narandža, kisela limeta i jedva primjetna gorčina grejpfruta.',
+        'Okus je oštar, svjež i citrusan. Odlično budi slatke mikseve.',
+        'Tamni list MUSTHAVE: rastresito pakovanje, srednja toplota i par minuta zagrijavanja prije prvog dima.'
+      ],
+      en: [
+        'Sour Citrus is from the Sour line: ripe orange, sour lime and a barely noticeable grapefruit bitterness.',
+        'Sharp, fresh and citrusy. Great for waking up sweet mixes.',
+        'MUSTHAVE dark leaf: pack it loose, keep the heat medium and give the bowl a few minutes to warm up before the first pull.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Narandža', en: 'Orange' }, illustration: 'narandza', color: '#ff7a00', intensity: 7 },
+      { name: { bs: 'Limeta', en: 'Lime' }, illustration: 'limeta', color: '#7cc242', intensity: 7 },
+      { name: { bs: 'Grejpfrut', en: 'Grapefruit' }, illustration: 'grejpfrut', color: '#f26b6b', intensity: 4 }
+    ],
+    profile: { sweetness: 4, freshness: 9, fruitiness: 8, cooling: 0, strength: 7 },
+    tags: ['citrusni', 'kiseli', 'osvjezavajuci'],
+    tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
+    palette: { primary: '#ff7a00', secondary: '#7cc242', accent: '#f26b6b', background: '#321904', text: '#fff4ea' },
+    mixIdeas: {
+      bs: [
+        'Sour Citrus i Strawberry, za kiselu jagodu.',
+        'Sour Citrus i Ice Mint, za ledeni citrus.'
+      ],
+      en: [
+        'Sour Citrus and Strawberry, for a sour strawberry.',
+        'Sour Citrus and Ice Mint, for icy citrus.'
+      ]
+    },
+    similar: ['musthave-lemon-lime', 'musthave-orange-team', 'musthave-sour-apple']
+  },
+  {
+    id: 'musthave-sour-tropic',
+    brand: 'musthave',
+    leaf: 'dark',
+    name: 'Sour Tropic',
+    shortDescription: {
+      bs: 'Prirodan tropski koktel sa izraženom kiselinom.',
+      en: 'A natural tropical cocktail with a pronounced sourness.'
+    },
+    description: {
+      bs: [
+        'Sour Tropic je iz kisele (Sour) linije: prirodan tropski koktel sa izraženom kiselinom.',
+        'Tropsko voće daje slatkoću i sok, a kiselina ga drži živim i svježim.',
+        'Tamni list MUSTHAVE: rastresito pakovanje, srednja toplota i par minuta zagrijavanja prije prvog dima.'
+      ],
+      en: [
+        'Sour Tropic is from the Sour line: a natural tropical cocktail with a pronounced sourness.',
+        'Tropical fruit brings sweetness and juice, and the sourness keeps it lively and fresh.',
+        'MUSTHAVE dark leaf: pack it loose, keep the heat medium and give the bowl a few minutes to warm up before the first pull.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Tropsko voće', en: 'Tropical fruit' }, illustration: 'mango', color: '#ffb020', intensity: 8 },
+      { name: { bs: 'Kiselost', en: 'Sourness' }, illustration: 'limeta', color: '#b5d84a', intensity: 6 }
+    ],
+    profile: { sweetness: 5, freshness: 7, fruitiness: 9, cooling: 0, strength: 7 },
+    tags: ['tropski', 'kiseli', 'vocni'],
+    tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
+    palette: { primary: '#ffb020', secondary: '#b5d84a', accent: '#ffdb9b', background: '#322209', text: '#fff4ea' },
+    mixIdeas: {
+      bs: [
+        'Sour Tropic i Coconut Shake, za kremasti tropski miks.',
+        'Sour Tropic i Tropic Juice, za više ananasa.'
+      ],
+      en: [
+        'Sour Tropic and Coconut Shake, for a creamy tropical bowl.',
+        'Sour Tropic and Tropic Juice, for more pineapple.'
+      ]
+    },
+    similar: ['musthave-tropic-juice', 'musthave-sour-berries', 'musthave-pearl-pool']
   },
   // ---- kraj MUSTHAVE linije ----
   {

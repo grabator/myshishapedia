@@ -1038,6 +1038,9 @@
     mount: function (ctx) {
       var main = ctx.els.main;
       var grid = document.getElementById('brand-grid');
+      var fold = document.getElementById('glance-fold');
+      // link #sastav (pregled za brend) otvara listu sastava
+      if (fold && location.hash === '#sastav') fold.open = true;
       if (grid) {
         ctx.cleanup(FX.tilt(grid));
         ctx.cleanup(FX.cardWisps(grid));
