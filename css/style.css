@@ -6698,3 +6698,21 @@ html:not(.js) .localnote { display: none; }
   .bcard__sw:nth-child(n+5) { display: none; }
   .bcard__count { font-size: 0.75rem; }
 }
+
+/* ---------- Mobitel: dva recepta u redu ---------- */
+@media (max-width: 639px) {
+  .rcards { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .rcard { border-radius: 18px; }
+  .rcard__bowl { padding: 34px 12px 0; }
+  .rcard__body { gap: 3px; padding: 10px 11px 12px; }
+  .rcard__name { font-size: 1.0625rem; }
+  .rcard__parts { font-size: 0.75rem; line-height: 1.3; }
+  .rcard__meta { margin-top: 4px; }
+  .rcard__meta > * { font-size: 0.6875rem; padding: 3px 8px; }
+  .rcard .card__arrow { display: none; }
+  .rcard .rpill { top: 8px; left: 8px; }
+  .rcard .rpill__in { height: 24px; padding: 0 7px 0 6px; gap: 4px; font-size: 0.6875rem; }
+  .rcard .rpill__star { width: 12px; height: 12px; }
+  .rcard .rpill__n { display: none; }
+}
+#mix-count { scroll-margin-top: 96px; }

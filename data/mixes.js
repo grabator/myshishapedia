@@ -616,5 +616,396 @@ window.MIXES = [
         'For an icier take, swap a little Pirate\'s Cave for Twice the Ice.'
       ]
     }
+  },
+  // ---- MUSTHAVE recepti ----
+  {
+    id: 'island-colada',
+    slug: { bs: 'ostrvska-kolada', en: 'island-colada' },
+    name: { bs: 'Ostrvska kolada', en: 'Island Colada' },
+    parts: [{ flavor: 'musthave-tropic-juice', pct: 60 }, { flavor: 'musthave-coconut-shake', pct: 40 }],
+    layout: 'mixed',
+    strength: 'strong',
+    tags: ['tropski', 'desertni', 'ljetni'],
+    featured: false,
+    description: {
+      bs: [
+        'Ananas i marakuja iz Tropic Juice, umotani u kremasti kokos iz Coconut Shake.',
+        'Okus pina colade bez alkohola: sočno tropsko voće sprijeda, mliječni kokos na izdahu.'
+      ],
+      en: [
+        'Pineapple and passion fruit from Tropic Juice, wrapped in the creamy coconut of Coconut Shake.',
+        'A virgin pina colada: juicy tropical fruit up front, milky coconut on the exhale.'
+      ]
+    },
+    tips: {
+      bs: [
+        'Izmiješaj dobro, da se kokos rasporedi kroz cijelu posudu.',
+        'Ako želiš ljetniju verziju, dodaj malo Frostyja (do 15%).'
+      ],
+      en: [
+        'Mix well so the coconut is spread through the whole bowl.',
+        'For a more summery version, add a little Frosty (up to 15%).'
+      ]
+    }
+  },
+  {
+    id: 'peach-iced-tea',
+    slug: { bs: 'ledeni-caj-od-breskve', en: 'peach-iced-tea' },
+    name: { bs: 'Ledeni čaj od breskve', en: 'Peach Iced Tea' },
+    parts: [{ flavor: 'musthave-sweet-peach', pct: 60 }, { flavor: 'musthave-earl-grey', pct: 40 }],
+    layout: 'mixed',
+    strength: 'strong',
+    tags: ['vocni', 'caj', 'osvjezavajuci'],
+    featured: false,
+    description: {
+      bs: [
+        'Zrela breskva i crni čaj sa bergamotom: okus ledenog čaja od breskve.',
+        'Breskva daje slatkoću, a Earl Grey drži miks suhim i elegantnim.'
+      ],
+      en: [
+        'Ripe peach and black tea with bergamot: the taste of a peach iced tea.',
+        'Peach brings the sweetness and Earl Grey keeps the mix dry and elegant.'
+      ]
+    },
+    tips: {
+      bs: [
+        'Blaga toplota je ključna: čajne note brzo izgore.',
+        'Za ledeniju verziju zamijeni 10% breskve sa Frostyjem.'
+      ],
+      en: [
+        'Gentle heat is key: tea notes burn quickly.',
+        'For an icier version, swap 10% of the peach for Frosty.'
+      ]
+    }
+  },
+  {
+    id: 'banana-toffee',
+    slug: { bs: 'banana-u-karameli', en: 'banana-toffee' },
+    name: { bs: 'Banana u karameli', en: 'Banana Toffee' },
+    parts: [{ flavor: 'musthave-banana-mama', pct: 60 }, { flavor: 'musthave-candy-cow', pct: 40 }],
+    layout: 'mixed',
+    strength: 'strong',
+    tags: ['desertni', 'slatki', 'tropski'],
+    featured: false,
+    description: {
+      bs: [
+        'Zrela banana iz Banana Mama i mliječna karamela iz Candy Cow.',
+        'Gust, slatki desert, kao banana preliven karamelom.'
+      ],
+      en: [
+        'Ripe banana from Banana Mama and milky caramel from Candy Cow.',
+        'A thick, sweet dessert, like banana drizzled with toffee.'
+      ]
+    },
+    tips: {
+      bs: [
+        'Pakuj rastresito: oba okusa su gusta i slatka.',
+        'Uz kafu je savršen kraj večeri.'
+      ],
+      en: [
+        'Pack it loose: both flavors are thick and sweet.',
+        'With coffee it is a perfect end to the evening.'
+      ]
+    }
+  },
+  {
+    id: 'arctic-watermelon',
+    slug: { bs: 'arkticka-lubenica', en: 'arctic-watermelon' },
+    name: { bs: 'Arktička lubenica', en: 'Arctic Watermelon' },
+    parts: [{ flavor: 'musthave-watermelon', pct: 80 }, { flavor: 'musthave-frosty', pct: 20 }],
+    layout: 'mixed',
+    strength: 'strong',
+    tags: ['vocni', 'ledeni', 'ljetni'],
+    featured: false,
+    description: {
+      bs: [
+        'Sočna lubenica i čisto hlađenje bez mente.',
+        'Lubenica ostaje glavna, a Frosty je samo ohladi, kao da je izvađena iz frižidera.'
+      ],
+      en: [
+        'Juicy watermelon and pure cooling with no mint.',
+        'Watermelon stays the star and Frosty simply chills it, like it just came out of the fridge.'
+      ]
+    },
+    tips: {
+      bs: [
+        'Frosty je jak, pa 20% sasvim dovoljno hladi.',
+        'Izmiješaj dobro da hlađenje bude ravnomjerno od početka do kraja.'
+      ],
+      en: [
+        'Frosty is strong, so 20% is plenty of chill.',
+        'Mix well so the cooling is even from start to finish.'
+      ]
+    }
+  },
+  {
+    id: 'raspberry-cheesecake',
+    slug: { bs: 'cheesecake-sa-malinom', en: 'raspberry-cheesecake' },
+    name: { bs: 'Cheesecake sa malinom', en: 'Raspberry Cheesecake' },
+    parts: [{ flavor: 'musthave-cheesecake', pct: 60 }, { flavor: 'musthave-raspberry', pct: 40 }],
+    layout: 'mixed',
+    strength: 'strong',
+    tags: ['desertni', 'bobicasti', 'slatki'],
+    featured: false,
+    description: {
+      bs: [
+        'Kremasti cheesecake sa vanilom i limunom, preliven džemom od malina.',
+        'Malina daje kiselkast kontrast koji kolač čini lakšim.'
+      ],
+      en: [
+        'Creamy cheesecake with vanilla and lemon, topped with raspberry jam.',
+        'Raspberry adds a tangy contrast that makes the cake feel lighter.'
+      ]
+    },
+    tips: {
+      bs: [
+        'Za više maline idi na 50:50.',
+        'Dobro ide uz čaj ili kafu.'
+      ],
+      en: [
+        'For more raspberry, go 50:50.',
+        'Goes well with tea or coffee.'
+      ]
+    }
+  },
+  {
+    id: 'cola-float',
+    slug: { bs: 'kola-sa-sladoledom', en: 'cola-float' },
+    name: { bs: 'Kola sa sladoledom', en: 'Cola Float' },
+    parts: [{ flavor: 'musthave-cola', pct: 60 }, { flavor: 'musthave-ice-cream', pct: 40 }],
+    layout: 'mixed',
+    strength: 'strong',
+    tags: ['pice', 'desertni', 'slatki'],
+    featured: false,
+    description: {
+      bs: [
+        'Gazirana kola i kugla mliječnog sladoleda u istoj čaši.',
+        'Kola je svježa i pjenušava, a sladoled joj daje kremast, mekan kraj.'
+      ],
+      en: [
+        'Fizzy cola and a scoop of milk ice cream in the same glass.',
+        'The cola is fresh and sparkling, and the ice cream gives it a creamy, soft finish.'
+      ]
+    },
+    tips: {
+      bs: [
+        'Ne pregrijavaj: kremaste note brzo postanu teške.',
+        'Probaj i sa Cherry-Cola umjesto Cole.'
+      ],
+      en: [
+        'Do not overheat it: creamy notes turn heavy fast.',
+        'Also try it with Cherry-Cola instead of Cola.'
+      ]
+    }
+  },
+  {
+    id: 'winter-spell',
+    slug: { bs: 'zimska-carolija', en: 'winter-spell' },
+    name: { bs: 'Zimska čarolija', en: 'Winter Spell' },
+    parts: [{ flavor: 'musthave-mulled-wine', pct: 60 }, { flavor: 'musthave-mandarin', pct: 40 }],
+    layout: 'mixed',
+    strength: 'strong',
+    tags: ['zacinski', 'citrusni', 'nocni'],
+    featured: false,
+    description: {
+      bs: [
+        'Kuhano vino sa začinima i slatke kriške mandarine.',
+        'Topao, mirisan miks za hladne večeri i praznike.'
+      ],
+      en: [
+        'Mulled wine with spices and sweet mandarin slices.',
+        'A warm, fragrant mix for cold evenings and the holidays.'
+      ]
+    },
+    tips: {
+      bs: [
+        'Blaga toplota, da cimet ne postane gorak.',
+        'Uz Yolku (10%) dobiješ još prazničniji miris.'
+      ],
+      en: [
+        'Keep the heat gentle so the cinnamon does not turn bitter.',
+        'Add Yolka (10%) for an even more festive aroma.'
+      ]
+    }
+  },
+  {
+    id: 'mango-mojito',
+    slug: { bs: 'mango-mohito', en: 'mango-mojito' },
+    name: { bs: 'Mango mohito', en: 'Mango Mojito' },
+    parts: [{ flavor: 'musthave-mango-sling', pct: 70 }, { flavor: 'musthave-ice-mint', pct: 30 }],
+    layout: 'mixed',
+    strength: 'strong',
+    tags: ['tropski', 'mint', 'osvjezavajuci'],
+    featured: false,
+    description: {
+      bs: [
+        'Mango limunada iz Mango Sling i ledena menta iz Ice Mint.',
+        'Tropsko i svježe, kao mohito sa mangom.'
+      ],
+      en: [
+        'Mango lemonade from Mango Sling and icy mint from Ice Mint.',
+        'Tropical and fresh, like a mango mojito.'
+      ]
+    },
+    tips: {
+      bs: [
+        'Za manje hlađenja idi na 80:20.',
+        'Dodaj malo Lemon-Lime ako želiš kiseliji mohito.'
+      ],
+      en: [
+        'For less cooling, go 80:20.',
+        'Add a little Lemon-Lime for a sharper mojito.'
+      ]
+    }
+  },
+  {
+    id: 'pink-spritz',
+    slug: { bs: 'roze-pjenusac', en: 'pink-spritz' },
+    name: { bs: 'Roze pjenušac', en: 'Pink Spritz' },
+    parts: [{ flavor: 'musthave-pinkman', pct: 70 }, { flavor: 'musthave-prosecco', pct: 30 }],
+    layout: 'mixed',
+    strength: 'strong',
+    tags: ['vocni', 'pice', 'bobicasti'],
+    featured: false,
+    description: {
+      bs: [
+        'Pinkman (grejpfrut, jagoda, malina) i lagani pjenušac.',
+        'Voćno i pjenušavo, kao roze koktel na ljetnoj terasi.'
+      ],
+      en: [
+        'Pinkman (grapefruit, strawberry, raspberry) with a light sparkling wine.',
+        'Fruity and fizzy, like a pink cocktail on a summer terrace.'
+      ]
+    },
+    tips: {
+      bs: [
+        'Izmiješaj dobro da se prosecco osjeti kroz cijelu sesiju.',
+        'Ljeti dodaj 10% Frostyja.'
+      ],
+      en: [
+        'Mix well so the prosecco comes through the whole session.',
+        'In summer, add 10% Frosty.'
+      ]
+    }
+  },
+  {
+    id: 'grandmas-apple-pie',
+    slug: { bs: 'bakina-pita-od-jabuka', en: 'grandmas-apple-pie' },
+    name: { bs: 'Bakina pita od jabuka', en: 'Grandma\'s Apple Pie' },
+    parts: [{ flavor: 'musthave-charlotte-pie', pct: 70 }, { flavor: 'musthave-cinnamon', pct: 30 }],
+    layout: 'mixed',
+    strength: 'strong',
+    tags: ['desertni', 'zacinski', 'slatki'],
+    featured: false,
+    description: {
+      bs: [
+        'Topao kolač sa karamelizovanom jabukom i cejlonski cimet.',
+        'Miris pite od jabuka koja se upravo peče.'
+      ],
+      en: [
+        'A warm cake with caramelised apple and Ceylon cinnamon.',
+        'The smell of an apple pie fresh out of the oven.'
+      ]
+    },
+    tips: {
+      bs: [
+        'Cimet je jak, pa ne idi preko 30%.',
+        'Uz Ice Cream (dio Charlotte Pie) dobiješ pitu sa sladoledom.'
+      ],
+      en: [
+        'Cinnamon is strong, so do not go over 30%.',
+        'Swap part of the Charlotte Pie for Ice Cream for pie à la mode.'
+      ]
+    }
+  },
+  {
+    id: 'forest-frost',
+    slug: { bs: 'sumski-led', en: 'forest-frost' },
+    name: { bs: 'Šumski led', en: 'Forest Frost' },
+    parts: [{ flavor: 'musthave-forest-berries', pct: 70 }, { flavor: 'musthave-ice-mint', pct: 30 }],
+    layout: 'mixed',
+    strength: 'strong',
+    tags: ['bobicasti', 'ledeni', 'mint'],
+    featured: false,
+    description: {
+      bs: [
+        'Šumske bobice sa kupinom i ledena menta.',
+        'Sočno i hladno, kao bobice ubrane u jutarnjoj rosi.'
+      ],
+      en: [
+        'Forest berries with blackberry and icy mint.',
+        'Juicy and cold, like berries picked in the morning dew.'
+      ]
+    },
+    tips: {
+      bs: [
+        'Za čisto hlađenje bez mente zamijeni Ice Mint sa Frostyjem (20%).',
+        'Pakuj rastresito i drži umjerenu toplotu.'
+      ],
+      en: [
+        'For pure cooling without mint, swap Ice Mint for Frosty (20%).',
+        'Pack it loose and keep the heat moderate.'
+      ]
+    }
+  },
+  {
+    id: 'cookies-and-cream',
+    slug: { bs: 'keks-i-krema', en: 'cookies-and-cream' },
+    name: { bs: 'Keks i krema', en: 'Cookies & Cream' },
+    parts: [{ flavor: 'musthave-cookie', pct: 60 }, { flavor: 'musthave-ice-cream', pct: 40 }],
+    layout: 'mixed',
+    strength: 'strong',
+    tags: ['desertni', 'slatki'],
+    featured: false,
+    description: {
+      bs: [
+        'Čokoladni keks sa filom i mliječni sladoled.',
+        'Okus poznatog sladoleda sa komadićima keksa.'
+      ],
+      en: [
+        'Chocolate cookie with filling and milk ice cream.',
+        'The taste of the famous cookies and cream ice cream.'
+      ]
+    },
+    tips: {
+      bs: [
+        'Najbolje uz kafu ili mlijeko.',
+        'Za mint verziju dodaj 20% Choco Mint.'
+      ],
+      en: [
+        'Best with coffee or milk.',
+        'For a mint version, add 20% Choco Mint.'
+      ]
+    }
+  },
+  {
+    id: 'green-garden',
+    slug: { bs: 'zelena-basta', en: 'green-garden' },
+    name: { bs: 'Zelena bašta', en: 'Green Garden' },
+    parts: [{ flavor: 'musthave-kiwi-smoothie', pct: 60 }, { flavor: 'musthave-cucunade', pct: 40 }],
+    layout: 'mixed',
+    strength: 'strong',
+    tags: ['vocni', 'osvjezavajuci', 'ljetni'],
+    featured: false,
+    description: {
+      bs: [
+        'Kivi, jabuka i pepermint iz Kiwi Smoothie, uz limunadu od krastavca.',
+        'Zeleno, kiselkasto i jako osvježavajuće.'
+      ],
+      en: [
+        'Kiwi, apple and peppermint from Kiwi Smoothie, with cucumber lemonade.',
+        'Green, tangy and very refreshing.'
+      ]
+    },
+    tips: {
+      bs: [
+        'Savršen za vruće ljetne dane.',
+        'Dodaj malo Ice Mint ako želiš još svježije.'
+      ],
+      en: [
+        'Perfect for hot summer days.',
+        'Add a little Ice Mint for even more freshness.'
+      ]
+    }
   }
 ];

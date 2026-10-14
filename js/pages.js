@@ -1156,7 +1156,13 @@
   Pages.mixes = {
     mount: function (ctx) {
       var main = ctx.els.main;
-      var state = { tag: '', strength: '' };
+      var state = { tag: '', strength: '', page: Math.max(1, parseInt(ctx.params().get('page'), 10) || 1) };
+      var MIX_PAGE = 12;
+      var grid = document.getElementById('mix-grid');
+      var pagerEl = document.createElement('nav');
+      pagerEl.className = 'pager';
+      pagerEl.setAttribute('aria-label', t('pager.label'));
+      grid.parentNode.insertBefore(pagerEl, grid.nextSibling);
       var tagsEl = document.getElementById('mix-tags');
       var strEl = document.getElementById('mix-strength');
       var items = main.querySelectorAll('#mix-grid .rcards__item');
@@ -1169,21 +1175,36 @@
       }
       function apply() {
         var shown = 0;
-        items.forEach(function (li) {
+        var ok = Array.prototype.filter.call(items, function (li) {
           var card = li.querySelector('.rcard');
           var tags = (card.getAttribute('data-tags') || '').split(' ');
-          var ok = (!state.tag || tags.indexOf(state.tag) !== -1) && (!state.strength || card.getAttribute('data-strength') === state.strength);
-          li.hidden = !ok;
-          if (ok) { shown++; li.classList.add('is-in'); }
+          return (!state.tag || tags.indexOf(state.tag) !== -1) && (!state.strength || card.getAttribute('data-strength') === state.strength);
         });
+        var pages = Math.max(1, Math.ceil(ok.length / MIX_PAGE));
+        state.page = Math.min(state.page, pages);
+        items.forEach(function (li) { li.hidden = true; });
+        ok.forEach(function (li, i) {
+          if (Math.floor(i / MIX_PAGE) + 1 !== state.page) return;
+          li.hidden = false;
+          li.classList.add('is-in');
+        });
+        shown = ok.length;
+        renderPager(pagerEl, state.page, pages);
+        ctx.replaceUrl(state.page > 1 ? '?page=' + state.page : '');
         document.getElementById('mix-count').textContent = MSP.plural('mixes.count', shown);
         document.getElementById('mix-empty').hidden = shown > 0;
       }
+      onPager(pagerEl, function (n) {
+        state.page = n;
+        apply();
+        document.getElementById('mix-count').scrollIntoView({ behavior: smooth(), block: 'start' });
+      });
       tagsEl.addEventListener('click', function (e) {
         var b = e.target.closest('.chip');
         if (!b) return;
         var v = b.getAttribute('data-tag') || '';
         state.tag = state.tag === v ? '' : v;
+        state.page = 1;
         setActive(tagsEl, 'data-tag', state.tag);
         apply();
       });
@@ -1192,15 +1213,18 @@
         if (!b) return;
         var v = b.getAttribute('data-strength') || '';
         state.strength = state.strength === v ? '' : v;
+        state.page = 1;
         setActive(strEl, 'data-strength', state.strength);
         apply();
       });
       document.getElementById('mix-reset').addEventListener('click', function () {
         state.tag = state.strength = '';
+        state.page = 1;
         setActive(tagsEl, 'data-tag', '');
         setActive(strEl, 'data-strength', '');
         apply();
       });
+      apply();
       ctx.heroSmoke();
       ctx.cleanup(FX.reveal(main));
     }
