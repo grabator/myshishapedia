@@ -892,7 +892,7 @@
       '<div class="fotd__copy">' +
         '<p class="fotd__top"><span class="eyebrow"><span class="eyebrow__dot" aria-hidden="true"></span>' + esc(t('fotd.eyebrow')) + '</span>' +
           '<span class="fotd__timer" id="fotd-timer" aria-live="off"></span></p>' +
-        '<h2 class="fotd__name" id="fotd-title"><span class="fotd__brand">' + esc(f.brand) + '</span> <span class="fotd__flavor">' + esc(f.name) + '</span></h2>' +
+        '<h2 class="fotd__name" id="fotd-title"><span class="fotd__brand">' + esc(f.brand) + '</span> <span class="fotd__flavor" style="--wlen:' + String(f.name).split(/\s+/).reduce(function (m, w) { return Math.max(m, w.length); }, 1) + '">' + esc(f.name) + '</span></h2>' +
         '<p class="fotd__desc">' + esc(L(f.shortDescription)) + '</p>' +
         '<ul class="fotd__ings" role="list">' + chips + '</ul>' +
         '<p class="fotd__actions"><a class="btn fotd__btn" href="' + V.flavorUrl(f) + '" data-veil="' + th.veil + '">' + esc(t('fotd.open')) + icon('arrowRight') + '</a></p>' +
