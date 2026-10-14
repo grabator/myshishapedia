@@ -70,6 +70,13 @@
         notFoundDescription: 'Ova stranica ne postoji. Pretraži okuse ili se vrati na početnu.'
       },
 
+      pager: {
+        label: 'Stranice',
+        prev: 'Prethodna stranica',
+        next: 'Sljedeća stranica',
+        page: 'Stranica {n}'
+      },
+
       a11y: {
         skipToContent: 'Preskoči na sadržaj',
         homeLink: 'MyShishapedia, početna stranica',
@@ -466,6 +473,7 @@
         eyebrow: 'Enciklopedija okusa za nargilu',
         titleA: 'Okus,',
         titleEm: 'rastavljen',
+        nowLabel: 'U nargili sada:',
         titleB: 'na sastojke.',
         lead: 'Otkrij od čega je napravljen okus koji upravo pušiš.',
         searchLabel: 'Pretraži okuse',
@@ -502,6 +510,11 @@
         count: { one: '{n} brend', few: '{n} brenda', other: '{n} brendova' },
         flavorsCount: { one: '{n} okus', few: '{n} okusa', other: '{n} okusa' },
         filterLabel: 'Filtriraj po vrsti lista',
+        searchLabel: 'Pretraži brendove',
+        searchIn: 'Traži u {name}…',
+        searchPlaceholder: 'Upiši ime brenda…',
+        jumpLabel: 'Idi na brend',
+        jumpPick: 'Izaberi brend',
         all: 'Svi',
         empty: 'Nema brendova sa ovom vrstom lista.',
         country: 'Zemlja',
@@ -811,6 +824,13 @@
         aboutDescription: 'Who is behind MyShishapedia and why this hookah flavor encyclopedia exists. Contact details and a note about brands.',
         notFoundTitle: 'Page not found | MyShishapedia',
         notFoundDescription: 'This page does not exist. Search the flavors or head back to the homepage.'
+      },
+
+      pager: {
+        label: 'Pages',
+        prev: 'Previous page',
+        next: 'Next page',
+        page: 'Page {n}'
       },
 
       a11y: {
@@ -1209,6 +1229,7 @@
         eyebrow: 'The hookah flavor encyclopedia',
         titleA: 'Flavor,',
         titleEm: 'broken down',
+        nowLabel: 'In the bowl now:',
         titleB: 'to its parts.',
         lead: 'Find out what the flavor in your bowl is actually made of.',
         searchLabel: 'Search flavors',
@@ -1245,6 +1266,11 @@
         count: { one: '{n} brand', other: '{n} brands' },
         flavorsCount: { one: '{n} flavor', other: '{n} flavors' },
         filterLabel: 'Filter by leaf type',
+        searchLabel: 'Search brands',
+        searchIn: 'Search {name}…',
+        searchPlaceholder: 'Type a brand name…',
+        jumpLabel: 'Go to brand',
+        jumpPick: 'Pick a brand',
         all: 'All',
         empty: 'No brands with this leaf type.',
         country: 'Country',

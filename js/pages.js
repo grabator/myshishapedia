@@ -27,6 +27,71 @@
   }
 
   /* ------------------------------------------------------------------ */
+  /* Paginacija dugih lista kartica (okusi, kolekcije)                   */
+  /* ------------------------------------------------------------------ */
+
+  var PAGE_SIZE = 24; // djeljivo sa 2 i 3: pune redove i na mobitelu i na desktopu
+
+  /** Brojevi za dugmad: prva, zadnja, trenutna i par oko krajeva; null je praznina ("..."). */
+  function pageNumbers(page, pages) {
+    var want = {};
+    [1, pages, page].forEach(function (n) { want[n] = 1; });
+    if (page <= 3) { want[2] = 1; want[3] = 1; }
+    if (page >= pages - 2) { want[pages - 1] = 1; want[pages - 2] = 1; }
+    var out = [];
+    var prev = 0;
+    Object.keys(want).map(Number).filter(function (n) { return n >= 1 && n <= pages; })
+      .sort(function (a, b) { return a - b; })
+      .forEach(function (n) { if (n - prev > 1) out.push(null); out.push(n); prev = n; });
+    return out;
+  }
+
+  /** Iscrta paginaciju u <nav>; sakrije je kad ima samo jedna stranica. */
+  function renderPager(nav, page, pages) {
+    nav.hidden = pages < 2;
+    if (pages < 2) { nav.innerHTML = ''; return; }
+    var esc = V.esc;
+    function arrow(n, dir) {
+      var off = n < 1 || n > pages;
+      return '<button type="button" class="pager__btn pager__btn--arrow" data-page="' + n + '"' + (off ? ' disabled' : '') +
+        ' aria-label="' + esc(t(dir === 'prev' ? 'pager.prev' : 'pager.next')) + '">' + V.icon(dir === 'prev' ? 'arrowLeft' : 'arrowRight') + '</button>';
+    }
+    nav.innerHTML = arrow(page - 1, 'prev') + pageNumbers(page, pages).map(function (n) {
+      if (n === null) return '<span class="pager__gap" aria-hidden="true">…</span>';
+      return '<button type="button" class="pager__btn' + (n === page ? ' is-current' : '') + '" data-page="' + n + '"' +
+        (n === page ? ' aria-current="page"' : '') + ' aria-label="' + esc(t('pager.page', { n: n })) + '">' + n + '</button>';
+    }).join('') + arrow(page + 1, 'next');
+  }
+
+  /** Klik na paginaciju zove go(broj stranice). */
+  function onPager(nav, go) {
+    nav.addEventListener('click', function (e) {
+      var b = e.target.closest('[data-page]');
+      if (b && !b.disabled) go(Number(b.getAttribute('data-page')));
+    });
+  }
+
+  /** Statična lista kartica (kolekcija): stranice po PAGE_SIZE, broj stranice u adresi (?page=). */
+  function paginateStatic(ctx, grid, top) {
+    var items = Array.prototype.slice.call(grid.children);
+    if (items.length <= PAGE_SIZE) return;
+    var nav = document.createElement('nav');
+    nav.className = 'pager';
+    nav.setAttribute('aria-label', t('pager.label'));
+    grid.parentNode.insertBefore(nav, grid.nextSibling);
+    var pages = Math.ceil(items.length / PAGE_SIZE);
+    var page = Math.min(pages, Math.max(1, parseInt(ctx.params().get('page'), 10) || 1));
+    function show(scroll) {
+      items.forEach(function (li, i) { li.hidden = Math.floor(i / PAGE_SIZE) + 1 !== page; });
+      renderPager(nav, page, pages);
+      ctx.replaceUrl(page > 1 ? '?page=' + page : '');
+      if (scroll) (top || grid).scrollIntoView({ behavior: smooth(), block: 'start' });
+    }
+    onPager(nav, function (n) { page = n; show(true); });
+    show(false);
+  }
+
+  /* ------------------------------------------------------------------ */
   /* Rječnik                                                             */
   /* ------------------------------------------------------------------ */
 
@@ -577,6 +642,7 @@
       var main = ctx.els.main;
       var grid = document.getElementById('collection-grid');
       if (grid) {
+        paginateStatic(ctx, grid);
         ctx.cleanup(FX.tilt(grid));
         ctx.cleanup(FX.cardWisps(grid));
       }
@@ -787,8 +853,10 @@
         col: p.get('col') || '',
         brand: V.brandBySlug(p.get('brand')) ? p.get('brand') : '',
         leaf: /^(light|dark)$/.test(p.get('leaf') || '') ? p.get('leaf') : '',
-        sort: V.SORTS.indexOf(p.get('sort')) !== -1 ? p.get('sort') : 'az'
+        sort: V.SORTS.indexOf(p.get('sort')) !== -1 ? p.get('sort') : 'az',
+        page: Math.max(1, parseInt(p.get('page'), 10) || 1)
       };
+      var pagerEl = document.getElementById('fl-pager');
 
       function syncControls() {
         input.value = state.q;
@@ -820,13 +888,17 @@
           return V.matchesQuery(f, state.q);
         });
         list = V.sortFlavors(list, state.sort);
+        var pages = Math.max(1, Math.ceil(list.length / PAGE_SIZE));
+        state.page = Math.min(state.page, pages);
+        var from = (state.page - 1) * PAGE_SIZE;
         var shown = {};
         list.forEach(function (f, i) {
           var li = items[f.id];
+          grid.appendChild(li);
+          if (i < from || i >= from + PAGE_SIZE) return;
           shown[f.id] = 1;
           li.hidden = false;
           li.style.setProperty('--i', String(i % 3));
-          grid.appendChild(li);
           li.classList.add('is-in');
           if (animate) {
             li.classList.remove('is-shuffling');
@@ -836,6 +908,7 @@
         });
         Object.keys(items).forEach(function (id) { if (!shown[id]) items[id].hidden = true; });
         countEl.textContent = MSP.plural('home.count', list.length);
+        renderPager(pagerEl, state.page, pages);
         empty.hidden = list.length > 0;
         suggest.setAttribute('href', suggestBase + (state.q ? '?q=' + encodeURIComponent(state.q) : ''));
         var qs = [];
@@ -845,18 +918,20 @@
         if (state.brand) qs.push('brand=' + encodeURIComponent(state.brand));
         if (state.leaf) qs.push('leaf=' + state.leaf);
         if (state.sort !== 'az') qs.push('sort=' + state.sort);
+        if (state.page > 1) qs.push('page=' + state.page);
         ctx.replaceUrl(qs.length ? '?' + qs.join('&') : '');
       }
 
-      input.addEventListener('input', function () { state.q = input.value; apply(false); });
+      input.addEventListener('input', function () { state.page = 1; state.q = input.value; apply(false); });
       document.getElementById('fl-form').addEventListener('submit', function (e) { e.preventDefault(); input.blur(); });
-      sortEl.addEventListener('change', function () { state.sort = sortEl.value; apply(true); });
-      brandEl.addEventListener('change', function () { state.brand = brandEl.value; apply(true); });
+      sortEl.addEventListener('change', function () { state.page = 1; state.sort = sortEl.value; apply(true); });
+      brandEl.addEventListener('change', function () { state.page = 1; state.brand = brandEl.value; apply(true); });
       leafEl.addEventListener('click', function (e) {
         var b = e.target.closest('.chip');
         if (!b) return;
         var v = b.getAttribute('data-leaf') || '';
         state.leaf = state.leaf === v ? '' : v;
+        state.page = 1;
         syncControls();
         apply(true);
       });
@@ -865,6 +940,7 @@
         if (!b) return;
         var v = b.getAttribute('data-tag') || '';
         state.tag = state.tag === v ? '' : v;
+        state.page = 1;
         syncControls();
         apply(true);
       });
@@ -873,11 +949,17 @@
         if (!b) return;
         var v = b.getAttribute('data-col');
         state.col = state.col === v ? '' : v;
+        state.page = 1;
         syncControls();
         apply(true);
       });
+      onPager(pagerEl, function (n) {
+        state.page = n;
+        apply(false);
+        countEl.scrollIntoView({ behavior: smooth(), block: 'start' });
+      });
       document.getElementById('fl-reset').addEventListener('click', function () {
-        state = { q: '', tag: '', col: '', brand: '', leaf: '', sort: state.sort };
+        state = { q: '', tag: '', col: '', brand: '', leaf: '', sort: state.sort, page: 1 };
         syncControls();
         apply(true);
         input.focus();
@@ -1004,11 +1086,15 @@
       var items = grid.querySelectorAll('.bcards__item');
       var p = ctx.params();
       var leaf = /^(light|dark)$/.test(p.get('leaf') || '') ? p.get('leaf') : '';
+      var input = document.getElementById('br-q');
+      var jump = document.getElementById('br-jump');
+      input.value = p.get('q') || '';
       function apply() {
         var shown = 0;
+        var q = V.normalize(input.value).trim();
         items.forEach(function (li) {
           var l = li.querySelector('.bcard').getAttribute('data-leaf');
-          var ok = !leaf || l === leaf || l === 'both';
+          var ok = (!leaf || l === leaf || l === 'both') && (!q || (li.getAttribute('data-name') || '').indexOf(q) !== -1);
           li.hidden = !ok;
           if (ok) { shown++; li.querySelector('.bcard').classList.add('is-in'); }
         });
@@ -1019,8 +1105,19 @@
         });
         document.getElementById('br-count').textContent = MSP.plural('brands.count', shown);
         document.getElementById('br-empty').hidden = shown > 0;
-        ctx.replaceUrl(leaf ? '?leaf=' + leaf : '');
+        var qs = [];
+        if (input.value.trim()) qs.push('q=' + encodeURIComponent(input.value.trim()));
+        if (leaf) qs.push('leaf=' + leaf);
+        ctx.replaceUrl(qs.length ? '?' + qs.join('&') : '');
       }
+      input.addEventListener('input', apply);
+      document.getElementById('br-form').addEventListener('submit', function (e) {
+        e.preventDefault();
+        // Enter sa samo jednim pogotkom vodi pravo na taj brend
+        var hits = Array.prototype.filter.call(items, function (li) { return !li.hidden; });
+        if (hits.length === 1) hits[0].querySelector('.bcard').click(); else input.blur();
+      });
+      jump.addEventListener('change', function () { if (jump.value) location.href = jump.value; });
       group.addEventListener('click', function (e) {
         var b = e.target.closest('.chip');
         if (!b) return;
@@ -1034,11 +1131,78 @@
     }
   };
 
+  /** Okusi brenda sa puno okusa: pretraga, sortiranje, tagovi i stranice po 12 (kartice se crtaju ovdje). */
+  function brandFilter(ctx, grid) {
+    var BRAND_PAGE = 12;
+    var b = V.brandBySlug(grid.getAttribute('data-brand'));
+    var all = V.brandFlavors(b);
+    var input = document.getElementById('bf-q');
+    var sortEl = document.getElementById('bf-sort');
+    var tagsEl = document.getElementById('bf-tags');
+    var countEl = document.getElementById('bf-count');
+    var pagerEl = document.getElementById('brand-pager');
+    var empty = document.getElementById('brand-empty');
+    var p = ctx.params();
+    var state = {
+      q: p.get('q') || '',
+      tag: p.get('tag') || '',
+      sort: V.SORTS.indexOf(p.get('sort')) !== -1 ? p.get('sort') : 'az',
+      page: Math.max(1, parseInt(p.get('page'), 10) || 1)
+    };
+    input.value = state.q;
+    sortEl.value = state.sort;
+    function apply(scroll) {
+      var list = V.sortFlavors(all.filter(function (f) {
+        if (state.tag && (f.tags || []).indexOf(state.tag) === -1) return false;
+        return V.matchesQuery(f, state.q);
+      }), state.sort);
+      var pages = Math.max(1, Math.ceil(list.length / BRAND_PAGE));
+      state.page = Math.min(state.page, pages);
+      grid.innerHTML = list.slice((state.page - 1) * BRAND_PAGE, state.page * BRAND_PAGE).map(function (f, i) {
+        return '<li class="grid__item is-in" style="--i:' + (i % 3) + '">' + V.card(f, 'h3') + '</li>';
+      }).join('');
+      tagsEl.querySelectorAll('.chip').forEach(function (c) {
+        var on = (c.getAttribute('data-tag') || '') === state.tag;
+        c.classList.toggle('is-active', on);
+        c.setAttribute('aria-pressed', String(on));
+      });
+      countEl.textContent = MSP.plural('home.count', list.length);
+      empty.hidden = list.length > 0;
+      renderPager(pagerEl, state.page, pages);
+      var qs = [];
+      if (state.q) qs.push('q=' + encodeURIComponent(state.q));
+      if (state.tag) qs.push('tag=' + encodeURIComponent(state.tag));
+      if (state.sort !== 'az') qs.push('sort=' + state.sort);
+      if (state.page > 1) qs.push('page=' + state.page);
+      ctx.replaceUrl(qs.length ? '?' + qs.join('&') : '');
+      if (scroll) countEl.scrollIntoView({ behavior: smooth(), block: 'start' });
+    }
+    input.addEventListener('input', function () { state.q = input.value; state.page = 1; apply(false); });
+    document.getElementById('bf-form').addEventListener('submit', function (e) { e.preventDefault(); input.blur(); });
+    sortEl.addEventListener('change', function () { state.sort = sortEl.value; state.page = 1; apply(false); });
+    tagsEl.addEventListener('click', function (e) {
+      var c = e.target.closest('.chip');
+      if (!c) return;
+      var v = c.getAttribute('data-tag') || '';
+      state.tag = state.tag === v ? '' : v;
+      state.page = 1;
+      apply(false);
+    });
+    onPager(pagerEl, function (n) { state.page = n; apply(true); });
+    withRatings(ctx, function (st) {
+      var opt = sortEl.querySelector('option[value="rating"]');
+      if (st === 'off' && opt) opt.disabled = true;
+      if (state.sort === 'rating') apply(false);
+    });
+    apply(false);
+  }
+
   Pages.brand = {
     mount: function (ctx) {
       var main = ctx.els.main;
       var grid = document.getElementById('brand-grid');
       var fold = document.getElementById('glance-fold');
+      if (document.getElementById('brand-tools')) brandFilter(ctx, grid);
       // link #sastav (pregled za brend) otvara listu sastava
       if (fold && location.hash === '#sastav') fold.open = true;
       if (grid) {
@@ -1059,7 +1223,13 @@
   Pages.mixes = {
     mount: function (ctx) {
       var main = ctx.els.main;
-      var state = { tag: '', strength: '' };
+      var state = { tag: '', strength: '', page: Math.max(1, parseInt(ctx.params().get('page'), 10) || 1) };
+      var MIX_PAGE = 12;
+      var grid = document.getElementById('mix-grid');
+      var pagerEl = document.createElement('nav');
+      pagerEl.className = 'pager';
+      pagerEl.setAttribute('aria-label', t('pager.label'));
+      grid.parentNode.insertBefore(pagerEl, grid.nextSibling);
       var tagsEl = document.getElementById('mix-tags');
       var strEl = document.getElementById('mix-strength');
       var items = main.querySelectorAll('#mix-grid .rcards__item');
@@ -1072,21 +1242,36 @@
       }
       function apply() {
         var shown = 0;
-        items.forEach(function (li) {
+        var ok = Array.prototype.filter.call(items, function (li) {
           var card = li.querySelector('.rcard');
           var tags = (card.getAttribute('data-tags') || '').split(' ');
-          var ok = (!state.tag || tags.indexOf(state.tag) !== -1) && (!state.strength || card.getAttribute('data-strength') === state.strength);
-          li.hidden = !ok;
-          if (ok) { shown++; li.classList.add('is-in'); }
+          return (!state.tag || tags.indexOf(state.tag) !== -1) && (!state.strength || card.getAttribute('data-strength') === state.strength);
         });
+        var pages = Math.max(1, Math.ceil(ok.length / MIX_PAGE));
+        state.page = Math.min(state.page, pages);
+        items.forEach(function (li) { li.hidden = true; });
+        ok.forEach(function (li, i) {
+          if (Math.floor(i / MIX_PAGE) + 1 !== state.page) return;
+          li.hidden = false;
+          li.classList.add('is-in');
+        });
+        shown = ok.length;
+        renderPager(pagerEl, state.page, pages);
+        ctx.replaceUrl(state.page > 1 ? '?page=' + state.page : '');
         document.getElementById('mix-count').textContent = MSP.plural('mixes.count', shown);
         document.getElementById('mix-empty').hidden = shown > 0;
       }
+      onPager(pagerEl, function (n) {
+        state.page = n;
+        apply();
+        document.getElementById('mix-count').scrollIntoView({ behavior: smooth(), block: 'start' });
+      });
       tagsEl.addEventListener('click', function (e) {
         var b = e.target.closest('.chip');
         if (!b) return;
         var v = b.getAttribute('data-tag') || '';
         state.tag = state.tag === v ? '' : v;
+        state.page = 1;
         setActive(tagsEl, 'data-tag', state.tag);
         apply();
       });
@@ -1095,15 +1280,18 @@
         if (!b) return;
         var v = b.getAttribute('data-strength') || '';
         state.strength = state.strength === v ? '' : v;
+        state.page = 1;
         setActive(strEl, 'data-strength', state.strength);
         apply();
       });
       document.getElementById('mix-reset').addEventListener('click', function () {
         state.tag = state.strength = '';
+        state.page = 1;
         setActive(tagsEl, 'data-tag', '');
         setActive(strEl, 'data-strength', '');
         apply();
       });
+      apply();
       ctx.heroSmoke();
       ctx.cleanup(FX.reveal(main));
     }

@@ -235,6 +235,7 @@
         '<ul class="grid" id="fl-grid" role="list">' + list.map(function (f, i) {
           return '<li class="grid__item" data-id="' + f.id + '" data-cols="' + V.collectionsOf(f).map(function (c) { return c.id; }).join(' ') + '" style="--i:' + (i % 3) + '">' + V.card(f, 'h2') + '</li>';
         }).join('') + '</ul>' +
+        '<nav class="pager" id="fl-pager" aria-label="' + esc(t('pager.label')) + '" hidden></nav>' +
         '<div class="empty fl-empty" id="fl-empty" hidden>' +
           '<span class="fl-empty__coal" aria-hidden="true">' + MSP.coal() + '</span>' +
           '<p class="empty__title">' + esc(t('flavorsPage.emptyTitle')) + '</p>' +
@@ -318,11 +319,26 @@
     return (
       V.pageHero({ id: 'brands-title', eyebrow: t('brands.eyebrow'), title: t('brands.title'), lead: t('brands.lead'), crumbs: crumbs }) +
       '<section class="fsec fsec--flush"><div class="container">' +
+        '<div class="fl-tools br-tools">' +
+          '<form class="search search--small fl-search" role="search" id="br-form" action="' + V.url('brands') + '">' +
+            '<label class="sr-only" for="br-q">' + esc(t('brands.searchLabel')) + '</label>' +
+            '<span class="search__icon" aria-hidden="true">' + icon('search') + '</span>' +
+            '<input class="search__input" id="br-q" name="q" type="search" autocomplete="off" spellcheck="false" placeholder="' + esc(t('brands.searchPlaceholder')) + '">' +
+          '</form>' +
+          '<div class="fl-sort"><label class="fl-sort__label" for="br-jump">' + esc(t('brands.jumpLabel')) + '</label>' +
+            '<select id="br-jump"><option value="">' + esc(t('brands.jumpPick')) + '</option>' +
+              list.slice().sort(function (a, c) { return a.name.localeCompare(c.name); }).map(function (b) {
+                return '<option value="' + esc(V.brandUrl(b)) + '">' + esc(b.name) + ' (' + V.brandFlavors(b).length + ')</option>';
+              }).join('') +
+            '</select></div>' +
+        '</div>' +
         '<div class="filters" role="group" aria-label="' + esc(t('brands.filterLabel')) + '" id="br-leaf">' +
           chip('', t('brands.all'), true) + chip('light', t('leaf.light'), false) + chip('dark', t('leaf.dark'), false) +
         '</div>' +
         '<p class="catalog__count" id="br-count" aria-live="polite">' + esc(MSP.plural('brands.count', list.length)) + '</p>' +
-        '<ul class="bcards" id="br-grid" role="list">' + list.map(function (b, i) { return '<li class="bcards__item">' + V.brandCard(b, 'h2', i) + '</li>'; }).join('') + '</ul>' +
+        '<ul class="bcards" id="br-grid" role="list">' + list.map(function (b, i) {
+          return '<li class="bcards__item" data-name="' + esc(V.normalize(b.name + ' ' + MSP.L(b.country, 'bs') + ' ' + MSP.L(b.country, 'en'))) + '">' + V.brandCard(b, 'h2', i) + '</li>';
+        }).join('') + '</ul>' +
         '<p class="empty" id="br-empty" hidden>' + esc(t('brands.empty')) + '</p>' +
         '<p class="fl-suggest-line">' + esc(t('flavorsPage.suggestLine')) + ' <a href="' + V.url('suggest') + '">' + esc(t('nav.suggest')) + '</a></p>' +
       '</div></section>'
@@ -372,6 +388,32 @@
     '</div></section>';
   }
 
+  /** Alati iznad okusa brenda sa puno okusa: pretraga unutar brenda, sortiranje i tagovi (oživi ih Pages.brand). */
+  function brandTools(b, fl) {
+    var tags = {};
+    fl.forEach(function (f) { (f.tags || []).forEach(function (x) { tags[x] = (tags[x] || 0) + 1; }); });
+    var keys = Object.keys(tags).sort(function (a, c) { return tags[c] - tags[a]; });
+    var chip = function (val, label, on) {
+      return '<button type="button" class="chip' + (on ? ' is-active' : '') + '" data-tag="' + esc(val) + '" aria-pressed="' + on + '">' + esc(label) + '</button>';
+    };
+    return '<div class="bfilter" id="brand-tools">' +
+      '<div class="fl-tools">' +
+        '<form class="search search--small fl-search" role="search" id="bf-form" action="' + V.url('flavors') + '">' +
+          '<input type="hidden" name="brand" value="' + esc(b.slug) + '">' +
+          '<label class="sr-only" for="bf-q">' + esc(t('brands.searchIn', { name: b.name })) + '</label>' +
+          '<span class="search__icon" aria-hidden="true">' + icon('search') + '</span>' +
+          '<input class="search__input" id="bf-q" name="q" type="search" autocomplete="off" spellcheck="false" placeholder="' + esc(t('brands.searchIn', { name: b.name })) + '">' +
+        '</form>' +
+        '<div class="fl-sort"><label class="fl-sort__label" for="bf-sort">' + esc(t('flavorsPage.sortLabel')) + '</label>' +
+          '<select id="bf-sort">' + V.SORTS.map(function (x) { return '<option value="' + x + '">' + esc(t('flavorsPage.sort.' + x)) + '</option>'; }).join('') + '</select></div>' +
+      '</div>' +
+      '<div class="filters" role="group" aria-label="' + esc(t('flavorsPage.tagsLabel')) + '" id="bf-tags">' +
+        chip('', t('home.filterAll'), true) + keys.map(function (x) { return chip(x, MSP.tagLabel(x), false); }).join('') +
+      '</div>' +
+      '<p class="catalog__count" id="bf-count" aria-live="polite">' + esc(MSP.plural('home.count', fl.length)) + '</p>' +
+    '</div>';
+  }
+
   /** Kompaktna verzija za brendove sa puno okusa: jedan red po okusu, sastojci kao oznake. */
   function brandGlanceList(b, fl) {
     var rows = fl.map(function (f) {
@@ -418,9 +460,12 @@
       '</section>' +
       '<section class="fsec fsec--tight" aria-labelledby="brand-flavors"><div class="container">' +
         '<h2 class="mix__h" id="brand-flavors">' + esc(t('brands.flavorsTitle')) + '</h2>' +
-        '<ul class="grid' + (fl.length < 3 ? ' grid--big' : '') + '" id="brand-grid" role="list">' + fl.slice(0, BRAND_GRID).map(function (f, k) {
+        (fl.length > BRAND_GRID ? brandTools(b, fl) : '') +
+        '<ul class="grid' + (fl.length < 3 ? ' grid--big' : '') + '" id="brand-grid" data-brand="' + esc(b.slug) + '" role="list">' + fl.slice(0, BRAND_GRID).map(function (f, k) {
           return '<li class="grid__item" data-reveal style="--i:' + (k % 3) + '">' + V.card(f, 'h3') + '</li>';
         }).join('') + '</ul>' +
+        (fl.length > BRAND_GRID ? '<nav class="pager" id="brand-pager" aria-label="' + esc(t('pager.label')) + '" hidden></nav>' +
+          '<p class="empty" id="brand-empty" hidden>' + esc(t('flavorsPage.emptyTitle')) + '</p>' : '') +
         (fl.length > BRAND_GRID
           ? '<p class="bmore"><a class="btn btn--primary" href="' + V.url('flavors') + '?brand=' + encodeURIComponent(b.slug) + '"><span>' +
             esc(t('brands.showAll', { n: fl.length })) + '</span>' + icon('arrowUpRight') + '</a></p>'

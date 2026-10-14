@@ -6630,3 +6630,275 @@ html:not(.js) .localnote { display: none; }
 .gchip__dot { width: 9px; height: 9px; border-radius: 50%; background: var(--ing); box-shadow: 0 0 0 1px color-mix(in srgb, var(--c-text) 30%, transparent); }
 .gchip b { font-weight: 800; }
 @media (prefers-reduced-motion: reduce) { .glance-fold__sum > .icon { transition: none; } }
+
+/* ---------- Mobitel: dvije kompaktne kartice okusa u redu ---------- */
+@media (max-width: 639px) {
+  .grid:not(.grid--big) { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .grid:not(.grid--big) .card__tilt { aspect-ratio: 3 / 4; border-radius: 18px; }
+  .grid:not(.grid--big) .card { border-radius: 18px; }
+  .grid:not(.grid--big) .card__art { inset: 4% 0 34% 0; }
+  .grid:not(.grid--big) .card__body { gap: 3px; padding: 10px 11px 11px; }
+  .grid:not(.grid--big) .card__brand { font-size: 0.5625rem; letter-spacing: 0.16em; }
+  .grid:not(.grid--big) .card .leaf-chip { display: none; }
+  .grid:not(.grid--big) .card__name {
+    font-size: min(1.25rem, calc((100cqi - 22px) / (var(--len, 6) * 0.5)));
+    font-size: clamp(0.95rem, calc((100cqi - 22px) / (var(--len, 6) * 0.58)), 1.35rem);
+    white-space: normal;
+    line-height: 1.02;
+    letter-spacing: -0.02em;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .grid:not(.grid--big) .card__ings { font-size: 0.6875rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .grid:not(.grid--big) .card__arrow { display: none; }
+  .grid:not(.grid--big) .shelf-tog--card { top: 8px; right: 8px; width: 34px; height: 34px; }
+  .grid:not(.grid--big) .shelf-tog--card .icon { width: 17px; height: 17px; }
+  .grid:not(.grid--big) .shelf-tog__badge { width: 16px; height: 16px; }
+  .grid:not(.grid--big) .card .rpill { top: 8px; left: 8px; }
+  .grid:not(.grid--big) .card .rpill__in { height: 26px; padding: 0 8px 0 6px; gap: 4px; font-size: 0.6875rem; }
+  .grid:not(.grid--big) .card .rpill__star { width: 12px; height: 12px; }
+  .grid:not(.grid--big) .card .rpill__n { display: none; }
+  .grid:not(.grid--big) .vchk { width: 13px; height: 13px; margin-left: 4px; }
+  .grid:not(.grid--big) .vchk .icon { width: 9px; height: 9px; }
+}
+
+/* ---------- Paginacija (okusi, kolekcije) ---------- */
+.pager { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 6px; margin: 28px 0 0; }
+.pager[hidden] { display: none; }
+.pager__btn {
+  display: grid; place-items: center; min-width: 42px; height: 42px; padding: 0 10px;
+  border-radius: 999px; border: 1px solid var(--c-line-strong); background: transparent;
+  color: var(--c-text); font: inherit; font-weight: 700; cursor: pointer;
+  transition: background 0.2s, border-color 0.2s, transform 0.2s;
+}
+.pager__btn .icon { width: 18px; height: 18px; }
+.pager__btn.is-current { background: var(--c-accent-fill); border-color: var(--c-accent-fill); color: var(--c-on-accent); }
+.pager__btn:disabled { opacity: 0.35; cursor: default; }
+@media (hover: hover) { .pager__btn:not(:disabled):not(.is-current):hover { border-color: var(--c-text); transform: translateY(-1px); } }
+.pager__gap { min-width: 18px; text-align: center; color: var(--c-muted); }
+.catalog__count { scroll-margin-top: 96px; }
+.grid { scroll-margin-top: 96px; }
+@media (max-width: 380px) { .pager__btn { min-width: 38px; height: 38px; padding: 0 8px; } }
+
+/* ---------- Mobitel: kompaktne kartice brendova, dvije u redu ---------- */
+@media (max-width: 699px) {
+  .bcards { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .bcard { min-height: 168px; padding: 12px; gap: 6px; border-radius: 18px; }
+  .bcards--small .bcard { min-height: 150px; }
+  .bcard__top { padding-right: 0; font-size: 0.6875rem; gap: 4px 6px; }
+  .bcard__top .leaf-chip { display: none; }
+  .bcard__country .icon { width: 13px; height: 13px; }
+  .bcard .card__arrow { display: none; }
+  .bcard__name, .bcards--small .bcard__name { font-size: min(1.9rem, calc((100cqi - 4px) / (var(--len, 6) * 0.82))); }
+  .bcard__short { display: none; }
+  .bcard__foot { flex-wrap: wrap; gap: 6px; }
+  .bcard__sw { width: 28px; height: 28px; margin-left: -8px; border-width: 1.5px; }
+  .bcard__sw:nth-child(n+5) { display: none; }
+  .bcard__count { font-size: 0.75rem; }
+}
+
+/* ---------- Mobitel: dva recepta u redu ---------- */
+@media (max-width: 639px) {
+  .rcards { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .rcard { border-radius: 18px; }
+  .rcard__bowl { padding: 34px 12px 0; }
+  .rcard__body { gap: 3px; padding: 10px 11px 12px; }
+  .rcard__name { font-size: 1.0625rem; }
+  .rcard__parts { font-size: 0.75rem; line-height: 1.3; }
+  .rcard__meta { margin-top: 4px; }
+  .rcard__meta > * { font-size: 0.6875rem; padding: 3px 8px; }
+  .rcard .card__arrow { display: none; }
+  .rcard .rpill { top: 8px; left: 8px; }
+  .rcard .rpill__in { height: 24px; padding: 0 7px 0 6px; gap: 4px; font-size: 0.6875rem; }
+  .rcard .rpill__star { width: 12px; height: 12px; }
+  .rcard .rpill__n { display: none; }
+}
+#mix-count { scroll-margin-top: 96px; }
+
+/* Stranica brenda sa puno okusa: alati iznad mreže; bez JS-a ostaje link na sve okuse */
+.bfilter { margin: 0 0 8px; }
+.bfilter .catalog__count { margin-top: 4px; }
+.js #brand-tools ~ .bmore { display: none; }
+#brand-empty { margin-top: 16px; }
+
+/* ---------- Mobitel: filteri u jednom redu koji se pomjera prstom, pretraga i sortiranje u istom redu ---------- */
+@media (max-width: 639px) {
+  #fl-tags, #fl-cols, #bf-tags, #mix-tags {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    margin-left: calc(-1 * var(--gutter, 16px));
+    margin-right: calc(-1 * var(--gutter, 16px));
+    padding: 2px var(--gutter, 16px) 6px;
+    scrollbar-width: none;
+    -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 16px, #000 calc(100% - 24px), transparent);
+    mask-image: linear-gradient(90deg, transparent 0, #000 16px, #000 calc(100% - 24px), transparent);
+    margin-bottom: 14px;
+  }
+  #fl-tags::-webkit-scrollbar, #fl-cols::-webkit-scrollbar, #bf-tags::-webkit-scrollbar, #mix-tags::-webkit-scrollbar { display: none; }
+  #fl-tags .chip, #fl-cols .chip, #bf-tags .chip, #mix-tags .chip { flex: 0 0 auto; }
+  .bfilter .fl-tools { flex-wrap: nowrap; gap: 8px; align-items: stretch; margin-bottom: 12px; }
+  .bfilter .fl-search { flex: 1 1 auto; min-width: 0; }
+  .bfilter .fl-sort__label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .bfilter .fl-sort select { min-width: 0; width: 112px; height: 100%; }
+}
+@media (max-width: 639px) {
+  .fl-tools:has(#fl-form) { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .fl-tools:has(#fl-form) .fl-search { grid-column: 1 / -1; max-width: none; }
+  .fl-tools:has(#fl-form) .fl-sort__label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .fl-tools:has(#fl-form) .fl-sort select { min-width: 0; width: 100%; }
+  #fl-leaf { flex-wrap: nowrap; margin-bottom: 10px; }
+  #fl-leaf .chip { flex: 1 1 0; padding-left: 8px; padding-right: 8px; justify-content: center; }
+}
+
+/* ---------- Mobitel: kompaktan vrh stranice okusa (ocjena stane u prvi ekran, ispod se vidi nargila) ---------- */
+@media (max-width: 699px) {
+  .fhero { padding-top: calc(var(--header-h) + env(safe-area-inset-top) + 8px); padding-bottom: 48px; }
+  .fhero .crumbs { margin-bottom: 6px; }
+  .fhero__name { gap: 0.25em; }
+  .fhero__title { font-size: min(4.2rem, calc(100cqi / (var(--chars, 6) * 1.02))); }
+  .fhero__lead { margin-top: 12px; font-size: 1rem; line-height: 1.45; }
+  .fhero .tags, .fhero .cbadges { flex-wrap: nowrap; justify-content: flex-start; overflow-x: auto; scrollbar-width: none; margin: 12px calc(-1 * var(--gutter)) 0; padding: 0 var(--gutter); }
+  .fhero .tags::-webkit-scrollbar, .fhero .cbadges::-webkit-scrollbar { display: none; }
+  .fhero .tags { justify-content: safe center; }
+  .fhero .cbadges { margin-top: 8px; justify-content: safe center; }
+  .fhero .tags > *, .fhero .cbadges > * { flex: 0 0 auto; }
+  .fhero .tag { padding: 6px 12px; font-size: 0.8125rem; }
+  .fhero .cbadge { padding: 6px 12px; font-size: 0.8125rem; }
+  .leafnote { display: inline-flex; align-items: center; max-width: 100%; margin-top: 10px; padding: 6px 14px 6px 8px; border-radius: 999px; font-size: 0.8125rem; }
+  .leafnote__more { display: none; }
+  .leafnote__icon { width: 22px; height: 22px; }
+  .vbadge { margin-top: 8px; font-size: 0.8125rem; padding: 6px 12px 6px 6px; }
+  .fhero__actions { flex-wrap: nowrap; gap: 8px; margin-top: 12px; }
+  .fhero__actions .btn { min-height: 44px; padding: 0 16px; font-size: 0.9375rem; white-space: nowrap; }
+  .fhero__copy .rate { --star: 34px; margin-top: 12px; padding: 10px 14px 6px; gap: 6px; border-radius: 20px; }
+  .fhero__copy .rate__sum { padding-top: 6px; }
+  .fhero__copy .rate__msg { min-height: 0; }
+  .fhero__copy .rate__msg:empty { display: none; }
+  .fhero__inner { gap: 18px; }
+}
+@media (max-width: 699px) { .leafnote__txt { white-space: nowrap; } }
+@media (max-width: 1099px) {
+  /* sastojci padaju u posudu krupniji i malo sporije, da se jasno vidi gdje idu */
+  .fhero .drop { width: 24%; }
+  .fhero .hookah.is-started .drop { animation-duration: 1.5s; }
+  .fhero .drops { z-index: 3; }
+}
+
+/* ---------- Mobitel: mikser preslagan (okusi, omjer, nargila, rezultat); omjer ostaje zakačen ispod menija ---------- */
+@media (max-width: 699px) {
+  .mixer { padding-top: calc(var(--header-h) + env(safe-area-inset-top) + 8px); }
+  .mixer > .container { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 10px; }
+  .mixer > .container > * { grid-column: 1 / -1; min-width: 0; }
+  .mixer__top { display: contents; }
+  .mixer__head { order: 1; margin-bottom: 12px; }
+  .mixer__head .phero__title { font-size: 2rem; }
+  .mixer__head .phero__lead { display: none; }
+  #slot-a { order: 2; grid-column: 1; }
+  #slot-b { order: 3; grid-column: 2; }
+  .mixer .picker { order: 4; }
+  .mixer__ratio {
+    order: 5;
+    position: sticky;
+    top: calc(var(--header-h) + env(safe-area-inset-top));
+    z-index: 6;
+    margin: 10px calc(-1 * var(--gutter)) 0;
+    padding: 6px var(--gutter) 8px;
+    background: color-mix(in srgb, var(--c-bg) 86%, transparent);
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--c-line);
+  }
+  .mixer__ratio .mix__label { display: none; }
+  .mixer__ratio .range { height: 40px; }
+  .mixer__ratio .mix__pct b { display: inline; font-size: 1.15rem; margin-right: 4px; }
+  .mixer__ratio .mix__pct { font-size: 0.875rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .mixer__stage { order: 6; grid-row: auto; margin-top: 8px; }
+  .mixer__stage .hookah { width: min(40vw, 160px); }
+  .mixer__result { order: 7; margin: 18px auto 24px; }
+  .mix__name { font-size: 1.8rem; }
+  .mixer__grid { order: 8; }
+  .mixer #mix-ideas { order: 9; }
+  .mixer > .container > .mix__note { order: 10; }
+  .slot { min-height: 0; padding: 12px; border-radius: 20px; }
+  .slot__ing { width: 34px; }
+  .slot__name { font-size: 1.2rem; }
+  .slot__change { margin-top: 2px; font-size: 0.8125rem; }
+}
+
+/* ---------- Mobitel: Okus dana kompaktan (slika lijevo, tekst desno, upola niža kartica) ---------- */
+@media (max-width: 559px) {
+  .fotd__card { height: 300px; grid-template-columns: 34% minmax(0, 1fr); border-radius: 24px; }
+  .fotd__art { height: auto; order: 0; }
+  .fotd__ing, .fotd__ing--0, .fotd__ing--2 { width: 58px; }
+  .fotd__ing--0 { left: 8%; top: 12%; width: 70px; }
+  .fotd__ing--1 { right: 2%; top: 38%; left: auto; }
+  .fotd__ing--2 { left: 14%; right: auto; bottom: 22%; }
+  .fotd__bowl { width: 62px; bottom: 3%; }
+  .fotd__copy { gap: 7px; padding: 16px 16px 16px 4px; justify-content: center; }
+  .fotd__top { gap: 6px; }
+  .fotd__top .eyebrow { font-size: 0.625rem; }
+  .fotd__timer { font-size: 0.6875rem; padding: 3px 8px; }
+  .fotd__brand { font-size: 0.625rem; margin-bottom: 2px; }
+  .fotd__flavor { font-size: 1.6rem; white-space: normal; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+  .fotd__desc { font-size: 0.875rem; line-height: 1.35; -webkit-line-clamp: 2; min-height: 0; }
+  .fotd__ings { max-height: 28px; }
+  .fotd__ings li { padding: 3px 9px; font-size: 0.6875rem; }
+  .fotd__actions .btn { min-height: 40px; padding: 0 16px; font-size: 0.875rem; }
+  .fotd__mix { display: none; }
+}
+@media (max-width: 559px) {
+  .fotd__card .rpill { left: 10px; right: auto; top: 10px; }
+  .fotd__card .rpill__in { height: 26px; padding: 0 8px 0 6px; gap: 4px; font-size: 0.6875rem; }
+  .fotd__card .rpill__star { width: 12px; height: 12px; }
+  .fotd__card .rpill__n { display: none; }
+  .fotd__ing--0 { top: 22%; }
+}
+
+/* ---------- Početna: okus u nargili (sastojci kruže oko nargile, boje se prelijevaju) ---------- */
+@property --aura-a { syntax: '<color>'; inherits: true; initial-value: #f2a33c; }
+@property --aura-b { syntax: '<color>'; inherits: true; initial-value: #d9643f; }
+.hero--home { transition: --aura-a 1.6s ease, --aura-b 1.6s ease; }
+.hero--home .hookah-wrap { transition: --hk-water 1.4s ease; }
+.hero-aura { position: absolute; inset: 0; z-index: -2; pointer-events: none; overflow: hidden; }
+.hero-aura span {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: 0.32;
+  will-change: transform;
+}
+.hero-aura span:nth-child(1) { width: 62vmax; height: 62vmax; right: -20vmax; top: -18vmax; background: radial-gradient(closest-side, var(--aura-a), transparent); animation: aura-drift 22s ease-in-out infinite alternate; }
+.hero-aura span:nth-child(2) { width: 46vmax; height: 46vmax; right: 6vmax; bottom: -22vmax; background: radial-gradient(closest-side, var(--aura-b), transparent); opacity: 0.24; animation: aura-drift 28s ease-in-out -9s infinite alternate-reverse; }
+.hero-aura span:nth-child(3) { width: 34vmax; height: 34vmax; left: -12vmax; top: 30%; background: radial-gradient(closest-side, color-mix(in srgb, var(--aura-a) 60%, var(--aura-b)), transparent); opacity: 0.14; animation: aura-drift 34s ease-in-out -4s infinite alternate; }
+@keyframes aura-drift {
+  0% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(-4vmax, 3vmax, 0) scale(1.08); }
+  100% { transform: translate3d(3vmax, -2vmax, 0) scale(0.94); }
+}
+@media (max-width: 1099px) {
+  .hero-aura span:nth-child(1) { top: auto; bottom: -10vmax; right: -30vmax; }
+}
+.hero--home .hk { position: relative; z-index: 1; }
+.orbit { position: absolute; inset: 0; pointer-events: none; }
+.orbit__item { position: absolute; width: 25%; left: 36%; top: 6%; transform: translate(-50%, -50%) scale(0); opacity: 0; will-change: transform, left, top; }
+.orbit__item svg { display: block; width: 100%; height: auto; filter: drop-shadow(0 12px 16px rgba(0, 0, 0, 0.3)); }
+.hero-now { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; margin: 14px 0 0; font-size: 0.875rem; color: var(--c-muted); }
+.hero-now__label { font-weight: 600; }
+.hero-now__link {
+  --now: var(--aura-a);
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 6px 12px 6px 10px; border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--now) 55%, transparent);
+  background: color-mix(in srgb, var(--now) 14%, transparent);
+  color: var(--c-text); font-weight: 700; text-decoration: none;
+  transition: border-color 1.2s, background-color 1.2s;
+}
+.hero-now__dot { width: 9px; height: 9px; border-radius: 50%; background: var(--now); box-shadow: 0 0 10px var(--now); transition: background-color 1.2s, box-shadow 1.2s; }
+.hero-now__link .icon { width: 15px; height: 15px; }
+@media (hover: hover) { .hero-now__link:hover { border-color: var(--now); } }
+@media (prefers-reduced-motion: reduce) {
+  .hero-aura span { animation: none; }
+  .hero--home, .hero--home .hookah-wrap { transition: none; }
+}

@@ -80,6 +80,21 @@
     if (!stage) return;
     opts = opts || {};
     var stopAll = whenAgeOk(function () {
+      // Sastojci padaju u posudu tek kad se nargila vidi (na mobitelu je ispod teksta),
+      // da animacija ne prođe van ekrana.
+      if (opts.whenVisible && 'IntersectionObserver' in window) {
+        var inner = null;
+        var io = new IntersectionObserver(function (en) {
+          if (!en[0].isIntersecting) return;
+          io.disconnect();
+          inner = begin();
+        }, { threshold: 0.2 });
+        io.observe(stage);
+        return function () { io.disconnect(); if (inner) inner(); };
+      }
+      return begin();
+    });
+    function begin() {
       stage.classList.add('is-started');
       var stop = FX.hookah(stage, {
         button: scope.querySelector('.pull'),
@@ -90,7 +105,7 @@
       });
       var stopDrop = opts.dropAt ? FX.bowlDrop(stage, th.smoke, opts.dropAt) : function () {};
       return function () { stop(); stopDrop(); };
-    });
+    }
     cleanup(stopAll);
     return stopAll;
   }
@@ -261,12 +276,116 @@
     }
   }
 
+  /**
+   * Početna: okusi se smjenjuju u nargili. Sastojci okusa izađu iz posude i kruže oko nargile
+   * (ispred i iza nje), voda i pozadina dobiju boje okusa, a natpis "U nargili sada" vodi na okus.
+   * Kod sljedećeg okusa se sastojci uvuku nazad u posudu. Bez animacija: miran prikaz prvog okusa.
+   */
+  var HERO_STEP_MS = 7000;
+  function heroCycle(hero) {
+    var stage = hero && hero.querySelector('[data-hookah]');
+    var wrap = hero && hero.querySelector('.hookah-wrap');
+    var chip = document.getElementById('hero-now');
+    var list = V.heroCycle();
+    if (!stage || !wrap || !chip || !list.length) return;
+    var still = FX.reducedMotion();
+    var layer = document.createElement('div');
+    layer.className = 'orbit';
+    layer.setAttribute('aria-hidden', 'true');
+    stage.appendChild(layer);
+
+    var BOWL = { x: 36, y: 6 };          // posuda (u % širine i visine nargile)
+    var C = { x: 36, y: 44 };            // središte kruga
+    var RX = 48, RY = 8, TILT = -0.18;   // poluprečnici (% širine / % visine) i nagib putanje
+    var items = [];
+    var idx = 0;
+    var t0 = performance.now();
+    var raf = 0, timer = 0, visible = true;
+
+    function setFlavor(f) {
+      var th = V.themeFor(f);
+      var pal = f.palette || {};
+      hero.style.setProperty('--aura-a', pal.primary || th.primary);
+      hero.style.setProperty('--aura-b', pal.secondary || th.secondary);
+      wrap.style.setProperty('--hk-water', th.hk.water);
+      chip.href = V.flavorUrl(f);
+      chip.style.setProperty('--now', pal.primary || th.primary);
+      chip.querySelector('.hero-now__name').textContent = f.brand + ' ' + f.name;
+    }
+
+    function spawn(f, now) {
+      var ings = V.byIntensity(f).slice(0, 4);
+      ings.forEach(function (ing, i) {
+        var el = document.createElement('span');
+        el.className = 'orbit__item';
+        el.innerHTML = MSP.illustrate(ing.illustration, { color: ing.color });
+        layer.appendChild(el);
+        items.push({ el: el, phase: (i / ings.length) * Math.PI * 2 + idx * 0.7, born: now + i * 180, dying: 0, size: 0.8 + (ing.intensity || 5) / 30 });
+      });
+    }
+
+    function frame(now) {
+      raf = 0;
+      var spin = (now - t0) / 1000 * 0.42;
+      items = items.filter(function (it) {
+        var k = it.dying ? 1 - Math.min(1, (now - it.dying) / 900) : Math.min(1, Math.max(0, (now - it.born) / 1300));
+        if (it.dying && k <= 0) { it.el.remove(); return false; }
+        var e = k < 0.5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2;   // ease-in-out
+        var a = it.phase + spin;
+        var ox = Math.cos(a) * RX, oy = Math.sin(a) * RY;
+        var px = C.x + ox;
+        var py = C.y + oy + ox * Math.sin(TILT) * 0.35;   // blago nagnuta putanja
+        var x = BOWL.x + (px - BOWL.x) * e, y = BOWL.y + (py - BOWL.y) * e;
+        var front = Math.sin(a) > 0;
+        var depth = 0.78 + 0.22 * Math.sin(a);
+        it.el.style.transform = 'translate(-50%, -50%) scale(' + (e * depth * it.size).toFixed(3) + ') rotate(' + Math.round(a * 20) + 'deg)';
+        it.el.style.left = x.toFixed(2) + '%';
+        it.el.style.top = y.toFixed(2) + '%';
+        it.el.style.zIndex = front ? 3 : 0;
+        it.el.style.opacity = (e * (front ? 1 : 0.75)).toFixed(2);
+        it.el.style.filter = front ? '' : 'blur(1px) brightness(0.8)';
+        return true;
+      });
+      if (!still && visible) raf = requestAnimationFrame(frame);
+    }
+
+    function next() {
+      var now = performance.now();
+      items.forEach(function (it) { if (!it.dying) it.dying = now; });
+      idx = (idx + 1) % list.length;
+      window.setTimeout(function () { setFlavor(list[idx]); spawn(list[idx], performance.now()); }, 650);
+      timer = window.setTimeout(next, HERO_STEP_MS);
+    }
+
+    setFlavor(list[0]);
+    spawn(list[0], performance.now() - (still ? 5000 : 0));
+    if (still) { frame(performance.now() + 5000); return; }
+    raf = requestAnimationFrame(frame);
+    timer = window.setTimeout(next, HERO_STEP_MS);
+    // kad početna nije na ekranu ili je tab skriven, ništa se ne vrti
+    var io = 'IntersectionObserver' in window ? new IntersectionObserver(function (en) {
+      visible = en[0].isIntersecting && !document.hidden;
+      if (visible && !raf) raf = requestAnimationFrame(frame);
+    }) : null;
+    if (io) io.observe(hero);
+    function onVis() { visible = !document.hidden; if (visible && !raf) raf = requestAnimationFrame(frame); }
+    document.addEventListener('visibilitychange', onVis);
+    cleanup(function () {
+      if (raf) cancelAnimationFrame(raf);
+      clearTimeout(timer);
+      if (io) io.disconnect();
+      document.removeEventListener('visibilitychange', onVis);
+      layer.remove();
+    });
+  }
+
   function mountHome() {
     var th = V.themeFor(null);
     var hero = els.main.querySelector('.hero');
     bindCatalog();
     mountFotd();
     startHookah(hero, th, { introDelay: 1.7, bowlSmoke: { rate: 8, alpha: 0.26 } });
+    cleanup(whenAgeOk(function () { heroCycle(hero); }));
     cleanup(FX.parallax(hero));
     var grid = document.getElementById('flavor-grid');
     cleanup(FX.tilt(grid));
@@ -401,6 +520,8 @@
     startHookah(hero, th, {
       introDelay: 2.5,
       dropAt: 2450,
+      // na užem ekranu je nargila ispod teksta: animacija kreće kad se nargila pojavi
+      whenVisible: window.matchMedia('(max-width: 1099px)').matches,
       bowlSmoke: f.mood === 'ice' || f.mood === 'supernova' ? { rate: 9, alpha: 0.3 } : f.mood === 'frost' || f.mood === 'mist' ? { rate: 7, alpha: 0.26 } : null
     });
     if (f.mood === 'supernova') supernovaSmoke(hero, th);
