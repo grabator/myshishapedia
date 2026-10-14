@@ -27,6 +27,71 @@
   }
 
   /* ------------------------------------------------------------------ */
+  /* Paginacija dugih lista kartica (okusi, kolekcije)                   */
+  /* ------------------------------------------------------------------ */
+
+  var PAGE_SIZE = 24; // djeljivo sa 2 i 3: pune redove i na mobitelu i na desktopu
+
+  /** Brojevi za dugmad: prva, zadnja, trenutna i par oko krajeva; null je praznina ("..."). */
+  function pageNumbers(page, pages) {
+    var want = {};
+    [1, pages, page].forEach(function (n) { want[n] = 1; });
+    if (page <= 3) { want[2] = 1; want[3] = 1; }
+    if (page >= pages - 2) { want[pages - 1] = 1; want[pages - 2] = 1; }
+    var out = [];
+    var prev = 0;
+    Object.keys(want).map(Number).filter(function (n) { return n >= 1 && n <= pages; })
+      .sort(function (a, b) { return a - b; })
+      .forEach(function (n) { if (n - prev > 1) out.push(null); out.push(n); prev = n; });
+    return out;
+  }
+
+  /** Iscrta paginaciju u <nav>; sakrije je kad ima samo jedna stranica. */
+  function renderPager(nav, page, pages) {
+    nav.hidden = pages < 2;
+    if (pages < 2) { nav.innerHTML = ''; return; }
+    var esc = V.esc;
+    function arrow(n, dir) {
+      var off = n < 1 || n > pages;
+      return '<button type="button" class="pager__btn pager__btn--arrow" data-page="' + n + '"' + (off ? ' disabled' : '') +
+        ' aria-label="' + esc(t(dir === 'prev' ? 'pager.prev' : 'pager.next')) + '">' + V.icon(dir === 'prev' ? 'arrowLeft' : 'arrowRight') + '</button>';
+    }
+    nav.innerHTML = arrow(page - 1, 'prev') + pageNumbers(page, pages).map(function (n) {
+      if (n === null) return '<span class="pager__gap" aria-hidden="true">…</span>';
+      return '<button type="button" class="pager__btn' + (n === page ? ' is-current' : '') + '" data-page="' + n + '"' +
+        (n === page ? ' aria-current="page"' : '') + ' aria-label="' + esc(t('pager.page', { n: n })) + '">' + n + '</button>';
+    }).join('') + arrow(page + 1, 'next');
+  }
+
+  /** Klik na paginaciju zove go(broj stranice). */
+  function onPager(nav, go) {
+    nav.addEventListener('click', function (e) {
+      var b = e.target.closest('[data-page]');
+      if (b && !b.disabled) go(Number(b.getAttribute('data-page')));
+    });
+  }
+
+  /** Statična lista kartica (kolekcija): stranice po PAGE_SIZE, broj stranice u adresi (?page=). */
+  function paginateStatic(ctx, grid, top) {
+    var items = Array.prototype.slice.call(grid.children);
+    if (items.length <= PAGE_SIZE) return;
+    var nav = document.createElement('nav');
+    nav.className = 'pager';
+    nav.setAttribute('aria-label', t('pager.label'));
+    grid.parentNode.insertBefore(nav, grid.nextSibling);
+    var pages = Math.ceil(items.length / PAGE_SIZE);
+    var page = Math.min(pages, Math.max(1, parseInt(ctx.params().get('page'), 10) || 1));
+    function show(scroll) {
+      items.forEach(function (li, i) { li.hidden = Math.floor(i / PAGE_SIZE) + 1 !== page; });
+      renderPager(nav, page, pages);
+      ctx.replaceUrl(page > 1 ? '?page=' + page : '');
+      if (scroll) (top || grid).scrollIntoView({ behavior: smooth(), block: 'start' });
+    }
+    onPager(nav, function (n) { page = n; show(true); });
+    show(false);
+  }
+
+  /* ------------------------------------------------------------------ */
   /* Rječnik                                                             */
   /* ------------------------------------------------------------------ */
 
@@ -577,6 +642,7 @@
       var main = ctx.els.main;
       var grid = document.getElementById('collection-grid');
       if (grid) {
+        paginateStatic(ctx, grid);
         ctx.cleanup(FX.tilt(grid));
         ctx.cleanup(FX.cardWisps(grid));
       }
@@ -787,8 +853,10 @@
         col: p.get('col') || '',
         brand: V.brandBySlug(p.get('brand')) ? p.get('brand') : '',
         leaf: /^(light|dark)$/.test(p.get('leaf') || '') ? p.get('leaf') : '',
-        sort: V.SORTS.indexOf(p.get('sort')) !== -1 ? p.get('sort') : 'az'
+        sort: V.SORTS.indexOf(p.get('sort')) !== -1 ? p.get('sort') : 'az',
+        page: Math.max(1, parseInt(p.get('page'), 10) || 1)
       };
+      var pagerEl = document.getElementById('fl-pager');
 
       function syncControls() {
         input.value = state.q;
@@ -820,13 +888,17 @@
           return V.matchesQuery(f, state.q);
         });
         list = V.sortFlavors(list, state.sort);
+        var pages = Math.max(1, Math.ceil(list.length / PAGE_SIZE));
+        state.page = Math.min(state.page, pages);
+        var from = (state.page - 1) * PAGE_SIZE;
         var shown = {};
         list.forEach(function (f, i) {
           var li = items[f.id];
+          grid.appendChild(li);
+          if (i < from || i >= from + PAGE_SIZE) return;
           shown[f.id] = 1;
           li.hidden = false;
           li.style.setProperty('--i', String(i % 3));
-          grid.appendChild(li);
           li.classList.add('is-in');
           if (animate) {
             li.classList.remove('is-shuffling');
@@ -836,6 +908,7 @@
         });
         Object.keys(items).forEach(function (id) { if (!shown[id]) items[id].hidden = true; });
         countEl.textContent = MSP.plural('home.count', list.length);
+        renderPager(pagerEl, state.page, pages);
         empty.hidden = list.length > 0;
         suggest.setAttribute('href', suggestBase + (state.q ? '?q=' + encodeURIComponent(state.q) : ''));
         var qs = [];
@@ -845,18 +918,20 @@
         if (state.brand) qs.push('brand=' + encodeURIComponent(state.brand));
         if (state.leaf) qs.push('leaf=' + state.leaf);
         if (state.sort !== 'az') qs.push('sort=' + state.sort);
+        if (state.page > 1) qs.push('page=' + state.page);
         ctx.replaceUrl(qs.length ? '?' + qs.join('&') : '');
       }
 
-      input.addEventListener('input', function () { state.q = input.value; apply(false); });
+      input.addEventListener('input', function () { state.page = 1; state.q = input.value; apply(false); });
       document.getElementById('fl-form').addEventListener('submit', function (e) { e.preventDefault(); input.blur(); });
-      sortEl.addEventListener('change', function () { state.sort = sortEl.value; apply(true); });
-      brandEl.addEventListener('change', function () { state.brand = brandEl.value; apply(true); });
+      sortEl.addEventListener('change', function () { state.page = 1; state.sort = sortEl.value; apply(true); });
+      brandEl.addEventListener('change', function () { state.page = 1; state.brand = brandEl.value; apply(true); });
       leafEl.addEventListener('click', function (e) {
         var b = e.target.closest('.chip');
         if (!b) return;
         var v = b.getAttribute('data-leaf') || '';
         state.leaf = state.leaf === v ? '' : v;
+        state.page = 1;
         syncControls();
         apply(true);
       });
@@ -865,6 +940,7 @@
         if (!b) return;
         var v = b.getAttribute('data-tag') || '';
         state.tag = state.tag === v ? '' : v;
+        state.page = 1;
         syncControls();
         apply(true);
       });
@@ -873,11 +949,17 @@
         if (!b) return;
         var v = b.getAttribute('data-col');
         state.col = state.col === v ? '' : v;
+        state.page = 1;
         syncControls();
         apply(true);
       });
+      onPager(pagerEl, function (n) {
+        state.page = n;
+        apply(false);
+        countEl.scrollIntoView({ behavior: smooth(), block: 'start' });
+      });
       document.getElementById('fl-reset').addEventListener('click', function () {
-        state = { q: '', tag: '', col: '', brand: '', leaf: '', sort: state.sort };
+        state = { q: '', tag: '', col: '', brand: '', leaf: '', sort: state.sort, page: 1 };
         syncControls();
         apply(true);
         input.focus();

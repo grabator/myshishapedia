@@ -6630,3 +6630,54 @@ html:not(.js) .localnote { display: none; }
 .gchip__dot { width: 9px; height: 9px; border-radius: 50%; background: var(--ing); box-shadow: 0 0 0 1px color-mix(in srgb, var(--c-text) 30%, transparent); }
 .gchip b { font-weight: 800; }
 @media (prefers-reduced-motion: reduce) { .glance-fold__sum > .icon { transition: none; } }
+
+/* ---------- Mobitel: dvije kompaktne kartice okusa u redu ---------- */
+@media (max-width: 639px) {
+  .grid:not(.grid--big) { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .grid:not(.grid--big) .card__tilt { aspect-ratio: 3 / 4; border-radius: 18px; }
+  .grid:not(.grid--big) .card { border-radius: 18px; }
+  .grid:not(.grid--big) .card__art { inset: 4% 0 34% 0; }
+  .grid:not(.grid--big) .card__body { gap: 3px; padding: 10px 11px 11px; }
+  .grid:not(.grid--big) .card__brand { font-size: 0.5625rem; letter-spacing: 0.16em; }
+  .grid:not(.grid--big) .card .leaf-chip { display: none; }
+  .grid:not(.grid--big) .card__name {
+    font-size: min(1.25rem, calc((100cqi - 22px) / (var(--len, 6) * 0.5)));
+    font-size: clamp(0.95rem, calc((100cqi - 22px) / (var(--len, 6) * 0.58)), 1.35rem);
+    white-space: normal;
+    line-height: 1.02;
+    letter-spacing: -0.02em;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .grid:not(.grid--big) .card__ings { font-size: 0.6875rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .grid:not(.grid--big) .card__arrow { display: none; }
+  .grid:not(.grid--big) .shelf-tog--card { top: 8px; right: 8px; width: 34px; height: 34px; }
+  .grid:not(.grid--big) .shelf-tog--card .icon { width: 17px; height: 17px; }
+  .grid:not(.grid--big) .shelf-tog__badge { width: 16px; height: 16px; }
+  .grid:not(.grid--big) .card .rpill { top: 8px; left: 8px; }
+  .grid:not(.grid--big) .card .rpill__in { height: 26px; padding: 0 8px 0 6px; gap: 4px; font-size: 0.6875rem; }
+  .grid:not(.grid--big) .card .rpill__star { width: 12px; height: 12px; }
+  .grid:not(.grid--big) .card .rpill__n { display: none; }
+  .grid:not(.grid--big) .vchk { width: 13px; height: 13px; margin-left: 4px; }
+  .grid:not(.grid--big) .vchk .icon { width: 9px; height: 9px; }
+}
+
+/* ---------- Paginacija (okusi, kolekcije) ---------- */
+.pager { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 6px; margin: 28px 0 0; }
+.pager[hidden] { display: none; }
+.pager__btn {
+  display: grid; place-items: center; min-width: 42px; height: 42px; padding: 0 10px;
+  border-radius: 999px; border: 1px solid var(--c-line-strong); background: transparent;
+  color: var(--c-text); font: inherit; font-weight: 700; cursor: pointer;
+  transition: background 0.2s, border-color 0.2s, transform 0.2s;
+}
+.pager__btn .icon { width: 18px; height: 18px; }
+.pager__btn.is-current { background: var(--c-accent-fill); border-color: var(--c-accent-fill); color: var(--c-on-accent); }
+.pager__btn:disabled { opacity: 0.35; cursor: default; }
+@media (hover: hover) { .pager__btn:not(:disabled):not(.is-current):hover { border-color: var(--c-text); transform: translateY(-1px); } }
+.pager__gap { min-width: 18px; text-align: center; color: var(--c-muted); }
+.catalog__count { scroll-margin-top: 96px; }
+.grid { scroll-margin-top: 96px; }
+@media (max-width: 380px) { .pager__btn { min-width: 38px; height: 38px; padding: 0 8px; } }

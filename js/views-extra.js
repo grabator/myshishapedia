@@ -235,6 +235,7 @@
         '<ul class="grid" id="fl-grid" role="list">' + list.map(function (f, i) {
           return '<li class="grid__item" data-id="' + f.id + '" data-cols="' + V.collectionsOf(f).map(function (c) { return c.id; }).join(' ') + '" style="--i:' + (i % 3) + '">' + V.card(f, 'h2') + '</li>';
         }).join('') + '</ul>' +
+        '<nav class="pager" id="fl-pager" aria-label="' + esc(t('pager.label')) + '" hidden></nav>' +
         '<div class="empty fl-empty" id="fl-empty" hidden>' +
           '<span class="fl-empty__coal" aria-hidden="true">' + MSP.coal() + '</span>' +
           '<p class="empty__title">' + esc(t('flavorsPage.emptyTitle')) + '</p>' +

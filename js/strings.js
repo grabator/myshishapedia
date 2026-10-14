@@ -70,6 +70,13 @@
         notFoundDescription: 'Ova stranica ne postoji. Pretraži okuse ili se vrati na početnu.'
       },
 
+      pager: {
+        label: 'Stranice',
+        prev: 'Prethodna stranica',
+        next: 'Sljedeća stranica',
+        page: 'Stranica {n}'
+      },
+
       a11y: {
         skipToContent: 'Preskoči na sadržaj',
         homeLink: 'MyShishapedia, početna stranica',
@@ -811,6 +818,13 @@
         aboutDescription: 'Who is behind MyShishapedia and why this hookah flavor encyclopedia exists. Contact details and a note about brands.',
         notFoundTitle: 'Page not found | MyShishapedia',
         notFoundDescription: 'This page does not exist. Search the flavors or head back to the homepage.'
+      },
+
+      pager: {
+        label: 'Pages',
+        prev: 'Previous page',
+        next: 'Next page',
+        page: 'Page {n}'
       },
 
       a11y: {
