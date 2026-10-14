@@ -388,6 +388,32 @@
     '</div></section>';
   }
 
+  /** Alati iznad okusa brenda sa puno okusa: pretraga unutar brenda, sortiranje i tagovi (oživi ih Pages.brand). */
+  function brandTools(b, fl) {
+    var tags = {};
+    fl.forEach(function (f) { (f.tags || []).forEach(function (x) { tags[x] = (tags[x] || 0) + 1; }); });
+    var keys = Object.keys(tags).sort(function (a, c) { return tags[c] - tags[a]; });
+    var chip = function (val, label, on) {
+      return '<button type="button" class="chip' + (on ? ' is-active' : '') + '" data-tag="' + esc(val) + '" aria-pressed="' + on + '">' + esc(label) + '</button>';
+    };
+    return '<div class="bfilter" id="brand-tools">' +
+      '<div class="fl-tools">' +
+        '<form class="search search--small fl-search" role="search" id="bf-form" action="' + V.url('flavors') + '">' +
+          '<input type="hidden" name="brand" value="' + esc(b.slug) + '">' +
+          '<label class="sr-only" for="bf-q">' + esc(t('brands.searchIn', { name: b.name })) + '</label>' +
+          '<span class="search__icon" aria-hidden="true">' + icon('search') + '</span>' +
+          '<input class="search__input" id="bf-q" name="q" type="search" autocomplete="off" spellcheck="false" placeholder="' + esc(t('brands.searchIn', { name: b.name })) + '">' +
+        '</form>' +
+        '<div class="fl-sort"><label class="fl-sort__label" for="bf-sort">' + esc(t('flavorsPage.sortLabel')) + '</label>' +
+          '<select id="bf-sort">' + V.SORTS.map(function (x) { return '<option value="' + x + '">' + esc(t('flavorsPage.sort.' + x)) + '</option>'; }).join('') + '</select></div>' +
+      '</div>' +
+      '<div class="filters" role="group" aria-label="' + esc(t('flavorsPage.tagsLabel')) + '" id="bf-tags">' +
+        chip('', t('home.filterAll'), true) + keys.map(function (x) { return chip(x, MSP.tagLabel(x), false); }).join('') +
+      '</div>' +
+      '<p class="catalog__count" id="bf-count" aria-live="polite">' + esc(MSP.plural('home.count', fl.length)) + '</p>' +
+    '</div>';
+  }
+
   /** Kompaktna verzija za brendove sa puno okusa: jedan red po okusu, sastojci kao oznake. */
   function brandGlanceList(b, fl) {
     var rows = fl.map(function (f) {
@@ -434,9 +460,12 @@
       '</section>' +
       '<section class="fsec fsec--tight" aria-labelledby="brand-flavors"><div class="container">' +
         '<h2 class="mix__h" id="brand-flavors">' + esc(t('brands.flavorsTitle')) + '</h2>' +
-        '<ul class="grid' + (fl.length < 3 ? ' grid--big' : '') + '" id="brand-grid" role="list">' + fl.slice(0, BRAND_GRID).map(function (f, k) {
+        (fl.length > BRAND_GRID ? brandTools(b, fl) : '') +
+        '<ul class="grid' + (fl.length < 3 ? ' grid--big' : '') + '" id="brand-grid" data-brand="' + esc(b.slug) + '" role="list">' + fl.slice(0, BRAND_GRID).map(function (f, k) {
           return '<li class="grid__item" data-reveal style="--i:' + (k % 3) + '">' + V.card(f, 'h3') + '</li>';
         }).join('') + '</ul>' +
+        (fl.length > BRAND_GRID ? '<nav class="pager" id="brand-pager" aria-label="' + esc(t('pager.label')) + '" hidden></nav>' +
+          '<p class="empty" id="brand-empty" hidden>' + esc(t('flavorsPage.emptyTitle')) + '</p>' : '') +
         (fl.length > BRAND_GRID
           ? '<p class="bmore"><a class="btn btn--primary" href="' + V.url('flavors') + '?brand=' + encodeURIComponent(b.slug) + '"><span>' +
             esc(t('brands.showAll', { n: fl.length })) + '</span>' + icon('arrowUpRight') + '</a></p>'

@@ -6716,3 +6716,38 @@ html:not(.js) .localnote { display: none; }
   .rcard .rpill__n { display: none; }
 }
 #mix-count { scroll-margin-top: 96px; }
+
+/* Stranica brenda sa puno okusa: alati iznad mreže; bez JS-a ostaje link na sve okuse */
+.bfilter { margin: 0 0 8px; }
+.bfilter .catalog__count { margin-top: 4px; }
+.js #brand-tools ~ .bmore { display: none; }
+#brand-empty { margin-top: 16px; }
+
+/* ---------- Mobitel: filteri u jednom redu koji se pomjera prstom, pretraga i sortiranje u istom redu ---------- */
+@media (max-width: 639px) {
+  #fl-tags, #fl-cols, #bf-tags, #mix-tags {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    margin-left: calc(-1 * var(--gutter, 16px));
+    margin-right: calc(-1 * var(--gutter, 16px));
+    padding: 2px var(--gutter, 16px) 6px;
+    scrollbar-width: none;
+    -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 16px, #000 calc(100% - 24px), transparent);
+    mask-image: linear-gradient(90deg, transparent 0, #000 16px, #000 calc(100% - 24px), transparent);
+    margin-bottom: 14px;
+  }
+  #fl-tags::-webkit-scrollbar, #fl-cols::-webkit-scrollbar, #bf-tags::-webkit-scrollbar, #mix-tags::-webkit-scrollbar { display: none; }
+  #fl-tags .chip, #fl-cols .chip, #bf-tags .chip, #mix-tags .chip { flex: 0 0 auto; }
+  .bfilter .fl-tools { flex-wrap: nowrap; gap: 8px; align-items: stretch; margin-bottom: 12px; }
+  .bfilter .fl-search { flex: 1 1 auto; min-width: 0; }
+  .bfilter .fl-sort__label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .bfilter .fl-sort select { min-width: 0; width: 112px; height: 100%; }
+}
+@media (max-width: 639px) {
+  .fl-tools:has(#fl-form) { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .fl-tools:has(#fl-form) .fl-search { grid-column: 1 / -1; max-width: none; }
+  .fl-tools:has(#fl-form) .fl-sort__label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .fl-tools:has(#fl-form) .fl-sort select { min-width: 0; width: 100%; }
+  #fl-leaf { flex-wrap: nowrap; margin-bottom: 10px; }
+  #fl-leaf .chip { flex: 1 1 0; padding-left: 8px; padding-right: 8px; justify-content: center; }
+}

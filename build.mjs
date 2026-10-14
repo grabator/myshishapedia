@@ -102,7 +102,7 @@ const PAGE_DATA = {
 
 // Dodatne skripte samo gdje trebaju.
 const VIEWS_MORE_PAGES = ['home', 'compare', 'comparePair', 'mixer', 'recipe'];
-const VIEWS_EXTRA_PAGES = ['flavors', 'quiz'];
+const VIEWS_EXTRA_PAGES = ['flavors', 'quiz', 'brand'];
 
 const PAGE_SCRIPTS = {
   search: ['js/search.js'],

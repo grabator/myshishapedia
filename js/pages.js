@@ -1131,11 +1131,78 @@
     }
   };
 
+  /** Okusi brenda sa puno okusa: pretraga, sortiranje, tagovi i stranice po 12 (kartice se crtaju ovdje). */
+  function brandFilter(ctx, grid) {
+    var BRAND_PAGE = 12;
+    var b = V.brandBySlug(grid.getAttribute('data-brand'));
+    var all = V.brandFlavors(b);
+    var input = document.getElementById('bf-q');
+    var sortEl = document.getElementById('bf-sort');
+    var tagsEl = document.getElementById('bf-tags');
+    var countEl = document.getElementById('bf-count');
+    var pagerEl = document.getElementById('brand-pager');
+    var empty = document.getElementById('brand-empty');
+    var p = ctx.params();
+    var state = {
+      q: p.get('q') || '',
+      tag: p.get('tag') || '',
+      sort: V.SORTS.indexOf(p.get('sort')) !== -1 ? p.get('sort') : 'az',
+      page: Math.max(1, parseInt(p.get('page'), 10) || 1)
+    };
+    input.value = state.q;
+    sortEl.value = state.sort;
+    function apply(scroll) {
+      var list = V.sortFlavors(all.filter(function (f) {
+        if (state.tag && (f.tags || []).indexOf(state.tag) === -1) return false;
+        return V.matchesQuery(f, state.q);
+      }), state.sort);
+      var pages = Math.max(1, Math.ceil(list.length / BRAND_PAGE));
+      state.page = Math.min(state.page, pages);
+      grid.innerHTML = list.slice((state.page - 1) * BRAND_PAGE, state.page * BRAND_PAGE).map(function (f, i) {
+        return '<li class="grid__item is-in" style="--i:' + (i % 3) + '">' + V.card(f, 'h3') + '</li>';
+      }).join('');
+      tagsEl.querySelectorAll('.chip').forEach(function (c) {
+        var on = (c.getAttribute('data-tag') || '') === state.tag;
+        c.classList.toggle('is-active', on);
+        c.setAttribute('aria-pressed', String(on));
+      });
+      countEl.textContent = MSP.plural('home.count', list.length);
+      empty.hidden = list.length > 0;
+      renderPager(pagerEl, state.page, pages);
+      var qs = [];
+      if (state.q) qs.push('q=' + encodeURIComponent(state.q));
+      if (state.tag) qs.push('tag=' + encodeURIComponent(state.tag));
+      if (state.sort !== 'az') qs.push('sort=' + state.sort);
+      if (state.page > 1) qs.push('page=' + state.page);
+      ctx.replaceUrl(qs.length ? '?' + qs.join('&') : '');
+      if (scroll) countEl.scrollIntoView({ behavior: smooth(), block: 'start' });
+    }
+    input.addEventListener('input', function () { state.q = input.value; state.page = 1; apply(false); });
+    document.getElementById('bf-form').addEventListener('submit', function (e) { e.preventDefault(); input.blur(); });
+    sortEl.addEventListener('change', function () { state.sort = sortEl.value; state.page = 1; apply(false); });
+    tagsEl.addEventListener('click', function (e) {
+      var c = e.target.closest('.chip');
+      if (!c) return;
+      var v = c.getAttribute('data-tag') || '';
+      state.tag = state.tag === v ? '' : v;
+      state.page = 1;
+      apply(false);
+    });
+    onPager(pagerEl, function (n) { state.page = n; apply(true); });
+    withRatings(ctx, function (st) {
+      var opt = sortEl.querySelector('option[value="rating"]');
+      if (st === 'off' && opt) opt.disabled = true;
+      if (state.sort === 'rating') apply(false);
+    });
+    apply(false);
+  }
+
   Pages.brand = {
     mount: function (ctx) {
       var main = ctx.els.main;
       var grid = document.getElementById('brand-grid');
       var fold = document.getElementById('glance-fold');
+      if (document.getElementById('brand-tools')) brandFilter(ctx, grid);
       // link #sastav (pregled za brend) otvara listu sastava
       if (fold && location.hash === '#sastav') fold.open = true;
       if (grid) {
