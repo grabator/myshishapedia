@@ -7054,3 +7054,5 @@ html:not(.js) .localnote { display: none; }
   .hmixes .rcards__item { scroll-snap-align: start; }
   .explore { padding-bottom: 44px; }
 }
+/* na užem ekranu nargila je ispod teksta, pa se oznaka "Skrolaj" preklapa sa dugmetom za dim */
+@media (max-width: 1099px) { .scroll-cue { display: none; } }
