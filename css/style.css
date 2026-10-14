@@ -6785,3 +6785,44 @@ html:not(.js) .localnote { display: none; }
   .fhero .hookah.is-started .drop { animation-duration: 1.5s; }
   .fhero .drops { z-index: 3; }
 }
+
+/* ---------- Mobitel: mikser preslagan (okusi, omjer, nargila, rezultat); omjer ostaje zakačen ispod menija ---------- */
+@media (max-width: 699px) {
+  .mixer { padding-top: calc(var(--header-h) + env(safe-area-inset-top) + 8px); }
+  .mixer > .container { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 10px; }
+  .mixer > .container > * { grid-column: 1 / -1; min-width: 0; }
+  .mixer__top { display: contents; }
+  .mixer__head { order: 1; margin-bottom: 12px; }
+  .mixer__head .phero__title { font-size: 2rem; }
+  .mixer__head .phero__lead { display: none; }
+  #slot-a { order: 2; grid-column: 1; }
+  #slot-b { order: 3; grid-column: 2; }
+  .mixer .picker { order: 4; }
+  .mixer__ratio {
+    order: 5;
+    position: sticky;
+    top: calc(var(--header-h) + env(safe-area-inset-top));
+    z-index: 6;
+    margin: 10px calc(-1 * var(--gutter)) 0;
+    padding: 6px var(--gutter) 8px;
+    background: color-mix(in srgb, var(--c-bg) 86%, transparent);
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--c-line);
+  }
+  .mixer__ratio .mix__label { display: none; }
+  .mixer__ratio .range { height: 40px; }
+  .mixer__ratio .mix__pct b { display: inline; font-size: 1.15rem; margin-right: 4px; }
+  .mixer__ratio .mix__pct { font-size: 0.875rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .mixer__stage { order: 6; grid-row: auto; margin-top: 8px; }
+  .mixer__stage .hookah { width: min(40vw, 160px); }
+  .mixer__result { order: 7; margin: 18px auto 24px; }
+  .mix__name { font-size: 1.8rem; }
+  .mixer__grid { order: 8; }
+  .mixer #mix-ideas { order: 9; }
+  .mixer > .container > .mix__note { order: 10; }
+  .slot { min-height: 0; padding: 12px; border-radius: 20px; }
+  .slot__ing { width: 34px; }
+  .slot__name { font-size: 1.2rem; }
+  .slot__change { margin-top: 2px; font-size: 0.8125rem; }
+}
