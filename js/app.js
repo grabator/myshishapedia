@@ -80,6 +80,21 @@
     if (!stage) return;
     opts = opts || {};
     var stopAll = whenAgeOk(function () {
+      // Sastojci padaju u posudu tek kad se nargila vidi (na mobitelu je ispod teksta),
+      // da animacija ne prođe van ekrana.
+      if (opts.whenVisible && 'IntersectionObserver' in window) {
+        var inner = null;
+        var io = new IntersectionObserver(function (en) {
+          if (!en[0].isIntersecting) return;
+          io.disconnect();
+          inner = begin();
+        }, { threshold: 0.2 });
+        io.observe(stage);
+        return function () { io.disconnect(); if (inner) inner(); };
+      }
+      return begin();
+    });
+    function begin() {
       stage.classList.add('is-started');
       var stop = FX.hookah(stage, {
         button: scope.querySelector('.pull'),
@@ -90,7 +105,7 @@
       });
       var stopDrop = opts.dropAt ? FX.bowlDrop(stage, th.smoke, opts.dropAt) : function () {};
       return function () { stop(); stopDrop(); };
-    });
+    }
     cleanup(stopAll);
     return stopAll;
   }
@@ -401,6 +416,8 @@
     startHookah(hero, th, {
       introDelay: 2.5,
       dropAt: 2450,
+      // na užem ekranu je nargila ispod teksta: animacija kreće kad se nargila pojavi
+      whenVisible: window.matchMedia('(max-width: 1099px)').matches,
       bowlSmoke: f.mood === 'ice' || f.mood === 'supernova' ? { rate: 9, alpha: 0.3 } : f.mood === 'frost' || f.mood === 'mist' ? { rate: 7, alpha: 0.26 } : null
     });
     if (f.mood === 'supernova') supernovaSmoke(hero, th);

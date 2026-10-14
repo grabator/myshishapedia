@@ -543,7 +543,7 @@
     return (
       '<p class="leafnote leafnote--' + leaf + ' anim-in" style="--i:7">' +
         '<span class="leafnote__icon" aria-hidden="true">' + icon('leaf') + '</span>' +
-        '<span class="leafnote__txt"><strong>' + esc(t('leaf.' + leaf)) + '</strong> ' + esc(t('leaf.' + leaf + 'Note')) + ' ' +
+        '<span class="leafnote__txt"><strong>' + esc(t('leaf.' + leaf)) + '</strong> <span class="leafnote__more">' + esc(t('leaf.' + leaf + 'Note')) + '</span> ' +
           '<a href="' + V.termUrl(V.LEAF_TERM[leaf]) + '">' + esc(t('leaf.more')) + '</a></span>' +
       '</p>'
     );

@@ -6751,3 +6751,37 @@ html:not(.js) .localnote { display: none; }
   #fl-leaf { flex-wrap: nowrap; margin-bottom: 10px; }
   #fl-leaf .chip { flex: 1 1 0; padding-left: 8px; padding-right: 8px; justify-content: center; }
 }
+
+/* ---------- Mobitel: kompaktan vrh stranice okusa (ocjena stane u prvi ekran, ispod se vidi nargila) ---------- */
+@media (max-width: 699px) {
+  .fhero { padding-top: calc(var(--header-h) + env(safe-area-inset-top) + 8px); padding-bottom: 48px; }
+  .fhero .crumbs { margin-bottom: 6px; }
+  .fhero__name { gap: 0.25em; }
+  .fhero__title { font-size: min(4.2rem, calc(100cqi / (var(--chars, 6) * 1.02))); }
+  .fhero__lead { margin-top: 12px; font-size: 1rem; line-height: 1.45; }
+  .fhero .tags, .fhero .cbadges { flex-wrap: nowrap; justify-content: flex-start; overflow-x: auto; scrollbar-width: none; margin: 12px calc(-1 * var(--gutter)) 0; padding: 0 var(--gutter); }
+  .fhero .tags::-webkit-scrollbar, .fhero .cbadges::-webkit-scrollbar { display: none; }
+  .fhero .tags { justify-content: safe center; }
+  .fhero .cbadges { margin-top: 8px; justify-content: safe center; }
+  .fhero .tags > *, .fhero .cbadges > * { flex: 0 0 auto; }
+  .fhero .tag { padding: 6px 12px; font-size: 0.8125rem; }
+  .fhero .cbadge { padding: 6px 12px; font-size: 0.8125rem; }
+  .leafnote { display: inline-flex; align-items: center; max-width: 100%; margin-top: 10px; padding: 6px 14px 6px 8px; border-radius: 999px; font-size: 0.8125rem; }
+  .leafnote__more { display: none; }
+  .leafnote__icon { width: 22px; height: 22px; }
+  .vbadge { margin-top: 8px; font-size: 0.8125rem; padding: 6px 12px 6px 6px; }
+  .fhero__actions { flex-wrap: nowrap; gap: 8px; margin-top: 12px; }
+  .fhero__actions .btn { min-height: 44px; padding: 0 16px; font-size: 0.9375rem; white-space: nowrap; }
+  .fhero__copy .rate { --star: 34px; margin-top: 12px; padding: 10px 14px 6px; gap: 6px; border-radius: 20px; }
+  .fhero__copy .rate__sum { padding-top: 6px; }
+  .fhero__copy .rate__msg { min-height: 0; }
+  .fhero__copy .rate__msg:empty { display: none; }
+  .fhero__inner { gap: 18px; }
+}
+@media (max-width: 699px) { .leafnote__txt { white-space: nowrap; } }
+@media (max-width: 1099px) {
+  /* sastojci padaju u posudu krupniji i malo sporije, da se jasno vidi gdje idu */
+  .fhero .drop { width: 24%; }
+  .fhero .hookah.is-started .drop { animation-duration: 1.5s; }
+  .fhero .drops { z-index: 3; }
+}
