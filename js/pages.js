@@ -844,6 +844,19 @@
       var suggest = document.getElementById('fl-suggest');
       var items = {};
       grid.querySelectorAll('.grid__item').forEach(function (li) { items[li.getAttribute('data-id')] = li; });
+      var colsOf = {};
+      try { colsOf = JSON.parse(document.getElementById('fl-colmap').textContent); } catch (e) { colsOf = {}; }
+      // kartica koje nema u HTML-u (stranica nosi samo prvih 24) se nacrta kad zatreba
+      function itemFor(f) {
+        if (!items[f.id]) {
+          var li = document.createElement('li');
+          li.className = 'grid__item';
+          li.setAttribute('data-id', f.id);
+          li.innerHTML = V.card(f, 'h2');
+          items[f.id] = li;
+        }
+        return items[f.id];
+      }
       var suggestBase = suggest.getAttribute('href');
 
       var p = ctx.params();
@@ -884,7 +897,7 @@
           if (state.tag && (f.tags || []).indexOf(state.tag) === -1) return false;
           if (state.brand && f.brandId !== state.brand) return false;
           if (state.leaf && V.leafOf(f) !== state.leaf) return false;
-          if (state.col && (items[f.id].getAttribute('data-cols') || '').split(' ').indexOf(state.col) === -1) return false;
+          if (state.col && (colsOf[f.id] || '').split(' ').indexOf(state.col) === -1) return false;
           return V.matchesQuery(f, state.q);
         });
         list = V.sortFlavors(list, state.sort);
@@ -893,9 +906,9 @@
         var from = (state.page - 1) * PAGE_SIZE;
         var shown = {};
         list.forEach(function (f, i) {
-          var li = items[f.id];
+          if (i < from || i >= from + PAGE_SIZE) { if (items[f.id]) grid.appendChild(items[f.id]); return; }
+          var li = itemFor(f);
           grid.appendChild(li);
-          if (i < from || i >= from + PAGE_SIZE) return;
           shown[f.id] = 1;
           li.hidden = false;
           li.style.setProperty('--i', String(i % 3));

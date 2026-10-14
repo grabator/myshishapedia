@@ -307,6 +307,15 @@
         loading: 'Učitavam...',
         results: { one: '{n} rezultat', few: '{n} rezultata', other: '{n} rezultata' },
         keys: '↑↓ za kretanje, Enter za otvaranje, Esc za zatvaranje',
+        allFlavors: 'Prikaži svih {n} okusa',
+        idle: {
+          ingredients: 'Popularni sastojci',
+          brands: 'Brendovi',
+          go: 'Idi na',
+          surprise: 'Iznenadi me',
+          surpriseHint: 'Nasumičan okus',
+          links: { flavors: 'Svi okusi', brands: 'Brendovi', mixer: 'Mikser', quiz: 'Kviz', mixes: 'Recepti', top: 'Najbolje ocijenjeno' }
+        },
         groups: {
           flavor: 'Okusi',
           brand: 'Brendovi',
@@ -514,7 +523,7 @@
         searchIn: 'Traži u {name}…',
         searchPlaceholder: 'Upiši ime brenda…',
         jumpLabel: 'Idi na brend',
-        jumpPick: 'Izaberi brend',
+        jumpPick: 'Idi na…',
         all: 'Svi',
         empty: 'Nema brendova sa ovom vrstom lista.',
         country: 'Zemlja',
@@ -1063,6 +1072,15 @@
         loading: 'Loading...',
         results: { one: '{n} result', other: '{n} results' },
         keys: '↑↓ to move, Enter to open, Esc to close',
+        allFlavors: 'Show all {n} flavors',
+        idle: {
+          ingredients: 'Popular ingredients',
+          brands: 'Brands',
+          go: 'Go to',
+          surprise: 'Surprise me',
+          surpriseHint: 'A random flavor',
+          links: { flavors: 'All flavors', brands: 'Brands', mixer: 'Mixer', quiz: 'Quiz', mixes: 'Mixes', top: 'Top rated' }
+        },
         groups: {
           flavor: 'Flavors',
           brand: 'Brands',
@@ -1270,7 +1288,7 @@
         searchIn: 'Search {name}…',
         searchPlaceholder: 'Type a brand name…',
         jumpLabel: 'Go to brand',
-        jumpPick: 'Pick a brand',
+        jumpPick: 'Go to…',
         all: 'All',
         empty: 'No brands with this leaf type.',
         country: 'Country',

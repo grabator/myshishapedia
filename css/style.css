@@ -6902,3 +6902,155 @@ html:not(.js) .localnote { display: none; }
   .hero-aura span { animation: none; }
   .hero--home, .hero--home .hookah-wrap { transition: none; }
 }
+
+/* ---------- Kartice brendova: isto veliko ime na svakoj kartici (ne zavisi od dužine imena) ---------- */
+.bcard__name, .bcards--small .bcard__name {
+  font-size: min(3.4rem, calc((100cqi - 4px) / 9.4));
+  white-space: normal;
+  overflow-wrap: anywhere;
+  line-height: 0.95;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  padding-bottom: 0.04em;
+}
+@media (max-width: 699px) {
+  .bcard__name, .bcards--small .bcard__name { font-size: calc((100cqi - 2px) / 9.4); letter-spacing: -0.04em; }
+}
+@media (max-width: 639px) {
+  /* naziv po najdužoj riječi (--wlen), da široki font nikad ne odsiječe riječ; dug naziv ide u dva reda */
+  .grid:not(.grid--big) .card__name { font-size: max(0.85rem, min(1.25rem, calc((100cqi - 22px) / (var(--wlen, 6) * 0.95)))); }
+}
+@media (max-width: 639px) {
+  /* najduža riječ mora stati u red, a cijeli naziv u dva reda */
+  .grid:not(.grid--big) .card__name {
+    font-size: max(0.8rem, min(1.25rem, calc((100cqi - 22px) / (var(--wlen, 6) * 1.12)), calc((100cqi - 22px) * 2 / (var(--len, 6) * 1.45))));
+  }
+  .bcard__name, .bcards--small .bcard__name { -webkit-line-clamp: 3; }
+}
+@media (max-width: 559px) {
+  .fotd__flavor { font-size: min(1.6rem, calc((100vw - 32px) * 0.6 / (var(--wlen, 6) * 1.1))); }
+}
+@media (max-width: 639px) {
+  .grid:not(.grid--big) .card__name {
+    font-size: max(0.68rem, min(1.25rem, calc((100cqi - 22px) / (var(--wlen, 6) * 1.12)), calc((100cqi - 22px) * 2 / (var(--len, 6) * 1.45))));
+    -webkit-line-clamp: 3;
+  }
+}
+@media (max-width: 639px) {
+  .br-tools { display: grid; grid-template-columns: minmax(0, 1fr) 128px; gap: 8px; align-items: stretch; }
+  .br-tools .fl-search { max-width: none; }
+  .br-tools .fl-sort__label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .br-tools .fl-sort select { min-width: 0; width: 100%; height: 100%; }
+}
+@media (max-width: 699px) { .bcard { min-height: 138px; } }
+
+/* ---------- Globalna pretraga: prijedlozi prije kucanja ---------- */
+.gsearch__panel { background: color-mix(in srgb, var(--c-surface) 88%, transparent); -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px); }
+.gsearch__bar { border: 1px solid var(--c-line); box-shadow: inset 0 1px 0 color-mix(in srgb, var(--c-text) 6%, transparent); }
+.gsearch__bar:focus-within { border-color: color-mix(in srgb, var(--c-accent-ink) 60%, transparent); box-shadow: 0 0 0 4px color-mix(in srgb, var(--c-accent-ink) 16%, transparent); }
+.gsearch__status:empty { display: none; }
+.gs-idle { padding: 6px 6px 4px; }
+.gs-idle__h { margin: 14px 4px 8px; font-size: 0.6875rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: var(--c-muted); }
+.gs-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.gs-chip {
+  display: inline-flex; align-items: center; gap: 8px;
+  min-height: 40px; padding: 4px 14px 4px 6px; border-radius: 999px;
+  border: 1px solid var(--c-line); background: color-mix(in srgb, var(--c-surface-2) 70%, transparent);
+  color: var(--c-text); font: inherit; font-size: 0.875rem; font-weight: 700; text-decoration: none; cursor: pointer;
+  transition: border-color 0.2s, transform 0.2s, background-color 0.2s;
+}
+.gs-chip__art { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: color-mix(in srgb, var(--c-text) 7%, transparent); }
+.gs-chip__art svg { width: 26px; height: 26px; }
+.gs-chip--brand { padding-left: 14px; }
+.gs-chip--brand span { font-weight: 600; color: var(--c-muted); }
+@media (hover: hover) { .gs-chip:hover, .gs-link:hover { border-color: var(--c-text); transform: translateY(-1px); } }
+.gs-links { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 8px; }
+.gs-link {
+  display: flex; align-items: center; gap: 10px;
+  min-height: 52px; padding: 10px 14px; border-radius: 16px;
+  border: 1px solid var(--c-line); background: color-mix(in srgb, var(--c-surface-2) 55%, transparent);
+  color: var(--c-text); font: inherit; font-weight: 700; text-align: left; text-decoration: none; cursor: pointer;
+  transition: border-color 0.2s, transform 0.2s;
+}
+.gs-link .icon { width: 20px; height: 20px; color: var(--c-accent-ink); flex-shrink: 0; }
+.gs-link--surprise { background: color-mix(in srgb, var(--c-accent-fill) 18%, transparent); border-color: color-mix(in srgb, var(--c-accent-ink) 45%, transparent); }
+@media (max-width: 639px) {
+  .gsearch { padding-top: calc(env(safe-area-inset-top) + 10px); padding-bottom: 10px; }
+  .gsearch__panel { padding: 10px; border-radius: 24px; }
+  .gsearch__keys { display: none; }
+  .gs-chips { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; margin: 0 -6px; padding: 0 6px 2px; }
+  .gs-chips::-webkit-scrollbar { display: none; }
+  .gs-chip { flex: 0 0 auto; }
+  .gs-links { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+.gs-item__ico--art svg { width: 82%; height: 82%; stroke: none; }
+.gs-item__ico.gs-item__ico--art svg { width: 82%; height: 82%; color: inherit; filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.35)); }
+.gs-more { display: inline-flex; align-items: center; gap: 8px; margin: 6px 8px 4px; padding: 8px 14px; border-radius: 999px; border: 1px solid var(--c-line-strong); color: var(--c-text); font-weight: 700; font-size: 0.875rem; text-decoration: none; }
+.gs-more .icon { width: 16px; height: 16px; }
+@media (hover: hover) { .gs-more:hover { border-color: var(--c-text); } }
+
+/* ======================================================================
+   Mobitel: zbijeniji raspored (manji razmaci i naslovi, kompaktne kartice)
+   ====================================================================== */
+@media (max-width: 639px) {
+  /* sekcije stranice okusa i podstranica */
+  .fsec { padding-block: 44px; }
+  .fsec--tight { padding-block: 28px; }
+  .fsec__head { gap: 6px; margin-bottom: 20px; }
+  .fsec__num { font-size: 0.75rem; }
+  .fsec__num::after { width: 32px; }
+  .fsec__title { font-size: clamp(1.7rem, 7.5vw, 2.1rem); }
+  .fsec__intro { font-size: 0.9375rem; }
+
+  /* sastojci: zbijeni redovi */
+  .ings { gap: 8px; }
+  .ing { grid-template-columns: 64px minmax(0, 1fr); gap: 12px; padding: 10px 14px 10px 10px; border-radius: 18px; }
+  .ing__name { margin-bottom: 4px; font-size: 1.1rem; }
+  .ing__meter { margin-bottom: 4px; }
+
+  /* profil */
+  .radar-wrap { max-width: 260px; margin-inline: auto; }
+  .gauges { gap: 16px; padding: 16px; border-radius: 20px; }
+
+  /* ideje za miks: kompaktne kartice */
+  .mixes { gap: 8px; }
+  .mix { flex-direction: row; align-items: center; gap: 12px; padding: 14px 44px 14px 14px; border-radius: 18px; }
+  .mix__num { font-size: 1.6rem; flex-shrink: 0; }
+  .mix__icon { top: 50%; right: 14px; width: 22px; translate: 0 -50%; }
+  .mix p { margin: 0; font-size: 0.9375rem; line-height: 1.4; }
+
+  /* početna: naslovi sekcija i kolekcije dvije u redu */
+  .catalog { padding-block: 44px; }
+  .catalog__title { font-size: clamp(1.8rem, 8vw, 2.3rem); }
+  .hsec__lead { font-size: 0.9375rem; }
+  .hcols { padding-top: 40px; }
+  .explore__head { gap: 8px; margin-bottom: 18px; }
+  .ccards { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .ccard, .ccards--page .ccard, .ccards--small .ccard { min-height: 190px; border-radius: 20px; }
+  .ccard__body { gap: 4px; padding: 12px; }
+  .ccard__icon { width: 32px; height: 32px; }
+  .ccard__icon .icon { width: 16px; height: 16px; }
+  .ccard__title { font-size: 1.15rem; }
+  .ccard__short { display: none; }
+  .ccard__chip { width: 28px; height: 28px; margin-left: -8px; }
+  .ccard__chip:nth-child(n+4) { display: none; }
+  .ccard .card__arrow, .ccard__arrow { display: none; }
+  .ccard__foot { flex-wrap: wrap; gap: 4px; font-size: 0.75rem; }
+}
+@media (max-width: 639px) {
+  /* recepti na početnoj: jedan red koji se pomjera prstom */
+  .hmixes { padding-bottom: 44px; }
+  .hmixes__head { gap: 10px; }
+  .hmixes__head > div { gap: 8px; }
+  .hmixes__head .btn { min-height: 40px; padding: 0 16px; font-size: 0.875rem; }
+  .hmixes .rcards {
+    grid-auto-flow: column; grid-template-columns: none; grid-auto-columns: 46%;
+    overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none;
+    margin: 0 calc(-1 * var(--gutter)); padding: 0 var(--gutter) 4px; scroll-padding-inline: var(--gutter);
+  }
+  .hmixes .rcards::-webkit-scrollbar { display: none; }
+  .hmixes .rcards__item { scroll-snap-align: start; }
+  .explore { padding-bottom: 44px; }
+}

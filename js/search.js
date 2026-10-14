@@ -111,7 +111,8 @@
     var groups = {};
     hits.forEach(function (h) {
       var g = h.entry.it.g;
-      (groups[g] = groups[g] || { g: g, best: h.score, items: [] });
+      (groups[g] = groups[g] || { g: g, best: h.score, items: [], total: 0 });
+      groups[g].total++;
       if (groups[g].items.length < MAX_PER_GROUP) groups[g].items.push(h.entry.it);
     });
     return Object.keys(groups).map(function (k) { return groups[k]; }).sort(function (a, b) {
@@ -164,11 +165,24 @@
     page: '<path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/>'
   };
 
+  // okus u rezultatu dobije sliku svog glavnog sastojka umjesto opšte ikonice
+  var flavorByUrl = null;
+  function flavorArt(url) {
+    if (!flavorByUrl) {
+      flavorByUrl = {};
+      V.flavors().forEach(function (f) { flavorByUrl[V.flavorUrl(f)] = f; });
+    }
+    var f = flavorByUrl[url];
+    var top = f && V.byIntensity(f)[0];
+    return top ? MSP.illustrate(top.illustration, { color: top.color }) : '';
+  }
+
   function itemHTML(it, q, id, asOption) {
-    var ico = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">' + GROUP_ICON[it.g] + '</svg>';
+    var art = it.g === 'flavor' ? flavorArt(it.u) : '';
+    var ico = art || '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">' + GROUP_ICON[it.g] + '</svg>';
     return (
       '<a class="gs-item" href="' + esc(it.u) + '"' + (asOption ? ' role="option" id="' + id + '" aria-selected="false" tabindex="-1"' : '') + '>' +
-        '<span class="gs-item__ico"' + (it.c ? ' style="--gs-c:' + esc(it.c) + '"' : '') + '>' + ico + '</span>' +
+        '<span class="gs-item__ico' + (art ? ' gs-item__ico--art' : '') + '"' + (it.c ? ' style="--gs-c:' + esc(it.c) + '"' : '') + '>' + ico + '</span>' +
         '<span class="gs-item__txt"><span class="gs-item__t">' + highlight(it.t, q) + '</span>' +
         (it.d ? '<span class="gs-item__d">' + esc(it.d) + '</span>' : '') + '</span>' +
       '</a>'
@@ -183,6 +197,9 @@
         '<div class="gs-group" role="group" aria-labelledby="' + hid + '">' +
           '<p class="gs-group__h" id="' + hid + '">' + esc(t('search.groups.' + grp.g)) + '</p>' +
           grp.items.map(function (it) { return itemHTML(it, q, 'gs-opt-' + (n++), asOption); }).join('') +
+          (grp.g === 'flavor' && grp.total > grp.items.length
+            ? '<a class="gs-more" href="' + V.url('flavors') + '?q=' + encodeURIComponent(q) + '">' + esc(t('search.allFlavors', { n: grp.total })) + V.icon('arrowRight') + '</a>'
+            : '') +
         '</div>'
       );
     }).join('');
@@ -246,6 +263,14 @@
     el.addEventListener('click', function (e) {
       if (e.target === el || e.target.classList.contains('gsearch__panel')) close(true);
     });
+    list.addEventListener('click', function (e) {
+      var chip = e.target.closest('[data-q]');
+      if (chip) { input.value = chip.getAttribute('data-q'); render(); input.focus(); return; }
+      if (e.target.closest('[data-surprise]')) {
+        var all = V.flavors();
+        location.href = V.flavorUrl(all[Math.floor(Math.random() * all.length)]);
+      }
+    });
     list.addEventListener('mousemove', function (e) {
       var a = e.target.closest('.gs-item');
       if (!a) return;
@@ -266,8 +291,52 @@
     if (scroll !== false) opts[active].scrollIntoView({ block: 'nearest' });
   }
 
+  /** Sadržaj prozora prije kucanja: popularni sastojci, brendovi, brzi linkovi i nasumičan okus. */
+  function idleHTML() {
+    var counts = {};
+    var names = {};
+    V.flavors().forEach(function (f) {
+      (f.ingredients || []).forEach(function (ing) {
+        var k = ing.illustration;
+        counts[k] = (counts[k] || 0) + 1;
+        if (!names[k]) names[k] = ing;
+      });
+    });
+    var ings = Object.keys(counts).filter(function (k) { return k !== 'kristal'; })
+      .sort(function (a, b) { return counts[b] - counts[a]; }).slice(0, 10).map(function (k) { return names[k]; });
+    var brands = V.brands().filter(function (b) { return V.brandFlavors(b).length; })
+      .sort(function (a, b) { return V.brandFlavors(b).length - V.brandFlavors(a).length; }).slice(0, 10);
+    var links = [['flavors', 'layers'], ['brands', 'globe'], ['mixer', 'mix'], ['quiz', 'spark'], ['mixes', 'jar'], ['top', 'star']];
+    return '<div class="gs-idle">' +
+      '<p class="gs-idle__h">' + esc(t('search.idle.ingredients')) + '</p>' +
+      '<div class="gs-chips">' + ings.map(function (ing) {
+        var name = MSP.L(ing.name);
+        return '<button type="button" class="gs-chip" data-q="' + esc(name) + '"><span class="gs-chip__art" aria-hidden="true">' +
+          MSP.illustrate(ing.illustration, { color: ing.color }) + '</span>' + esc(name) + '</button>';
+      }).join('') + '</div>' +
+      '<p class="gs-idle__h">' + esc(t('search.idle.brands')) + '</p>' +
+      '<div class="gs-chips gs-chips--brands">' + brands.map(function (b) {
+        return '<a class="gs-chip gs-chip--brand" href="' + V.brandUrl(b) + '">' + esc(b.name) + ' <span>' + V.brandFlavors(b).length + '</span></a>';
+      }).join('') + '</div>' +
+      '<p class="gs-idle__h">' + esc(t('search.idle.go')) + '</p>' +
+      '<div class="gs-links">' + links.map(function (l) {
+        return '<a class="gs-link" href="' + V.url(l[0]) + '">' + V.icon(l[1]) + '<span>' + esc(t('search.idle.links.' + l[0])) + '</span></a>';
+      }).join('') +
+        '<button type="button" class="gs-link gs-link--surprise" data-surprise>' + V.icon('spark') + '<span>' + esc(t('search.idle.surprise')) + '</span></button>' +
+      '</div>' +
+    '</div>';
+  }
+
   function render() {
     var q = input.value.trim();
+    if (!q) {
+      list.innerHTML = idleHTML();
+      status.textContent = '';
+      input.setAttribute('aria-expanded', 'false');
+      active = -1;
+      input.removeAttribute('aria-activedescendant');
+      return;
+    }
     if (V.normalize(q).replace(/ /g, '').length < 2) {
       list.innerHTML = '';
       status.textContent = q ? t('search.start') : '';

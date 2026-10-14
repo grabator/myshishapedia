@@ -232,9 +232,15 @@
           chip('data-tag', '', t('home.filterAll'), true) + tagKeys.map(function (x) { return chip('data-tag', x, MSP.tagLabel(x), false); }).join('') +
         '</div>' +
         '<p class="catalog__count" id="fl-count" aria-live="polite">' + esc(MSP.plural('home.count', list.length)) + '</p>' +
-        '<ul class="grid" id="fl-grid" role="list">' + list.map(function (f, i) {
-          return '<li class="grid__item" data-id="' + f.id + '" data-cols="' + V.collectionsOf(f).map(function (c) { return c.id; }).join(' ') + '" style="--i:' + (i % 3) + '">' + V.card(f, 'h2') + '</li>';
+        // u HTML-u je samo prva stranica kartica; ostale crta js/pages.js kad zatrebaju (filter, pretraga, stranica 2...)
+        '<ul class="grid" id="fl-grid" role="list">' + list.slice(0, 24).map(function (f, i) {
+          return '<li class="grid__item" data-id="' + f.id + '" style="--i:' + (i % 3) + '">' + V.card(f, 'h2') + '</li>';
         }).join('') + '</ul>' +
+        '<script type="application/json" id="fl-colmap">' + JSON.stringify(list.reduce(function (m, f) {
+          var cols = V.collectionsOf(f).map(function (c) { return c.id; }).join(' ');
+          if (cols) m[f.id] = cols;
+          return m;
+        }, {})) + '</script>' +
         '<nav class="pager" id="fl-pager" aria-label="' + esc(t('pager.label')) + '" hidden></nav>' +
         '<div class="empty fl-empty" id="fl-empty" hidden>' +
           '<span class="fl-empty__coal" aria-hidden="true">' + MSP.coal() + '</span>' +

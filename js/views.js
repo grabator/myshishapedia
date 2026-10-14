@@ -469,7 +469,7 @@
           '<span class="card__art" aria-hidden="true"><span class="card__bowl">' + MSP.hookahBowl() + '</span>' + art + '</span>' +
           '<span class="card__body">' +
             '<span class="card__top"><span class="card__brand">' + esc(f.brand) + V.verifiedBadge(f, 'card') + '</span>' + V.leafChip(f) + '</span>' +
-            '<' + h + ' class="card__name" style="--len:' + String(f.name).length + '">' + esc(f.name) + '</' + h + '>' +
+            '<' + h + ' class="card__name" style="--len:' + String(f.name).length + ';--wlen:' + String(f.name).split(/\s+/).reduce(function (m, w) { return Math.max(m, w.length); }, 1) + '">' + esc(f.name) + '</' + h + '>' +
             '<span class="card__ings">' + names + '</span>' +
           '</span>' +
           '<span class="card__arrow" aria-hidden="true">' + icon('arrowUpRight') + '</span>' +

@@ -1075,6 +1075,10 @@ Napomene:
   recepti po 12. Radi zajedno sa filterima i pretragom, a broj stranice je u adresi (`?page=2`).
   Bez JavaScripta se vidi cijela lista.
 - **Brendovi:** polje za pretragu (ime ili zemlja; Enter sa jednim pogotkom otvara brend) i lista "Idi na brend".
+- **Stranica Okusi je lagana:** u HTML-u su samo prve 24 kartice; ostale nacrta `js/pages.js` kad zatrebaju
+  (druga stranica, filter, pretraga). Pripadnost kolekcijama je u malom JSON-u na stranici (`#fl-colmap`).
+- **Globalna pretraga:** prije kucanja nudi popularne sastojke, brendove, brze linkove i "Iznenadi me";
+  okusi u rezultatima imaju sliku glavnog sastojka, a ispod je link "Prikaži svih N okusa".
 
 ### Početna, stranica okusa i mikser na mobitelu
 
