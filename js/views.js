@@ -329,18 +329,6 @@
       { x: 92, y: 3, s: 10, d: 0.2, r: -8, far: true }
     ]
   };
-  var HOME_SLOTS = {
-    desktop: [
-      { x: 56, y: 12, s: 6, d: 0.2, r: 30, far: true },
-      { x: 97, y: 9, s: 7, d: 0.3, r: 14, far: true },
-      { x: 3, y: 12, s: 6, d: 0.15, r: 18, far: true }
-    ],
-    mobile: [
-      { x: 90, y: 7, s: 16, d: 0.4, r: -14, far: true },
-      { x: 6, y: 52, s: 12, d: 0.3, r: 20, far: true }
-    ]
-  };
-
   function floatersSet(ingredients, slots, cls) {
     if (!ingredients.length) return '';
     return slots.map(function (slot, i) {
@@ -1040,11 +1028,33 @@
     );
   }
 
+  /** Okusi koji se smjenjuju u nargili na početnoj (po jedan od svakog brenda), od današnjeg nadalje. */
+  V.heroCycle = function (date) {
+    var picks = V.homePicks().filter(function (f) { return (f.ingredients || []).length; });
+    var d = date || new Date();
+    var start = Math.floor(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()) / 864e5) % picks.length;
+    return picks.slice(start).concat(picks.slice(0, start));
+  };
+
+  /** Boje pozadine i vode za okus u nargili na početnoj. */
+  V.heroAura = function (f) {
+    var th = V.themeFor(f);
+    var pal = f.palette || {};
+    return '--aura-a:' + (pal.primary || th.primary) + ';--aura-b:' + (pal.secondary || th.secondary) + ';--hk-water:' + th.hk.water;
+  };
+
+  function nowChip(f) {
+    return '<p class="hero-now anim-in" style="--i:6"><span class="hero-now__label">' + esc(t('home.nowLabel')) + '</span> ' +
+      '<a class="hero-now__link" id="hero-now" href="' + V.flavorUrl(f) + '"><span class="hero-now__dot" aria-hidden="true"></span>' +
+      '<span class="hero-now__name">' + esc(f.brand + ' ' + f.name) + '</span>' + icon('arrowRight') + '</a></p>';
+  }
+
   function pageHome() {
     var th = V.themeFor(null);
+    var now = V.heroCycle()[0];
     return (
-      '<section class="hero hero--home" aria-labelledby="home-title">' +
-        floaters(allIngredients(), HOME_SLOTS) +
+      '<section class="hero hero--home" aria-labelledby="home-title" style="' + V.heroAura(now) + '">' +
+        '<div class="hero-aura" aria-hidden="true"><span></span><span></span><span></span></div>' +
         '<div class="container hero__inner">' +
           '<div class="hero__copy">' +
             '<p class="eyebrow anim-in" style="--i:0"><span class="eyebrow__dot" aria-hidden="true"></span>' + esc(t('home.eyebrow')) + '</p>' +
@@ -1055,8 +1065,9 @@
             '</h1>' +
             '<p class="hero__lead anim-in" style="--i:4">' + esc(t('home.lead')) + '</p>' +
             searchForm('search-input', 'home.searchLabel', 'home.searchPlaceholder') +
+            nowChip(now) +
           '</div>' +
-          '<div class="hero__stage">' + V.hookahStage(th) + '</div>' +
+          '<div class="hero__stage">' + V.hookahStage(Object.assign({}, th, { hk: Object.assign({}, th.hk, { water: V.themeFor(now).hk.water }) })) + '</div>' +
         '</div>' +
       '</section>' +
       V.recentStrip() +

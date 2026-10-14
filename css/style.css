@@ -6855,3 +6855,50 @@ html:not(.js) .localnote { display: none; }
   .fotd__card .rpill__n { display: none; }
   .fotd__ing--0 { top: 22%; }
 }
+
+/* ---------- Početna: okus u nargili (sastojci kruže oko nargile, boje se prelijevaju) ---------- */
+@property --aura-a { syntax: '<color>'; inherits: true; initial-value: #f2a33c; }
+@property --aura-b { syntax: '<color>'; inherits: true; initial-value: #d9643f; }
+.hero--home { transition: --aura-a 1.6s ease, --aura-b 1.6s ease; }
+.hero--home .hookah-wrap { transition: --hk-water 1.4s ease; }
+.hero-aura { position: absolute; inset: 0; z-index: -2; pointer-events: none; overflow: hidden; }
+.hero-aura span {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: 0.32;
+  will-change: transform;
+}
+.hero-aura span:nth-child(1) { width: 62vmax; height: 62vmax; right: -20vmax; top: -18vmax; background: radial-gradient(closest-side, var(--aura-a), transparent); animation: aura-drift 22s ease-in-out infinite alternate; }
+.hero-aura span:nth-child(2) { width: 46vmax; height: 46vmax; right: 6vmax; bottom: -22vmax; background: radial-gradient(closest-side, var(--aura-b), transparent); opacity: 0.24; animation: aura-drift 28s ease-in-out -9s infinite alternate-reverse; }
+.hero-aura span:nth-child(3) { width: 34vmax; height: 34vmax; left: -12vmax; top: 30%; background: radial-gradient(closest-side, color-mix(in srgb, var(--aura-a) 60%, var(--aura-b)), transparent); opacity: 0.14; animation: aura-drift 34s ease-in-out -4s infinite alternate; }
+@keyframes aura-drift {
+  0% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(-4vmax, 3vmax, 0) scale(1.08); }
+  100% { transform: translate3d(3vmax, -2vmax, 0) scale(0.94); }
+}
+@media (max-width: 1099px) {
+  .hero-aura span:nth-child(1) { top: auto; bottom: -10vmax; right: -30vmax; }
+}
+.hero--home .hk { position: relative; z-index: 1; }
+.orbit { position: absolute; inset: 0; pointer-events: none; }
+.orbit__item { position: absolute; width: 25%; left: 36%; top: 6%; transform: translate(-50%, -50%) scale(0); opacity: 0; will-change: transform, left, top; }
+.orbit__item svg { display: block; width: 100%; height: auto; filter: drop-shadow(0 12px 16px rgba(0, 0, 0, 0.3)); }
+.hero-now { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; margin: 14px 0 0; font-size: 0.875rem; color: var(--c-muted); }
+.hero-now__label { font-weight: 600; }
+.hero-now__link {
+  --now: var(--aura-a);
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 6px 12px 6px 10px; border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--now) 55%, transparent);
+  background: color-mix(in srgb, var(--now) 14%, transparent);
+  color: var(--c-text); font-weight: 700; text-decoration: none;
+  transition: border-color 1.2s, background-color 1.2s;
+}
+.hero-now__dot { width: 9px; height: 9px; border-radius: 50%; background: var(--now); box-shadow: 0 0 10px var(--now); transition: background-color 1.2s, box-shadow 1.2s; }
+.hero-now__link .icon { width: 15px; height: 15px; }
+@media (hover: hover) { .hero-now__link:hover { border-color: var(--now); } }
+@media (prefers-reduced-motion: reduce) {
+  .hero-aura span { animation: none; }
+  .hero--home, .hero--home .hookah-wrap { transition: none; }
+}

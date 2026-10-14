@@ -1076,6 +1076,19 @@ Napomene:
   Bez JavaScripta se vidi cijela lista.
 - **Brendovi:** polje za pretragu (ime ili zemlja; Enter sa jednim pogotkom otvara brend) i lista "Idi na brend".
 
+### Početna, stranica okusa i mikser na mobitelu
+
+- **Početna: "U nargili sada".** Svakih 7 sekundi (`HERO_STEP_MS` u `js/app.js`) u nargilu "uđe" drugi okus
+  (po jedan od svakog brenda, `V.heroCycle`): sastojci izađu iz posude i kruže oko nargile, voda i pozadina
+  dobiju boje okusa, a natpis ispod pretrage vodi na okus. Ništa se ne vrti kad početna nije na ekranu.
+  Uz smanjeno kretanje (prefers-reduced-motion) ostaje miran prikaz prvog okusa.
+- **Stranica okusa (do 699 px):** kompaktan vrh, pa ocjena stane u prvi ekran; sastojci padaju u posudu
+  tek kad se nargila pojavi na ekranu.
+- **Mikser (do 699 px):** okusi, omjer i nargila u prvom ekranu; klizač ostaje zakačen ispod menija dok
+  se čita opis i sastojci miksa.
+- **Stranica brenda sa više od 12 okusa:** pretraga unutar brenda, sortiranje, tagovi i stranice po 12.
+- **Okus dana (do 559 px):** slika lijevo, tekst desno, kartica 300 px.
+
 ### Recepti miksova (PRIJEDLOZI: Graba treba isprobati i potvrditi)
 
 - [ ] **13 MUSTHAVE recepata** (Ostrvska kolada, Ledeni čaj od breskve, Banana u karameli, Arktička lubenica,
