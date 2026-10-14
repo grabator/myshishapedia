@@ -6681,3 +6681,20 @@ html:not(.js) .localnote { display: none; }
 .catalog__count { scroll-margin-top: 96px; }
 .grid { scroll-margin-top: 96px; }
 @media (max-width: 380px) { .pager__btn { min-width: 38px; height: 38px; padding: 0 8px; } }
+
+/* ---------- Mobitel: kompaktne kartice brendova, dvije u redu ---------- */
+@media (max-width: 699px) {
+  .bcards { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .bcard { min-height: 168px; padding: 12px; gap: 6px; border-radius: 18px; }
+  .bcards--small .bcard { min-height: 150px; }
+  .bcard__top { padding-right: 0; font-size: 0.6875rem; gap: 4px 6px; }
+  .bcard__top .leaf-chip { display: none; }
+  .bcard__country .icon { width: 13px; height: 13px; }
+  .bcard .card__arrow { display: none; }
+  .bcard__name, .bcards--small .bcard__name { font-size: min(1.9rem, calc((100cqi - 4px) / (var(--len, 6) * 0.82))); }
+  .bcard__short { display: none; }
+  .bcard__foot { flex-wrap: wrap; gap: 6px; }
+  .bcard__sw { width: 28px; height: 28px; margin-left: -8px; border-width: 1.5px; }
+  .bcard__sw:nth-child(n+5) { display: none; }
+  .bcard__count { font-size: 0.75rem; }
+}

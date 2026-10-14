@@ -1086,11 +1086,15 @@
       var items = grid.querySelectorAll('.bcards__item');
       var p = ctx.params();
       var leaf = /^(light|dark)$/.test(p.get('leaf') || '') ? p.get('leaf') : '';
+      var input = document.getElementById('br-q');
+      var jump = document.getElementById('br-jump');
+      input.value = p.get('q') || '';
       function apply() {
         var shown = 0;
+        var q = V.normalize(input.value).trim();
         items.forEach(function (li) {
           var l = li.querySelector('.bcard').getAttribute('data-leaf');
-          var ok = !leaf || l === leaf || l === 'both';
+          var ok = (!leaf || l === leaf || l === 'both') && (!q || (li.getAttribute('data-name') || '').indexOf(q) !== -1);
           li.hidden = !ok;
           if (ok) { shown++; li.querySelector('.bcard').classList.add('is-in'); }
         });
@@ -1101,8 +1105,19 @@
         });
         document.getElementById('br-count').textContent = MSP.plural('brands.count', shown);
         document.getElementById('br-empty').hidden = shown > 0;
-        ctx.replaceUrl(leaf ? '?leaf=' + leaf : '');
+        var qs = [];
+        if (input.value.trim()) qs.push('q=' + encodeURIComponent(input.value.trim()));
+        if (leaf) qs.push('leaf=' + leaf);
+        ctx.replaceUrl(qs.length ? '?' + qs.join('&') : '');
       }
+      input.addEventListener('input', apply);
+      document.getElementById('br-form').addEventListener('submit', function (e) {
+        e.preventDefault();
+        // Enter sa samo jednim pogotkom vodi pravo na taj brend
+        var hits = Array.prototype.filter.call(items, function (li) { return !li.hidden; });
+        if (hits.length === 1) hits[0].querySelector('.bcard').click(); else input.blur();
+      });
+      jump.addEventListener('change', function () { if (jump.value) location.href = jump.value; });
       group.addEventListener('click', function (e) {
         var b = e.target.closest('.chip');
         if (!b) return;

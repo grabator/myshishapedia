@@ -319,11 +319,26 @@
     return (
       V.pageHero({ id: 'brands-title', eyebrow: t('brands.eyebrow'), title: t('brands.title'), lead: t('brands.lead'), crumbs: crumbs }) +
       '<section class="fsec fsec--flush"><div class="container">' +
+        '<div class="fl-tools br-tools">' +
+          '<form class="search search--small fl-search" role="search" id="br-form" action="' + V.url('brands') + '">' +
+            '<label class="sr-only" for="br-q">' + esc(t('brands.searchLabel')) + '</label>' +
+            '<span class="search__icon" aria-hidden="true">' + icon('search') + '</span>' +
+            '<input class="search__input" id="br-q" name="q" type="search" autocomplete="off" spellcheck="false" placeholder="' + esc(t('brands.searchPlaceholder')) + '">' +
+          '</form>' +
+          '<div class="fl-sort"><label class="fl-sort__label" for="br-jump">' + esc(t('brands.jumpLabel')) + '</label>' +
+            '<select id="br-jump"><option value="">' + esc(t('brands.jumpPick')) + '</option>' +
+              list.slice().sort(function (a, c) { return a.name.localeCompare(c.name); }).map(function (b) {
+                return '<option value="' + esc(V.brandUrl(b)) + '">' + esc(b.name) + ' (' + V.brandFlavors(b).length + ')</option>';
+              }).join('') +
+            '</select></div>' +
+        '</div>' +
         '<div class="filters" role="group" aria-label="' + esc(t('brands.filterLabel')) + '" id="br-leaf">' +
           chip('', t('brands.all'), true) + chip('light', t('leaf.light'), false) + chip('dark', t('leaf.dark'), false) +
         '</div>' +
         '<p class="catalog__count" id="br-count" aria-live="polite">' + esc(MSP.plural('brands.count', list.length)) + '</p>' +
-        '<ul class="bcards" id="br-grid" role="list">' + list.map(function (b, i) { return '<li class="bcards__item">' + V.brandCard(b, 'h2', i) + '</li>'; }).join('') + '</ul>' +
+        '<ul class="bcards" id="br-grid" role="list">' + list.map(function (b, i) {
+          return '<li class="bcards__item" data-name="' + esc(V.normalize(b.name + ' ' + MSP.L(b.country, 'bs') + ' ' + MSP.L(b.country, 'en'))) + '">' + V.brandCard(b, 'h2', i) + '</li>';
+        }).join('') + '</ul>' +
         '<p class="empty" id="br-empty" hidden>' + esc(t('brands.empty')) + '</p>' +
         '<p class="fl-suggest-line">' + esc(t('flavorsPage.suggestLine')) + ' <a href="' + V.url('suggest') + '">' + esc(t('nav.suggest')) + '</a></p>' +
       '</div></section>'
