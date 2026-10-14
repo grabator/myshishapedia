@@ -111,6 +111,18 @@
     return 'msp-' + prefix + '-' + uidCounter;
   }
 
+  /** Kružni gradijent za okrugle plodove: svjetlije gore lijevo, tamnije na rubu. */
+  function radial(gid, c) {
+    return '<radialGradient id="' + gid + '" cx="0.38" cy="0.34" r="0.75">' +
+      '<stop offset="0" stop-color="' + lighten(c, 0.35) + '"/><stop offset="0.55" stop-color="' + c + '"/><stop offset="1" stop-color="' + darken(c, 0.4) + '"/>' +
+      '</radialGradient>';
+  }
+
+  /** Okomiti gradijent od boje a (gore) do boje b (dolje). */
+  function linear(gid, a, b) {
+    return '<linearGradient id="' + gid + '" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="' + a + '"/><stop offset="1" stop-color="' + b + '"/></linearGradient>';
+  }
+
   function n(v) {
     return Math.round(v * 10) / 10;
   }
@@ -1166,11 +1178,11 @@
       );
     },
 
-    /* Kola: čaša tamne kole sa pjenom, kockama leda, mjehurićima i slamkom. */
+    /* Kola: čaša tamne kole sa pjenom, mjehurićima i slamkom (bez leda). */
     kola: function (c) {
       var id = uid('kola');
       var glass = 'M54 56L146 56L135 176Q134 186 124 186L76 186Q66 186 65 176Z';
-      var bubbles = [[84, 120, 3], [112, 140, 2.5], [96, 160, 3.5], [122, 108, 2], [78, 150, 2], [106, 98, 2.5], [90, 92, 2]].map(function (b) {
+      var bubbles = [[84, 120, 3], [112, 140, 2.5], [96, 160, 3.5], [122, 108, 2], [78, 150, 2], [106, 98, 2.5], [90, 92, 2], [72, 100, 2.5], [118, 124, 3], [100, 128, 2], [128, 92, 2.5], [86, 170, 2.5], [112, 166, 2]].map(function (b) {
         return '<circle cx="' + b[0] + '" cy="' + b[1] + '" r="' + b[2] + '"/>';
       }).join('');
       return (
@@ -1187,8 +1199,6 @@
         '<g clip-path="url(#' + id + '-g)">' +
           '<rect x="40" y="76" width="120" height="120" fill="url(#' + id + '-c)"/>' +
           '<path d="M40 80C60 70 72 86 92 76S126 70 160 78V68H40Z" fill="' + mix(c, '#f3dcc0', 0.75) + '"/>' +
-          '<rect x="66" y="82" width="34" height="30" rx="6" fill="#ffffff" opacity="0.4" transform="rotate(-12 83 97)"/>' +
-          '<rect x="100" y="90" width="30" height="28" rx="6" fill="#ffffff" opacity="0.32" transform="rotate(14 115 104)"/>' +
           '<g fill="#ffffff" opacity="0.55">' + bubbles + '</g>' +
         '</g>' +
         '<path d="' + glass + '" fill="none" stroke="#fff" stroke-width="3" stroke-linejoin="round" opacity="0.75"/>' +
@@ -1502,6 +1512,447 @@
         '<path d="M70 52C40 20 70 0 100 20C130 0 160 20 132 52C120 66 82 66 70 52Z" fill="#5aa84a" stroke="#2f6b2a" stroke-width="2"/>' +
         '<path d="M100 22V58M100 40L80 30M100 40L120 30" stroke="#2f6b2a" stroke-width="1.5" opacity="0.6"/>' +
         stalk(82, -8) + stalk(104, 2) + stalk(126, 10)
+      );
+    },
+
+    /* Konzerva kondenzovanog mlijeka: limena konzerva sa etiketom i gusto mlijeko koje curi preko ruba. */
+    kondenzovano: function (c) {
+      var id = uid('kondenzovano');
+      var milk = '#fbf3e1';
+      var milkShade = '#ecdcbc';
+      return (
+        '<defs>' +
+          '<linearGradient id="' + id + '-t" x1="0" y1="0" x2="1" y2="0">' +
+            '<stop offset="0" stop-color="#8d939b"/><stop offset="0.35" stop-color="#e9edf1"/>' +
+            '<stop offset="0.7" stop-color="#b9c0c8"/><stop offset="1" stop-color="#7d838b"/>' +
+          '</linearGradient>' +
+          '<linearGradient id="' + id + '-l" x1="0" y1="0" x2="1" y2="0">' +
+            '<stop offset="0" stop-color="' + darken(c, 0.25) + '"/><stop offset="0.4" stop-color="' + lighten(c, 0.15) + '"/>' +
+            '<stop offset="1" stop-color="' + darken(c, 0.3) + '"/>' +
+          '</linearGradient>' +
+        '</defs>' +
+        '<ellipse cx="100" cy="178" rx="50" ry="9" fill="#000" opacity="0.12"/>' +
+        '<path d="M56 74V170A44 11 0 0 0 144 170V74Z" fill="url(#' + id + '-t)"/>' +
+        '<path d="M56 96H144V150H56Z" fill="url(#' + id + '-l)"/>' +
+        '<path d="M56 96H144M56 150H144" stroke="' + darken(c, 0.4) + '" stroke-width="2" opacity="0.5"/>' +
+        '<path d="M56 160H144M56 84H144" stroke="#6f757d" stroke-width="2" opacity="0.35"/>' +
+        '<ellipse cx="100" cy="123" rx="22" ry="14" fill="' + milk + '" opacity="0.92"/>' +
+        '<path d="M88 123C92 116 108 116 112 123" stroke="' + darken(c, 0.35) + '" stroke-width="3" fill="none" stroke-linecap="round"/>' +
+        '<ellipse cx="100" cy="74" rx="44" ry="11" fill="#c9cfd6" stroke="#8d939b" stroke-width="2"/>' +
+        '<ellipse cx="100" cy="74" rx="36" ry="8" fill="' + milk + '"/>' +
+        '<path d="M70 76C70 92 78 96 78 104C78 112 88 112 88 104C88 96 92 90 96 84C100 92 100 120 108 120C116 120 116 110 114 98C112 88 118 84 122 80C126 86 126 92 132 92C138 92 136 82 132 76Z" fill="' + milk + '" stroke="' + milkShade + '" stroke-width="2" stroke-linejoin="round"/>' +
+        '<path d="M80 78C88 82 112 82 122 78" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round" opacity="0.8"/>' +
+        '<path d="M64 100V146" stroke="#fff" stroke-width="5" stroke-linecap="round" opacity="0.35"/>'
+      );
+    },
+
+    /* ---------- MUSTHAVE linija: novi sastojci ---------- */
+
+    /* Bobice: gomilica sitnih okruglih bobica (brusnica, kisele bobice). */
+    bobice: function (c) {
+      var id = uid('bobice');
+      var pts = [[58, 146], [100, 152], [142, 146], [78, 116], [122, 116], [100, 84], [46, 112], [154, 112]];
+      var b = pts.map(function (p) {
+        return '<circle cx="' + p[0] + '" cy="' + p[1] + '" r="22" fill="url(#' + id + '-g)"/>' +
+          '<ellipse cx="' + (p[0] - 7) + '" cy="' + (p[1] - 8) + '" rx="5" ry="7" fill="#fff" opacity="0.4" transform="rotate(30 ' + (p[0] - 7) + ' ' + (p[1] - 8) + ')"/>' +
+          '<path d="M' + (p[0] + 6) + ' ' + (p[1] - 16) + 'l4 -3m-4 3l-2 -4m2 4l5 1" stroke="' + darken(c, 0.55) + '" stroke-width="1.6" stroke-linecap="round"/>';
+      }).join('');
+      return (
+        '<defs>' + radial(id + '-g', c) + '</defs>' +
+        '<path d="M100 66C116 42 146 38 160 46C146 64 120 70 100 66Z" fill="#4f9a5a"/>' +
+        '<path d="M100 66C80 46 52 44 40 52C54 68 80 72 100 66Z" fill="#3f8a4c"/>' + b
+      );
+    },
+
+    /* Grozdić: bobice na peteljci (ribizla, bazga, žutika, pasji trn). */
+    grozdic: function (c) {
+      var id = uid('grozdic');
+      var pts = [[92, 74, 15], [114, 82, 15], [84, 100, 16], [108, 106, 16], [130, 108, 14], [76, 128, 15], [100, 132, 16], [124, 134, 15], [90, 156, 15], [114, 158, 14], [102, 180, 12]];
+      var b = pts.map(function (p) {
+        return '<circle cx="' + p[0] + '" cy="' + p[1] + '" r="' + p[2] + '" fill="url(#' + id + '-g)"/>' +
+          '<circle cx="' + (p[0] - 5) + '" cy="' + (p[1] - 5) + '" r="' + (p[2] * 0.28) + '" fill="#fff" opacity="0.45"/>';
+      }).join('');
+      return (
+        '<defs>' + radial(id + '-g', c) + '</defs>' +
+        '<path d="M70 22C88 30 100 44 102 62M102 62C96 90 92 120 100 170" fill="none" stroke="#6b5a2e" stroke-width="4" stroke-linecap="round"/>' +
+        '<path d="M100 40C122 18 158 20 172 32C152 52 122 54 100 40Z" fill="#4f9a5a"/>' +
+        '<path d="M104 40C126 34 148 32 168 32" fill="none" stroke="#2f6b3a" stroke-width="1.6" opacity="0.6"/>' + b
+      );
+    },
+
+    /* Ogrozd: dvije prozirne bobice sa prugama. */
+    ogrozd: function (c) {
+      var id = uid('ogrozd');
+      function berry(x, y, r) {
+        return '<ellipse cx="' + x + '" cy="' + y + '" rx="' + r + '" ry="' + (r * 1.12) + '" fill="url(#' + id + '-g)" stroke="' + darken(c, 0.25) + '" stroke-width="1.5"/>' +
+          '<path d="M' + x + ' ' + (y - r * 1.1) + 'C' + (x - r * 0.9) + ' ' + (y - r * 0.4) + ' ' + (x - r * 0.9) + ' ' + (y + r * 0.4) + ' ' + x + ' ' + (y + r * 1.1) +
+          'M' + x + ' ' + (y - r * 1.1) + 'C' + (x + r * 0.9) + ' ' + (y - r * 0.4) + ' ' + (x + r * 0.9) + ' ' + (y + r * 0.4) + ' ' + x + ' ' + (y + r * 1.1) +
+          'M' + x + ' ' + (y - r * 1.1) + 'V' + (y + r * 1.1) + '" fill="none" stroke="' + lighten(c, 0.55) + '" stroke-width="1.6" opacity="0.8"/>' +
+          '<path d="M' + x + ' ' + (y - r * 1.1) + 'l-3 -10" stroke="#7a5a2a" stroke-width="3" stroke-linecap="round"/>' +
+          '<ellipse cx="' + (x - r * 0.4) + '" cy="' + (y - r * 0.45) + '" rx="' + (r * 0.16) + '" ry="' + (r * 0.26) + '" fill="#fff" opacity="0.6" transform="rotate(25 ' + (x - r * 0.4) + ' ' + (y - r * 0.45) + ')"/>';
+      }
+      return '<defs>' + radial(id + '-g', c) + '</defs>' + berry(76, 114, 44) + berry(138, 132, 36);
+    },
+
+    /* Vino: čaša crnog vina. */
+    vino: function (c) {
+      var id = uid('vino');
+      return (
+        '<defs>' + linear(id + '-l', lighten(c, 0.15), darken(c, 0.45)) + '</defs>' +
+        '<ellipse cx="100" cy="176" rx="40" ry="8" fill="#ffffff" opacity="0.35" stroke="#fff" stroke-width="2"/>' +
+        '<path d="M100 112V172" stroke="#fff" stroke-width="5" opacity="0.6"/>' +
+        '<path d="M62 64H138C136 94 122 110 100 112C78 110 64 94 62 64Z" fill="url(#' + id + '-l)"/>' +
+        '<ellipse cx="100" cy="64" rx="38" ry="6" fill="' + lighten(c, 0.25) + '"/>' +
+        '<path d="M58 22H142C146 84 130 112 100 114C70 112 54 84 58 22Z" fill="#ffffff" opacity="0.1" stroke="#fff" stroke-width="3" stroke-linejoin="round"/>' +
+        '<path d="M70 34C68 60 72 84 84 100" stroke="#fff" stroke-width="5" stroke-linecap="round" fill="none" opacity="0.4"/>'
+      );
+    },
+
+    /* Šampanjac: visoka čaša sa mjehurićima (prosecco, šampanjac). */
+    sampanjac: function (c) {
+      var id = uid('samp');
+      var bub = [[96, 70, 2.5], [104, 90, 2], [94, 104, 3], [106, 60, 2], [100, 116, 2]].map(function (b) {
+        return '<circle cx="' + b[0] + '" cy="' + b[1] + '" r="' + b[2] + '" fill="#fff" opacity="0.8"/>';
+      }).join('');
+      return (
+        '<defs>' + linear(id + '-l', lighten(c, 0.3), darken(c, 0.15)) + '</defs>' +
+        '<ellipse cx="100" cy="178" rx="34" ry="7" fill="#ffffff" opacity="0.35" stroke="#fff" stroke-width="2"/>' +
+        '<path d="M100 126V176" stroke="#fff" stroke-width="4" opacity="0.6"/>' +
+        '<path d="M80 44H120L115 110Q111 124 100 126Q89 124 85 110Z" fill="url(#' + id + '-l)"/>' + bub +
+        '<path d="M76 16H124L117 110Q112 128 100 128Q88 128 83 110Z" fill="#ffffff" opacity="0.1" stroke="#fff" stroke-width="3" stroke-linejoin="round"/>' +
+        '<path d="M86 28L90 104" stroke="#fff" stroke-width="4" stroke-linecap="round" opacity="0.4"/>'
+      );
+    },
+
+    /* Liker: niska čaša jakog pića (rum, liker, apsint). */
+    liker: function (c) {
+      var id = uid('liker');
+      return (
+        '<defs>' + linear(id + '-l', lighten(c, 0.2), darken(c, 0.4)) + '</defs>' +
+        '<path d="M56 96H144L139 164Q138 176 126 176H74Q62 176 61 164Z" fill="url(#' + id + '-l)"/>' +
+        '<ellipse cx="100" cy="96" rx="44" ry="7" fill="' + lighten(c, 0.35) + '"/>' +
+        '<path d="M50 52H150L141 166Q139 182 124 182H76Q61 182 59 166Z" fill="#ffffff" opacity="0.12" stroke="#fff" stroke-width="3" stroke-linejoin="round"/>' +
+        '<path d="M62 160H138" stroke="#fff" stroke-width="2" opacity="0.5"/>' +
+        '<path d="M66 64L72 156" stroke="#fff" stroke-width="5" stroke-linecap="round" opacity="0.4"/>'
+      );
+    },
+
+    /* Kolač: kriška torte (fil u boji sastojka). */
+    kolac: function (c) {
+      return (
+        '<ellipse cx="104" cy="168" rx="84" ry="12" fill="#000" opacity="0.15"/>' +
+        '<path d="M24 118L156 88V140L24 168Z" fill="#f1d39a"/>' +
+        '<path d="M24 138L156 108V120L24 150Z" fill="' + c + '"/>' +
+        '<path d="M24 160L156 130V140L24 168Z" fill="#c98a45"/>' +
+        '<path d="M156 88L182 108V160L156 140Z" fill="#d9a55e"/>' +
+        '<path d="M24 118L156 88L182 108Z" fill="' + lighten(c, 0.35) + '" stroke="' + darken(c, 0.2) + '" stroke-width="2" stroke-linejoin="round"/>' +
+        '<circle cx="146" cy="96" r="10" fill="#fffaf0"/><circle cx="150" cy="86" r="6" fill="' + darken(c, 0.15) + '"/>' +
+        '<path d="M40 126L140 104" stroke="#fff" stroke-width="3" opacity="0.4" stroke-linecap="round"/>'
+      );
+    },
+
+    /* Keks: keks sa kremom u sredini (boja = keks). */
+    keks: function (c) {
+      var dots = '';
+      for (var i = 0; i < 8; i++) {
+        var a = (i / 8) * Math.PI * 2;
+        dots += '<circle cx="' + (100 + Math.cos(a) * 44).toFixed(1) + '" cy="' + (78 + Math.sin(a) * 13).toFixed(1) + '" r="3" fill="' + darken(c, 0.35) + '"/>';
+      }
+      return (
+        '<ellipse cx="100" cy="150" rx="72" ry="22" fill="' + darken(c, 0.3) + '"/>' +
+        '<path d="M28 132V150A72 22 0 0 0 172 150V132Z" fill="' + darken(c, 0.15) + '"/>' +
+        '<ellipse cx="100" cy="132" rx="72" ry="22" fill="' + c + '"/>' +
+        '<path d="M32 112V124C32 136 168 136 168 124V112Z" fill="#fbf3e3"/>' +
+        '<ellipse cx="100" cy="112" rx="68" ry="20" fill="#fffaf0"/>' +
+        '<path d="M28 80V98A72 22 0 0 0 172 98V80Z" fill="' + darken(c, 0.15) + '"/>' +
+        '<ellipse cx="100" cy="80" rx="72" ry="22" fill="' + lighten(c, 0.12) + '"/>' +
+        '<ellipse cx="100" cy="78" rx="54" ry="15" fill="none" stroke="' + darken(c, 0.25) + '" stroke-width="2"/>' + dots +
+        '<path d="M56 72C70 66 86 64 100 64" stroke="#fff" stroke-width="3" opacity="0.3" stroke-linecap="round" fill="none"/>'
+      );
+    },
+
+    /* Rolat: kiflica sa cimetom (spirala), sa glazurom. */
+    rolat: function (c) {
+      var id = uid('rolat');
+      return (
+        '<defs>' + radial(id + '-g', '#e2ad6c') + '</defs>' +
+        '<ellipse cx="100" cy="166" rx="70" ry="10" fill="#000" opacity="0.15"/>' +
+        '<circle cx="100" cy="100" r="68" fill="url(#' + id + '-g)"/>' +
+        '<path d="M100 100m0 -8a8 8 0 1 1 -8 8a16 16 0 1 1 16 16a24 24 0 1 1 -24 -24a32 32 0 1 1 32 32a40 40 0 1 1 -40 -40a48 48 0 1 1 48 48" fill="none" stroke="' + c + '" stroke-width="7" stroke-linecap="round"/>' +
+        '<path d="M48 70L72 58L66 84L96 68L88 98L122 80L114 112L146 96L136 128" fill="none" stroke="#fffaf0" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" opacity="0.9"/>'
+      );
+    },
+
+    /* Lisnato tijesto: kocka slojevitog tijesta sa glazurom u boji sastojka. */
+    kroasan: function (c) {
+      var lines = '';
+      for (var i = 0; i < 5; i++) lines += '<path d="M40 ' + (110 + i * 9) + 'H160" stroke="#c98a45" stroke-width="2" opacity="0.7"/>';
+      return (
+        '<ellipse cx="108" cy="162" rx="80" ry="10" fill="#000" opacity="0.15"/>' +
+        '<path d="M40 102H160V156H40Z" fill="#f0c784"/>' + lines +
+        '<path d="M160 102L184 78V132L160 156Z" fill="#d9a55e"/>' +
+        '<path d="M40 102L64 78H184L160 102Z" fill="#e8b46a"/>' +
+        '<path d="M48 100C60 90 74 98 86 88S112 92 124 84S150 86 168 80L182 80L160 100Z" fill="' + c + '" opacity="0.92"/>' +
+        '<path d="M70 100C70 112 76 114 78 106M126 100C126 116 132 118 134 108" stroke="' + c + '" stroke-width="5" stroke-linecap="round" fill="none"/>'
+      );
+    },
+
+    /* Sladoled: dvije kugle u kornetu. */
+    sladoled: function (c) {
+      var id = uid('slad');
+      var hatch = '<path d="M74 110L112 176M90 110L120 162M106 110L126 144M126 110L88 176M110 110L80 162M94 110L74 144" stroke="#b9803d" stroke-width="2" opacity="0.7"/>';
+      return (
+        '<defs>' + radial(id + '-g', c) + '<clipPath id="' + id + '-k"><path d="M66 108H134L100 190Z"/></clipPath></defs>' +
+        '<path d="M66 108H134L100 190Z" fill="#e2ad6c"/>' +
+        '<g clip-path="url(#' + id + '-k)">' + hatch + '</g>' +
+        '<circle cx="84" cy="96" r="30" fill="url(#' + id + '-g)"/>' +
+        '<circle cx="116" cy="96" r="30" fill="url(#' + id + '-g)"/>' +
+        '<circle cx="100" cy="64" r="32" fill="url(#' + id + '-g)"/>' +
+        '<path d="M58 108C64 120 70 112 76 118S90 112 98 120S112 112 120 118S136 112 142 108" fill="' + c + '"/>' +
+        '<ellipse cx="88" cy="50" rx="8" ry="11" fill="#fff" opacity="0.45" transform="rotate(30 88 50)"/>'
+      );
+    },
+
+    /* Riža na mlijeku: zdjela kaše sa kašikom (boja = zdjela). */
+    riza: function (c) {
+      var grains = '';
+      [[70, 96], [88, 92], [108, 98], [126, 92], [80, 104], [118, 104], [98, 88], [138, 100], [62, 102]].forEach(function (g) {
+        grains += '<ellipse cx="' + g[0] + '" cy="' + g[1] + '" rx="5" ry="2.4" fill="#fff" transform="rotate(' + ((g[0] * 7) % 60 - 30) + ' ' + g[0] + ' ' + g[1] + ')"/>';
+      });
+      return (
+        '<path d="M150 40L118 92" stroke="#c9c9cf" stroke-width="8" stroke-linecap="round"/>' +
+        '<path d="M34 96H166C164 140 138 168 100 168C62 168 36 140 34 96Z" fill="' + c + '"/>' +
+        '<path d="M42 110C50 142 72 160 100 162" stroke="#fff" stroke-width="5" fill="none" opacity="0.3" stroke-linecap="round"/>' +
+        '<ellipse cx="100" cy="96" rx="66" ry="16" fill="#f6ecd6"/>' + grains +
+        '<ellipse cx="112" cy="96" rx="12" ry="5" fill="#d8a256" opacity="0.7"/>'
+      );
+    },
+
+    /* Kukuruzni štapići: slatki napuhani štapići. */
+    stapici: function (c) {
+      var id = uid('stap');
+      function stick(x, y, r) {
+        var d = '';
+        for (var i = 0; i < 6; i++) d += '<circle cx="' + (x - 40 + i * 16) + '" cy="' + (y + ((i % 2) ? -5 : 5)) + '" r="1.8" fill="' + darken(c, 0.25) + '"/>';
+        return '<g transform="rotate(' + r + ' ' + x + ' ' + y + ')"><rect x="' + (x - 56) + '" y="' + (y - 16) + '" width="112" height="32" rx="16" fill="url(#' + id + '-l)"/>' + d +
+          '<path d="M' + (x - 44) + ' ' + (y - 8) + 'H' + (x + 40) + '" stroke="#fff" stroke-width="4" stroke-linecap="round" opacity="0.4"/></g>';
+      }
+      return '<defs>' + linear(id + '-l', lighten(c, 0.35), darken(c, 0.15)) + '</defs>' +
+        stick(96, 70, -24) + stick(104, 112, 12) + stick(92, 150, -6);
+    },
+
+    /* Puslica: bijeli kovrčavi beze. */
+    puslica: function (c) {
+      var id = uid('pusl');
+      return (
+        '<defs>' + linear(id + '-l', '#ffffff', mix(c, '#ffffff', 0.4)) + '</defs>' +
+        '<ellipse cx="100" cy="168" rx="70" ry="10" fill="#000" opacity="0.15"/>' +
+        '<path d="M34 164C30 128 64 120 70 104C74 90 70 80 82 66C92 54 96 44 100 26C106 46 112 56 120 66C132 80 126 92 132 104C138 120 172 128 166 164Z" fill="url(#' + id + '-l)" stroke="' + mix(c, '#ffffff', 0.2) + '" stroke-width="2"/>' +
+        '<path d="M50 160C56 130 80 124 86 100C92 80 98 62 100 32M150 160C144 130 120 124 114 100C108 80 102 62 100 32M100 164V60" fill="none" stroke="' + mix(c, '#ffffff', 0.25) + '" stroke-width="2.5" opacity="0.8"/>'
+      );
+    },
+
+    /* Liči: cijeli kvrgavi plod i oguljen bijeli plod. */
+    lici: function (c) {
+      var id = uid('lici');
+      var bumps = '';
+      for (var r = 0; r < 5; r++) for (var k = 0; k < 5; k++) {
+        var x = 52 + k * 18 + (r % 2) * 9, y = 72 + r * 18;
+        if ((x - 88) * (x - 88) + (y - 108) * (y - 108) < 1500) bumps += '<path d="M' + (x - 6) + ' ' + y + 'L' + x + ' ' + (y - 6) + 'L' + (x + 6) + ' ' + y + 'L' + x + ' ' + (y + 6) + 'Z" fill="none" stroke="' + darken(c, 0.35) + '" stroke-width="1.4" opacity="0.7"/>';
+      }
+      return (
+        '<defs>' + radial(id + '-g', c) + radial(id + '-w', '#f3eee2') + '</defs>' +
+        '<circle cx="88" cy="108" r="48" fill="url(#' + id + '-g)"/>' + bumps +
+        '<path d="M88 60C86 50 90 42 96 36" stroke="#6b5a2e" stroke-width="4" stroke-linecap="round" fill="none"/>' +
+        '<circle cx="142" cy="146" r="32" fill="url(#' + id + '-w)" opacity="0.95"/>' +
+        '<ellipse cx="132" cy="134" rx="8" ry="11" fill="#fff" opacity="0.7" transform="rotate(30 132 134)"/>'
+      );
+    },
+
+    /* Kivi: presječen kivi sa sjemenkama. */
+    kivi: function (c) {
+      var id = uid('kivi');
+      var seeds = '';
+      for (var i = 0; i < 18; i++) {
+        var a = (i / 18) * Math.PI * 2, x = 100 + Math.cos(a) * 30, y = 100 + Math.sin(a) * 30;
+        seeds += '<ellipse cx="' + x.toFixed(1) + '" cy="' + y.toFixed(1) + '" rx="2.2" ry="5" fill="#1d1a12" transform="rotate(' + ((a * 180 / Math.PI) + 90).toFixed(0) + ' ' + x.toFixed(1) + ' ' + y.toFixed(1) + ')"/>';
+      }
+      return (
+        '<defs>' + radial(id + '-g', c) + '</defs>' +
+        '<circle cx="100" cy="100" r="68" fill="#8a6a3a"/>' +
+        '<circle cx="100" cy="100" r="61" fill="url(#' + id + '-g)"/>' +
+        '<ellipse cx="100" cy="100" rx="18" ry="14" fill="#f4f1d0"/>' + seeds +
+        '<path d="M60 70C70 56 84 50 98 48" stroke="#fff" stroke-width="5" stroke-linecap="round" fill="none" opacity="0.35"/>'
+      );
+    },
+
+    /* Nar: plod sa krunicom i nekoliko zrna. */
+    nar: function (c) {
+      var id = uid('nar');
+      var seeds = [[148, 162], [164, 152], [158, 174], [138, 176]].map(function (s) {
+        return '<path d="M' + s[0] + ' ' + (s[1] - 9) + 'L' + (s[0] + 7) + ' ' + s[1] + 'L' + s[0] + ' ' + (s[1] + 9) + 'L' + (s[0] - 7) + ' ' + s[1] + 'Z" fill="' + lighten(c, 0.1) + '" stroke="' + darken(c, 0.3) + '" stroke-width="1"/>' +
+          '<circle cx="' + (s[0] - 2) + '" cy="' + (s[1] - 3) + '" r="2" fill="#fff" opacity="0.6"/>';
+      }).join('');
+      return (
+        '<defs>' + radial(id + '-g', c) + '</defs>' +
+        '<circle cx="92" cy="106" r="62" fill="url(#' + id + '-g)"/>' +
+        '<path d="M76 50L80 32L88 44L92 28L98 44L106 32L108 50Z" fill="' + darken(c, 0.2) + '"/>' +
+        '<ellipse cx="68" cy="84" rx="12" ry="20" fill="#fff" opacity="0.3" transform="rotate(30 68 84)"/>' + seeds
+      );
+    },
+
+    /* Šljiva: dvije šljive sa listom (i suha šljiva u tamnoj boji). */
+    sljiva: function (c) {
+      var id = uid('sljiva');
+      function plum(x, y) {
+        return '<ellipse cx="' + x + '" cy="' + y + '" rx="40" ry="46" fill="url(#' + id + '-g)"/>' +
+          '<path d="M' + (x + 4) + ' ' + (y - 44) + 'C' + (x - 12) + ' ' + (y - 10) + ' ' + (x - 12) + ' ' + (y + 20) + ' ' + (x + 2) + ' ' + (y + 44) + '" fill="none" stroke="' + darken(c, 0.35) + '" stroke-width="2" opacity="0.7"/>' +
+          '<ellipse cx="' + (x - 16) + '" cy="' + (y - 16) + '" rx="8" ry="14" fill="#fff" opacity="0.3" transform="rotate(25 ' + (x - 16) + ' ' + (y - 16) + ')"/>';
+      }
+      return (
+        '<defs>' + radial(id + '-g', c) + '</defs>' +
+        '<path d="M110 52C112 40 118 30 126 24" stroke="#6b5a2e" stroke-width="4" stroke-linecap="round" fill="none"/>' +
+        '<path d="M124 26C142 12 170 16 178 30C158 40 138 38 124 26Z" fill="#4f9a5a"/>' +
+        plum(74, 128) + plum(126, 104)
+      );
+    },
+
+    /* Kokos: prepolovljen kokos sa bijelim mesom. */
+    kokos: function (c) {
+      var hair = '';
+      for (var i = 0; i < 12; i++) hair += '<path d="M' + (44 + i * 10) + ' ' + (120 + Math.abs(6 - i) * 2) + 'l6 12" stroke="#4a2c17" stroke-width="2" opacity="0.6"/>';
+      return (
+        '<circle cx="132" cy="70" r="42" fill="#6b4428"/>' +
+        '<circle cx="122" cy="58" r="5" fill="#3c2414"/><circle cx="140" cy="56" r="5" fill="#3c2414"/><circle cx="132" cy="72" r="5" fill="#3c2414"/>' +
+        '<path d="M28 116A72 60 0 0 0 172 116Z" fill="#7a4f2e"/>' + hair +
+        '<ellipse cx="100" cy="116" rx="72" ry="20" fill="#fffaf0"/>' +
+        '<ellipse cx="100" cy="118" rx="60" ry="14" fill="' + c + '"/>' +
+        '<path d="M50 112C70 104 96 102 120 104" stroke="#fff" stroke-width="3" opacity="0.5" fill="none" stroke-linecap="round"/>'
+      );
+    },
+
+    /* Papaja: prepolovljena papaja sa crnim sjemenkama. */
+    papaja: function (c) {
+      var id = uid('papaja');
+      var seeds = '';
+      [[96, 96], [106, 104], [92, 112], [104, 120], [96, 128], [108, 136], [98, 144], [88, 124], [112, 112]].forEach(function (s) {
+        seeds += '<circle cx="' + s[0] + '" cy="' + s[1] + '" r="5" fill="#1d1a12"/><circle cx="' + (s[0] - 1.5) + '" cy="' + (s[1] - 1.5) + '" r="1.4" fill="#fff" opacity="0.6"/>';
+      });
+      return (
+        '<defs>' + radial(id + '-g', c) + '</defs>' +
+        '<path d="M100 20C150 20 168 90 160 136C152 176 124 186 100 186C76 186 48 176 40 136C32 90 50 20 100 20Z" fill="#9cc94a"/>' +
+        '<path d="M100 28C144 28 160 92 152 134C146 170 122 178 100 178C78 178 54 170 48 134C40 92 56 28 100 28Z" fill="url(#' + id + '-g)"/>' +
+        '<path d="M100 82C118 82 122 110 120 128C118 148 110 156 100 156C90 156 82 148 80 128C78 110 82 82 100 82Z" fill="' + darken(c, 0.15) + '"/>' + seeds
+      );
+    },
+
+    /* Guanabana: zeleni bodljikavi plod i bijela kriška sa sjemenkama. */
+    guanabana: function (c) {
+      var id = uid('guan');
+      var sp = '';
+      [[70, 70], [96, 60], [120, 74], [62, 100], [90, 92], [116, 104], [72, 130], [100, 124], [124, 134], [86, 156], [108, 160]].forEach(function (s) {
+        sp += '<path d="M' + s[0] + ' ' + s[1] + 'q4 -8 10 -6" stroke="' + darken(c, 0.4) + '" stroke-width="2.4" fill="none" stroke-linecap="round"/>';
+      });
+      return (
+        '<defs>' + radial(id + '-g', c) + '</defs>' +
+        '<path d="M96 36C140 36 150 90 146 124C142 164 116 182 92 180C62 178 46 152 48 116C50 74 60 36 96 36Z" fill="url(#' + id + '-g)"/>' + sp +
+        '<path d="M96 36C96 26 100 20 106 16" stroke="#6b5a2e" stroke-width="4" stroke-linecap="round" fill="none"/>' +
+        '<path d="M128 150L182 136L176 184L128 186Z" fill="#fbf7ec" stroke="' + c + '" stroke-width="4" stroke-linejoin="round"/>' +
+        '<ellipse cx="148" cy="162" rx="3" ry="5" fill="#1d1a12"/><ellipse cx="164" cy="170" rx="3" ry="5" fill="#1d1a12"/>'
+      );
+    },
+
+    /* Plod: okruglo egzotično voće sa listom (marula, feijoa). */
+    plod: function (c) {
+      var id = uid('plod');
+      var dots = '';
+      [[80, 96], [112, 90], [96, 126], [130, 120], [70, 130], [118, 150], [88, 154]].forEach(function (d) {
+        dots += '<circle cx="' + d[0] + '" cy="' + d[1] + '" r="1.8" fill="' + darken(c, 0.3) + '" opacity="0.7"/>';
+      });
+      return (
+        '<defs>' + radial(id + '-g', c) + '</defs>' +
+        '<ellipse cx="100" cy="118" rx="60" ry="56" fill="url(#' + id + '-g)"/>' + dots +
+        '<path d="M100 62C100 50 104 42 110 36" stroke="#6b5a2e" stroke-width="4" stroke-linecap="round" fill="none"/>' +
+        '<path d="M108 40C126 22 158 24 168 38C150 52 124 52 108 40Z" fill="#4f9a5a"/>' +
+        '<ellipse cx="76" cy="94" rx="12" ry="20" fill="#fff" opacity="0.3" transform="rotate(30 76 94)"/>'
+      );
+    },
+
+    /* Pistacija: otvorene ljuske sa zelenim jezgrom. */
+    pistacija: function (c) {
+      function nut(x, y, r) {
+        return '<g transform="rotate(' + r + ' ' + x + ' ' + y + ')">' +
+          '<ellipse cx="' + x + '" cy="' + y + '" rx="34" ry="24" fill="#e9d6b0" stroke="#bfa274" stroke-width="2"/>' +
+          '<ellipse cx="' + (x + 6) + '" cy="' + (y - 2) + '" rx="22" ry="14" fill="' + c + '"/>' +
+          '<ellipse cx="' + (x + 2) + '" cy="' + (y - 6) + '" rx="10" ry="4" fill="#fff" opacity="0.35"/>' +
+          '<path d="M' + (x - 30) + ' ' + y + 'C' + (x - 10) + ' ' + (y + 14) + ' ' + (x + 14) + ' ' + (y + 14) + ' ' + (x + 32) + ' ' + (y + 4) + '" stroke="#bfa274" stroke-width="2" fill="none"/></g>';
+      }
+      return nut(76, 82, -20) + nut(128, 104, 15) + nut(84, 144, 5);
+    },
+
+    /* Orah: polovine pekana (boja = orah). */
+    orah: function (c) {
+      function half(x, y, r) {
+        var ridges = '';
+        for (var i = -2; i <= 2; i++) ridges += '<path d="M' + (x - 18) + ' ' + (y + i * 12) + 'C' + (x - 8) + ' ' + (y + i * 12 - 6) + ' ' + (x + 8) + ' ' + (y + i * 12 + 6) + ' ' + (x + 18) + ' ' + (y + i * 12) + '" stroke="' + darken(c, 0.4) + '" stroke-width="2" fill="none"/>';
+        return '<g transform="rotate(' + r + ' ' + x + ' ' + y + ')">' +
+          '<ellipse cx="' + x + '" cy="' + y + '" rx="24" ry="40" fill="' + c + '" stroke="' + darken(c, 0.35) + '" stroke-width="2"/>' + ridges +
+          '<path d="M' + x + ' ' + (y - 38) + 'V' + (y + 38) + '" stroke="' + darken(c, 0.45) + '" stroke-width="2.5"/>' +
+          '<ellipse cx="' + (x - 10) + '" cy="' + (y - 18) + '" rx="4" ry="10" fill="#fff" opacity="0.25"/></g>';
+      }
+      return half(70, 96, -25) + half(124, 84, 20) + half(102, 146, 70);
+    },
+
+    /* Đumbir: korijen đumbira i kriška. */
+    djumbir: function (c) {
+      return (
+        '<path d="M30 120C30 96 56 92 66 100C70 78 92 70 104 84C112 66 140 66 146 86C164 84 176 100 168 118C176 136 158 152 140 144C128 160 104 156 98 144C84 158 58 154 56 138C40 142 30 132 30 120Z" fill="#d9b27a" stroke="#a9824a" stroke-width="2.5"/>' +
+        '<path d="M60 112C64 120 62 128 58 134M100 98C104 110 102 124 98 136M140 100C144 112 142 126 138 136" stroke="#a9824a" stroke-width="2" fill="none" opacity="0.8"/>' +
+        '<ellipse cx="146" cy="168" rx="26" ry="14" fill="#c9a067"/><ellipse cx="146" cy="164" rx="24" ry="12" fill="' + c + '"/>' +
+        '<ellipse cx="146" cy="164" rx="12" ry="6" fill="' + lighten(c, 0.3) + '"/>'
+      );
+    },
+
+    /* Aloja: debeli listovi aloje i prozirna kockica. */
+    aloja: function (c) {
+      var id = uid('aloja');
+      function leaf(d, r) {
+        return '<path d="' + d + '" fill="url(#' + id + '-l)" stroke="' + darken(c, 0.3) + '" stroke-width="2" transform="rotate(' + r + ' 100 180)"/>';
+      }
+      var L = 'M88 180C84 130 90 70 100 20C110 70 116 130 112 180Z';
+      return (
+        '<defs>' + linear(id + '-l', lighten(c, 0.2), darken(c, 0.25)) + '</defs>' +
+        leaf(L, -34) + leaf(L, 30) + leaf(L, 0) +
+        '<path d="M100 26L96 40M100 60L95 74M100 96L95 110M100 40L104 54M100 76L105 90" stroke="' + lighten(c, 0.5) + '" stroke-width="2" stroke-linecap="round"/>' +
+        '<rect x="130" y="136" width="36" height="36" rx="7" fill="#eef8e8" opacity="0.85" stroke="' + lighten(c, 0.3) + '" stroke-width="2"/>' +
+        '<path d="M138 146L150 146" stroke="#fff" stroke-width="3" stroke-linecap="round"/>'
+      );
+    },
+
+    /* Jelka: grana/jelka sa kapima kiše. */
+    jelka: function (c) {
+      var id = uid('jelka');
+      return (
+        '<defs>' + linear(id + '-l', lighten(c, 0.2), darken(c, 0.3)) + '</defs>' +
+        '<rect x="92" y="156" width="16" height="28" rx="3" fill="#6b4428"/>' +
+        '<path d="M100 18L136 70H118L150 112H124L164 160H36L76 112H50L82 70H64Z" fill="url(#' + id + '-l)"/>' +
+        '<path d="M100 18L82 70H100ZM100 70L76 112H100ZM100 112L64 160H100Z" fill="#000" opacity="0.12"/>' +
+        '<path d="M40 40q-5 9 0 12q5 -3 0 -12M160 52q-5 9 0 12q5 -3 0 -12M150 132q-4 8 0 10q4 -2 0 -10M52 94q-4 8 0 10q4 -2 0 -10" fill="#bfe6ff"/>'
+      );
+    },
+
+    /* Džem: tegla domaćeg džema sa poklopcem od tkanine. */
+    dzem: function (c) {
+      var id = uid('dzem');
+      return (
+        '<defs>' + linear(id + '-l', lighten(c, 0.1), darken(c, 0.4)) + '</defs>' +
+        '<path d="M52 70H148V160Q148 180 128 180H72Q52 180 52 160Z" fill="url(#' + id + '-l)" stroke="#fff" stroke-width="3" stroke-opacity="0.6"/>' +
+        '<rect x="70" y="112" width="60" height="34" rx="6" fill="#fffaf0"/>' +
+        '<path d="M80 124H120M86 134H114" stroke="' + c + '" stroke-width="3" stroke-linecap="round"/>' +
+        '<path d="M42 64C48 44 152 44 158 64L150 80C140 72 60 72 50 80Z" fill="#e8455a"/>' +
+        '<path d="M62 54v20M82 48v24M102 46v24M122 48v24M142 54v20M46 62H156" stroke="#fff" stroke-width="3" opacity="0.7"/>' +
+        '<path d="M50 76C80 70 120 70 150 76" stroke="#7a5a2a" stroke-width="3" fill="none"/>' +
+        '<path d="M60 92V156" stroke="#fff" stroke-width="5" stroke-linecap="round" opacity="0.3"/>'
       );
     },
 

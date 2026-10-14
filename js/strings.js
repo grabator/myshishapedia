@@ -511,7 +511,19 @@
         disclaimer: 'MyShishapedia nije povezana sa brendom {name}, niti je od njega sponzorisana. Ime brenda koristimo samo da bismo opisali okuse.',
         otherTitle: 'Ostali brendovi',
         allBrands: 'Svi brendovi',
-        metaIn: 'Okusi: {list}.'
+        metaIn: 'Okusi: {list}.',
+        showAll: 'Prikaži sve okuse ({n})',
+        glanceTitle: 'Sastav na prvi pogled',
+        glanceLead: 'Svi okusi i njihovi sastojci na jednom mjestu. Broj pokazuje koliko se sastojak osjeti, od 1 do 10.'
+      },
+
+      verified: {
+        by: 'Provjerio {name}',
+        on: 'sastav potvrđen {date}',
+        fact: 'Sastav',
+        factValue: 'Provjerio {name}, {date}',
+        brandBanner: { one: 'Sastav {n} od {total} okusa provjerio je {name}.', few: 'Sastav {n} od {total} okusa provjerio je {name}.', other: 'Sastav {n} od {total} okusa provjerio je {name}.' },
+        lastCheck: 'Zadnja provjera: {date}'
       },
 
       flavor: {
@@ -565,7 +577,9 @@
         klasicni: 'Klasični',
         zacinski: 'Začinski',
         desertni: 'Desertni',
-        pice: 'Piće'
+        pice: 'Piće',
+        caj: 'Čaj',
+        kiseli: 'Kiseli'
       },
 
       notFound: {
@@ -1240,7 +1254,19 @@
         disclaimer: 'MyShishapedia is not affiliated with or sponsored by {name}. We only use the brand name to describe its flavors.',
         otherTitle: 'Other brands',
         allBrands: 'All brands',
-        metaIn: 'Flavors: {list}.'
+        metaIn: 'Flavors: {list}.',
+        showAll: 'Show all flavors ({n})',
+        glanceTitle: 'Ingredients at a glance',
+        glanceLead: 'Every flavor and its ingredients in one place. The number shows how strong each ingredient comes through, from 1 to 10.'
+      },
+
+      verified: {
+        by: 'Verified by {name}',
+        on: 'ingredients confirmed {date}',
+        fact: 'Ingredients',
+        factValue: 'Verified by {name}, {date}',
+        brandBanner: { one: '{name} verified the ingredients of {n} of {total} flavors.', other: '{name} verified the ingredients of {n} of {total} flavors.' },
+        lastCheck: 'Last check: {date}'
       },
 
       flavor: {
@@ -1294,7 +1320,9 @@
         klasicni: 'Classic',
         zacinski: 'Spiced',
         desertni: 'Dessert',
-        pice: 'Drinks'
+        pice: 'Drinks',
+        caj: 'Tea',
+        kiseli: 'Sour'
       },
 
       notFound: {

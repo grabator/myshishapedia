@@ -646,6 +646,12 @@ function checkData() {
     if (!V.brandOf(fl)) errors.push(`okus ${fl.id}: nepoznat brend ${fl.brandId}`);
     if (!['light', 'dark'].includes(fl.leaf)) errors.push(`okus ${fl.id}: leaf mora biti 'light' ili 'dark'`);
     for (const id of fl.similar || []) if (!V.flavorById(id)) errors.push(`okus ${fl.id}: nepostojeći sličan okus ${id}`);
+    // verified: datum kad je brend potvrdio sastav (YYYY-MM-DD), pravi datum i ne u budućnosti
+    if (fl.verified !== undefined) {
+      const d = /^\d{4}-\d{2}-\d{2}$/.test(fl.verified) ? new Date(fl.verified + 'T00:00:00Z') : null;
+      if (!d || isNaN(d) || d.toISOString().slice(0, 10) !== fl.verified) errors.push(`okus ${fl.id}: verified mora biti datum YYYY-MM-DD`);
+      else if (d.getTime() > Date.now()) errors.push(`okus ${fl.id}: verified je u budućnosti`);
+    }
   }
   for (const b of V.brands()) {
     if (!V.brandFlavors(b).length) errors.push(`brend ${b.slug}: nema nijednog okusa`);

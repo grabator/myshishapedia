@@ -144,7 +144,7 @@ window.BRANDS = [
   },
   {
     slug: 'musthave',
-    name: 'MustHave',
+    name: 'MUSTHAVE',
     country: { bs: 'Rusija', en: 'Russia' },
     leaf: 'dark',
     short: {
@@ -153,11 +153,11 @@ window.BRANDS = [
     },
     about: {
       bs: [
-        'MustHave je brend iz Rusije na tamnom listu, sa okusima koji su sočni, jasni i često slatko-kiseli.',
+        'MUSTHAVE je brend iz Rusije na tamnom listu, sa okusima koji su sočni, jasni i često slatko-kiseli.',
         'Jači je od tipičnog svijetlog lista, pa je bolji za one koji već imaju malo iskustva.'
       ],
       en: [
-        'MustHave is a Russian brand on dark leaf, with flavors that are juicy, clear and often sweet and tart.',
+        'MUSTHAVE is a Russian brand on dark leaf, with flavors that are juicy, clear and often sweet and tart.',
         'It hits harder than typical blonde leaf, so it suits people who already have some experience.'
       ]
     },

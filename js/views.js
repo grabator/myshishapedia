@@ -130,6 +130,7 @@
     mail: '<rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m4 7 8 6 8-6"/>',
     jar: '<rect x="7.5" y="2.5" width="9" height="3.5" rx="1"/><path d="M7 6h10v1.2c1.2.9 2 2.3 2 3.8V19a2.5 2.5 0 0 1-2.5 2.5h-9A2.5 2.5 0 0 1 5 19v-8c0-1.5.8-2.9 2-3.8z"/><path class="icon__fill" d="M7.5 12.5h9V19a.8.8 0 0 1-.8.8H8.3a.8.8 0 0 1-.8-.8z"/>',
     check: '<path d="m5 12.5 4.5 4.5L19 7.5"/>',
+    chevronDown: '<path d="m6 9 6 6 6-6"/>',
     info: '<circle cx="12" cy="12" r="8.5"/><path d="M12 11v5.5M12 7.6v.1"/>',
     clock: '<circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/>',
     star: '<path d="m12 3.2 2.7 5.5 6 .9-4.35 4.25 1.03 6L12 17l-5.38 2.85 1.03-6L3.3 9.6l6-.9z"/>',
@@ -479,7 +480,7 @@
           '<span class="card__glow" aria-hidden="true"></span>' +
           '<span class="card__art" aria-hidden="true"><span class="card__bowl">' + MSP.hookahBowl() + '</span>' + art + '</span>' +
           '<span class="card__body">' +
-            '<span class="card__top"><span class="card__brand">' + esc(f.brand) + '</span>' + V.leafChip(f) + '</span>' +
+            '<span class="card__top"><span class="card__brand">' + esc(f.brand) + V.verifiedBadge(f, 'card') + '</span>' + V.leafChip(f) + '</span>' +
             '<' + h + ' class="card__name" style="--len:' + String(f.name).length + '">' + esc(f.name) + '</' + h + '>' +
             '<span class="card__ings">' + names + '</span>' +
           '</span>' +
@@ -514,6 +515,26 @@
   V.leafChip = function (f, cls) {
     var leaf = V.leafOf(f);
     return '<span class="leaf-chip leaf-chip--' + leaf + (cls ? ' ' + cls : '') + '"><span class="leaf-chip__dot" aria-hidden="true"></span>' + esc(t('leaf.' + leaf)) + '</span>';
+  };
+
+  /** Datum provjere sastava (YYYY-MM-DD) u čitljivom obliku. */
+  V.verifiedDate = function (d) {
+    var p = String(d).split('-');
+    if (MSP.lang === 'en') return Number(p[2]) + ' ' + ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][Number(p[1]) - 1] + ' ' + p[0];
+    return Number(p[2]) + '. ' + Number(p[1]) + '. ' + p[0] + '.';
+  };
+
+  /**
+   * Oznaka "Sastav provjerio brend" (polje verified u data/flavors.js, datum YYYY-MM-DD).
+   * variant 'card': mala kvačica uz ime brenda; inače pilula sa datumom na stranici okusa.
+   * Okus bez polja verified nema oznaku.
+   */
+  V.verifiedBadge = function (f, variant) {
+    if (!f.verified) return '';
+    var who = t('verified.by', { name: f.brand });
+    if (variant === 'card') return '<span class="vchk" title="' + esc(who) + '">' + icon('check') + '<span class="sr-only">' + esc(who) + '</span></span>';
+    return '<p class="vbadge anim-in" style="--i:7">' + icon('check') +
+      '<span><b>' + esc(who) + '</b> <span class="vbadge__when">' + esc(t('verified.on', { date: V.verifiedDate(f.verified) })) + '</span></span></p>';
   };
 
   /** Oznaka vrste lista na stranici okusa: šta znači i link na pojam u rječniku. */
@@ -1300,6 +1321,7 @@
               (tags ? '<ul class="tags anim-in" style="--i:6" role="list">' + tags + '</ul>' : '') +
               V.collectionBadges(f) +
               V.leafNote(f) +
+              V.verifiedBadge(f) +
               '<p class="fhero__actions anim-in" style="--i:8">' + V.shelfButton(f, 'btn') + V.shareButton('flavor', f.id) + '</p>' +
               V.rateWidget('flavor', f.id, f.brand + ' ' + f.name, 9) +
             '</div>' +
@@ -1334,6 +1356,7 @@
               '<div><dt>' + icon('leaf') + esc(t('flavor.factTobacco')) + '</dt><dd>' + esc(L(f.tobaccoType) || t('leaf.' + V.leafOf(f))) + '</dd></div>' +
               '<div><dt>' + esc(t('flavor.factIngredients')) + '</dt><dd>' + esc(MSP.plural('flavor.ingredientsCount', (f.ingredients || []).length)) + '</dd></div>' +
               '<div><dt>' + esc(t('flavor.factTags')) + '</dt><dd>' + esc((f.tags || []).map(MSP.tagLabel).join(', ')) + '</dd></div>' +
+              (f.verified ? '<div><dt>' + icon('check') + esc(t('verified.fact')) + '</dt><dd>' + esc(t('verified.factValue', { name: f.brand, date: V.verifiedDate(f.verified) })) + '</dd></div>' : '') +
             '</dl>' +
             '<p class="facts__report"><a class="btn btn--ghost" href="' + V.reportUrl(f) + '">' + icon('alert') + '<span>' + esc(t('forms.reportButton')) + '</span></a></p>' +
           '</aside>' +
