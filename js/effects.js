@@ -40,6 +40,7 @@
   /* Podešavanja dima                                                    */
   /* ------------------------------------------------------------------ */
 
+  var ROOT_EL = document.documentElement;
   var SMOKE_CONFIG = {
     scale: 0.5,              // rezolucija canvasa (0.5 = pola, dim je ionako mekan)
     areaPerParticle: 4200,   // 1 čestica na ovoliko px² ekrana (manje = više čestica)
@@ -425,7 +426,8 @@
     if (!Field.running) return;
     // Tihi ambijent (samo dim iz posude) ide na ~30 fps; čim ima izdaha,
     // klika ili pokreta ruke, vraća se na punu brzinu.
-    var calm = now - Field.lastBurst > 2500 && now - Field.hand.t > 400;
+    // Dok se stranica lista (app.js: is-scrolling), dim uvijek ide mirnim tempom, da listanje bude glatko.
+    var calm = (now - Field.lastBurst > 2500 && now - Field.hand.t > 400) || ROOT_EL.classList.contains('is-scrolling');
     if (calm && now - Field.last < 30) {
       Field.raf = requestAnimationFrame(Field.tick);
       return;

@@ -300,7 +300,12 @@
     var items = [];
     var idx = 0;
     var t0 = performance.now();
-    var raf = 0, timer = 0, visible = true;
+    var raf = 0, timer = 0, visible = true, lw = 0, lh = 0;
+    // veličina sloja se čita samo kad se promijeni; u kadru se pomjera samo transform (bez left/top i filtera)
+    function measure() { lw = layer.clientWidth; lh = layer.clientHeight; }
+    measure();
+    var ro = 'ResizeObserver' in window ? new ResizeObserver(measure) : null;
+    if (ro) ro.observe(layer);
 
     function setFlavor(f) {
       var th = V.themeFor(f);
@@ -338,18 +343,17 @@
         var x = BOWL.x + (px - BOWL.x) * e, y = BOWL.y + (py - BOWL.y) * e;
         var front = Math.sin(a) > 0;
         var depth = 0.78 + 0.22 * Math.sin(a);
-        it.el.style.transform = 'translate(-50%, -50%) scale(' + (e * depth * it.size).toFixed(3) + ') rotate(' + Math.round(a * 20) + 'deg)';
-        it.el.style.left = x.toFixed(2) + '%';
-        it.el.style.top = y.toFixed(2) + '%';
-        it.el.style.zIndex = front ? 3 : 0;
+        it.el.style.transform = 'translate3d(' + (x * lw / 100).toFixed(1) + 'px,' + (y * lh / 100).toFixed(1) + 'px,0) translate(-50%, -50%) scale(' + (e * depth * it.size).toFixed(3) + ') rotate(' + Math.round(a * 20) + 'deg)';
+        if (it.front !== front) { it.front = front; it.el.style.zIndex = front ? 3 : 0; it.el.classList.toggle('is-back', !front); }
         it.el.style.opacity = (e * (front ? 1 : 0.75)).toFixed(2);
-        it.el.style.filter = front ? '' : 'blur(1px) brightness(0.8)';
         return true;
       });
       if (!still && visible) raf = requestAnimationFrame(frame);
     }
 
     function next() {
+      // dok početna nije na ekranu, okus se ne mijenja (nema prelijevanja boja koje niko ne vidi)
+      if (!visible) { timer = window.setTimeout(next, 1000); return; }
       var now = performance.now();
       items.forEach(function (it) { if (!it.dying) it.dying = now; });
       idx = (idx + 1) % list.length;
@@ -365,6 +369,7 @@
     // kad početna nije na ekranu ili je tab skriven, ništa se ne vrti
     var io = 'IntersectionObserver' in window ? new IntersectionObserver(function (en) {
       visible = en[0].isIntersecting && !document.hidden;
+      hero.classList.toggle('is-off', !en[0].isIntersecting);
       if (visible && !raf) raf = requestAnimationFrame(frame);
     }) : null;
     if (io) io.observe(hero);
@@ -374,6 +379,7 @@
       if (raf) cancelAnimationFrame(raf);
       clearTimeout(timer);
       if (io) io.disconnect();
+      if (ro) ro.disconnect();
       document.removeEventListener('visibilitychange', onVis);
       layer.remove();
     });
@@ -393,6 +399,21 @@
     var xgrid = els.main.querySelector('.explore__grid');
     if (xgrid) cleanup(FX.hoverWisps(xgrid, '.xcard', '.xcard__art', th.smoke));
     cleanup(FX.reveal(els.main, th.smoke));
+    cleanup(pauseOffscreen(els.main));
+  }
+
+  /**
+   * Sekcije početne koje nisu na ekranu dobiju klasu is-off i njihove CSS animacije stanu
+   * (traka brendova, žar, dim, okus dana...). Čim se sekcija vrati na ekran, animacije nastave.
+   */
+  function pauseOffscreen(main) {
+    if (!('IntersectionObserver' in window)) return function () {};
+    var secs = [].slice.call(main.children).filter(function (el) { return el.tagName === 'SECTION' || el.tagName === 'DIV'; });
+    var io = new IntersectionObserver(function (en) {
+      en.forEach(function (x) { x.target.classList.toggle('is-off', !x.isIntersecting); });
+    }, { rootMargin: '200px 0px' });
+    secs.forEach(function (el) { io.observe(el); });
+    return function () { io.disconnect(); secs.forEach(function (el) { el.classList.remove('is-off'); }); };
   }
 
   /* ------------------------------------------------------------------ */
@@ -505,6 +526,7 @@
     cleanup(FX.tilt(grid));
     cleanup(FX.cardWisps(grid));
     cleanup(FX.reveal(els.main, th.smoke));
+    cleanup(pauseOffscreen(els.main));
   }
 
   /* ------------------------------------------------------------------ */
@@ -566,6 +588,7 @@
     startHookah(els.main.querySelector('.about-hero'), th, { introDelay: 1.4, bowlSmoke: { rate: 5, alpha: 0.2 } });
     heroSmoke();
     cleanup(FX.reveal(els.main, th.smoke));
+    cleanup(pauseOffscreen(els.main));
   }
 
   /* ------------------------------------------------------------------ */
@@ -858,8 +881,14 @@
   }
 
   function bindGlobal() {
+    // dok se lista, ukrasne CSS animacije stoje (cijela snaga ide na listanje), a nastave 200 ms nakon zadnjeg pomaka
+    var scrollTimer = 0, scrolling = false, html = document.documentElement;
+    function scrollEnd() { scrolling = false; html.classList.remove('is-scrolling'); }
     window.addEventListener('scroll', function () {
       if (!headerRaf) headerRaf = requestAnimationFrame(updateHeaderState);
+      if (!scrolling) { scrolling = true; html.classList.add('is-scrolling'); }
+      clearTimeout(scrollTimer);
+      scrollTimer = setTimeout(scrollEnd, 200);
     }, { passive: true });
     headerRaf = requestAnimationFrame(updateHeaderState);
 

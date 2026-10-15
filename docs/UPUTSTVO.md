@@ -1086,6 +1086,14 @@ Napomene:
   (po jedan od svakog brenda, `V.heroCycle`): sastojci izađu iz posude i kruže oko nargile, voda i pozadina
   dobiju boje okusa, a natpis ispod pretrage vodi na okus. Ništa se ne vrti kad početna nije na ekranu.
   Uz smanjeno kretanje (prefers-reduced-motion) ostaje miran prikaz prvog okusa.
+- **Glatko listanje (pravila za animacije):**
+  - bez `filter: blur(...)` na velikim ili pokretnim elementima (pozadina početne je meki gradijent, ne zamućenje);
+    pojavljivanje sadržaja je samo providnost i pomak, bez zamućenja;
+  - u petlji (`requestAnimationFrame`) mijenjati samo `transform` i `opacity`, nikad `left`, `top` ni `filter`
+    (vidi kruženje sastojaka u `heroCycle`);
+  - sekcija koja nije na ekranu dobije klasu `is-off` i njene CSS animacije stanu (`pauseOffscreen` u `js/app.js`);
+  - dok se stranica lista, `<html>` ima klasu `is-scrolling`: ukrasne CSS animacije u `main` stoje, a dim ide
+    mirnim tempom; sve nastavi 200 ms nakon zadnjeg pomaka.
 - **Stranica okusa (do 699 px):** kompaktan vrh, pa ocjena stane u prvi ekran; sastojci padaju u posudu
   tek kad se nargila pojavi na ekranu.
 - **Mikser (do 699 px):** okusi, omjer i nargila u prvom ekranu; klizač ostaje zakačen ispod menija dok
