@@ -1,11 +1,26 @@
 # MyShishapedia
 
-Enciklopedija okusa za nargilu, na bosanskom i engleskom: [myshishapedia.com](https://myshishapedia.com).
+The hookah flavour encyclopedia, in English and Bosnian.
 
-Ideja je jednostavna: kad pušiš neki okus, bilo kojeg brenda, da lako vidiš od čega je napravljen, koliko se koji sastojak osjeti i
-koji bi ti se okusi još mogli svidjeti. Uz okuse su tu stranice brendova, mikser, kviz, poređenje okusa, recepti miksova i vodič za
-pripremu nargile.
+**Live:** https://myshishapedia.com
 
-Napravljeno u čistom HTML-u, CSS-u i JavaScriptu, bez frameworka.
+## What's inside
 
-Autor: Graba
+- Every flavour, from any brand, with what it is made of and how strongly you taste each ingredient
+- Similar flavours you might also like
+- Brand pages, a flavour mixer, a quiz, flavour comparison, mix recipes and a guide to preparing a hookah
+- Ratings stored in a database
+
+## Tech
+
+Plain HTML, CSS and JavaScript, no framework. A small build script (`build.mjs`, no npm packages) renders every page in both languages, so all text is in the HTML. Hosted on Cloudflare Pages with Pages Functions and D1.
+
+## Run locally
+
+```
+node build.mjs && node serve.mjs
+```
+
+Then open http://localhost:5173. More details are in `docs/UPUTSTVO.md`.
+
+Made by [Ahmed Grabus (Graba)](https://graba-portofolio.grabafaceit.workers.dev)
