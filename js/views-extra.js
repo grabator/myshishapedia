@@ -212,7 +212,7 @@
           '</form>' +
           '<div class="fl-sort"><label class="fl-sort__label" for="fl-brand">' + esc(t('flavorsPage.brandsLabel')) + '</label>' +
             '<select id="fl-brand" name="brand"><option value="">' + esc(t('flavorsPage.brandAll')) + '</option>' +
-              V.brands().filter(function (b) { return V.brandFlavors(b).length; }).map(function (b) {
+              V.brands().filter(function (b) { return V.brandFlavors(b).length; }).sort(function (a, c) { return a.name.localeCompare(c.name); }).map(function (b) {
                 return '<option value="' + esc(b.slug) + '">' + esc(b.name) + '</option>';
               }).join('') +
             '</select></div>' +
@@ -443,7 +443,7 @@
   }
 
   function pageBrand(b, crumbs) {
-    var fl = V.brandFlavors(b);
+    var fl = V.sortFlavors(V.brandFlavors(b), 'az');
     var about = L(b.about) || [];
     var others = brandsWithFlavors().filter(function (x) { return x !== b; });
     var wisps = '';
@@ -542,7 +542,7 @@
         brands: brands, cols: cols
       });
     }).join('');
-    var brandOpts = V.brands().filter(function (b) { return V.brandFlavors(b).length; }).map(function (b) {
+    var brandOpts = V.brands().filter(function (b) { return V.brandFlavors(b).length; }).sort(function (a, c) { return a.name.localeCompare(c.name); }).map(function (b) {
       return '<option value="' + esc(b.slug) + '">' + esc(b.name) + '</option>';
     }).join('');
     var colOpts = V.collections().map(function (c) { return '<option value="' + c.id + '">' + esc(L(c.title)) + '</option>'; }).join('');

@@ -296,6 +296,8 @@ Napomene:
 
 - **Slični okusi:** dodaj novi id i u `similar` postojećih okusa kojima je sličan, da veza ide u oba smjera.
   Svaki par iz `similar` dobije i stranicu poređenja. Najviše 4 slična okusa (4 se prikažu u jednom redu).
+  Na stranici okusa "Slični okusi" su podijeljeni na svijetli i tamni list (po 3 u svakom redu, `V.similarByLeaf`
+  u `js/views.js`): okusi iz `similar` idu prvi, ostale bira sličnost profila, sastojaka, glavnog sastojka i tagova.
 - **Isti naziv kod više brendova** (npr. "Cola", "Mint"): u naslovima poređenja, receptima i pretrazi se
   automatski dodaje brend (`V.uniqueName`), pa naslovi ostaju jedinstveni.
 - **Kontrast je automatski.** Ako `palette.text` nema dovoljan kontrast (4.5:1), sam se potamni ili posvijetli.
