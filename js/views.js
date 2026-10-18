@@ -178,6 +178,35 @@
   /** Vrsta lista: 'light' (svijetli) ili 'dark' (tamni); pojmovi u rječniku. */
   V.LEAF_TERM = { light: 'svijetli-list', dark: 'tamni-list' };
   V.leafOf = function (f) { return f.leaf === 'dark' ? 'dark' : 'light'; };
+
+  /**
+   * Slični okusi podijeljeni po vrsti lista: { light: [...], dark: [...] }, najviše n u svakoj grupi.
+   * Okusi koje je urednik označio kao slične (f.similar) idu prvi, ostali po profilu, sastojcima i tagovima.
+   */
+  V.similarByLeaf = function (f, n) {
+    var keys = ['sweetness', 'freshness', 'fruitiness', 'cooling', 'strength'];
+    var ings = function (x) { return (x.ingredients || []).map(function (i) { return i.illustration; }); };
+    var jac = function (a, b) {
+      if (!a.length && !b.length) return 0;
+      var inter = a.filter(function (x) { return b.indexOf(x) !== -1; }).length;
+      return inter / (a.length + b.length - inter);
+    };
+    var top = function (x) { var i = V.byIntensity(x)[0]; return i ? i.illustration : ''; };
+    var picked = f.similar || [];
+    var scored = V.flavors().filter(function (x) { return x.id !== f.id; }).map(function (x) {
+      var d = 0;
+      keys.forEach(function (k) { var v = ((f.profile || {})[k] || 0) - ((x.profile || {})[k] || 0); d += v * v; });
+      var score = 0.35 * (1 - Math.sqrt(d) / Math.sqrt(keys.length * 100)) +
+        0.25 * jac(ings(f), ings(x)) +
+        0.2 * (top(f) && top(f) === top(x) ? 1 : 0) +
+        0.2 * jac(f.tags || [], x.tags || []) +
+        (picked.indexOf(x.id) !== -1 ? 1 : 0);
+      return { f: x, s: score };
+    }).sort(function (a, b) { return b.s - a.s || a.f.name.localeCompare(b.f.name); });
+    var out = { light: [], dark: [] };
+    scored.forEach(function (o) { var k = V.leafOf(o.f); if (out[k].length < n) out[k].push(o.f); });
+    return out;
+  };
   /** Naziv okusa; ako isti naziv ima više brendova (npr. "Cola", "Mint"), dodaje se i brend. */
   V.uniqueName = function (f) {
     var same = V.flavors().filter(function (x) { return x.name === f.name; }).length;
@@ -1286,7 +1315,7 @@
     var prev = count > 1 ? all[(idx - 1 + count) % count] : null;
     var next = count > 1 ? all[(idx + 1) % count] : null;
     if (prev && prev === next) prev = null;
-    var similar = (f.similar || []).map(V.flavorById).filter(Boolean);
+    var similar = V.similarByLeaf(f, 3);
     var brand = V.brandOf(f);
     var num = 0;
     function nextNum() { num += 1; return (num < 10 ? '0' : '') + num; }
@@ -1365,7 +1394,7 @@
               '<div><dt>' + esc(t('flavor.factBrand')) + '</dt><dd>' + (brand ? '<a href="' + V.brandUrl(brand) + '">' + esc(f.brand) + '</a>' : esc(f.brand)) + '</dd></div>' +
               '<div><dt>' + esc(t('flavor.factFlavor')) + '</dt><dd>' + esc(f.name) + '</dd></div>' +
               '<div><dt>' + icon('leaf') + esc(t('flavor.factTobacco')) + '</dt><dd>' + esc(L(f.tobaccoType) || t('leaf.' + V.leafOf(f))) + '</dd></div>' +
-              '<div><dt>' + esc(t('flavor.factIngredients')) + '</dt><dd>' + esc(MSP.plural('flavor.ingredientsCount', (f.ingredients || []).length)) + '</dd></div>' +
+              '<div><dt>' + esc(t('flavor.factIngredients')) + '</dt><dd>' + esc(V.byIntensity(f).map(function (i) { return L(i.name); }).join(', ')) + '</dd></div>' +
               '<div><dt>' + esc(t('flavor.factTags')) + '</dt><dd>' + esc((f.tags || []).map(MSP.tagLabel).join(', ')) + '</dd></div>' +
               (f.verified ? '<div><dt>' + icon('check') + esc(t('verified.fact')) + '</dt><dd>' + esc(t('verified.factValue', { name: f.brand, date: V.verifiedDate(f.verified) })) + '</dd></div>' : '') +
             '</dl>' +
@@ -1382,12 +1411,15 @@
             '</div></section>'
           : '') +
 
-        (similar.length
+        (similar.light.length || similar.dark.length
           ? '<section class="fsec" aria-labelledby="sec-similar"><div class="container">' +
-              sectionHead(nextNum(), t('flavor.similarTitle'), '', 'sec-similar') +
-              '<ul class="grid grid--similar" id="similar-grid" role="list">' +
-                similar.map(function (s, i) { return '<li class="grid__item" data-reveal style="--i:' + i + '">' + V.card(s, 'h3') + '</li>'; }).join('') +
-              '</ul>' +
+              sectionHead(nextNum(), t('flavor.similarTitle'), t('flavor.similarIntro'), 'sec-similar') +
+              '<div id="similar-grid">' + ['light', 'dark'].filter(function (k) { return similar[k].length; }).map(function (k) {
+                return '<h3 class="simleaf__h simleaf__h--' + k + '">' + icon('leaf') + esc(t('leaf.' + k)) + '</h3>' +
+                  '<ul class="grid grid--similar" role="list">' +
+                    similar[k].map(function (s, i) { return '<li class="grid__item" data-reveal style="--i:' + i + '">' + V.card(s, 'h4') + '</li>'; }).join('') +
+                  '</ul>';
+              }).join('') + '</div>' +
             '</div></section>'
           : '') +
 

@@ -443,7 +443,7 @@
   }
 
   function pageBrand(b, crumbs) {
-    var fl = V.brandFlavors(b);
+    var fl = V.sortFlavors(V.brandFlavors(b), 'az');
     var about = L(b.about) || [];
     var others = brandsWithFlavors().filter(function (x) { return x !== b; });
     var wisps = '';

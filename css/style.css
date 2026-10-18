@@ -7060,3 +7060,13 @@ html:not(.js) .localnote { display: none; }
 }
 /* na užem ekranu nargila je ispod teksta, pa se oznaka "Skrolaj" preklapa sa dugmetom za dim */
 @media (max-width: 1099px) { .scroll-cue { display: none; } }
+
+/* "Slični okusi": posebno svijetli i tamni list */
+.simleaf__h {
+  display: flex; align-items: center; gap: 8px;
+  margin: 28px 0 14px; font-size: 0.8125rem; font-weight: 800;
+  letter-spacing: 0.12em; text-transform: uppercase; color: var(--c-muted);
+}
+.simleaf__h:first-child { margin-top: 0; }
+.simleaf__h .icon { width: 16px; height: 16px; color: var(--c-accent); }
+.simleaf__h--dark .icon { color: var(--c-secondary); }
