@@ -42,11 +42,14 @@ const SOURCES = [
   'data/mixes.js',
   'data/legal.js',
   'data/tips.js',
+  'data/history.js',
+  'data/history-map.js',
   'js/illustrations.js',
   'js/views.js',
   'js/views-more.js',
   'js/views-extra.js',
-  'js/views-shelf.js'
+  'js/views-shelf.js',
+  'js/views-history.js'
 ];
 
 const warnings = [];
@@ -85,7 +88,7 @@ function hashOf(file) {
 
 const ASSETS = ['css/style.css', 'js/strings.js', 'data/brands.js', 'data/flavors.js', 'data/glossary.js', 'data/guide.js', 'data/gear.js', 'data/quiz.js',
   'data/mixes.js', 'js/illustrations.js', 'js/effects.js', 'js/views.js', 'js/views-more.js', 'js/views-extra.js', 'js/pages.js', 'js/app.js',
-  'js/search.js', 'js/forms.js', 'js/share.js', 'js/ratings.js', 'js/shelf.js', 'favicon.svg'];
+  'js/search.js', 'js/forms.js', 'js/share.js', 'js/ratings.js', 'js/shelf.js', 'data/history.js', 'js/history.js', 'favicon.svg'];
 const VERSION = {};
 for (const a of ASSETS) VERSION[a] = hashOf(a);
 const asset = (p) => '/' + p + '?v=' + VERSION[p];
@@ -97,7 +100,8 @@ const PAGE_DATA = {
   quiz: ['data/quiz.js'],
   glossary: ['data/glossary.js'],
   home: ['data/mixes.js'],
-  recipe: ['data/mixes.js']
+  recipe: ['data/mixes.js'],
+  history: ['data/history.js']
 };
 
 // Dodatne skripte samo gdje trebaju.
@@ -111,7 +115,8 @@ const PAGE_SCRIPTS = {
   flavor: ['js/share.js'],
   recipe: ['js/share.js'],
   mixer: ['js/share.js'],
-  quiz: ['js/share.js']
+  quiz: ['js/share.js'],
+  history: ['js/history.js']
 };
 
 /* ------------------------------------------------------------------ */
@@ -159,6 +164,8 @@ const FONT_PRELOADS = [
   'https://fonts.gstatic.com/s/manrope/v20/xn7gYHE41ni1AdIRggexSg.woff2'
 ];
 const FONT_PRELOADS_BS = ['https://fonts.gstatic.com/s/syne/v24/8vIH7w4qzmVxm25L9Hz_.woff2'];
+// Fontovi samo za pojedine stranice (serif za staru kartu na "Evoluciji nargile").
+const PAGE_FONTS = { history: ['/fonts/cormorant-garamond-latin-600-normal.woff2'] };
 
 
 // Izvršava se u <head> prije iscrtavanja: jezik, provjera godina, loader samo pri
@@ -196,12 +203,40 @@ function structuredData(desc, lang, info) {
     });
   }
   if (desc.page === 'notfound' || info.crumbs.length < 2) return '';
+  if (desc.page === 'history') return historyLd(desc, lang, info) + breadcrumbLd(info);
+  return breadcrumbLd(info);
+}
+
+function breadcrumbLd(info) {
   return jsonLd({
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     itemListElement: info.crumbs.map((c, i) => ({ '@type': 'ListItem', position: i + 1, name: c.name, item: abs(c.url.replace(/#.*$/, '')) }))
   });
 }
+
+/** Članak "Evolucija nargile": Article sa izvorima (citation). */
+function historyLd(desc, lang, info) {
+  const H = sandbox.HISTORY;
+  return jsonLd({
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: MSP.t('history.title'),
+    description: info.description,
+    inLanguage: lang,
+    url: abs(desc.url),
+    image: abs(info.ogImage || '/og-image.png'),
+    datePublished: HISTORY_PUBLISHED,
+    dateModified: HISTORY_PUBLISHED,
+    author: { '@type': 'Person', name: CFG.AUTHOR_NAME },
+    publisher: { '@type': 'Organization', name: CFG.SITE_NAME, url: abs('/') },
+    about: ['hookah', 'shisha', 'narghile', 'qalyan', 'huqqa'],
+    citation: H.sources.filter(Boolean).map((s) => s.u)
+  });
+}
+
+// Datum objave stranice "Evolucija nargile" (mijenja se kad se sadržaj bitno promijeni).
+const HISTORY_PUBLISHED = '2026-10-21';
 
 function head(desc, lang, info) {
   const t = MSP.t;
@@ -210,7 +245,7 @@ function head(desc, lang, info) {
   const canonical = abs(desc.url);
   const title = info.title;
   const d = info.description;
-  const ogImage = abs('/og-image.png');
+  const ogImage = abs(info.ogImage || '/og-image.png');
   const data = (PAGE_DATA[desc.page] || []).concat(desc.page === 'term' ? [] : []);
   // views-more/views-extra samo gdje ih JavaScript stvarno koristi (ostalo je već u HTML-u);
   // search.js se učitava kasnije (app.js), tek u mirovanju ili na prvo otvaranje pretrage.
@@ -250,7 +285,7 @@ function head(desc, lang, info) {
     '<link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">',
     '<link rel="manifest" href="/manifest.webmanifest">',
     '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>',
-    FONT_PRELOADS.concat(lang === 'bs' ? FONT_PRELOADS_BS : []).map((f) => `<link rel="preload" as="font" type="font/woff2" crossorigin href="${f}">`).join(''),
+    FONT_PRELOADS.concat(lang === 'bs' ? FONT_PRELOADS_BS : [], PAGE_FONTS[desc.page] || []).map((f) => `<link rel="preload" as="font" type="font/woff2" crossorigin href="${f}">`).join(''),
     `<link rel="stylesheet" href="${asset('css/style.css')}">`,
     `<script>${HEAD_SCRIPT}</script>`,
     scripts.map((s) => `<script defer src="${asset(s)}"></script>`).join(''),
@@ -375,7 +410,7 @@ a:hover,a:focus-visible{border-color:${home.accentInk};outline:none;color:${home
 function pageList() {
   const list = [];
   for (const lang of LANGS) {
-    const simple = ['home', 'mixer', 'quiz', 'guide', 'glossary', 'gear', 'about'];
+    const simple = ['home', 'mixer', 'quiz', 'guide', 'glossary', 'gear', 'about', 'history'];
     for (const p of simple) list.push({ lang, page: p, url: V.urlFor(lang, p) });
     for (const f of V.flavors()) list.push({ lang, page: 'flavor', id: f.id, flavor: f, url: V.urlFor(lang, 'flavor', f.id) });
     for (const g of V.glossary()) list.push({ lang, page: 'term', id: g.id, term: g, url: V.urlFor(lang, 'term', V.termSlug(g, lang)) });
@@ -516,7 +551,7 @@ function writeSearchIndex() {
     }
     const pages = [['flavors', 'allFlavors', 'flavorsDescription'], ['brands', 'brands', 'brandsDescription'], ['collections', 'collections', 'collectionsDescription'], ['mixes', 'mixes', 'mixesDescription'],
       ['compare', 'compare', 'compareDescription'], ['mixer', 'mixer', 'mixerDescription'], ['quiz', 'quiz', 'quizDescription'], ['guide', 'guide', 'guideDescription'],
-      ['glossary', 'glossary', 'glossaryDescription'], ['gear', 'gear', 'gearDescription'], ['about', 'about', 'aboutDescription'], ['top', 'top', 'topDescription'], ['tips', 'tips', 'tipsDescription'],
+      ['glossary', 'glossary', 'glossaryDescription'], ['gear', 'gear', 'gearDescription'], ['about', 'about', 'aboutDescription'], ['top', 'top', 'topDescription'], ['tips', 'tips', 'tipsDescription'], ['history', 'history', 'historyDescription'],
       ['suggest', 'suggest', 'suggestDescription'], ['privacy', 'privacy', 'privacyDescription'], ['terms', 'terms', 'termsDescription']];
     for (const [page, navKey, metaKey] of pages) {
       add('page', MSP.t('nav.' + navKey), MSP.t('meta.' + metaKey), V.url(page), '', LANGS.map((l) => MSP.strings[l].nav[navKey]));
@@ -586,7 +621,10 @@ function writeCloudflareFiles() {
     '  Content-Security-Policy: ' + csp,
     '',
     '# CSS, JS i podaci imaju verziju u adresi (?v=hash), pa ih browser smije dugo čuvati.',
-    ...['/css/*', '/js/*', '/data/*'].flatMap((p) => [p, '  Cache-Control: ' + long, '']),
+    ...['/css/*', '/js/*', '/data/*', '/fonts/*'].flatMap((p) => [p, '  Cache-Control: ' + long, '']),
+    '/geo/*',
+    '  Cache-Control: public, max-age=2592000',
+    '',
     '/search/*',
     '  Cache-Control: public, max-age=3600',
     '',
@@ -599,6 +637,9 @@ function writeCloudflareFiles() {
     '  Cache-Control: public, max-age=604800',
     '',
     '/og-image.png',
+    '  Cache-Control: public, max-age=86400',
+    '',
+    '/og-history.png',
     '  Cache-Control: public, max-age=86400',
     ''
   ];
@@ -682,6 +723,28 @@ function checkData() {
     const texts = LANGS.flatMap((l) => [MSP.L(s.lead, l)].concat(s.tips.map((tp) => MSP.L(tp.text, l))));
     for (const txt of texts) for (const m of String(txt).matchAll(/\[\[([a-z0-9-]+)\|/g)) if (!V.glossaryById(m[1])) errors.push(`savjeti ${s.id}: nepostojeći pojam ${m[1]}`);
   }
+
+  // "Evolucija nargile": svaka stanica ima tekst na oba jezika, izvor, ispravne koordinate i godinu
+  const H = sandbox.HISTORY;
+  const srcOk = (src) => Array.isArray(src) && src.length && src.every((n) => H.sources[n]);
+  const stIds = new Set();
+  H.stations.forEach((st, i) => {
+    const tag = `historija ${st.id || i}`;
+    if (stIds.has(st.id)) errors.push(`${tag}: dupli id`);
+    stIds.add(st.id);
+    if (!(st.lon >= -180 && st.lon <= 180 && st.lat >= -90 && st.lat <= 90)) errors.push(`${tag}: neispravne koordinate`);
+    if (!Number.isInteger(st.year) || st.year < 1400 || st.year > new Date().getFullYear()) errors.push(`${tag}: neispravna godina`);
+    if (i && st.year < H.stations[i - 1].year) errors.push(`${tag}: stanice nisu po redu godina`);
+    for (const l of LANGS) {
+      if (!MSP.L(st.title, l) || !MSP.L(st.place, l) || !MSP.L(st.when, l) || !MSP.L(st.city, l)) errors.push(`${tag}: fali tekst (${l})`);
+      for (const f of st.facts.concat(st.fun ? [st.fun] : [])) if (!MSP.L(f.t, l)) errors.push(`${tag}: fali tekst činjenice (${l})`);
+    }
+    for (const f of st.facts.concat(st.fun ? [st.fun] : [])) if (!srcOk(f.src)) errors.push(`${tag}: činjenica bez ispravnog izvora`);
+  });
+  for (const list of ['names', 'myths', 'health']) {
+    for (const it of H[list] || []) if (!srcOk(it.src)) errors.push(`historija ${list}: stavka bez ispravnog izvora`);
+  }
+  for (const pt of H.parts) for (const stp of pt.steps) if (!srcOk(stp.src)) errors.push(`historija dijelovi ${pt.id}: korak bez izvora`);
 
   const slugs = new Set();
   for (const m of V.mixes()) {

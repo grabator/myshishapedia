@@ -690,6 +690,23 @@ savjete. Sve ima verziju za oba jezika.
 
 ---
 
+## Evolucija nargile (historija)
+
+Stranica `/bs/evolucija-nargile/` i `/en/hookah-history/`: nargila rastavljena na dijelove, pa "put dima" preko globusa
+kroz 14 stanica, nazivi, evolucija dijelova, mit ili istina, zdravlje i izvori.
+
+- Sadržaj je u `data/history.js` (oba jezika). Svaka činjenica ima `src` sa brojem izvora iz liste `sources`;
+  build javi grešku ako izvora nema, ako fali tekst na nekom jeziku ili ako stanice nisu po redu godina.
+- HTML pravi `js/views-history.js`, kretanje (globus, let kamere, rastavljanje) `js/history.js`.
+- Stil karte ide po godini stanice: do 1850 stara karta, do 1985 štampana, poslije moderna noć.
+- Siluete gradova su oblici u `sky` (npr. `'minaret:.30:.70'`), vidi `SKY` u `js/history.js`.
+- Mapa: `static/geo/world.json` i mala mapa `data/history-map.js` prave se jednom skriptom
+  `node scripts/geo-pack.mjs <folder paketa world-atlas>` (paket: `npm pack world-atlas@2.0.2`; podaci Natural Earth,
+  javno vlasništvo). Skriptu treba ponovo pokrenuti samo ako se doda stanica daleko od postojećih (lista `FOCUS`).
+- Font za staru kartu (Cormorant Garamond, OFL) je u `static/fonts/` i koristi se samo na ovoj stranici.
+- Slika za dijeljenje: `static/og-history.png`.
+- Ilustracije nargila i gradova su crteži, ne historijske slike (to piše i na stranici).
+
 ## Moja polica
 
 Lična kolekcija okusa, bez prijave. Čuva se samo u browseru i nikad se ne šalje.
