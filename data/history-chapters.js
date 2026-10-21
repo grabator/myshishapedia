@@ -352,7 +352,7 @@
       sections: [
         {
           h: { bs: 'Baščaršija i prva kafana', en: 'Baščaršija and the first coffeehouse' },
-          fig: { img: 'sarajevo-razglednica', w: 693, h: 442, cap: { bs: 'Sarajevska čaršija na staroj obojenoj razglednici.', en: 'Sarajevo\'s bazaar on an old coloured postcard.' }, by: { bs: 'Stara razglednica', en: 'Old postcard' } },
+          fig: { img: 'bascarsija-razglednica', w: 550, h: 351, cap: { bs: 'Baščaršija na razglednici iz austrougarskog doba, sa natpisom na njemačkom i bosanskom: "Strassenszene / Ulični prizor".', en: 'Baščaršija on a postcard from the Austro-Hungarian era, captioned in German and Bosnian: "Strassenszene / Ulični prizor" (street scene).' }, by: { bs: 'Stara razglednica', en: 'Old postcard' } },
           p: [
             { t: { bs: 'Baščaršija nastaje 1462, kad osmanski namjesnik Isa-beg Ishaković gradi karavan-saraj. Postaje glavna trgovačka i društvena žila grada.', en: 'Baščaršija begins in 1462, when the Ottoman governor Isa-beg Isaković builds a caravanserai. It becomes the city\'s main artery of trade and social life.' }, src: [2] },
             { t: { bs: 'Prva kafana u gradu bila je, po Turističkoj organizaciji Sarajeva, Hadži Šabanova kafana na Bentbaši, otvorena sredinom 16. stoljeća. Radila je do 1942.', en: 'According to Sarajevo\'s tourist board, the first coffeehouse in town was Hajji Šaban\'s coffeehouse at Bentbaša, opened in the middle of the 16th century. It worked until 1942.' }, src: [1] }
@@ -369,6 +369,7 @@
         },
         {
           h: { bs: 'Luledžije, čibuk i nargila', en: 'Pipe makers, chibouk and hookah' },
+          fig: { img: 'sarajevo-razglednica', w: 693, h: 442, cap: { bs: 'Zanatlije i prodavci u sarajevskoj čaršiji, na staroj obojenoj razglednici.', en: 'Craftsmen and traders in Sarajevo\'s bazaar, on an old coloured postcard.' }, by: { bs: 'Stara razglednica', en: 'Old postcard' } },
           p: [
             { t: { bs: 'Isti rad bilježi da su lule za čibuk i nargilu pravile luledžije u Sarajevu, i da se pored čibuka pušilo i na nargilu.', en: 'The same paper records that pipes for the chibouk and the hookah were made by luledžije, pipe makers, in Sarajevo, and that besides the chibouk people also smoked the hookah.' }, src: [3] },
             { t: { bs: 'Luledžina ulica na Baščaršiji nosi ime po hadži hafizu Mustafi Muhiću, zvanom Luledžija, jer je u mladosti pravio lule.', en: 'Luledžina street in Baščaršija is named after Hajji Hafiz Mustafa Muhić, nicknamed Luledžija because he made pipes when he was young.' }, src: [4] },
