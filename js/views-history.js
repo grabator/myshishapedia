@@ -99,6 +99,7 @@
     return '<svg class="hx-art' + (cls ? ' ' + cls : '') + '" viewBox="0 0 120 200" aria-hidden="true" focusable="false"><use href="#hx-art-' + kind + '"/></svg>';
   }
   V.historyArt = art;
+  V.historyArtKinds = Object.keys(ART);
 
   /* ------------------------------------------------------------------ */
   /* Nargila za uvod: svaki dio je svoj sloj (rastavlja se u 3D)          */
@@ -453,6 +454,124 @@
     );
   }
 
+  /* ---------- Poglavlja: cijela priča za čitanje (posebne stranice) ---------- */
+
+  function CH() { return root.HISTORY_CHAPTERS || []; }
+  V.historyChapters = CH;
+  V.chapterUrl = function (ch, lang) { return V.urlFor(lang || MSP.lang, 'chapter', ch.slug[lang || MSP.lang]); };
+  V.chapterById = function (id) { return CH().filter(function (c) { return c.id === id; })[0] || null; };
+
+  /** Izvor poglavlja: { g: n } je izvor iz data/history.js, inače { t, u }. */
+  V.chapterSource = function (s) { return s && s.g ? H().sources[s.g] : s; };
+
+  function chapterText(ch, lang) {
+    return ch.sections.map(function (s) {
+      return MSP.L(s.h, lang) + ' ' + s.p.map(function (p) { return MSP.L(p.t, lang); }).join(' ') + (s.note ? ' ' + MSP.L(s.note, lang) : '');
+    }).join(' ');
+  }
+  /** Minute čitanja (oko 200 riječi u minuti). */
+  V.chapterMinutes = function (ch) { return Math.max(2, Math.ceil(chapterText(ch).split(/\s+/).length / 200)); };
+  V.chapterPlain = chapterText;
+
+  function chaptersSection() {
+    var list = CH();
+    if (!list.length) return '';
+    return (
+      '<section class="fsec hx-chapters" aria-labelledby="hx-chapters-h"><div class="container">' +
+        '<header class="hx-head" data-reveal><p class="eyebrow"><span class="eyebrow__dot" aria-hidden="true"></span>' + esc(t('history.chaptersEyebrow')) + '</p>' +
+          '<h2 class="hx-h2" id="hx-chapters-h">' + esc(t('history.chaptersTitle', { n: list.length })) + '</h2>' +
+          '<p class="hx-intro-p">' + esc(t('history.chaptersIntro')) + '</p></header>' +
+        '<ol class="hx-chapters__grid" role="list">' + list.map(function (ch, i) {
+          return '<li class="hx-chap" data-reveal style="--i:' + (i % 4) + '"><a class="hx-chap__a" href="' + esc(V.chapterUrl(ch)) + '">' +
+            '<span class="hx-chap__n" aria-hidden="true">' + (i + 1 < 10 ? '0' : '') + (i + 1) + '</span>' +
+            art(ch.art, 'hx-chap__art') +
+            '<span class="hx-chap__span">' + esc(L(ch.span)) + '</span>' +
+            '<span class="hx-chap__t">' + esc(L(ch.title)) + '</span>' +
+            '<span class="hx-chap__lead">' + esc(L(ch.lead)) + '</span>' +
+            '<span class="hx-chap__meta">' + esc(t('history.readMin', { n: V.chapterMinutes(ch) })) + ' · ' + esc(t('history.nSources', { n: ch.sources.length })) + V.icon('arrowRight') + '</span>' +
+          '</a></li>';
+        }).join('') + '</ol>' +
+      '</div></section>'
+    );
+  }
+
+  function chapterNav(list, i) {
+    var prev = list[i - 1], next = list[i + 1];
+    function card(ch, dir) {
+      if (!ch) return '<span></span>';
+      var n = list.indexOf(ch) + 1;
+      return '<a class="hxc-pn hxc-pn--' + dir + '" href="' + esc(V.chapterUrl(ch)) + '" rel="' + (dir === 'prev' ? 'prev' : 'next') + '">' +
+        '<span class="hxc-pn__k">' + esc(t(dir === 'prev' ? 'history.prevChapter' : 'history.nextChapter')) + ' · ' + n + '</span>' +
+        '<span class="hxc-pn__t">' + esc(L(ch.title)) + '</span></a>';
+    }
+    return '<nav class="hxc-pnav" aria-label="' + esc(t('history.chapterNav')) + '">' + card(prev, 'prev') + card(next, 'next') + '</nav>';
+  }
+
+  V.pageChapter = function (ch, crumbs) {
+    var list = CH();
+    var i = list.indexOf(ch);
+    var stations = H().stations;
+    var histUrl = V.url('history');
+    var sec = ch.sections;
+    var stLinks = (ch.stations || []).map(function (id) { return stations.filter(function (s) { return s.id === id; })[0]; }).filter(Boolean);
+    return (
+      artDefs() +
+      '<div class="hx hxc">' +
+        '<header class="hxc-hero">' + (crumbs || '') +
+          '<div class="container hxc-hero__grid">' +
+            '<div class="hxc-hero__copy">' +
+              '<p class="eyebrow anim-in" style="--i:0"><span class="eyebrow__dot" aria-hidden="true"></span>' + esc(t('history.chapterOf', { n: i + 1, total: list.length })) + ' · ' + esc(L(ch.span)) + '</p>' +
+              '<h1 class="hxc-title anim-in" style="--i:1">' + esc(L(ch.title)) + '</h1>' +
+              '<p class="hxc-lead anim-in" style="--i:2">' + esc(L(ch.lead)) + '</p>' +
+              '<p class="hxc-meta anim-in" style="--i:3"><span>' + esc(t('history.readMin', { n: V.chapterMinutes(ch) })) + '</span><span>' + esc(t('history.nSources', { n: ch.sources.length })) + '</span></p>' +
+            '</div>' +
+            '<div class="hxc-hero__art anim-in" style="--i:2">' + art(ch.art) + '<p class="hxc-hero__num" aria-hidden="true">' + (i + 1 < 10 ? '0' : '') + (i + 1) + '</p></div>' +
+          '</div>' +
+          (ch.years && ch.years.length ? '<div class="container"><ol class="hxc-years" role="list" aria-label="' + esc(t('history.keyYears')) + '">' + ch.years.map(function (y) {
+            return '<li><b>' + esc(MSP.lang === 'en' && y.yEn ? y.yEn : y.y) + '</b><span>' + esc(L(y.t)) + sup(y.src) + '</span></li>';
+          }).join('') + '</ol></div>' : '') +
+        '</header>' +
+        '<div class="container hxc-layout">' +
+          '<aside class="hxc-side">' +
+            '<nav class="hxc-toc" aria-labelledby="hxc-toc-h"><p class="hxc-side__h" id="hxc-toc-h">' + esc(t('history.inChapter')) + '</p><ol role="list">' +
+              sec.map(function (s, k) { return '<li><a href="#dio-' + (k + 1) + '">' + esc(L(s.h)) + '</a></li>'; }).join('') +
+              '<li><a href="#izvori">' + esc(t('history.sourcesTitle')) + '</a></li>' +
+            '</ol></nav>' +
+            '<nav class="hxc-all" aria-labelledby="hxc-all-h"><p class="hxc-side__h" id="hxc-all-h">' + esc(t('history.allChapters')) + '</p><ol role="list">' +
+              list.map(function (c, k) {
+                return '<li><a href="' + esc(V.chapterUrl(c)) + '"' + (c === ch ? ' aria-current="page"' : '') + '><span>' + (k + 1) + '</span>' + esc(L(c.title)) + '</a></li>';
+              }).join('') +
+            '</ol></nav>' +
+          '</aside>' +
+          '<article class="hxc-body">' +
+            sec.map(function (s, k) {
+              var more = s.more && V.chapterById(s.more);
+              return '<section class="hxc-sec" id="dio-' + (k + 1) + '" aria-labelledby="dio-' + (k + 1) + '-h" data-reveal>' +
+                '<h2 class="hxc-h2" id="dio-' + (k + 1) + '-h"><span aria-hidden="true">' + (k + 1) + '</span>' + esc(L(s.h)) + '</h2>' +
+                s.p.map(function (p) { return '<p>' + esc(L(p.t)) + sup(p.src) + '</p>'; }).join('') +
+                (s.note ? '<aside class="hxc-note"><p class="hxc-note__k">' + esc(t('history.careful')) + '</p><p>' + esc(L(s.note)) + sup(s.noteSrc) + '</p></aside>' : '') +
+                (more ? '<p class="hxc-more"><a href="' + esc(V.chapterUrl(more)) + '">' + esc(t('history.moreIn', { title: L(more.title) })) + V.icon('arrowRight') + '</a></p>' : '') +
+              '</section>';
+            }).join('') +
+            (stLinks.length ? '<section class="hxc-onmap" aria-labelledby="hxc-onmap-h" data-reveal><h2 class="hxc-h3" id="hxc-onmap-h">' + esc(t('history.onJourney')) + '</h2><ul role="list">' +
+              stLinks.map(function (s) {
+                return '<li><a href="' + esc(histUrl + '#' + s.id) + '"><b>' + esc(L(s.when)) + '</b><span>' + esc(L(s.city)) + '</span><span>' + esc(L(s.title)) + '</span></a></li>';
+              }).join('') + '</ul></section>' : '') +
+            '<section class="hxc-sources" id="izvori" aria-labelledby="hxc-src-h"><h2 class="hxc-h3" id="hxc-src-h">' + esc(t('history.sourcesTitle')) + '</h2>' +
+              '<ol role="list">' + ch.sources.map(function (s, k) {
+                var src = V.chapterSource(s);
+                return '<li id="izvor-' + (k + 1) + '"><span class="hx-sources__n">' + (k + 1) + '</span><a href="' + esc(src.u) + '" target="_blank" rel="noopener">' + esc(src.t) + '</a></li>';
+              }).join('') + '</ol>' +
+            '</section>' +
+            chapterNav(list, i) +
+            '<p class="hxc-back"><a class="btn btn--ghost" href="' + esc(histUrl) + '">' + esc(t('history.backToHistory')) + '</a>' +
+              '<a class="btn btn--primary" href="' + esc(histUrl + '#put') + '">' + esc(t('history.start')) + V.icon('arrowRight') + '</a></p>' +
+          '</article>' +
+        '</div>' +
+      '</div>'
+    );
+  };
+
   /* ---------- U knjigama i umjetnosti + Ljudi iz priče ---------- */
 
   // Gusjenica iz "Alise u zemlji čuda": vlastiti crtež (klik pušta kolutove dima)
@@ -620,6 +739,7 @@
             '<p class="sr-only" id="hx-live" aria-live="polite"></p>' +
           '</div>' +
         '</section>' +
+        chaptersSection() +
         museumSection() +
         artSection() +
         playSection() +

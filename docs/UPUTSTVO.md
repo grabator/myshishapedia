@@ -712,6 +712,11 @@ pa "put dima" preko globusa kroz 14 stanica, muzej nargila, nazivi, evolucija di
 - Kviz "Evolucija nargile" (`quiz`, `a` je broj tačnog odgovora od 0) i "Koja si ti era?" (`eras`), oba prave sliku za dijeljenje.
   Build provjeri da kviz ima izvore i tačan odgovor, a era postojeći rezultat.
 - Zvuk (dugme sa zvučnikom u plejeru) je isključen dok ga posjetilac ne uključi; pravi se u browseru (Web Audio), nema audio fajla.
+- Poglavlja za čitanje (8 posebnih stranica, npr. `/bs/evolucija-nargile/korijeni/`): korijeni, kafana, duhan, žar i ugalj,
+  dijelovi, Bosna i Hercegovina, zakoni i zabrane, nargila danas. Tekst je u `data/history-chapters.js` (samo za build).
+  Svaki pasus ima `src` (broj iz liste izvora tog poglavlja); izvor `{ g: n }` je izvor n iz `data/history.js`.
+  Build javi grešku ako pasus nema izvor, ako se neki izvor ne koristi ili ako fali tekst na nekom jeziku.
+  Novo poglavlje se doda kao novi red u tom fajlu; kartica na glavnoj stranici, adresa, pretraga i sitemap prave se same.
 - Slabi izvori zamijenjeni (10. 2026.): Tagesspiegel → RKI KiGGS, Naukrigulf → Slaughter and May i Latham & Watkins,
   mu'assel → BMC Public Health 2004.
 

@@ -44,6 +44,7 @@ const SOURCES = [
   'data/tips.js',
   'data/history.js',
   'data/history-map.js',
+  'data/history-chapters.js',
   'js/illustrations.js',
   'js/views.js',
   'js/views-more.js',
@@ -165,7 +166,7 @@ const FONT_PRELOADS = [
 ];
 const FONT_PRELOADS_BS = ['https://fonts.gstatic.com/s/syne/v24/8vIH7w4qzmVxm25L9Hz_.woff2'];
 // Fontovi samo za pojedine stranice (serif za staru kartu na "Evoluciji nargile").
-const PAGE_FONTS = { history: ['/fonts/cormorant-garamond-latin-600-normal.woff2'] };
+const PAGE_FONTS = { history: ['/fonts/cormorant-garamond-latin-600-normal.woff2'], chapter: ['/fonts/cormorant-garamond-latin-600-normal.woff2'] };
 
 
 // Izvršava se u <head> prije iscrtavanja: jezik, provjera godina, loader samo pri
@@ -204,6 +205,7 @@ function structuredData(desc, lang, info) {
   }
   if (desc.page === 'notfound' || info.crumbs.length < 2) return '';
   if (desc.page === 'history') return historyLd(desc, lang, info) + breadcrumbLd(info);
+  if (desc.page === 'chapter') return chapterLd(desc, lang, info) + breadcrumbLd(info);
   return breadcrumbLd(info);
 }
 
@@ -234,6 +236,30 @@ function historyLd(desc, lang, info) {
     citation: H.sources.filter(Boolean).map((s) => s.u)
   });
 }
+
+/** Poglavlje "Evolucije nargile": Article, dio glavnog članka, sa izvorima. */
+function chapterLd(desc, lang, info) {
+  const ch = desc.chapter;
+  return jsonLd({
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: MSP.L(ch.title),
+    description: info.description,
+    inLanguage: lang,
+    url: abs(desc.url),
+    image: abs(info.ogImage || '/og-image.png'),
+    datePublished: CHAPTERS_PUBLISHED,
+    dateModified: CHAPTERS_PUBLISHED,
+    author: { '@type': 'Person', name: CFG.AUTHOR_NAME },
+    publisher: { '@type': 'Organization', name: CFG.SITE_NAME, url: abs('/') },
+    isPartOf: { '@type': 'Article', headline: MSP.t('history.title'), url: abs(V.urlFor(lang, 'history')) },
+    wordCount: V.chapterPlain(ch).split(/\s+/).length,
+    citation: ch.sources.map((s) => V.chapterSource(s).u)
+  });
+}
+
+// Datum objave poglavlja.
+const CHAPTERS_PUBLISHED = '2026-10-21';
 
 // Datum objave stranice "Evolucija nargile" (mijenja se kad se sadržaj bitno promijeni).
 const HISTORY_PUBLISHED = '2026-10-21';
@@ -412,6 +438,7 @@ function pageList() {
   for (const lang of LANGS) {
     const simple = ['home', 'mixer', 'quiz', 'guide', 'glossary', 'gear', 'about', 'history'];
     for (const p of simple) list.push({ lang, page: p, url: V.urlFor(lang, p) });
+    for (const ch of V.historyChapters()) list.push({ lang, page: 'chapter', id: ch.id, chapter: ch, url: V.chapterUrl(ch, lang) });
     for (const f of V.flavors()) list.push({ lang, page: 'flavor', id: f.id, flavor: f, url: V.urlFor(lang, 'flavor', f.id) });
     for (const g of V.glossary()) list.push({ lang, page: 'term', id: g.id, term: g, url: V.urlFor(lang, 'term', V.termSlug(g, lang)) });
     list.push({ lang, page: 'collections', url: V.urlFor(lang, 'collections') });
@@ -553,6 +580,9 @@ function writeSearchIndex() {
       ['compare', 'compare', 'compareDescription'], ['mixer', 'mixer', 'mixerDescription'], ['quiz', 'quiz', 'quizDescription'], ['guide', 'guide', 'guideDescription'],
       ['glossary', 'glossary', 'glossaryDescription'], ['gear', 'gear', 'gearDescription'], ['about', 'about', 'aboutDescription'], ['top', 'top', 'topDescription'], ['tips', 'tips', 'tipsDescription'], ['history', 'history', 'historyDescription'],
       ['suggest', 'suggest', 'suggestDescription'], ['privacy', 'privacy', 'privacyDescription'], ['terms', 'terms', 'termsDescription']];
+    V.historyChapters().forEach((ch, i) => {
+      add('page', (i + 1) + '. ' + MSP.L(ch.title), MSP.L(ch.lead), V.chapterUrl(ch), '', both(ch.title).concat(ch.sections.flatMap((x) => both(x.h)), [MSP.strings.bs.nav.history, MSP.strings.en.nav.history]));
+    });
     for (const [page, navKey, metaKey] of pages) {
       add('page', MSP.t('nav.' + navKey), MSP.t('meta.' + metaKey), V.url(page), '', LANGS.map((l) => MSP.strings[l].nav[navKey]));
     }
@@ -746,6 +776,40 @@ function checkData() {
   }
   for (const pt of H.parts) for (const stp of pt.steps) if (!srcOk(stp.src)) errors.push(`historija dijelovi ${pt.id}: korak bez izvora`);
   for (const q of H.quiz || []) if (!(q.o[q.a])) errors.push('historija kviz: tačan odgovor ne postoji');
+  // Poglavlja: tekst na oba jezika, svaki pasus sa izvorom koji postoji, izvori se koriste, linkovi postoje
+  const CHS = V.historyChapters();
+  const chSlugs = new Set();
+  CHS.forEach((ch) => {
+    const tag = `poglavlje ${ch.id}`;
+    const n = ch.sources.length;
+    const okSrc = (src) => Array.isArray(src) && src.length && src.every((k) => Number.isInteger(k) && k >= 1 && k <= n);
+    const used = new Set();
+    const use = (src) => (src || []).forEach((k) => used.add(k));
+    for (const l of LANGS) {
+      if (chSlugs.has(l + ':' + ch.slug[l])) errors.push(`${tag}: dupli slug (${l})`);
+      chSlugs.add(l + ':' + ch.slug[l]);
+      if (!MSP.L(ch.title, l) || !MSP.L(ch.lead, l) || !MSP.L(ch.span, l)) errors.push(`${tag}: fali naslov, uvod ili period (${l})`);
+      for (const s of ch.sections) {
+        if (!MSP.L(s.h, l)) errors.push(`${tag}: fali naslov dijela (${l})`);
+        for (const p of s.p) if (!MSP.L(p.t, l)) errors.push(`${tag}: fali tekst pasusa (${l})`);
+        if (s.note && !MSP.L(s.note, l)) errors.push(`${tag}: fali napomena (${l})`);
+      }
+      for (const y of ch.years || []) if (!MSP.L(y.t, l)) errors.push(`${tag}: fali tekst godine (${l})`);
+    }
+    for (const s of ch.sections) {
+      for (const p of s.p) { if (!okSrc(p.src)) errors.push(`${tag}: pasus bez ispravnog izvora`); use(p.src); }
+      if (s.note) { if (!okSrc(s.noteSrc)) errors.push(`${tag}: napomena bez izvora`); use(s.noteSrc); }
+      if (s.more && !V.chapterById(s.more)) errors.push(`${tag}: nepostojeće poglavlje ${s.more}`);
+    }
+    for (const y of ch.years || []) { if (!okSrc(y.src)) errors.push(`${tag}: godina bez izvora`); use(y.src); }
+    ch.sources.forEach((s, k) => {
+      const src = V.chapterSource(s);
+      if (!src || !src.t || !/^https:\/\//.test(src.u || '')) errors.push(`${tag}: izvor ${k + 1} ne postoji ili nema https adresu`);
+      if (!used.has(k + 1)) errors.push(`${tag}: izvor ${k + 1} se nigdje ne koristi`);
+    });
+    for (const id of ch.stations || []) if (!H.stations.some((st) => st.id === id)) errors.push(`${tag}: nepostojeća stanica ${id}`);
+    if (!V.historyArtKinds.includes(ch.art)) errors.push(`${tag}: nepoznata ilustracija ${ch.art}`);
+  });
   for (const p of (H.people || []).concat((H.art || []).filter((a) => a.station))) if (!H.stations.some((s) => s.id === p.station)) errors.push(`historija: nepostojeća stanica ${p.station}`);
   for (const q of (H.eras && H.eras.questions) || []) for (const o of q.o) if (!H.eras.results[o.e]) errors.push(`historija era: nepoznat rezultat ${o.e}`);
 
