@@ -258,6 +258,17 @@ function chapterLd(desc, lang, info) {
   });
 }
 
+/**
+ * Smije li Google prikazivati stranicu. Stranice poređenja su sve na sajtu, ali u Googleu su samo
+ * parovi iz SITE_CONFIG.INDEX_COMPARE_PAIRS (ostale imaju noindex i nisu u sitemapu).
+ */
+const INDEX_PAIRS = new Set(CFG.INDEX_COMPARE_PAIRS || []);
+function isIndexable(desc) {
+  if (desc.page === 'notfound' || V.NOINDEX_PAGES.indexOf(desc.page) !== -1) return false;
+  if (desc.page === 'comparePair') return INDEX_PAIRS.has(desc.pair.slug);
+  return true;
+}
+
 // Datum objave poglavlja.
 const CHAPTERS_PUBLISHED = '2026-10-21';
 
@@ -267,7 +278,7 @@ const HISTORY_PUBLISHED = '2026-10-21';
 function head(desc, lang, info) {
   const t = MSP.t;
   const alt = desc.alternates;
-  const indexable = desc.page !== 'notfound' && V.NOINDEX_PAGES.indexOf(desc.page) === -1;
+  const indexable = isIndexable(desc);
   const canonical = abs(desc.url);
   const title = info.title;
   const d = info.description;
@@ -470,7 +481,7 @@ function checkMeta(pages) {
     if (!info.title) errors.push(`${desc.url}: nema naslova`);
     if (!info.description) errors.push(`${desc.url}: nema opisa`);
     if (info.description && info.description.length > 155) errors.push(`${desc.url}: opis ima ${info.description.length} znakova (najviše 155)`);
-    if (desc.page === 'notfound' || V.NOINDEX_PAGES.indexOf(desc.page) !== -1) continue;
+    if (!isIndexable(desc)) continue;
     if (titles.has(info.title)) errors.push(`${desc.url}: isti naslov kao ${titles.get(info.title)}`);
     titles.set(info.title, desc.url);
     if (descs.has(info.description)) errors.push(`${desc.url}: isti opis kao ${descs.get(info.description)}`);
@@ -836,6 +847,38 @@ function checkData() {
   }
 }
 
+/**
+ * Pravi datum zadnje izmjene za sitemap: svaka stranica ima otisak (hash) svog sadržaja u
+ * seo/lastmod.json. Datum se pomjeri na danas samo kad se sadržaj stranice stvarno promijeni,
+ * a ne pri svakom buildu (Google ignoriše lastmod kome ne može vjerovati).
+ * Fajl se mijenja pri buildu; commituj ga zajedno sa izmjenom sadržaja.
+ */
+const LASTMOD_FILE = path.join(ROOT, 'seo/lastmod.json');
+function lastModDates(rendered) {
+  const today = new Date().toISOString().slice(0, 10);
+  let old = {};
+  try { old = JSON.parse(fs.readFileSync(LASTMOD_FILE, 'utf8')); } catch { old = {}; }
+  const next = {}, out = {};
+  let changed = 0;
+  for (const r of rendered) {
+    if (!isIndexable(r.desc)) continue;
+    const h = crypto.createHash('sha1').update([r.info.title, r.info.description, r.info.main].join('\n')).digest('hex').slice(0, 12);
+    const prev = old[r.desc.url];
+    const date = prev && prev[0] === h ? prev[1] : today;
+    if (!prev || prev[0] !== h) changed++;
+    next[r.desc.url] = [h, date];
+    out[r.desc.url] = date;
+  }
+  const json = JSON.stringify(next, Object.keys(next).sort(), 0).replace(/\],"/g, '],\n"').replace(/^\{/, '{\n').replace(/\}$/, '\n}') + '\n';
+  const before = fs.existsSync(LASTMOD_FILE) ? fs.readFileSync(LASTMOD_FILE, 'utf8') : '';
+  if (json !== before) {
+    fs.mkdirSync(path.dirname(LASTMOD_FILE), { recursive: true });
+    fs.writeFileSync(LASTMOD_FILE, json);
+  }
+  if (changed) console.log(`sitemap: ${changed} stranica sa novim datumom izmjene (seo/lastmod.json)`);
+  return out;
+}
+
 function build() {
   const started = Date.now();
   fs.rmSync(DIST, { recursive: true, force: true });
@@ -855,12 +898,12 @@ function build() {
   writeFile('index.html', rootPage());
 
   // sitemap.xml sa hreflang parovima
-  const today = new Date().toISOString().slice(0, 10);
-  const urls = rendered.filter((r) => r.desc.page !== 'notfound' && V.NOINDEX_PAGES.indexOf(r.desc.page) === -1).map((r) => {
+  const lastmod = lastModDates(rendered);
+  const urls = rendered.filter((r) => isIndexable(r.desc)).map((r) => {
     const alt = r.desc.alternates;
     return '  <url>\n' +
       `    <loc>${abs(r.desc.url)}</loc>\n` +
-      `    <lastmod>${today}</lastmod>\n` +
+      `    <lastmod>${lastmod[r.desc.url]}</lastmod>\n` +
       LANGS.map((l) => `    <xhtml:link rel="alternate" hreflang="${l}" href="${abs(alt[l])}"/>\n`).join('') +
       `    <xhtml:link rel="alternate" hreflang="x-default" href="${abs(alt[DEFAULT_LANG])}"/>\n` +
       '  </url>';
