@@ -26,6 +26,10 @@ import {
 } from './lib/ratings-core.mjs';
 
 const ROOT = path.join(path.dirname(fileURLToPath(import.meta.url)), 'dist');
+if (!fs.existsSync(path.join(ROOT, '404.html'))) {
+  console.error('Folder dist/ nije napravljen. Prvo pokreni: node build.mjs');
+  process.exit(1);
+}
 const ARGS = process.argv.slice(2);
 const NO_API = ARGS.includes('--no-api');
 const PORT = Number(ARGS.find((a) => /^\d+$/.test(a)) || process.env.PORT || 5173);
