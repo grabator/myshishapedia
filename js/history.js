@@ -200,7 +200,7 @@
       g.fillStyle = gr;
       g.fillRect(bx - br, by - br, br * 2, br * 2);
     }
-    return c.toDataURL('image/png');
+    return c;
   }
 
   /* ------------------------------------------------------------------ */
@@ -344,6 +344,7 @@
 
   // mekan oblačić dima (radijalni gradijent), napravi se jednom po boji
   var SPRITES = {};
+  var PAPER = null;
   function sprite(rgb) {
     if (SPRITES[rgb]) return SPRITES[rgb];
     var c = document.createElement('canvas');
@@ -535,6 +536,18 @@
     g.fillRect(cam.x - k, cam.y - k, k * 2, k * 2);
     g.restore();
 
+    // papir (stara i štampana karta): tekstura se utisne u canvas samo kad se mapa crta,
+    // a ne kao poseban sloj sa mix-blend-mode (to bi browser miješao u svakom frameu)
+    if (pal.paper > 0.01) {
+      if (!PAPER) PAPER = g.createPattern(paperTexture(), 'repeat');
+      g.save();
+      g.globalCompositeOperation = 'multiply';
+      g.globalAlpha = pal.paper * 0.6;
+      g.fillStyle = PAPER;
+      g.fillRect(0, 0, w, h);
+      g.restore();
+    }
+
     g.beginPath(); g.arc(cam.x, cam.y, k, 0, PI * 2);
     g.strokeStyle = css(pal.rim);
     g.lineWidth = pal.glow > 0.5 ? 1.2 : 1.6;
@@ -556,7 +569,7 @@
     var g = this.gf, w = this.w, h = this.h, dpr = this.dpr;
     if (!g) return;
     // crta se samo kad se nešto promijenilo (kamera, trag ili dim koji se još razilazi)
-    var key = this.key + '|' + pos.i + '|' + pos.t.toFixed(4) + '|' + (all ? 1 : 0);
+    var key = this.key + '|' + pos.i + '|' + pos.t.toFixed(4) + '|' + pos.now + '|' + (all ? 1 : 0);
     if (key === this.fxKey && !this.parts.length) return;
     this.fxKey = key;
     g.setTransform(dpr, 0, 0, dpr, 0, 0);
@@ -617,17 +630,23 @@
     }
     g.globalAlpha = 1;
 
-    // pribadače i imena
-    var serif = glow < 0.5;
-    var near = cur + (t > 0.5 ? 1 : 0);
+    // pribadače (sve, da se može kliknuti; posjećene pune) i ime trenutnog grada
+    var serif = glow < 0.5, nowI = pos.now == null ? -1 : pos.now;
     this.now = null;
+    this.pins = [];
     this.sv.forEach(function (v, i) {
-      if (!all && i > near && !(i === cur + 1 && t > 0.75)) return;
       P(v[0], v[1], v[2], out);
       if (out[2] < 0.05) return;
-      var x = out[0], y = out[1], isNow = !all && i === near;
+      var x = out[0], y = out[1], isNow = i === nowI, seen = all || i <= cur;
       var fade = clamp(out[2] * 3, 0, 1);
+      self.pins.push([x, y, i]);
       if (isNow) self.now = [x, y, fade];
+      if (!seen) {
+        g.strokeStyle = css(pal.pin, 0.55 * fade);
+        g.lineWidth = 1.2;
+        g.beginPath(); g.arc(x, y, 3.2, 0, PI * 2); g.stroke();
+        return;
+      }
       if (glow > 0.05) {
         g.fillStyle = css(pal.pin, 0.25 * glow * fade);
         g.beginPath(); g.arc(x, y, isNow ? 11 : 7, 0, PI * 2); g.fill();
@@ -639,12 +658,12 @@
         g.lineWidth = 1;
         g.beginPath(); g.arc(x, y, isNow ? 8 : 5.5, 0, PI * 2); g.stroke();
       }
-      if (!all && (isNow || i === cur)) {
+      if (isNow && !all) {
         var st = self.st[i];
         var label = serif ? st.old : MSP.L(st.city).toUpperCase();
-        g.font = serif ? 'italic 500 ' + (isNow ? 22 : 16) + 'px "Cormorant Garamond", Georgia, serif' : '700 ' + (isNow ? 12 : 10) + 'px Manrope, system-ui, sans-serif';
+        g.font = serif ? 'italic 500 22px "Cormorant Garamond", Georgia, serif' : '700 12px Manrope, system-ui, sans-serif';
         g.textBaseline = 'middle';
-        var tx = x + (isNow ? 16 : 10), ty = y - (isNow ? 16 : 10);
+        var tx = x + 16, ty = y - 16;
         if (!serif) {
           var tw = g.measureText(label).width;
           g.fillStyle = 'rgba(10,6,7,' + (0.7 * fade).toFixed(3) + ')';
@@ -657,380 +676,397 @@
   };
 
   /* ------------------------------------------------------------------ */
-  /* Film: listanje -> kamera, nargila, HUD                               */
+  /* Uvod: nargila se rastavlja i sastavlja CSS prelazom (dugme)          */
   /* ------------------------------------------------------------------ */
 
-  function mountFilm(ctx, root) {
+  function mountHero(ctx, root) {
+    var btn = root.querySelector('.hx-explode-btn');
+    var hook = document.getElementById('hx-hookah');
+    if (!btn || !hook) return;
+    btn.hidden = false;
+    var tags = [].slice.call(hook.querySelectorAll('.hx-tag'));
+    function closeTags(except) { tags.forEach(function (b) { if (b !== except) b.setAttribute('aria-expanded', 'false'); }); }
+    function set(on) {
+      root.classList.toggle('is-exploded', on);
+      btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+      if (!on) {
+        closeTags();
+        // kad se nargila sastavi, iz glave izađe malo dima
+        window.setTimeout(function () {
+          var r = hook.querySelector('[data-part="glava"]').getBoundingClientRect();
+          if (FX.Field && FX.Field.puff && r.bottom > 0 && r.top < window.innerHeight) FX.Field.puff(r.left + r.width / 2, r.top + r.height * 0.07, { count: 7 });
+        }, FX.reducedMotion() ? 0 : 1300);
+      }
+    }
+    btn.addEventListener('click', function () { set(!root.classList.contains('is-exploded')); });
+    tags.forEach(function (b) {
+      b.addEventListener('click', function (e) {
+        e.stopPropagation();
+        var open = b.getAttribute('aria-expanded') !== 'true';
+        closeTags(b);
+        b.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+    });
+    function onDoc(e) { if (!e.target.closest('.hx-tag')) closeTags(); }
+    document.addEventListener('click', onDoc);
+    // sama se rastavi malo poslije otvaranja (samo ako se uvod vidi)
+    var timer = 0;
+    if (!FX.reducedMotion()) {
+      timer = window.setTimeout(function () {
+        var r = hook.getBoundingClientRect();
+        if (r.top < window.innerHeight && r.bottom > 0) set(true);
+      }, 1100);
+    }
+    ctx.cleanup(function () { window.clearTimeout(timer); document.removeEventListener('click', onDoc); });
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* Putovanje: plejer. Kamera leti po vremenu (ne po listanju).           */
+  /* ------------------------------------------------------------------ */
+
+  var DWELL = 7000;
+
+  function mountPlayer(ctx, root) {
     var D = window.HISTORY;
     var ST = D.stations, N = ST.length;
-    var film = document.getElementById('hx-film');
-    var stage = document.getElementById('hx-stage');
+    var player = document.getElementById('hx-player');
     var canvas = document.getElementById('hx-globe');
     var fxc = document.getElementById('hx-fx');
-    var paper = stage.querySelector('.hx-paper');
-    var rose = stage.querySelector('.hx-rose');
+    var rose = player.querySelector('.hx-rose');
+    var pulse = player.querySelector('.hx-pulse');
     var sky = document.getElementById('hx-sky');
-    var hook = document.getElementById('hx-hookah');
-    var rig = hook.querySelector('.hx-rig');
-    var wisp = hook.querySelector('.hx-wisp');
-    var wispPaths = [].slice.call(wisp.querySelectorAll('path'));
-    var anat = stage.querySelector('.hx-anat');
-    var pulse = stage.querySelector('.hx-pulse');
-    var lastPulse = '';
     var hudEl = document.getElementById('hx-hud');
     var yearEl = document.getElementById('hx-year');
     var placeEl = document.getElementById('hx-place');
     var live = document.getElementById('hx-live');
     var fill = hudEl.querySelector('.hx-line__fill');
     var dots = [].slice.call(hudEl.querySelectorAll('.hx-dot'));
-    var cards = [].slice.call(document.querySelectorAll('.hx-st'));
-    var jintro = document.getElementById('hx-jintro');
-    var finale = document.getElementById('hx-finale');
-    var journey = film.querySelector('.hx-journey');
-    var partEls = {};
-    [].forEach.call(hook.querySelectorAll('.hx-part'), function (el) { partEls[el.getAttribute('data-part')] = el; });
-
-    // pomak dijela kad je nargila rastavljena (jedinice viewBoxa 400x800) i dubina (px)
-    var EXPLODE = {
-      glava: [0, -235, 120], gumica: [0, -168, 90], tacna: [0, -104, 60], stub: [0, 0, 0],
-      crijevo: [62, 50, 40], usnik: [96, 150, 70], difuzor: [0, 52, -40], vaza: [0, 292, -80]
-    };
+    var cards = [].slice.call(player.querySelectorAll('.hx-st'));
+    var playBtn = player.querySelector('[data-play]');
+    var prevBtn = player.querySelector('[data-step="-1"]');
+    var nextBtn = player.querySelector('[data-step="1"]');
+    var cardBtn = player.querySelector('[data-card]');
+    var countEl = document.getElementById('hx-count');
+    var skipBtn = hudEl.querySelector('.hx-skip__btn');
+    var skipList = document.getElementById('hx-skip-list');
 
     var R = new Renderer(canvas, fxc, ST);
     var dprMax = (navigator.hardwareConcurrency || 8) <= 4 ? 1.5 : 2;
-    var W = 0, Hh = 0, mobile = false, unit = 1;
-    var A = [], heroStart = 0, heroEnd = 1;
-    var target = { h: 0, p: -2 }, cur = { h: 0, p: -2 };
-    var running = false, raf = 0, last = 0, time = 0, visible = true;
-    var lastStation = -1, lastEra = '', lastYear = null, lastSky = -2, lastDots = -2, exploded = false, puffed = false;
-    var pointer = { x: 0, y: 0, tx: 0, ty: 0 };
-    var heroOn = true, globeShown = false;
-    var fullDpr = 1, lowDpr = 1, sharp = true, stillSince = 0;
+    var W = 0, Hh = 0, mobile = false, fullDpr = 1, lowDpr = 1, sharp = true, landedAt = 0;
+    var FINAL = vec(25, 30);
+    var idx = -1;            // -1 početak, 0..N-1 stanica, N kraj
+    var mode = 'start';
+    var revealed = 0;        // koliko je dijelova traga nacrtano do kraja
+    var flight = null, cam = null, state = null;
+    var playing = false, dwellT = 0, inView = false, raf = 0, last = 0, time = 0;
+    var lastEra = '', lastYear = null, lastPulse = '';
 
-    paper.style.backgroundImage = 'url(' + paperTexture() + ')';
+    function anchor(kind) {
+      if (kind === 'station') return mobile ? [0.5, 0.3] : [0.34, 0.55];
+      return mobile ? [0.5, 0.34] : [0.64, 0.52];
+    }
+    function startState() {
+      return { c: vec(ST[0].lon - 70 + time * 5, 16), z: mobile ? 0.62 : 0.56, a: anchor('wide'), year: 2026 };
+    }
+    function stationState(i) { return { c: R.sv[i], z: ST[i].zoom, a: anchor('station'), year: ST[i].year }; }
+    function endState() { return { c: FINAL, z: mobile ? 0.78 : 0.68, a: anchor('wide'), year: 2026 }; }
+    function targetState(i) { return i < 0 ? startState() : i >= N ? endState() : stationState(i); }
 
-    function absTop(el) { return el.getBoundingClientRect().top + window.scrollY; }
+    function toCam(s) {
+      return { c: s.c, k: R.base * s.z, x: W * s.a[0], y: Hh * s.a[1] };
+    }
+
+    function interp(a, b, e, d) {
+      var zFar = Math.log(clamp(1.25 / Math.max(d, 0.05), 0.7, 3.2));
+      var za = Math.log(a.z), zb = Math.log(b.z);
+      var dip = Math.max(0, (za + zb) / 2 - zFar);
+      return {
+        c: slerp(a.c, b.c, e),
+        z: Math.exp(lerp(za, zb, e) - dip * Math.sin(PI * e)),
+        a: [lerp(a.a[0], b.a[0], e), lerp(a.a[1], b.a[1], e)],
+        year: lerp(a.year, b.year, e)
+      };
+    }
 
     function measure() {
-      W = stage.clientWidth; Hh = stage.clientHeight;
+      W = player.clientWidth; Hh = player.clientHeight;
       mobile = W < 900;
       fullDpr = Math.min(window.devicePixelRatio || 1, dprMax);
-      // dok kamera leti, mapa se crta u manjoj rezoluciji (ne vidi se u pokretu), a kad stane, oštro
       lowDpr = W * Hh * fullDpr * fullDpr > 1.1e6 ? fullDpr * 0.62 : fullDpr * 0.8;
-      R.size(W, Hh, sharp ? fullDpr : lowDpr);
-      R.base = mobile ? Math.min(W * 0.46, Hh * 0.36) : Math.min(W, Hh) * 0.4;
-      unit = hook.clientHeight / 800;
-      var vh = window.innerHeight;
-      heroStart = absTop(film);
-      heroEnd = Math.max(heroStart + 10, absTop(journey) - vh * 0.55);
-      A = [absTop(jintro) + jintro.offsetHeight * 0.5 - vh * 0.5];
-      cards.forEach(function (li) {
-        var card = li.firstElementChild, top = absTop(card), hgt = card.offsetHeight;
-        A.push(mobile ? top - vh * 0.5 : top + hgt * 0.5 - vh * 0.5);
-      });
-      A.push(absTop(finale) + finale.offsetHeight - vh * 1.05);
-      R.key = '';
-      readScroll();
+      R.size(W, Hh, flight ? lowDpr : fullDpr);
+      sharp = !flight;
+      R.base = mobile ? Math.min(W * 0.44, Hh * 0.34) : Math.min(W, Hh) * 0.4;
+      if (!flight) state = targetState(idx);
       wake();
     }
 
-    function readScroll() {
-      var y = window.scrollY;
-      target.h = clamp((y - heroStart) / (heroEnd - heroStart), 0, 1);
-      // p: -2 (svemir) .. -1 (uvod) .. 0..N-1 (stanice) .. N (kraj)
-      var p;
-      if (y <= A[0]) p = -1 - clamp((A[0] - y) / (window.innerHeight * 1.2), 0, 1);
-      else if (y >= A[A.length - 1]) p = N;
-      else {
-        for (var i = 0; i < A.length - 1; i++) {
-          if (y < A[i + 1]) { p = i - 1 + (y - A[i]) / Math.max(1, A[i + 1] - A[i]); break; }
-        }
-      }
-      target.p = p;
+    /* ---------- prelazak na stanicu ---------- */
+
+    function setCard(i) {
+      cards.forEach(function (li, k) { li.classList.toggle('is-active', k === i); });
+      if (i >= 0) { var c = cards[i].querySelector('.hx-card'); if (c) c.scrollTop = 0; }
     }
 
-    /* ---------- kamera za napredak p ---------- */
+    function go(j) {
+      j = clamp(j, 0, N);
+      if (j === idx && !flight) return;
+      var from = state || targetState(idx);
+      var to = targetState(j);
+      var d = angleOf(from.c, to.c);
+      var dur = (mode === 'start' ? 3.2 : clamp(1.5 + d * 0.95, 1.7, 3.4)) * 1000;
+      var segFrom = flight ? flight.segNow : revealed, segTo = j >= N ? N - 1 : j;
+      if (segTo < segFrom) { segFrom = segTo; }
+      flight = { from: from, to: to, j: j, t0: performance.now(), dur: dur, d: d, segFrom: segFrom, segTo: segTo, segNow: segFrom };
+      mode = 'fly';
+      clearTimeout(dwellT);
+      playBtn.classList.remove('is-timing');
+      player.classList.remove('is-landed', 'is-start', 'is-end');
+      setCard(-1);
+      if (j < N) sky.innerHTML = skySvg(ST[j].sky);
+      if (sharp) { sharp = false; R.size(W, Hh, lowDpr); }
+      updateHud(j);
+      wake();
+    }
 
-    var SPACE = vec(ST[0].lon - 40, 22);
-    var FINAL = vec(25, 30);
-    function camFor(p) {
-      var c, z, hold = 1;
-      if (p <= -1) {
-        var sp = clamp(p + 2, 0, 1);
-        c = slerp(vec(ST[0].lon - 70, 18), SPACE, sp);
-        z = 0.5 + 0.06 * sp; hold = 0;
-      } else if (p < 0) {
-        var t0 = easeInOut(p + 1);
-        c = slerp(SPACE, R.sv[0], t0);
-        z = Math.exp(lerp(Math.log(0.56), Math.log(ST[0].zoom), t0 * t0));
-        hold = smooth(0.4, 1, p + 1);
-      } else if (p >= N - 1) {
-        var tf = easeInOut(clamp(p - (N - 1), 0, 1));
-        c = slerp(R.sv[N - 1], FINAL, tf);
-        z = Math.exp(lerp(Math.log(ST[N - 1].zoom), Math.log(0.68), tf));
-        hold = 1 - smooth(0, 0.6, tf);
+    function land() {
+      var j = flight.j;
+      flight = null;
+      idx = j;
+      revealed = j >= N ? N - 1 : j;
+      state = targetState(j);
+      landedAt = performance.now();
+      if (j >= N) {
+        mode = 'end';
+        player.classList.add('is-end');
+        setPlaying(false);
+        live.textContent = MSP.t('history.finaleTitle');
       } else {
-        var i = Math.floor(p), f = p - i, tt = easeInOut(smooth(0.18, 0.82, f));
-        var a = R.sv[i], b = R.sv[i + 1], d = angleOf(a, b);
-        c = slerp(a, b, tt);
-        var za = Math.log(ST[i].zoom), zb = Math.log(ST[i + 1].zoom);
-        var zFar = Math.log(clamp(1.25 / Math.max(d, 0.05), 0.72, 3.2));
-        var dip = Math.max(0, (za + zb) / 2 - zFar);
-        z = Math.exp(lerp(za, zb, tt) - dip * Math.sin(PI * tt));
-        hold = 1 - Math.sin(PI * tt) * 0.9;
+        mode = 'station';
+        player.classList.add('is-landed');
+        setCard(j);
+        live.textContent = MSP.t('history.station', { n: j + 1, total: N }) + ': ' + MSP.L(ST[j].place) + ', ' + MSP.L(ST[j].when);
+        // dim se digne iz grada kad kamera sleti
+        window.setTimeout(function () {
+          if (R.now && FX.Field && FX.Field.puff && inView) {
+            var r = player.getBoundingClientRect();
+            FX.Field.puff(r.left + R.now[0], r.top + R.now[1], { count: 6 });
+          }
+        }, 60);
+        if (playing) startDwell();
       }
-      var k = R.base * z;
-      // gdje na ekranu stoji tačka koju gledamo: blizu grada pomjereno (lijevo od kartice, ili gore na mobitelu)
-      var hx = mobile ? W * 0.5 : W * 0.36, hy = mobile ? Hh * 0.34 : Hh * 0.55;
-      var w = clamp((z - 1) / 2.5, 0, 1) * hold;
-      return { c: c, k: k, x: lerp(W * (mobile ? 0.5 : 0.5), hx, w), y: lerp(Hh * (mobile ? 0.48 : 0.54), hy, w) };
+      wake();
     }
 
-    function yearFor(p) {
-      if (p <= 0) return ST[0].year;
-      if (p >= N - 1) return ST[N - 1].year;
-      var i = Math.floor(p), f = p - i, tt = smooth(0.18, 0.82, f);
-      return lerp(ST[i].year, ST[i + 1].year, tt);
+    function startDwell() {
+      clearTimeout(dwellT);
+      playBtn.style.setProperty('--dwell', DWELL + 'ms');
+      playBtn.classList.remove('is-timing');
+      void playBtn.offsetWidth;
+      playBtn.classList.add('is-timing');
+      dwellT = window.setTimeout(function () { if (playing) go(idx + 1); }, DWELL);
     }
 
-    /* ---------- nargila (uvod) ---------- */
+    function setPlaying(on) {
+      playing = on;
+      playBtn.setAttribute('aria-pressed', on ? 'true' : 'false');
+      if (!on) { clearTimeout(dwellT); playBtn.classList.remove('is-timing'); }
+    }
 
-    function renderHero(h) {
-      var e = smooth(0.05, 0.38, h) - smooth(0.56, 0.78, h);
-      var out = smooth(0.84, 1, h);
-      var on = h < 0.999;
-      if (on !== heroOn) { heroOn = on; hook.style.visibility = on ? '' : 'hidden'; }
-      if (!on) return;
-      var ex = e > 0.82;
-      if (ex !== exploded) { exploded = ex; root.classList.toggle('is-exploded', ex); if (!ex) closeTags(); }
-      // na mobitelu je nargila na početku niže (ispod naslova), pa se popne
-      var intro = mobile ? 1 - smooth(0, 0.14, h) : 0;
-      var lift = intro * Hh * 0.17 - e * 40 * unit;
-      var sc = (1 - (mobile ? 0.4 : 0.36) * e - 0.25 * out) * (1 - 0.2 * intro);
-      hook.style.transform = 'translate(-50%,-50%) translate3d(0,' + (lift - out * Hh * 0.22).toFixed(1) + 'px,0) scale(' + sc.toFixed(4) + ')';
-      hook.style.opacity = (1 - smooth(0.8, 0.92, h)).toFixed(3);
-      anat.style.opacity = smooth(0.25, 0.4, h) * (1 - smooth(0.56, 0.66, h)) + '';
-      var rx = 9 * e + pointer.y * 4, ry = -16 * e + pointer.x * 8;
-      rig.style.transform = 'rotateX(' + rx.toFixed(2) + 'deg) rotateY(' + ry.toFixed(2) + 'deg)';
-      Object.keys(EXPLODE).forEach(function (id) {
-        var o = EXPLODE[id], el = partEls[id];
-        if (el) el.style.transform = 'translate3d(' + (o[0] * unit * e).toFixed(1) + 'px,' + (o[1] * unit * e).toFixed(1) + 'px,' + (o[2] * e).toFixed(1) + 'px)';
-      });
-      var wv = smooth(0.74, 0.8, h) * (1 - smooth(0.95, 1, h));
-      wisp.style.opacity = wv.toFixed(3);
-      var off = (1 - smooth(0.76, 0.94, h)).toFixed(3);
-      wispPaths.forEach(function (pth) { pth.style.strokeDashoffset = off; });
-      if (h > 0.8 && !puffed) {
-        puffed = true;
-        var r = partEls.glava.getBoundingClientRect();
-        if (FX.Field && FX.Field.puff) FX.Field.puff(r.left + r.width / 2, r.top + r.height * 0.06, { count: 8 });
-      } else if (h < 0.7) puffed = false;
+    function step(dir) {
+      if (flight) { go(flight.j + dir); return; }
+      if (idx < 0) { if (dir > 0) go(0); return; }
+      go(idx + dir);
     }
 
     /* ---------- HUD ---------- */
 
+    function updateHud(j) {
+      var n = clamp(j, 0, N - 1);
+      dots.forEach(function (d, i) { d.classList.toggle('is-now', j < N && i === j); d.classList.toggle('is-past', i < j); });
+      fill.style.transform = 'scaleX(' + clamp(j / (N - 1), 0, 1).toFixed(4) + ')';
+      placeEl.textContent = j >= N ? MSP.t('history.finaleEyebrow') : MSP.L(ST[n].place);
+      countEl.textContent = (j >= N ? N : j + 1) + ' / ' + N;
+      prevBtn.disabled = j <= 0;
+      nextBtn.disabled = j >= N;
+    }
+
     function setEra(era) {
       if (era === lastEra) return;
       lastEra = era;
-      stage.classList.toggle('is-old', era === 'old');
-      stage.classList.toggle('is-print', era === 'print');
-      stage.classList.toggle('is-modern', era === 'modern');
+      player.classList.toggle('is-old', era === 'old');
+      player.classList.toggle('is-print', era === 'print');
+      player.classList.toggle('is-modern', era === 'modern');
     }
 
-    function renderHud(p, year) {
-      var y = Math.round(year);
-      if (y !== lastYear) { lastYear = y; yearEl.textContent = y; }
-      var hudA = smooth(-1.1, -0.6, p) * (1 - smooth(N - 0.7, N - 0.2, p));
-      hudEl.style.opacity = hudA.toFixed(3);
-      hudEl.classList.toggle('is-on', hudA > 0.5);
-      fill.style.transform = 'scaleX(' + clamp(p / (N - 1), 0, 1).toFixed(4) + ')';
-      var near = clamp(Math.round(p), 0, N - 1);
-      if (near !== lastDots) {
-        lastDots = near;
-        dots.forEach(function (d, i) { d.classList.toggle('is-now', i === near); d.classList.toggle('is-past', i < near); });
-        placeEl.textContent = MSP.L(ST[near].place);
-      }
-      var atStation = p > -0.25 && p < N - 0.75 && Math.abs(p - Math.round(p)) < 0.22 ? Math.round(p) : -1;
-      if (atStation !== -1 && atStation !== lastStation) {
-        lastStation = atStation;
-        live.textContent = MSP.t('history.station', { n: atStation + 1, total: N }) + ': ' + MSP.L(ST[atStation].place) + ', ' + MSP.L(ST[atStation].when);
-      }
-    }
-
-    function renderSky(p, era) {
-      var j = clamp(Math.round(p), 0, N - 1);
-      var prox = p < -0.5 || p > N - 0.5 ? 0 : 1 - smooth(0.1, 0.4, Math.abs(p - j));
-      if (prox > 0.01 && j !== lastSky) {
-        lastSky = j;
-        sky.innerHTML = skySvg(ST[j].sky);
-      }
-      sky.style.opacity = prox.toFixed(3);
-      sky.style.transform = 'translate3d(0,' + ((1 - prox) * 42).toFixed(1) + '%,0)';
-    }
-
-    /* ---------- petlja ---------- */
+    /* ---------- petlja (radi samo dok se nešto kreće) ---------- */
 
     function frame(now) {
       raf = 0;
       var dt = last ? Math.min(0.05, (now - last) / 1000) : 0.016;
       last = now;
       time += dt;
-      readScroll();
-      var a = 1 - Math.pow(1 - 0.14, dt * 60);
-      cur.h += (target.h - cur.h) * a;
-      cur.p += (target.p - cur.p) * a;
-      if (Math.abs(target.h - cur.h) < 0.0004) cur.h = target.h;
-      if (Math.abs(target.p - cur.p) < 0.0004) cur.p = target.p;
-      pointer.x += (pointer.tx - pointer.x) * a;
-      pointer.y += (pointer.ty - pointer.y) * a;
+      var segI = revealed, segT = 0;
+      if (flight) {
+        var e = clamp((now - flight.t0) / flight.dur, 0, 1), ee = easeInOut(e);
+        state = interp(flight.from, flight.to, ee, flight.d);
+        var tot = flight.segFrom + (flight.segTo - flight.segFrom) * clamp((ee - 0.08) / 0.84, 0, 1);
+        flight.segNow = tot;
+        segI = Math.floor(tot); segT = tot - segI;
+        if (flight.segTo <= flight.segFrom) { segI = flight.segTo; segT = 0; }
+        if (e >= 1) { land(); segI = revealed; segT = 0; }
+      } else if (mode === 'start') {
+        state = startState();
+      }
+      if (!state) state = targetState(idx);
 
-      renderHero(cur.h);
-
-      var gA = smooth(0.84, 1, cur.h);
-      var show = gA > 0.001;
-      if (show !== globeShown) { globeShown = show; if (show) loadGeo(function () { R.key = ''; wake(); }); }
-      canvas.style.opacity = gA.toFixed(3);
-      fxc.style.opacity = gA.toFixed(3);
-
-      var year = yearFor(cur.p);
+      var year = state.year;
       var pal = paletteFor(year);
-      var era = year < 1850 ? 'old' : year < 1985 ? 'print' : 'modern';
-      setEra(era);
-      if (show) {
-        var cam = camFor(cur.p);
-        R.drawMap(cam, pal);
-        var i = clamp(Math.floor(cur.p), 0, N - 1), f = cur.p - i;
-        var pos = cur.p < 0 ? { i: 0, t: 0 } : cur.p >= N - 1 ? { i: N - 1, t: 0 } : { i: i, t: smooth(0.18, 0.82, f) };
-        R.drawFx(cam, pal, pos, time, dt, cur.p > N - 0.6);
-        var pn = R.now, pk = pn ? pn[0].toFixed(1) + ',' + pn[1].toFixed(1) + ',' + (pn[2] * gA).toFixed(2) : '';
-        if (pk !== lastPulse) {
-          lastPulse = pk;
-          pulse.style.opacity = pn ? (pn[2] * gA).toFixed(2) : '0';
-          if (pn) pulse.style.transform = 'translate3d(' + pn[0].toFixed(1) + 'px,' + pn[1].toFixed(1) + 'px,0)';
-        }
-      }
-      paper.style.opacity = (pal.paper * 0.6 * gA).toFixed(3);
-      rose.style.opacity = (pal.ink * 0.7 * gA * smooth(-1.2, -0.6, cur.p)).toFixed(3);
-      renderHud(cur.p, year);
-      renderSky(cur.p, era);
+      setEra(year < 1850 ? 'old' : year < 1985 ? 'print' : 'modern');
+      var y = Math.round(year);
+      if (y !== lastYear) { lastYear = y; yearEl.textContent = y; }
 
-      var settled = cur.h === target.h && cur.p === target.p && Math.abs(pointer.tx - pointer.x) < 0.001 && Math.abs(pointer.ty - pointer.y) < 0.001;
-      var camStill = Math.abs(target.p - cur.p) < 0.002;
-      if (!camStill) {
-        stillSince = 0;
-        if (sharp && show) { sharp = false; R.size(W, Hh, lowDpr); }
-      } else if (!sharp) {
-        if (!stillSince) stillSince = now;
-        if (now - stillSince > 160) { sharp = true; R.size(W, Hh, fullDpr); settled = false; }
-        else settled = false;
+      cam = toCam(state);
+      R.drawMap(cam, pal);
+      var nowI = mode === 'station' ? idx : -1;
+      R.drawFx(cam, pal, { i: mode === 'start' ? -1 : segI, t: segT, now: nowI }, time, dt, mode === 'end');
+      var pn = mode === 'station' ? R.now : null;
+      var pk = pn ? pn[0].toFixed(1) + ',' + pn[1].toFixed(1) : '';
+      if (pk !== lastPulse) {
+        lastPulse = pk;
+        pulse.style.opacity = pn ? '1' : '0';
+        if (pn) pulse.style.transform = 'translate3d(' + pn[0].toFixed(1) + 'px,' + pn[1].toFixed(1) + 'px,0)';
       }
-      // dok se dim sa traga još razilazi, petlja radi i kad se ne lista; pribadača pulsira u CSS-u
-      if (running && visible && !document.hidden && (!settled || R.parts.length)) raf = requestAnimationFrame(frame);
+      rose.style.opacity = (pal.ink * 0.7).toFixed(3);
+
+      // poslije slijetanja još jednom oštro
+      var moving = !!flight || mode === 'start';
+      if (!moving && !sharp && now - landedAt > 140) { sharp = true; R.size(W, Hh, fullDpr); moving = true; }
+      if (inView && !document.hidden && (moving || R.parts.length)) raf = requestAnimationFrame(frame);
       else last = 0;
     }
 
     function wake() {
-      if (!raf && running && visible && !document.hidden) { last = 0; raf = requestAnimationFrame(frame); }
+      if (!raf && inView && !document.hidden) { last = 0; raf = requestAnimationFrame(frame); }
     }
 
-    function onScroll() { wake(); }
+    /* ---------- unos: dugmad, tastatura, prevlačenje, klik na pribadaču ---------- */
 
-    /* ---------- natpisi dijelova ---------- */
-
-    var tags = [].slice.call(hook.querySelectorAll('.hx-tag'));
-    function closeTags(except) { tags.forEach(function (b) { if (b !== except) b.setAttribute('aria-expanded', 'false'); }); }
-    tags.forEach(function (b) {
-      b.addEventListener('click', function () {
-        var open = b.getAttribute('aria-expanded') !== 'true';
-        closeTags(b);
-        b.setAttribute('aria-expanded', open ? 'true' : 'false');
-      });
-    });
-
-    /* ---------- skok na stanicu ---------- */
-
-    function go(i) {
-      var y = A[clamp(i, 0, N - 1) + 1];
-      window.scrollTo({ top: y, behavior: 'smooth' });
-      var h = cards[i] && cards[i].querySelector('h3');
-      if (h) {
-        h.setAttribute('tabindex', '-1');
-        window.setTimeout(function () { h.focus({ preventScroll: true }); }, 900);
+    function onClick(e) {
+      var t = e.target;
+      var g = t.closest('[data-go]');
+      if (g && player.contains(g)) { e.preventDefault(); setSkip(false); go(+g.getAttribute('data-go')); return; }
+      if (t.closest('[data-autoplay]')) { setPlaying(true); go(0); return; }
+      if (t.closest('[data-play]')) {
+        if (playing) setPlaying(false);
+        else { setPlaying(true); if (mode === 'start' || mode === 'end') go(0); else if (!flight) go(idx + 1); }
+        return;
       }
+      var s = t.closest('[data-step]');
+      if (s) { step(+s.getAttribute('data-step')); return; }
+      if (t.closest('[data-card]')) {
+        var min = !player.classList.contains('is-min');
+        player.classList.toggle('is-min', min);
+        cardBtn.setAttribute('aria-pressed', min ? 'true' : 'false');
+        cardBtn.setAttribute('aria-label', MSP.t(min ? 'history.cardShow' : 'history.cardHide'));
+        return;
+      }
+      if (t.closest('.hx-skip__btn')) { setSkip(skipList.hidden); return; }
+      if (!skipList.hidden && !t.closest('.hx-skip')) setSkip(false);
+      if (t.closest('a,button,.hx-card,.hx-start__card,.hx-finale__card')) return;
+      var hit = pinAt(e.clientX, e.clientY);
+      if (hit >= 0) go(hit);
     }
-    var skipBtn = hudEl.querySelector('.hx-skip__btn');
-    var skipList = document.getElementById('hx-skip-list');
     function setSkip(open) {
       skipBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
       skipList.hidden = !open;
     }
-    skipBtn.addEventListener('click', function () { setSkip(skipList.hidden); });
-    hudEl.addEventListener('click', function (e) {
-      var a = e.target.closest('[data-go]');
-      if (!a) return;
-      e.preventDefault();
-      setSkip(false);
-      go(+a.getAttribute('data-go'));
-    });
+
+    function pinAt(cx, cy) {
+      if (!R.pins) return -1;
+      var r = player.getBoundingClientRect(), x = cx - r.left, y = cy - r.top, best = -1, bd = 22 * 22;
+      R.pins.forEach(function (p) { var d = (p[0] - x) * (p[0] - x) + (p[1] - y) * (p[1] - y); if (d < bd) { bd = d; best = p[2]; } });
+      return best;
+    }
+
+    var down = null;
+    function onDown(e) {
+      if (e.target.closest('a,button,.hx-card,.hx-skip__list')) { down = null; return; }
+      down = { x: e.clientX, y: e.clientY, t: performance.now() };
+    }
+    function onUp(e) {
+      if (!down) return;
+      var dx = e.clientX - down.x, dy = e.clientY - down.y;
+      down = null;
+      if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.3) {
+        if (mode === 'start') { if (dx < 0) go(0); return; }
+        step(dx < 0 ? 1 : -1);
+      }
+    }
+    function onMove(e) {
+      if (e.pointerType !== 'mouse' || flight) return;
+      player.classList.toggle('is-pin', !e.target.closest('a,button,.hx-card') && pinAt(e.clientX, e.clientY) >= 0);
+    }
     function onKey(e) {
+      if (!inView || e.altKey || e.ctrlKey || e.metaKey) return;
+      if (/input|textarea|select/i.test((document.activeElement || {}).tagName || '')) return;
       if (e.key === 'Escape' && !skipList.hidden) { setSkip(false); skipBtn.focus(); return; }
-      if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
-      if (e.altKey || e.ctrlKey || e.metaKey || /input|textarea|select/i.test((document.activeElement || {}).tagName || '')) return;
-      if (cur.p < -0.5 || cur.p > N - 0.5) return;
+      if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+        var r = player.getBoundingClientRect();
+        if (r.top > window.innerHeight * 0.5 || r.bottom < window.innerHeight * 0.5) return;
+        e.preventDefault();
+        step(e.key === 'ArrowRight' ? 1 : -1);
+      }
+    }
+
+    player.addEventListener('click', onClick);
+    player.addEventListener('pointerdown', onDown, { passive: true });
+    player.addEventListener('pointerup', onUp, { passive: true });
+    player.addEventListener('pointercancel', function () { down = null; });
+    player.addEventListener('pointermove', onMove, { passive: true });
+    document.addEventListener('keydown', onKey);
+
+    // dugme "Kreni na putovanje" u uvodu: dođe do plejera i krene
+    var startLink = root.querySelector('.hx-hero [data-start]');
+    function onStart(e) {
       e.preventDefault();
-      go(clamp(Math.round(cur.p) + (e.key === 'ArrowRight' ? 1 : -1), 0, N - 1));
+      document.getElementById('put').scrollIntoView({ behavior: FX.reducedMotion() ? 'auto' : 'smooth', block: 'start' });
+      window.setTimeout(function () { if (mode === 'start') go(0); }, 650);
     }
-    document.addEventListener('click', function (e) {
-      if (!skipList.hidden && !e.target.closest('.hx-skip')) setSkip(false);
-      if (!e.target.closest('.hx-tag')) closeTags();
-    });
+    if (startLink) startLink.addEventListener('click', onStart);
 
-    function onPointer(e) {
-      if (e.pointerType !== 'mouse' || !heroOn) return;
-      pointer.tx = e.clientX / window.innerWidth - 0.5;
-      pointer.ty = e.clientY / window.innerHeight - 0.5;
-      wake();
-    }
-
-    /* ---------- start / stop ---------- */
+    /* ---------- vidljivost, veličina ---------- */
 
     var io = new IntersectionObserver(function (en) {
-      visible = en[0].isIntersecting;
-      if (visible) wake();
-    }, { rootMargin: '200px 0px' });
-    io.observe(film);
-
-    // mapa se učitava unaprijed, čim se korisnik približi kraju uvoda
-    var pre = new IntersectionObserver(function (en) {
-      if (en[0].isIntersecting) { loadGeo(function () { R.key = ''; wake(); }); pre.disconnect(); }
-    }, { rootMargin: '100% 0px' });
-    pre.observe(journey);
-
+      inView = en[0].isIntersecting;
+      if (inView) { loadGeo(function () { R.key = ''; wake(); }); wake(); }
+      else if (playing) setPlaying(false);
+    }, { threshold: 0.15 });
+    io.observe(player);
     var resizeT = 0;
-    function onResize() { window.clearTimeout(resizeT); resizeT = window.setTimeout(measure, 120); }
-    var ro = 'ResizeObserver' in window ? new ResizeObserver(onResize) : null;
-    if (ro) ro.observe(film);
-    function onVis() { if (!document.hidden) wake(); }
-
-    window.addEventListener('scroll', onScroll, { passive: true });
+    function onResize() { clearTimeout(resizeT); resizeT = setTimeout(measure, 120); }
     window.addEventListener('resize', onResize);
-    window.addEventListener('pointermove', onPointer, { passive: true });
-    document.addEventListener('keydown', onKey);
+    function onVis() { if (document.hidden) setPlaying(false); else wake(); }
     document.addEventListener('visibilitychange', onVis);
-    if (document.fonts && document.fonts.load) document.fonts.load('italic 500 20px "Cormorant Garamond"').then(function () { wake(); });
+    if (document.fonts && document.fonts.load) document.fonts.load('italic 500 20px "Cormorant Garamond"').then(function () { R.key = ''; wake(); });
 
-    running = true;
+    player.classList.add('is-start');
+    updateHud(-1);
+    countEl.textContent = '0 / ' + N;
     measure();
-    // fontovi i slike mogu promijeniti visine kartica
-    window.addEventListener('load', measure, { once: true });
+
+    // link sa sidrom na stanicu (#istanbul): plejer odmah leti tamo
+    var hashI = ST.findIndex(function (s) { return '#' + s.id === location.hash; });
+    if (hashI >= 0) {
+      document.getElementById('put').scrollIntoView({ block: 'start' });
+      window.setTimeout(function () { go(hashI); }, 300);
+    }
 
     ctx.cleanup(function () {
-      running = false;
+      inView = false;
       if (raf) cancelAnimationFrame(raf);
-      io.disconnect(); pre.disconnect(); if (ro) ro.disconnect();
-      window.removeEventListener('scroll', onScroll);
+      clearTimeout(dwellT);
+      io.disconnect();
       window.removeEventListener('resize', onResize);
-      window.removeEventListener('pointermove', onPointer);
       document.removeEventListener('keydown', onKey);
       document.removeEventListener('visibilitychange', onVis);
     });
@@ -1111,6 +1147,16 @@
       st.addEventListener('pointercancel', function () { x0 = null; });
     });
 
+    // muzej: dodir/klik osvijetli nargilu (na mobitelu nema hover)
+    var exhibits = [].slice.call(document.querySelectorAll('.hx-exhibit__btn'));
+    exhibits.forEach(function (b) {
+      b.addEventListener('click', function () {
+        var on = b.getAttribute('aria-pressed') !== 'true';
+        exhibits.forEach(function (o) { o.setAttribute('aria-pressed', 'false'); });
+        b.setAttribute('aria-pressed', on ? 'true' : 'false');
+      });
+    });
+
     // nazivi: lista i tačke na mapi se pale zajedno
     var dotsByN = {};
     [].forEach.call(document.querySelectorAll('.hx-mdot'), function (d) { dotsByN[d.getAttribute('data-n')] = d; });
@@ -1132,8 +1178,9 @@
       if (!root || !window.HISTORY) return;
       ctx.cleanup(FX.reveal(ctx.els.main));
       mountExtras(ctx);
+      mountHero(ctx, root);
       if (FX.reducedMotion()) mountStatic();
-      else mountFilm(ctx, root);
+      else mountPlayer(ctx, root);
     }
   };
 })();
