@@ -741,10 +741,13 @@ function checkData() {
     }
     for (const f of st.facts.concat(st.fun ? [st.fun] : [])) if (!srcOk(f.src)) errors.push(`${tag}: činjenica bez ispravnog izvora`);
   });
-  for (const list of ['names', 'myths', 'health']) {
+  for (const list of ['names', 'myths', 'health', 'art', 'people', 'quiz']) {
     for (const it of H[list] || []) if (!srcOk(it.src)) errors.push(`historija ${list}: stavka bez ispravnog izvora`);
   }
   for (const pt of H.parts) for (const stp of pt.steps) if (!srcOk(stp.src)) errors.push(`historija dijelovi ${pt.id}: korak bez izvora`);
+  for (const q of H.quiz || []) if (!(q.o[q.a])) errors.push('historija kviz: tačan odgovor ne postoji');
+  for (const p of (H.people || []).concat((H.art || []).filter((a) => a.station))) if (!H.stations.some((s) => s.id === p.station)) errors.push(`historija: nepostojeća stanica ${p.station}`);
+  for (const q of (H.eras && H.eras.questions) || []) for (const o of q.o) if (!H.eras.results[o.e]) errors.push(`historija era: nepoznat rezultat ${o.e}`);
 
   const slugs = new Set();
   for (const m of V.mixes()) {

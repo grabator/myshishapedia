@@ -138,24 +138,10 @@ window.HISTORY = {
       title: { bs: 'Mu\'assel: duhan sa okusom', en: 'Mu\'assel: flavoured tobacco' },
       facts: [
         { t: { bs: 'Mu\'assel znači "medeni". To je duhan pomiješan sa melasom, glicerinom i aromama voća.', en: 'Mu\'assel means "honeyed". It is tobacco mixed with molasses, glycerine and fruit flavours.' }, src: [22] },
-        { t: { bs: 'Do kraja 20. stoljeća nargilu na Bliskom istoku pušili su uglavnom stariji muškarci u kafanama. Od ranih 1990-ih blagi mu\'assel privlači mlade.', en: 'By the late 20th century the hookah in the Middle East was mostly smoked by older men in cafés. From the early 1990s mild mu\'assel draws in the young.' }, src: [22] },
+        { t: { bs: 'Do kraja 20. stoljeća nargilu na Bliskom istoku pušili su uglavnom stariji muškarci u kafanama. Od ranih 1990-ih blagi mu\'assel privlači mlade.', en: 'By the late 20th century the hookah in the Middle East was mostly smoked by older men in cafés. From the early 1990s mild mu\'assel draws in the young.' }, src: [22, 47] },
         { t: { bs: 'Neki izvori porijeklo mu\'assela vežu za Egipat ranog 20. stoljeća, ali se tačan početak ne zna.', en: 'Some sources trace mu\'assel to early 20th century Egypt, but the exact start is unknown.' }, src: [22] }
       ],
       fun: { t: { bs: 'Japan Tobacco je 2012. kupio egipatski Nakhla i naveo da ima skoro 100 godina tradicije. Fabrike su mu u Kairu i Shebin El Komu.', en: 'In 2012 Japan Tobacco bought Egypt\'s Nakhla, citing almost 100 years of heritage. Its factories are in Cairo and Shebin El Kom.' }, src: [23] }
-    },
-    {
-      id: 'uae', year: 1999, lon: 55.40, lat: 25.30, zoom: 5.4,
-      when: { bs: '1999.', en: '1999' },
-      place: { bs: 'Ujedinjeni Arapski Emirati', en: 'United Arab Emirates' }, city: { bs: 'Emirati', en: 'Emirates' }, old: 'UAE',
-      name: 'shisha', art: 'egypt',
-      sky: ['block:.04:.12:.20', 'sail:.24:.84', 'tower:.40:.05:.46', 'tower:.48:.04:.58', 'palm:.60:.34', 'tower:.74:.05:.40', 'block:.86:.94:.24'],
-      title: { bs: 'Voćna shisha osvaja svijet', en: 'Fruit shisha goes global' },
-      facts: [
-        { t: { bs: 'Al Fakher prema vlastitom profilu proizvodi shishu od 1999. u Emiratima.', en: 'According to its own profile, Al Fakher has made shisha in the Emirates since 1999.' }, src: [43] },
-        { t: { bs: 'Jordanska Al Eqbal Investment Company kupila je fabriku Al Fakher 2006. za 11 miliona dolara.', en: 'Jordan\'s Al Eqbal Investment Company bought the Al Fakher factory in 2006 for 11 million dollars.' }, src: [26] },
-        { t: { bs: 'Poslije kupovine fabrika je automatizovana, a brend se prodaje u više od 100 zemalja.', en: 'After the purchase the factory was automated, and the brand sells in more than 100 countries.' }, src: [26] }
-      ],
-      fun: { t: { bs: 'Od 1999. do prodaje u više od 100 zemalja prošlo je manje od dvije decenije.', en: 'From 1999 to sales in more than 100 countries took less than two decades.' }, src: [26, 43] }
     },
     {
       id: 'kalifornija', year: 2005, lon: -118.24, lat: 34.05, zoom: 5.0,
@@ -170,6 +156,20 @@ window.HISTORY = {
         { t: { bs: 'Kalifornijski Starbuzz se u svojoj registrovanoj marki predstavlja kao "Starbuzz Tobacco since 2005".', en: 'California\'s Starbuzz presents itself in a registered trademark as "Starbuzz Tobacco since 2005".' }, src: [28] }
       ],
       fun: { t: { bs: 'U SAD nargila za samo nekoliko godina postaje dio studentskog izlaska.', en: 'In just a few years the hookah in the USA becomes part of a student night out.' }, src: [27] }
+    },
+    {
+      id: 'uae', year: 2006, lon: 55.40, lat: 25.30, zoom: 5.4,
+      when: { bs: '2006-2020.', en: '2006-2020' },
+      place: { bs: 'Ujedinjeni Arapski Emirati', en: 'United Arab Emirates' }, city: { bs: 'Emirati', en: 'Emirates' }, old: 'UAE',
+      name: 'shisha', art: 'egypt',
+      sky: ['block:.04:.12:.20', 'sail:.24:.84', 'tower:.40:.05:.46', 'tower:.48:.04:.58', 'palm:.60:.34', 'tower:.74:.05:.40', 'block:.86:.94:.24'],
+      title: { bs: 'Voćna shisha postaje veliki biznis', en: 'Fruit shisha becomes big business' },
+      facts: [
+        { t: { bs: 'Jordanska Al Eqbal Investment Company kupila je 2006. fabriku Al Fakher iz Emirata za 11 miliona dolara.', en: 'In 2006 Jordan\'s Al Eqbal Investment Company bought the Al Fakher factory in the Emirates for 11 million dollars.' }, src: [26] },
+        { t: { bs: 'Poslije kupovine fabrika je automatizovana, a brend se prodaje u više od 100 zemalja.', en: 'After the purchase the factory was automated, and the brand sells in more than 100 countries.' }, src: [26] },
+        { t: { bs: 'U novembru 2020. britanski fond Kingsway Capital preuzeo je Al Eqbal (vlasnika Al Fakhera) u poslu procijenjenom na više od 1,4 milijarde dolara.', en: 'In November 2020 the British fund Kingsway Capital took over Al Eqbal (owner of Al Fakher) in a deal valued at more than 1.4 billion dollars.' }, src: [43, 46] }
+      ],
+      fun: { t: { bs: 'Od fabrike kupljene za 11 miliona do posla vrijednog preko 1,4 milijarde dolara prošlo je 14 godina.', en: 'From a factory bought for 11 million to a deal worth over 1.4 billion dollars took 14 years.' }, src: [26, 43] }
     },
     {
       id: 'sarajevo', year: 2010, lon: 18.43, lat: 43.86, zoom: 6.4,
@@ -206,12 +206,88 @@ window.HISTORY = {
       title: { bs: 'Zemlja shisha barova', en: 'The land of shisha bars' },
       facts: [
         { t: { bs: 'Zvaničnog broja nema: ZDF je 2020. pisao o više od 6.000 shisha barova, a udruženje proizvođača 2024. procjenjuje oko 5.000.', en: 'There is no official count: ZDF reported more than 6,000 shisha bars in 2020, and the manufacturers\' association estimated about 5,000 in 2024.' }, src: [33, 34] },
-        { t: { bs: 'Tagesspiegel procjenjuje da u Njemačkoj nargilu puši oko 1,5 miliona ljudi.', en: 'Tagesspiegel estimates that about 1.5 million people in Germany smoke a hookah.' }, src: [35] },
+        { t: { bs: 'Po studiji instituta Robert Koch (KiGGS, 2009-2012), 28,9% tinejdžera od 12 do 17 godina probalo je nargilu, a otprilike svaki deseti pušio ju je u prethodnih 30 dana.', en: 'According to the Robert Koch Institute study (KiGGS, 2009-2012), 28.9% of teenagers aged 12 to 17 had tried a hookah, and about one in ten had smoked one in the previous 30 days.' }, src: [35] },
         { t: { bs: 'Zbog trovanja ugljen-monoksidom Baden-Württemberg traži od shisha lokala dovoljnu ventilaciju i detektore CO.', en: 'Because of carbon monoxide poisonings, Baden-Württemberg requires shisha venues to have proper ventilation and CO detectors.' }, src: [39, 38] }
       ],
       fun: { t: { bs: 'Od jula 2022. duhan za nargilu u Njemačkoj smio se prodavati samo u pakovanjima do 25 grama. Pravilo je ukinuto 2024.', en: 'From July 2022, hookah tobacco in Germany could only be sold in packs of up to 25 grams. The rule was lifted in 2024.' }, src: [36, 37] }
     }
   ],
+
+  // "Nargila u knjigama i umjetnosti" (svaka stavka sa izvorom; slike djela su u muzejima, ovdje samo link)
+  art: [
+    { id: 'alisa', year: 1865, kind: { bs: 'Knjiga', en: 'Book' }, who: 'Lewis Carroll', title: { bs: 'Alisa u zemlji čuda', en: 'Alice\'s Adventures in Wonderland' },
+      t: { bs: 'U 5. poglavlju, "Savjet od gusjenice", Alisa na vrhu pečurke zatiče veliku plavu gusjenicu kako mirno puši dugu nargilu. Gusjenica izvadi nargilu iz usta i pita je: "Ko si TI?"', en: 'In chapter 5, "Advice from a Caterpillar", Alice finds a large blue caterpillar on top of a mushroom, quietly smoking a long hookah. The Caterpillar takes the hookah out of its mouth and asks her: "Who are YOU?"' },
+      src: [48, 49], link: 49 },
+    { id: 'plemic', year: 1670, kind: { bs: 'Minijatura', en: 'Miniature' }, who: { bs: 'pripisano Ali Rezi', en: 'attributed to Ali Reza' }, title: { bs: 'Plemić puši na terasi', en: 'Nobleman Smoking on a Terrace' },
+      t: { bs: 'Slika iz oko 1670. pokazuje plemića u ružičastom kako puši iz duge huqqe, dok mu dvoranin drži posudu. Stil je bliži Dekanu nego carskom dvoru Mughala.', en: 'A painting from around 1670 shows a nobleman in pink smoking from a long huqqa while a courtier holds its base. The style is closer to the Deccan than to the imperial Mughal court.' },
+      src: [50], link: 50 },
+    { id: 'shah-alam', year: 1780, kind: { bs: 'Portret', en: 'Portrait' }, who: { bs: 'nepoznat slikar', en: 'unknown painter' }, title: { bs: 'Car Shah Alam sa huqqom', en: 'Emperor Shah Alam with a huqqa' },
+      t: { bs: 'Muzej Victoria and Albert u Londonu čuva portret mogulskog cara Shaha Alama koji sjedi i puši huqqu.', en: 'The Victoria and Albert Museum in London holds a portrait of the Mughal Emperor Shah Alam sitting and smoking a huqqa.' },
+      src: [51], link: 51, noYear: true },
+    { id: 'alzir', year: 1834, kind: { bs: 'Slika', en: 'Painting' }, who: 'Eugène Delacroix', title: { bs: 'Alžirske žene u svojim odajama', en: 'Women of Algiers in their Apartment' },
+      t: { bs: 'Delacroix je ovu sliku naslikao 1834, a danas je u Louvreu. Uz žene koje sjede na podu stoji nargila.', en: 'Delacroix painted this work in 1834, and it is now in the Louvre. A narghile stands beside the women seated on the floor.' },
+      src: [53], link: 53 },
+    { id: 'basibozuk', year: 1868, kind: { bs: 'Slika', en: 'Painting' }, who: 'Jean-Léon Gérôme', title: { bs: 'Baši-bozuk pjeva', en: 'Bashi-Bazouk Singing' },
+      t: { bs: 'Na slici iz 1868. albanski vojnik sjedi uz nargilu i svira oud, a pored njega je gavran na kavezu. Slika je u muzeju Walters u Baltimoreu.', en: 'In this 1868 painting an Albanian soldier sits by a hookah playing an oud, with a raven on its cage beside him. The painting is at the Walters Art Museum in Baltimore.' },
+      src: [52], link: 52 },
+    { id: 'mahfouz', year: 1988, kind: { bs: 'Pisac', en: 'Writer' }, who: 'Naguib Mahfouz', title: { bs: 'Nobelovac iz kafane El Fishawy', en: 'The Nobel laureate of El Fishawy' },
+      t: { bs: 'Egipatski nobelovac bio je stalni gost kafane El Fishawy u Kairu i tamo je pisao dijelove svoje trilogije.', en: 'The Egyptian Nobel laureate was a regular at El Fishawy café in Cairo and wrote parts of his trilogy there.' },
+      src: [20, 21], noYear: true, station: 'kairo-fishawy' }
+  ],
+
+  // "Ljudi iz priče": historijske ličnosti sa stanica (klik vodi na stanicu)
+  people: [
+    { name: 'Asad Beg', role: { bs: 'izaslanik cara Akbara', en: 'Emperor Akbar\'s envoy' }, t: { bs: 'Donio duhan i lulu sa draguljima na mogulski dvor, 1604.', en: 'Brought tobacco and a jewelled pipe to the Mughal court, 1604.' }, station: 'agra', src: [1] },
+    { name: 'Šah Abbas I', en: 'Shah Abbas I', role: { bs: 'safavidski vladar', en: 'Safavid ruler' }, t: { bs: 'Nije volio duhan i zabranio ga je, ali Perzija je nastavila pušiti.', en: 'Disliked tobacco and banned it, yet Persia kept smoking.' }, station: 'isfahan', src: [3] },
+    { name: 'Murad IV', role: { bs: 'osmanski sultan', en: 'Ottoman sultan' }, t: { bs: 'Poslije požara 1633. zatvorio kafane i uveo smrtnu kaznu za javno pušenje.', en: 'After the fire of 1633 he closed the coffeehouses and made public smoking punishable by death.' }, station: 'istanbul', src: [9, 10] },
+    { name: 'Edward W. Lane', role: { bs: 'britanski orijentalista', en: 'British orientalist' }, t: { bs: 'Godine 1836. opisao egipatsku nargilu od kokosa i staklenu "šišu".', en: 'In 1836 described the Egyptian coconut narghile and the glass "shisha".' }, station: 'kairo-fishawy', src: [18] },
+    { name: 'Mirza Hasan Širazi', en: 'Mirza Hasan Shirazi', role: { bs: 'vjerski autoritet', en: 'religious authority' }, t: { bs: 'Fetvom iz decembra 1891. pokrenuo bojkot duhana u cijeloj Perziji.', en: 'His fatwa of December 1891 launched a tobacco boycott across Persia.' }, station: 'teheran', src: [13, 14] },
+    { name: 'Naguib Mahfouz', role: { bs: 'pisac, nobelovac', en: 'writer, Nobel laureate' }, t: { bs: 'Stalni gost kafane El Fishawy, gdje je pisao dijelove trilogije.', en: 'A regular at El Fishawy, where he wrote parts of his trilogy.' }, station: 'kairo-fishawy', src: [20, 21] }
+  ],
+
+  // Kviz "Evolucija nargile": a = indeks tačnog odgovora
+  quiz: [
+    { q: { bs: 'Šta znači perzijska riječ nārgīl, po kojoj je nargila dobila ime?', en: 'What does the Persian word nārgīl, which gave the narghile its name, mean?' }, o: [{ bs: 'Kokos', en: 'Coconut' }, { bs: 'Staklo', en: 'Glass' }, { bs: 'Dim', en: 'Smoke' }], a: 0, src: [5] },
+    { q: { bs: 'Odakle dolazi riječ shisha?', en: 'Where does the word shisha come from?' }, o: [{ bs: 'Od arapske riječi za med', en: 'From the Arabic word for honey' }, { bs: 'Od perzijske riječi za staklo', en: 'From the Persian word for glass' }, { bs: 'Od turske riječi za vodu', en: 'From the Turkish word for water' }], a: 1, src: [42] },
+    { q: { bs: 'Koji sultan je 1633. uveo smrtnu kaznu za javno pušenje?', en: 'Which sultan made public smoking punishable by death in 1633?' }, o: [{ bs: 'Sulejman Veličanstveni', en: 'Suleiman the Magnificent' }, { bs: 'Mehmed II', en: 'Mehmed II' }, { bs: 'Murad IV', en: 'Murad IV' }], a: 2, src: [9, 10] },
+    { q: { bs: 'Šta je 1891. pokrenulo duhanski bojkot u Perziji?', en: 'What triggered the 1891 tobacco boycott in Persia?' }, o: [{ bs: 'Monopol na duhan dat Britancu', en: 'A tobacco monopoly granted to a Briton' }, { bs: 'Novi porez na kafu', en: 'A new tax on coffee' }, { bs: 'Zabrana kafana', en: 'A ban on cafés' }], a: 0, src: [13] },
+    { q: { bs: 'Šta znači riječ mu\'assel?', en: 'What does the word mu\'assel mean?' }, o: [{ bs: 'Dimni', en: 'Smoky' }, { bs: 'Medeni', en: 'Honeyed' }, { bs: 'Hladni', en: 'Cold' }], a: 1, src: [22] },
+    { q: { bs: 'Kada mu\'assel vraća nargilu mladima na Bliskom istoku?', en: 'When does mu\'assel bring the hookah back to young people in the Middle East?' }, o: [{ bs: '1950-ih', en: 'In the 1950s' }, { bs: 'Ranih 1990-ih', en: 'In the early 1990s' }, { bs: '2010-ih', en: 'In the 2010s' }], a: 1, src: [22, 47] },
+    { q: { bs: 'Koji pisac je u kafani El Fishawy pisao dijelove svoje trilogije?', en: 'Which writer wrote parts of his trilogy at El Fishawy café?' }, o: [{ bs: 'Naguib Mahfouz', en: 'Naguib Mahfouz' }, { bs: 'Orhan Pamuk', en: 'Orhan Pamuk' }, { bs: 'Halil Džubran', en: 'Kahlil Gibran' }], a: 0, src: [20, 21] },
+    { q: { bs: 'U kojoj knjizi gusjenica puši nargilu?', en: 'In which book does a caterpillar smoke a hookah?' }, o: [{ bs: 'Mali princ', en: 'The Little Prince' }, { bs: 'Alisa u zemlji čuda', en: 'Alice\'s Adventures in Wonderland' }, { bs: 'Hiljadu i jedna noć', en: 'One Thousand and One Nights' }], a: 1, src: [48, 49] }
+  ],
+
+  // "Koja si ti era?": svaki odgovor daje bod jednoj eri; era = stanica sa putovanja
+  eras: {
+    questions: [
+      { q: { bs: 'Koji duhan biraš?', en: 'Which tobacco do you pick?' }, o: [
+        { t: { bs: 'Jak, prirodan list', en: 'Strong, plain leaf' }, e: 'istanbul' },
+        { t: { bs: 'Voće i med', en: 'Fruit and honey' }, e: 'kairo-muassel' },
+        { t: { bs: 'Ledeni mix sa mentom', en: 'An icy mint mix' }, e: 'berlin' },
+        { t: { bs: 'Svejedno, bitna je priča', en: 'Any, the story matters' }, e: 'isfahan' }] },
+      { q: { bs: 'Gdje sjediš?', en: 'Where do you sit?' }, o: [
+        { t: { bs: 'U dvorskoj bašti', en: 'In a palace garden' }, e: 'isfahan' },
+        { t: { bs: 'U kafani punoj priča', en: 'In a café full of stories' }, e: 'istanbul' },
+        { t: { bs: 'U uličnoj kafani do kasno', en: 'At a street café till late' }, e: 'kairo-muassel' },
+        { t: { bs: 'U loungeu uz muziku', en: 'In a lounge with music' }, e: 'berlin' }] },
+      { q: { bs: 'Tvoja nargila je...', en: 'Your hookah is...' }, o: [
+        { t: { bs: 'Ukrašena kao nakit', en: 'Decorated like jewellery' }, e: 'isfahan' },
+        { t: { bs: 'Mesingana, od djeda', en: 'Brass, from grandpa' }, e: 'istanbul' },
+        { t: { bs: 'Klasična egipatska', en: 'A classic Egyptian one' }, e: 'kairo-muassel' },
+        { t: { bs: 'Čelik i regulator toplote', en: 'Steel and a heat device' }, e: 'berlin' }] },
+      { q: { bs: 'Savršeno veče je...', en: 'The perfect evening is...' }, o: [
+        { t: { bs: 'Poezija i dugi razgovori', en: 'Poetry and long talks' }, e: 'isfahan' },
+        { t: { bs: 'Kafa, tavla i rasprava o svemu', en: 'Coffee, backgammon and arguing about everything' }, e: 'istanbul' },
+        { t: { bs: 'Društvo, smijeh i utakmica', en: 'Friends, laughter and a match' }, e: 'kairo-muassel' },
+        { t: { bs: 'Ekipa, DJ i novi okusi', en: 'The crew, a DJ and new flavours' }, e: 'berlin' }] }
+    ],
+    results: {
+      isfahan: { name: { bs: 'Safavidski Isfahan', en: 'Safavid Isfahan' }, t: { bs: 'Ti si qalyan na dvoru: polako, lijepo i uz dobar razgovor. Stil ti je važniji od žurbe.', en: 'You are a qalyan at court: slow, beautiful and with good conversation. Style matters more to you than speed.' } },
+      istanbul: { name: { bs: 'Osmanski Istanbul', en: 'Ottoman Istanbul' }, t: { bs: 'Ti si kafana iz 17. stoljeća: jak list, tavla i rasprava do kasno. Ni sultanova zabrana te ne bi zaustavila.', en: 'You are a 17th century coffeehouse: strong leaf, backgammon and debates till late. Not even the sultan\'s ban would stop you.' } },
+      'kairo-muassel': { name: { bs: 'Kairo, rane 1990-e', en: 'Cairo, early 1990s' }, t: { bs: 'Ti si prvi mu\'assel: slatko, opušteno i uvijek u društvu. Ti si vratio nargilu mladima.', en: 'You are the first mu\'assel: sweet, relaxed and always with friends. You brought the hookah back to the young.' } },
+      berlin: { name: { bs: 'Berlin danas', en: 'Berlin today' }, t: { bs: 'Ti si moderni lounge: čelik, led i novi okusi svake sedmice. Ali bez ventilacije ne sjedaš.', en: 'You are the modern lounge: steel, ice and new flavours every week. But you never sit without ventilation.' } }
+    }
+  },
 
   // Muzej nargila: prave nargile (izrezane fotografije vlasnika) u static/history/<id>.webp i <id>-s.webp (visina 420).
   // w, h: veličina velike slike; wide: eksponat preko cijele širine; d: opis onoga što se vidi na slici.
@@ -288,7 +364,7 @@ window.HISTORY = {
     { q: { bs: 'Nargila je dobila ime po kokosu.', en: 'The narghile is named after the coconut.' }, v: 'true', a: { bs: 'Perzijsko nārgīl znači kokos, a prva posuda za vodu bila je kokosova ljuska.', en: 'Persian nārgīl means coconut, and the first water vessel was a coconut shell.' }, src: [5] },
     { q: { bs: 'Nargilu je izmislio ljekar Abul-Fath Gilani.', en: 'The hookah was invented by the physician Abul-Fath Gilani.' }, v: 'unsure', a: { bs: 'To je predaja. Iranica navodi da je umro 1588, prije nego što je duhan 1604. stigao na Akbarov dvor.', en: 'That is tradition. Iranica gives his death as 1588, before tobacco reached Akbar\'s court in 1604.' }, src: [2, 1] },
     { q: { bs: 'Zbog pušenja se nekad gubila glava.', en: 'People once lost their heads for smoking.' }, v: 'true', a: { bs: 'Murad IV je 1633. uveo smrtnu kaznu za javno pušenje. Brojke pogubljenih su nepouzdane.', en: 'In 1633 Murad IV introduced the death penalty for public smoking. The numbers executed are unreliable.' }, src: [9, 10] },
-    { q: { bs: 'Duhan sa okusom voća se puši stoljećima.', en: 'Fruit-flavoured tobacco has been smoked for centuries.' }, v: 'myth', a: { bs: 'Mu\'assel postaje popularan tek od ranih 1990-ih.', en: 'Mu\'assel only became popular in the early 1990s.' }, src: [22] },
+    { q: { bs: 'Duhan sa okusom voća se puši stoljećima.', en: 'Fruit-flavoured tobacco has been smoked for centuries.' }, v: 'myth', a: { bs: 'Mu\'assel postaje popularan tek od ranih 1990-ih.', en: 'Mu\'assel only became popular in the early 1990s.' }, src: [22, 47] },
     { q: { bs: 'Jedna sesija nargile je kao jedna cigareta.', en: 'One hookah session equals one cigarette.' }, v: 'myth', a: { bs: 'Po WHO-u, u jednoj sesiji može se udahnuti onoliko dima koliko iz 100 ili više cigareta.', en: 'According to the WHO, one session can mean inhaling as much smoke as from 100 or more cigarettes.' }, src: [40] },
     { q: { bs: 'Shisha je arapska riječ.', en: 'Shisha is an Arabic word.' }, v: 'unsure', a: { bs: 'Djelimično: u arapskom jeste, ali dolazi od perzijskog šīša (staklo), preko turskog.', en: 'Partly: it is used in Arabic, but it comes from Persian šīša (glass), via Turkish.' }, src: [42] },
     { q: { bs: 'U shisha baru nema opasnosti od ugljen-monoksida.', en: 'There is no carbon monoxide risk in a shisha bar.' }, v: 'myth', a: { bs: 'Düsseldorfska klinika je u jednoj godini liječila skoro 40 pušača nargile zbog trovanja CO.', en: 'A Düsseldorf clinic treated almost 40 hookah smokers for CO poisoning in a single year.' }, src: [38] }
@@ -342,7 +418,7 @@ window.HISTORY = {
     { t: 'Deutsches Ärzteblatt (2013), "Putin unterzeichnet Anti-Tabak-Gesetz"', u: 'https://www.aerzteblatt.de/themen/nichtraucherschutz/putin-unterzeichnet-anti-tabak-gesetz-9406c8cc-77ad-4cf5-85c8-49f0bb6ba828' },
     { t: 'ZDF (2020), "Shisha: Das gefährliche Geschäft mit dem kalten Rauch"', u: 'https://www.zdf.de/shisha--das-gefaehrliche-geschaeft-mit-dem-kalten-rauch-100.html' },
     { t: 'Berliner Zeitung / dpa (2024), "Shisha-Branche befürchtet Pleitewelle"', u: 'https://www.berliner-zeitung.de/article/shisha-branche-befurchtet-pleitewelle-2185715' },
-    { t: 'Der Tagesspiegel (2026), Wirtschaft', u: 'https://www.tagesspiegel.de/wirtschaft/archiv/2026/06/28' },
+    { t: 'Robert Koch-Institut, "Smoke on the water: Wasserpfeifenkonsum bei Jugendlichen in Deutschland" (KiGGS Welle 1)', u: 'https://edoc.rki.de/handle/176904/2346' },
     { t: 'KriPoZ (2022), "25-Gramm-Regelung im Vertrieb von Wasserpfeifentabak"', u: 'https://kripoz.de/2022/05/30/diametrale-effekte-bei-der-bekaempfung-von-steuerkriminalitaet-am-beispiel-der-25-gramm-regelung-im-vertrieb-von-wasserpfeifentabak/' },
     { t: 'Nordkurier / dpa (2024), "Erstmals seit 2019 wieder mehr Zigaretten versteuert"', u: 'https://www.nordkurier.de/wirtschaft/erstmals-seit-2019-wieder-mehr-zigaretten-versteuert-3274749' },
     { t: 'PTA heute (2018), "Lebensgefährliche Kohlenmonoxid-Vergiftungen durch Shisha-Rauchen"', u: 'https://www.ptaheute.de/aktuelles/2018/01/03/lebensgefaehrliche-kohlenmonoxid-vergiftungen-durch-shisha-rauchen' },
@@ -350,8 +426,16 @@ window.HISTORY = {
     { t: 'WHO (2005), "Advisory note: waterpipe tobacco smoking"', u: 'https://www.who.int/publications/i/item/advisory-note-waterpipe-tobacco-smoking-health-effects-research-needs-and-recommended-actions-by-regulators' },
     { t: 'Google Patents, US9237770B2 "Hookah heat management accessory"', u: 'https://patents.google.com/patent/US9237770' },
     { t: 'Wiktionary, "shisha"', u: 'https://en.wiktionary.org/wiki/shisha' },
-    { t: 'Naukrigulf, profil kompanije / company profile: Al Fakher', u: 'https://www.naukrigulf.com/al-fakher-overview-cid-156197' },
+    { t: 'Slaughter and May (2020), "Kingsway Capital on the take-private of Al Eqbal Investment Company"', u: 'https://slaughterandmay.com/recent-work/kingsway-capital-on-the-take-private-of-al-eqbal-investment-company' },
     { t: 'Wiktionary, "кальян"', u: 'https://en.wiktionary.org/wiki/%D0%BA%D0%B0%D0%BB%D1%8C%D1%8F%D0%BD' },
-    { t: 'Natural Earth (mapa / map data, javno vlasništvo / public domain), preko / via world-atlas', u: 'https://www.naturalearthdata.com/' }
+    { t: 'Natural Earth (mapa / map data, javno vlasništvo / public domain), preko / via world-atlas', u: 'https://www.naturalearthdata.com/' },
+    { t: 'Latham & Watkins (20. 11. 2020), "Latham advises on financing for Kingsway Capital take-private of Al Fakher"', u: 'https://www.lw.com/en/news/2020/11/latham-advises-on-financing-for-kingaway-capital-take-private-of-al-fakher' },
+    { t: 'Rastam, Maziak i sar. / et al. (2004), BMC Public Health: waterpipe smoking in Syria (PMC514554)', u: 'https://pmc.ncbi.nlm.nih.gov/articles/PMC514554' },
+    { t: 'Lewis Carroll, "Alice\'s Adventures in Wonderland" (Project Gutenberg)', u: 'https://www.gutenberg.org/cache/epub/11/pg11-images.html' },
+    { t: 'Wikisource, "Alice\'s Adventures in Wonderland (1866)/Chapter 5"', u: 'https://en.wikisource.org/wiki/Alice%27s_Adventures_in_Wonderland_(1866)/Chapter_5' },
+    { t: 'The Met, "Nobleman Smoking on a Terrace", pripisano / attributed to Ali Reza', u: 'https://www.metmuseum.org/art/collection/search/825601' },
+    { t: 'Victoria and Albert Museum, "Shah \'Alam" (O427625)', u: 'https://collections.vam.ac.uk/item/O427625/shah-alam-painting-unknown' },
+    { t: 'The Walters Art Museum, Jean-Léon Gérôme, "Bashi-Bazouk Singing" (37.883)', u: 'https://art.thewalters.org/detail/14204' },
+    { t: 'Heritage Images, Delacroix, "Women of Algiers in their Apartment" (Louvre)', u: 'https://prints.aap.com.au/heritage-images/women-algiers-apartment-artist-delacroix-15023754.html' }
   ]
 };

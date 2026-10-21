@@ -704,6 +704,16 @@ pa "put dima" preko globusa kroz 14 stanica, muzej nargila, nazivi, evolucija di
 - Kartica stanice uvijek stane cijela: `fitCard` u `js/history.js` smanji slova dok sadržaj ne stane.
 - Izvori imaju paginaciju (12 na desktopu, 8 na mobitelu); klik na broj izvora u tekstu otvori pravu stranicu.
 - "Pošalji razglednicu" na kartici napravi sliku 1080x1350 (silueta grada, godina, zanimljivost) za dijeljenje.
+- "Nargila u knjigama i umjetnosti" (`art` u `data/history.js`): Alisa i gusjenica, mogulske minijature, Delacroix,
+  Gérôme, Mahfouz. Svako djelo ima izvor i link na muzej. Gusjenica je naš crtež; klik na nju pušta kolutove dima.
+  Slike djela namjerno nisu prenesene: Disneyjev crtani film iz 1951. je zaštićen autorskim pravom, a Tennielova
+  ilustracija iz 1865. je slobodna (javno vlasništvo) i može se dodati kao slika.
+- "Poznati uz nargilu" (`people`): samo historijske ličnosti, svaka sa izvorom i linkom na svoju stanicu.
+- Kviz "Evolucija nargile" (`quiz`, `a` je broj tačnog odgovora od 0) i "Koja si ti era?" (`eras`), oba prave sliku za dijeljenje.
+  Build provjeri da kviz ima izvore i tačan odgovor, a era postojeći rezultat.
+- Zvuk (dugme sa zvučnikom u plejeru) je isključen dok ga posjetilac ne uključi; pravi se u browseru (Web Audio), nema audio fajla.
+- Slabi izvori zamijenjeni (10. 2026.): Tagesspiegel → RKI KiGGS, Naukrigulf → Slaughter and May i Latham & Watkins,
+  mu'assel → BMC Public Health 2004.
 
 - Sadržaj je u `data/history.js` (oba jezika). Svaka činjenica ima `src` sa brojem izvora iz liste `sources`;
   build javi grešku ako izvora nema, ako fali tekst na nekom jeziku ili ako stanice nisu po redu godina.

@@ -258,6 +258,8 @@
           '<span class="hx-ctrl__lbl hx-ctrl__lbl--play">' + esc(t('history.play')) + '</span><span class="hx-ctrl__lbl hx-ctrl__lbl--pause">' + esc(t('history.pause')) + '</span></button>' +
         '<span class="hx-ctrl__n" id="hx-count" aria-hidden="true">0 / ' + total + '</span>' +
         '<button type="button" class="hx-ctrl__btn" data-step="1" aria-label="' + esc(t('history.next')) + '">' + V.icon('arrowRight') + '</button>' +
+        '<button type="button" class="hx-ctrl__btn hx-ctrl__sound" data-sound aria-pressed="false" aria-label="' + esc(t('history.soundOn')) + '" hidden>' +
+          '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"/><path class="hx-snd-on" d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11"/><path class="hx-snd-off" d="M16 9.5l5 5M21 9.5l-5 5"/></svg></button>' +
         '<button type="button" class="hx-ctrl__btn hx-ctrl__card" data-card aria-pressed="false" aria-label="' + esc(t('history.cardHide')) + '">' + V.icon('chevronDown') + '</button>' +
       '</div>'
     );
@@ -451,6 +453,112 @@
     );
   }
 
+  /* ---------- U knjigama i umjetnosti + Ljudi iz priče ---------- */
+
+  // Gusjenica iz "Alise u zemlji čuda": vlastiti crtež (klik pušta kolutove dima)
+  var CATERPILLAR =
+    '<svg class="hx-cat__svg" viewBox="0 0 240 220" aria-hidden="true" focusable="false">' +
+      '<path d="M104 150Q100 190 98 214H142Q140 190 136 150Z" fill="#efe2c4" stroke="#6b4a2a" stroke-width="2"/>' +
+      '<path d="M22 140Q30 96 120 92Q210 96 218 140Q170 158 120 156Q70 158 22 140Z" fill="#c2412d" stroke="#6b2414" stroke-width="2"/>' +
+      '<g fill="#f6ead2"><ellipse cx="62" cy="126" rx="9" ry="5"/><ellipse cx="102" cy="112" rx="11" ry="6"/><ellipse cx="150" cy="114" rx="8" ry="5"/><ellipse cx="186" cy="130" rx="9" ry="5"/></g>' +
+      '<g class="hx-cat__body" fill="#4f7bd8" stroke="#2c4b95" stroke-width="2">' +
+        '<circle cx="58" cy="98" r="11"/><circle cx="76" cy="92" r="12"/><circle cx="95" cy="88" r="13"/><circle cx="114" cy="86" r="13"/>' +
+        '<circle cx="128" cy="72" r="13"/><circle cx="136" cy="55" r="12"/><circle cx="140" cy="38" r="11"/>' +
+        '<circle class="hx-cat__head" cx="142" cy="20" r="13"/>' +
+      '</g>' +
+      '<g fill="#1d2c55"><circle cx="146" cy="17" r="2"/><circle cx="138" cy="17" r="2"/></g>' +
+      '<path d="M132 52Q118 52 122 62M144 54Q158 56 150 64" fill="none" stroke="#2c4b95" stroke-width="3" stroke-linecap="round"/>' +
+      '<path class="hx-cat__hose" d="M184 92C176 60 170 34 152 26" fill="none" stroke="#6d2a20" stroke-width="3.5" stroke-linecap="round"/>' +
+      '<path d="M176 92H196L194 76C204 70 204 56 186 54C168 56 168 70 178 76Z" fill="#c58a3c" stroke="#5a3a17" stroke-width="1.6"/>' +
+      '<rect x="183" y="38" width="6" height="16" fill="#c58a3c" stroke="#5a3a17" stroke-width="1.2"/>' +
+      '<path d="M178 30H194L190 40H182Z" fill="#a54b2a" stroke="#4a1a08" stroke-width="1.2"/>' +
+      '<g class="hx-cat__smoke" fill="none" stroke="#f4ebdf" stroke-linecap="round" opacity=".55"><path d="M186 26C180 16 192 10 186 0"/><path d="M152 12C148 4 156 -2 152 -10"/></g>' +
+    '</svg>';
+
+  function artSection() {
+    var D = H(), A = D.art || [], P = D.people || [], S = D.sources;
+    var alice = A[0];
+    var stIdx = {};
+    D.stations.forEach(function (s, i) { stIdx[s.id] = i; });
+    var cards = A.slice(1).map(function (a, i) {
+      var who = typeof a.who === 'string' ? a.who : L(a.who);
+      var link = a.link ? S[a.link] : null;
+      return (
+        '<li class="hx-work" data-reveal style="--i:' + (i % 3) + '">' +
+          '<p class="hx-work__meta"><span>' + esc(L(a.kind)) + '</span>' + (a.noYear ? '' : '<time datetime="' + a.year + '">' + (a.id === 'plemic' ? (MSP.lang === 'bs' ? 'oko ' : 'c. ') : '') + a.year + '</time>') + '</p>' +
+          '<h3 class="hx-work__t">' + esc(L(a.title)) + '</h3>' +
+          '<p class="hx-work__who">' + esc(who) + '</p>' +
+          '<p class="hx-work__d">' + esc(L(a.t)) + sup(a.src) + '</p>' +
+          (link ? '<a class="hx-work__link" href="' + esc(link.u) + '" target="_blank" rel="noopener">' + esc(t('history.seeWork')) + V.icon('arrowUpRight') + '</a>' : '') +
+          (a.station ? '<a class="hx-work__link" href="#' + a.station + '" data-station="' + stIdx[a.station] + '">' + esc(t('history.toStation')) + V.icon('arrowRight') + '</a>' : '') +
+        '</li>'
+      );
+    }).join('');
+    var people = P.map(function (p, i) {
+      var nm = MSP.lang === 'en' && p.en ? p.en : p.name;
+      return (
+        '<li class="hx-person" data-reveal style="--i:' + (i % 3) + '">' +
+          '<span class="hx-person__ini" aria-hidden="true">' + esc(nm.replace(/^(Šah|Shah|Mirza) /, '').charAt(0)) + '</span>' +
+          '<p class="hx-person__n">' + esc(nm) + '</p><p class="hx-person__r">' + esc(L(p.role)) + '</p>' +
+          '<p class="hx-person__t">' + esc(L(p.t)) + sup(p.src) + '</p>' +
+          '<a class="hx-person__go" href="#' + p.station + '" data-station="' + stIdx[p.station] + '">' + esc(t('history.toStation')) + V.icon('arrowRight') + '</a>' +
+        '</li>'
+      );
+    }).join('');
+    return (
+      '<section class="fsec hx-art-sec" aria-labelledby="hx-art-h"><div class="container">' +
+        '<header class="hx-head" data-reveal><p class="eyebrow"><span class="eyebrow__dot" aria-hidden="true"></span>' + esc(t('history.artEyebrow')) + '</p>' +
+          '<h2 class="hx-h2" id="hx-art-h">' + esc(t('history.artTitle')) + '</h2><p class="hx-intro-p">' + esc(t('history.artIntro')) + '</p></header>' +
+        '<div class="hx-art-grid">' +
+          (alice ? '<article class="hx-alice" data-reveal>' +
+            '<button type="button" class="hx-cat" aria-label="' + esc(t('history.catHint')) + '">' + CATERPILLAR + '<span class="hx-cat__say" aria-hidden="true">' + esc(t('history.catSay')) + '</span></button>' +
+            '<div class="hx-alice__txt"><p class="hx-work__meta"><span>' + esc(L(alice.kind)) + '</span><time datetime="' + alice.year + '">' + alice.year + '</time></p>' +
+              '<h3 class="hx-alice__t">' + esc(L(alice.title)) + '</h3><p class="hx-work__who">' + esc(alice.who) + '</p>' +
+              '<p class="hx-work__d">' + esc(L(alice.t)) + sup(alice.src) + '</p>' +
+              '<p class="hx-alice__hint">' + esc(t('history.catHint')) + '</p></div>' +
+          '</article>' : '') +
+          '<ul class="hx-works" role="list">' + cards + '</ul>' +
+        '</div>' +
+        '<h3 class="hx-people-h" data-reveal>' + esc(t('history.peopleTitle')) + '</h3>' +
+        '<ul class="hx-persons" role="list">' + people + '</ul>' +
+      '</div></section>'
+    );
+  }
+
+  /* ---------- Igraj: kviz i "Koja si ti era?" ---------- */
+
+  function playSection() {
+    var D = H(), Q = D.quiz || [], E = D.eras || { questions: [], results: {} };
+    var letters = ['A', 'B', 'C', 'D'];
+    var statik = Q.map(function (q, i) {
+      return '<li><p class="hx-q__q">' + (i + 1) + '. ' + esc(L(q.q)) + '</p><ol class="hx-q__opts" role="list">' +
+        q.o.map(function (o, k) { return '<li>' + letters[k] + ') ' + esc(L(o)) + '</li>'; }).join('') + '</ol>' +
+        '<details class="hx-q__ans"><summary>' + esc(t('history.answer')) + '</summary><p>' + letters[q.a] + ') ' + esc(L(q.o[q.a])) + sup(q.src) + '</p></details></li>';
+    }).join('');
+    return (
+      '<section class="fsec fsec--alt hx-play" aria-labelledby="hx-play-h"><div class="container">' +
+        '<header class="hx-head" data-reveal><p class="eyebrow"><span class="eyebrow__dot" aria-hidden="true"></span>' + esc(t('history.playEyebrow')) + '</p>' +
+          '<h2 class="hx-h2" id="hx-play-h">' + esc(t('history.playTitle')) + '</h2></header>' +
+        '<div class="hx-play__grid">' +
+          '<div class="hx-game hx-game--quiz" id="hx-quiz" data-reveal>' +
+            '<p class="hx-game__k">' + esc(t('history.quizKicker', { n: Q.length })) + '</p>' +
+            '<h3 class="hx-game__t">' + esc(t('history.quizTitle')) + '</h3>' +
+            '<p class="hx-game__d">' + esc(t('history.quizIntro')) + '</p>' +
+            '<ol class="hx-q__static" role="list">' + statik + '</ol>' +
+            '<div class="hx-game__app" aria-live="polite" hidden></div>' +
+          '</div>' +
+          '<div class="hx-game hx-game--era" id="hx-era" data-reveal>' +
+            '<p class="hx-game__k">' + esc(t('history.eraKicker', { n: E.questions.length })) + '</p>' +
+            '<h3 class="hx-game__t">' + esc(t('history.eraTitle')) + '</h3>' +
+            '<p class="hx-game__d">' + esc(t('history.eraIntro')) + '</p>' +
+            '<p class="hx-game__nojs">' + esc(t('history.needJs')) + '</p>' +
+            '<div class="hx-game__app" aria-live="polite" hidden></div>' +
+          '</div>' +
+        '</div>' +
+      '</div></section>'
+    );
+  }
+
   /* ------------------------------------------------------------------ */
   /* Stranica                                                            */
   /* ------------------------------------------------------------------ */
@@ -513,6 +621,8 @@
           '</div>' +
         '</section>' +
         museumSection() +
+        artSection() +
+        playSection() +
         namesSection() +
         partsSection() +
         mythsSection() +

@@ -843,6 +843,59 @@
 
   var DWELL = 7000;
 
+  /* ---------- zvuk: žubor vode i tihi žamor kafane (Web Audio, bez fajlova) ---------- */
+
+  function Ambience() {
+    var AC = window.AudioContext || window.webkitAudioContext;
+    this.ok = !!AC;
+    this.AC = AC;
+    this.ctx = null; this.on = false; this.t = 0;
+  }
+  Ambience.prototype.start = function () {
+    if (!this.ok) return;
+    if (!this.ctx) {
+      var c = this.ctx = new this.AC();
+      // smeđi šum (tiho brujanje prostorije)
+      var len = c.sampleRate * 2, buf = c.createBuffer(1, len, c.sampleRate), d = buf.getChannelData(0), last = 0;
+      for (var i = 0; i < len; i++) { var w = Math.random() * 2 - 1; last = (last + 0.02 * w) / 1.02; d[i] = last * 3.2; }
+      var src = c.createBufferSource(); src.buffer = buf; src.loop = true;
+      var lp = c.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 420;
+      this.master = c.createGain(); this.master.gain.value = 0;
+      var room = c.createGain(); room.gain.value = 0.05;
+      src.connect(lp); lp.connect(room); room.connect(this.master); this.master.connect(c.destination);
+      src.start();
+    }
+    if (this.ctx.state === 'suspended') this.ctx.resume();
+    this.master.gain.setTargetAtTime(0.9, this.ctx.currentTime, 0.4);
+    this.on = true;
+    this.bubbles();
+  };
+  Ambience.prototype.stop = function () {
+    this.on = false;
+    clearTimeout(this.t);
+    if (this.ctx) this.master.gain.setTargetAtTime(0, this.ctx.currentTime, 0.2);
+  };
+  // mjehurić: kratak ton koji brzo klizne gore (kao "blup" u vazi)
+  Ambience.prototype.blup = function (when, f) {
+    var c = this.ctx, o = c.createOscillator(), g = c.createGain();
+    o.type = 'sine';
+    o.frequency.setValueAtTime(f, when);
+    o.frequency.exponentialRampToValueAtTime(f * 1.9, when + 0.07);
+    g.gain.setValueAtTime(0.0001, when);
+    g.gain.exponentialRampToValueAtTime(0.07, when + 0.012);
+    g.gain.exponentialRampToValueAtTime(0.0001, when + 0.09);
+    o.connect(g); g.connect(this.master);
+    o.start(when); o.stop(when + 0.1);
+  };
+  Ambience.prototype.bubbles = function () {
+    var self = this;
+    if (!this.on) return;
+    var now = this.ctx.currentTime, n = 2 + Math.floor(Math.random() * 5);
+    for (var i = 0; i < n; i++) this.blup(now + i * (0.05 + Math.random() * 0.06), 180 + Math.random() * 260);
+    this.t = setTimeout(function () { self.bubbles(); }, 900 + Math.random() * 1800);
+  };
+
+
   function mountPlayer(ctx, root) {
     var D = window.HISTORY;
     var ST = D.stations, N = ST.length;
@@ -867,6 +920,9 @@
     var skipBtn = hudEl.querySelector('.hx-skip__btn');
     var skipList = document.getElementById('hx-skip-list');
 
+    var amb = new Ambience();
+    var soundBtn = player.querySelector('[data-sound]');
+    if (soundBtn && amb.ok) soundBtn.hidden = false;
     var R = new Renderer(canvas, fxc, ST);
     var dprMax = (navigator.hardwareConcurrency || 8) <= 4 ? 1.5 : 2;
     var W = 0, Hh = 0, mobile = false, fullDpr = 1, lowDpr = 1, sharp = true, landedAt = 0;
@@ -1098,6 +1154,14 @@
       }
       var s = t.closest('[data-step]');
       if (s) { step(+s.getAttribute('data-step')); return; }
+      var sb = t.closest('[data-sound]');
+      if (sb) {
+        var on = sb.getAttribute('aria-pressed') !== 'true';
+        if (on) amb.start(); else amb.stop();
+        sb.setAttribute('aria-pressed', on ? 'true' : 'false');
+        sb.setAttribute('aria-label', MSP.t(on ? 'history.soundOff' : 'history.soundOn'));
+        return;
+      }
       if (t.closest('[data-card]')) {
         var min = !player.classList.contains('is-min');
         player.classList.toggle('is-min', min);
@@ -1162,6 +1226,18 @@
     player.addEventListener('pointermove', onMove, { passive: true });
     document.addEventListener('keydown', onKey);
 
+    // linkovi "Na stanicu" (ličnosti, umjetnost, era): dođe do plejera i odleti na tu stanicu
+    function onStationLink(e) {
+      var a = e.target.closest('a[data-station]');
+      if (!a) return;
+      e.preventDefault();
+      document.getElementById('put').scrollIntoView({ behavior: FX.reducedMotion() ? 'auto' : 'smooth', block: 'start' });
+      var i = +a.getAttribute('data-station');
+      setTimeout(function () { go(i); }, 700);
+    }
+    document.addEventListener('click', onStationLink);
+    ctx.cleanup(function () { document.removeEventListener('click', onStationLink); });
+
     // dugme "Kreni na putovanje" u uvodu: dođe do plejera i krene
     var startLink = root.querySelector('.hx-hero [data-start]');
     function onStart(e) {
@@ -1177,12 +1253,13 @@
       inView = en[0].isIntersecting;
       if (inView) { loadGeo(function () { R.key = ''; wake(); }); wake(); }
       else if (playing) setPlaying(false);
+      if (!inView && amb.on) { amb.stop(); soundBtn.setAttribute('aria-pressed', 'false'); soundBtn.setAttribute('aria-label', MSP.t('history.soundOn')); }
     }, { threshold: 0.15 });
     io.observe(player);
     var resizeT = 0;
     function onResize() { clearTimeout(resizeT); resizeT = setTimeout(measure, 120); }
     window.addEventListener('resize', onResize);
-    function onVis() { if (document.hidden) setPlaying(false); else wake(); }
+    function onVis() { if (document.hidden) { setPlaying(false); if (amb.on) { amb.stop(); soundBtn.setAttribute('aria-pressed', 'false'); } } else wake(); }
     document.addEventListener('visibilitychange', onVis);
     if (document.fonts && document.fonts.load) document.fonts.load('italic 500 20px "Cormorant Garamond"').then(function () { R.key = ''; wake(); });
 
@@ -1203,6 +1280,7 @@
       inView = false;
       if (raf) cancelAnimationFrame(raf);
       clearTimeout(dwellT);
+      amb.stop();
       io.disconnect();
       window.removeEventListener('resize', onResize);
       document.removeEventListener('keydown', onKey);
@@ -1345,7 +1423,8 @@
     if (line) g.fillText(line, x, y + n * lh);
   }
 
-  function postcard(st, btn) {
+  function postcard(st, btn, opts) {
+    opts = opts || {};
     var era = st.year < 1850 ? 'old' : st.year < 1985 ? 'print' : 'modern';
     var E = CARD_ERA[era];
     var c = document.createElement('canvas');
@@ -1372,15 +1451,15 @@
       g.lineWidth = 1; g.strokeRect(54, 54, 972, 1242); g.globalAlpha = 1;
       // tekst
       g.fillStyle = E.acc; g.font = '600 30px ' + body; g.textBaseline = 'alphabetic';
-      g.fillText(MSP.t('history.postcardFrom', { city: '' }).replace(/\s+$/, '').toUpperCase(), 100, 150);
+      g.fillText((opts.eyebrow || MSP.t('history.postcardFrom', { city: '' }).replace(/\s+$/, '')).toUpperCase(), 100, 150);
       g.fillStyle = E.ink;
-      var city = MSP.L(st.city);
+      var city = opts.big || MSP.L(st.city);
       g.font = E.serif ? '600 150px ' + serif : '800 128px ' + display;
       var fs = E.serif ? 150 : 128;
       while (g.measureText(city).width > 880 && fs > 70) { fs -= 6; g.font = (E.serif ? '600 ' + fs + 'px ' + serif : '800 ' + fs + 'px ' + display); }
       g.fillText(city, 96, 300);
       g.font = 'italic 500 44px ' + serif;
-      g.globalAlpha = 0.8; g.fillText(MSP.L(st.when) + ' · ' + MSP.L(st.place).split('·')[0].trim(), 100, 370); g.globalAlpha = 1;
+      g.globalAlpha = 0.8; g.fillText(opts.sub || (MSP.L(st.when) + ' · ' + MSP.L(st.place).split('·')[0].trim()), 100, 370); g.globalAlpha = 1;
       // marka
       g.save(); g.translate(880, 150); g.rotate(0.12);
       g.strokeStyle = E.acc; g.lineWidth = 4; g.setLineDash([6, 6]); g.strokeRect(-80, -70, 160, 170); g.setLineDash([]);
@@ -1389,11 +1468,11 @@
       // naslov i zanimljivost
       g.textAlign = 'left'; g.fillStyle = E.ink;
       g.font = (E.serif ? '600 56px ' + serif : '700 50px ' + display);
-      wrap(g, MSP.L(st.title), 100, 480, 880, 62, 2);
-      if (st.fun) {
+      wrap(g, opts.title || MSP.L(st.title), 100, 480, 880, 62, 2);
+      if (opts.body || st.fun) {
         g.fillStyle = E.acc; g.fillRect(100, 590, 60, 4); g.fillStyle = E.ink;
         g.font = '500 38px ' + body; g.globalAlpha = 0.9;
-        wrap(g, MSP.L(st.fun.t), 100, 660, 880, 54, 6); g.globalAlpha = 1;
+        wrap(g, opts.body || MSP.L(st.fun.t), 100, 660, 880, 54, 6); g.globalAlpha = 1;
       }
       // silueta grada (isti oblici kao na globusu, ovdje sa punim bojama)
       var svg = skySvg(st.sky).replace(/var\(--sky-haze\)/g, E.bg)
@@ -1409,10 +1488,10 @@
         c.toBlob(function (blob) {
           btn.disabled = false;
           if (!blob) return;
-          var name = MSP.t('history.postcardFile', { id: st.id });
+          var name = opts.file || MSP.t('history.postcardFile', { id: st.id });
           var file = window.File ? new File([blob], name, { type: 'image/png' }) : null;
           if (file && navigator.canShare && navigator.canShare({ files: [file] })) {
-            navigator.share({ files: [file], title: MSP.t('history.postcardFrom', { city: city }) }).catch(function () {});
+            navigator.share({ files: [file], title: opts.shareTitle || MSP.t('history.postcardFrom', { city: city }) }).catch(function () {});
           } else {
             var a = document.createElement('a');
             a.href = URL.createObjectURL(blob); a.download = name;
@@ -1424,6 +1503,157 @@
       im.onerror = function () { btn.disabled = false; };
       im.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
     });
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* Igraj: kviz i "Koja si ti era?" (rezultat se može podijeliti kao slika) */
+  /* ------------------------------------------------------------------ */
+
+  function mountGames(ctx) {
+    var H = window.HISTORY, esc = MSP.V.esc, icon = MSP.V.icon;
+    var stById = {};
+    H.stations.forEach(function (s) { stById[s.id] = s; });
+    var LET = ['A', 'B', 'C', 'D'];
+    function bar(n, done, marks) {
+      var h = '<div class="hx-g__progress" aria-hidden="true">';
+      for (var i = 0; i < n; i++) h += '<i class="' + (marks && marks[i] ? marks[i] : i < done ? 'is-done' : '') + '"></i>';
+      return h + '</div>';
+    }
+
+    // kviz
+    var qBox = document.querySelector('#hx-quiz .hx-game__app');
+    if (qBox && H.quiz) {
+      var Q = H.quiz, qi = 0, score = 0, marks = [];
+      var intro = function () {
+        qBox.innerHTML = '<div class="hx-g__row"><button type="button" class="btn btn--primary" data-q="start">' + esc(MSP.t('history.quizStart')) + icon('arrowRight') + '</button></div>';
+      };
+      var ask = function () {
+        var q = Q[qi];
+        qBox.innerHTML = bar(Q.length, qi, marks) +
+          '<p class="hx-g__n">' + esc(MSP.t('history.question', { n: qi + 1, total: Q.length })) + '</p>' +
+          '<p class="hx-g__q">' + esc(MSP.L(q.q)) + '</p>' +
+          '<div class="hx-g__opts">' + q.o.map(function (o, k) { return '<button type="button" class="hx-g__opt" data-a="' + k + '"><b>' + LET[k] + '</b>' + esc(MSP.L(o)) + '</button>'; }).join('') + '</div>' +
+          '<p class="hx-g__fb" role="status"></p><div class="hx-g__row"></div>';
+        var first = qBox.querySelector('.hx-g__opt');
+        if (first && qi > 0) first.focus({ preventScroll: true });
+      };
+      var answer = function (k) {
+        var q = Q[qi], ok = k === q.a;
+        if (ok) score++;
+        marks[qi] = ok ? 'is-ok' : 'is-bad';
+        [].forEach.call(qBox.querySelectorAll('.hx-g__opt'), function (b, j) {
+          b.disabled = true;
+          if (j === q.a) b.classList.add('is-ok'); else if (j === k) b.classList.add('is-bad');
+        });
+        var fb = qBox.querySelector('.hx-g__fb');
+        fb.className = 'hx-g__fb ' + (ok ? 'is-ok' : 'is-bad');
+        fb.textContent = ok ? MSP.t('history.correct') : MSP.t('history.wrong') + ': ' + MSP.L(q.o[q.a]);
+        qBox.querySelector('.hx-g__row').innerHTML = '<button type="button" class="btn btn--primary" data-q="next">' + esc(MSP.t('history.quizNext')) + icon('arrowRight') + '</button>';
+        qBox.querySelector('[data-q="next"]').focus({ preventScroll: true });
+      };
+      var end = function () {
+        var r = score / Q.length;
+        var msg = MSP.t(r >= 0.85 ? 'history.quizMsgHigh' : r >= 0.5 ? 'history.quizMsgMid' : 'history.quizMsgLow');
+        qBox.innerHTML = bar(Q.length, Q.length, marks) +
+          '<p class="hx-g__score">' + esc(MSP.t('history.quizScore', { n: score, total: Q.length })) + '</p>' +
+          '<p class="hx-g__msg">' + esc(msg) + '</p>' +
+          '<div class="hx-g__row"><button type="button" class="btn btn--primary" data-q="share">' + icon('mail') + '<span>' + esc(MSP.t('history.quizShare')) + '</span></button>' +
+          '<button type="button" class="btn btn--ghost" data-q="again">' + esc(MSP.t('history.quizRetry')) + '</button></div>';
+        qBox._msg = msg;
+      };
+      qBox.addEventListener('click', function (e) {
+        var b = e.target.closest('[data-q],[data-a]');
+        if (!b) return;
+        if (b.hasAttribute('data-a')) { answer(+b.getAttribute('data-a')); return; }
+        var a = b.getAttribute('data-q');
+        if (a === 'start' || a === 'again') { qi = 0; score = 0; marks = []; ask(); }
+        else if (a === 'next') { qi++; if (qi < Q.length) ask(); else end(); }
+        else if (a === 'share') {
+          var st = stById.istanbul;
+          postcard(st, b, {
+            eyebrow: MSP.t('history.myResult'), big: score + '/' + Q.length, sub: MSP.t('history.quizTitle'),
+            title: qBox._msg, body: MSP.t('history.quizIntro'), file: 'kviz-nargila-' + score + '.png', shareTitle: MSP.t('history.quizTitle')
+          });
+        }
+      });
+      qBox.hidden = false;
+      intro();
+    }
+
+    // koja si ti era
+    var eBox = document.querySelector('#hx-era .hx-game__app');
+    if (eBox && H.eras) {
+      var E = H.eras, ei = 0, pts = {}, result = null;
+      var eStart = function () {
+        eBox.innerHTML = '<div class="hx-g__row"><button type="button" class="btn btn--primary" data-e="start">' + esc(MSP.t('history.eraStart')) + icon('arrowRight') + '</button></div>';
+      };
+      var eAsk = function () {
+        var q = E.questions[ei];
+        eBox.innerHTML = bar(E.questions.length, ei) +
+          '<p class="hx-g__n">' + esc(MSP.t('history.question', { n: ei + 1, total: E.questions.length })) + '</p>' +
+          '<p class="hx-g__q">' + esc(MSP.L(q.q)) + '</p>' +
+          '<div class="hx-g__opts">' + q.o.map(function (o, k) { return '<button type="button" class="hx-g__opt" data-o="' + k + '"><b>' + LET[k] + '</b>' + esc(MSP.L(o.t)) + '</button>'; }).join('') + '</div>';
+        if (ei > 0) { var f = eBox.querySelector('.hx-g__opt'); if (f) f.focus({ preventScroll: true }); }
+      };
+      var eEnd = function () {
+        // najviše bodova; kod izjednačenja pobjeđuje zadnji izbor
+        var last = E.questions[E.questions.length - 1], best = null, bv = -1;
+        Object.keys(pts).forEach(function (k) { if (pts[k] > bv || (pts[k] === bv && k === pts._last)) { bv = pts[k]; best = k; } });
+        result = best || last.o[0].e;
+        var R = E.results[result], st = stById[result];
+        eBox.innerHTML = bar(E.questions.length, E.questions.length) +
+          '<p class="hx-g__n">' + esc(MSP.t('history.eraYour')) + '</p>' +
+          '<p class="hx-g__res">' + esc(MSP.L(R.name)) + '</p>' +
+          '<p class="hx-g__msg">' + esc(MSP.L(R.t)) + '</p>' +
+          '<div class="hx-g__sky" aria-hidden="true">' + skySvg(st.sky) + '</div>' +
+          '<div class="hx-g__row"><button type="button" class="btn btn--primary" data-e="share">' + icon('mail') + '<span>' + esc(MSP.t('history.eraShare')) + '</span></button>' +
+          '<a class="btn btn--ghost" href="#' + st.id + '" data-station="' + H.stations.indexOf(st) + '">' + esc(MSP.t('history.toStation')) + '</a>' +
+          '<button type="button" class="btn btn--ghost" data-e="again">' + esc(MSP.t('history.eraAgain')) + '</button></div>';
+      };
+      eBox.addEventListener('click', function (e) {
+        var b = e.target.closest('[data-e],[data-o]');
+        if (!b) return;
+        if (b.hasAttribute('data-o')) {
+          var o = E.questions[ei].o[+b.getAttribute('data-o')];
+          pts[o.e] = (pts[o.e] || 0) + 1; pts._last = o.e;
+          ei++;
+          if (ei < E.questions.length) eAsk(); else eEnd();
+          return;
+        }
+        var a = b.getAttribute('data-e');
+        if (a === 'start' || a === 'again') { ei = 0; pts = {}; eAsk(); }
+        else if (a === 'share' && result) {
+          var R = E.results[result], st = stById[result];
+          postcard(st, b, { eyebrow: MSP.t('history.myEra'), big: MSP.L(st.city), sub: MSP.L(st.when) + ' · ' + MSP.L(R.name), title: MSP.L(st.title), body: MSP.L(R.t), file: 'moja-era-' + st.id + '.png', shareTitle: MSP.t('history.eraTitle') });
+        }
+      });
+      eBox.hidden = false;
+      eStart();
+    }
+  }
+
+  /* ---------- gusjenica iz Alise: klik pušta kolutove dima ---------- */
+
+  function mountCaterpillar(ctx) {
+    var cat = document.querySelector('.hx-cat');
+    if (!cat) return;
+    var t = 0;
+    cat.addEventListener('click', function () {
+      cat.classList.add('is-talking');
+      clearTimeout(t);
+      t = setTimeout(function () { cat.classList.remove('is-talking'); }, 2600);
+      var F = FX.Field;
+      if (!F || !F.ready || FX.reducedMotion()) return;
+      var head = cat.querySelector('.hx-cat__head').getBoundingClientRect();
+      for (var i = 0; i < 4; i++) {
+        (function (k) {
+          setTimeout(function () {
+            F.spawn({ x: head.left + head.width / 2, y: head.top, vx: 6 + k * 3, vy: -26 - k * 4, r0: 6, r1: 34 + k * 6, life: 2.6, alpha: 0.5, ring: true, turb: 8, buoy: 10, drag: 0.3 }, true);
+          }, k * 260);
+        })(i);
+      }
+    });
+    ctx.cleanup(function () { clearTimeout(t); });
   }
 
   function mountExtras(ctx) {
@@ -1484,6 +1714,8 @@
       mountExtras(ctx);
       mountHero(ctx, root);
       mountSources(ctx);
+      mountGames(ctx);
+      mountCaterpillar(ctx);
       if (FX.reducedMotion()) mountStatic();
       else mountPlayer(ctx, root);
     }
