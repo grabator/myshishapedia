@@ -7051,7 +7051,7 @@ html:not(.js) .localnote { display: none; }
   .hmixes__head .btn { min-height: 40px; padding: 0 16px; font-size: 0.875rem; }
   .hmixes .rcards {
     grid-auto-flow: column; grid-template-columns: none; grid-auto-columns: 46%;
-    overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none;
+    overflow-x: auto; overflow-y: hidden; scroll-snap-type: x mandatory; scrollbar-width: none;
     margin: 0 calc(-1 * var(--gutter)); padding: 0 var(--gutter) 4px; scroll-padding-inline: var(--gutter);
   }
   .hmixes .rcards::-webkit-scrollbar { display: none; }
@@ -7635,7 +7635,7 @@ html:not(.js) .localnote { display: none; }
 .hx-niche__btn:hover, .hx-niche__btn:focus-visible { box-shadow: inset 0 0 0 1px rgba(214, 170, 110, .4), inset 0 -40px 60px rgba(0, 0, 0, .35); outline: none; }
 .hx-museum__note { margin: 22px 0 0; font-size: .8rem; color: var(--c-muted); }
 @media (max-width: 899px) {
-  .hx-hall { grid-auto-flow: column; grid-template-columns: none; grid-auto-columns: 62%; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; margin: 0 calc(var(--gutter) * -1); padding: 0 var(--gutter) 8px; overscroll-behavior-x: contain; }
+  .hx-hall { grid-auto-flow: column; grid-template-columns: none; grid-auto-columns: 62%; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; margin: 0 calc(var(--gutter) * -1); padding: 0 var(--gutter) 8px; overscroll-behavior-x: contain; overflow-y: hidden; }
   .hx-hall::-webkit-scrollbar { display: none; }
   .hx-niche { scroll-snap-align: center; }
   .hx-niche--wide { grid-column: auto; }
@@ -7921,7 +7921,7 @@ html:not(.js) .localnote { display: none; }
 .hxc-hero__art .hx-art { width: 100%; filter: var(--shadow-ill); }
 .hxc-hero__num { display: none; position: absolute; right: -6px; top: -50px; margin: 0; font: 600 5rem/1 var(--hx-serif); font-variant-numeric: lining-nums; color: color-mix(in srgb, var(--c-accent) 34%, transparent); }
 
-.hxc-years { list-style: none; margin: clamp(22px, 3vw, 36px) 0 0; padding: 18px 0 0; display: grid; grid-auto-flow: column; grid-auto-columns: minmax(150px, 1fr); gap: 12px; overflow-x: auto; scrollbar-width: thin; position: relative; scroll-snap-type: x proximity; }
+.hxc-years { list-style: none; margin: clamp(22px, 3vw, 36px) 0 0; padding: 18px 0 0; display: grid; grid-auto-flow: column; grid-auto-columns: minmax(150px, 1fr); gap: 12px; overflow-x: auto; overflow-y: hidden; scrollbar-width: thin; position: relative; scroll-snap-type: x proximity; }
 .hxc-years::before { content: ''; position: absolute; left: 0; right: 0; top: 4px; height: 1px; background: linear-gradient(90deg, var(--c-accent), var(--c-line) 70%); min-width: 100%; }
 .hxc-years li { position: relative; padding-top: 10px; scroll-snap-align: start; }
 .hxc-years li::before { content: ''; position: absolute; left: 0; top: -19px; width: 9px; height: 9px; border-radius: 50%; background: var(--c-bg); border: 2px solid var(--c-accent); }
