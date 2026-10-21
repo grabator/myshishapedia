@@ -2216,13 +2216,13 @@
         out.main = V.pageHistory(crumbs);
         out.title = t('meta.historyTitle');
         out.description = t('meta.historyDescription');
-        out.ogImage = '/og-history.png';
+        out.ogImage = '/og-history.jpg';
         break;
       case 'chapter':
         out.main = V.pageChapter(desc.chapter, crumbs);
         out.title = t('meta.chapterTitle', { title: L(desc.chapter.title) });
         out.description = L(desc.chapter.lead);
-        out.ogImage = '/og-history.png';
+        out.ogImage = '/og-history.jpg';
         break;
       case 'about':
         out.main = pageAbout(crumbs, cfg);

@@ -680,7 +680,7 @@ function writeCloudflareFiles() {
     '/og-image.png',
     '  Cache-Control: public, max-age=86400',
     '',
-    '/og-history.png',
+    '/og-history.jpg',
     '  Cache-Control: public, max-age=86400',
     ''
   ];

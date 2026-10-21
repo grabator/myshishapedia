@@ -742,7 +742,7 @@ pa "put dima" preko globusa kroz 14 stanica, muzej nargila, nazivi, evolucija di
   `node scripts/geo-pack.mjs <folder paketa world-atlas>` (paket: `npm pack world-atlas@2.0.2`; podaci Natural Earth,
   javno vlasništvo). Skriptu treba ponovo pokrenuti samo ako se doda stanica daleko od postojećih (lista `FOCUS`).
 - Font za staru kartu (Cormorant Garamond, OFL) je u `static/fonts/` i koristi se samo na ovoj stranici.
-- Slika za dijeljenje: `static/og-history.png`.
+- Slika za dijeljenje: `static/og-history.jpg` (1200x630, na engleskom).
 - Ilustracije nargila i gradova su crteži, ne historijske slike (to piše i na stranici).
 
 ## Moja polica
