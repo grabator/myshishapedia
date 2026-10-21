@@ -8005,7 +8005,14 @@ html:not(.js) .localnote { display: none; }
 .hxc-fig__by a { color: inherit; text-decoration-color: var(--c-line-strong); }
 .hxc-fig__by a:hover { color: var(--c-accent-ink); }
 .hx-work__img { display: block; width: calc(100% + 36px); max-width: none; height: auto; margin: -16px -18px 12px; border-radius: 6px 6px 0 0; aspect-ratio: 16 / 10; object-fit: cover; }
-.hx-alice__fig { margin: 0 0 16px; }
-.hx-alice__fig img { display: block; width: 100%; max-width: 260px; height: auto; border-radius: 8px; box-shadow: 0 14px 30px rgba(0, 0, 0, .35); }
-.hx-alice__fig figcaption { margin-top: 8px; font-size: .78rem; }
-.hx-alice__fig a { color: var(--c-muted); text-decoration-color: var(--c-line-strong); }
+.hx-alice__stage { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr); align-items: end; gap: 6px; padding: 26px 4px 4px; }
+.hx-alice__fig { margin: 0; padding: 10px 10px 8px; border-radius: 4px; background: #f1e4c6; box-shadow: inset 0 0 0 4px #f1e4c6, inset 0 0 0 5px #a9814f, 0 20px 40px rgba(0, 0, 0, .4); transform: rotate(-2deg); transition: transform .5s var(--ease-out); }
+.hx-alice:hover .hx-alice__fig { transform: rotate(-.5deg); }
+.hx-alice__fig img { display: block; width: 100%; height: auto; border-radius: 2px; }
+.hx-alice__fig figcaption { margin-top: 7px; font: italic 500 .82rem/1.25 var(--hx-serif); text-align: center; }
+.hx-alice__fig a { color: #7a4a22; text-decoration: none; }
+.hx-alice__fig a:hover { text-decoration: underline; }
+.hx-alice__stage .hx-cat { width: 100%; max-width: 200px; margin-bottom: -6px; }
+.hx-alice__stage .hx-cat__say { left: 50%; top: -30px; transform: translate(-50%, 6px) scale(.9); }
+.hx-alice__stage .hx-cat.is-talking .hx-cat__say { transform: translate(-50%, 0); }
+@media (prefers-reduced-motion: reduce) { .hx-alice__fig { transition: none; } }

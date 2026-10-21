@@ -638,10 +638,12 @@
           '<h2 class="hx-h2" id="hx-art-h">' + esc(t('history.artTitle')) + '</h2><p class="hx-intro-p">' + esc(t('history.artIntro')) + '</p></header>' +
         '<div class="hx-art-grid">' +
           (alice ? '<article class="hx-alice" data-reveal>' +
-            '<button type="button" class="hx-cat" aria-label="' + esc(t('history.catHint')) + '">' + CATERPILLAR + '<span class="hx-cat__say" aria-hidden="true">' + esc(t('history.catSay')) + '</span></button>' +
-            '<div class="hx-alice__txt">' +
+            '<div class="hx-alice__stage">' +
               (alice.img ? '<figure class="hx-alice__fig"><img src="/history/slike/' + alice.img.f + '.webp" width="' + alice.img.w + '" height="' + alice.img.h + '" alt="' + esc(L(alice.img.cap)) + '" loading="lazy" decoding="async">' +
                 '<figcaption><a href="' + esc(alice.img.u) + '" target="_blank" rel="noopener">' + esc(L(alice.img.cap)) + '</a></figcaption></figure>' : '') +
+              '<button type="button" class="hx-cat" aria-label="' + esc(t('history.catHint')) + '">' + CATERPILLAR + '<span class="hx-cat__say" aria-hidden="true">' + esc(t('history.catSay')) + '</span></button>' +
+            '</div>' +
+            '<div class="hx-alice__txt">' +
               '<p class="hx-work__meta"><span>' + esc(L(alice.kind)) + '</span><time datetime="' + alice.year + '">' + alice.year + '</time></p>' +
               '<h3 class="hx-alice__t">' + esc(L(alice.title)) + '</h3><p class="hx-work__who">' + esc(alice.who) + '</p>' +
               '<p class="hx-work__d">' + esc(L(alice.t)) + sup(alice.src) + '</p>' +
