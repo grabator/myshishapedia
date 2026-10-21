@@ -98,10 +98,20 @@ Build sam doda adresu servisa u CSP (`connect-src`, `form-action`).
 
 1. [search.google.com/search-console](https://search.google.com/search-console) → **Add property → Domain** → `myshishapedia.com`.
 2. Google da TXT zapis: Cloudflare → domen → **DNS → Records → Add record → TXT** (ime `@`, vrijednost od Googlea). Klikni **Verify**.
-3. **Sitemaps** → upiši `sitemap.xml` → **Submit** (puna adresa `https://myshishapedia.com/sitemap.xml`).
+3. **Sitemaps** → upiši punu adresu `https://myshishapedia.com/sitemap.xml` → **Submit**
+   (resurs tipa "Domain" ne prima samo `sitemap.xml`).
    Sitemap već sadrži obje jezičke verzije svake stranice (hreflang). Stranice pretrage i prijave greške su
    `noindex` i nisu u sitemapu.
 4. Za brzu provjeru jedne stranice: **URL inspection → Request indexing**.
+5. **Stranice poređenja ("X vs Y"):** sve rade na sajtu, ali u Googleu su samo parovi iz
+   `INDEX_COMPARE_PAIRS` u `site.config.js` (ostale imaju `noindex` i nisu u sitemapu). Razlog: ~800 sličnih
+   stranica je trošilo Googleove posjete, a donijele su 2 klika za 3 mjeseca. Kad u Search Consoleu
+   (Uspješnost → Stranice, filter `poredjenje` / `compare`) neki par počne dobijati klikove, dodaj njegov slug
+   u listu i ponovo pokreni build. Sve vratiti = dodati sve parove ili ukloniti provjeru `comparePair` u
+   `isIndexable` (build.mjs).
+6. **Datumi u sitemapu (`lastmod`)** su pravi: `seo/lastmod.json` čuva otisak sadržaja svake stranice, a datum
+   se pomjeri samo kad se sadržaj stranice stvarno promijeni. Build mijenja taj fajl, pa ga commituj zajedno sa
+   izmjenom sadržaja.
 
 ### 8. Šta Graba treba provjeriti
 

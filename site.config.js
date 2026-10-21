@@ -31,7 +31,31 @@ var SITE_CONFIG = {
 
 
   // Datum zadnje izmjene politike privatnosti i uslova korištenja (GGGG-MM-DD).
-  LEGAL_UPDATED: '2026-10-01'
+  LEGAL_UPDATED: '2026-10-01',
+
+  // Stranice poređenja ("X vs Y") koje Google smije prikazivati. Sve ostale rade normalno na sajtu,
+  // ali imaju "noindex" i nisu u sitemap.xml (ima ih ~400 po jeziku, a skoro niko ih ne traži).
+  // Ovdje su parovi koji su se već pojavljivali u Google pretrazi (Search Console, 10. 2026.).
+  // Slug je isti u oba jezika: /bs/poredjenje/<slug>/ i /en/compare/<slug>/.
+  INDEX_COMPARE_PAIRS: [
+    'adalya-dubai-vs-adalya-lady-killer',
+    'adalya-baku-nights-vs-adalya-swiss-bonbon',
+    'adalya-swiss-bonbon-vs-adalya-ice-bonbon',
+    'adalya-swiss-bonbon-vs-adalya-mint',
+    'adalya-swiss-bonbon-vs-mazaya-gum-mint',
+    'adalya-swiss-bonbon-vs-darkside-supernova',
+    'adalya-ice-bonbon-vs-adalya-blue-ice',
+    'adalya-lemon-cocktail-vs-al-fakher-lemon-mint',
+    'adalya-mint-vs-al-fakher-double-apple',
+    'al-fakher-mint-vs-mazaya-gum-mint',
+    'al-fakher-mint-vs-al-fakher-lemon-mint',
+    'al-fakher-lemon-mint-vs-mazaya-lemon-mint',
+    'haze-double-bubble-vs-mazaya-gum-mint',
+    'darkside-cola-vs-musthave-cola',
+    'darkside-cola-vs-sebero-black-cola',
+    'nakhla-double-apple-vs-revoshi-d-app-strong',
+    'tangiers-cane-mint-vs-trifecta-peppermint-shake'
+  ]
 };
 
 if (typeof module !== 'undefined' && module.exports) module.exports = SITE_CONFIG;
