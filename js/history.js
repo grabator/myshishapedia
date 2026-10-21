@@ -694,23 +694,83 @@
   function mountHero(ctx, root) {
     var btn = root.querySelector('.hx-explode-btn');
     var hook = document.getElementById('hx-hookah');
-    if (!btn || !hook) return;
+    var stage = document.getElementById('hx-stage');
+    if (!btn || !hook || !stage) return;
     btn.hidden = false;
+    var reduced = FX.reducedMotion();
+
+    /* ---------- evolucija: nargila se pretapa u sljedeću ---------- */
+    var list = ((window.HISTORY && window.HISTORY.museum) || []).filter(function (m) { return !m.wide; });
+    var imgs = [].slice.call(stage.querySelectorAll('.hx-morph__img'));
+    var rail = [].slice.call(stage.querySelectorAll('.hx-rail__btn'));
+    var kEl = document.getElementById('hx-morph-k'), nEl = document.getElementById('hx-morph-n');
+    var cur = 0, front = 0, timer = 0, visible = true, auto = !reduced;
+    var STEP = 3600;
+
+    function url(m) { return '/history/' + m.id + (window.innerWidth >= 900 || (window.devicePixelRatio || 1) > 1.5 ? '' : '-s') + '.webp'; }
+    function preload(i) { var im = new Image(); im.src = url(list[i % list.length]); }
+    var token = 0;
+    function show(i) {
+      if (!list.length) return;
+      i = (i + list.length) % list.length;
+      if (i === cur) return;
+      var my = ++token, m = list[i], u = url(m);
+      // slika se prvo učita i dekodira, pa tek onda zamjena (natpis i slika uvijek idu zajedno)
+      var im = new Image();
+      im.src = u;
+      var ready = im.decode ? im.decode() : new Promise(function (r) { im.onload = r; });
+      ready.catch(function () {}).then(function () {
+        if (my !== token) return;
+        var a = imgs[front], b = imgs[1 - front];
+        b.removeAttribute('srcset');
+        b.src = u;
+        b.width = m.w; b.height = m.h;
+        b.classList.remove('is-out');
+        b.classList.add('is-on');
+        if (!reduced) { b.classList.remove('is-in'); void b.offsetWidth; b.classList.add('is-in'); }
+        a.classList.remove('is-on', 'is-in');
+        if (!reduced) a.classList.add('is-out');
+        a.alt = ''; a.setAttribute('aria-hidden', 'true');
+        b.alt = MSP.L(m.name); b.removeAttribute('aria-hidden');
+        front = 1 - front;
+        kEl.textContent = MSP.L(m.k); nEl.textContent = MSP.L(m.name);
+        rail.forEach(function (r, k) { r.classList.toggle('is-on', k === i); r.setAttribute('aria-pressed', k === i ? 'true' : 'false'); });
+        cur = i;
+        preload(i + 1);
+      });
+    }
+    function schedule() {
+      clearTimeout(timer);
+      if (auto && visible && !document.hidden && !root.classList.contains('is-anatomy')) timer = setTimeout(function () { show(cur + 1); schedule(); }, STEP);
+    }
+    rail.forEach(function (r) {
+      r.addEventListener('click', function () { show(+r.getAttribute('data-m')); schedule(); });
+    });
+    var io = new IntersectionObserver(function (en) { visible = en[0].isIntersecting; schedule(); }, { threshold: 0.2 });
+    io.observe(stage);
+    function onVis() { schedule(); }
+    document.addEventListener('visibilitychange', onVis);
+    preload(1);
+    schedule();
+
+    /* ---------- rastavljena nargila (samo na dugme) ---------- */
     var tags = [].slice.call(hook.querySelectorAll('.hx-tag'));
     function closeTags(except) { tags.forEach(function (b) { if (b !== except) b.setAttribute('aria-expanded', 'false'); }); }
+    var expT = 0;
     function set(on) {
-      root.classList.toggle('is-exploded', on);
       btn.setAttribute('aria-pressed', on ? 'true' : 'false');
-      if (!on) {
+      clearTimeout(expT);
+      if (on) {
+        root.classList.add('is-anatomy');
+        // prvo se pokaže sastavljena, pa se rastavi (prelaz u CSS-u)
+        expT = setTimeout(function () { root.classList.add('is-exploded'); }, reduced ? 0 : 60);
+      } else {
         closeTags();
-        // kad se nargila sastavi, iz glave izađe malo dima
-        window.setTimeout(function () {
-          var r = hook.querySelector('[data-part="glava"]').getBoundingClientRect();
-          if (FX.Field && FX.Field.puff && r.bottom > 0 && r.top < window.innerHeight) FX.Field.puff(r.left + r.width / 2, r.top + r.height * 0.07, { count: 7 });
-        }, FX.reducedMotion() ? 0 : 1300);
+        root.classList.remove('is-exploded', 'is-anatomy');
       }
+      schedule();
     }
-    btn.addEventListener('click', function () { set(!root.classList.contains('is-exploded')); });
+    btn.addEventListener('click', function () { set(btn.getAttribute('aria-pressed') !== 'true'); });
     tags.forEach(function (b) {
       b.addEventListener('click', function (e) {
         e.stopPropagation();
@@ -721,15 +781,60 @@
     });
     function onDoc(e) { if (!e.target.closest('.hx-tag')) closeTags(); }
     document.addEventListener('click', onDoc);
-    // sama se rastavi malo poslije otvaranja (samo ako se uvod vidi)
-    var timer = 0;
-    if (!FX.reducedMotion()) {
-      timer = window.setTimeout(function () {
-        var r = hook.getBoundingClientRect();
-        if (r.top < window.innerHeight && r.bottom > 0) set(true);
-      }, 1100);
+    ctx.cleanup(function () { clearTimeout(timer); clearTimeout(expT); io.disconnect(); document.removeEventListener('click', onDoc); document.removeEventListener('visibilitychange', onVis); });
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* Izvori: paginacija (manje listanja)                                  */
+  /* ------------------------------------------------------------------ */
+
+  function mountSources(ctx) {
+    var list = document.querySelector('.hx-sources__list');
+    var nav = document.getElementById('hx-src-pager');
+    if (!list || !nav) return;
+    var items = [].slice.call(list.children);
+    var page = 1;
+    function per() { return window.innerWidth >= 900 ? 12 : 8; }
+    function pages() { return Math.ceil(items.length / per()); }
+    function render() {
+      var n = per(), P = pages();
+      page = clamp(page, 1, P);
+      items.forEach(function (li, i) { li.classList.toggle('is-off', i < (page - 1) * n || i >= page * n); });
+      var V = MSP.V, esc = V.esc;
+      var btn = function (p, label, cls, dis) {
+        return '<button type="button" class="pager__btn' + (cls || '') + '" data-page="' + p + '"' + (dis ? ' disabled' : '') + ' aria-label="' + esc(label) + '"' + (p === page && !cls ? ' aria-current="page"' : '') + '>';
+      };
+      var h = btn(page - 1, MSP.t('pager.prev'), ' pager__btn--arrow', page <= 1) + V.icon('arrowLeft') + '</button>';
+      for (var p = 1; p <= P; p++) h += btn(p, MSP.t('pager.page', { n: p }), p === page ? ' is-current' : '', false) + p + '</button>';
+      h += btn(page + 1, MSP.t('pager.next'), ' pager__btn--arrow', page >= P) + V.icon('arrowRight') + '</button>';
+      nav.innerHTML = h;
+      nav.hidden = P < 2;
     }
-    ctx.cleanup(function () { window.clearTimeout(timer); document.removeEventListener('click', onDoc); });
+    nav.addEventListener('click', function (e) {
+      var b = e.target.closest('[data-page]');
+      if (!b || b.disabled) return;
+      page = +b.getAttribute('data-page');
+      render();
+      list.scrollIntoView({ block: 'nearest', behavior: FX.reducedMotion() ? 'auto' : 'smooth' });
+    });
+    // klik na broj izvora u tekstu: otvori stranicu na kojoj je taj izvor
+    function openFor(hash) {
+      var li = hash && /^#izvor-\d+$/.test(hash) ? document.getElementById(hash.slice(1)) : null;
+      if (!li) return;
+      var i = items.indexOf(li);
+      if (i < 0) return;
+      page = Math.floor(i / per()) + 1;
+      render();
+    }
+    function onClick(e) {
+      var a = e.target.closest('a[href^="#izvor-"]');
+      if (a) openFor(a.getAttribute('href'));
+    }
+    document.addEventListener('click', onClick, true);
+    window.addEventListener('resize', render);
+    render();
+    openFor(location.hash);
+    ctx.cleanup(function () { document.removeEventListener('click', onClick, true); window.removeEventListener('resize', render); });
   }
 
   /* ------------------------------------------------------------------ */
@@ -1378,6 +1483,7 @@
       ctx.cleanup(FX.reveal(ctx.els.main));
       mountExtras(ctx);
       mountHero(ctx, root);
+      mountSources(ctx);
       if (FX.reducedMotion()) mountStatic();
       else mountPlayer(ctx, root);
     }

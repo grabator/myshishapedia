@@ -106,43 +106,70 @@
 
   // x, y: tačka natpisa (viewBox 400x800); side: na koju stranu ide natpis
   var PARTS = {
-    stub: { ex: [0, 0, 0, 0], x: 188, y: 280, side: 'l', svg:
+    stub: { ex: [0, -40, 0, 0], x: 186, y: 300, side: 'l', svg:
       '<rect x="194" y="548" width="12" height="150" rx="4" fill="url(#hx-g-steel)" opacity=".85"/>' +
       '<rect x="188" y="166" width="24" height="384" rx="6" fill="url(#hx-g-metal)"/>' +
       '<ellipse cx="200" cy="236" rx="24" ry="9" fill="url(#hx-g-metal)"/><ellipse cx="200" cy="298" rx="18" ry="7" fill="url(#hx-g-metal)"/>' +
       '<circle cx="200" cy="420" r="20" fill="url(#hx-g-metal)"/><circle cx="194" cy="414" r="6" fill="#fff6dc" opacity=".55"/>' +
       '<rect x="210" y="344" width="50" height="15" rx="5" fill="url(#hx-g-metal)"/><circle cx="262" cy="351" r="7" fill="url(#hx-g-metal)"/>' +
       '<path d="M156 520H244L232 552H168Z" fill="url(#hx-g-metal)"/><rect x="164" y="514" width="72" height="8" rx="4" fill="#3a2a1c"/>' },
-    difuzor: { ex: [0, 52, -40, 120], x: 186, y: 708, side: 'l', svg:
+    difuzor: { ex: [-140, -250, 0, 140], x: 200, y: 728, side: 'b', svg:
       '<rect x="184" y="692" width="32" height="30" rx="8" fill="url(#hx-g-steel)"/>' +
       '<g fill="#1d2228"><circle cx="193" cy="704" r="2.6"/><circle cx="200" cy="710" r="2.6"/><circle cx="207" cy="704" r="2.6"/><circle cx="193" cy="714" r="2.6"/><circle cx="207" cy="714" r="2.6"/></g>' },
-    vaza: { ex: [0, 292, -80, 60], x: 92, y: 700, side: 'l', svg:
+    vaza: { ex: [0, 100, 0, 60], x: 200, y: 792, side: 'b', svg:
       '<path d="M168 548H232L236 582C300 602 318 660 312 704C306 752 262 784 200 784C138 784 94 752 88 704C82 660 100 602 164 582Z" fill="url(#hx-g-glass)" stroke="#bfe9f2" stroke-opacity=".5" stroke-width="2"/>' +
       '<path d="M94 662H306C314 700 304 770 200 778C96 770 86 700 94 662Z" fill="url(#hx-g-water)"/>' +
       '<path d="M118 640C112 690 126 740 160 762" fill="none" stroke="#fff" stroke-opacity=".38" stroke-width="7" stroke-linecap="round"/>' +
       '<g class="hx-bubbles" fill="#e9fbff" fill-opacity=".55"><circle cx="196" cy="690" r="5"/><circle cx="206" cy="676" r="3.6"/><circle cx="199" cy="668" r="2.6"/><circle cx="210" cy="700" r="2.2"/></g>' +
       '<rect x="166" y="546" width="68" height="6" rx="3" fill="#bfe9f2" opacity=".55"/>' },
-    tacna: { ex: [0, -104, 60, 90], x: 298, y: 190, side: 'r', svg:
+    tacna: { ex: [0, -150, 0, 90], x: 200, y: 218, side: 'b', svg:
       '<ellipse cx="200" cy="194" rx="100" ry="18" fill="url(#hx-g-metal)"/><ellipse cx="200" cy="189" rx="88" ry="12" fill="#5b3a1b"/><ellipse cx="200" cy="187" rx="84" ry="9" fill="url(#hx-g-metal)" opacity=".7"/>' +
       '<rect x="130" y="180" width="18" height="10" rx="3" fill="#1a1412"/><rect x="246" y="182" width="16" height="9" rx="3" fill="#1a1412"/>' },
-    gumica: { ex: [0, -168, 90, 150], x: 178, y: 163, side: 'l', svg:
+    gumica: { ex: [-140, 150, 0, 160], x: 200, y: 178, side: 'b', svg:
       '<rect x="178" y="154" width="44" height="16" rx="5" fill="#2b2523"/><rect x="180" y="157" width="40" height="3" rx="1.5" fill="#57504c"/>' },
-    glava: { ex: [0, -235, 120, 200], x: 262, y: 72, side: 'r', svg:
+    glava: { ex: [-140, 40, 0, 200], x: 200, y: 160, side: 'b', svg:
       '<ellipse class="hx-glow" cx="200" cy="88" rx="70" ry="22" fill="url(#hx-g-ember)" opacity=".35"/>' +
       '<path d="M140 88H260C258 108 236 126 222 134L218 156H182L178 134C164 126 142 108 140 88Z" fill="url(#hx-g-clay)"/>' +
       '<path d="M150 92H250" stroke="#2a120a" stroke-width="3" opacity=".5"/>' +
       '<path d="M146 58H254L246 86H154Z" fill="url(#hx-g-steel)"/><rect x="188" y="44" width="24" height="15" rx="5" fill="url(#hx-g-steel)"/>' +
       '<g stroke="#262a30" stroke-width="3" stroke-linecap="round"><path d="M168 66V78"/><path d="M184 66V78"/><path d="M216 66V78"/><path d="M232 66V78"/></g>' +
       '<rect x="160" y="84" width="80" height="5" rx="2.5" fill="url(#hx-g-ember)"/>' },
-    crijevo: { ex: [62, 50, 40, 100], x: 336, y: 432, side: 'r', svg:
+    crijevo: { ex: [70, -150, 0, 110], x: 290, y: 706, side: 'b', svg:
       '<path d="M258 351C300 350 330 380 334 430C340 500 300 540 316 600C326 640 352 660 346 700" fill="none" stroke="url(#hx-g-hose)" stroke-width="13" stroke-linecap="round"/>' +
       '<path d="M262 347C300 348 326 378 330 426" fill="none" stroke="#e9a291" stroke-opacity=".35" stroke-width="3" stroke-linecap="round"/>' },
-    usnik: { ex: [96, 150, 70, 170], x: 350, y: 744, side: 'r', svg:
+    usnik: { ex: [40, -110, 0, 180], x: 340, y: 794, side: 'b', svg:
       '<path d="M339 694L355 698L341 778L326 774Z" fill="url(#hx-g-metal)"/><rect x="336" y="690" width="22" height="10" rx="4" transform="rotate(12 347 695)" fill="#2b2523"/>' +
       '<path d="M328 772L340 775L338 790L330 788Z" fill="#c9a26b"/>' }
   };
   // redoslijed slojeva (od pozadi prema naprijed)
   var LAYERS = ['stub', 'difuzor', 'vaza', 'tacna', 'gumica', 'glava', 'crijevo', 'usnik'];
+
+  // Evolucija na početku: jedna nargila se pretapa u sljedeću, od starog oblika do moderne (prave slike iz muzeja)
+  function morph() {
+    var list = (H().museum || []).filter(function (m) { return !m.wide; });
+    if (!list.length) return '';
+    var m0 = list[0];
+    var img = function (m, cls, first) {
+      return '<img class="hx-morph__img' + cls + '" src="/history/' + m.id + '.webp" srcset="/history/' + m.id + '-s.webp 420w, /history/' + m.id + '.webp 720w" sizes="(min-width: 900px) 40vw, 80vw"' +
+        ' width="' + m.w + '" height="' + m.h + '" decoding="async"' + (first ? ' fetchpriority="high" alt="' + esc(L(m.name)) + '"' : ' alt="" aria-hidden="true"') + '>';
+    };
+    return (
+      '<figure class="hx-morph" id="hx-morph">' +
+        '<span class="hx-morph__beam" aria-hidden="true"></span>' +
+        '<span class="hx-morph__obj">' + img(m0, ' is-on', true) + img(list[1] || m0, '', false) + '</span>' +
+        '<span class="hx-morph__plinth" aria-hidden="true"></span>' +
+        '<figcaption class="hx-morph__cap"><span class="hx-morph__k" id="hx-morph-k">' + esc(L(m0.k)) + '</span><span class="hx-morph__n" id="hx-morph-n">' + esc(L(m0.name)) + '</span></figcaption>' +
+      '</figure>' +
+      '<div class="hx-rail" role="group" aria-label="' + esc(t('history.morphLabel')) + '">' +
+        '<span class="hx-rail__end">' + esc(t('history.morphThen')) + '</span>' +
+        '<ol class="hx-rail__list" role="list">' + list.map(function (m, i) {
+          return '<li><button type="button" class="hx-rail__btn' + (i === 0 ? ' is-on' : '') + '" data-m="' + i + '" aria-pressed="' + (i === 0) + '" aria-label="' + esc(L(m.name)) + '">' +
+            '<img src="/history/' + m.id + '-s.webp" width="' + Math.round(m.w * 420 / m.h) + '" height="420" alt="" loading="lazy" decoding="async"></button></li>';
+        }).join('') + '</ol>' +
+        '<span class="hx-rail__end">' + esc(t('history.morphNow')) + '</span>' +
+      '</div>'
+    );
+  }
 
   function heroHookah() {
     var info = {};
@@ -406,6 +433,7 @@
           if (!s) return '';
           return '<li id="izvor-' + n + '"><span class="hx-sources__n">' + n + '</span><a href="' + esc(s.u) + '" target="_blank" rel="noopener">' + esc(s.t) + '</a></li>';
         }).join('') + '</ol>' +
+        '<nav class="pager" id="hx-src-pager" aria-label="' + esc(t('pager.label')) + '" hidden></nav>' +
       '</div></section>'
     );
   }
@@ -443,9 +471,10 @@
               '<p class="hx-lead anim-in" style="--i:2">' + esc(t('history.lead')) + '</p>' +
               '<p class="hx-hero__btns anim-in" style="--i:3"><a class="btn btn--primary" href="#put" data-start>' + esc(t('history.start')) + V.icon('arrowRight') + '</a>' +
                 '<button type="button" class="btn btn--ghost hx-explode-btn" aria-pressed="false" hidden><span class="hx-explode-btn__a">' + esc(t('history.explode')) + '</span><span class="hx-explode-btn__b">' + esc(t('history.assemble')) + '</span></button></p>' +
-              '<p class="hx-hint" aria-hidden="true">' + esc(t('history.partsHint')) + '</p>' +
             '</div>' +
-            '<div class="hx-hero__stage">' + heroHookah() + '</div>' +
+            '<div class="hx-hero__stage" id="hx-stage">' + morph() +
+              '<div class="hx-anatomy">' + heroHookah() + '<p class="hx-hint" aria-hidden="true">' + esc(t('history.partsHint')) + '</p></div>' +
+            '</div>' +
           '</div>' +
           '<div class="container hx-partlist"><h2 class="hx-h3">' + esc(t('history.partsListTitle')) + '</h2>' +
             '<dl>' + parts.map(function (p) { return '<div><dt>' + esc(L(p.name)) + '</dt><dd>' + esc(L(p.t)) + '</dd></div>'; }).join('') + '</dl>' +

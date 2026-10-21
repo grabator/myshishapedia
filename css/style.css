@@ -7356,7 +7356,6 @@ html:not(.js) .localnote { display: none; }
 
 .js .hx-explode-btn { display: inline-flex; }
 .js .hx-explode-btn[hidden] { display: inline-flex; }
-.js .hx-hint { display: block; }
 .js .hx-partlist { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; padding: 0; }
 .js .hx-tag {
   display: block;
@@ -7377,7 +7376,7 @@ html:not(.js) .localnote { display: none; }
 .js .hx-tag--l { transform: translate(-100%, -50%); text-align: right; }
 .hx.is-exploded .hx-tag { opacity: 1; pointer-events: auto; transition-delay: 1.1s; }
 .hx.is-exploded .hx-part { transform: translate3d(var(--x), var(--y), var(--z)); }
-.hx.is-exploded .hx-rig { transform: translateY(-3%) scale(.6) rotateX(9deg) rotateY(-16deg); }
+.hx.is-exploded .hx-rig { transform: translateY(-6%) scale(.84); }
 .hx-tag__line { display: inline-block; vertical-align: middle; width: 30px; height: 1px; background: currentColor; opacity: .6; margin-right: 8px; }
 .hx-tag--l .hx-tag__line { float: right; margin: .6em 0 0 8px; }
 .hx-tag__name { display: inline-block; padding: 3px 9px; border-radius: 99px; background: rgba(16, 11, 10, .82); border: 1px solid rgba(244, 235, 223, .22); }
@@ -7412,7 +7411,7 @@ html:not(.js) .localnote { display: none; }
   .hx-tag__name { padding: 2px 7px; }
   .hx-tag__text { margin-left: 22px; max-width: 44vw; }
   .hx-tag--l .hx-tag__text { right: 22px; }
-  .hx.is-exploded .hx-rig { transform: translateY(-3%) scale(.56) rotateX(9deg) rotateY(-14deg); }
+  .hx.is-exploded .hx-rig { transform: translateY(-6%) scale(.84); }
 }
 @media (prefers-reduced-motion: reduce) {
   .hx-rig, .hx-part { transition: none; }
@@ -7488,7 +7487,7 @@ html:not(.js) .localnote { display: none; }
     transition: opacity .45s, transform .6s var(--ease-out), visibility 0s .6s;
   }
   .js .hx-st.is-active { opacity: 1; visibility: visible; transform: none; transition: opacity .6s .15s, transform .8s var(--ease-out) .15s, visibility 0s; }
-  .js .hx-card { pointer-events: auto; width: 100%; max-height: 100%; overflow: auto; overscroll-behavior: contain; scrollbar-width: none; }
+  .js .hx-card { pointer-events: auto; width: 100%; max-height: 100%; overflow: hidden; }
   .js .hx-card::-webkit-scrollbar { display: none; }
 
   /* HUD */
@@ -7696,3 +7695,90 @@ html:not(.js) .localnote { display: none; }
   .js .hx-player .hx-fun__label { font-size: .8em; }
   .js .hx-player .hx-postcard { font-size: .76em; margin-top: .8em; }
 }
+
+/* ---------- početak: evolucija (nargila se pretapa u sljedeću) ---------- */
+.hx-hero__stage { display: grid; grid-template-rows: 1fr auto; gap: 14px; height: auto; min-height: 0; }
+.hx-morph { position: relative; margin: 0; display: grid; grid-template-rows: 1fr auto auto; justify-items: center; height: min(66svh, 620px); min-height: 380px; }
+.hx-morph__beam {
+  position: absolute; inset: -12% 6% 8%; pointer-events: none;
+  background: conic-gradient(from 180deg at 50% 0%, transparent 152deg, rgba(255, 214, 160, .1) 170deg, rgba(255, 214, 160, .18) 180deg, rgba(255, 214, 160, .1) 190deg, transparent 208deg);
+  -webkit-mask-image: linear-gradient(#000 55%, transparent); mask-image: linear-gradient(#000 55%, transparent);
+}
+.hx-morph__obj { position: relative; width: 100%; height: 100%; min-height: 0; }
+.hx-morph__img {
+  position: absolute; inset: 0; margin: auto; width: auto; height: auto; max-width: 100%; max-height: 100%;
+  object-fit: contain; object-position: bottom; opacity: 0;
+  filter: drop-shadow(0 22px 22px rgba(0, 0, 0, .55));
+}
+.hx-morph__img.is-on { opacity: 1; }
+.hx-morph__plinth { width: min(62%, 300px); height: 18px; margin-top: -3px; border-radius: 2px; background: linear-gradient(#e7dccb, #b4a48a); box-shadow: 0 14px 24px rgba(0, 0, 0, .55), inset 0 -3px 0 rgba(0, 0, 0, .15); }
+.hx-morph__cap { display: grid; gap: 2px; margin-top: 12px; text-align: center; }
+.hx-morph__k { font-size: .7rem; letter-spacing: .2em; text-transform: uppercase; color: var(--c-accent); }
+.hx-morph__n { font: 600 1.35rem/1.15 var(--hx-serif); }
+.hx-rail { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 10px; }
+.hx-rail__end { font-size: .68rem; letter-spacing: .16em; text-transform: uppercase; color: var(--c-muted); }
+.hx-rail__list { position: relative; list-style: none; margin: 0; padding: 0; display: flex; justify-content: space-between; gap: 4px; }
+.hx-rail__list::before { content: ''; position: absolute; left: 6px; right: 6px; top: 50%; height: 1px; background: linear-gradient(90deg, transparent, var(--c-line-strong), var(--c-accent)); }
+.hx-rail__btn { position: relative; display: grid; place-items: end center; width: 40px; height: 52px; padding: 4px; border-radius: 10px; border: 1px solid transparent; background: #140f0c; cursor: pointer; transition: border-color .3s, transform .3s var(--ease-out); }
+.hx-rail__btn img { width: auto; height: 100%; max-width: 100%; object-fit: contain; opacity: .55; transition: opacity .3s; }
+.hx-rail__btn:hover img, .hx-rail__btn.is-on img { opacity: 1; }
+.hx-rail__btn.is-on { border-color: var(--c-accent); transform: translateY(-3px); }
+.hx-rail__btn:focus-visible { outline: 2px solid var(--c-accent); outline-offset: 2px; }
+.hx-anatomy { display: none; position: relative; height: min(84svh, 780px); min-height: 520px; }
+.hx.is-anatomy .hx-anatomy { display: block; }
+.hx.is-anatomy .hx-morph, .hx.is-anatomy .hx-rail { display: none; }
+.hx-anatomy .hx-hint { display: block; position: absolute; left: 0; right: 0; bottom: 0; text-align: center; }
+@media (prefers-reduced-motion: no-preference) {
+  .js .hx-morph__img { transition: opacity .9s var(--ease-in-out), transform 1.4s var(--ease-out); }
+  .js .hx-morph__img.is-out { opacity: 0; transform: translateY(-14px) scale(.97); }
+  .js .hx-morph__img.is-in {
+    opacity: 1;
+    -webkit-mask-image: linear-gradient(to top, #000 45%, transparent 55%); mask-image: linear-gradient(to top, #000 45%, transparent 55%);
+    -webkit-mask-size: 100% 220%; mask-size: 100% 220%; -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+    animation: hx-rise 1.5s var(--ease-in-out) both;
+  }
+}
+@keyframes hx-rise { from { -webkit-mask-position: 0 0; mask-position: 0 0; } to { -webkit-mask-position: 0 100%; mask-position: 0 100%; } }
+@media (max-width: 899px) {
+  .hx-morph { height: 54svh; min-height: 330px; }
+  .hx-rail__btn { width: 34px; height: 44px; padding: 3px; }
+  .hx-rail__end { font-size: .6rem; letter-spacing: .1em; }
+  .hx-anatomy { height: 76svh; min-height: 480px; }
+}
+
+/* rastavljena nargila: dijelovi u stranu i gore-dolje, natpisi ispod dijelova (čitljivo i na mobitelu) */
+.js .hx-tag--b { transform: translate(-50%, 2px); text-align: center; }
+.hx-tag--b .hx-tag__line { display: none; }
+.hx-tag--b .hx-tag__text { left: 50%; margin: 6px 0 0; transform: translate(-50%, -4px); }
+.hx-tag--b[aria-expanded="true"] .hx-tag__text { transform: translate(-50%, 0); }
+.hx-tag--b .hx-tag__name { font-size: .78rem; }
+@media (max-width: 899px) { .hx-tag--b .hx-tag__name { font-size: .7rem; padding: 2px 7px; } }
+
+/* izvori: paginacija */
+.js .hx-sources__list li.is-off { display: none; }
+
+/* početak na mobitelu: ništa ne smije biti šire od ekrana */
+.hx-hero__grid { grid-template-columns: minmax(0, 1fr); }
+@media (min-width: 900px) { .hx-hero__grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } }
+.hx-rail { grid-template-columns: auto minmax(0, 1fr) auto; }
+.hx-rail__list li { flex: 1 1 0; min-width: 0; display: flex; justify-content: center; }
+.hx-rail__btn { width: 100%; max-width: 40px; }
+.hx-anatomy .hx-hint { top: 0; bottom: auto; }
+@media (max-width: 899px) {
+  #hx-src-pager { gap: 4px; }
+  #hx-src-pager .pager__btn { min-width: 36px; height: 36px; padding: 0 6px; }
+}
+@media (max-width: 899px) {
+  /* na mobitelu evolucija odmah ispod naslova (vidi se na prvom ekranu), tekst i dugmad ispod nje */
+  .hx-hero__copy { display: contents; }
+  .hx-hero__grid > .hx-hero__stage { order: 3; }
+  .hx-hero__copy > .eyebrow { order: 1; }
+  .hx-hero__copy > .hx-title { order: 2; font-size: clamp(2.4rem, 11vw, 3.2rem); margin-bottom: 4px; }
+  .hx-hero__copy > .hx-lead { order: 4; }
+  .hx-hero__copy > .hx-hero__btns { order: 5; margin-top: 16px; }
+  .hx-hero__grid { gap: 8px; }
+  .hx-morph { height: 44svh; min-height: 300px; }
+  .hx-morph__n { font-size: 1.15rem; }
+}
+.hx-rail__btn { overflow: hidden; }
+.hx-rail__btn img { width: auto; height: auto; max-width: 100%; max-height: 100%; }

@@ -218,7 +218,7 @@ window.HISTORY = {
   museum: [
     { id: 'mesing', w: 410, h: 720, name: { bs: 'Mesing sa gravurom', en: 'Engraved brass' }, k: { bs: 'stari oblik', en: 'old form' },
       d: { bs: 'Visoko mesingano tijelo sa gravurom romba, tri kugle na stubu i dva upletena crijeva savijena u petlje.', en: 'A tall brass body engraved with diamonds, three spheres on the stem and two braided hoses curled into loops.' } },
-    { id: 'trska', w: 420, h: 720, name: { bs: 'Metalna vaza i trska', en: 'Metal vase and reed' }, k: { bs: 'stari oblik', en: 'old form' },
+    { id: 'trska', w: 422, h: 720, name: { bs: 'Metalna vaza i trska', en: 'Metal vase and reed' }, k: { bs: 'stari oblik', en: 'old form' },
       d: { bs: 'Široka metalna vaza, drveni stub i duga cijev od trske povezana tamnim trakama.', en: 'A wide metal vase, a wooden stem and a long reed pipe bound with dark bands.' } },
     { id: 'zelena', w: 251, h: 720, name: { bs: 'Zelena, na četiri noge', en: 'Green, on four legs' }, k: { bs: 'stari oblik', en: 'old form' },
       d: { bs: 'Zelena posuda sa visokim stubom, a sve nosi postolje sa četiri zakrivljene noge.', en: 'A green vessel with a tall stem, all carried by a stand with four curved legs.' } },

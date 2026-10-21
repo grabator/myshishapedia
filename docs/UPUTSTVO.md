@@ -692,7 +692,8 @@ savjete. Sve ima verziju za oba jezika.
 
 ## Evolucija nargile (historija)
 
-Stranica `/bs/evolucija-nargile/` i `/en/hookah-history/`: nargila koja se rastavi na dijelove (dugme "Rastavi/Sastavi"),
+Stranica `/bs/evolucija-nargile/` i `/en/hookah-history/`: na početku se nargile iz muzeja pretapaju jedna u drugu, od starog oblika
+do moderne (traka "Nekad · Danas"); dugme "Rastavi nargilu" pokaže nargilu rastavljenu na dijelove,
 pa "put dima" preko globusa kroz 14 stanica, muzej nargila, nazivi, evolucija dijelova, mit ili istina, zdravlje i izvori.
 
 - Putovanje je plejer, ne zavisi od listanja: dugmad Nazad/Pusti/Dalje, strelice na tastaturi, prevlačenje prstom,
@@ -701,6 +702,7 @@ pa "put dima" preko globusa kroz 14 stanica, muzej nargila, nazivi, evolucija di
   spisak i opisi su `museum` u `data/history.js` (novu nargilu dodaš kao red tu + dvije slike). Klik otvara vitrinu.
   Fotografija `pusac.webp` je takođe od vlasnika.
 - Kartica stanice uvijek stane cijela: `fitCard` u `js/history.js` smanji slova dok sadržaj ne stane.
+- Izvori imaju paginaciju (12 na desktopu, 8 na mobitelu); klik na broj izvora u tekstu otvori pravu stranicu.
 - "Pošalji razglednicu" na kartici napravi sliku 1080x1350 (silueta grada, godina, zanimljivost) za dijeljenje.
 
 - Sadržaj je u `data/history.js` (oba jezika). Svaka činjenica ima `src` sa brojem izvora iz liste `sources`;
