@@ -507,6 +507,12 @@
     return '<nav class="hxc-pnav" aria-label="' + esc(t('history.chapterNav')) + '">' + card(prev, 'prev') + card(next, 'next') + '</nav>';
   }
 
+  /** Slika u poglavlju: stara slika ili fotografija sa potpisom i linkom na izvor. */
+  function chapterFig(f) {
+    return '<figure class="hxc-fig' + (f.w < f.h ? ' hxc-fig--tall' : '') + '"><img src="/history/slike/' + f.img + '.webp" width="' + f.w + '" height="' + f.h + '" alt="' + esc(L(f.alt || f.cap)) + '" loading="lazy" decoding="async">' +
+      '<figcaption>' + esc(L(f.cap)) + ' <span class="hxc-fig__by">' + (f.u ? '<a href="' + esc(f.u) + '" target="_blank" rel="noopener">' + esc(L(f.by)) + '</a>' : esc(L(f.by))) + '</span></figcaption></figure>';
+  }
+
   V.pageChapter = function (ch, crumbs) {
     var list = CH();
     var i = list.indexOf(ch);
@@ -549,6 +555,7 @@
               return '<section class="hxc-sec" id="dio-' + (k + 1) + '" aria-labelledby="dio-' + (k + 1) + '-h" data-reveal>' +
                 '<h2 class="hxc-h2" id="dio-' + (k + 1) + '-h"><span aria-hidden="true">' + (k + 1) + '</span>' + esc(L(s.h)) + '</h2>' +
                 s.p.map(function (p) { return '<p>' + esc(L(p.t)) + sup(p.src) + '</p>'; }).join('') +
+                (s.fig ? chapterFig(s.fig) : '') +
                 (s.note ? '<aside class="hxc-note"><p class="hxc-note__k">' + esc(t('history.careful')) + '</p><p>' + esc(L(s.note)) + sup(s.noteSrc) + '</p></aside>' : '') +
                 (more ? '<p class="hxc-more"><a href="' + esc(V.chapterUrl(more)) + '">' + esc(t('history.moreIn', { title: L(more.title) })) + V.icon('arrowRight') + '</a></p>' : '') +
               '</section>';
@@ -603,7 +610,8 @@
       var who = typeof a.who === 'string' ? a.who : L(a.who);
       var link = a.link ? S[a.link] : null;
       return (
-        '<li class="hx-work" data-reveal style="--i:' + (i % 3) + '">' +
+        '<li class="hx-work' + (a.img ? ' hx-work--img' : '') + '" data-reveal style="--i:' + (i % 3) + '">' +
+          (a.img ? '<img class="hx-work__img" src="/history/slike/' + a.img.f + '.webp" width="' + a.img.w + '" height="' + a.img.h + '" alt="' + esc(L(a.title) + ', ' + who) + '" loading="lazy" decoding="async">' : '') +
           '<p class="hx-work__meta"><span>' + esc(L(a.kind)) + '</span>' + (a.noYear ? '' : '<time datetime="' + a.year + '">' + (a.id === 'plemic' ? (MSP.lang === 'bs' ? 'oko ' : 'c. ') : '') + a.year + '</time>') + '</p>' +
           '<h3 class="hx-work__t">' + esc(L(a.title)) + '</h3>' +
           '<p class="hx-work__who">' + esc(who) + '</p>' +
@@ -631,7 +639,10 @@
         '<div class="hx-art-grid">' +
           (alice ? '<article class="hx-alice" data-reveal>' +
             '<button type="button" class="hx-cat" aria-label="' + esc(t('history.catHint')) + '">' + CATERPILLAR + '<span class="hx-cat__say" aria-hidden="true">' + esc(t('history.catSay')) + '</span></button>' +
-            '<div class="hx-alice__txt"><p class="hx-work__meta"><span>' + esc(L(alice.kind)) + '</span><time datetime="' + alice.year + '">' + alice.year + '</time></p>' +
+            '<div class="hx-alice__txt">' +
+              (alice.img ? '<figure class="hx-alice__fig"><img src="/history/slike/' + alice.img.f + '.webp" width="' + alice.img.w + '" height="' + alice.img.h + '" alt="' + esc(L(alice.img.cap)) + '" loading="lazy" decoding="async">' +
+                '<figcaption><a href="' + esc(alice.img.u) + '" target="_blank" rel="noopener">' + esc(L(alice.img.cap)) + '</a></figcaption></figure>' : '') +
+              '<p class="hx-work__meta"><span>' + esc(L(alice.kind)) + '</span><time datetime="' + alice.year + '">' + alice.year + '</time></p>' +
               '<h3 class="hx-alice__t">' + esc(L(alice.title)) + '</h3><p class="hx-work__who">' + esc(alice.who) + '</p>' +
               '<p class="hx-work__d">' + esc(L(alice.t)) + sup(alice.src) + '</p>' +
               '<p class="hx-alice__hint">' + esc(t('history.catHint')) + '</p></div>' +

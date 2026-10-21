@@ -93,6 +93,7 @@
       sections: [
         {
           h: { bs: 'Istanbul: kafana prije nargile', en: 'Istanbul: the coffeehouse before the hookah' },
+          fig: { img: 'osmanska-kafana', w: 966, h: 1484, cap: { bs: 'Osmanska kafana na minijaturi iz Istanbula, oko 1620: kafa, razgovor, knjige i tavla.', en: 'An Ottoman coffeehouse in a miniature from Istanbul, c. 1620: coffee, conversation, books and backgammon.' }, by: { bs: 'Chester Beatty Library, Dublin (T 439.9)', en: 'Chester Beatty Library, Dublin (T 439.9)' }, u: 'https://libapps.luc.edu/digitalexhibits/s/honr212/page/MorganF' },
           p: [
             { t: { bs: 'Po osmanskom historičaru Ibrahimu Pečeviji, dvojica trgovaca, Hakem iz Alepa i Šems iz Damaska, otvorili su prve kafane u Istanbulu, u četvrti Tahtakale. Izvori navode 1554. ili 1555. godinu.', en: 'According to the Ottoman historian İbrahim Peçevi, two merchants, Hakam of Aleppo and Shams of Damascus, opened the first coffeehouses in Istanbul, in the Tahtakale district. Sources give 1554 or 1555.' }, src: [1] },
             { t: { bs: 'Kafa je bila prva. Duhan u Istanbul stiže tek oko 1600, a onda se kafane brzo pune dimom.', en: 'Coffee came first. Tobacco only reaches Istanbul around 1600, and then the coffeehouses quickly fill with smoke.' }, src: [2] },
@@ -154,6 +155,7 @@
       sections: [
         {
           h: { bs: 'Jak list i žar odozgo', en: 'Strong leaf, coal on top' },
+          fig: { img: 'kafana-tophane', w: 800, h: 579, cap: { bs: 'Kafana u istanbulskoj četvrti Tophane, 19. stoljeće. Lijevo gosti puše nargilu.', en: 'A coffeehouse in Istanbul\'s Tophane district, 19th century. On the left, guests smoke the hookah.' }, by: { bs: 'Megerdich Jivanian, po Thomasu Allomu (javno vlasništvo)', en: 'Megerdich Jivanian, after Thomas Allom (public domain)' }, u: 'https://libapps.luc.edu/digitalexhibits/s/honr212spring02/item/5799' },
           p: [
             { t: { bs: 'Duhan su u Perziju, kako se navodi, donijeli Portugalci početkom 16. stoljeća.', en: 'Tobacco reportedly reached Persia with the Portuguese in the early 16th century.' }, src: [1] },
             { t: { bs: 'Francuski putnik Jean Chardin zapisao je da se u safavidskoj Perziji za qalyan posebno cijenio brazilski duhan.', en: 'The French traveller Jean Chardin noted that Brazilian tobacco was especially prized for the qalyan in Safavid Persia.' }, src: [2] },
@@ -286,6 +288,7 @@
       sections: [
         {
           h: { bs: 'Posuda za vodu', en: 'The water vessel' },
+          fig: { img: 'met-bidri', w: 386, h: 518, cap: { bs: 'Posuda za huqqu sa perunikama, bidri, Dekan, kasno 17. stoljeće. Visoka je 17,5 cm.', en: 'Base for a huqqa with irises, bidri ware, Deccan, late 17th century. It is 17.5 cm tall.' }, by: { bs: 'The Metropolitan Museum of Art, 1984.221', en: 'The Metropolitan Museum of Art, 1984.221' }, u: 'https://www.metmuseum.org/art/collection/search/453243' },
           p: [
             { t: { bs: 'Prva posuda bila je kokosova ljuska, po kojoj je nargila dobila ime.', en: 'The first vessel was a coconut shell, which gave the narghile its name.' }, src: [1, 2] },
             { t: { bs: 'Amsterdamski muzej lula čuva jemensku vodenu lulu od kokosa i mesinga iz perioda 1860-1920. Kokos dakle nije nestao sa prvim nargilama.', en: 'The Amsterdam Pipe Museum holds a Yemeni water pipe of coconut and brass from 1860-1920. So the coconut did not disappear with the first hookahs.' }, src: [3] },
@@ -304,6 +307,7 @@
         },
         {
           h: { bs: 'Crijevo i usnik', en: 'Hose and mouthpiece' },
+          fig: { img: 'ernst-nargila', w: 495, h: 619, cap: { bs: 'Pušač nargile na orijentalističkoj slici. Takve slike pokazuju kako su prizor zamišljali evropski slikari, nisu dokument.', en: 'A hookah smoker in an Orientalist painting. Such paintings show how European artists imagined the scene; they are not documents.' }, by: { bs: 'Rudolf Ernst (1854-1932)', en: 'Rudolf Ernst (1854-1932)' }, u: 'https://commons.wikimedia.org/wiki/Category:Orientalist_paintings_by_Rudolf_Ernst' },
           p: [
             { t: { bs: 'Nargila je od početka predmet za društvo, pa se crijevo i usnik dijele. U lokalima svaki gost obično dobije svoj jednokratni nastavak za usta, ali se crijevo, glava i ostali dijelovi ponovo koriste.', en: 'From the start the hookah was a thing for company, so the hose and mouthpiece are shared. In venues each guest usually gets a disposable mouth tip, but the hose, bowl and other parts are reused.' }, src: [11] },
             { t: { bs: 'Zbog toga je WHO 2020. upozorio da dijeljenje usnika i crijeva može širiti koronavirus.', en: 'That is why in 2020 the WHO warned that sharing mouthpieces and hoses could spread the coronavirus.' }, src: [14] }
@@ -348,6 +352,7 @@
       sections: [
         {
           h: { bs: 'Baščaršija i prva kafana', en: 'Baščaršija and the first coffeehouse' },
+          fig: { img: 'sarajevo-razglednica', w: 693, h: 442, cap: { bs: 'Sarajevska čaršija na staroj obojenoj razglednici.', en: 'Sarajevo\'s bazaar on an old coloured postcard.' }, by: { bs: 'Stara razglednica', en: 'Old postcard' } },
           p: [
             { t: { bs: 'Baščaršija nastaje 1462, kad osmanski namjesnik Isa-beg Ishaković gradi karavan-saraj. Postaje glavna trgovačka i društvena žila grada.', en: 'Baščaršija begins in 1462, when the Ottoman governor Isa-beg Isaković builds a caravanserai. It becomes the city\'s main artery of trade and social life.' }, src: [2] },
             { t: { bs: 'Prva kafana u gradu bila je, po Turističkoj organizaciji Sarajeva, Hadži Šabanova kafana na Bentbaši, otvorena sredinom 16. stoljeća. Radila je do 1942.', en: 'According to Sarajevo\'s tourist board, the first coffeehouse in town was Hajji Šaban\'s coffeehouse at Bentbaša, opened in the middle of the 16th century. It worked until 1942.' }, src: [1] }
@@ -355,6 +360,7 @@
         },
         {
           h: { bs: 'Duhan stiže u Hercegovinu', en: 'Tobacco reaches Herzegovina' },
+          fig: { img: 'mostar-fabrika', w: 647, h: 474, cap: { bs: 'Fabrika duhana u Mostaru, osnovana 1880. Ispred su kola natovarena vrećama.', en: 'The Mostar tobacco factory, founded in 1880. In front, carts loaded with sacks.' }, by: { bs: 'Fotografija: arhiv CIDOM', en: 'Photo: CIDOM archive' }, u: 'https://cidom.org' },
           p: [
             { t: { bs: 'Rad u Godišnjaku Centra za balkanološka ispitivanja ANUBiH (2024) navodi da se duhan u Hercegovini pojavljuje u 17. stoljeću. Do 1880. nema organizovane proizvodnje, nego ga pojedinci uzgajaju za sebe.', en: 'A paper in the Yearbook of the Centre for Balkan Studies of the Academy of Sciences of Bosnia and Herzegovina (2024) says tobacco appears in Herzegovina in the 17th century. Until 1880 there is no organised production, only individuals growing it for themselves.' }, src: [3] },
             { t: { bs: 'U Dubrovačkom arhivu šverc duhana iz Hercegovine prvi put se spominje 1676. Pod osmanskom vlašću nije bilo monopola, plaćao se samo porez na proizvodnju.', en: 'The Dubrovnik archive first mentions tobacco smuggled from Herzegovina in 1676. Under Ottoman rule there was no monopoly, only a tax on production.' }, src: [3] },

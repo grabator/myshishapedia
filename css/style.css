@@ -7995,3 +7995,17 @@ html:not(.js) .localnote { display: none; }
 @media (prefers-reduced-motion: reduce) {
   .hx-chap__a, .hxc-pn { transition: none; }
 }
+
+/* ---------- Evolucija nargile: stare slike (poglavlja i umjetnost) ---------- */
+.hxc-fig { margin: 22px 0 6px; }
+.hxc-fig img { display: block; width: 100%; height: auto; border-radius: 10px; background: var(--c-surface-2); box-shadow: 0 0 0 1px var(--c-line), 0 22px 44px rgba(0, 0, 0, .35); }
+.hxc-fig--tall img { width: min(100%, 420px); }
+.hxc-fig figcaption { margin-top: 10px; font-size: .84rem; line-height: 1.5; color: var(--c-muted); max-width: 62ch; }
+.hxc-fig__by { display: inline-block; font-weight: 700; color: var(--c-text); }
+.hxc-fig__by a { color: inherit; text-decoration-color: var(--c-line-strong); }
+.hxc-fig__by a:hover { color: var(--c-accent-ink); }
+.hx-work__img { display: block; width: calc(100% + 36px); max-width: none; height: auto; margin: -16px -18px 12px; border-radius: 6px 6px 0 0; aspect-ratio: 16 / 10; object-fit: cover; }
+.hx-alice__fig { margin: 0 0 16px; }
+.hx-alice__fig img { display: block; width: 100%; max-width: 260px; height: auto; border-radius: 8px; box-shadow: 0 14px 30px rgba(0, 0, 0, .35); }
+.hx-alice__fig figcaption { margin-top: 8px; font-size: .78rem; }
+.hx-alice__fig a { color: var(--c-muted); text-decoration-color: var(--c-line-strong); }

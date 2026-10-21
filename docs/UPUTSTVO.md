@@ -717,6 +717,9 @@ pa "put dima" preko globusa kroz 14 stanica, muzej nargila, nazivi, evolucija di
   Svaki pasus ima `src` (broj iz liste izvora tog poglavlja); izvor `{ g: n }` je izvor n iz `data/history.js`.
   Build javi grešku ako pasus nema izvor, ako se neki izvor ne koristi ili ako fali tekst na nekom jeziku.
   Novo poglavlje se doda kao novi red u tom fajlu; kartica na glavnoj stranici, adresa, pretraga i sitemap prave se same.
+- Stare slike (javno vlasništvo ili sa dozvolom/potpisom) su u `static/history/slike/`. U poglavlju se dodaju kao `fig`
+  (slika, opis, autor, link na izvor), a kod djela u sekciji umjetnosti kao `img` u `art` (data/history.js).
+  Ne koristiti slike sa vodenim žigom (Alamy, Shutterstock), aukcijske ni muzejske fotografije bez dozvole.
 - Slabi izvori zamijenjeni (10. 2026.): Tagesspiegel → RKI KiGGS, Naukrigulf → Slaughter and May i Latham & Watkins,
   mu'assel → BMC Public Health 2004.
 

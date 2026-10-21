@@ -215,7 +215,7 @@ window.HISTORY = {
 
   // "Nargila u knjigama i umjetnosti" (svaka stavka sa izvorom; slike djela su u muzejima, ovdje samo link)
   art: [
-    { id: 'alisa', year: 1865, kind: { bs: 'Knjiga', en: 'Book' }, who: 'Lewis Carroll', title: { bs: 'Alisa u zemlji čuda', en: 'Alice\'s Adventures in Wonderland' },
+    { id: 'alisa', img: { f: 'tenniel-gusjenica', w: 480, h: 640, cap: { bs: 'John Tenniel, ilustracija u boji iz "The Nursery Alice" (1890)', en: 'John Tenniel, coloured illustration from "The Nursery Alice" (1890)' }, u: 'https://en.wikipedia.org/wiki/The_Nursery_%22Alice%22' }, year: 1865, kind: { bs: 'Knjiga', en: 'Book' }, who: 'Lewis Carroll', title: { bs: 'Alisa u zemlji čuda', en: 'Alice\'s Adventures in Wonderland' },
       t: { bs: 'U 5. poglavlju, "Savjet od gusjenice", Alisa na vrhu pečurke zatiče veliku plavu gusjenicu kako mirno puši dugu nargilu. Gusjenica izvadi nargilu iz usta i pita je: "Ko si TI?"', en: 'In chapter 5, "Advice from a Caterpillar", Alice finds a large blue caterpillar on top of a mushroom, quietly smoking a long hookah. The Caterpillar takes the hookah out of its mouth and asks her: "Who are YOU?"' },
       src: [48, 49], link: 49 },
     { id: 'plemic', year: 1670, kind: { bs: 'Minijatura', en: 'Miniature' }, who: { bs: 'pripisano Ali Rezi', en: 'attributed to Ali Reza' }, title: { bs: 'Plemić puši na terasi', en: 'Nobleman Smoking on a Terrace' },
@@ -224,10 +224,10 @@ window.HISTORY = {
     { id: 'shah-alam', year: 1780, kind: { bs: 'Portret', en: 'Portrait' }, who: { bs: 'nepoznat slikar', en: 'unknown painter' }, title: { bs: 'Car Shah Alam sa huqqom', en: 'Emperor Shah Alam with a huqqa' },
       t: { bs: 'Muzej Victoria and Albert u Londonu čuva portret mogulskog cara Shaha Alama koji sjedi i puši huqqu.', en: 'The Victoria and Albert Museum in London holds a portrait of the Mughal Emperor Shah Alam sitting and smoking a huqqa.' },
       src: [51], link: 51, noYear: true },
-    { id: 'alzir', year: 1834, kind: { bs: 'Slika', en: 'Painting' }, who: 'Eugène Delacroix', title: { bs: 'Alžirske žene u svojim odajama', en: 'Women of Algiers in their Apartment' },
+    { id: 'alzir', img: { f: 'delacroix-alzirske-zene', w: 507, h: 394 }, year: 1834, kind: { bs: 'Slika', en: 'Painting' }, who: 'Eugène Delacroix', title: { bs: 'Alžirske žene u svojim odajama', en: 'Women of Algiers in their Apartment' },
       t: { bs: 'Delacroix je ovu sliku naslikao 1834, a danas je u Louvreu. Uz žene koje sjede na podu stoji nargila.', en: 'Delacroix painted this work in 1834, and it is now in the Louvre. A narghile stands beside the women seated on the floor.' },
       src: [53], link: 53 },
-    { id: 'basibozuk', year: 1868, kind: { bs: 'Slika', en: 'Painting' }, who: 'Jean-Léon Gérôme', title: { bs: 'Baši-bozuk pjeva', en: 'Bashi-Bazouk Singing' },
+    { id: 'basibozuk', img: { f: 'gerome-basibozuk', w: 662, h: 463 }, year: 1868, kind: { bs: 'Slika', en: 'Painting' }, who: 'Jean-Léon Gérôme', title: { bs: 'Baši-bozuk pjeva', en: 'Bashi-Bazouk Singing' },
       t: { bs: 'Na slici iz 1868. albanski vojnik sjedi uz nargilu i svira oud, a pored njega je gavran na kavezu. Slika je u muzeju Walters u Baltimoreu.', en: 'In this 1868 painting an Albanian soldier sits by a hookah playing an oud, with a raven on its cage beside him. The painting is at the Walters Art Museum in Baltimore.' },
       src: [52], link: 52 },
     { id: 'mahfouz', year: 1988, kind: { bs: 'Pisac', en: 'Writer' }, who: 'Naguib Mahfouz', title: { bs: 'Nobelovac iz kafane El Fishawy', en: 'The Nobel laureate of El Fishawy' },

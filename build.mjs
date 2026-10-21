@@ -800,6 +800,10 @@ function checkData() {
       for (const p of s.p) { if (!okSrc(p.src)) errors.push(`${tag}: pasus bez ispravnog izvora`); use(p.src); }
       if (s.note) { if (!okSrc(s.noteSrc)) errors.push(`${tag}: napomena bez izvora`); use(s.noteSrc); }
       if (s.more && !V.chapterById(s.more)) errors.push(`${tag}: nepostojeće poglavlje ${s.more}`);
+      if (s.fig) {
+        if (!fs.existsSync(path.join(ROOT, 'static/history/slike', s.fig.img + '.webp'))) errors.push(`${tag}: nema slike ${s.fig.img}`);
+        for (const l of LANGS) if (!MSP.L(s.fig.cap, l) || !MSP.L(s.fig.by, l)) errors.push(`${tag}: slici ${s.fig.img} fali opis ili autor (${l})`);
+      }
     }
     for (const y of ch.years || []) { if (!okSrc(y.src)) errors.push(`${tag}: godina bez izvora`); use(y.src); }
     ch.sources.forEach((s, k) => {
