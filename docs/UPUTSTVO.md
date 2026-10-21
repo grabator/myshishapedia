@@ -690,6 +690,51 @@ savjete. Sve ima verziju za oba jezika.
 
 ---
 
+## Evolucija nargile (historija)
+
+Stranica `/bs/evolucija-nargile/` i `/en/hookah-history/`: na početku se nargile iz muzeja pretapaju jedna u drugu, od starog oblika
+do moderne (traka "Nekad · Danas"); dugme "Rastavi nargilu" pokaže nargilu rastavljenu na dijelove,
+pa "put dima" preko globusa kroz 14 stanica, muzej nargila, nazivi, evolucija dijelova, mit ili istina, zdravlje i izvori.
+
+- Putovanje je plejer, ne zavisi od listanja: dugmad Nazad/Pusti/Dalje, strelice na tastaturi, prevlačenje prstom,
+  klik na pribadaču ili tačku na vremenskoj liniji. "Pusti" sam ide dalje svakih 7 sekundi (`DWELL` u `js/history.js`).
+- Muzej nargila: slike u `static/history/` (izrezane fotografije vlasnika, providna pozadina, WebP u dvije veličine),
+  spisak i opisi su `museum` u `data/history.js` (novu nargilu dodaš kao red tu + dvije slike). Klik otvara vitrinu.
+  Fotografija `pusac.webp` je takođe od vlasnika.
+- Kartica stanice uvijek stane cijela: `fitCard` u `js/history.js` smanji slova dok sadržaj ne stane.
+- Izvori imaju paginaciju (12 na desktopu, 8 na mobitelu); klik na broj izvora u tekstu otvori pravu stranicu.
+- "Pošalji razglednicu" na kartici napravi sliku 1080x1350 (silueta grada, godina, zanimljivost) za dijeljenje.
+- "Nargila u knjigama i umjetnosti" (`art` u `data/history.js`): Alisa i gusjenica, mogulske minijature, Delacroix,
+  Gérôme, Mahfouz. Svako djelo ima izvor i link na muzej. Gusjenica je naš crtež; klik na nju pušta kolutove dima.
+  Slike djela namjerno nisu prenesene: Disneyjev crtani film iz 1951. je zaštićen autorskim pravom, a Tennielova
+  ilustracija iz 1865. je slobodna (javno vlasništvo) i može se dodati kao slika.
+- "Poznati uz nargilu" (`people`): samo historijske ličnosti, svaka sa izvorom i linkom na svoju stanicu.
+- Kviz "Evolucija nargile" (`quiz`, `a` je broj tačnog odgovora od 0) i "Koja si ti era?" (`eras`), oba prave sliku za dijeljenje.
+  Build provjeri da kviz ima izvore i tačan odgovor, a era postojeći rezultat.
+- Zvuk (dugme sa zvučnikom u plejeru) je isključen dok ga posjetilac ne uključi; pravi se u browseru (Web Audio), nema audio fajla.
+- Poglavlja za čitanje (8 posebnih stranica, npr. `/bs/evolucija-nargile/korijeni/`): korijeni, kafana, duhan, žar i ugalj,
+  dijelovi, Bosna i Hercegovina, zakoni i zabrane, nargila danas. Tekst je u `data/history-chapters.js` (samo za build).
+  Svaki pasus ima `src` (broj iz liste izvora tog poglavlja); izvor `{ g: n }` je izvor n iz `data/history.js`.
+  Build javi grešku ako pasus nema izvor, ako se neki izvor ne koristi ili ako fali tekst na nekom jeziku.
+  Novo poglavlje se doda kao novi red u tom fajlu; kartica na glavnoj stranici, adresa, pretraga i sitemap prave se same.
+- Stare slike (javno vlasništvo ili sa dozvolom/potpisom) su u `static/history/slike/`. U poglavlju se dodaju kao `fig`
+  (slika, opis, autor, link na izvor), a kod djela u sekciji umjetnosti kao `img` u `art` (data/history.js).
+  Ne koristiti slike sa vodenim žigom (Alamy, Shutterstock), aukcijske ni muzejske fotografije bez dozvole.
+- Slabi izvori zamijenjeni (10. 2026.): Tagesspiegel → RKI KiGGS, Naukrigulf → Slaughter and May i Latham & Watkins,
+  mu'assel → BMC Public Health 2004.
+
+- Sadržaj je u `data/history.js` (oba jezika). Svaka činjenica ima `src` sa brojem izvora iz liste `sources`;
+  build javi grešku ako izvora nema, ako fali tekst na nekom jeziku ili ako stanice nisu po redu godina.
+- HTML pravi `js/views-history.js`, kretanje (globus, let kamere, rastavljanje) `js/history.js`.
+- Stil karte ide po godini stanice: do 1850 stara karta, do 1985 štampana, poslije moderna noć.
+- Siluete gradova su oblici u `sky` (npr. `'minaret:.30:.70'`), vidi `SKY` u `js/history.js`.
+- Mapa: `static/geo/world.json` i mala mapa `data/history-map.js` prave se jednom skriptom
+  `node scripts/geo-pack.mjs <folder paketa world-atlas>` (paket: `npm pack world-atlas@2.0.2`; podaci Natural Earth,
+  javno vlasništvo). Skriptu treba ponovo pokrenuti samo ako se doda stanica daleko od postojećih (lista `FOCUS`).
+- Font za staru kartu (Cormorant Garamond, OFL) je u `static/fonts/` i koristi se samo na ovoj stranici.
+- Slika za dijeljenje: `static/og-history.png`.
+- Ilustracije nargila i gradova su crteži, ne historijske slike (to piše i na stranici).
+
 ## Moja polica
 
 Lična kolekcija okusa, bez prijave. Čuva se samo u browseru i nikad se ne šalje.
