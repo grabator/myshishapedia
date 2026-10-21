@@ -213,6 +213,29 @@ window.HISTORY = {
     }
   ],
 
+  // Muzej nargila: prave nargile (izrezane fotografije vlasnika) u static/history/<id>.webp i <id>-s.webp (visina 420).
+  // w, h: veličina velike slike; wide: eksponat preko cijele širine; d: opis onoga što se vidi na slici.
+  museum: [
+    { id: 'mesing', w: 410, h: 720, name: { bs: 'Mesing sa gravurom', en: 'Engraved brass' }, k: { bs: 'stari oblik', en: 'old form' },
+      d: { bs: 'Visoko mesingano tijelo sa gravurom romba, tri kugle na stubu i dva upletena crijeva savijena u petlje.', en: 'A tall brass body engraved with diamonds, three spheres on the stem and two braided hoses curled into loops.' } },
+    { id: 'trska', w: 420, h: 720, name: { bs: 'Metalna vaza i trska', en: 'Metal vase and reed' }, k: { bs: 'stari oblik', en: 'old form' },
+      d: { bs: 'Široka metalna vaza, drveni stub i duga cijev od trske povezana tamnim trakama.', en: 'A wide metal vase, a wooden stem and a long reed pipe bound with dark bands.' } },
+    { id: 'zelena', w: 251, h: 720, name: { bs: 'Zelena, na četiri noge', en: 'Green, on four legs' }, k: { bs: 'stari oblik', en: 'old form' },
+      d: { bs: 'Zelena posuda sa visokim stubom, a sve nosi postolje sa četiri zakrivljene noge.', en: 'A green vessel with a tall stem, all carried by a stand with four curved legs.' } },
+    { id: 'ukrasna', w: 521, h: 720, name: { bs: 'Crveno, tirkiz i zlato', en: 'Red, turquoise and gold' }, k: { bs: 'ukrasna', en: 'ornate' },
+      d: { bs: 'Crvena vaza sa tirkiznim i zlatnim ornamentima, plavi stub sa zlatnim prstenovima i upleteno metalno crijevo.', en: 'A red vase with turquoise and gold ornaments, a blue stem with gold rings and a braided metal hose.' } },
+    { id: 'kristal', w: 232, h: 720, name: { bs: 'Kobalt staklo i zlato', en: 'Cobalt glass and gold' }, k: { bs: 'ukrasna', en: 'ornate' },
+      d: { bs: 'Kobaltno plava vaza sa zlatnim ukrasima, zlatni stub i tacna.', en: 'A cobalt blue vase with gold decoration, a gold stem and tray.' } },
+    { id: 'crvena', w: 575, h: 720, name: { bs: 'Čelik i crveno drvo', en: 'Steel and red wood' }, k: { bs: 'moderna', en: 'modern' },
+      d: { bs: 'Čelični stub sa crvenim drvenim dijelovima, brušena kristalna vaza i crno crijevo sa drškom.', en: 'A steel stem with red wooden parts, a cut crystal vase and a black hose with a handle.' } },
+    { id: 'plava', w: 816, h: 720, name: { bs: 'Plavi stub i kristal', en: 'Blue stem and crystal' }, k: { bs: 'moderna', en: 'modern' },
+      d: { bs: 'Plavi stub, kristalna vaza, velika tacna i dugo crno crijevo sa metalnom drškom.', en: 'A blue stem, a crystal vase, a large tray and a long black hose with a metal handle.' } },
+    { id: 'crna', w: 745, h: 720, name: { bs: 'Četiri priključka', en: 'Four hose ports' }, k: { bs: 'moderna', en: 'modern' },
+      d: { bs: 'Crni stub sa četiri priključka za crijeva, čelična tacna i brušena kristalna vaza.', en: 'A black stem with four hose ports, a steel tray and a cut crystal vase.' } },
+    { id: 'dijelovi', w: 1035, h: 593, wide: true, name: { bs: 'Nargila na dijelove', en: 'A hookah in parts' }, k: { bs: 'anatomija', en: 'anatomy' },
+      d: { bs: 'Ukrasna nargila rastavljena na dijelove: glava, tacna, stub sa vazom, dva crijeva, usnik i spojnice.', en: 'The ornate hookah taken apart: bowl, tray, stem with vase, two hoses, mouthpiece and fittings.' } }
+  ],
+
   // "Kako se zove gdje": lon/lat za tačku na maloj mapi
   names: [
     { w: 'huqqa · hookah', lon: 78, lat: 24, where: { bs: 'Indija, engleski', en: 'India, English' }, t: { bs: 'Od arapskog ḥuqqa, posuda vodene lule. U engleskom od 18. stoljeća.', en: 'From Arabic ḥuqqa, the vessel of a water pipe. In English since the 18th century.' }, src: [6] },

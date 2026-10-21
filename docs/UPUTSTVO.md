@@ -698,7 +698,10 @@ pa "put dima" preko globusa kroz 14 stanica, muzej nargila, nazivi, evolucija di
 - Putovanje je plejer, ne zavisi od listanja: dugmad Nazad/Pusti/Dalje, strelice na tastaturi, prevlačenje prstom,
   klik na pribadaču ili tačku na vremenskoj liniji. "Pusti" sam ide dalje svakih 7 sekundi (`DWELL` u `js/history.js`).
 - Muzej nargila: slike u `static/history/` (izrezane fotografije vlasnika, providna pozadina, WebP u dvije veličine),
-  spisak je `MUSEUM` u `js/views-history.js`. Fotografija `pusac.webp` je takođe od vlasnika.
+  spisak i opisi su `museum` u `data/history.js` (novu nargilu dodaš kao red tu + dvije slike). Klik otvara vitrinu.
+  Fotografija `pusac.webp` je takođe od vlasnika.
+- Kartica stanice uvijek stane cijela: `fitCard` u `js/history.js` smanji slova dok sadržaj ne stane.
+- "Pošalji razglednicu" na kartici napravi sliku 1080x1350 (silueta grada, godina, zanimljivost) za dijeljenje.
 
 - Sadržaj je u `data/history.js` (oba jezika). Svaka činjenica ima `src` sa brojem izvora iz liste `sources`;
   build javi grešku ako izvora nema, ako fali tekst na nekom jeziku ili ako stanice nisu po redu godina.

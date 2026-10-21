@@ -401,9 +401,14 @@
       var p = R.p, nn = R.n;
       P(p[0], p[1], p[2], out);
       g.moveTo(out[0], out[1]);
+      // tačke koje na ekranu padnu skoro na isto mjesto se preskaču (manje posla za canvas)
+      var lx = out[0], ly = out[1];
       for (var j = 1; j < nn; j++) {
         P(p[j * 3], p[j * 3 + 1], p[j * 3 + 2], out);
+        var dx = out[0] - lx, dy = out[1] - ly;
+        if (dx * dx + dy * dy < 0.64 && j < nn - 1) continue;
         g.lineTo(out[0], out[1]);
+        lx = out[0]; ly = out[1];
       }
       if (close) g.closePath();
       drawn++;
@@ -417,9 +422,15 @@
     for (var i = 0; i < lines.length; i++) {
       var L = lines[i], pen = false;
       if (L.p) {
+        var lx = -1e9, ly = -1e9;
         for (var j = 0; j < L.n; j++) {
           P(L.p[j * 3], L.p[j * 3 + 1], L.p[j * 3 + 2], out);
-          if (out[2] > minZ) { if (pen) g.lineTo(out[0], out[1]); else g.moveTo(out[0], out[1]); pen = true; } else pen = false;
+          if (out[2] > minZ) {
+            if (!pen) { g.moveTo(out[0], out[1]); lx = out[0]; ly = out[1]; pen = true; continue; }
+            var dx = out[0] - lx, dy = out[1] - ly;
+            if (dx * dx + dy * dy < 0.64 && j < L.n - 1) continue;
+            g.lineTo(out[0], out[1]); lx = out[0]; ly = out[1];
+          } else pen = false;
         }
       } else {
         for (var k = 0; k < L.length; k++) {
@@ -432,7 +443,7 @@
 
   /** Osnovni sloj: pozadina, more, mreža, kopno, obale, granice. Crta se samo kad se kamera pomjeri. */
   Renderer.prototype.drawMap = function (cam, pal) {
-    var key = cam.c[0].toFixed(5) + cam.c[1].toFixed(5) + cam.c[2].toFixed(5) + '|' + cam.k.toFixed(1) + '|' + cam.x.toFixed(1) + '|' + cam.y.toFixed(1) + '|' + pal.ink.toFixed(3) + pal.glow.toFixed(3) + (GEO ? 1 : 0);
+    var key = cam.c[0].toFixed(5) + cam.c[1].toFixed(5) + cam.c[2].toFixed(5) + '|' + cam.k.toFixed(1) + '|' + cam.x.toFixed(1) + '|' + cam.y.toFixed(1) + '|' + pal.ink.toFixed(3) + pal.glow.toFixed(3) + (GEO ? 1 : 0) + (this.lowDetail ? 'l' : 'h');
     if (key === this.key) return false;
     this.key = key;
     var g = this.g, w = this.w, h = this.h, dpr = this.dpr, k = cam.k;
@@ -494,7 +505,8 @@
 
     if (GEO) {
       var zoom = k / this.base;
-      var rings = zoom > 1.9 ? GEO.hi : GEO.lo;
+      // u letu jednostavnija mapa (3x manje tačaka), detaljna tek kad kamera stane
+      var rings = zoom > 1.9 && !this.lowDetail ? GEO.hi : GEO.lo;
       g.beginPath();
       this.ringPath(g, rings, P, cam, maxAng, true);
       g.fillStyle = css(pal.land);
@@ -517,7 +529,7 @@
         g.stroke();
         g.restore();
       }
-      if (zoom > 1.9) {
+      if (zoom > 1.9 && !this.lowDetail) {
         g.beginPath();
         this.linePath(g, GEO.b, P, 0.02);
         g.strokeStyle = css(pal.border);
@@ -797,12 +809,29 @@
       sharp = !flight;
       R.base = mobile ? Math.min(W * 0.44, Hh * 0.34) : Math.min(W, Hh) * 0.4;
       if (!flight) state = targetState(idx);
+      if (idx >= 0 && idx < N) fitCard(cards[idx]);
       wake();
     }
 
     /* ---------- prelazak na stanicu ---------- */
 
+    // kartica mora stati cijela: --fit (veličina slova) se smanjuje dok sadržaj ne stane u prostor
+    function fitCard(li) {
+      var c = li.querySelector('.hx-card');
+      if (!c) return;
+      var lo = 0.6, hi = 1, best = lo;
+      c.style.setProperty('--fit', '1');
+      if (c.scrollHeight <= c.clientHeight + 1) { li.fitted = W + 'x' + Hh; return; }
+      for (var k = 0; k < 6; k++) {
+        var mid = (lo + hi) / 2;
+        c.style.setProperty('--fit', mid.toFixed(3));
+        if (c.scrollHeight <= c.clientHeight + 1) { best = mid; lo = mid; } else hi = mid;
+      }
+      c.style.setProperty('--fit', best.toFixed(3));
+      li.fitted = W + 'x' + Hh;
+    }
     function setCard(i) {
+      if (i >= 0 && cards[i].fitted !== W + 'x' + Hh) fitCard(cards[i]);
       cards.forEach(function (li, k) { li.classList.toggle('is-active', k === i); });
       if (i >= 0) { var c = cards[i].querySelector('.hx-card'); if (c) c.scrollTop = 0; }
     }
@@ -926,6 +955,7 @@
       if (y !== lastYear) { lastYear = y; yearEl.textContent = y; }
 
       cam = toCam(state);
+      R.lowDetail = !!flight;
       R.drawMap(cam, pal);
       var nowI = mode === 'station' ? idx : -1;
       R.drawFx(cam, pal, { i: mode === 'start' ? -1 : segI, t: segT, now: nowI }, time, dt, mode === 'end');
@@ -970,6 +1000,8 @@
         cardBtn.setAttribute('aria-label', MSP.t(min ? 'history.cardShow' : 'history.cardHide'));
         return;
       }
+      var pc = t.closest('[data-postcard]');
+      if (pc) { postcard(ST[+pc.getAttribute('data-postcard')], pc); return; }
       if (t.closest('.hx-skip__btn')) { setSkip(skipList.hidden); return; }
       if (!skipList.hidden && !t.closest('.hx-skip')) setSkip(false);
       if (t.closest('a,button,.hx-card,.hx-start__card,.hx-finale__card')) return;
@@ -1049,6 +1081,7 @@
     document.addEventListener('visibilitychange', onVis);
     if (document.fonts && document.fonts.load) document.fonts.load('italic 500 20px "Cormorant Garamond"').then(function () { R.key = ''; wake(); });
 
+    [].forEach.call(player.querySelectorAll('[data-postcard]'), function (b) { b.hidden = false; });
     player.classList.add('is-start');
     updateHud(-1);
     countEl.textContent = '0 / ' + N;
@@ -1114,6 +1147,180 @@
   /* Sekcije ispod filma                                                  */
   /* ------------------------------------------------------------------ */
 
+  /* ------------------------------------------------------------------ */
+  /* Muzej: vitrina (veliki prikaz, strelice, prevlačenje, Esc)           */
+  /* ------------------------------------------------------------------ */
+
+  function mountVitrine(ctx) {
+    var box = document.getElementById('hx-vitrine');
+    var M = (window.HISTORY && window.HISTORY.museum) || [];
+    if (!box || !M.length) return;
+    var cur = 0, opener = null;
+    var img = box.querySelector('.hx-vitrine__img');
+    var el = function (id) { return document.getElementById(id); };
+    function pad(n) { return (n < 9 ? '0' : '') + (n + 1); }
+    function show(i) {
+      cur = (i + M.length) % M.length;
+      var m = M[cur];
+      img.src = '/history/' + m.id + '.webp';
+      img.width = m.w; img.height = m.h;
+      img.alt = MSP.L(m.name);
+      el('hx-vitrine-no').textContent = MSP.t('history.exhibitNo', { n: pad(cur) });
+      el('hx-vitrine-h').textContent = MSP.L(m.name);
+      el('hx-vitrine-k').textContent = MSP.L(m.k);
+      el('hx-vitrine-d').textContent = MSP.L(m.d);
+      el('hx-vitrine-n').textContent = (cur + 1) + ' / ' + M.length;
+      // sljedeća slika se učita unaprijed
+      var pre = new Image(); pre.src = '/history/' + M[(cur + 1) % M.length].id + '.webp';
+    }
+    function open(i, from) {
+      opener = from || null;
+      show(i);
+      box.hidden = false;
+      document.body.classList.add('is-locked');
+      box.querySelector('.hx-vitrine__close').focus();
+    }
+    function close() {
+      box.hidden = true;
+      document.body.classList.remove('is-locked');
+      if (opener) opener.focus();
+    }
+    document.addEventListener('click', function (e) {
+      var b = e.target.closest('[data-exhibit]');
+      if (b) open(+b.getAttribute('data-exhibit'), b);
+    });
+    box.addEventListener('click', function (e) {
+      var v = e.target.closest('[data-v]');
+      if (v) { var a = v.getAttribute('data-v'); if (a === 'close') close(); else show(cur + (+a)); return; }
+      if (e.target === box) close();
+    });
+    function onKey(e) {
+      if (box.hidden) return;
+      if (e.key === 'Escape') close();
+      else if (e.key === 'ArrowRight') show(cur + 1);
+      else if (e.key === 'ArrowLeft') show(cur - 1);
+      else if (e.key === 'Tab') {
+        // fokus ostaje u vitrini
+        var f = [].slice.call(box.querySelectorAll('button'));
+        var first = f[0], last = f[f.length - 1];
+        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+      }
+    }
+    document.addEventListener('keydown', onKey);
+    var x0 = null;
+    box.addEventListener('pointerdown', function (e) { x0 = e.clientX; }, { passive: true });
+    box.addEventListener('pointerup', function (e) {
+      if (x0 === null) return;
+      var dx = e.clientX - x0; x0 = null;
+      if (Math.abs(dx) > 50) show(cur + (dx < 0 ? 1 : -1));
+    }, { passive: true });
+    ctx.cleanup(function () { document.removeEventListener('keydown', onKey); });
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* Razglednica: slika 1080x1350 sa siluetom grada, za dijeljenje        */
+  /* ------------------------------------------------------------------ */
+
+  var CARD_ERA = {
+    old: { bg: '#ead9b5', ink: '#3b2412', acc: '#9a1f12', sky: '#5a3d22', win: '#ead9b5', serif: true },
+    print: { bg: '#efe6d2', ink: '#2a221b', acc: '#a0371f', sky: '#3a332c', win: '#efe6d2', serif: true },
+    modern: { bg: '#0d0909', ink: '#f4ebdf', acc: '#ff7a3d', sky: '#1a0f12', win: '#ffb35a', serif: false }
+  };
+
+  function wrap(g, text, x, y, maxW, lh, maxLines) {
+    var words = String(text).split(' '), line = '', n = 0;
+    for (var i = 0; i < words.length; i++) {
+      var test = line ? line + ' ' + words[i] : words[i];
+      if (g.measureText(test).width > maxW && line) {
+        if (n === maxLines - 1) { g.fillText(line + '…', x, y + n * lh); return; }
+        g.fillText(line, x, y + n * lh); n++; line = words[i];
+      } else line = test;
+    }
+    if (line) g.fillText(line, x, y + n * lh);
+  }
+
+  function postcard(st, btn) {
+    var era = st.year < 1850 ? 'old' : st.year < 1985 ? 'print' : 'modern';
+    var E = CARD_ERA[era];
+    var c = document.createElement('canvas');
+    c.width = 1080; c.height = 1350;
+    var g = c.getContext('2d');
+    var serif = '"Cormorant Garamond", Georgia, serif', display = 'Syne, system-ui, sans-serif', body = 'Manrope, system-ui, sans-serif';
+    var ready = document.fonts && document.fonts.load ? Promise.all([
+      document.fonts.load('600 120px "Cormorant Garamond"'), document.fonts.load('italic 500 40px "Cormorant Garamond"'), document.fonts.load('800 120px Syne'), document.fonts.load('600 30px Manrope')
+    ]).catch(function () {}) : Promise.resolve();
+    btn.disabled = true;
+    ready.then(function () {
+      // papir ili noć
+      g.fillStyle = E.bg; g.fillRect(0, 0, 1080, 1350);
+      if (era !== 'modern') {
+        g.save(); g.globalCompositeOperation = 'multiply'; g.globalAlpha = 0.7;
+        g.fillStyle = g.createPattern(paperTexture(), 'repeat'); g.fillRect(0, 0, 1080, 1350); g.restore();
+      } else {
+        var rg = g.createRadialGradient(540, 420, 40, 540, 420, 900);
+        rg.addColorStop(0, 'rgba(255,90,60,.22)'); rg.addColorStop(1, 'rgba(255,90,60,0)');
+        g.fillStyle = rg; g.fillRect(0, 0, 1080, 1350);
+      }
+      // okvir
+      g.strokeStyle = E.ink; g.globalAlpha = 0.8; g.lineWidth = 3; g.strokeRect(40, 40, 1000, 1270);
+      g.lineWidth = 1; g.strokeRect(54, 54, 972, 1242); g.globalAlpha = 1;
+      // tekst
+      g.fillStyle = E.acc; g.font = '600 30px ' + body; g.textBaseline = 'alphabetic';
+      g.fillText(MSP.t('history.postcardFrom', { city: '' }).replace(/\s+$/, '').toUpperCase(), 100, 150);
+      g.fillStyle = E.ink;
+      var city = MSP.L(st.city);
+      g.font = E.serif ? '600 150px ' + serif : '800 128px ' + display;
+      var fs = E.serif ? 150 : 128;
+      while (g.measureText(city).width > 880 && fs > 70) { fs -= 6; g.font = (E.serif ? '600 ' + fs + 'px ' + serif : '800 ' + fs + 'px ' + display); }
+      g.fillText(city, 96, 300);
+      g.font = 'italic 500 44px ' + serif;
+      g.globalAlpha = 0.8; g.fillText(MSP.L(st.when) + ' · ' + MSP.L(st.place).split('·')[0].trim(), 100, 370); g.globalAlpha = 1;
+      // marka
+      g.save(); g.translate(880, 150); g.rotate(0.12);
+      g.strokeStyle = E.acc; g.lineWidth = 4; g.setLineDash([6, 6]); g.strokeRect(-80, -70, 160, 170); g.setLineDash([]);
+      g.fillStyle = E.acc; g.font = '800 42px ' + display; g.textAlign = 'center'; g.fillText(String(st.year), 0, 22);
+      g.font = '700 16px ' + body; g.fillText('MYSHISHAPEDIA', 0, 72); g.restore();
+      // naslov i zanimljivost
+      g.textAlign = 'left'; g.fillStyle = E.ink;
+      g.font = (E.serif ? '600 56px ' + serif : '700 50px ' + display);
+      wrap(g, MSP.L(st.title), 100, 480, 880, 62, 2);
+      if (st.fun) {
+        g.fillStyle = E.acc; g.fillRect(100, 590, 60, 4); g.fillStyle = E.ink;
+        g.font = '500 38px ' + body; g.globalAlpha = 0.9;
+        wrap(g, MSP.L(st.fun.t), 100, 660, 880, 54, 6); g.globalAlpha = 1;
+      }
+      // silueta grada (isti oblici kao na globusu, ovdje sa punim bojama)
+      var svg = skySvg(st.sky).replace(/var\(--sky-haze\)/g, E.bg)
+        .replace('class="hx-sky-f"', 'fill="' + E.sky + '" fill-opacity=".35"')
+        .replace('class="hx-sky-b"', 'fill="' + E.sky + '"' + (era === 'modern' ? ' stroke="#ff6a3d" stroke-width="1.5"' : ''))
+        .replace('class="hx-sky-w"', 'fill="' + E.win + '"')
+        .replace('<svg ', '<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="300" ');
+      var im = new Image();
+      im.onload = function () {
+        g.drawImage(im, 40, 1000, 1000, 300);
+        g.fillStyle = E.ink; g.globalAlpha = 0.75; g.font = '600 24px ' + body;
+        g.fillText('myshishapedia.com', 100, 990); g.globalAlpha = 1;
+        c.toBlob(function (blob) {
+          btn.disabled = false;
+          if (!blob) return;
+          var name = MSP.t('history.postcardFile', { id: st.id });
+          var file = window.File ? new File([blob], name, { type: 'image/png' }) : null;
+          if (file && navigator.canShare && navigator.canShare({ files: [file] })) {
+            navigator.share({ files: [file], title: MSP.t('history.postcardFrom', { city: city }) }).catch(function () {});
+          } else {
+            var a = document.createElement('a');
+            a.href = URL.createObjectURL(blob); a.download = name;
+            document.body.appendChild(a); a.click(); a.remove();
+            setTimeout(function () { URL.revokeObjectURL(a.href); }, 4000);
+          }
+        }, 'image/png');
+      };
+      im.onerror = function () { btn.disabled = false; };
+      im.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
+    });
+  }
+
   function mountExtras(ctx) {
     // mit ili istina: okretanje kartice
     [].forEach.call(document.querySelectorAll('.hx-myth'), function (m) {
@@ -1147,15 +1354,7 @@
       st.addEventListener('pointercancel', function () { x0 = null; });
     });
 
-    // muzej: dodir/klik osvijetli nargilu (na mobitelu nema hover)
-    var exhibits = [].slice.call(document.querySelectorAll('.hx-exhibit__btn'));
-    exhibits.forEach(function (b) {
-      b.addEventListener('click', function () {
-        var on = b.getAttribute('aria-pressed') !== 'true';
-        exhibits.forEach(function (o) { o.setAttribute('aria-pressed', 'false'); });
-        b.setAttribute('aria-pressed', on ? 'true' : 'false');
-      });
-    });
+    mountVitrine(ctx);
 
     // nazivi: lista i tačke na mapi se pale zajedno
     var dotsByN = {};

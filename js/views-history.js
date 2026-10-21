@@ -194,6 +194,7 @@
             '</div>' +
           '</div>' +
           (s.fun ? '<aside class="hx-fun"><p class="hx-fun__label">' + esc(t('history.fun')) + '</p><p>' + esc(L(s.fun.t)) + sup(s.fun.src) + '</p></aside>' : '') +
+          '<button type="button" class="hx-postcard" data-postcard="' + i + '" hidden>' + V.icon('mail') + '<span>' + esc(t('history.postcard')) + '</span></button>' +
         '</article>' +
       '</li>'
     );
@@ -248,41 +249,51 @@
   }
   V.historyKm = trailKm;
 
-  // Muzej nargila: prave nargile (izrezane fotografije), od starijih oblika prema modernim
-  var MUSEUM = [
-    { id: 'mesing', w: 410, name: { bs: 'Mesing sa gravurom', en: 'Engraved brass' }, k: { bs: 'stari oblik', en: 'old form' } },
-    { id: 'trska', w: 420, name: { bs: 'Metalna vaza i trska', en: 'Metal vase and reed' }, k: { bs: 'stari oblik', en: 'old form' } },
-    { id: 'zelena', w: 251, name: { bs: 'Zelena, na četiri noge', en: 'Green, on four legs' }, k: { bs: 'stari oblik', en: 'old form' } },
-    { id: 'kristal', w: 232, name: { bs: 'Kobalt staklo i zlato', en: 'Cobalt glass and gold' }, k: { bs: 'raskošna', en: 'ornate' } },
-    { id: 'crvena', w: 575, name: { bs: 'Čelik i crveno drvo', en: 'Steel and red wood' }, k: { bs: 'moderna', en: 'modern' } },
-    { id: 'plava', w: 816, name: { bs: 'Plava smola i kristal', en: 'Blue resin and crystal' }, k: { bs: 'moderna', en: 'modern' } },
-    { id: 'crna', w: 745, name: { bs: 'Četiri priključka', en: 'Four hose ports' }, k: { bs: 'moderna', en: 'modern' } }
-  ];
+  // Muzej nargila: prave nargile (izrezane fotografije), od starijih oblika prema modernim.
+  // w, h: veličina velike slike (/history/<id>.webp); mala (-s) je visoka 420 px. wide: eksponat preko cijele širine.
+  var MUSEUM = H().museum || [];
 
   function museumSection() {
+    var pad = function (n) { return (n < 9 ? '0' : '') + (n + 1); };
     return (
-      '<section class="fsec hx-museum" aria-labelledby="hx-museum-h"><div class="container">' +
-        '<div class="hx-museum__top">' +
-          '<header class="hx-head" data-reveal><p class="eyebrow"><span class="eyebrow__dot" aria-hidden="true"></span>' + esc(t('history.museumEyebrow')) + '</p>' +
-            '<h2 class="hx-h2" id="hx-museum-h">' + esc(t('history.museumTitle')) + '</h2><p class="hx-intro-p">' + esc(t('history.museumIntro')) + '</p></header>' +
-          '<figure class="hx-people" data-reveal>' +
-            '<img src="/history/pusac.webp" width="678" height="452" loading="lazy" decoding="async" alt="' + esc(t('history.peopleAlt')) + '">' +
-            '<figcaption><span class="hx-people__q">' + esc(t('history.peopleQuote')) + '</span><span class="hx-people__c">' + esc(t('history.peopleCredit')) + '</span></figcaption>' +
-          '</figure>' +
+      '<section class="hx-museum" aria-labelledby="hx-museum-h">' +
+        '<div class="container">' +
+          '<div class="hx-museum__top">' +
+            '<header class="hx-head" data-reveal>' +
+              '<p class="hx-museum__sign"><span>' + esc(t('history.museumSign')) + '</span><span>' + esc(t('history.museumCount', { n: MUSEUM.length })) + '</span></p>' +
+              '<h2 class="hx-h2" id="hx-museum-h">' + esc(t('history.museumTitle')) + '</h2><p class="hx-intro-p">' + esc(t('history.museumIntro')) + '</p></header>' +
+            '<figure class="hx-people" data-reveal>' +
+              '<img src="/history/pusac.webp" width="678" height="452" loading="lazy" decoding="async" alt="' + esc(t('history.peopleAlt')) + '">' +
+              '<figcaption><span class="hx-people__q">' + esc(t('history.peopleQuote')) + '</span><span class="hx-people__c">' + esc(t('history.peopleCredit')) + '</span></figcaption>' +
+            '</figure>' +
+          '</div>' +
+          '<ul class="hx-hall" role="list">' + MUSEUM.map(function (m, i) {
+            var sw = Math.round(m.w * 420 / m.h);
+            return (
+              '<li class="hx-niche' + (m.wide ? ' hx-niche--wide' : '') + '" data-reveal style="--i:' + (i % 4) + '">' +
+                '<button type="button" class="hx-niche__btn" data-exhibit="' + i + '" aria-haspopup="dialog">' +
+                  '<span class="hx-niche__light" aria-hidden="true"></span>' +
+                  '<span class="hx-niche__obj"><img src="/history/' + m.id + '-s.webp" width="' + sw + '" height="420" loading="lazy" decoding="async" alt="' + esc(L(m.name)) + '"></span>' +
+                  '<span class="hx-niche__plinth" aria-hidden="true"></span>' +
+                  '<span class="hx-plaque"><span class="hx-plaque__no">' + esc(t('history.exhibitNo', { n: pad(i) })) + '</span><span class="hx-plaque__n">' + esc(L(m.name)) + '</span><span class="hx-plaque__k">' + esc(L(m.k)) + '</span></span>' +
+                '</button>' +
+              '</li>'
+            );
+          }).join('') + '</ul>' +
+          '<p class="hx-museum__note">' + esc(t('history.museumNote')) + '</p>' +
         '</div>' +
-        '<ul class="hx-shelf" role="list">' + MUSEUM.map(function (m, i) {
-          return (
-            '<li class="hx-exhibit" data-reveal style="--i:' + i + '">' +
-              '<button type="button" class="hx-exhibit__btn" aria-pressed="false">' +
-                '<span class="hx-exhibit__light" aria-hidden="true"></span>' +
-                '<img src="/history/' + m.id + '-s.webp" srcset="/history/' + m.id + '-s.webp 420w, /history/' + m.id + '.webp 720w" sizes="(min-width: 900px) 260px, 180px" width="' + Math.round(m.w * 420 / 720) + '" height="420" loading="lazy" decoding="async" alt="' + esc(L(m.name)) + '">' +
-                '<span class="hx-exhibit__cap"><span class="hx-exhibit__k">' + esc(L(m.k)) + '</span><span class="hx-exhibit__n">' + esc(L(m.name)) + '</span></span>' +
-              '</button>' +
-            '</li>'
-          );
-        }).join('') + '</ul>' +
-        '<p class="hx-museum__note">' + esc(t('history.museumNote')) + '</p>' +
-      '</div></section>'
+        '<div class="hx-vitrine" id="hx-vitrine" role="dialog" aria-modal="true" aria-labelledby="hx-vitrine-h" hidden>' +
+          '<div class="hx-vitrine__in">' +
+            '<button type="button" class="hx-vitrine__close" data-v="close" aria-label="' + esc(t('history.close')) + '">' + V.icon('close') + '</button>' +
+            '<div class="hx-vitrine__stage"><span class="hx-vitrine__beam" aria-hidden="true"></span><img class="hx-vitrine__img" alt=""></div>' +
+            '<div class="hx-vitrine__info"><p class="hx-plaque__no" id="hx-vitrine-no"></p><h3 class="hx-vitrine__h" id="hx-vitrine-h"></h3><p class="hx-vitrine__k" id="hx-vitrine-k"></p><p class="hx-vitrine__d" id="hx-vitrine-d"></p>' +
+              '<p class="hx-vitrine__nav"><button type="button" class="hx-ctrl__btn" data-v="-1" aria-label="' + esc(t('history.prevExhibit')) + '">' + V.icon('arrowLeft') + '</button>' +
+              '<span id="hx-vitrine-n" aria-hidden="true"></span>' +
+              '<button type="button" class="hx-ctrl__btn" data-v="1" aria-label="' + esc(t('history.nextExhibit')) + '">' + V.icon('arrowRight') + '</button></p>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+      '</section>'
     );
   }
 
