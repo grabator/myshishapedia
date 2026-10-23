@@ -997,6 +997,18 @@
                 '</li>'
               );
             }).join('') +
+            // Evolucija nargile: široka kartica ispod (stara nargila, ukrašena, moderna)
+            '<li class="explore__wide" data-reveal style="--i:3">' +
+              '<a class="xcard xcard--history" href="' + V.url('history') + '">' +
+                '<span class="xcard__body"><span class="xcard__kick">' + esc(t('explore.historyKick')) + '</span>' +
+                  '<span class="xcard__title">' + esc(t('explore.historyTitle')) + '</span><span class="xcard__text">' + esc(t('explore.historyText')) + '</span>' +
+                  '<span class="xcard__cta" aria-hidden="true">' + esc(t('explore.historyCta')) + icon('arrowRight') + '</span></span>' +
+                '<span class="xcard__evo" aria-hidden="true">' +
+                  ['trska', 'ukrasna', 'crna'].map(function (n) { return '<img src="/history/' + n + '-s.webp" alt="" loading="lazy" decoding="async">'; }).join('') +
+                  '<span class="xcard__years"><b>1560</b>' + icon('arrowRight') + '<b>2026</b></span>' +
+                '</span>' +
+              '</a>' +
+            '</li>' +
           '</ul>' +
         '</div>' +
       '</section>'

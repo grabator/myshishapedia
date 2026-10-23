@@ -770,7 +770,11 @@
         quizText: 'Šest kratkih pitanja i dobićeš okus koji najviše odgovara tvom ukusu.',
         guideTitle: 'Vodič za početnike',
         guideText: 'Kako pripremiti nargilu, korak po korak, od vode do prvog dima.',
-        cta: 'Otvori'
+        cta: 'Otvori',
+        historyKick: 'Novo · 450 godina historije',
+        historyTitle: 'Evolucija nargile',
+        historyText: 'Put dima kroz 14 gradova, od Perzije i mogulske Indije do Berlina. Globus, muzej nargila i 8 poglavlja, sa izvorom za svaku činjenicu.',
+        historyCta: 'Kreni na putovanje'
       },
 
       guide: {
@@ -1672,7 +1676,11 @@
         quizText: 'Six quick questions and you get the flavor that fits your taste best.',
         guideTitle: 'Beginner guide',
         guideText: 'How to set up a hookah, step by step, from water to the first cloud.',
-        cta: 'Open'
+        cta: 'Open',
+        historyKick: 'New · 450 years of history',
+        historyTitle: 'The history of the hookah',
+        historyText: 'A smoke trail through 14 cities, from Persia and Mughal India to Berlin. A globe, a hookah museum and 8 chapters, with a source for every fact.',
+        historyCta: 'Start the journey'
       },
 
       guide: {
