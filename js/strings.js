@@ -387,6 +387,21 @@
         errSend: 'Ocjena nije poslana. Provjeri internet i pokušaj ponovo.'
       },
 
+      shelfMix: {
+        eyebrow: 'Iz tvoje police',
+        title: 'Šta možeš napraviti od onoga što imaš',
+        lead: 'Recepti za koje već imaš okuse, oni kojima fali samo jedan, i ideje za miks od sličnih okusa sa police.',
+        ready: 'Možeš odmah',
+        readyHint: 'Imaš oba okusa za ove recepte.',
+        almost: 'Fali ti jedan okus',
+        almostHint: 'Dodaj jedan okus i imaš cijeli recept.',
+        ideas: 'Ideje za miks',
+        ideasHint: 'Okusi sa tvoje police koji se slažu. Otvori ih u mikseru i podesi omjer.',
+        openRecipe: 'Otvori recept',
+        tryMixer: 'Probaj u mikseru',
+        missing: 'Fali: {name}'
+      },
+
       shelf: {
         add: 'Dodaj na policu',
         remove: 'Ukloni sa police',
@@ -1291,6 +1306,21 @@
         errLimit: 'Too many ratings in a short time. Please try again in a few minutes.',
         errCheck: 'The bot check failed. Please try again.',
         errSend: 'Your rating was not sent. Check your connection and try again.'
+      },
+
+      shelfMix: {
+        eyebrow: 'From your shelf',
+        title: 'What you can make with what you have',
+        lead: 'Recipes you already have the flavors for, the ones missing just one, and mix ideas from similar flavors on your shelf.',
+        ready: 'Ready to mix',
+        readyHint: 'You have both flavors for these recipes.',
+        almost: 'One flavor away',
+        almostHint: 'Add one flavor and you have the whole recipe.',
+        ideas: 'Mix ideas',
+        ideasHint: 'Flavors on your shelf that go together. Open them in the mixer and set the ratio.',
+        openRecipe: 'Open recipe',
+        tryMixer: 'Try in the mixer',
+        missing: 'Missing: {name}'
       },
 
       shelf: {

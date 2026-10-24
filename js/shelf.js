@@ -236,6 +236,74 @@
         );
       }).join('');
       if (!n && cab.classList.contains('is-open')) closeCab(false);
+      renderMixes();
+    }
+
+    /* ---------- šta možeš napraviti od svoje police ---------- */
+
+    var mixSec = document.getElementById('shelfmix');
+    var mixGroups = document.getElementById('shelfmix-groups');
+    var recipes = [];
+    try { recipes = JSON.parse((mixSec && mixSec.getAttribute('data-recipes')) || '[]'); } catch (e) { recipes = []; }
+
+    function dot(f) { return '<span class="smx__dot" style="--c:' + esc((f.palette && f.palette.primary) || '#f2a33c') + '" aria-hidden="true"></span>'; }
+    function fname(f) { var br = V.brandOf && V.brandOf(f); return (br ? br.name : f.brand) + ' ' + f.name; }
+
+    function renderMixes() {
+      if (!mixSec) return;
+      var own = {};
+      Shelf.list().forEach(function (id) { own[id] = 1; });
+      var ready = [], almost = [];
+      recipes.forEach(function (r) {
+        var miss = r.p.filter(function (x) { return !own[x[0]]; });
+        if (!miss.length) ready.push(r);
+        else if (miss.length === 1 && r.p.length === 2 && V.flavorById(miss[0][0])) almost.push({ r: r, miss: V.flavorById(miss[0][0]) });
+      });
+      // ideje: parovi sa police koji su jedan drugom "slični" (a nisu već recept)
+      var inRecipe = {};
+      recipes.forEach(function (r) { inRecipe[r.p.map(function (x) { return x[0]; }).sort().join('|')] = 1; });
+      var ideas = [], seen = {};
+      Shelf.list().forEach(function (id) {
+        var f = V.flavorById(id);
+        (f.similar || []).forEach(function (sid) {
+          if (!own[sid]) return;
+          var key = [id, sid].sort().join('|');
+          if (seen[key] || inRecipe[key]) return;
+          seen[key] = 1;
+          ideas.push([f, V.flavorById(sid)]);
+        });
+      });
+      mixSec.hidden = Shelf.list().length < 1 || !(ready.length || almost.length || ideas.length);
+      if (mixSec.hidden) { mixGroups.innerHTML = ''; return; }
+
+      function pair(parts) {
+        return '<span class="smx__pair">' + parts.map(function (x) {
+          var f = V.flavorById(x[0]);
+          return f ? '<span class="smx__fl">' + dot(f) + '<span>' + esc(fname(f)) + '</span>' + (x[1] ? '<b>' + x[1] + '%</b>' : '') + '</span>' : '';
+        }).join('<span class="smx__plus" aria-hidden="true">+</span>') + '</span>';
+      }
+      function group(cls, title, hint, items) {
+        if (!items.length) return '';
+        return '<section class="smx smx--' + cls + '"><h3 class="smx__h">' + esc(title) + ' <span>' + items.length + '</span></h3>' +
+          (hint ? '<p class="smx__hint">' + esc(hint) + '</p>' : '') +
+          '<ul class="smx__list" role="list">' + items.join('') + '</ul></section>';
+      }
+      var A = ready.slice(0, 6).map(function (r) {
+        return '<li><a class="smx__card" href="' + esc(r.u) + '"><span class="smx__name">' + esc(r.n) + '</span>' + pair(r.p) +
+          '<span class="smx__go">' + esc(t('shelfMix.openRecipe')) + icon('arrowRight') + '</span></a></li>';
+      });
+      var B = almost.slice(0, 6).map(function (x) {
+        return '<li><div class="smx__card"><a class="smx__name" href="' + esc(x.r.u) + '">' + esc(x.r.n) + '</a>' + pair(x.r.p) +
+          '<a class="smx__miss" href="' + esc(V.flavorUrl(x.miss)) + '">' + esc(t('shelfMix.missing', { name: fname(x.miss) })) + icon('arrowRight') + '</a></div></li>';
+      });
+      var C = ideas.slice(0, 6).map(function (pr) {
+        return '<li><a class="smx__card" href="' + esc(V.mixUrl(pr[0], pr[1], 50)) + '">' + pair([[pr[0].id], [pr[1].id]]) +
+          '<span class="smx__go">' + esc(t('shelfMix.tryMixer')) + icon('arrowRight') + '</span></a></li>';
+      });
+      mixGroups.innerHTML =
+        group('ready', t('shelfMix.ready'), t('shelfMix.readyHint'), A) +
+        group('almost', t('shelfMix.almost'), t('shelfMix.almostHint'), B) +
+        group('ideas', t('shelfMix.ideas'), t('shelfMix.ideasHint'), C);
     }
 
     /* ---------- ormarić ---------- */

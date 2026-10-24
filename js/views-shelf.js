@@ -104,6 +104,26 @@
     );
   }
 
+  /**
+   * "Šta možeš napraviti od svoje police": recepti za koje korisnik ima oba okusa, recepti kojima fali jedan
+   * i ideje za miks od sličnih okusa sa police. Recepti su ugrađeni u stranicu, računa se u browseru (js/shelf.js).
+   */
+  function shelfMixSection() {
+    var recipes = (V.mixes ? V.mixes() : []).map(function (m) {
+      return { n: L(m.name), u: V.recipeUrl(m), p: m.parts.map(function (x) { return [x.flavor, x.pct]; }) };
+    });
+    return (
+      '<section class="fsec shelfmix" id="shelfmix" hidden aria-labelledby="shelfmix-h" data-recipes="' + esc(JSON.stringify(recipes)) + '"><div class="container">' +
+        '<header class="shelfmix__head">' +
+          '<p class="eyebrow"><span class="eyebrow__dot" aria-hidden="true"></span>' + esc(t('shelfMix.eyebrow')) + '</p>' +
+          '<h2 class="shelfmix__title" id="shelfmix-h">' + esc(t('shelfMix.title')) + '</h2>' +
+          '<p class="shelfmix__lead">' + esc(t('shelfMix.lead')) + '</p>' +
+        '</header>' +
+        '<div class="shelfmix__groups" id="shelfmix-groups"></div>' +
+      '</div></section>'
+    );
+  }
+
   V.pageShelf = function (crumbs) {
     var data = esc(JSON.stringify(shelfData()));
     return (
@@ -144,6 +164,7 @@
         '<noscript><p class="shelf__nojs">' + esc(t('shelf.noJs')) + '</p></noscript>' +
         V.localNote('localnote--shelf') +
       '</div></section>' +
+      shelfMixSection() +
       V.recoSection('reco--shelf') +
 
       // pregled tegle (dijalog)
