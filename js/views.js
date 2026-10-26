@@ -26,11 +26,11 @@
     bs: { home: '', flavor: 'okus', mixer: 'mikser', quiz: 'kviz', guide: 'vodic', glossary: 'rjecnik', term: 'rjecnik', gear: 'oprema', about: 'o-nama', notfound: '404',
       collections: 'kolekcije', collection: 'kolekcije', compare: 'poredjenje', comparePair: 'poredjenje', mixes: 'recepti', recipe: 'recepti',
       privacy: 'privatnost', terms: 'uslovi', suggest: 'predlozi-okus', report: 'prijavi-gresku', flavors: 'okusi', search: 'pretraga',
-      brands: 'brendovi', brand: 'brendovi', top: 'najbolje-ocijenjeno', shelf: 'moja-polica', session: 'slika-sesije', tips: 'savjeti', history: 'evolucija-nargile', chapter: 'evolucija-nargile' },
+      brands: 'brendovi', brand: 'brendovi', top: 'najbolje-ocijenjeno', shelf: 'moja-polica', session: 'slika-sesije', journal: 'dnevnik-sesija', tips: 'savjeti', history: 'evolucija-nargile', chapter: 'evolucija-nargile' },
     en: { home: '', flavor: 'flavor', mixer: 'mixer', quiz: 'quiz', guide: 'guide', glossary: 'glossary', term: 'glossary', gear: 'gear', about: 'about', notfound: '404',
       collections: 'collections', collection: 'collections', compare: 'compare', comparePair: 'compare', mixes: 'mixes', recipe: 'mixes',
       privacy: 'privacy', terms: 'terms', suggest: 'suggest-flavor', report: 'report-issue', flavors: 'flavors', search: 'search',
-      brands: 'brands', brand: 'brands', top: 'top-rated', shelf: 'my-shelf', session: 'session-photo', tips: 'tips', history: 'hookah-history', chapter: 'hookah-history' }
+      brands: 'brands', brand: 'brands', top: 'top-rated', shelf: 'my-shelf', session: 'session-photo', journal: 'session-journal', tips: 'tips', history: 'hookah-history', chapter: 'hookah-history' }
   };
   V.SEG = SEG;
 
@@ -140,6 +140,10 @@
     trash: '<path d="M4.5 7h15M9.5 7V4.5h5V7M6.5 7l1 13h9l1-13"/>',
     refresh: '<path d="M3 12a9 9 0 0 1 15.5-6.2L21 8M21 3v5h-5M21 12a9 9 0 0 1-15.5 6.2L3 16M3 21v-5h5"/>',
     expand: '<path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>',
+    book: '<path d="M5 4.5A1.5 1.5 0 0 1 6.5 3H19v15H6.5A1.5 1.5 0 0 0 5 19.5v-15z"/><path d="M5 19.5A1.5 1.5 0 0 0 6.5 21H19v-3M9 7.5h6M9 11h4"/>',
+    pencil: '<path d="M4 20h4L19 9l-4-4L4 16v4z"/><path d="m13.5 6.5 4 4"/>',
+    download: '<path d="M12 4v11M7 10l5 5 5-5M5 20h14"/>',
+    upload: '<path d="M12 20V9M7 14l5-5 5 5M5 4h14"/>',
     move: '<path d="M12 3v18M3 12h18M12 3l-2.5 2.5M12 3l2.5 2.5M12 21l-2.5-2.5M12 21l2.5-2.5M3 12l2.5-2.5M3 12l2.5 2.5M21 12l-2.5-2.5M21 12l-2.5 2.5"/>',
     chevronDown: '<path d="m6 9 6 6 6-6"/>',
     info: '<circle cx="12" cy="12" r="8.5"/><path d="M12 11v5.5M12 7.6v.1"/>',
@@ -621,7 +625,8 @@
       { key: 'mixes', page: 'mixes', match: ['mixes', 'recipe'] },
       { key: 'top', page: 'top', match: ['top'] },
       { key: 'shelf', page: 'shelf', match: ['shelf'] },
-      { key: 'session', page: 'session', match: ['session'] }
+      { key: 'session', page: 'session', match: ['session'] },
+      { key: 'journal', page: 'journal', match: ['journal'] }
     ] },
     { key: 'mixer', page: 'mixer', match: ['mixer'] },
     { key: 'quiz', page: 'quiz', match: ['quiz'] },
@@ -674,7 +679,7 @@
     { key: 'groupDiscover', items: [
       { n: NAV[0].items[2], color: '#ffb547' }, { n: NAV[0].items[3], color: '#e8457a' },
       { n: NAV[0].items[4], color: '#9b6cf0' }, { n: NAV[0].items[5], color: '#f2c230' },
-      { n: NAV[0].items[7], color: '#ff6fae' }
+      { n: NAV[0].items[7], color: '#ff6fae' }, { n: NAV[0].items[8], color: '#7bd389' }
     ] },
     { key: 'groupHookah', items: [
       { n: NAV[3].items[0], color: '#3fc1c9' }, { n: NAV[3].items[3], color: '#2fae78' },
@@ -816,7 +821,7 @@
     var year = desc.year || new Date().getFullYear();
     var email = (cfg && cfg.AUTHOR_EMAIL) || '';
     var name = (cfg && cfg.AUTHOR_NAME) || 'Graba';
-    var links = ['flavors', 'brands', 'collections', 'compare', 'mixes', 'top', 'shelf', 'session', 'mixer', 'quiz', 'guide', 'tips', 'history', 'glossary', 'gear', 'about'].map(function (p) {
+    var links = ['flavors', 'brands', 'collections', 'compare', 'mixes', 'top', 'shelf', 'session', 'journal', 'mixer', 'quiz', 'guide', 'tips', 'history', 'glossary', 'gear', 'about'].map(function (p) {
       return '<li><a href="' + V.url(p) + '">' + esc(t('nav.' + (p === 'flavors' ? 'allFlavors' : p))) + '</a></li>';
     }).join('');
     return (
@@ -2256,7 +2261,7 @@
         out.description = t('meta.aboutDescription');
         break;
       case 'privacy': case 'terms': case 'suggest': case 'report': case 'flavors': case 'search': case 'brands': case 'brand': case 'top':
-      case 'shelf': case 'tips': case 'session':
+      case 'shelf': case 'tips': case 'session': case 'journal':
         var extra = V.pageExtra(desc, crumbs, cfg);
         out.main = extra.main;
         out.title = extra.title;

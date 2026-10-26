@@ -89,7 +89,7 @@ function hashOf(file) {
 
 const ASSETS = ['css/style.css', 'js/strings.js', 'data/brands.js', 'data/flavors.js', 'data/glossary.js', 'data/guide.js', 'data/gear.js', 'data/quiz.js',
   'data/mixes.js', 'js/illustrations.js', 'js/effects.js', 'js/views.js', 'js/views-more.js', 'js/views-extra.js', 'js/pages.js', 'js/app.js',
-  'js/search.js', 'js/forms.js', 'js/share.js', 'js/ratings.js', 'js/shelf.js', 'js/qr.js', 'js/session.js', 'data/history.js', 'js/history.js', 'favicon.svg'];
+  'js/search.js', 'js/forms.js', 'js/share.js', 'js/ratings.js', 'js/shelf.js', 'js/qr.js', 'js/journal.js', 'js/session.js', 'data/history.js', 'js/history.js', 'favicon.svg'];
 const VERSION = {};
 for (const a of ASSETS) VERSION[a] = hashOf(a);
 const asset = (p) => '/' + p + '?v=' + VERSION[p];
@@ -118,7 +118,8 @@ const PAGE_SCRIPTS = {
   mixer: ['js/share.js'],
   quiz: ['js/share.js'],
   history: ['js/history.js'],
-  session: ['js/qr.js', 'js/session.js']
+  session: ['js/qr.js', 'js/journal.js', 'js/session.js'],
+  journal: ['js/journal.js']
 };
 
 /* ------------------------------------------------------------------ */

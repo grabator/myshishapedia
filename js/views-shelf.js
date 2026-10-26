@@ -344,7 +344,9 @@
               '<button type="button" class="btn btn--primary" id="ses-share" hidden>' + icon('arrowUpRight') + '<span>' + esc(t('session.share')) + '</span></button>' +
               '<button type="button" class="btn btn--primary" id="ses-save">' + icon('image') + '<span>' + esc(t('session.save')) + '</span></button>' +
               '<button type="button" class="btn btn--ghost" id="ses-copy">' + icon('link') + '<span>' + esc(t('session.copyLink')) + '</span></button>' +
+              '<button type="button" class="btn btn--ghost ses__tojr" id="ses-tojr">' + icon('book') + '<span>' + esc(t('session.toJournal')) + '</span></button>' +
             '</div>' +
+            '<p class="ses__jrlink"><a href="' + V.url('journal') + '">' + icon('book') + '<span>' + esc(t('nav.journal')) + '</span><b id="ses-jrcount" hidden></b></a></p>' +
             '<p class="ses__status" id="ses-status" role="status" aria-live="polite"></p>' +
           '</div>' +
           // koraci
@@ -390,6 +392,22 @@
             '</div>' +
           '</div>' +
         '</div>' +
+        // upis u dnevnik sesija
+        '<div class="ses-lb ses-jr" id="ses-jr" role="dialog" aria-modal="true" aria-labelledby="ses-jr-h" hidden>' +
+          '<form class="ses-jr__box" id="ses-jr-form">' +
+            '<button type="button" class="ses-lb__x" id="ses-jr-x" aria-label="' + esc(t('session.close')) + '">' + icon('close') + '</button>' +
+            '<h2 class="ses-jr__h" id="ses-jr-h">' + esc(t('session.jrTitle')) + '</h2>' +
+            '<div class="ses-jr__top"><img class="ses-jr__thumb" id="ses-jr-thumb" alt=""><div class="ses-jr__mix" id="ses-jr-mix"></div></div>' +
+            '<p class="ses-jr__label" id="ses-jr-rl">' + esc(t('session.jrRate')) + '</p>' +
+            '<div class="jr-rate jr-rate--big" id="ses-jr-rate" role="radiogroup" aria-labelledby="ses-jr-rl"></div>' +
+            '<label class="ses-jr__label" for="ses-jr-note">' + esc(t('journal.note')) + '</label>' +
+            '<textarea class="jr-note-in" id="ses-jr-note" maxlength="400" rows="3" placeholder="' + esc(t('journal.notePh')) + '"></textarea>' +
+            '<label class="ses-jr__label" for="ses-jr-when">' + esc(t('session.jrWhen')) + '</label>' +
+            '<input class="ses-in" type="datetime-local" id="ses-jr-when">' +
+            '<div class="ses-jr__btns"><button type="submit" class="btn btn--primary">' + icon('book') + '<span>' + esc(t('session.jrSave')) + '</span></button>' +
+            '<button type="button" class="btn btn--ghost" id="ses-jr-cancel">' + esc(t('journal.cancel')) + '</button></div>' +
+          '</form>' +
+        '</div>' +
         // pregled preko cijelog ekrana
         '<div class="ses-lb" id="ses-lb" role="dialog" aria-modal="true" aria-label="' + esc(t('session.preview')) + '" hidden>' +
           '<button type="button" class="ses-lb__x" id="ses-lb-x" aria-label="' + esc(t('session.close')) + '">' + icon('close') + '</button>' +
@@ -397,9 +415,51 @@
           '<div class="ses-lb__bar">' +
             '<button type="button" class="btn btn--primary" id="ses-lb-share" hidden>' + icon('arrowUpRight') + '<span>' + esc(t('session.share')) + '</span></button>' +
             '<button type="button" class="btn btn--primary" id="ses-lb-save">' + icon('image') + '<span>' + esc(t('session.save')) + '</span></button>' +
+            '<button type="button" class="btn btn--ghost" id="ses-lb-jr">' + icon('book') + '<span>' + esc(t('session.toJournal')) + '</span></button>' +
             '<button type="button" class="btn btn--ghost" id="ses-lb-close">' + esc(t('session.close')) + '</button>' +
           '</div>' +
         '</div>' +
+        '<noscript><p class="shelf__nojs">' + esc(t('shelf.noJs')) + '</p></noscript>' +
+      '</div></section>'
+    );
+  };
+  /**
+   * Dnevnik sesija. Sadržaj puni js/journal.js iz localStorage; ovdje je samo okvir.
+   */
+  V.pageJournal = function (crumbs) {
+    function opt(v, k) { return '<option value="' + v + '">' + esc(t('journal.' + k)) + '</option>'; }
+    return (
+      V.pageHero({ id: 'journal-title', eyebrow: t('journal.eyebrow'), title: t('journal.title'), lead: t('journal.lead'), crumbs: crumbs }) +
+      '<section class="fsec fsec--flush"><div class="container jr" id="jr">' +
+        '<ul class="jr-stats" id="jr-stats" role="list" hidden></ul>' +
+        '<div class="jr-best" id="jr-best" hidden></div>' +
+        '<div class="jr-tools" id="jr-tools" hidden>' +
+          '<div class="search search--small jr-tools__q"><span class="search__icon" aria-hidden="true">' + icon('search') + '</span>' +
+            '<label class="sr-only" for="jr-q">' + esc(t('journal.search')) + '</label>' +
+            '<input class="search__input" id="jr-q" type="search" autocomplete="off" spellcheck="false" placeholder="' + esc(t('journal.searchPh')) + '">' +
+          '</div>' +
+          '<label class="jr-sort"><span class="sr-only">' + esc(t('journal.sort')) + '</span><select id="jr-sort">' + opt('new', 'sortNew') + opt('best', 'sortBest') + opt('old', 'sortOld') + '</select></label>' +
+          '<a class="btn btn--primary jr-tools__new" href="' + V.url('session') + '">' + icon('plus') + '<span>' + esc(t('journal.newSession')) + '</span></a>' +
+        '</div>' +
+        '<p class="jr-count" id="jr-count" aria-live="polite"></p>' +
+        '<div class="jr-empty" id="jr-empty">' +
+          '<span class="jr-empty__art" aria-hidden="true"><i></i></span>' +
+          '<h2>' + esc(t('journal.emptyTitle')) + '</h2>' +
+          '<p>' + esc(t('journal.emptyText')) + '</p>' +
+          '<a class="btn btn--primary" href="' + V.url('session') + '">' + icon('camera') + '<span>' + esc(t('journal.emptyCta')) + '</span></a>' +
+        '</div>' +
+        '<p class="jr-none" id="jr-none" hidden>' + esc(t('journal.none')) + '</p>' +
+        '<ul class="jr-list" id="jr-list" role="list"></ul>' +
+        '<p class="jr-status" id="jr-status" role="status" aria-live="polite"></p>' +
+        '<details class="jr-backup">' +
+          '<summary>' + icon('download') + '<span>' + esc(t('journal.backup')) + '</span></summary>' +
+          '<p>' + esc(t('journal.backupText')) + '</p>' +
+          '<div class="jr-backup__btns">' +
+            '<button type="button" class="btn btn--ghost" id="jr-export">' + icon('download') + '<span>' + esc(t('journal.export')) + '</span></button>' +
+            '<label class="btn btn--ghost jr-import">' + icon('upload') + '<span>' + esc(t('journal.import')) + '</span><input type="file" id="jr-import" accept="application/json,.json" class="sr-only"></label>' +
+          '</div>' +
+        '</details>' +
+        '<p class="jr-privacy">' + icon('info') + '<span>' + esc(t('journal.privacy')) + '</span></p>' +
         '<noscript><p class="shelf__nojs">' + esc(t('shelf.noJs')) + '</p></noscript>' +
       '</div></section>'
     );

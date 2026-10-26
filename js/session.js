@@ -832,6 +832,86 @@
   $('ses-lb-save').addEventListener('click', function () { els.save.click(); });
   $('ses-lb-share').addEventListener('click', function () { els.share.click(); });
 
+  /* Upis u dnevnik sesija (js/journal.js) */
+  var J = MSP.Journal, jr = $('ses-jr'), jrRate = $('ses-jr-rate'), jrThumb = '', jrOpen = false, jrWhen0 = '';
+  document.body.appendChild(jr);
+  function jrCount() {
+    var n = J ? J.list().length : 0, b = $('ses-jrcount');
+    b.hidden = !n; b.textContent = n;
+  }
+  function localNow() { var d = new Date(); return new Date(d.getTime() - d.getTimezoneOffset() * 60000).toISOString().slice(0, 16); }
+  function openJournal() {
+    if (!J) return;
+    if (!S.items.length) { status(t('session.empty')); return; }
+    jrOpen = true;
+    jr.hidden = false;
+    document.documentElement.classList.add('ses-lock');
+    jrRate.innerHTML = J.rateButtons(0);
+    jrRate.removeAttribute('data-val');
+    $('ses-jr-note').value = '';
+    $('ses-jr-when').value = jrWhen0 = localNow();
+    $('ses-jr-mix').innerHTML = S.items.map(function (it) {
+      return '<span><i style="background:' + it.color + '"></i>' + V.esc(it.name) + ' <em>' + it.pct + '% · ' + num(grams(it), 1) + ' g</em></span>';
+    }).join('');
+    // mala sličica (oko 15 KB) da se sesija prepozna u dnevniku
+    var sz = SIZES[S.format], th = $('ses-jr-thumb');
+    jrThumb = '';
+    th.removeAttribute('src');
+    fontsReady().then(function () {
+      var c = paint(document.createElement('canvas'), sz[0], sz[1], 300 / sz[0]);
+      jrThumb = c.toDataURL('image/jpeg', 0.66);
+      th.src = jrThumb;
+      render();
+    });
+    jrRate.querySelector('button').focus();
+  }
+  function closeJournal() {
+    if (!jrOpen) return;
+    jrOpen = false;
+    jr.hidden = true;
+    document.documentElement.classList.remove('ses-lock');
+    $('ses-tojr').focus({ preventScroll: true });
+  }
+  jrRate.addEventListener('click', function (e) {
+    var r = e.target.closest('[data-rate]');
+    if (!r) return;
+    var n = +r.getAttribute('data-rate');
+    Array.prototype.forEach.call(jrRate.children, function (b, k) { b.classList.toggle('is-on', k < n); b.setAttribute('aria-checked', String(k + 1 === n)); b.tabIndex = k + 1 === n ? 0 : -1; });
+    jrRate.setAttribute('data-val', n);
+  });
+  jrRate.addEventListener('keydown', function (e) {
+    var r = e.target.closest('[data-rate]');
+    var d = e.key === 'ArrowRight' || e.key === 'ArrowUp' ? 1 : e.key === 'ArrowLeft' || e.key === 'ArrowDown' ? -1 : 0;
+    if (!r || !d) return;
+    e.preventDefault();
+    var b = jrRate.children[Math.max(1, Math.min(5, +r.getAttribute('data-rate') + d)) - 1]; b.click(); b.focus();
+  });
+  $('ses-jr-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+    // vrijeme nije mijenjano: tačno sada (sa sekundama, da redoslijed bude tačan)
+    var wv = $('ses-jr-when').value, when = wv === jrWhen0 ? new Date() : new Date(wv);
+    var entry = J.add({
+      at: isNaN(when) ? new Date().toISOString() : when.toISOString(),
+      items: S.items.map(function (x) { return { id: x.id || '', brand: x.brand || '', name: x.name, pct: x.pct, color: x.color }; }),
+      total: S.total, coals: S.coals, bowl: S.bowl, heading: S.heading,
+      rating: +(jrRate.getAttribute('data-val') || 0), note: $('ses-jr-note').value.trim(), thumb: jrThumb
+    });
+    closeJournal();
+    if (!entry) { status(t('session.failed')); return; }
+    var kept = J.get(entry.id);
+    status(jrThumb && kept && !kept.thumb ? t('session.jrFull') : t('session.jrSaved'));
+    jrCount();
+    var link = $('ses-jrcount').parentNode;
+    link.classList.remove('is-new'); void link.offsetWidth; link.classList.add('is-new');
+  });
+  $('ses-tojr').addEventListener('click', openJournal);
+  $('ses-lb-jr').addEventListener('click', function () { closeView(); openJournal(); });
+  $('ses-jr-x').addEventListener('click', closeJournal);
+  $('ses-jr-cancel').addEventListener('click', closeJournal);
+  jr.addEventListener('click', function (e) { if (e.target === jr) closeJournal(); });
+  document.addEventListener('keydown', function (e) { if (jrOpen && e.key === 'Escape') closeJournal(); });
+  jrCount();
+
   /* Kartice na mobitelu: Fotografija, Miks, Izgled */
   var tabs = root.querySelectorAll('.ses-tab'), steps = root.querySelectorAll('.ses-step');
   function setTab(i, scroll) {
