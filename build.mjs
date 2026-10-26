@@ -167,10 +167,10 @@ function copyDir(src, dest, filter) {
 // čim zatreba (unicode-range u style.css), da fontovi ne otimaju propusni opseg pri učitavanju.
 // Bosanski naslovi često imaju č ć š ž đ, pa bs stranice unaprijed preuzimaju i latin-ext za Syne.
 const FONT_PRELOADS = [
-  'https://fonts.gstatic.com/s/syne/v24/8vIH7w4qzmVxm2BL9A.woff2',
-  'https://fonts.gstatic.com/s/manrope/v20/xn7gYHE41ni1AdIRggexSg.woff2'
+  '/fonts/syne-latin-wght-5.3.woff2',
+  '/fonts/manrope-latin-wght-5.3.woff2'
 ];
-const FONT_PRELOADS_BS = ['https://fonts.gstatic.com/s/syne/v24/8vIH7w4qzmVxm25L9Hz_.woff2'];
+const FONT_PRELOADS_BS = ['/fonts/syne-latin-ext-wght-5.3.woff2'];
 // Fontovi samo za pojedine stranice (serif za staru kartu na "Evoluciji nargile").
 const PAGE_FONTS = { history: ['/fonts/cormorant-garamond-latin-600-normal.woff2'], chapter: ['/fonts/cormorant-garamond-latin-600-normal.woff2'] };
 
@@ -330,7 +330,6 @@ function head(desc, lang, info) {
     '<link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">',
     `<link rel="manifest" href="/manifest-${lang}.webmanifest">`,
     '<meta name="apple-mobile-web-app-title" content="MyShishapedia">',
-    '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>',
     FONT_PRELOADS.concat(lang === 'bs' ? FONT_PRELOADS_BS : [], PAGE_FONTS[desc.page] || []).map((f) => `<link rel="preload" as="font" type="font/woff2" crossorigin href="${f}">`).join(''),
     `<link rel="stylesheet" href="${asset('css/style.css')}">`,
     `<script>${HEAD_SCRIPT}</script>`,
@@ -658,7 +657,7 @@ function writePwaFiles() {
     if (lang === DEFAULT_LANG) writeFile('manifest.webmanifest', JSON.stringify(m, null, 2));
   }
 
-  // Unaprijed sačuvano: skripte i stilovi, stranice "Bez interneta" i ikone. Početna, polica,
+  // Unaprijed sačuvano: skripte i stilovi, fontovi, stranice "Bez interneta" i ikone. Početna, polica,
   // dnevnik, slika sesije i mikser se sačuvaju samo na jeziku koji posjetilac koristi
   // (js/pwa.js javi jezik), da telefon ne skida obje verzije.
   const WARM = ['home', 'shelf', 'journal', 'session', 'mixer'];
@@ -671,6 +670,8 @@ function writePwaFiles() {
     for (const m of html.matchAll(/(?:src|href)="(\/[^"]+\?v=[0-9a-f]+)"/g)) files.add(m[1]);
   }
   ['/icons/icon-192.png', '/icons/apple-touch-icon.png', ...LANGS.map((l) => '/manifest-' + l + '.webmanifest')].forEach((f) => files.add(f));
+  // fontovi (latin i latin-ext), da i bez interneta tekst izgleda isto
+  FONT_PRELOADS.concat(FONT_PRELOADS_BS, ['/fonts/manrope-latin-ext-wght-5.3.woff2']).forEach((f) => files.add(f));
   const list = [...files];
   const version = crypto.createHash('sha1').update(list.join('\n') + JSON.stringify(byLang) + fs.readFileSync(path.join(ROOT, 'build.mjs'))).digest('hex').slice(0, 10);
   const offline = Object.fromEntries(LANGS.map((l) => [l, V.urlFor(l, 'offline')]));
@@ -679,8 +680,7 @@ function writePwaFiles() {
  * HTML: prvo mreža (uvijek svježe), bez mreže sačuvana kopija ili stranica "Bez interneta".
  * Skripte i stilovi sa ?v=hash: iz keša (adresa se mijenja sa svakom izmjenom).
  * Ostalo sa ove stranice (ikone, pretraga, mapa): iz keša, pa osvježi u pozadini.
- * Ocjene (/api/) i forme idu uvijek na mrežu. Google fontove ne dira: browser ih ionako
- * čuva godinu dana (i bez interneta), a CSP (connect-src) ne dozvoljava fetch prema njima. */
+ * Ocjene (/api/) i forme idu uvijek na mrežu. Fontovi su na ovoj stranici (/fonts/) i sačuvaju se unaprijed. */
 'use strict';
 const VERSION = ${JSON.stringify(version)};
 const PRE = 'msp-pre-' + VERSION;
@@ -883,7 +883,7 @@ function writeCloudflareFiles(rendered) {
     ["script-src 'self'", ...inlineScriptHashes(), analytics ? 'https://static.cloudflareinsights.com' : '', TURNSTILE].filter(Boolean).join(' '),
     // inline style atributi nose boje okusa (style="--c-bg:..."), pa su potrebni
     "style-src 'self' 'unsafe-inline'",
-    "font-src 'self' https://fonts.gstatic.com",
+    "font-src 'self'",
     "img-src 'self' data: blob:",
     'frame-src ' + TURNSTILE,
     ["connect-src 'self'", analytics ? 'https://cloudflareinsights.com' : '', form].filter(Boolean).join(' '),

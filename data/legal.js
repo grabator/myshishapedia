@@ -102,11 +102,11 @@ window.LEGAL = {
         title: { bs: 'Fontovi i hosting', en: 'Fonts and hosting' },
         body: {
           bs: [
-            'Fontovi (Syne i Manrope) učitavaju se sa Google Fonts servera (fonts.gstatic.com). Pri tome tvoj browser Googleu šalje uobičajene tehničke podatke, kao što je IP adresa, jer bez toga ne može preuzeti fajl.',
+            'Fontovi (Syne i Manrope) nalaze se na našem serveru, pa se pri učitavanju stranice ne šalje nikakav zahtjev Google Fonts servisu.',
             'Stranica je smještena na Cloudflare Pages. Cloudflare, kao i svaki hosting, obrađuje tehničke podatke o zahtjevima (npr. IP adresu) da bi isporučio stranicu i zaštitio je od napada.'
           ],
           en: [
-            'The fonts (Syne and Manrope) are loaded from Google Fonts (fonts.gstatic.com). To download them, your browser sends Google the usual technical details, such as your IP address.',
+            'The fonts (Syne and Manrope) are hosted on our own server, so loading the site sends no request to Google Fonts.',
             'The site is hosted on Cloudflare Pages. Like any host, Cloudflare processes technical request data (such as IP addresses) to deliver the site and protect it from attacks.'
           ]
         }

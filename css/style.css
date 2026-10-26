@@ -4,18 +4,17 @@
    ========================================================================== */
 
 /*
- * Fontovi sa Google Fonts (Syne i Manrope, varijabilni), samo latin i latin-ext
- * podskupovi (dovoljno za bosanski: č ć š ž đ). Pravila su preuzeta iz
- * https://fonts.googleapis.com/css2?family=Manrope:wght@400..700&family=Syne:wght@400..800&display=swap
- * i stavljena ovdje da prikaz ne bi čekao dodatni zahtjev prema fonts.googleapis.com.
- * Ako Google promijeni verziju (v20/v24), osvježi URL-ove ovdje i u index.html (preload).
+ * Fontovi Syne i Manrope (varijabilni, licenca SIL OFL 1.1) su na našem serveru (static/fonts),
+ * samo latin i latin-ext podskupovi (dovoljno za bosanski: č ć š ž đ). Fajlovi su iz paketa
+ * @fontsource-variable/syne i @fontsource-variable/manrope 5.3.0 (isti fontovi kao na Google Fonts),
+ * a unicode-range je isti kao kod Google Fonts. Preload istih fajlova je u build.mjs (FONT_PRELOADS).
  */
 @font-face {
   font-family: 'Manrope';
   font-style: normal;
   font-weight: 400 700;
   font-display: swap;
-  src: url(https://fonts.gstatic.com/s/manrope/v20/xn7gYHE41ni1AdIRggmxSuXd.woff2) format('woff2');
+  src: url(/fonts/manrope-latin-ext-wght-5.3.woff2) format('woff2');
   unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 @font-face {
@@ -23,7 +22,7 @@
   font-style: normal;
   font-weight: 400 700;
   font-display: swap;
-  src: url(https://fonts.gstatic.com/s/manrope/v20/xn7gYHE41ni1AdIRggexSg.woff2) format('woff2');
+  src: url(/fonts/manrope-latin-wght-5.3.woff2) format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 @font-face {
@@ -31,7 +30,7 @@
   font-style: normal;
   font-weight: 400 800;
   font-display: swap;
-  src: url(https://fonts.gstatic.com/s/syne/v24/8vIH7w4qzmVxm25L9Hz_.woff2) format('woff2');
+  src: url(/fonts/syne-latin-ext-wght-5.3.woff2) format('woff2');
   unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 @font-face {
@@ -39,7 +38,7 @@
   font-style: normal;
   font-weight: 400 800;
   font-display: swap;
-  src: url(https://fonts.gstatic.com/s/syne/v24/8vIH7w4qzmVxm2BL9A.woff2) format('woff2');
+  src: url(/fonts/syne-latin-wght-5.3.woff2) format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
