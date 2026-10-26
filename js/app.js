@@ -277,6 +277,116 @@
   }
 
   /**
+   * Početna: "rastavljena" nargila. Dijelovi nargile (glava, tacna, stub, vaza, crijevo) su posebne
+   * SVG grupe pa se mogu razmaknuti:
+   *   - ulazak: nargila se pojavi rastavljena, uz svaki dio natpis šta radi; dok se linije iscrtaju,
+   *     dijelovi se jedan za drugim sklope (odozdo prema gore), pa iz glave krene dim
+   *   - promjena okusa: kratak "trzaj" (razmakne se i sklopi) uz oblak dima iz glave
+   * Vraća { pulse(), amount() }; heroCycle koristi amount() da sastojci kruže šire.
+   */
+  function heroExplode(hero) {
+    var stage = hero && hero.querySelector('[data-hookah]');
+    var svg = stage && stage.querySelector('svg');
+    if (!svg || FX.reducedMotion()) return null;
+    // pomak dijela kad je nargila potpuno rastavljena (jedinice SVG-a: 360 x 580); at = kad se sklopi
+    var PARTS = [
+      { sel: '.hk-vase', dx: 0, dy: 34, rot: 0, at: 1.9, label: 'Vase' },
+      { sel: '.hk-hose', dx: 40, dy: 18, rot: 6, at: 2.05, label: 'Hose', top: true },
+      { sel: '.hk-mouth', dx: 52, dy: 26, rot: 9, at: 2.05 },
+      { sel: '.hk-stem', dx: 0, dy: -12, rot: 0, at: 2.2, label: 'Stem' },
+      { sel: '.hk-tray', dx: 0, dy: -36, rot: 4, at: 2.35, label: 'Tray' },
+      { sel: '.hk-bowl', dx: 0, dy: -62, rot: -8, at: 2.5, label: 'Bowl' }
+    ];
+    var DUR = 0.9, HOLD = 0.35;
+    PARTS.forEach(function (p) {
+      p.el = svg.querySelector(p.sel);
+      if (!p.el) return;
+      // natpis stoji uz lijevu ivicu dijela, na pola visine (crijevo: iznad luka)
+      var b = p.el.getBBox();
+      p.ax = p.top ? b.x + b.width * 0.4 : b.x;
+      p.ay = p.top ? b.y + 4 : b.y + b.height * 0.5;
+      p.el.style.transformBox = 'view-box';
+      p.el.style.transformOrigin = (b.x + b.width / 2).toFixed(1) + 'px ' + (b.y + b.height / 2).toFixed(1) + 'px';
+    });
+    var water = stage.querySelector('.hk-waterbox');
+    var labels = document.createElement('div');
+    labels.className = 'hk-labels';
+    labels.setAttribute('aria-hidden', 'true');
+    PARTS.forEach(function (p) {
+      if (!p.label || !p.el) return;
+      var el = document.createElement('span');
+      el.className = 'hk-label' + (p.top ? ' hk-label--t' : '');
+      el.innerHTML = '<b>' + V.esc(t('hookah.p' + p.label)) + '</b><small>' + V.esc(t('hookah.p' + p.label + 'Sub')) + '</small>';
+      labels.appendChild(el);
+      p.lab = el;
+    });
+    stage.appendChild(labels);
+
+    var t0 = 0, pulseAt = -1e4, raf = 0, visible = true, seen = false, puffed = false;
+    var clamp = function (k) { return Math.max(0, Math.min(1, k)); };
+    var easeBack = function (k) { var c1 = 1.4, c3 = c1 + 1; return 1 + c3 * Math.pow(k - 1, 3) + c1 * Math.pow(k - 1, 2); };
+
+    function bowlPuff(count, alpha) {
+      if (!Field.ready) return;
+      var b = svg.getBoundingClientRect();
+      var P = MSP.HOOKAH_POINTS;
+      Field.puff(b.left + b.width * P.bowl[0] / P.width, b.top + b.height * P.bowl[1] / P.height, { count: count, alpha: alpha, r1: [40, 120], life: [1.6, 2.8], speed: [30, 90], spread: 0.9, force: true });
+    }
+
+    function frame(now) {
+      raf = 0;
+      // vrijeme teče tek kad se nargila vidi (na mobitelu je ispod teksta)
+      if (!t0 && seen) t0 = now;
+      var t = t0 ? (now - t0) / 1000 : 0;
+      var pulse = Math.sin(clamp((now - pulseAt) / 1100) * Math.PI) * 0.38;
+      var scale = svg.getBoundingClientRect().width / 360;
+      var spread = 0;
+      PARTS.forEach(function (p) {
+        if (!p.el) return;
+        var e = Math.max(1 - easeBack(clamp((t - p.at) / DUR)), pulse);
+        spread = Math.max(spread, e);
+        p.el.style.transform = 'translate(' + (p.dx * e).toFixed(1) + 'px,' + (p.dy * e).toFixed(1) + 'px) rotate(' + (p.rot * e).toFixed(2) + 'deg)';
+        if (p.sel === '.hk-vase' && water) water.style.transform = 'translate(0,' + (p.dy * e * scale).toFixed(1) + 'px)';
+        if (p.lab) {
+          // natpis se pojavi dok su dijelovi razmaknuti i nestane malo prije nego što se dio sklopi
+          var show = Math.min(clamp((t - 0.35) / 0.45), clamp((p.at + HOLD - t) / 0.35));
+          p.lab.style.opacity = show.toFixed(2);
+          p.lab.style.transform = 'translate(' + ((p.ax + p.dx * e) * scale).toFixed(1) + 'px,' + ((p.ay + p.dy * e) * scale).toFixed(1) + 'px)';
+        }
+      });
+      // kad se glava sklopi, iz nje krene dim
+      if (!puffed && t > 2.95) { puffed = true; bowlPuff(16, 0.32); }
+      api.e = spread;
+      if (visible && seen && (t < 3.6 || now - pulseAt < 1200)) raf = requestAnimationFrame(frame);
+    }
+    function kick() { if (!raf && visible) raf = requestAnimationFrame(frame); }
+    var io = 'IntersectionObserver' in window ? new IntersectionObserver(function (en) {
+      visible = en[0].isIntersecting;
+      if (en[0].intersectionRatio >= 0.45) seen = true;
+      kick();
+    }, { threshold: [0, 0.45] }) : null;
+    if (!io) seen = true;
+    if (io) io.observe(stage);
+    kick();
+
+    var api = {
+      e: 1,
+      amount: function () { return api.e; },
+      pulse: function () {
+        pulseAt = performance.now();
+        kick();
+        window.setTimeout(function () { bowlPuff(10, 0.26); }, 650);
+      }
+    };
+    cleanup(function () {
+      if (raf) cancelAnimationFrame(raf);
+      if (io) io.disconnect();
+      labels.remove();
+    });
+    return api;
+  }
+
+  /**
    * Početna: okusi se smjenjuju u nargili. Sastojci okusa izađu iz posude i kruže oko nargile
    * (ispred i iza nje), voda i pozadina dobiju boje okusa, a natpis "U nargili sada" vodi na okus.
    * Kod sljedećeg okusa se sastojci uvuku nazad u posudu. Bez animacija: miran prikaz prvog okusa.
@@ -332,12 +442,13 @@
     function frame(now) {
       raf = 0;
       var spin = (now - t0) / 1000 * 0.42;
+      var spread = 1 + (hero._explode ? hero._explode.amount() : 0) * 0.55;
       items = items.filter(function (it) {
         var k = it.dying ? 1 - Math.min(1, (now - it.dying) / 900) : Math.min(1, Math.max(0, (now - it.born) / 1300));
         if (it.dying && k <= 0) { it.el.remove(); return false; }
         var e = k < 0.5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2;   // ease-in-out
         var a = it.phase + spin;
-        var ox = Math.cos(a) * RX, oy = Math.sin(a) * RY;
+        var ox = Math.cos(a) * RX * spread, oy = Math.sin(a) * RY * spread;
         var px = C.x + ox;
         var py = C.y + oy + ox * Math.sin(TILT) * 0.35;   // blago nagnuta putanja
         var x = BOWL.x + (px - BOWL.x) * e, y = BOWL.y + (py - BOWL.y) * e;
@@ -356,6 +467,7 @@
       if (!visible) { timer = window.setTimeout(next, 1000); return; }
       var now = performance.now();
       items.forEach(function (it) { if (!it.dying) it.dying = now; });
+      if (hero._explode) hero._explode.pulse();
       idx = (idx + 1) % list.length;
       window.setTimeout(function () { setFlavor(list[idx]); spawn(list[idx], performance.now()); }, 650);
       timer = window.setTimeout(next, HERO_STEP_MS);
@@ -391,7 +503,7 @@
     bindCatalog();
     mountFotd();
     startHookah(hero, th, { introDelay: 1.7, bowlSmoke: { rate: 8, alpha: 0.26 } });
-    cleanup(whenAgeOk(function () { heroCycle(hero); }));
+    cleanup(whenAgeOk(function () { hero._explode = heroExplode(hero); heroCycle(hero); }));
     cleanup(FX.parallax(hero));
     var grid = document.getElementById('flavor-grid');
     cleanup(FX.tilt(grid));

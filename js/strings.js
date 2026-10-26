@@ -109,7 +109,12 @@
         label: 'Nargila. Pritisni i drži da povučeš dim.',
         pull: 'Drži za dim',
         strength: 'Jačina povlačenja',
-        hint: 'Pritisni i drži nargilu ili dugme, pa pusti.'
+        hint: 'Pritisni i drži nargilu ili dugme, pa pusti.',
+        pBowl: 'Glava', pBowlSub: 'duhan i ugalj',
+        pTray: 'Tacna', pTraySub: 'pepeo i ugalj',
+        pStem: 'Stub', pStemSub: 'dim ide dole u vodu',
+        pVase: 'Vaza', pVaseSub: 'voda hladi dim',
+        pHose: 'Crijevo', pHoseSub: 'kroz njega vučeš'
       },
 
       nav: {
@@ -1331,7 +1336,12 @@
         label: 'Hookah. Press and hold to take a pull.',
         pull: 'Hold to pull',
         strength: 'Pull strength',
-        hint: 'Press and hold the hookah or the button, then let go.'
+        hint: 'Press and hold the hookah or the button, then let go.',
+        pBowl: 'Bowl', pBowlSub: 'tobacco and coals',
+        pTray: 'Tray', pTraySub: 'ash and coals',
+        pStem: 'Stem', pStemSub: 'smoke goes down into the water',
+        pVase: 'Base', pVaseSub: 'water cools the smoke',
+        pHose: 'Hose', pHoseSub: 'you pull through it'
       },
 
       nav: {

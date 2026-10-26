@@ -1804,6 +1804,68 @@ button { cursor: pointer; }
   .hookah { width: min(100%, calc((100svh - var(--header-h) - 150px) * 360 / 580), 440px); }
 }
 .hookah.is-pulling { cursor: grabbing; }
+
+/* rastavljena nargila: natpisi uz dijelove (pomjera ih app.js, heroExplode) */
+.hk-labels {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+}
+.hk-label {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 0;
+  height: 0;
+  opacity: 0;
+  color: var(--c-text);
+  will-change: transform, opacity;
+}
+.hk-label::before {
+  content: '';
+  position: absolute;
+  right: 4px;
+  top: 0;
+  width: clamp(18px, 4vw, 44px);
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--c-accent));
+}
+.hk-label::after {
+  content: '';
+  position: absolute;
+  left: -3px;
+  top: -3px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--c-accent);
+  box-shadow: 0 0 10px var(--c-accent);
+}
+.hk-label b,
+.hk-label small {
+  position: absolute;
+  right: calc(clamp(18px, 4vw, 44px) + 10px);
+  white-space: nowrap;
+  text-align: right;
+}
+.hk-label b {
+  bottom: 1px;
+  font-family: var(--font-display);
+  font-size: clamp(0.82rem, 1.3vw, 1rem);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.hk-label small {
+  top: 3px;
+  font-size: clamp(0.68rem, 1vw, 0.8rem);
+  color: var(--c-muted);
+}
+.hk-label--t::before { right: auto; left: 0; top: auto; bottom: 4px; width: 1px; height: clamp(16px, 3vw, 30px); background: linear-gradient(0deg, var(--c-accent), transparent); }
+.hk-label--t b,
+.hk-label--t small { right: auto; left: 0; translate: -50% 0; text-align: center; }
+.hk-label--t b { bottom: calc(clamp(16px, 3vw, 30px) + 26px); }
+.hk-label--t small { top: auto; bottom: calc(clamp(16px, 3vw, 30px) + 8px); }
 .hk {
   display: block;
   width: 100%;
