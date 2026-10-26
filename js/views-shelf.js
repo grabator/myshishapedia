@@ -316,6 +316,7 @@
             '<div class="ses__sticky" id="ses-sticky">' +
               '<div class="ses__stage" id="ses-stage" data-format="post">' +
                 '<canvas class="ses__canvas" id="ses-canvas" role="img" aria-label="' + esc(t('session.preview')) + '"></canvas>' +
+                '<button type="button" class="ses__expand" id="ses-expand" aria-label="' + esc(t('session.view')) + '">' + icon('expand') + '</button>' +
                 '<p class="ses__empty" id="ses-empty" hidden>' + esc(t('session.empty')) + '</p>' +
                 // velika dugmad za fotografiju, dok je nema
                 '<div class="ses__drop" id="ses-drop">' +
@@ -387,6 +388,16 @@
               '</div>' +
               field(t('session.extras'), check('ses-brand', 'showBrand', true) + check('ses-qr', 'showQr', true), 'sfield--checks') +
             '</div>' +
+          '</div>' +
+        '</div>' +
+        // pregled preko cijelog ekrana
+        '<div class="ses-lb" id="ses-lb" role="dialog" aria-modal="true" aria-label="' + esc(t('session.preview')) + '" hidden>' +
+          '<button type="button" class="ses-lb__x" id="ses-lb-x" aria-label="' + esc(t('session.close')) + '">' + icon('close') + '</button>' +
+          '<img class="ses-lb__img" id="ses-lb-img" alt="' + esc(t('session.preview')) + '">' +
+          '<div class="ses-lb__bar">' +
+            '<button type="button" class="btn btn--primary" id="ses-lb-share" hidden>' + icon('arrowUpRight') + '<span>' + esc(t('session.share')) + '</span></button>' +
+            '<button type="button" class="btn btn--primary" id="ses-lb-save">' + icon('image') + '<span>' + esc(t('session.save')) + '</span></button>' +
+            '<button type="button" class="btn btn--ghost" id="ses-lb-close">' + esc(t('session.close')) + '</button>' +
           '</div>' +
         '</div>' +
         '<noscript><p class="shelf__nojs">' + esc(t('shelf.noJs')) + '</p></noscript>' +

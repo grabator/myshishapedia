@@ -749,7 +749,7 @@
   /* Povlačenje po pregledu                                              */
   /* ------------------------------------------------------------------ */
 
-  var drag = null;
+  var drag = null, dragged = false;
   function toImg(e) {
     var r = els.canvas.getBoundingClientRect();
     var sz = SIZES[S.format];
@@ -770,6 +770,7 @@
     var p = toImg(e), L = lastL, pad = 30 * L.u;
     var onGroup = S.items.length && p.x >= L.x - pad && p.x <= L.x + L.w + pad && p.y >= L.y - pad && p.y <= L.y + L.h + pad;
     if (!onGroup && !S.photo) return;
+    dragged = false;
     drag = { mode: onGroup ? 'group' : 'photo', sx: p.x, sy: p.y, gx: L.x, gy: L.y, fx: S.fx, fy: S.fy };
     els.canvas.setPointerCapture(e.pointerId);
     els.stage.classList.add('is-drag');
@@ -786,6 +787,7 @@
     }
     var p = toImg(e), sz = SIZES[S.format];
     var dx = p.x - drag.sx, dy = p.y - drag.sy;
+    if (Math.abs(dx) + Math.abs(dy) > 6) dragged = true;
     if (drag.mode === 'group') {
       S.pos = { x: clamp(drag.gx + dx, 0, sz[0] - lastL.w) / sz[0], y: clamp(drag.gy + dy, 0, sz[1] - lastL.h) / sz[1] };
     } else {
@@ -799,6 +801,37 @@
   function endDrag() { drag = null; els.stage.classList.remove('is-drag'); }
   els.canvas.addEventListener('pointerup', endDrag);
   els.canvas.addEventListener('pointercancel', endDrag);
+  /* Pregled preko cijelog ekrana: dodir na sliku */
+  var lb = $('ses-lb'), lbImg = $('ses-lb-img'), lbUrl = null, lbOpen = false;
+  document.body.appendChild(lb); // iznad zaglavlja i svega ostalog
+  function openView() {
+    if (lbOpen) return;
+    lbOpen = true;
+    lb.hidden = false;
+    document.documentElement.classList.add('ses-lock');
+    lbImg.removeAttribute('src');
+    makeBlob().then(function (b) { if (!lbOpen) return; if (lbUrl) URL.revokeObjectURL(lbUrl); lbUrl = URL.createObjectURL(b); lbImg.src = lbUrl; });
+    try { history.pushState({ sesView: 1 }, ''); } catch (e) {}
+    $('ses-lb-x').focus();
+  }
+  function closeView(fromPop) {
+    if (!lbOpen) return;
+    lbOpen = false;
+    lb.hidden = true;
+    document.documentElement.classList.remove('ses-lock');
+    if (!fromPop && history.state && history.state.sesView) history.back();
+    $('ses-expand').focus({ preventScroll: true });
+  }
+  window.addEventListener('popstate', function () { closeView(true); });
+  els.canvas.addEventListener('click', function () { if (moveMode || dragged) { dragged = false; return; } openView(); });
+  $('ses-expand').addEventListener('click', openView);
+  $('ses-lb-x').addEventListener('click', function () { closeView(); });
+  $('ses-lb-close').addEventListener('click', function () { closeView(); });
+  lb.addEventListener('click', function (e) { if (e.target === lb) closeView(); });
+  document.addEventListener('keydown', function (e) { if (lbOpen && e.key === 'Escape') closeView(); });
+  $('ses-lb-save').addEventListener('click', function () { els.save.click(); });
+  $('ses-lb-share').addEventListener('click', function () { els.share.click(); });
+
   /* Kartice na mobitelu: Fotografija, Miks, Izgled */
   var tabs = root.querySelectorAll('.ses-tab'), steps = root.querySelectorAll('.ses-step');
   function setTab(i, scroll) {
@@ -883,6 +916,7 @@
   var canFiles = false;
   try { canFiles = !!(navigator.canShare && navigator.canShare({ files: [new File(['x'], 'x.png', { type: 'image/png' })] })); } catch (e) { canFiles = false; }
   els.share.hidden = !canFiles;
+  $('ses-lb-share').hidden = !canFiles;
   els.share.addEventListener('click', function () {
     if (!S.items.length) { status(t('session.empty')); return; }
     status(t('session.making'));
