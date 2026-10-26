@@ -89,7 +89,7 @@ function hashOf(file) {
 
 const ASSETS = ['css/style.css', 'js/strings.js', 'data/brands.js', 'data/flavors.js', 'data/glossary.js', 'data/guide.js', 'data/gear.js', 'data/quiz.js',
   'data/mixes.js', 'js/illustrations.js', 'js/effects.js', 'js/views.js', 'js/views-more.js', 'js/views-extra.js', 'js/pages.js', 'js/app.js',
-  'js/search.js', 'js/forms.js', 'js/share.js', 'js/ratings.js', 'js/shelf.js', 'data/history.js', 'js/history.js', 'favicon.svg'];
+  'js/search.js', 'js/forms.js', 'js/share.js', 'js/ratings.js', 'js/shelf.js', 'js/qr.js', 'js/session.js', 'data/history.js', 'js/history.js', 'favicon.svg'];
 const VERSION = {};
 for (const a of ASSETS) VERSION[a] = hashOf(a);
 const asset = (p) => '/' + p + '?v=' + VERSION[p];
@@ -117,7 +117,8 @@ const PAGE_SCRIPTS = {
   recipe: ['js/share.js'],
   mixer: ['js/share.js'],
   quiz: ['js/share.js'],
-  history: ['js/history.js']
+  history: ['js/history.js'],
+  session: ['js/qr.js', 'js/session.js']
 };
 
 /* ------------------------------------------------------------------ */
@@ -589,7 +590,7 @@ function writeSearchIndex() {
     }
     const pages = [['flavors', 'allFlavors', 'flavorsDescription'], ['brands', 'brands', 'brandsDescription'], ['collections', 'collections', 'collectionsDescription'], ['mixes', 'mixes', 'mixesDescription'],
       ['compare', 'compare', 'compareDescription'], ['mixer', 'mixer', 'mixerDescription'], ['quiz', 'quiz', 'quizDescription'], ['guide', 'guide', 'guideDescription'],
-      ['glossary', 'glossary', 'glossaryDescription'], ['gear', 'gear', 'gearDescription'], ['about', 'about', 'aboutDescription'], ['top', 'top', 'topDescription'], ['tips', 'tips', 'tipsDescription'], ['history', 'history', 'historyDescription'],
+      ['glossary', 'glossary', 'glossaryDescription'], ['gear', 'gear', 'gearDescription'], ['about', 'about', 'aboutDescription'], ['top', 'top', 'topDescription'], ['tips', 'tips', 'tipsDescription'], ['session', 'session', 'sessionDescription'], ['history', 'history', 'historyDescription'],
       ['suggest', 'suggest', 'suggestDescription'], ['privacy', 'privacy', 'privacyDescription'], ['terms', 'terms', 'termsDescription']];
     V.historyChapters().forEach((ch, i) => {
       add('page', (i + 1) + '. ' + MSP.L(ch.title), MSP.L(ch.lead), V.chapterUrl(ch), '', both(ch.title).concat(ch.sections.flatMap((x) => both(x.h)), [MSP.strings.bs.nav.history, MSP.strings.en.nav.history]));

@@ -508,7 +508,7 @@
                 '<li><span class="rbadge">' + esc(t('mixes.layoutLabel')) + ': ' + esc(t('mixes.layout.' + m.layout)) + '</span></li>' +
                 m.tags.map(function (x) { return '<li class="tag">' + esc(MSP.tagLabel(x)) + '</li>'; }).join('') +
               '</ul>' +
-              '<p class="rhero__actions anim-in" style="--i:5"><a class="btn btn--primary" href="' + esc(V.recipeMixerUrl(m)) + '">' + icon('mix') + '<span>' + esc(t('mixes.openMixer')) + '</span></a>' + V.shareButton('recipe', m.id) + '</p>' +
+              '<p class="rhero__actions anim-in" style="--i:5"><a class="btn btn--primary" href="' + esc(V.recipeMixerUrl(m)) + '">' + icon('mix') + '<span>' + esc(t('mixes.openMixer')) + '</span></a>' + V.shareButton('recipe', m.id) + '<a class="btn btn--ghost" href="' + esc(V.sessionUrl(m.parts.map(function (p) { return [p.flavor, p.pct]; }))) + '">' + icon('camera') + '<span>' + esc(t('session.cta')) + '</span></a></p>' +
               V.rateWidget('recipe', m.id, L(m.name), 6) +
             '</div>' +
             '<div class="rhero__stage">' +

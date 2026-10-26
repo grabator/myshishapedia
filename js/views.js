@@ -26,11 +26,11 @@
     bs: { home: '', flavor: 'okus', mixer: 'mikser', quiz: 'kviz', guide: 'vodic', glossary: 'rjecnik', term: 'rjecnik', gear: 'oprema', about: 'o-nama', notfound: '404',
       collections: 'kolekcije', collection: 'kolekcije', compare: 'poredjenje', comparePair: 'poredjenje', mixes: 'recepti', recipe: 'recepti',
       privacy: 'privatnost', terms: 'uslovi', suggest: 'predlozi-okus', report: 'prijavi-gresku', flavors: 'okusi', search: 'pretraga',
-      brands: 'brendovi', brand: 'brendovi', top: 'najbolje-ocijenjeno', shelf: 'moja-polica', tips: 'savjeti', history: 'evolucija-nargile', chapter: 'evolucija-nargile' },
+      brands: 'brendovi', brand: 'brendovi', top: 'najbolje-ocijenjeno', shelf: 'moja-polica', session: 'slika-sesije', tips: 'savjeti', history: 'evolucija-nargile', chapter: 'evolucija-nargile' },
     en: { home: '', flavor: 'flavor', mixer: 'mixer', quiz: 'quiz', guide: 'guide', glossary: 'glossary', term: 'glossary', gear: 'gear', about: 'about', notfound: '404',
       collections: 'collections', collection: 'collections', compare: 'compare', comparePair: 'compare', mixes: 'mixes', recipe: 'mixes',
       privacy: 'privacy', terms: 'terms', suggest: 'suggest-flavor', report: 'report-issue', flavors: 'flavors', search: 'search',
-      brands: 'brands', brand: 'brands', top: 'top-rated', shelf: 'my-shelf', tips: 'tips', history: 'hookah-history', chapter: 'hookah-history' }
+      brands: 'brands', brand: 'brands', top: 'top-rated', shelf: 'my-shelf', session: 'session-photo', tips: 'tips', history: 'hookah-history', chapter: 'hookah-history' }
   };
   V.SEG = SEG;
 
@@ -54,6 +54,10 @@
     return V.urlFor(lang || MSP.lang, 'term', V.termSlug(g, lang));
   };
 
+  /** Slika sesije sa unaprijed izabranim okusima: parts = [[idOkusa, postotak], ...]. */
+  V.sessionUrl = function (parts, lang) {
+    return V.urlFor(lang || MSP.lang, 'session') + '?m=' + parts.map(function (p) { return encodeURIComponent(p[0]) + ':' + p[1]; }).join(',');
+  };
   V.flavorUrl = function (f, lang) { return V.urlFor(lang || MSP.lang, 'flavor', f.id); };
 
   V.guideStepUrl = function (n, lang) {
@@ -130,6 +134,11 @@
     mail: '<rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m4 7 8 6 8-6"/>',
     jar: '<rect x="7.5" y="2.5" width="9" height="3.5" rx="1"/><path d="M7 6h10v1.2c1.2.9 2 2.3 2 3.8V19a2.5 2.5 0 0 1-2.5 2.5h-9A2.5 2.5 0 0 1 5 19v-8c0-1.5.8-2.9 2-3.8z"/><path class="icon__fill" d="M7.5 12.5h9V19a.8.8 0 0 1-.8.8H8.3a.8.8 0 0 1-.8-.8z"/>',
     check: '<path d="m5 12.5 4.5 4.5L19 7.5"/>',
+    camera: '<path d="M4 8.5A2.5 2.5 0 0 1 6.5 6h1.8l1.4-2h4.6l1.4 2h1.8A2.5 2.5 0 0 1 20 8.5v9a2.5 2.5 0 0 1-2.5 2.5h-11A2.5 2.5 0 0 1 4 17.5z"/><circle cx="12" cy="13" r="3.6"/>',
+    image: '<rect x="3.5" y="4.5" width="17" height="15" rx="2.5"/><circle cx="9" cy="10" r="1.8"/><path d="m4 17 4.5-4.5 3.5 3.5 2.5-2.5 5.5 5.5"/>',
+    plus: '<path d="M12 5v14M5 12h14"/>',
+    trash: '<path d="M4.5 7h15M9.5 7V4.5h5V7M6.5 7l1 13h9l1-13"/>',
+    move: '<path d="M12 3v18M3 12h18M12 3l-2.5 2.5M12 3l2.5 2.5M12 21l-2.5-2.5M12 21l2.5-2.5M3 12l2.5-2.5M3 12l2.5 2.5M21 12l-2.5-2.5M21 12l-2.5 2.5"/>',
     chevronDown: '<path d="m6 9 6 6 6-6"/>',
     info: '<circle cx="12" cy="12" r="8.5"/><path d="M12 11v5.5M12 7.6v.1"/>',
     clock: '<circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/>',
@@ -609,7 +618,8 @@
       { key: 'compare', page: 'compare', match: ['compare', 'comparePair'] },
       { key: 'mixes', page: 'mixes', match: ['mixes', 'recipe'] },
       { key: 'top', page: 'top', match: ['top'] },
-      { key: 'shelf', page: 'shelf', match: ['shelf'] }
+      { key: 'shelf', page: 'shelf', match: ['shelf'] },
+      { key: 'session', page: 'session', match: ['session'] }
     ] },
     { key: 'mixer', page: 'mixer', match: ['mixer'] },
     { key: 'quiz', page: 'quiz', match: ['quiz'] },
@@ -661,7 +671,8 @@
   var MENU_LISTS = [
     { key: 'groupDiscover', items: [
       { n: NAV[0].items[2], color: '#ffb547' }, { n: NAV[0].items[3], color: '#e8457a' },
-      { n: NAV[0].items[4], color: '#9b6cf0' }, { n: NAV[0].items[5], color: '#f2c230' }
+      { n: NAV[0].items[4], color: '#9b6cf0' }, { n: NAV[0].items[5], color: '#f2c230' },
+      { n: NAV[0].items[7], color: '#ff6fae' }
     ] },
     { key: 'groupHookah', items: [
       { n: NAV[3].items[0], color: '#3fc1c9' }, { n: NAV[3].items[3], color: '#2fae78' },
@@ -803,7 +814,7 @@
     var year = desc.year || new Date().getFullYear();
     var email = (cfg && cfg.AUTHOR_EMAIL) || '';
     var name = (cfg && cfg.AUTHOR_NAME) || 'Graba';
-    var links = ['flavors', 'brands', 'collections', 'compare', 'mixes', 'top', 'shelf', 'mixer', 'quiz', 'guide', 'tips', 'history', 'glossary', 'gear', 'about'].map(function (p) {
+    var links = ['flavors', 'brands', 'collections', 'compare', 'mixes', 'top', 'shelf', 'session', 'mixer', 'quiz', 'guide', 'tips', 'history', 'glossary', 'gear', 'about'].map(function (p) {
       return '<li><a href="' + V.url(p) + '">' + esc(t('nav.' + (p === 'flavors' ? 'allFlavors' : p))) + '</a></li>';
     }).join('');
     return (
@@ -1917,6 +1928,7 @@
                 '<button type="button" class="btn btn--primary" id="mix-surprise">' + icon('spark') + '<span>' + esc(t('mixer.surprise')) + '</span></button>' +
                 '<button type="button" class="btn btn--ghost" id="mix-share">' + icon('link') + '<span>' + esc(t('share.copyLink')) + '</span></button>' +
                 V.shareButton('mixer', '', 'btn--ghost') +
+                '<a class="btn btn--ghost" id="mix-session" href="' + esc(V.sessionUrl([[a.id, m.ratio], [b.id, 100 - m.ratio]])) + '">' + icon('camera') + '<span>' + esc(t('session.cta')) + '</span></a>' +
                 '<span class="mix__copied" id="mix-copied" aria-live="polite"></span>' +
               '</div>' +
             '</div>' +
@@ -2242,7 +2254,7 @@
         out.description = t('meta.aboutDescription');
         break;
       case 'privacy': case 'terms': case 'suggest': case 'report': case 'flavors': case 'search': case 'brands': case 'brand': case 'top':
-      case 'shelf': case 'tips':
+      case 'shelf': case 'tips': case 'session':
         var extra = V.pageExtra(desc, crumbs, cfg);
         out.main = extra.main;
         out.title = extra.title;

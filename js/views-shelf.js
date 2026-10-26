@@ -287,4 +287,89 @@
       '</div></section>'
     );
   };
+
+  /* ================================================================== */
+  /* Slika sesije (editor i crtanje su u js/session.js)                  */
+  /* ================================================================== */
+
+  /**
+   * Okvir stranice: lijevo pregled slike (canvas), desno tri koraka (fotografija, miks, izgled).
+   * Okuse za pretragu js/session.js uzima iz data/flavors.js koji je učitan na svakoj stranici.
+   */
+  V.pageSession = function (crumbs) {
+    function field(label, inner, cls) { return '<div class="sfield' + (cls ? ' ' + cls : '') + '"><span class="sfield__label">' + esc(label) + '</span>' + inner + '</div>'; }
+    function seg(name, opts) {
+      return '<div class="segctl ses-seg" role="group" data-seg="' + name + '">' + opts.map(function (o, i) {
+        return '<button type="button" class="seg-btn" data-v="' + o[0] + '" aria-pressed="' + (i === 0) + '">' + esc(t('session.' + o[1])) + '</button>';
+      }).join('') + '</div>';
+    }
+    function check(id, key, on) {
+      return '<label class="ses-check"><input type="checkbox" id="' + id + '"' + (on ? ' checked' : '') + '><span>' + esc(t('session.' + key)) + '</span></label>';
+    }
+    return (
+      V.pageHero({ id: 'session-title', eyebrow: t('session.eyebrow'), title: t('session.title'), lead: t('session.lead'), crumbs: crumbs }) +
+      '<section class="fsec fsec--flush"><div class="container ses" id="ses">' +
+        '<p class="ses__shared" id="ses-shared" hidden>' + icon('info') + '<span>' + esc(t('session.shared')) + '</span></p>' +
+        '<div class="ses__grid">' +
+          // pregled
+          '<div class="ses__preview">' +
+            '<div class="ses__stage" id="ses-stage" data-format="post">' +
+              '<canvas class="ses__canvas" id="ses-canvas" role="img" aria-label="' + esc(t('session.preview')) + '"></canvas>' +
+              '<p class="ses__empty" id="ses-empty" hidden>' + esc(t('session.empty')) + '</p>' +
+            '</div>' +
+            '<p class="ses__hint">' + icon('move') + '<span>' + esc(t('session.dragHint')) + '</span> <button type="button" class="ses__link" id="ses-reset">' + esc(t('session.reset')) + '</button></p>' +
+            '<div class="ses__actions">' +
+              '<button type="button" class="btn btn--primary" id="ses-share" hidden>' + icon('arrowUpRight') + '<span>' + esc(t('session.share')) + '</span></button>' +
+              '<button type="button" class="btn btn--primary" id="ses-save">' + icon('image') + '<span>' + esc(t('session.save')) + '</span></button>' +
+              '<button type="button" class="btn btn--ghost" id="ses-copy">' + icon('link') + '<span>' + esc(t('session.copyLink')) + '</span></button>' +
+            '</div>' +
+            '<p class="ses__status" id="ses-status" role="status" aria-live="polite"></p>' +
+          '</div>' +
+          // koraci
+          '<div class="ses__panel">' +
+            '<div class="ses-step"><h2 class="ses-step__h"><span>1</span>' + esc(t('session.stepPhoto')) + '</h2>' +
+              '<div class="ses-photo">' +
+                '<label class="btn btn--ghost ses-photo__pick">' + icon('image') + '<span id="ses-pick-txt">' + esc(t('session.pickPhoto')) + '</span><input type="file" id="ses-file" accept="image/*" class="sr-only"></label>' +
+                '<label class="btn btn--ghost ses-photo__cam">' + icon('camera') + '<span>' + esc(t('session.takePhoto')) + '</span><input type="file" id="ses-cam" accept="image/*" capture="environment" class="sr-only"></label>' +
+                '<button type="button" class="ses__link" id="ses-photo-x" hidden>' + esc(t('session.removePhoto')) + '</button>' +
+              '</div>' +
+              '<label class="ses-zoom" id="ses-zoomwrap" hidden><span>' + esc(t('session.zoom')) + '</span><input type="range" class="range" id="ses-zoom" min="100" max="250" step="1" value="100"></label>' +
+              '<p class="ses-note">' + esc(t('session.photoHint')) + '</p>' +
+              '<p class="ses-note ses-note--lock">' + icon('info') + '<span>' + esc(t('session.privacy')) + '</span></p>' +
+            '</div>' +
+            '<div class="ses-step"><h2 class="ses-step__h"><span>2</span>' + esc(t('session.stepMix')) + '</h2>' +
+              '<div class="ses-total"><label for="ses-total">' + esc(t('session.total')) + '</label>' +
+                '<span class="ses-num"><input type="number" id="ses-total" inputmode="decimal" min="1" max="60" step="1" value="20"><em>' + esc(t('session.grams')) + '</em></span>' +
+                '<button type="button" class="ses__link" id="ses-equal">' + esc(t('session.equal')) + '</button></div>' +
+              '<ul class="ses-rows" id="ses-rows" role="list"></ul>' +
+              '<div class="ses-add" id="ses-add">' +
+                '<div class="search search--small ses-add__search"><span class="search__icon" aria-hidden="true">' + icon('search') + '</span>' +
+                  '<label class="sr-only" for="ses-q">' + esc(t('session.addFlavor')) + '</label>' +
+                  '<input class="search__input" id="ses-q" type="search" autocomplete="off" spellcheck="false" placeholder="' + esc(t('session.searchPh')) + '" role="combobox" aria-expanded="false" aria-controls="ses-results" aria-autocomplete="list">' +
+                '</div>' +
+                '<ul class="ses-results" id="ses-results" role="listbox" hidden></ul>' +
+                '<details class="ses-custom"><summary>' + esc(t('session.addCustom')) + '</summary>' +
+                  '<div class="ses-custom__row"><input type="text" id="ses-cb" maxlength="24" placeholder="' + esc(t('session.customBrand')) + '" aria-label="' + esc(t('session.customBrand')) + '">' +
+                  '<input type="text" id="ses-cn" maxlength="32" placeholder="' + esc(t('session.customName')) + '" aria-label="' + esc(t('session.customName')) + '">' +
+                  '<button type="button" class="btn btn--ghost" id="ses-cadd">' + icon('plus') + '<span>' + esc(t('session.customAdd')) + '</span></button></div>' +
+                '</details>' +
+              '</div>' +
+              '<p class="ses-note" id="ses-max" hidden>' + esc(t('session.max')) + '</p>' +
+            '</div>' +
+            '<div class="ses-step"><h2 class="ses-step__h"><span>3</span>' + esc(t('session.stepLook')) + '</h2>' +
+              field(t('session.format'), seg('format', [['post', 'fPost'], ['story', 'fStory'], ['square', 'fSquare']])) +
+              field(t('session.style'), seg('style', [['neon', 'sNeon'], ['glass', 'sGlass'], ['minimal', 'sMinimal']])) +
+              field(t('session.heading'), '<input type="text" class="ses-in" id="ses-head" maxlength="40" placeholder="' + esc(t('session.headingPh')) + '">') +
+              '<div class="ses-two">' +
+                field(t('session.coals'), '<span class="ses-num"><input type="number" id="ses-coals" inputmode="numeric" min="0" max="9" step="1" value="" placeholder="0"></span>') +
+                field(t('session.bowl'), '<input type="text" class="ses-in" id="ses-bowl" maxlength="28" placeholder="' + esc(t('session.bowlPh')) + '">') +
+              '</div>' +
+              field(t('session.extras'), check('ses-brand', 'showBrand', true) + check('ses-qr', 'showQr', true), 'sfield--checks') +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+        '<noscript><p class="shelf__nojs">' + esc(t('shelf.noJs')) + '</p></noscript>' +
+      '</div></section>'
+    );
+  };
 })(typeof window !== 'undefined' ? window : globalThis);

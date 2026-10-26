@@ -388,6 +388,8 @@
     if (mix.emB) { var eb = Field.getEmitter(mix.emB); if (eb) eb.rateMul = 0.4 + (1 - r) * 1.6; }
 
     main.querySelector('.mixer__stage').setAttribute('aria-label', t('mixer.stageLabel', { a: a.name, b: b.name }));
+    var ses = document.getElementById('mix-session');
+    if (ses) ses.href = V.sessionUrl([[a.id, mix.ratio], [b.id, 100 - mix.ratio]]);
     if (!opts.keepUrl) ctx.replaceUrl('?a=' + encodeURIComponent(a.id) + '&b=' + encodeURIComponent(b.id) + '&r=' + mix.ratio);
     document.title = t('meta.mixTitle', { a: a.name, b: b.name });
   }
