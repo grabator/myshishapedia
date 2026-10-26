@@ -782,6 +782,59 @@ function hostOf(url) {
   try { return new URL(url).origin; } catch { return ''; }
 }
 
+/*
+ * Adrese koje su nekad bile objavljene, a više ih nema (npr. par za poređenje koji se promijenio
+ * kad su dodani novi okusi), ne smiju vraćati 404: Google ih pamti. seo/published.json čuva svaku
+ * adresu koju je build ikad napravio; za nestale se pravi trajno preusmjerenje (301):
+ *   - poređenje "a-vs-b" -> alat za poređenje sa ista dva okusa (?a=&b=)
+ *   - ostalo -> najbliža nadređena stranica koja postoji (npr. /bs/okus/x/ -> /bs/okusi/), inače početna
+ */
+const PUBLISHED_FILE = path.join(ROOT, 'seo/published.json');
+// adrese koje je Search Console prijavio kao 404 prije nego što je ovaj spisak postojao
+const KNOWN_GONE = [
+  '/bs/poredjenje/adalya-blue-ice-vs-adalya-raspberry/',
+  '/bs/poredjenje/adalya-angel-lips-vs-adalya-double-melon/',
+  '/en/compare/adalya-angel-lips-vs-adalya-double-melon/',
+  '/en/compare/adalya-tynky-wynky-vs-fumari-white-gummi-bear/',
+  '/bs/poredjenje/adalya-angel-lips-vs-adalya-blue-ice/',
+  // parovi iz ranijih verzija podataka (izračunato iz git historije data/flavors.js)
+  '/bs/poredjenje/adalya-baku-nights-vs-al-fakher-double-apple/',
+  '/en/compare/adalya-baku-nights-vs-al-fakher-double-apple/',
+  '/bs/poredjenje/al-fakher-mint-vs-trifecta-twice-the-ice/',
+  '/en/compare/al-fakher-mint-vs-trifecta-twice-the-ice/',
+  '/bs/poredjenje/adalya-tynky-wynky-vs-fumari-white-gummi-bear/',
+  '/en/compare/adalya-tynky-wynky-vs-fumari-white-gummi-bear/',
+  '/bs/poredjenje/adalya-dubai-vs-adalya-mint/',
+  '/en/compare/adalya-dubai-vs-adalya-mint/'
+];
+
+function goneRedirects(rendered) {
+  const now = new Set(rendered.filter((r) => r.desc.page !== 'notfound').map((r) => r.desc.url));
+  let prev = [];
+  try { prev = JSON.parse(fs.readFileSync(PUBLISHED_FILE, 'utf8')); } catch (e) { prev = []; }
+  const all = [...new Set(prev.concat(KNOWN_GONE, [...now]))].sort();
+  fs.writeFileSync(PUBLISHED_FILE, JSON.stringify(all, null, 0).replace(/","/g, '",\n"') + '\n');
+  const lines = [];
+  for (const url of all) {
+    if (now.has(url)) continue;
+    const m = /^\/(bs|en)\/([^/]+)\/([a-z0-9-]+)-vs-([a-z0-9-]+)\/$/.exec(url);
+    let to = null;
+    if (m && V.flavorById(m[3]) && V.flavorById(m[4]) && V.urlFor(m[1], 'compare') === '/' + m[1] + '/' + m[2] + '/') {
+      to = V.urlFor(m[1], 'compare') + '?a=' + m[3] + '&b=' + m[4];
+    } else {
+      const lang = url.split('/')[1];
+      let up = url;
+      while (up.split('/').length > 3 && !now.has(up)) up = up.replace(/[^/]+\/$/, '');
+      to = now.has(up) ? up : (LANGS.includes(lang) ? '/' + lang + '/' : '/');
+      // /bs/okus/x/ nema roditelja /bs/okus/: tada lista svih okusa
+      if (/^\/(bs|en)\/$/.test(to) && /\/(okus|flavor)\//.test(url)) to = V.urlFor(lang, 'flavors');
+    }
+    lines.push(url + '  ' + to + '  301');
+  }
+  if (lines.length > 1800) warnings.push('_redirects: ' + lines.length + ' preusmjerenja nestalih adresa (Cloudflare dozvoljava 2000)');
+  return lines.length ? ['', '# Nekad objavljene adrese kojih više nema (seo/published.json)'].concat(lines) : [];
+}
+
 /* ------------------------------------------------------------------ */
 /* Cloudflare Pages: _headers i _redirects                             */
 /* ------------------------------------------------------------------ */
@@ -804,7 +857,7 @@ function inlineScriptHashes() {
   return [...hashes];
 }
 
-function writeCloudflareFiles() {
+function writeCloudflareFiles(rendered) {
   const form = hostOf(CFG.FORM_ENDPOINT);
   const analytics = !!CFG.ANALYTICS_TOKEN;
   const csp = [
@@ -886,7 +939,7 @@ function writeCloudflareFiles() {
     '/brendovi/*  /bs/brendovi/:splat  301',
     '/brands/*  /en/brands/:splat  301'
   ];
-  writeFile('_redirects', r.join('\n') + '\n');
+  writeFile('_redirects', r.concat(goneRedirects(rendered)).join('\n') + '\n');
 
   // Pages Functions rade samo za /api/* (ostalo je statično i ne troši zahtjeve Functionsa).
   writeFile('_routes.json', JSON.stringify({ version: 1, include: ['/api/*'], exclude: [] }, null, 2) + '\n');
@@ -1102,7 +1155,7 @@ function build() {
 
   writeSearchIndex();
   writeRatingsIds();
-  writeCloudflareFiles();
+  writeCloudflareFiles(rendered);
   writePwaFiles();
 
   checkData();
