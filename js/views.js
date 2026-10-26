@@ -1145,7 +1145,10 @@
             searchForm('search-input', 'home.searchLabel', 'home.searchPlaceholder') +
             nowChip(now) +
           '</div>' +
-          '<div class="hero__stage">' + V.hookahStage(Object.assign({}, th, { hk: Object.assign({}, th.hk, { water: V.themeFor(now).hk.water }) })) + '</div>' +
+          // fotografija nargile; iz njene glave ide dim (js/intro.js), data-bowl = položaj glave na slici
+          '<figure class="hero__photo" data-bowl="0.502,0.405">' +
+            '<img src="/hero/hookah.webp" srcset="/hero/hookah-640.webp 640w, /hero/hookah.webp 960w" sizes="(min-width: 1100px) 34vw, 100vw" width="960" height="1200" alt="' + esc(t('home.photoAlt')) + '" decoding="async">' +
+          '</figure>' +
         '</div>' +
       '</section>' +
       V.recentStrip() +

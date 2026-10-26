@@ -634,6 +634,7 @@
         contactTitle: 'Zainteresovani?',
         contactText: 'Javite se i napravimo vaš meni. Prvo pogledajte kako izgleda na demo lounge-u.'
       },
+      intro: { skip: 'Preskoči' },
       pwa: {
         install: 'Instaliraj aplikaciju',
         installSub: 'Ikona na telefonu, radi i bez interneta',
@@ -931,6 +932,7 @@
       },
 
       home: {
+        photoAlt: 'Nargila sa crnom vazom i četiri crijeva na drvenom stolu, u bašti',
         eyebrow: 'Enciklopedija okusa za nargilu',
         titleA: 'Okus,',
         titleEm: 'rastavljen',
@@ -1856,6 +1858,7 @@
         contactTitle: 'Interested?',
         contactText: 'Get in touch and we will build your menu. First, see how it looks on the demo lounge.'
       },
+      intro: { skip: 'Skip' },
       pwa: {
         install: 'Install the app',
         installSub: 'An icon on your phone, works offline too',
@@ -2153,6 +2156,7 @@
       },
 
       home: {
+        photoAlt: 'A hookah with a black base and four hoses on a wooden table in a garden',
         eyebrow: 'The hookah flavor encyclopedia',
         titleA: 'Flavor,',
         titleEm: 'broken down',

@@ -91,7 +91,7 @@ function hashOf(file) {
 
 const ASSETS = ['css/style.css', 'js/strings.js', 'data/brands.js', 'data/flavors.js', 'data/glossary.js', 'data/guide.js', 'data/gear.js', 'data/quiz.js',
   'data/mixes.js', 'js/illustrations.js', 'js/effects.js', 'js/views.js', 'js/views-more.js', 'js/views-extra.js', 'js/pages.js', 'js/app.js',
-  'js/search.js', 'js/forms.js', 'js/share.js', 'js/ratings.js', 'js/shelf.js', 'js/qr.js', 'js/journal.js', 'js/session.js', 'js/pwa.js', 'data/lounges.js', 'js/lounge.js', 'data/history.js', 'js/history.js', 'favicon.svg'];
+  'js/search.js', 'js/forms.js', 'js/share.js', 'js/ratings.js', 'js/shelf.js', 'js/qr.js', 'js/journal.js', 'js/session.js', 'js/pwa.js', 'js/intro.js', 'data/lounges.js', 'js/lounge.js', 'data/history.js', 'js/history.js', 'favicon.svg'];
 const VERSION = {};
 for (const a of ASSETS) VERSION[a] = hashOf(a);
 const asset = (p) => '/' + p + '?v=' + VERSION[p];
@@ -123,7 +123,8 @@ const PAGE_SCRIPTS = {
   history: ['js/history.js'],
   session: ['js/qr.js', 'js/journal.js', 'js/session.js'],
   journal: ['js/journal.js'],
-  lounge: ['js/lounge.js']
+  lounge: ['js/lounge.js'],
+  home: ['js/intro.js']
 };
 
 /* ------------------------------------------------------------------ */
@@ -182,6 +183,7 @@ if(g('localStorage','msp-age-ok')==='1')c+=' age-ok';
 if((g('localStorage','msp-shelf')||'[]').length>2)c+=' has-shelf';
 if((g('localStorage','msp-recent')||'[]').length>2)c+=' has-recent';
 if(c.indexOf('has-')>0||/"flavor:[^"]+":[45]/.test(g('localStorage','msp-ratings')||''))c+=' has-reco';
+if(/^\\/(bs|en)\\/$/.test(location.pathname)&&!(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches))c+=' intro-on';
 if(!g('sessionStorage','msp-seen')){c+=' first-visit';s('sessionStorage','msp-seen','1')}
 var v=g('sessionStorage','msp-veil');if(v){c+=' arrive';d.style.setProperty('--arrive-veil',v);try{sessionStorage.removeItem('msp-veil')}catch(e){}}
 d.className+=c;s('localStorage','msp-lang',d.lang)})();`;

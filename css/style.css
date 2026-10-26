@@ -8654,3 +8654,34 @@ a.smx__card:hover { border-color: var(--c-line-strong); transform: translateY(-2
 .li-contact h2 { font-family: var(--font-display); font-size: 1.5rem; font-weight: 700; }
 .li-contact p { color: var(--c-muted); }
 .li-contact__btns { display: flex; flex-wrap: wrap; gap: 10px; }
+
+/* ------------------------------------------------------------------ */
+/* Početna: fotografija nargile i uvodna animacija (js/intro.js)       */
+/* ------------------------------------------------------------------ */
+.hero__photo { position: relative; margin: 0; justify-self: center; width: min(100%, 560px); aspect-ratio: 4 / 5; }
+.hero__photo img { display: block; width: 100%; height: 100%; object-fit: cover; -webkit-mask-image: radial-gradient(closest-side, #000 45%, rgba(0,0,0,0.6) 72%, transparent 100%); mask-image: radial-gradient(closest-side, #000 45%, rgba(0,0,0,0.6) 72%, transparent 100%); transition: filter 1.2s ease, transform 1.6s cubic-bezier(0.2, 0.8, 0.2, 1); }
+.hero__smoke { position: absolute; z-index: 2; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+@media (min-width: 1100px) { .hero__photo { width: 100%; max-height: calc(100svh - var(--header-h) - 40px); } }
+/* mobitel i tablet: nargila u donjoj polovini prvog ekrana, iza teksta, da se vidi odmah */
+@media (max-width: 1099px) {
+  .hero--home { position: relative; min-height: 100vh; min-height: 100svh; }
+  .hero--home .hero__inner { position: static; }
+  .hero--home .hero__copy { position: relative; z-index: 1; }
+  .hero__photo { position: absolute; z-index: 0; left: 0; right: 0; top: 52svh; bottom: 0; width: auto; margin: 0; aspect-ratio: auto; }
+  .hero__photo img { object-position: 50% 33%; -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 14%, #000 72%, transparent 100%), radial-gradient(70% 90% at 50% 40%, #000 55%, transparent 100%); -webkit-mask-composite: source-in; mask-image: linear-gradient(180deg, transparent 0, #000 14%, #000 72%, transparent 100%), radial-gradient(70% 90% at 50% 40%, #000 55%, transparent 100%); mask-composite: intersect; }
+}
+
+/* dok traje uvod: naslov sakriven, nargila u mraku; rezerva ako JavaScript zakaže: sve se pokaže samo */
+.intro-on .hero--home .hero__copy { opacity: 0; animation: intro-failsafe 0.6s ease 9s forwards; }
+.intro-on .hero__photo img { filter: brightness(0.18) saturate(0.6); transform: scale(1.04); animation: intro-failsafe-img 0.6s ease 9s forwards; }
+.hero__photo img { filter: brightness(0.82) contrast(1.06) saturate(0.95); }
+.intro-done .hero--home .hero__copy { opacity: 1; transition: opacity 0.9s ease 0.15s; }
+.intro-done .hero--home .hero__copy .line__in, .intro-done .hero--home .hero__copy .anim-in { animation-delay: calc(var(--i, 0) * 90ms + 0.2s); }
+@keyframes intro-failsafe { to { opacity: 1; } }
+@keyframes intro-failsafe-img { to { filter: brightness(0.82) contrast(1.06) saturate(0.95); transform: none; } }
+.intro { position: fixed; inset: 0; z-index: 450; cursor: pointer; transition: opacity 0.8s ease; }
+.intro canvas { display: block; width: 100%; height: 100%; }
+.intro.is-out { opacity: 0; pointer-events: none; }
+.intro__skip { position: fixed; z-index: 451; right: max(18px, env(safe-area-inset-right)); bottom: max(18px, env(safe-area-inset-bottom)); padding: 10px 18px; border-radius: 999px; border: 1px solid rgba(255, 255, 255, 0.25); background: rgba(14, 10, 8, 0.5); color: #f4ebdf; font: inherit; font-size: 0.875rem; font-weight: 700; cursor: pointer; -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
+.intro__skip:focus-visible { outline: 2px solid #f2a33c; outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) { .intro-on .hero--home .hero__copy { opacity: 1; animation: none; } .intro-on .hero__photo img { filter: none; transform: none; animation: none; } }
