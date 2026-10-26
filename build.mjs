@@ -50,6 +50,8 @@ const SOURCES = [
   'js/views-more.js',
   'js/views-extra.js',
   'js/views-shelf.js',
+  'data/lounges.js',
+  'js/views-lounge.js',
   'js/views-history.js'
 ];
 
@@ -89,7 +91,7 @@ function hashOf(file) {
 
 const ASSETS = ['css/style.css', 'js/strings.js', 'data/brands.js', 'data/flavors.js', 'data/glossary.js', 'data/guide.js', 'data/gear.js', 'data/quiz.js',
   'data/mixes.js', 'js/illustrations.js', 'js/effects.js', 'js/views.js', 'js/views-more.js', 'js/views-extra.js', 'js/pages.js', 'js/app.js',
-  'js/search.js', 'js/forms.js', 'js/share.js', 'js/ratings.js', 'js/shelf.js', 'js/qr.js', 'js/journal.js', 'js/session.js', 'js/pwa.js', 'data/history.js', 'js/history.js', 'favicon.svg'];
+  'js/search.js', 'js/forms.js', 'js/share.js', 'js/ratings.js', 'js/shelf.js', 'js/qr.js', 'js/journal.js', 'js/session.js', 'js/pwa.js', 'data/lounges.js', 'js/lounge.js', 'data/history.js', 'js/history.js', 'favicon.svg'];
 const VERSION = {};
 for (const a of ASSETS) VERSION[a] = hashOf(a);
 const asset = (p) => '/' + p + '?v=' + VERSION[p];
@@ -102,7 +104,8 @@ const PAGE_DATA = {
   glossary: ['data/glossary.js'],
   home: ['data/mixes.js'],
   recipe: ['data/mixes.js'],
-  history: ['data/history.js']
+  history: ['data/history.js'],
+  lounge: ['data/lounges.js']
 };
 
 // Dodatne skripte samo gdje trebaju.
@@ -119,7 +122,8 @@ const PAGE_SCRIPTS = {
   quiz: ['js/share.js'],
   history: ['js/history.js'],
   session: ['js/qr.js', 'js/journal.js', 'js/session.js'],
-  journal: ['js/journal.js']
+  journal: ['js/journal.js'],
+  lounge: ['js/lounge.js']
 };
 
 /* ------------------------------------------------------------------ */
@@ -268,6 +272,8 @@ const INDEX_PAIRS = new Set(CFG.INDEX_COMPARE_PAIRS || []);
 function isIndexable(desc) {
   if (desc.page === 'notfound' || V.NOINDEX_PAGES.indexOf(desc.page) !== -1) return false;
   if (desc.page === 'comparePair') return INDEX_PAIRS.has(desc.pair.slug);
+  // izmišljeni (demo) lounge ne smije u Google kao pravi kafić
+  if (desc.page === 'lounge') return !desc.lounge.demo;
   return true;
 }
 
@@ -359,11 +365,11 @@ ${LOADER}
 <div class="veil-arrive" aria-hidden="true"></div>
 <div class="lounge" aria-hidden="true"><span class="lounge__glow lounge__glow--a"></span><span class="lounge__glow lounge__glow--b"></span></div>
 <div class="app" id="app">
-<header class="site-header" id="site-header">${V.header(desc)}</header>
+<header class="site-header" id="site-header">${desc.page === 'lounge' ? V.loungeHeader(desc) : V.header(desc)}</header>
 <main class="site-main" id="main" tabindex="-1">
 ${info.main}
 </main>
-<footer class="site-footer" id="site-footer">${V.footer(desc, CFG)}</footer>
+<footer class="site-footer" id="site-footer">${desc.page === 'lounge' ? V.loungeFooter(desc) : V.footer(desc, CFG)}</footer>
 </div>
 <div id="menu-root">${V.menu(desc)}</div>
 <div class="age-gate" id="age-gate">${V.ageGate()}</div>
@@ -463,6 +469,8 @@ function pageList() {
     for (const m of V.mixes()) list.push({ lang, page: 'recipe', id: m.id, recipe: m, url: V.urlFor(lang, 'recipe', m.slug[lang]) });
     for (const p of V.EXTRA_PAGES) list.push({ lang, page: p, url: V.urlFor(lang, p) });
     for (const b of V.brands()) list.push({ lang, page: 'brand', id: b.slug, brand: b, url: V.urlFor(lang, 'brand', b.slug) });
+    list.push({ lang, page: 'loungeInfo', url: V.urlFor(lang, 'loungeInfo') });
+    for (const lg of V.lounges()) list.push({ lang, page: 'lounge', id: lg.id, lounge: lg, url: V.urlFor(lang, 'lounge', lg.id) });
     list.push({ lang, page: 'notfound', url: '/' + lang + '/404.html', year: null });
   }
   return list;
@@ -592,7 +600,7 @@ function writeSearchIndex() {
     }
     const pages = [['flavors', 'allFlavors', 'flavorsDescription'], ['brands', 'brands', 'brandsDescription'], ['collections', 'collections', 'collectionsDescription'], ['mixes', 'mixes', 'mixesDescription'],
       ['compare', 'compare', 'compareDescription'], ['mixer', 'mixer', 'mixerDescription'], ['quiz', 'quiz', 'quizDescription'], ['guide', 'guide', 'guideDescription'],
-      ['glossary', 'glossary', 'glossaryDescription'], ['gear', 'gear', 'gearDescription'], ['about', 'about', 'aboutDescription'], ['top', 'top', 'topDescription'], ['tips', 'tips', 'tipsDescription'], ['session', 'session', 'sessionDescription'], ['history', 'history', 'historyDescription'],
+      ['glossary', 'glossary', 'glossaryDescription'], ['gear', 'gear', 'gearDescription'], ['about', 'about', 'aboutDescription'], ['top', 'top', 'topDescription'], ['tips', 'tips', 'tipsDescription'], ['session', 'session', 'sessionDescription'], ['loungeInfo', 'loungeInfo', 'loungeInfoDescription'], ['history', 'history', 'historyDescription'],
       ['suggest', 'suggest', 'suggestDescription'], ['privacy', 'privacy', 'privacyDescription'], ['terms', 'terms', 'termsDescription']];
     V.historyChapters().forEach((ch, i) => {
       add('page', (i + 1) + '. ' + MSP.L(ch.title), MSP.L(ch.lead), V.chapterUrl(ch), '', both(ch.title).concat(ch.sections.flatMap((x) => both(x.h)), [MSP.strings.bs.nav.history, MSP.strings.en.nav.history]));

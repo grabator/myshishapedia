@@ -745,6 +745,26 @@ pa "put dima" preko globusa kroz 14 stanica, muzej nargila, nazivi, evolucija di
 - Slika za dijeljenje: `static/og-history.jpg` (1200x630, na engleskom).
 - Ilustracije nargila i gradova su crteži, ne historijske slike (to piše i na stranici).
 
+## Lounge meni (meni nargila za kafiće)
+
+Svaki lounge ima svoju stranicu: `/bs/lounge/<id>/` i `/en/lounge/<id>/`. Gost vidi samo lounge (bez menija sajta):
+pretragu, vrste okusa, filtere, poredak, 16 okusa po stranici, "Najtraženije večeras", kućne mikseve,
+"Šta pušiti večeras?" (sam ili sa društvom), stranicu okusa sa "Ide najbolje sa" i dugme "Ovaj želim" (veliki ekran za konobara).
+Broj stola ide u adresu: `/bs/lounge/babylon/?sto=4`. Taj link ide u QR kod na stolu ili u postojeći meni kafića.
+
+Podaci su u `data/lounges.js`. Za novi lounge dodaj zapis (pogledaj Babylon):
+
+- `id` (dio adrese), `name`, `nameIn` (bosanski padeži: `loc` "u Babylonu", `gen` "ponuda Babylona")
+- `tagline`, `hours`, `price` na oba jezika, `colors` (glavna i tamnija boja)
+- `flavors`: id-jevi okusa iz `data/flavors.js`, uz `tag: 'top'`, `'new'` ili `'out'` (nema danas)
+- `top`: redoslijed za "Najtraženije večeras"; `mixes`: kućni miksevi `{ id, name, parts: [[idOkusa, postotak], ...] }`
+- `demo: true` samo za izmišljeni lounge (dobija oznaku "Demo" i ne ide u Google)
+
+Opisi, sastojci, preporuke i "zašto ide" se računaju sami iz podataka o okusima. Kad lounge javi promjenu
+(novi okus, nema okusa, cijena), mijenja se samo ovaj fajl, pa `node build.mjs` i push.
+
+Stranica za vlasnike kafića je "Za lounge-ove" (`/bs/za-lounge/`, `/en/for-lounges/`), link je u meniju pod "Nargila" i u footeru.
+
 ## Moja polica
 
 Lična kolekcija okusa, bez prijave. Čuva se samo u browseru i nikad se ne šalje.

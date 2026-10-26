@@ -26,11 +26,11 @@
     bs: { home: '', flavor: 'okus', mixer: 'mikser', quiz: 'kviz', guide: 'vodic', glossary: 'rjecnik', term: 'rjecnik', gear: 'oprema', about: 'o-nama', notfound: '404',
       collections: 'kolekcije', collection: 'kolekcije', compare: 'poredjenje', comparePair: 'poredjenje', mixes: 'recepti', recipe: 'recepti',
       privacy: 'privatnost', terms: 'uslovi', suggest: 'predlozi-okus', report: 'prijavi-gresku', flavors: 'okusi', search: 'pretraga',
-      brands: 'brendovi', brand: 'brendovi', top: 'najbolje-ocijenjeno', shelf: 'moja-polica', session: 'slika-sesije', journal: 'dnevnik-sesija', offline: 'bez-interneta', tips: 'savjeti', history: 'evolucija-nargile', chapter: 'evolucija-nargile' },
+      brands: 'brendovi', brand: 'brendovi', top: 'najbolje-ocijenjeno', shelf: 'moja-polica', session: 'slika-sesije', journal: 'dnevnik-sesija', offline: 'bez-interneta', lounge: 'lounge', loungeInfo: 'za-lounge', tips: 'savjeti', history: 'evolucija-nargile', chapter: 'evolucija-nargile' },
     en: { home: '', flavor: 'flavor', mixer: 'mixer', quiz: 'quiz', guide: 'guide', glossary: 'glossary', term: 'glossary', gear: 'gear', about: 'about', notfound: '404',
       collections: 'collections', collection: 'collections', compare: 'compare', comparePair: 'compare', mixes: 'mixes', recipe: 'mixes',
       privacy: 'privacy', terms: 'terms', suggest: 'suggest-flavor', report: 'report-issue', flavors: 'flavors', search: 'search',
-      brands: 'brands', brand: 'brands', top: 'top-rated', shelf: 'my-shelf', session: 'session-photo', journal: 'session-journal', offline: 'offline', tips: 'tips', history: 'hookah-history', chapter: 'hookah-history' }
+      brands: 'brands', brand: 'brands', top: 'top-rated', shelf: 'my-shelf', session: 'session-photo', journal: 'session-journal', offline: 'offline', lounge: 'lounge', loungeInfo: 'for-lounges', tips: 'tips', history: 'hookah-history', chapter: 'hookah-history' }
   };
   V.SEG = SEG;
 
@@ -647,7 +647,8 @@
       { key: 'glossary', page: 'glossary', match: ['glossary', 'term'] },
       { key: 'gear', page: 'gear', match: ['gear'] },
       { key: 'tips', page: 'tips', match: ['tips'] },
-      { key: 'history', page: 'history', match: ['history', 'chapter'] }
+      { key: 'history', page: 'history', match: ['history', 'chapter'] },
+      { key: 'loungeInfo', page: 'loungeInfo', match: ['loungeInfo', 'lounge'] }
     ] },
     { key: 'about', page: 'about', match: ['about'] }
   ];
@@ -696,7 +697,7 @@
     { key: 'groupHookah', items: [
       { n: NAV[3].items[0], color: '#3fc1c9' }, { n: NAV[3].items[3], color: '#2fae78' },
       { n: NAV[3].items[2], color: '#c58a52' }, { n: NAV[3].items[1], color: '#a99a8a' },
-      { n: NAV[3].items[4], color: '#e2541b' }
+      { n: NAV[3].items[4], color: '#e2541b' }, { n: NAV[3].items[5], color: '#e0b25e' }
     ] }
   ];
 
@@ -837,7 +838,7 @@
     var year = desc.year || new Date().getFullYear();
     var email = (cfg && cfg.AUTHOR_EMAIL) || '';
     var name = (cfg && cfg.AUTHOR_NAME) || 'Graba';
-    var links = ['flavors', 'brands', 'collections', 'compare', 'mixes', 'top', 'shelf', 'session', 'journal', 'mixer', 'quiz', 'guide', 'tips', 'history', 'glossary', 'gear', 'about'].map(function (p) {
+    var links = ['flavors', 'brands', 'collections', 'compare', 'mixes', 'top', 'shelf', 'session', 'journal', 'mixer', 'quiz', 'guide', 'tips', 'history', 'glossary', 'gear', 'loungeInfo', 'about'].map(function (p) {
       return '<li><a href="' + V.url(p) + '">' + esc(t('nav.' + (p === 'flavors' ? 'allFlavors' : p))) + '</a></li>';
     }).join('');
     return (
@@ -2200,6 +2201,7 @@
       case 'flavors': return [home, { name: t('nav.allFlavors'), url: V.url('flavors') }];
       case 'collection': case 'comparePair': case 'recipe': return V.crumbsMore(desc, home);
       case 'brand': return [home, { name: t('nav.brands'), url: V.url('brands') }, { name: desc.brand.name, url: V.brandUrl(desc.brand) }];
+      case 'lounge': return [home, { name: t('nav.loungeInfo'), url: V.url('loungeInfo') }, { name: desc.lounge.name, url: V.url('lounge', desc.lounge.id) }];
       default: return [home, { name: t('nav.' + desc.page), url: V.url(desc.page) }];
     }
   };
@@ -2276,6 +2278,16 @@
         out.title = t('meta.aboutTitle');
         out.description = t('meta.aboutDescription');
         break;
+      case 'lounge':
+        out.main = V.pageLounge(desc);
+        out.title = t('meta.loungeTitle', V.loungeNames(desc.lounge));
+        out.description = t('meta.loungeDescription', V.loungeNames(desc.lounge));
+        break;
+      case 'loungeInfo':
+        out.main = V.pageLoungeInfo(crumbs);
+        out.title = t('meta.loungeInfoTitle');
+        out.description = t('meta.loungeInfoDescription');
+        break;
       case 'privacy': case 'terms': case 'suggest': case 'report': case 'flavors': case 'search': case 'brands': case 'brand': case 'top':
       case 'shelf': case 'tips': case 'session': case 'journal': case 'offline':
         var extra = V.pageExtra(desc, crumbs, cfg);
@@ -2314,6 +2326,7 @@
       else if (desc.page === 'recipe') o[l] = V.urlFor(l, 'recipe', desc.recipe.slug[l]);
       else if (desc.page === 'brand') o[l] = V.urlFor(l, 'brand', desc.brand.slug);
       else if (desc.page === 'chapter') o[l] = V.chapterUrl(desc.chapter, l);
+      else if (desc.page === 'lounge') o[l] = V.urlFor(l, 'lounge', desc.lounge.id);
       else o[l] = V.urlFor(l, desc.page);
     });
     return o;
