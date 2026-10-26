@@ -62,6 +62,7 @@
     format: function (avg) { return V.formatNum(avg).replace(/^(\d)$/, MSP.lang === 'bs' ? '$1,0' : '$1.0'); }
   };
   MSP.Ratings = R;
+  document.dispatchEvent(new Event('msp:ratings'));
 
   function notify() { listeners.slice().forEach(function (fn) { try { fn(R.state); } catch (e) { console.error(e); } }); }
 

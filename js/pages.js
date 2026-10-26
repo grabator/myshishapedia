@@ -20,10 +20,10 @@
 
   function smooth() { return FX.reducedMotion() ? 'auto' : 'smooth'; }
 
-  /** fn(stanje) kad stignu ocjene (js/ratings.js se učitava poslije ovog fajla, pa se po potrebi sačeka). */
+  /** fn(stanje) kad stignu ocjene (js/ratings.js se učitava poslije ovog fajla, pa se po potrebi sačeka događaj msp:ratings). */
   function withRatings(ctx, fn) {
     if (MSP.Ratings) { ctx.cleanup(MSP.Ratings.on(fn)); return; }
-    document.addEventListener('DOMContentLoaded', function () { if (MSP.Ratings) ctx.cleanup(MSP.Ratings.on(fn)); }, { once: true });
+    document.addEventListener('msp:ratings', function () { ctx.cleanup(MSP.Ratings.on(fn)); }, { once: true });
   }
 
   /* ------------------------------------------------------------------ */

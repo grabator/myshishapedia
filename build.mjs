@@ -334,9 +334,18 @@ function head(desc, lang, info) {
     FONT_PRELOADS.concat(lang === 'bs' ? FONT_PRELOADS_BS : [], PAGE_FONTS[desc.page] || []).map((f) => `<link rel="preload" as="font" type="font/woff2" crossorigin href="${f}">`).join(''),
     `<link rel="stylesheet" href="${asset('css/style.css')}">`,
     `<script>${HEAD_SCRIPT}</script>`,
-    scripts.map((s) => `<script defer src="${asset(s)}"></script>`).join(''),
+    // skripte se preuzimaju odmah, a pokreću tek kad se stranica prvi put iscrta (brži LCP na slabim telefonima)
+    scripts.map((s) => `<link rel="preload" as="script" fetchpriority="low" href="${asset(s)}">`).join(''),
+    `<script>${scriptLoader(scripts.map(asset))}</script>`,
     structuredData(desc, lang, info)
   ].filter(Boolean).join('\n');
+}
+
+/** Pokreće skripte redom, ali tek poslije DOMContentLoaded i prvog iscrtavanja (vidi renderHead). */
+function scriptLoader(list) {
+  return "(function(l){function go(){l.forEach(function(s){var e=document.createElement('script');e.src=s;e.async=false;document.head.appendChild(e)})}" +
+    "function paint(){requestAnimationFrame(function(){setTimeout(go,0)})}" +
+    "if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',paint);else paint()})(" + JSON.stringify(list) + ')';
 }
 
 function renderPage(desc) {
