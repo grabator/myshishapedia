@@ -1614,8 +1614,10 @@ button { cursor: pointer; }
   gap: 28px;
   width: min(100%, 580px);
   text-align: center;
-  animation: fade-up 1s var(--ease-out) both;
+  /* ne kreće od opacity 0: takav element Chrome ne broji za LCP (PageSpeed javlja NO_LCP) */
+  animation: gate-rise 1s var(--ease-out) both;
 }
+@keyframes gate-rise { from { opacity: 0.3; transform: translateY(18px); } to { opacity: 1; transform: none; } }
 .age-gate__ask,
 .age-gate__denied {
   display: grid;
