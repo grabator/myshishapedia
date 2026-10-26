@@ -177,6 +177,7 @@ const PAGE_FONTS = { history: ['/fonts/cormorant-garamond-latin-600-normal.woff2
 
 // Izvršava se u <head> prije iscrtavanja: jezik, provjera godina, loader samo pri
 // prvoj posjeti u sesiji, i "raziđi oblak" ako se stiglo prelazom sa druge stranice.
+// "Da, imam 18+" radi i prije nego što se učitaju skripte (app.js poslije radi ostalo).
 const HEAD_SCRIPT = `(function(){var d=document.documentElement,c=' js';function g(s,k){try{return window[s].getItem(k)}catch(e){return null}}function s(t,k,v){try{window[t].setItem(k,v)}catch(e){}}
 if(g('localStorage','msp-age-ok')==='1')c+=' age-ok';
 if((g('localStorage','msp-shelf')||'[]').length>2)c+=' has-shelf';
@@ -184,7 +185,8 @@ if((g('localStorage','msp-recent')||'[]').length>2)c+=' has-recent';
 if(c.indexOf('has-')>0||/"flavor:[^"]+":[45]/.test(g('localStorage','msp-ratings')||''))c+=' has-reco';
 if(!g('sessionStorage','msp-seen')){c+=' first-visit';s('sessionStorage','msp-seen','1')}
 var v=g('sessionStorage','msp-veil');if(v){c+=' arrive';d.style.setProperty('--arrive-veil',v);try{sessionStorage.removeItem('msp-veil')}catch(e){}}
-d.className+=c;s('localStorage','msp-lang',d.lang)})();`;
+d.className+=c;s('localStorage','msp-lang',d.lang);
+document.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('#age-gate [data-age="yes"]');if(b){s('localStorage','msp-age-ok','1');d.classList.add('age-ok')}})})();`;
 
 const LOADER = `<div class="loader" id="loader" aria-hidden="true"><svg class="loader__coal" viewBox="0 0 120 90"><defs><radialGradient id="ld-glow" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="#ff8a2a" stop-opacity="0.7"/><stop offset="0.5" stop-color="#ff5a1a" stop-opacity="0.2"/><stop offset="1" stop-color="#ff5a1a" stop-opacity="0"/></radialGradient><linearGradient id="ld-cold" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#77706a"/><stop offset="1" stop-color="#3a3431"/></linearGradient><radialGradient id="ld-hot" cx="0.5" cy="0.35" r="0.75"><stop offset="0" stop-color="#fff1b8"/><stop offset="0.35" stop-color="#ffb13b"/><stop offset="0.75" stop-color="#e2541b"/><stop offset="1" stop-color="#7a1d0a"/></radialGradient></defs><ellipse class="loader__glow" cx="60" cy="48" rx="60" ry="42" fill="url(#ld-glow)"/><rect x="22" y="24" width="76" height="46" rx="10" fill="url(#ld-cold)"/><rect class="loader__hot" x="22" y="24" width="76" height="46" rx="10" fill="url(#ld-hot)"/><path d="M34 44h28M64 56h22" stroke="#1a1411" stroke-width="2.4" stroke-linecap="round" opacity="0.45"/></svg></div>`;
 
@@ -333,8 +335,7 @@ function head(desc, lang, info) {
     FONT_PRELOADS.concat(lang === 'bs' ? FONT_PRELOADS_BS : [], PAGE_FONTS[desc.page] || []).map((f) => `<link rel="preload" as="font" type="font/woff2" crossorigin href="${f}">`).join(''),
     `<link rel="stylesheet" href="${asset('css/style.css')}">`,
     `<script>${HEAD_SCRIPT}</script>`,
-    // skripte se preuzimaju odmah, a pokreću tek kad se stranica prvi put iscrta (brži LCP na slabim telefonima)
-    scripts.map((s) => `<link rel="preload" as="script" fetchpriority="low" href="${asset(s)}">`).join(''),
+    // skripte se preuzimaju i pokreću tek kad se stranica prvi put iscrta (brži LCP na slabim telefonima)
     `<script>${scriptLoader(scripts.map(asset))}</script>`,
     structuredData(desc, lang, info)
   ].filter(Boolean).join('\n');
@@ -368,6 +369,8 @@ function renderPage(desc) {
 ${head(desc, lang, info)}
 </head>
 <body ${bodyAttrs}>
+<!-- provjera godina je prva u <body>: telefon je može nacrtati prije nego što pročita ostatak stranice (LCP) -->
+<div class="age-gate" id="age-gate">${V.ageGate()}</div>
 <a class="skip-link" id="skip-link" href="#main">${esc(t('a11y.skipToContent'))}</a>
 ${LOADER}
 <div class="veil-arrive" aria-hidden="true"></div>
@@ -380,7 +383,6 @@ ${info.main}
 <footer class="site-footer" id="site-footer">${desc.page === 'lounge' ? V.loungeFooter(desc) : V.footer(desc, CFG)}</footer>
 </div>
 <div id="menu-root">${V.menu(desc)}</div>
-<div class="age-gate" id="age-gate">${V.ageGate()}</div>
 <noscript><p class="noscript">${esc(t('noscript'))}</p></noscript>
 </body>
 </html>
@@ -667,7 +669,8 @@ function writePwaFiles() {
     const file = path.join(DIST, pg, 'index.html');
     if (!fs.existsSync(file)) { errors.push('PWA: nema stranice ' + pg); continue; }
     const html = fs.readFileSync(file, 'utf8');
-    for (const m of html.matchAll(/(?:src|href)="(\/[^"]+\?v=[0-9a-f]+)"/g)) files.add(m[1]);
+    // stilovi i ikone su u src/href, skripte u listi koju pokreće scriptLoader
+    for (const m of html.matchAll(/(?:src|href)="(\/[^"]+\?v=[0-9a-f]+)"|"(\/[^"]+\.js\?v=[0-9a-f]+)"/g)) files.add(m[1] || m[2]);
   }
   ['/icons/icon-192.png', '/icons/apple-touch-icon.png', ...LANGS.map((l) => '/manifest-' + l + '.webmanifest')].forEach((f) => files.add(f));
   // fontovi (latin i latin-ext), da i bez interneta tekst izgleda isto

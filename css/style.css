@@ -1719,8 +1719,8 @@ button { cursor: pointer; }
   place-items: center;
   background: #140f0c;
   transition: opacity 0.5s ease, visibility 0.5s;
-  /* rezerva: ako JavaScript ne radi, loader nestaje sam */
-  animation: loader-failsafe 0.5s ease 5s forwards;
+  /* nestaje sam nakon kratkog žara, ne čeka JavaScript (skripte se učitavaju poslije prvog iscrtavanja) */
+  animation: loader-failsafe 0.4s ease 0.9s forwards;
 }
 .loader.is-done { opacity: 0; visibility: hidden; pointer-events: none; }
 .loader__coal { width: 120px; height: auto; overflow: visible; }
@@ -3602,7 +3602,7 @@ button { cursor: pointer; }
   to { opacity: 1; }
 }
 @keyframes loader-failsafe {
-  to { opacity: 0; visibility: hidden; }
+  to { opacity: 0; visibility: hidden; pointer-events: none; }
 }
 @keyframes veil-base-in {
   0% { opacity: 0; }
