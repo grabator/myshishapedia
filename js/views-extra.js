@@ -604,8 +604,8 @@
   /* Stranice (poziva ih V.page iz views.js)                             */
   /* ================================================================== */
 
-  V.EXTRA_PAGES = ['privacy', 'terms', 'suggest', 'report', 'flavors', 'search', 'brands', 'top', 'shelf', 'tips', 'session', 'journal'];
-  V.NOINDEX_PAGES = ['report', 'search', 'shelf', 'journal'];
+  V.EXTRA_PAGES = ['privacy', 'terms', 'suggest', 'report', 'flavors', 'search', 'brands', 'top', 'shelf', 'tips', 'session', 'journal', 'offline'];
+  V.NOINDEX_PAGES = ['report', 'search', 'shelf', 'journal', 'offline'];
 
   V.pageExtra = function (desc, crumbs, cfg) {
     switch (desc.page) {
@@ -618,6 +618,7 @@
       case 'brands': return { main: pageBrands(crumbs), title: t('meta.brandsTitle'), description: t('meta.brandsDescription') };
       case 'top': return { main: pageTop(crumbs), title: t('meta.topTitle'), description: t('meta.topDescription') };
       case 'shelf': return { main: V.pageShelf(crumbs), title: t('meta.shelfTitle'), description: t('meta.shelfDescription') };
+      case 'offline': return { main: V.pageOffline(crumbs), title: t('meta.offlineTitle'), description: t('meta.offlineDescription') };
       case 'journal': return { main: V.pageJournal(crumbs), title: t('meta.journalTitle'), description: t('meta.journalDescription') };
       case 'session': return { main: V.pageSession(crumbs), title: t('meta.sessionTitle'), description: t('meta.sessionDescription') };
       case 'tips': return { main: V.pageTips(crumbs), title: t('meta.tipsTitle'), description: t('meta.tipsDescription') };

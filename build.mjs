@@ -89,7 +89,7 @@ function hashOf(file) {
 
 const ASSETS = ['css/style.css', 'js/strings.js', 'data/brands.js', 'data/flavors.js', 'data/glossary.js', 'data/guide.js', 'data/gear.js', 'data/quiz.js',
   'data/mixes.js', 'js/illustrations.js', 'js/effects.js', 'js/views.js', 'js/views-more.js', 'js/views-extra.js', 'js/pages.js', 'js/app.js',
-  'js/search.js', 'js/forms.js', 'js/share.js', 'js/ratings.js', 'js/shelf.js', 'js/qr.js', 'js/journal.js', 'js/session.js', 'data/history.js', 'js/history.js', 'favicon.svg'];
+  'js/search.js', 'js/forms.js', 'js/share.js', 'js/ratings.js', 'js/shelf.js', 'js/qr.js', 'js/journal.js', 'js/session.js', 'js/pwa.js', 'data/history.js', 'js/history.js', 'favicon.svg'];
 const VERSION = {};
 for (const a of ASSETS) VERSION[a] = hashOf(a);
 const asset = (p) => '/' + p + '?v=' + VERSION[p];
@@ -291,7 +291,7 @@ function head(desc, lang, info) {
   const views = ['js/views.js']
     .concat(VIEWS_MORE_PAGES.includes(desc.page) ? ['js/views-more.js'] : [])
     .concat(VIEWS_EXTRA_PAGES.includes(desc.page) ? ['js/views-extra.js'] : []);
-  const scripts = ['js/strings.js', 'data/brands.js', 'data/flavors.js'].concat(data, ['js/illustrations.js', 'js/effects.js'], views, ['js/pages.js', 'js/shelf.js', 'js/app.js', 'js/ratings.js'], PAGE_SCRIPTS[desc.page] || []);
+  const scripts = ['js/strings.js', 'data/brands.js', 'data/flavors.js'].concat(data, ['js/illustrations.js', 'js/effects.js'], views, ['js/pages.js', 'js/shelf.js', 'js/app.js', 'js/ratings.js', 'js/pwa.js'], PAGE_SCRIPTS[desc.page] || []);
   const other = LANGS.filter((l) => l !== lang);
 
   return [
@@ -322,7 +322,8 @@ function head(desc, lang, info) {
     `<link rel="icon" href="${asset('favicon.svg')}" type="image/svg+xml">`,
     '<link rel="icon" href="/icons/icon-32.png" sizes="32x32" type="image/png">',
     '<link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">',
-    '<link rel="manifest" href="/manifest.webmanifest">',
+    `<link rel="manifest" href="/manifest-${lang}.webmanifest">`,
+    '<meta name="apple-mobile-web-app-title" content="MyShishapedia">',
     '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>',
     FONT_PRELOADS.concat(lang === 'bs' ? FONT_PRELOADS_BS : [], PAGE_FONTS[desc.page] || []).map((f) => `<link rel="preload" as="font" type="font/woff2" crossorigin href="${f}">`).join(''),
     `<link rel="stylesheet" href="${asset('css/style.css')}">`,
@@ -417,7 +418,7 @@ ${LANGS.map((l) => `<link rel="alternate" hreflang="${l}" href="${abs('/' + l + 
 <meta name="theme-color" content="${home.bg}">
 <link rel="icon" href="${asset('favicon.svg')}" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
-<link rel="manifest" href="/manifest.webmanifest">
+<link rel="manifest" href="/manifest-${DEFAULT_LANG}.webmanifest">
 <script>${script}</script>
 <style>
 body{margin:0;min-height:100vh;display:grid;place-items:center;background:${home.bg};color:${home.text};font:16px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif;text-align:center;padding:24px}
@@ -604,7 +605,175 @@ function writeSearchIndex() {
 }
 
 /* ------------------------------------------------------------------ */
-/* Cloudflare Pages: _headers i _redirects                             */
+/* Aplikacija na početnom ekranu: manifest (po jeziku) i service worker */
+/* ------------------------------------------------------------------ */
+
+function writePwaFiles() {
+  const theme = '#140f0c';
+  const icons = [
+    { src: '/icons/icon-192.png', sizes: '192x192', type: 'image/png', purpose: 'any' },
+    { src: '/icons/icon-512.png', sizes: '512x512', type: 'image/png', purpose: 'any' },
+    // ikona ima dovoljno praznog prostora oko znaka, pa je Android smije odrezati u krug
+    { src: '/icons/icon-512.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' }
+  ];
+  for (const lang of LANGS) {
+    const tl = (k) => k.split('.').reduce((o, x) => o[x], MSP.strings[lang]);
+    const u = (page) => V.urlFor(lang, page);
+    const m = {
+      id: '/' + lang + '/',
+      name: 'MyShishapedia',
+      short_name: 'MyShishapedia',
+      description: tl('meta.homeDescription'),
+      lang,
+      start_url: '/' + lang + '/',
+      scope: '/',
+      display: 'standalone',
+      orientation: 'portrait',
+      background_color: theme,
+      theme_color: theme,
+      categories: ['lifestyle', 'food'],
+      icons,
+      shortcuts: [['session', 'camera'], ['journal', 'book'], ['mixer', 'mix'], ['shelf', 'jar']].map(([p]) => ({
+        name: tl('nav.' + p), url: u(p), icons: [{ src: '/icons/icon-192.png', sizes: '192x192', type: 'image/png' }]
+      }))
+    };
+    writeFile('manifest-' + lang + '.webmanifest', JSON.stringify(m, null, 2));
+    if (lang === DEFAULT_LANG) writeFile('manifest.webmanifest', JSON.stringify(m, null, 2));
+  }
+
+  // Unaprijed sačuvano: skripte i stilovi, stranice "Bez interneta" i ikone. Početna, polica,
+  // dnevnik, slika sesije i mikser se sačuvaju samo na jeziku koji posjetilac koristi
+  // (js/pwa.js javi jezik), da telefon ne skida obje verzije.
+  const WARM = ['home', 'shelf', 'journal', 'session', 'mixer'];
+  const byLang = Object.fromEntries(LANGS.map((l) => [l, WARM.map((p) => V.urlFor(l, p))]));
+  const files = new Set(['/'].concat(LANGS.map((l) => V.urlFor(l, 'offline'))));
+  for (const pg of [...files].concat(...Object.values(byLang))) {
+    const file = path.join(DIST, pg, 'index.html');
+    if (!fs.existsSync(file)) { errors.push('PWA: nema stranice ' + pg); continue; }
+    const html = fs.readFileSync(file, 'utf8');
+    for (const m of html.matchAll(/(?:src|href)="(\/[^"]+\?v=[0-9a-f]+)"/g)) files.add(m[1]);
+  }
+  ['/icons/icon-192.png', '/icons/apple-touch-icon.png', ...LANGS.map((l) => '/manifest-' + l + '.webmanifest')].forEach((f) => files.add(f));
+  const list = [...files];
+  const version = crypto.createHash('sha1').update(list.join('\n') + JSON.stringify(byLang) + fs.readFileSync(path.join(ROOT, 'build.mjs'))).digest('hex').slice(0, 10);
+  const offline = Object.fromEntries(LANGS.map((l) => [l, V.urlFor(l, 'offline')]));
+
+  const sw = `/* MyShishapedia service worker. Generiše build.mjs (ne mijenjaj ručno). Verzija ${version}.
+ * HTML: prvo mreža (uvijek svježe), bez mreže sačuvana kopija ili stranica "Bez interneta".
+ * Skripte i stilovi sa ?v=hash: iz keša (adresa se mijenja sa svakom izmjenom).
+ * Ostalo sa ove stranice (ikone, pretraga, mapa): iz keša, pa osvježi u pozadini.
+ * Ocjene (/api/) i forme idu uvijek na mrežu. Google fontove ne dira: browser ih ionako
+ * čuva godinu dana (i bez interneta), a CSP (connect-src) ne dozvoljava fetch prema njima. */
+'use strict';
+const VERSION = ${JSON.stringify(version)};
+const PRE = 'msp-pre-' + VERSION;
+const ASSETS = 'msp-assets';
+const PAGES = 'msp-pages';
+const RUNTIME = 'msp-runtime';
+const PRECACHE = ${JSON.stringify(list)};
+const WARM = ${JSON.stringify(byLang)};
+const OFFLINE = ${JSON.stringify(offline)};
+const LIMITS = { [PAGES]: 80, [ASSETS]: 120, [RUNTIME]: 60 };
+
+// odgovor koji je došao preko preusmjerenja Safari ne prihvata iz keša, pa se prepiše
+async function plain(res) {
+  if (!res.redirected) return res;
+  return new Response(await res.blob(), { status: res.status, statusText: res.statusText, headers: res.headers });
+}
+async function trim(name) {
+  const c = await caches.open(name);
+  const keys = await c.keys();
+  for (let i = 0; i < keys.length - LIMITS[name]; i++) await c.delete(keys[i]);
+}
+
+// skripte sa ?v= su nepromjenjive, pa smiju iz HTTP keša; HTML se provjeri na serveru
+async function save(cacheName, urls, skipHave) {
+  const c = await caches.open(cacheName);
+  await Promise.all(urls.map(async (u) => {
+    try {
+      if (skipHave && (await caches.match(u))) return;
+      const r = await fetch(u, { cache: /[?&]v=/.test(u) ? 'default' : 'no-cache' });
+      if (r.ok) await c.put(u, await plain(r));
+    } catch (err) { /* sljedeći put */ }
+  }));
+}
+
+// js/pwa.js javi jezik: sačuvaj glavne stranice na tom jeziku
+self.addEventListener('message', (e) => {
+  const d = e.data || {};
+  if (d.type === 'warm' && WARM[d.lang]) e.waitUntil(save(PAGES, WARM[d.lang], true));
+});
+
+self.addEventListener('install', (e) => {
+  e.waitUntil((async () => {
+    await save(PRE, PRECACHE, false);
+    await self.skipWaiting();
+  })());
+});
+
+self.addEventListener('activate', (e) => {
+  e.waitUntil((async () => {
+    const keys = await caches.keys();
+    await Promise.all(keys.filter((k) => k.startsWith('msp-pre-') && k !== PRE).map((k) => caches.delete(k)));
+    if (self.registration.navigationPreload) { try { await self.registration.navigationPreload.enable(); } catch (err) { /* ignore */ } }
+    await self.clients.claim();
+  })());
+});
+
+async function page(e) {
+  const req = e.request;
+  const url = new URL(req.url);
+  const key = url.origin + url.pathname;
+  try {
+    const res = (await e.preloadResponse) || (await fetch(req));
+    if (res.ok && res.type === 'basic') {
+      const copy = await plain(res.clone());
+      e.waitUntil(caches.open(PAGES).then((c) => c.put(key, copy)).then(() => trim(PAGES)));
+    }
+    return res;
+  } catch (err) {
+    const hit = (await caches.match(key)) || (await caches.match(req, { ignoreSearch: true }));
+    if (hit) return hit;
+    const lang = url.pathname.split('/')[1] === 'bs' ? 'bs' : 'en';
+    return (await caches.match(OFFLINE[lang])) || new Response('Offline', { status: 503, headers: { 'Content-Type': 'text/plain; charset=utf-8' } });
+  }
+}
+
+async function cacheFirst(e, name) {
+  const hit = await caches.match(e.request);
+  if (hit) return hit;
+  const res = await fetch(e.request);
+  if (res.ok || res.type === 'opaque') {
+    const copy = res.clone();
+    e.waitUntil(caches.open(name).then((c) => c.put(e.request, copy)).then(() => LIMITS[name] && trim(name)));
+  }
+  return res;
+}
+
+async function fresh(e) {
+  const hit = await caches.match(e.request);
+  const net = fetch(e.request).then((res) => {
+    if (res.ok && res.type === 'basic') { const copy = res.clone(); caches.open(RUNTIME).then((c) => c.put(e.request, copy)).then(() => trim(RUNTIME)); }
+    return res;
+  });
+  if (hit) { e.waitUntil(net.catch(() => {})); return hit; }
+  return net;
+}
+
+self.addEventListener('fetch', (e) => {
+  const req = e.request;
+  if (req.method !== 'GET') return;
+  const url = new URL(req.url);
+  if (url.origin !== self.location.origin) return;
+  if (url.pathname.startsWith('/api/') || url.pathname.startsWith('/cdn-cgi/') || url.pathname === '/sw.js') return;
+  if (req.mode === 'navigate') { e.respondWith(page(e)); return; }
+  if (/[?&]v=[0-9a-f]+/.test(url.search)) { e.respondWith(cacheFirst(e, ASSETS)); return; }
+  e.respondWith(fresh(e));
+});
+`;
+  writeFile('sw.js', sw);
+}
+
 /* ------------------------------------------------------------------ */
 
 const TURNSTILE = 'https://challenges.cloudflare.com';
@@ -612,6 +781,10 @@ const TURNSTILE = 'https://challenges.cloudflare.com';
 function hostOf(url) {
   try { return new URL(url).origin; } catch { return ''; }
 }
+
+/* ------------------------------------------------------------------ */
+/* Cloudflare Pages: _headers i _redirects                             */
+/* ------------------------------------------------------------------ */
 
 /** Sve inline <script> (bez src i bez JSON-LD) iz gotovih stranica, kao CSP hashevi. */
 function inlineScriptHashes() {
@@ -676,6 +849,13 @@ function writeCloudflareFiles() {
     '',
     '# HTML uvijek svjež',
     ...['/', '/index.html', '/404.html', '/bs/*', '/en/*'].flatMap((p) => [p, '  Cache-Control: ' + html, '']),
+    '# service worker se mora uvijek provjeriti, inače aplikacija ostane na staroj verziji',
+    '/sw.js',
+    '  Cache-Control: no-cache',
+    '',
+    '/manifest*.webmanifest',
+    '  Cache-Control: public, max-age=3600',
+    '',
     '/icons/*',
     '  Cache-Control: public, max-age=604800',
     '',
@@ -923,6 +1103,7 @@ function build() {
   writeSearchIndex();
   writeRatingsIds();
   writeCloudflareFiles();
+  writePwaFiles();
 
   checkData();
   checkMeta(rendered);

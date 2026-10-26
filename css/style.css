@@ -8369,3 +8369,56 @@ a.smx__card:hover { border-color: var(--c-line-strong); transform: translateY(-2
   .jr-chips em { flex: none; padding-left: 4px; font-size: 0.8125rem; }
   .jr-tools .btn, .jr-sort select { white-space: nowrap; }
 }
+
+/* ------------------------------------------------------------------ */
+/* Aplikacija na početnom ekranu (js/pwa.js)                          */
+/* ------------------------------------------------------------------ */
+.minstall { display: flex; align-items: center; gap: 14px; width: 100%; min-height: 62px; padding: 10px 16px; border-radius: 18px; border: 1px dashed color-mix(in srgb, var(--c-accent-ink) 55%, transparent); background: color-mix(in srgb, var(--c-accent-ink) 8%, transparent); color: var(--c-text); font: inherit; text-align: left; cursor: pointer; }
+.minstall[hidden] { display: none; }
+.minstall__icon { display: grid; place-items: center; flex: none; width: 36px; height: 36px; border-radius: 11px; background: var(--c-accent-fill); color: var(--c-on-accent); }
+.minstall__icon .icon { width: 19px; height: 19px; }
+
+.pwa-card { display: grid; grid-template-columns: auto 1fr auto; gap: 16px; align-items: center; margin-top: 22px; padding: 16px 18px; border-radius: var(--radius-lg); background: linear-gradient(120deg, color-mix(in srgb, var(--c-accent-ink) 12%, var(--c-surface)), var(--c-surface) 70%); border: 1px solid color-mix(in srgb, var(--c-accent-ink) 30%, transparent); }
+.pwa-card[hidden] { display: none; }
+.pwa-card__icon img { display: block; width: 56px; height: 56px; border-radius: 14px; box-shadow: 0 10px 24px -10px rgba(0, 0, 0, 0.8); }
+.pwa-card__txt { display: grid; gap: 4px; min-width: 0; }
+.pwa-card__txt b { font-family: var(--font-display); font-size: 1.0625rem; font-weight: 700; }
+.pwa-card__txt span { font-size: 0.875rem; color: var(--c-muted); line-height: 1.45; }
+.pwa-card__btns { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; }
+.pwa-card__no { padding: 6px 4px; border: 0; background: none; color: var(--c-muted); font: inherit; font-size: 0.875rem; font-weight: 700; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+@media (max-width: 699px) {
+  .pwa-card { grid-template-columns: auto 1fr; }
+  .pwa-card__btns { grid-column: 1 / -1; }
+  .pwa-card__btns .btn { flex: 1 1 auto; }
+}
+
+.pwa-ios { position: fixed; inset: 0; z-index: 5000; display: grid; align-items: end; justify-items: center; padding: 12px; background: rgba(8, 6, 5, 0.7); opacity: 0; visibility: hidden; transition: opacity 0.2s, visibility 0s 0.2s; }
+.pwa-ios.is-open { opacity: 1; visibility: visible; transition: opacity 0.2s; }
+.pwa-ios__box { width: min(100%, 440px); display: grid; justify-items: center; gap: 12px; padding: 24px 22px max(20px, env(safe-area-inset-bottom)); border-radius: 24px; background: var(--c-surface); border: 1px solid var(--c-line-strong); transform: translateY(30px); transition: transform 0.25s; }
+.pwa-ios.is-open .pwa-ios__box { transform: none; }
+.pwa-ios__icon { width: 64px; height: 64px; border-radius: 16px; }
+.pwa-ios__h { font-family: var(--font-display); font-size: 1.25rem; font-weight: 700; text-align: center; }
+.pwa-ios__steps { display: grid; gap: 12px; width: 100%; margin: 4px 0; padding: 0; list-style: none; }
+.pwa-ios__steps li { display: grid; grid-template-columns: 36px 1fr; gap: 12px; align-items: center; font-weight: 600; line-height: 1.4; }
+.pwa-ios__steps li > span { display: grid; place-items: center; width: 36px; height: 36px; border-radius: 10px; background: color-mix(in srgb, var(--c-text) 8%, transparent); color: #4da3ff; font-size: 1.25rem; font-weight: 800; }
+.pwa-ios__steps svg { width: 22px; height: 22px; }
+.pwa-ios__close { width: 100%; }
+
+.pwa-toast { position: fixed; left: 50%; bottom: max(20px, env(safe-area-inset-bottom)); z-index: 5001; max-width: calc(100% - 32px); margin: 0; padding: 12px 18px; border-radius: 999px; background: var(--c-text); color: var(--c-bg); font-weight: 700; font-size: 0.9375rem; transform: translate(-50%, 30px); opacity: 0; pointer-events: none; transition: transform 0.25s, opacity 0.25s; }
+.pwa-toast.is-on { transform: translate(-50%, 0); opacity: 1; }
+.pwa-offline { position: fixed; left: 50%; bottom: max(16px, env(safe-area-inset-bottom)); z-index: 4000; display: flex; align-items: center; gap: 8px; margin: 0; padding: 8px 14px; border-radius: 999px; background: var(--c-surface-2); border: 1px solid var(--c-line-strong); color: var(--c-text); font-size: 0.8125rem; font-weight: 700; transform: translateX(-50%); box-shadow: 0 12px 30px -12px rgba(0, 0, 0, 0.9); }
+.pwa-offline[hidden] { display: none; }
+.pwa-offline i { width: 8px; height: 8px; border-radius: 50%; background: #e2541b; }
+
+/* stranica "Bez interneta" */
+.offl { padding-bottom: clamp(48px, 7vw, 96px); }
+.offl__retry { margin-bottom: 28px; }
+.offl__h { margin: 0 0 14px; font-family: var(--font-display); font-size: 1.25rem; font-weight: 700; }
+.offl__grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin: 0 0 32px; padding: 0; list-style: none; }
+.offl__tile { display: grid; gap: 12px; padding: 20px; border-radius: var(--radius-lg); background: var(--c-surface); border: 1px solid var(--c-line); border-top: 3px solid var(--dc); color: var(--c-text); font-weight: 700; text-decoration: none; }
+.offl__tile .icon { width: 28px; height: 28px; color: var(--dc); }
+.offl__tile:hover { border-color: var(--dc); }
+.offl__list { display: grid; gap: 6px; margin: 0; padding: 0; list-style: none; }
+.offl__list a { display: block; padding: 12px 16px; border-radius: var(--radius-md); background: var(--c-surface); border: 1px solid var(--c-line); color: var(--c-text); font-weight: 600; text-decoration: none; }
+.offl__list a:hover { border-color: var(--c-line-strong); }
+@media (max-width: 699px) { .offl__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }

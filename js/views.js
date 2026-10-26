@@ -26,11 +26,11 @@
     bs: { home: '', flavor: 'okus', mixer: 'mikser', quiz: 'kviz', guide: 'vodic', glossary: 'rjecnik', term: 'rjecnik', gear: 'oprema', about: 'o-nama', notfound: '404',
       collections: 'kolekcije', collection: 'kolekcije', compare: 'poredjenje', comparePair: 'poredjenje', mixes: 'recepti', recipe: 'recepti',
       privacy: 'privatnost', terms: 'uslovi', suggest: 'predlozi-okus', report: 'prijavi-gresku', flavors: 'okusi', search: 'pretraga',
-      brands: 'brendovi', brand: 'brendovi', top: 'najbolje-ocijenjeno', shelf: 'moja-polica', session: 'slika-sesije', journal: 'dnevnik-sesija', tips: 'savjeti', history: 'evolucija-nargile', chapter: 'evolucija-nargile' },
+      brands: 'brendovi', brand: 'brendovi', top: 'najbolje-ocijenjeno', shelf: 'moja-polica', session: 'slika-sesije', journal: 'dnevnik-sesija', offline: 'bez-interneta', tips: 'savjeti', history: 'evolucija-nargile', chapter: 'evolucija-nargile' },
     en: { home: '', flavor: 'flavor', mixer: 'mixer', quiz: 'quiz', guide: 'guide', glossary: 'glossary', term: 'glossary', gear: 'gear', about: 'about', notfound: '404',
       collections: 'collections', collection: 'collections', compare: 'compare', comparePair: 'compare', mixes: 'mixes', recipe: 'mixes',
       privacy: 'privacy', terms: 'terms', suggest: 'suggest-flavor', report: 'report-issue', flavors: 'flavors', search: 'search',
-      brands: 'brands', brand: 'brands', top: 'top-rated', shelf: 'my-shelf', session: 'session-photo', journal: 'session-journal', tips: 'tips', history: 'hookah-history', chapter: 'hookah-history' }
+      brands: 'brands', brand: 'brands', top: 'top-rated', shelf: 'my-shelf', session: 'session-photo', journal: 'session-journal', offline: 'offline', tips: 'tips', history: 'hookah-history', chapter: 'hookah-history' }
   };
   V.SEG = SEG;
 
@@ -531,6 +531,18 @@
    * variant 'card': okruglo dugme na kartici; 'btn': dugme sa tekstom na stranici okusa.
    * U browseru (MSP.Shelf postoji) odmah dobije tačno stanje, pa nema treptanja.
    */
+  /** Kartica "MyShishapedia kao aplikacija" (js/pwa.js je prikaže samo kad se može instalirati). */
+  V.installCard = function () {
+    return (
+      '<aside class="pwa-card" data-install data-install-card hidden>' +
+        '<span class="pwa-card__icon" aria-hidden="true"><img src="/icons/icon-192.png" alt="" width="56" height="56"></span>' +
+        '<span class="pwa-card__txt"><b>' + esc(t('pwa.cardTitle')) + '</b><span>' + esc(t('pwa.cardText')) + '</span></span>' +
+        '<span class="pwa-card__btns"><button type="button" class="btn btn--primary" data-install-btn>' + icon('download') + '<span>' + esc(t('pwa.install')) + '</span></button>' +
+        '<button type="button" class="pwa-card__no" data-install-no>' + esc(t('pwa.notNow')) + '</button></span>' +
+      '</aside>'
+    );
+  };
+
   V.shelfButton = function (f, variant) {
     var on = !!(MSP.Shelf && MSP.Shelf.has(f.id));
     var name = f.brand + ' ' + f.name;
@@ -751,6 +763,10 @@
         '<span class="mshelf__text"><span class="mshelf__name">' + esc(t('nav.shelf')) + '</span><span class="mshelf__sub">' + esc(t('nav.shelfSub')) + '</span></span>' +
         '<span class="mshelf__count" hidden></span>' +
       '</a>' +
+      '<button type="button" class="menu-link minstall" data-install data-install-btn hidden style="--i:' + (k++) + '">' +
+        '<span class="minstall__icon" aria-hidden="true">' + icon('download') + '</span>' +
+        '<span class="mshelf__text"><span class="mshelf__name">' + esc(t('pwa.install')) + '</span><span class="mshelf__sub">' + esc(t('pwa.installSub')) + '</span></span>' +
+      '</button>' +
       '<div class="mlists">' + lists + '</div>'
     );
   }
@@ -2261,7 +2277,7 @@
         out.description = t('meta.aboutDescription');
         break;
       case 'privacy': case 'terms': case 'suggest': case 'report': case 'flavors': case 'search': case 'brands': case 'brand': case 'top':
-      case 'shelf': case 'tips': case 'session': case 'journal':
+      case 'shelf': case 'tips': case 'session': case 'journal': case 'offline':
         var extra = V.pageExtra(desc, crumbs, cfg);
         out.main = extra.main;
         out.title = extra.title;

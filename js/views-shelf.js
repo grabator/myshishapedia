@@ -161,6 +161,7 @@
           '<p class="shelf-empty__actions"><a class="btn btn--primary" href="' + V.url('flavors') + '">' + esc(t('shelf.emptyCta')) + icon('arrowRight') + '</a>' +
             '<a class="btn btn--ghost" href="' + V.url('quiz') + '">' + esc(t('shelf.emptyQuiz')) + '</a></p>' +
         '</div>' +
+        V.installCard() +
         '<noscript><p class="shelf__nojs">' + esc(t('shelf.noJs')) + '</p></noscript>' +
         V.localNote('localnote--shelf') +
       '</div></section>' +
@@ -459,8 +460,27 @@
             '<label class="btn btn--ghost jr-import">' + icon('upload') + '<span>' + esc(t('journal.import')) + '</span><input type="file" id="jr-import" accept="application/json,.json" class="sr-only"></label>' +
           '</div>' +
         '</details>' +
+        V.installCard() +
         '<p class="jr-privacy">' + icon('info') + '<span>' + esc(t('journal.privacy')) + '</span></p>' +
         '<noscript><p class="shelf__nojs">' + esc(t('shelf.noJs')) + '</p></noscript>' +
+      '</div></section>'
+    );
+  };
+  /**
+   * Stranica "Bez interneta": service worker (sw.js) je prikaže kad stranica nije sačuvana,
+   * a veze nema. js/pwa.js dopuni listu stranica koje su već sačuvane na telefonu.
+   */
+  V.pageOffline = function (crumbs) {
+    var works = [['shelf', 'jar', '#f2a33c'], ['journal', 'book', '#7bd389'], ['session', 'camera', '#ff6fae'], ['mixer', 'mix', '#9b6cf0']];
+    return (
+      V.pageHero({ id: 'offline-title', eyebrow: t('offline.eyebrow'), title: t('offline.title'), lead: t('offline.lead'), crumbs: crumbs }) +
+      '<section class="fsec fsec--flush"><div class="container offl" id="offl">' +
+        '<button type="button" class="btn btn--primary offl__retry" data-retry>' + icon('refresh') + '<span>' + esc(t('offline.retry')) + '</span></button>' +
+        '<h2 class="offl__h">' + esc(t('offline.works')) + '</h2>' +
+        '<ul class="offl__grid" role="list">' + works.map(function (w) {
+          return '<li><a class="offl__tile" href="' + V.url(w[0]) + '" style="--dc:' + w[2] + '">' + icon(w[1]) + '<span>' + esc(t('nav.' + w[0])) + '</span></a></li>';
+        }).join('') + '</ul>' +
+        '<div class="offl__recent" id="offl-recent" hidden><h2 class="offl__h">' + esc(t('offline.recent')) + '</h2><ul class="offl__list" id="offl-list" role="list"></ul></div>' +
       '</div></section>'
     );
   };

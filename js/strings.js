@@ -45,6 +45,8 @@
         topDescription: 'Rang liste okusa i recepata miksova za nargilu po ocjenama posjetilaca, po brendu i kolekciji. Ocijeni i ti svoje omiljene.',
         sessionTitle: 'Slika sesije: tvoj miks preko fotografije nargile | MyShishapedia',
         journalTitle: 'Dnevnik sesija | MyShishapedia',
+        offlineTitle: 'Bez interneta | MyShishapedia',
+        offlineDescription: 'Nema internetske veze. Polica, dnevnik i mikser rade i bez nje.',
         journalDescription: 'Tvoj lični dnevnik sesija nargile: miksevi, grami, ugalj, ocjene i bilješke, sačuvani samo u tvom browseru.',
         sessionDescription: 'Napravi sliku sesije za Instagram ili Reddit: tvoja fotografija nargile, okusi, grami i omjeri u krugu. Besplatno, sve ostaje u tvom telefonu.',
         shelfTitle: 'Moja polica | MyShishapedia',
@@ -141,6 +143,7 @@
         shelf: 'Moja polica',
         session: 'Slika sesije',
         journal: 'Dnevnik sesija',
+        offline: 'Bez interneta',
         tips: 'Savjeti',
         history: 'Evolucija nargile',
         backToAll: 'Nazad na sve okuse',
@@ -491,6 +494,29 @@
         jrOpen: 'Otvori dnevnik',
         jrFull: 'Upisano, ali bez sličice: u browseru nema više mjesta.',
         ctaSub: 'Tvoja fotografija nargile sa ovim miksom'
+      },
+      pwa: {
+        install: 'Instaliraj aplikaciju',
+        installSub: 'Ikona na telefonu, radi i bez interneta',
+        cardTitle: 'MyShishapedia kao aplikacija',
+        cardText: 'Stavi ikonu na početni ekran. Otvara se preko cijelog ekrana, a polica, dnevnik i mikser rade i bez interneta.',
+        notNow: 'Ne sada',
+        iosTitle: 'Dodaj na početni ekran',
+        ios1: 'Dodirni dugme Dijeli (kvadrat sa strelicom prema gore) u Safariju.',
+        ios2: 'Izaberi "Dodaj na početni ekran" (Add to Home Screen).',
+        ios3: 'Dodirni "Dodaj". Ikona MyShishapedia je sada na ekranu.',
+        close: 'Zatvori',
+        installed: 'Aplikacija je instalirana.',
+        offline: 'Bez interneta',
+        offlineBack: 'Internet je ponovo tu.'
+      },
+      offline: {
+        eyebrow: 'Bez interneta',
+        title: 'Nema veze',
+        lead: 'Ova stranica nije sačuvana na telefonu, a internet trenutno ne radi. Ovo ispod radi i bez interneta.',
+        works: 'Radi bez interneta',
+        recent: 'Stranice koje si već otvarao',
+        retry: 'Pokušaj ponovo'
       },
       journal: {
         eyebrow: 'Samo tvoje, u ovom browseru',
@@ -1102,6 +1128,8 @@
         topDescription: 'Hookah flavors and mix recipes ranked by visitor ratings, by brand and by collection. Rate your own favorites too.',
         sessionTitle: 'Session photo: your hookah mix on your own photo | MyShishapedia',
         journalTitle: 'Session journal | MyShishapedia',
+        offlineTitle: 'Offline | MyShishapedia',
+        offlineDescription: 'No internet connection. Your shelf, journal and mixer still work.',
         journalDescription: 'Your personal hookah session journal: mixes, grams, coals, ratings and notes, saved only in your browser.',
         sessionDescription: 'Make a session photo for Instagram or Reddit: your hookah photo with the flavors, grams and ratios in a chart. Free, and it all stays on your phone.',
         shelfTitle: 'My shelf | MyShishapedia',
@@ -1198,6 +1226,7 @@
         shelf: 'My shelf',
         session: 'Session photo',
         journal: 'Session journal',
+        offline: 'Offline',
         tips: 'Tips',
         history: 'Hookah history',
         backToAll: 'Back to all flavors',
@@ -1548,6 +1577,29 @@
         jrOpen: 'Open journal',
         jrFull: 'Added, but without a thumbnail: the browser is out of space.',
         ctaSub: 'Your hookah photo with this mix'
+      },
+      pwa: {
+        install: 'Install the app',
+        installSub: 'An icon on your phone, works offline too',
+        cardTitle: 'MyShishapedia as an app',
+        cardText: 'Put an icon on your home screen. It opens full screen, and your shelf, journal and mixer work without internet.',
+        notNow: 'Not now',
+        iosTitle: 'Add to Home Screen',
+        ios1: 'Tap the Share button (the square with an arrow pointing up) in Safari.',
+        ios2: 'Choose "Add to Home Screen".',
+        ios3: 'Tap "Add". The MyShishapedia icon is now on your screen.',
+        close: 'Close',
+        installed: 'The app is installed.',
+        offline: 'Offline',
+        offlineBack: 'You are back online.'
+      },
+      offline: {
+        eyebrow: 'Offline',
+        title: 'No connection',
+        lead: 'This page is not saved on your phone and the internet is not working right now. Everything below works offline.',
+        works: 'Works offline',
+        recent: 'Pages you have already opened',
+        retry: 'Try again'
       },
       journal: {
         eyebrow: 'Just yours, in this browser',
