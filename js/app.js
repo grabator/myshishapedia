@@ -303,10 +303,13 @@
       if (!p.el) return;
       // natpis stoji uz lijevu ivicu dijela, na pola visine (crijevo: iznad luka)
       var b = p.el.getBBox();
+      // usnik ima svoj transform (mjesto na kraju crijeva); CSS transform bi ga pregazio, pa ide ispred
+      var own = p.el.getAttribute('transform');
+      p.base = own ? ' ' + own.replace(/translate\(([-\d.]+)[ ,]+([-\d.]+)\)/, 'translate($1px,$2px)').replace(/rotate\(([-\d.]+)\)/, 'rotate($1deg)') : '';
       p.ax = p.top ? b.x + b.width * 0.4 : b.x;
       p.ay = p.top ? b.y + 4 : b.y + b.height * 0.5;
       p.el.style.transformBox = 'view-box';
-      p.el.style.transformOrigin = (b.x + b.width / 2).toFixed(1) + 'px ' + (b.y + b.height / 2).toFixed(1) + 'px';
+      p.el.style.transformOrigin = own ? '0 0' : (b.x + b.width / 2).toFixed(1) + 'px ' + (b.y + b.height / 2).toFixed(1) + 'px';
     });
     var water = stage.querySelector('.hk-waterbox');
     var labels = document.createElement('div');
@@ -322,6 +325,10 @@
     });
     stage.appendChild(labels);
 
+    // širina se čita samo kad se promijeni (čitanje u svakom frejmu bi tjeralo preglednik da preračuna raspored)
+    var scale = svg.getBoundingClientRect().width / 360;
+    var ro = 'ResizeObserver' in window ? new ResizeObserver(function () { scale = svg.getBoundingClientRect().width / 360; }) : null;
+    if (ro) ro.observe(svg);
     var t0 = 0, pulseAt = -1e4, raf = 0, visible = true, seen = false, puffed = false;
     var clamp = function (k) { return Math.max(0, Math.min(1, k)); };
     var easeBack = function (k) { var c1 = 1.4, c3 = c1 + 1; return 1 + c3 * Math.pow(k - 1, 3) + c1 * Math.pow(k - 1, 2); };
@@ -339,13 +346,12 @@
       if (!t0 && seen) t0 = now;
       var t = t0 ? (now - t0) / 1000 : 0;
       var pulse = Math.sin(clamp((now - pulseAt) / 1100) * Math.PI) * 0.38;
-      var scale = svg.getBoundingClientRect().width / 360;
       var spread = 0;
       PARTS.forEach(function (p) {
         if (!p.el) return;
         var e = Math.max(1 - easeBack(clamp((t - p.at) / DUR)), pulse);
         spread = Math.max(spread, e);
-        p.el.style.transform = 'translate(' + (p.dx * e).toFixed(1) + 'px,' + (p.dy * e).toFixed(1) + 'px) rotate(' + (p.rot * e).toFixed(2) + 'deg)';
+        p.el.style.transform = 'translate(' + (p.dx * e).toFixed(1) + 'px,' + (p.dy * e).toFixed(1) + 'px)' + p.base + ' rotate(' + (p.rot * e).toFixed(2) + 'deg)';
         if (p.sel === '.hk-vase' && water) water.style.transform = 'translate(0,' + (p.dy * e * scale).toFixed(1) + 'px)';
         if (p.lab) {
           // natpis se pojavi dok su dijelovi razmaknuti i nestane malo prije nego što se dio sklopi
@@ -381,6 +387,7 @@
     cleanup(function () {
       if (raf) cancelAnimationFrame(raf);
       if (io) io.disconnect();
+      if (ro) ro.disconnect();
       labels.remove();
     });
     return api;
