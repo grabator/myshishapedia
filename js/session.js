@@ -537,6 +537,7 @@
       var scale = Math.min(1, cssW * (window.devicePixelRatio || 1) / sz[0]);
       fontsReady().then(function () { paint(els.canvas, sz[0], sz[1], scale); });
       els.empty.hidden = !!S.items.length;
+      $('ses-drop').hidden = !!S.photo;
     });
   }
 
@@ -754,8 +755,18 @@
     var sz = SIZES[S.format];
     return { x: (e.clientX - r.left) / r.width * sz[0], y: (e.clientY - r.top) / r.height * sz[1], kx: sz[0] / r.width, ky: sz[1] / r.height };
   }
+  // na dodir se po slici povlači samo u načinu "Pomjeri", inače prst skrola stranicu
+  var moveMode = false, moveBtn = $('ses-move');
+  function setMove(on) {
+    moveMode = on;
+    els.stage.classList.toggle('is-move', on);
+    moveBtn.setAttribute('aria-pressed', String(on));
+    moveBtn.querySelector('span').textContent = t(on ? 'session.moveDone' : 'session.move');
+  }
+  moveBtn.addEventListener('click', function () { setMove(!moveMode); });
   els.canvas.addEventListener('pointerdown', function (e) {
     if (!lastL) return;
+    if (e.pointerType !== 'mouse' && !moveMode) return;
     var p = toImg(e), L = lastL, pad = 30 * L.u;
     var onGroup = S.items.length && p.x >= L.x - pad && p.x <= L.x + L.w + pad && p.y >= L.y - pad && p.y <= L.y + L.h + pad;
     if (!onGroup && !S.photo) return;
@@ -788,6 +799,26 @@
   function endDrag() { drag = null; els.stage.classList.remove('is-drag'); }
   els.canvas.addEventListener('pointerup', endDrag);
   els.canvas.addEventListener('pointercancel', endDrag);
+  /* Kartice na mobitelu: Fotografija, Miks, Izgled */
+  var tabs = root.querySelectorAll('.ses-tab'), steps = root.querySelectorAll('.ses-step');
+  function setTab(i, scroll) {
+    Array.prototype.forEach.call(tabs, function (b, k) { b.setAttribute('aria-selected', String(k === i)); b.tabIndex = k === i ? 0 : -1; });
+    Array.prototype.forEach.call(steps, function (st, k) { st.classList.toggle('is-active', k === i); });
+    if (!scroll) return;
+    // panel odmah ispod slike koja stoji gore
+    var sticky = $('ses-sticky'), top = sticky.getBoundingClientRect().bottom, pt = steps[i].getBoundingClientRect().top;
+    if (getComputedStyle(sticky).position === 'sticky' && Math.abs(pt - top - 12) > 4) window.scrollBy({ top: pt - top - 12, behavior: 'smooth' });
+  }
+  Array.prototype.forEach.call(tabs, function (b, k) {
+    b.addEventListener('click', function () { setTab(k, true); });
+    b.addEventListener('keydown', function (e) {
+      var d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+      if (!d) return;
+      var n = (k + d + tabs.length) % tabs.length; setTab(n, true); tabs[n].focus();
+    });
+  });
+  setTab(0, false);
+
   $('ses-reset').addEventListener('click', function () { S.pos = null; S.fx = 0.5; S.fy = 0.5; S.zoom = 1; els.zoom.value = 100; render(); });
 
   /* ------------------------------------------------------------------ */

@@ -8081,12 +8081,36 @@ a.smx__card:hover { border-color: var(--c-line-strong); transform: translateY(-2
 .ses__shared .icon { flex: none; width: 20px; height: 20px; margin-top: 2px; color: var(--c-accent-ink); }
 .ses__grid { display: grid; gap: 28px; }
 .ses__preview { min-width: 0; }
-.ses__stage { position: relative; margin: 0 auto; max-width: 520px; border-radius: 22px; overflow: hidden; background: var(--c-surface-2); box-shadow: 0 30px 70px -30px rgba(0, 0, 0, 0.8), 0 0 0 1px var(--c-line); aspect-ratio: 4 / 5; touch-action: none; }
+.ses__stage { position: relative; margin: 0 auto; max-width: 520px; border-radius: 22px; overflow: hidden; background: var(--c-surface-2); box-shadow: 0 30px 70px -30px rgba(0, 0, 0, 0.8), 0 0 0 1px var(--c-line); aspect-ratio: 4 / 5; touch-action: pan-y pinch-zoom; }
+.ses__stage.is-move { touch-action: none; box-shadow: 0 30px 70px -30px rgba(0, 0, 0, 0.8), 0 0 0 2px var(--c-accent-ink); }
 .ses__stage[data-format='story'] { aspect-ratio: 9 / 16; max-width: 400px; }
 .ses__stage[data-format='square'] { aspect-ratio: 1; }
 .ses__stage.is-drag { box-shadow: 0 30px 70px -30px rgba(0, 0, 0, 0.8), 0 0 0 2px var(--c-accent-ink); }
 .ses__canvas { display: block; width: 100%; height: 100%; }
 .ses__empty { position: absolute; inset: auto 16px 50% 16px; text-align: center; font-weight: 700; color: var(--c-muted); }
+/* dugmad za fotografiju na samoj slici, dok je nema */
+.ses__drop { position: absolute; left: 50%; top: 52%; transform: translate(-50%, -50%); width: min(86%, 340px); display: grid; justify-items: center; gap: 12px; padding: 20px 18px; border-radius: 20px; text-align: center; background: rgba(14, 11, 10, 0.72); border: 1px dashed rgba(255, 255, 255, 0.28); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+.ses__drop[hidden] { display: none; }
+.ses__drop b { font-family: var(--font-display); font-size: 1.125rem; font-weight: 700; color: #fff; }
+.ses__drop small { font-size: 0.8125rem; line-height: 1.4; color: rgba(255, 255, 255, 0.7); }
+.ses__drop-btns { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
+.ses__drop .btn { cursor: pointer; min-height: 44px; padding-inline: 16px; }
+.ses__tools { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; max-width: 520px; margin: 12px auto 0; }
+.ses-tool { display: inline-flex; align-items: center; gap: 7px; height: 40px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--c-line-strong); background: var(--c-surface); color: var(--c-text); font: inherit; font-size: 0.875rem; font-weight: 700; cursor: pointer; }
+.ses-tool .icon { width: 17px; height: 17px; color: var(--c-accent-ink); }
+.ses-tool:hover { border-color: var(--c-accent-ink); }
+.ses-tool[aria-pressed='true'] { background: var(--c-accent-fill); border-color: var(--c-accent-fill); color: var(--c-on-accent); }
+.ses-tool[aria-pressed='true'] .icon { color: currentColor; }
+.ses-tool:focus-visible { outline: 2px solid var(--c-accent-ink); outline-offset: 2px; }
+.ses-tool--move { display: none; }
+.ses-tool__short { display: none; }
+.ses__hint-touch { display: none; }
+@media (pointer: coarse) {
+  .ses-tool--move { display: inline-flex; }
+  .ses__hint-fine { display: none; }
+  .ses__hint-touch { display: inline; }
+}
+.ses-tabs { display: none; }
 .ses__hint { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 6px 8px; max-width: 520px; margin: 14px auto 0; font-size: 0.875rem; color: var(--c-muted); text-align: center; }
 .ses__hint .icon { width: 18px; height: 18px; color: var(--c-accent-ink); }
 .ses__link { padding: 4px 2px; border: 0; background: none; color: var(--c-accent-ink); font: inherit; font-weight: 700; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
@@ -8164,6 +8188,35 @@ a.smx__card:hover { border-color: var(--c-line-strong); transform: translateY(-2
   .ses-custom__row { grid-template-columns: 1fr 1fr; }
   .ses-custom__row .btn { grid-column: 1 / -1; }
   .ses-row { grid-template-columns: auto 1fr auto auto; }
+}
+/* mobitel: slika stoji gore, ispod nje kartice, podešavanja se mijenjaju bez dugog skrolanja */
+@media (max-width: 899px) {
+  .ses__preview { display: contents; }
+  .ses__sticky { position: sticky; top: var(--header-h); z-index: 30; order: 0; padding: 8px 0 10px; background: var(--c-bg); box-shadow: 0 0 0 100vmax var(--c-bg), 0 14px 18px -14px rgba(0, 0, 0, 0.9); clip-path: inset(0 -100vmax -30px); }
+  .ses__stage { height: min(37svh, 360px); width: auto; max-width: 100%; }
+  .ses__stage[data-format='story'] { max-width: 100%; }
+  .ses__tools { flex-wrap: nowrap; margin-top: 8px; gap: 6px; }
+  .ses-tool__long { display: none; }
+  .ses-tool__short { display: inline; }
+  .ses-tool { height: 36px; padding: 0 12px; font-size: 0.8125rem; }
+  .ses__drop { gap: 8px; padding: 12px 12px; width: 92%; }
+  .ses__drop b { font-size: 0.9375rem; }
+  .ses__drop small { display: none; }
+  .ses__drop .btn { min-height: 40px; padding-inline: 12px; font-size: 0.875rem; }
+  .ses-tabs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; margin-top: 8px; padding: 4px; border-radius: 14px; background: var(--c-surface); border: 1px solid var(--c-line); }
+  .ses-tab { display: inline-flex; align-items: center; justify-content: center; gap: 7px; height: 40px; border: 0; border-radius: 10px; background: none; color: var(--c-muted); font: inherit; font-size: 0.875rem; font-weight: 700; cursor: pointer; }
+  .ses-tab span { display: grid; place-items: center; width: 20px; height: 20px; border-radius: 6px; background: color-mix(in srgb, var(--c-text) 10%, transparent); font-size: 0.75rem; }
+  .ses-tab[aria-selected='true'] { background: var(--c-accent-fill); color: var(--c-on-accent); }
+  .ses-tab[aria-selected='true'] span { background: rgba(0, 0, 0, 0.18); }
+  .ses-tab:focus-visible { outline: 2px solid var(--c-accent-ink); outline-offset: 1px; }
+  .ses__grid { gap: 14px; }
+  .ses__panel { order: 1; min-height: 52svh; align-content: start; }
+  .ses-step { display: none; }
+  .ses-step.is-active { display: block; }
+  .ses-step__h { display: none; }
+  .ses__hint { order: 2; margin-top: 0; }
+  .ses__actions { order: 3; margin-top: 0; }
+  .ses__status { order: 4; margin-top: 0; }
 }
 @media (min-width: 900px) {
   .ses__grid { grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); align-items: start; gap: 40px; }

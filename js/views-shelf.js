@@ -313,11 +313,32 @@
         '<div class="ses__grid">' +
           // pregled
           '<div class="ses__preview">' +
-            '<div class="ses__stage" id="ses-stage" data-format="post">' +
-              '<canvas class="ses__canvas" id="ses-canvas" role="img" aria-label="' + esc(t('session.preview')) + '"></canvas>' +
-              '<p class="ses__empty" id="ses-empty" hidden>' + esc(t('session.empty')) + '</p>' +
+            '<div class="ses__sticky" id="ses-sticky">' +
+              '<div class="ses__stage" id="ses-stage" data-format="post">' +
+                '<canvas class="ses__canvas" id="ses-canvas" role="img" aria-label="' + esc(t('session.preview')) + '"></canvas>' +
+                '<p class="ses__empty" id="ses-empty" hidden>' + esc(t('session.empty')) + '</p>' +
+                // velika dugmad za fotografiju, dok je nema
+                '<div class="ses__drop" id="ses-drop">' +
+                  '<b>' + esc(t('session.addPhoto')) + '</b>' +
+                  '<span class="ses__drop-btns">' +
+                    '<label class="btn btn--primary" for="ses-file">' + icon('image') + '<span>' + esc(t('session.gallery')) + '</span></label>' +
+                    '<label class="btn btn--ghost ses-photo__cam" for="ses-cam">' + icon('camera') + '<span>' + esc(t('session.takePhoto')) + '</span></label>' +
+                  '</span>' +
+                  '<small>' + esc(t('session.addPhotoSub')) + '</small>' +
+                '</div>' +
+              '</div>' +
+              '<div class="ses__tools">' +
+                '<label class="ses-tool" for="ses-file">' + icon('image') + '<span>' + esc(t('session.photoBtn')) + '</span></label>' +
+                '<button type="button" class="ses-tool ses-tool--move" id="ses-move" aria-pressed="false">' + icon('move') + '<span>' + esc(t('session.move')) + '</span></button>' +
+                '<button type="button" class="ses-tool" id="ses-reset" aria-label="' + esc(t('session.reset')) + '">' + icon('refresh') + '<span class="ses-tool__long">' + esc(t('session.reset')) + '</span><span class="ses-tool__short" aria-hidden="true">' + esc(t('session.resetShort')) + '</span></button>' +
+              '</div>' +
+              '<div class="ses-tabs" role="tablist" aria-label="' + esc(t('session.tabs')) + '">' +
+                ['stepPhoto', 'stepMix', 'stepLook'].map(function (k, i) {
+                  return '<button type="button" role="tab" class="ses-tab" id="ses-tab-' + i + '" data-tab="' + i + '" aria-controls="ses-step-' + i + '" aria-selected="' + (i === 0) + '"><span>' + (i + 1) + '</span>' + esc(t('session.' + k)) + '</button>';
+                }).join('') +
+              '</div>' +
             '</div>' +
-            '<p class="ses__hint">' + icon('move') + '<span>' + esc(t('session.dragHint')) + '</span> <button type="button" class="ses__link" id="ses-reset">' + esc(t('session.reset')) + '</button></p>' +
+            '<p class="ses__hint">' + icon('move') + '<span class="ses__hint-fine">' + esc(t('session.dragHint')) + '</span><span class="ses__hint-touch">' + esc(t('session.moveHint')) + '</span></p>' +
             '<div class="ses__actions">' +
               '<button type="button" class="btn btn--primary" id="ses-share" hidden>' + icon('arrowUpRight') + '<span>' + esc(t('session.share')) + '</span></button>' +
               '<button type="button" class="btn btn--primary" id="ses-save">' + icon('image') + '<span>' + esc(t('session.save')) + '</span></button>' +
@@ -327,7 +348,7 @@
           '</div>' +
           // koraci
           '<div class="ses__panel">' +
-            '<div class="ses-step"><h2 class="ses-step__h"><span>1</span>' + esc(t('session.stepPhoto')) + '</h2>' +
+            '<div class="ses-step" id="ses-step-0" role="tabpanel" aria-labelledby="ses-tab-0"><h2 class="ses-step__h"><span>1</span>' + esc(t('session.stepPhoto')) + '</h2>' +
               '<div class="ses-photo">' +
                 '<label class="btn btn--ghost ses-photo__pick">' + icon('image') + '<span id="ses-pick-txt">' + esc(t('session.pickPhoto')) + '</span><input type="file" id="ses-file" accept="image/*" class="sr-only"></label>' +
                 '<label class="btn btn--ghost ses-photo__cam">' + icon('camera') + '<span>' + esc(t('session.takePhoto')) + '</span><input type="file" id="ses-cam" accept="image/*" capture="environment" class="sr-only"></label>' +
@@ -337,7 +358,7 @@
               '<p class="ses-note">' + esc(t('session.photoHint')) + '</p>' +
               '<p class="ses-note ses-note--lock">' + icon('info') + '<span>' + esc(t('session.privacy')) + '</span></p>' +
             '</div>' +
-            '<div class="ses-step"><h2 class="ses-step__h"><span>2</span>' + esc(t('session.stepMix')) + '</h2>' +
+            '<div class="ses-step" id="ses-step-1" role="tabpanel" aria-labelledby="ses-tab-1"><h2 class="ses-step__h"><span>2</span>' + esc(t('session.stepMix')) + '</h2>' +
               '<div class="ses-total"><label for="ses-total">' + esc(t('session.total')) + '</label>' +
                 '<span class="ses-num"><input type="number" id="ses-total" inputmode="decimal" min="1" max="60" step="1" value="20"><em>' + esc(t('session.grams')) + '</em></span>' +
                 '<button type="button" class="ses__link" id="ses-equal">' + esc(t('session.equal')) + '</button></div>' +
@@ -356,7 +377,7 @@
               '</div>' +
               '<p class="ses-note" id="ses-max" hidden>' + esc(t('session.max')) + '</p>' +
             '</div>' +
-            '<div class="ses-step"><h2 class="ses-step__h"><span>3</span>' + esc(t('session.stepLook')) + '</h2>' +
+            '<div class="ses-step" id="ses-step-2" role="tabpanel" aria-labelledby="ses-tab-2"><h2 class="ses-step__h"><span>3</span>' + esc(t('session.stepLook')) + '</h2>' +
               field(t('session.format'), seg('format', [['post', 'fPost'], ['story', 'fStory'], ['square', 'fSquare']])) +
               field(t('session.style'), seg('style', [['neon', 'sNeon'], ['glass', 'sGlass'], ['minimal', 'sMinimal']])) +
               field(t('session.heading'), '<input type="text" class="ses-in" id="ses-head" maxlength="40" placeholder="' + esc(t('session.headingPh')) + '">') +
