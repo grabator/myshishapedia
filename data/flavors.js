@@ -852,6 +852,48 @@ window.FLAVORS = [
     similar: ['adalya-mint', 'haze-mint-supreme', 'tangiers-cane-mint', 'al-fakher-lemon-mint']
   },
   {
+    id: 'al-fakher-grape',
+    brand: 'al-fakher',
+    leaf: 'light',
+    name: 'Grape',
+    shortDescription: {
+      bs: 'Slatko, sočno grožđe, kao sok od bijelog grožđa, bez mente.',
+      en: 'Sweet, juicy grape like white grape juice, with no mint.'
+    },
+    description: {
+      bs: [
+        'Grape je čisto grožđe: slatko i sočno, bliže soku od bijelog grožđa, sa blagom kiselinom na kraju.',
+        'Za razliku od Grape Minta, nema mente, pa je okus topliji, slađi i više voćni nego osvježavajući.',
+        'Dobar je sam, a i kao baza: par grama mente ili limuna od njega napravi sasvim drugi okus.'
+      ],
+      en: [
+        'Grape is pure grape: sweet and juicy, closer to white grape juice, with a light tang at the end.',
+        'Unlike Grape Mint, it has no mint, so the flavor is warmer, sweeter and more fruity than refreshing.',
+        'Good on its own and as a base: a few grams of mint or lemon turn it into a completely different bowl.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Grožđe', en: 'Grape' }, illustration: 'grozdje', color: '#9b59b6', intensity: 9 }
+    ],
+    profile: { sweetness: 8, freshness: 4, fruitiness: 9, cooling: 0, strength: 5 },
+    tags: ['vocni', 'slatki', 'klasicni'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#9b59b6', secondary: '#d7b8e6', accent: '#7fbf4a', background: '#1e1028', text: '#f8efff' },
+    mixIdeas: {
+      bs: [
+        'Grape i Mint, 70/30, za klasično grožđe sa mentom.',
+        'Grape i Double Apple, za stari orijentalni miks.',
+        'Grape i Blueberry, za tamni bobičasti miks.'
+      ],
+      en: [
+        'Grape with Mint, 70/30, for the classic grape and mint.',
+        'Grape with Double Apple for an old-school café mix.',
+        'Grape with Blueberry for a dark berry mix.'
+      ]
+    },
+    similar: ['al-fakher-grape-mint', 'al-waha-grape-mint', 'musthave-ruby-grape', 'musthave-garnet-grape']
+  },
+  {
     id: 'al-fakher-grape-mint',
     brand: 'al-fakher',
     leaf: 'light',

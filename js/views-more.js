@@ -953,7 +953,10 @@
         p = desc.pair;
         return {
           main: pageCompare(p.a, p.b, crumbs, p),
-          title: t('meta.comparePairTitle', { a: V.uniqueName(p.a), b: V.uniqueName(p.b) }),
+          // u naslovu je i brend (ljudi traže "musthave elderberry", "darkside cola"); kod istog brenda samo jednom
+          title: t('meta.comparePairTitle', p.a.brand === p.b.brand
+            ? { a: p.a.brand + ' ' + p.a.name, b: p.b.name }
+            : { a: p.a.brand + ' ' + p.a.name, b: p.b.brand + ' ' + p.b.name }),
           description: V.clip(t('meta.comparePairLead', { a: V.uniqueName(p.a), b: V.uniqueName(p.b) }) + ' ' + V.compareText(p.a, p.b))
         };
       case 'mixes':

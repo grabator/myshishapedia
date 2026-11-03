@@ -2268,7 +2268,10 @@
       case 'flavor':
         th = V.themeFor(desc.flavor);
         out.main = pageFlavor(desc.flavor, crumbs);
-        out.title = t('meta.flavorTitle', { brand: desc.flavor.brand, name: desc.flavor.name, ingredients: V.ingredientList(desc.flavor) });
+        // kad je jedini sastojak isti kao naziv ("Elderberry - elderberry"), naslov kaže šta stranica nudi
+        var ingList = V.ingredientList(desc.flavor);
+        var solo = (desc.flavor.ingredients || []).length < 2 && String(desc.flavor.name).toLowerCase().indexOf(ingList) !== -1;
+        out.title = t(solo ? 'meta.flavorTitleSolo' : 'meta.flavorTitle', { brand: desc.flavor.brand, name: desc.flavor.name, ingredients: ingList });
         // kratak opis okusa + šta stranica nudi (jasnije u rezultatima pretrage)
         out.description = (L(desc.flavor.shortDescription) + ' ' + t('meta.flavorDescriptionMore')).trim();
         // okus može imati svoj naslov i opis za pretragu (npr. i naziv sa pakovanja: "Lemon with Mint")
