@@ -711,7 +711,7 @@
         var b = desc.brand;
         return {
           main: pageBrand(b, crumbs),
-          title: t('meta.brandTitle', { name: b.name, country: L(b.country) }),
+          title: t('meta.brandTitle', { name: b.name, count: MSP.plural('home.count', V.brandFlavors(b).length), country: L(b.country) }),
           description: V.clip(L(b.short) + ' ' + t('brands.metaIn', { list: V.brandFlavors(b).map(function (f) { return f.name; }).join(', ') })),
           theme: V.brandTheme(b)
         };
