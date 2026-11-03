@@ -1169,7 +1169,10 @@ function build() {
       '  </url>';
   });
   writeFile('sitemap.xml', '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n' + urls.join('\n') + '\n</urlset>\n');
-  writeFile('robots.txt', `User-agent: *\nAllow: /\n\nSitemap: ${abs('/sitemap.xml')}\n`);
+  // Mikser, poređenje i prijava greške sa parametrima (?a=...&b=..., ?okus=...) su ista stranica kao bez njih
+  // (kanonska oznaka) ili noindex; Google ih ne treba posjećivati, pa vrijeme troši na prave stranice.
+  const skip = LANGS.flatMap((l) => ['mixer', 'compare', 'report'].map((pg) => `Disallow: ${V.urlFor(l, pg)}?`));
+  writeFile('robots.txt', `User-agent: *\nAllow: /\n${skip.join('\n')}\n\nSitemap: ${abs('/sitemap.xml')}\n`);
 
   // statični fajlovi
   copyDir('css', 'css');
