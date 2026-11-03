@@ -1105,7 +1105,8 @@ function checkData() {
 /**
  * Pravi datum zadnje izmjene za sitemap: svaka stranica ima otisak (hash) svog sadržaja u
  * seo/lastmod.json. Datum se pomjeri na danas samo kad se sadržaj stranice stvarno promijeni,
- * a ne pri svakom buildu (Google ignoriše lastmod kome ne može vjerovati).
+ * a ne pri svakom buildu (Google ignoriše lastmod kome ne može vjerovati). Otisak se računa iz teksta
+ * stranice (naslov, opis i tekst bez HTML oznaka), pa izmjene izgleda i skripti ne pomjeraju datum.
  * Fajl se mijenja pri buildu; commituj ga zajedno sa izmjenom sadržaja.
  */
 const LASTMOD_FILE = path.join(ROOT, 'seo/lastmod.json');
@@ -1117,10 +1118,14 @@ function lastModDates(rendered) {
   let changed = 0;
   for (const r of rendered) {
     if (!isIndexable(r.desc)) continue;
-    const h = crypto.createHash('sha1').update([r.info.title, r.info.description, r.info.main].join('\n')).digest('hex').slice(0, 12);
+    // otisak samo teksta (bez HTML oznaka), da promjena izgleda ili skripti ne pomjeri datum
+    const text = String(r.info.main || '').replace(/<(script|style|svg)[^>]*>[\s\S]*?<\/\1>/g, ' ').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+    const h = 't' + crypto.createHash('sha1').update([r.info.title, r.info.description, text].join('\n')).digest('hex').slice(0, 11);
     const prev = old[r.desc.url];
-    const date = prev && prev[0] === h ? prev[1] : today;
-    if (!prev || prev[0] !== h) changed++;
+    // stari zapis (otisak cijelog HTML-a, bez slova "t" na početku): zadrži datum, samo prepiši otisak
+    const migrated = prev && prev[0][0] !== 't';
+    const date = prev && (prev[0] === h || migrated) ? prev[1] : today;
+    if (!prev || (prev[0] !== h && !migrated)) changed++;
     next[r.desc.url] = [h, date];
     out[r.desc.url] = date;
   }
