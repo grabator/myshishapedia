@@ -250,8 +250,93 @@
           '<button type="button" class="btn btn--ghost" id="fl-reset">' + esc(t('flavorsPage.reset')) + '</button></p>' +
         '</div>' +
         '<p class="fl-suggest-line">' + esc(t('flavorsPage.suggestLine')) + ' <a href="' + V.url('suggest') + '">' + esc(t('nav.suggest')) + '</a></p>' +
-      '</div></section>'
+      '</div></section>' +
+      flavorGroupsSection() +
+      V.faqSection(flavorsFaq(), 'fl-faq')
     );
+  }
+
+  /*
+   * Okusi po vrsti: kratak tekst i linkovi na okuse (za ljude koji traže npr. "ledeni okusi za nargilu",
+   * a pretraživač ovako vidi sve grupe i do okusa dođe linkom, bez JavaScripta).
+   */
+  var FLAVOR_GROUPS = [
+    { tags: ['ledeni', 'mint'], sort: 'cooling',
+      title: { bs: 'Mentol i ledeni okusi za nargilu', en: 'Mint and icy hookah flavors' },
+      text: { bs: 'Menta, pepermint i mentol za hladan, svjež izdah.', en: 'Mint, peppermint and menthol for a cool, fresh exhale.' } },
+    { tags: ['vocni'], sort: 'fruitiness',
+      title: { bs: 'Voćni okusi za nargilu', en: 'Fruity shisha flavors' },
+      text: { bs: 'Jabuka, lubenica, mango, bobice i drugo voće, sa mentom i bez nje.', en: 'Apple, watermelon, mango, berries and more, with or without mint.' } },
+    { tags: ['citrusni'], sort: 'freshness',
+      title: { bs: 'Citrusni okusi', en: 'Citrus hookah flavors' },
+      text: { bs: 'Limun, limeta, narandža i grejpfrut: kiselkasto i osvježavajuće.', en: 'Lemon, lime, orange and grapefruit: tangy and refreshing.' } },
+    { tags: ['desertni'], sort: 'sweetness',
+      title: { bs: 'Desertni okusi', en: 'Dessert shisha flavors' },
+      text: { bs: 'Vanila, karamel, čokolada, kolači i sladoled.', en: 'Vanilla, caramel, chocolate, pastries and ice cream.' } },
+    { tags: ['bombon'], sort: 'sweetness',
+      title: { bs: 'Bomboni i žvake', en: 'Candy and gum flavors' },
+      text: { bs: 'Slatki bomboni, žvake i gumeni bomboni.', en: 'Sweet candies, chewing gum and gummies.' } },
+    { tags: ['pice'], sort: 'sweetness',
+      title: { bs: 'Okusi pića', en: 'Drink flavors' },
+      text: { bs: 'Kola, limunada, kokteli i čaj u nargili.', en: 'Cola, lemonade, cocktails and tea in your bowl.' } }
+  ];
+  var GROUP_SIZE = 8;
+
+  function flavorGroupsSection() {
+    var all = V.flavors();
+    var groups = FLAVOR_GROUPS.map(function (g) {
+      var list = all.filter(function (f) { return (f.tags || []).some(function (x) { return g.tags.indexOf(x) !== -1; }); });
+      list.sort(function (a, b) {
+        return (b.profile[g.sort] || 0) - (a.profile[g.sort] || 0) || (a.brand + ' ' + a.name).localeCompare(b.brand + ' ' + b.name);
+      });
+      return { g: g, list: list.slice(0, GROUP_SIZE), total: list.length };
+    }).filter(function (x) { return x.list.length; });
+    if (!groups.length) return '';
+    return '<section class="fsec fsec--alt flgroups" aria-labelledby="flgroups-h"><div class="container">' +
+      '<header class="faq__head"><p class="eyebrow"><span class="eyebrow__dot" aria-hidden="true"></span>' + esc(t('flavorsPage.groupsEyebrow')) + '</p>' +
+        '<h2 class="faq__title" id="flgroups-h">' + esc(t('flavorsPage.groupsTitle')) + '</h2></header>' +
+      '<div class="flgroups__grid">' + groups.map(function (x) {
+        return '<div class="flgroup">' +
+          '<h3 class="flgroup__title">' + esc(L(x.g.title)) + ' <span class="flgroup__n">' + x.total + '</span></h3>' +
+          '<p class="flgroup__text">' + esc(L(x.g.text)) + '</p>' +
+          '<ul class="flgroup__list" role="list">' + x.list.map(function (f) {
+            return '<li><a href="' + V.flavorUrl(f) + '">' + esc(f.brand + ' ' + f.name) + '</a></li>';
+          }).join('') + '</ul>' +
+        '</div>';
+      }).join('') + '</div>' +
+    '</div></section>';
+  }
+
+  function flavorsFaq() {
+    var n = V.flavors().length;
+    var b = V.brands().filter(function (x) { return V.brandFlavors(x).length; }).length;
+    return [
+      {
+        q: { bs: 'Koji su najpopularniji okusi za nargilu?', en: 'What are the most popular hookah flavors?' },
+        a: { bs: 'Klasici koje ćeš naći u skoro svakom lounge baru su dvostruka jabuka (Double Apple), menta, grožđe sa mentom, limun sa mentom, lubenica sa mentom i borovnica. Od novijih okusa omiljeni su ledeni voćni i bombon okusi.',
+          en: 'The classics you will find in almost every lounge are double apple, mint, grape mint, lemon mint, watermelon mint and blueberry. Among newer flavors, icy fruit and candy blends are a lounge favorite.' }
+      },
+      {
+        q: { bs: 'Koliko okusa ima na MyShishapediji?', en: 'How many hookah flavors are on MyShishapedia?' },
+        a: { bs: 'Trenutno ' + n + ' okusa od ' + b + ' brendova. Za svaki okus su tu sastojci, profil okusa, ideje za mikseve i slični okusi.',
+          en: 'Right now ' + n + ' flavors from ' + b + ' brands. Every flavor has its ingredients, a flavor profile, mix ideas and similar flavors.' }
+      },
+      {
+        q: { bs: 'Koja je razlika između svijetlog i tamnog lista?', en: 'What is the difference between blonde and dark leaf?' },
+        a: { bs: 'Svijetli list (Virginia) je blaži, a koriste ga npr. Al Fakher, Adalya i Starbuzz. Tamni list (Burley) je jači, ima više nikotina i izraženiji okus duhana, a koriste ga npr. Tangiers, Darkside i Musthave.',
+          en: 'Blonde leaf (Virginia) is milder and is used by brands like Al Fakher, Adalya and Starbuzz. Dark leaf (Burley) is stronger, has more nicotine and a deeper tobacco taste, and is used by brands like Tangiers, Darkside and Musthave.' }
+      },
+      {
+        q: { bs: 'Koji je okus za nargilu dobar za početnike?', en: 'Which hookah flavor is good for beginners?' },
+        a: { bs: 'Najbolje je krenuti od blagih voćnih okusa na svijetlom listu, kao što su lubenica, grožđe ili jagoda, sa malo mente. Pogledaj i kolekciju Za početnike.',
+          en: 'Start with mild fruit flavors on blonde leaf, such as watermelon, grape or strawberry, with a little mint. Have a look at the For beginners collection too.' }
+      },
+      {
+        q: { bs: 'Mogu li miješati dva okusa?', en: 'Can I mix two hookah flavors?' },
+        a: { bs: 'Možeš. Najčešći omjeri su 50/50 i 70/30, a jači okus (npr. menta) ide u manjem dijelu. U mikseru možeš vidjeti kako bi izgledao bilo koji miks.',
+          en: 'Yes. The most common ratios are 50/50 and 70/30, with the stronger flavor (like mint) as the smaller part. The mixer shows you how any mix would turn out.' }
+      }
+    ];
   }
 
   /* ================================================================== */

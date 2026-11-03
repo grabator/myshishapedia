@@ -1155,9 +1155,34 @@
       '<div class="marquee" aria-hidden="true"><div class="marquee__track">' + marquee() + '</div></div>' +
       catalog('catalog-title') +
       V.homeMixes() +
-      explore()
+      explore() +
+      V.faqSection(HOME_FAQ, 'home-faq')
     );
   }
+
+  /* Kratka pitanja o nargili na početnoj (odgovor je u HTML-u, vidi ga i pretraživač). */
+  var HOME_FAQ = [
+    {
+      q: { bs: 'Šta je nargila?', en: 'What is a hookah?' },
+      a: { bs: 'Nargila (šiša, hookah) je vodena lula. Duhan sa okusom grije se ugljem u posudi na vrhu, a dim prolazi kroz vodu u vazi prije nego što ga udahneš kroz crijevo.',
+        en: 'A hookah (also called shisha or nargile) is a water pipe. Flavored tobacco is heated by charcoal in the bowl on top, and the smoke passes through the water in the base before you inhale it through the hose.' }
+    },
+    {
+      q: { bs: 'Koji su najpopularniji okusi za nargilu?', en: 'What are the most popular hookah flavors?' },
+      a: { bs: 'Klasici su dvostruka jabuka, menta, grožđe sa mentom, limun sa mentom, lubenica sa mentom i borovnica. Od novijih su omiljeni ledeni voćni i bombon okusi. Sve okuse, sa sastojcima i profilom, nađeš u listi okusa.',
+        en: 'The classics are double apple, mint, grape mint, lemon mint, watermelon mint and blueberry. Among newer flavors, icy fruit and candy blends are a favorite. You will find every flavor, with its ingredients and profile, in the flavors list.' }
+    },
+    {
+      q: { bs: 'Kako pripremiti nargilu?', en: 'How do you set up a hookah?' },
+      a: { bs: 'Ukratko: sipaj vodu u vazu, sastavi nargilu, rahlo napuni posudu duhanom, prekrij je folijom ili stavi HMD, upali ugljeve i stavi ih na posudu, pa sačekaj nekoliko minuta da se zagrije. Svaki korak je detaljno objašnjen u vodiču.',
+        en: 'In short: fill the base with water, put the hookah together, pack the bowl loosely, cover it with foil or an HMD, light the coals and place them on top, then wait a few minutes for it to heat up. Every step is explained in detail in the guide.' }
+    },
+    {
+      q: { bs: 'Da li je nargila manje štetna od cigareta?', en: 'Is a hookah less harmful than cigarettes?' },
+      a: { bs: 'Nije. Dim nargile sadrži nikotin, ugljen-monoksid i katran, a voda ih ne filtrira. Sesija traje dugo, pa se udahne i mnogo više dima nego kod jedne cigarete.',
+        en: 'No. Hookah smoke contains nicotine, carbon monoxide and tar, and the water does not filter them out. A session lasts a long time, so you inhale far more smoke than from a single cigarette.' }
+    }
+  ];
 
   /* ------------------------------------------------------------------ */
   /* Stranica okusa                                                      */
@@ -1474,6 +1499,7 @@
 
         V.flavorRecipesSection(f, nextNum) +
         V.flavorCompareSection(f, nextNum) +
+        V.faqSection(f.faq, 'flavor-faq') +
         '<nav class="pager container' + (prev && next ? '' : ' pager--single') + '" aria-label="' + esc(t('flavor.pagerLabel')) + '">' +
           (prev ? pagerLink(prev, 'prev') : '') + (next ? pagerLink(next, 'next') : '') +
           '<a class="btn btn--ghost pager__back" href="' + V.url('home') + '#svi-okusi">' + icon('arrowLeft') + '<span>' + esc(t('nav.backToAll')) + '</span></a>' +
@@ -2245,6 +2271,11 @@
         out.title = t('meta.flavorTitle', { brand: desc.flavor.brand, name: desc.flavor.name, ingredients: V.ingredientList(desc.flavor) });
         // kratak opis okusa + šta stranica nudi (jasnije u rezultatima pretrage)
         out.description = (L(desc.flavor.shortDescription) + ' ' + t('meta.flavorDescriptionMore')).trim();
+        // okus može imati svoj naslov i opis za pretragu (npr. i naziv sa pakovanja: "Lemon with Mint")
+        if (desc.flavor.seo) {
+          if (desc.flavor.seo.title) out.title = L(desc.flavor.seo.title);
+          if (desc.flavor.seo.description) out.description = L(desc.flavor.seo.description);
+        }
         out.mood = desc.flavor.mood || '';
         break;
       case 'mixer':

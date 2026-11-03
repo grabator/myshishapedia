@@ -899,6 +899,16 @@ window.FLAVORS = [
     brand: 'al-fakher',
     leaf: 'light',
     name: 'Lemon Mint',
+    seo: {
+      title: {
+        bs: 'Al Fakher Lemon Mint (Lemon with Mint) okus za nargilu | MyShishapedia',
+        en: 'Al Fakher Lemon Mint (Lemon with Mint) shisha flavor | MyShishapedia'
+      },
+      description: {
+        bs: 'Al Fakher Lemon with Mint: kiselkast limun i hladna menta. Profil okusa, jačina, najbolji miksevi i slični lemon mint okusi za nargilu.',
+        en: 'Al Fakher Lemon with Mint: tangy lemon and cool mint. Flavor profile, strength, best mixes and similar lemon mint hookah flavors.'
+      }
+    },
     shortDescription: {
       bs: 'Kiselkast limun i hladna menta: jednostavan, čist i osvježavajući klasik.',
       en: 'Tangy lemon and cool mint: a simple, clean and refreshing classic.'
@@ -906,11 +916,13 @@ window.FLAVORS = [
     description: {
       bs: [
         'Lemon Mint je kao limunada sa listićima mente. Limun je kiselkast i svjež, sa malo slatkoće, a menta daje hladan, čist izdah.',
+        'Na pakovanju Al Fakhera ovaj okus se zove Lemon with Mint (limun sa mentom), pa ga u prodavnicama i lounge barovima naći ćeš pod oba naziva.',
         'Okus je lagan i ne zamara, pa je dobar za vruće dane i duže sesije.',
         'Za poređenje probaj i Fumari i Mazaya Lemon Mint: isti par, tri različita karaktera.'
       ],
       en: [
         'Lemon Mint is like lemonade with mint leaves. The lemon is tangy and fresh with a bit of sweetness, and the mint gives a cool, clean exhale.',
+        'On the Al Fakher pack this flavor is called Lemon with Mint, so you will find it under both names in shops and lounges.',
         'It is light and never tiring, so it works well on hot days and in long sessions.',
         'For comparison, try the Fumari and Mazaya Lemon Mint too: the same pair, three different characters.'
       ]
@@ -935,6 +947,28 @@ window.FLAVORS = [
         'Lemon Mint with Raspberry for a raspberry lemonade with mint.'
       ]
     },
+    faq: [
+      {
+        q: { bs: 'Da li je Al Fakher Lemon Mint isto što i Lemon with Mint?', en: 'Is Al Fakher Lemon Mint the same as Lemon with Mint?' },
+        a: { bs: 'Da. Na pakovanju Al Fakhera okus se zove Lemon with Mint, a mnogi ga kraće zovu Lemon Mint.', en: 'Yes. On the Al Fakher pack the flavor is called Lemon with Mint, and many people simply call it Lemon Mint.' }
+      },
+      {
+        q: { bs: 'Kakvog je okusa Lemon Mint?', en: 'What does Lemon Mint taste like?' },
+        a: { bs: 'Kao limunada sa mentom: kiselkast, svjež limun sa malo slatkoće i hladan, čist izdah.', en: 'Like lemonade with mint: tangy, fresh lemon with a little sweetness and a cool, clean exhale.' }
+      },
+      {
+        q: { bs: 'Da li je Lemon Mint jak?', en: 'Is Lemon Mint strong?' },
+        a: { bs: 'Nije. Rađen je na svijetlom listu (Virginia), pa je blag i dobar i za početnike.', en: 'No. It is made on blonde leaf (Virginia), so it is mild and a good choice for beginners too.' }
+      },
+      {
+        q: { bs: 'Sa čim se miješa Lemon Mint?', en: 'What can I mix Lemon Mint with?' },
+        a: { bs: 'Dobro ide uz Double Apple, Grape Mint ili Raspberry. Uz malinu dobiješ malinovu limunadu sa mentom.', en: 'It goes well with Double Apple, Grape Mint or Raspberry. With raspberry you get a raspberry lemonade with mint.' }
+      },
+      {
+        q: { bs: 'Koji su okusi slični Al Fakher Lemon Mintu?', en: 'Which flavors are similar to Al Fakher Lemon Mint?' },
+        a: { bs: 'Fumari Lemon Mint i Mazaya Lemon Mint su isti par limuna i mente, svaki sa svojim karakterom. Za ledeniji limun probaj Revoshi Eskimo Lemon.', en: 'Fumari Lemon Mint and Mazaya Lemon Mint are the same lemon and mint pair, each with its own character. For an icier lemon, try Revoshi Eskimo Lemon.' }
+      }
+    ],
     similar: ['fumari-lemon-mint', 'mazaya-lemon-mint', 'al-fakher-mint', 'adalya-lemon-cocktail']
   },
   {
@@ -1021,6 +1055,252 @@ window.FLAVORS = [
       ]
     },
     similar: ['serbetli-ice-blueberry', 'adalya-blue-ice', 'trifecta-blue-strawberry', 'starbuzz-blue-mist']
+  },
+  {
+    id: 'al-fakher-gum-mint',
+    brand: 'al-fakher',
+    leaf: 'light',
+    name: 'Gum Mint',
+    seo: {
+      title: {
+        bs: 'Al Fakher Gum Mint (Gum with Mint) okus za nargilu | MyShishapedia',
+        en: 'Al Fakher Gum Mint (Gum with Mint) shisha flavor | MyShishapedia'
+      },
+      description: {
+        bs: 'Al Fakher Gum with Mint: slatka žvakaća guma i hladna menta. Profil okusa, jačina, ideje za mikseve i slični okusi za nargilu.',
+        en: 'Al Fakher Gum with Mint: sweet chewing gum and cool mint. Flavor profile, strength, mix ideas and similar gum mint hookah flavors.'
+      }
+    },
+    shortDescription: {
+      bs: 'Slatka žvakaća guma i hladna menta, kao svježa žvaka sa mentolom.',
+      en: 'Sweet chewing gum and cool mint, like a fresh stick of mint gum.'
+    },
+    description: {
+      bs: [
+        'Gum Mint ima okus slatke žvakaće gume, a menta mu daje hladan, svjež izdah. Podsjeća na žvaku sa mentom koju tek otvoriš.',
+        'Na pakovanju Al Fakhera zove se Gum with Mint, pa ga u prodavnicama i lounge barovima naći ćeš pod oba naziva.',
+        'Sladak je, ali ga menta drži laganim, pa je dobar i za duže sesije. Kao i ostali Al Fakher okusi, rađen je na svijetlom listu, pa nije jak.'
+      ],
+      en: [
+        'Gum Mint tastes like sweet chewing gum, and the mint gives it a cool, fresh exhale. Think of a stick of mint gum you have just unwrapped.',
+        'On the Al Fakher pack it is called Gum with Mint, so you will find it under both names in shops and lounges.',
+        'It is sweet, but the mint keeps it light, so it works for longer sessions too. Like other Al Fakher flavors, it is made on blonde leaf, so it is not harsh.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Žvakaća guma', en: 'Chewing gum' }, illustration: 'zvaka', color: '#ff8fb8', intensity: 8 },
+      { name: { bs: 'Menta', en: 'Mint' }, illustration: 'menta', color: '#2fae78', intensity: 7 }
+    ],
+    profile: { sweetness: 7, freshness: 8, fruitiness: 1, cooling: 6, strength: 5 },
+    tags: ['bombon', 'mint', 'slatki', 'osvjezavajuci'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#ff8fb8', secondary: '#9fe0c4', accent: '#2fae78', background: '#2a1020', text: '#fff0f6' },
+    mixIdeas: {
+      bs: [
+        'Gum Mint i Watermelon Mint, za lubenicu sa žvakom.',
+        'Gum Mint i Strawberry, za jagodu i žvaku.',
+        'Gum Mint i Mint, 50/50, za još hladniji izdah.'
+      ],
+      en: [
+        'Gum Mint with Watermelon Mint for watermelon bubble gum.',
+        'Gum Mint with Strawberry for strawberry gum.',
+        'Gum Mint with Mint, 50/50, for an even cooler exhale.'
+      ]
+    },
+    faq: [
+      {
+        q: { bs: 'Da li je Al Fakher Gum Mint isto što i Gum with Mint?', en: 'Is Al Fakher Gum Mint the same as Gum with Mint?' },
+        a: { bs: 'Da. Na pakovanju Al Fakhera okus se zove Gum with Mint, a mnogi ga kraće zovu Gum Mint.', en: 'Yes. On the Al Fakher pack the flavor is called Gum with Mint, and many people simply call it Gum Mint.' }
+      },
+      {
+        q: { bs: 'Kakvog je okusa Gum Mint?', en: 'What does Gum Mint taste like?' },
+        a: { bs: 'Kao slatka žvakaća guma sa mentom: sladak udah i hladan, svjež izdah.', en: 'Like sweet mint chewing gum: a sweet inhale and a cool, fresh exhale.' }
+      },
+      {
+        q: { bs: 'Sa čim se miješa Gum Mint?', en: 'What can I mix Gum Mint with?' },
+        a: { bs: 'Dobro ide uz Watermelon Mint, Strawberry ili čistu Mint, kad želiš hladniji izdah.', en: 'It goes well with Watermelon Mint, Strawberry or plain Mint when you want a cooler exhale.' }
+      }
+    ],
+    similar: ['mazaya-gum-mint', 'haze-double-bubble', 'al-fakher-mint', 'musthave-ice-mint']
+  },
+  {
+    id: 'al-fakher-peach',
+    brand: 'al-fakher',
+    leaf: 'light',
+    name: 'Peach',
+    shortDescription: {
+      bs: 'Zrela, sočna breskva, slatka sa blagom kiselinom i bez mente.',
+      en: 'Ripe, juicy peach, sweet with a light tang and no mint.'
+    },
+    description: {
+      bs: [
+        'Peach je čista breskva: slatka, sočna i mekana, sa blagom kiselinom koja je drži svježom.',
+        'Nema mente ni mentola, pa je okus topao i voćan od prvog do zadnjeg povlačenja.',
+        'Dobar je sam, a još više kao voćna baza za mikseve sa mentom ili citrusima.'
+      ],
+      en: [
+        'Peach is pure peach: sweet, juicy and soft, with a light tang that keeps it fresh.',
+        'There is no mint or menthol, so the flavor stays warm and fruity from the first pull to the last.',
+        'Good on its own and even better as a fruity base for mixes with mint or citrus.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Breskva', en: 'Peach' }, illustration: 'breskva', color: '#ffb07a', intensity: 9 }
+    ],
+    profile: { sweetness: 7, freshness: 5, fruitiness: 9, cooling: 0, strength: 5 },
+    tags: ['vocni', 'slatki', 'ljetni'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#ffa36b', secondary: '#ffd2b0', accent: '#e8667a', background: '#2b140c', text: '#fff3ea' },
+    mixIdeas: {
+      bs: [
+        'Peach i Mint, 70/30, za breskvu sa mentom.',
+        'Peach i Lemon Mint, za ledeni čaj od breskve.',
+        'Peach i Strawberry, za ljetni voćni miks.'
+      ],
+      en: [
+        'Peach with Mint, 70/30, for peach and mint.',
+        'Peach with Lemon Mint for a peach iced tea.',
+        'Peach with Strawberry for a summer fruit mix.'
+      ]
+    },
+    similar: ['musthave-sweet-peach', 'tangiers-kashmir-peach', 'revoshi-domingo', 'adalya-berlin-nights']
+  },
+  {
+    id: 'al-fakher-kiwi',
+    brand: 'al-fakher',
+    leaf: 'light',
+    name: 'Kiwi',
+    shortDescription: {
+      bs: 'Zeleni kivi, sočan i kiselkast, sa tropskim slatkim krajem.',
+      en: 'Green kiwi, juicy and tangy, with a sweet tropical finish.'
+    },
+    description: {
+      bs: [
+        'Kiwi je zelen i sočan: na udahu kiselkast i svjež, a na izdahu sladi, sa tropskim tonom.',
+        'Nema mente, pa svježina dolazi od same kiseline voća.',
+        'Dobar je za one koji vole voćne okuse koji nisu preslatki, a odličan i za mikseve sa jagodom ili mentom.'
+      ],
+      en: [
+        'Kiwi is green and juicy: tangy and fresh on the inhale, sweeter on the exhale, with a tropical touch.',
+        'There is no mint, so the freshness comes from the fruit\'s own tartness.',
+        'A good pick if you like fruit flavors that are not too sweet, and great in mixes with strawberry or mint.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Kivi', en: 'Kiwi' }, illustration: 'kivi', color: '#8cc63f', intensity: 9 }
+    ],
+    profile: { sweetness: 5, freshness: 7, fruitiness: 9, cooling: 0, strength: 5 },
+    tags: ['vocni', 'tropski', 'osvjezavajuci'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#8cc63f', secondary: '#d4ec9a', accent: '#5a3a1e', background: '#142208', text: '#f4ffe6' },
+    mixIdeas: {
+      bs: [
+        'Kiwi i Strawberry, 50/50, klasičan miks jagode i kivija.',
+        'Kiwi i Mint, 70/30, za svježiji kivi.',
+        'Kiwi i Lemon Mint, za kiselkastu zelenu limunadu.'
+      ],
+      en: [
+        'Kiwi with Strawberry, 50/50, the classic strawberry kiwi.',
+        'Kiwi with Mint, 70/30, for a fresher kiwi.',
+        'Kiwi with Lemon Mint for a tangy green lemonade.'
+      ]
+    },
+    similar: ['musthave-kiwi-smoothie', 'musthave-green-fizz', 'musthave-kiwi-apple-lime', 'al-fakher-lemon-mint']
+  },
+  {
+    id: 'al-fakher-strawberry',
+    brand: 'al-fakher',
+    leaf: 'light',
+    name: 'Strawberry',
+    shortDescription: {
+      bs: 'Slatka, zrela jagoda, jednostavna i mekana, bez mente.',
+      en: 'Sweet, ripe strawberry, simple and soft, with no mint.'
+    },
+    description: {
+      bs: [
+        'Strawberry je jagoda onakva kakvu je znaš: slatka, zrela i mirisna, sa malo kiseline.',
+        'Okus je jednostavan i mekan, pa je dobar izbor ako tek počinješ sa nargilom.',
+        'Najčešće se koristi i kao baza za mikseve: jagoda ide uz gotovo sve, od kivija do mente.'
+      ],
+      en: [
+        'Strawberry is strawberry the way you know it: sweet, ripe and fragrant, with a little tartness.',
+        'The flavor is simple and soft, which makes it a good choice if you are new to hookah.',
+        'It is also a popular base for mixes: strawberry goes with almost anything, from kiwi to mint.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Jagoda', en: 'Strawberry' }, illustration: 'jagoda', color: '#e8344a', intensity: 9 }
+    ],
+    profile: { sweetness: 7, freshness: 5, fruitiness: 9, cooling: 0, strength: 5 },
+    tags: ['vocni', 'bobicasti', 'slatki'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#e8344a', secondary: '#ffb3bd', accent: '#3f9a4a', background: '#2a0a10', text: '#fff0f2' },
+    mixIdeas: {
+      bs: [
+        'Strawberry i Kiwi, 50/50, za jagodu i kivi.',
+        'Strawberry i Mint, 70/30, za jagodu sa mentom.',
+        'Strawberry i Watermelon Mint, za ljetni miks.'
+      ],
+      en: [
+        'Strawberry with Kiwi, 50/50, for strawberry kiwi.',
+        'Strawberry with Mint, 70/30, for strawberry and mint.',
+        'Strawberry with Watermelon Mint for a summer mix.'
+      ]
+    },
+    similar: ['musthave-strawberry', 'trifecta-blue-strawberry', 'adalya-raspberry', 'al-fakher-watermelon-mint']
+  },
+  {
+    id: 'al-fakher-orange-mint',
+    brand: 'al-fakher',
+    leaf: 'light',
+    name: 'Orange Mint',
+    seo: {
+      title: {
+        bs: 'Al Fakher Orange Mint (Orange with Mint) okus za nargilu | MyShishapedia',
+        en: 'Al Fakher Orange Mint (Orange with Mint) shisha flavor | MyShishapedia'
+      },
+      description: {
+        bs: 'Al Fakher Orange with Mint: sočna narandža i hladna menta. Profil okusa, jačina, ideje za mikseve i slični okusi za nargilu.',
+        en: 'Al Fakher Orange with Mint: juicy orange and cool mint. Flavor profile, strength, mix ideas and similar orange mint hookah flavors.'
+      }
+    },
+    shortDescription: {
+      bs: 'Sočna, slatka narandža i hladna menta: kao hladan sok od narandže.',
+      en: 'Juicy, sweet orange and cool mint, like a cold glass of orange juice.'
+    },
+    description: {
+      bs: [
+        'Orange Mint spaja slatku, sočnu narandžu i mentu. Narandža je zrela i blago kiselkasta, a menta joj daje hladan izdah.',
+        'Na pakovanju Al Fakhera zove se Orange with Mint.',
+        'Lagan je i osvježavajući, sličan Lemon Mintu, ali sladi i manje kiseo.'
+      ],
+      en: [
+        'Orange Mint pairs sweet, juicy orange with mint. The orange is ripe and slightly tangy, and the mint gives it a cool exhale.',
+        'On the Al Fakher pack it is called Orange with Mint.',
+        'It is light and refreshing, close to Lemon Mint but sweeter and less sour.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Narandža', en: 'Orange' }, illustration: 'narandza', color: '#ff9a2e', intensity: 8 },
+      { name: { bs: 'Menta', en: 'Mint' }, illustration: 'menta', color: '#2fae78', intensity: 6 }
+    ],
+    profile: { sweetness: 6, freshness: 8, fruitiness: 7, cooling: 5, strength: 5 },
+    tags: ['citrusni', 'mint', 'osvjezavajuci'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#ff9a2e', secondary: '#9fe0b8', accent: '#1f9a66', background: '#2a1606', text: '#fff5e6' },
+    mixIdeas: {
+      bs: [
+        'Orange Mint i Lemon Mint, za citrusnu limunadu.',
+        'Orange Mint i Peach, za breskvu i narandžu.',
+        'Orange Mint i Strawberry, za voćni punč sa mentom.'
+      ],
+      en: [
+        'Orange Mint with Lemon Mint for a citrus lemonade.',
+        'Orange Mint with Peach for peach and orange.',
+        'Orange Mint with Strawberry for a fruit punch with mint.'
+      ]
+    },
+    similar: ['al-fakher-lemon-mint', 'starbuzz-pirates-cave', 'musthave-mandarin', 'starbuzz-sex-on-the-beach']
   },
   {
     id: 'starbuzz-blue-mist',

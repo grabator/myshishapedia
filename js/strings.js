@@ -363,8 +363,10 @@
 
       flavorsPage: {
         eyebrow: 'Okusi',
-        title: 'Svi okusi',
-        lead: 'Pretraži, filtriraj i sortiraj sve okuse u enciklopediji.',
+        title: 'Svi okusi za nargilu',
+        lead: 'Pretraži, filtriraj i sortiraj sve okuse za nargilu u enciklopediji, od klasika do ledenih i desertnih.',
+        groupsEyebrow: 'Po vrsti',
+        groupsTitle: 'Okusi za nargilu po vrsti',
         searchLabel: 'Pretraži okuse',
         tagsLabel: 'Filtriraj po tagu',
         collectionsLabel: 'Filtriraj po kolekciji',
@@ -1595,8 +1597,10 @@
 
       flavorsPage: {
         eyebrow: 'Flavors',
-        title: 'All flavors',
-        lead: 'Search, filter and sort every flavor in the encyclopedia.',
+        title: 'All hookah flavors',
+        lead: 'Search, filter and sort every hookah flavor in the encyclopedia, from the classics to icy and dessert shisha flavors.',
+        groupsEyebrow: 'By type',
+        groupsTitle: 'Hookah flavors by type',
         searchLabel: 'Search flavors',
         tagsLabel: 'Filter by tag',
         collectionsLabel: 'Filter by collection',
