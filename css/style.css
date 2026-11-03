@@ -3770,9 +3770,9 @@ button { cursor: pointer; }
   .js .radar-wrap:not(.is-in) .radar__shape { transform: none; opacity: 1; }
   .js .ing:not(.is-in) .seg.is-on { transform: none; opacity: 1; }
   /* statična nargila: nacrtana, žar tinja; "Povuci dim" samo osvijetli žar */
-  .hookah .hk-line { stroke-dashoffset: 0; }
-  .hookah .hk-fill,
-  .hookah .hk-waterbox { opacity: 1; }
+  .js .hookah .hk-line { stroke-dashoffset: 0; }
+  .js .hookah .hk-fill,
+  .js .hookah .hk-waterbox { opacity: 1; }
   .drop { display: none; }
   .loader__hot,
   .loader__glow,
