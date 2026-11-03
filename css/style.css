@@ -8715,3 +8715,17 @@ a.smx__card:hover { border-color: var(--c-line-strong); transform: translateY(-2
 .li-contact h2 { font-family: var(--font-display); font-size: 1.5rem; font-weight: 700; }
 .li-contact p { color: var(--c-muted); }
 .li-contact__btns { display: flex; flex-wrap: wrap; gap: 10px; }
+
+/* ---- Česta pitanja (vodič, evolucija nargile) ---- */
+.faq__head { max-width: 46rem; margin: 0 auto 22px; }
+.faq__title { margin: 6px 0 0; font-family: var(--font-display); font-weight: 800; font-size: clamp(1.8rem, 1.3rem + 2vw, 2.8rem); letter-spacing: -0.04em; }
+.faq__list { display: grid; gap: 10px; max-width: 46rem; margin: 0 auto; }
+.faq__item { border: 1px solid var(--c-line); border-radius: 18px; background: color-mix(in srgb, var(--c-surface) 60%, transparent); }
+.faq__q { display: flex; align-items: center; gap: 12px; padding: 16px 20px; cursor: pointer; list-style: none; }
+.faq__q::-webkit-details-marker { display: none; }
+.faq__q h3 { margin: 0; font-size: 1.05rem; font-weight: 700; line-height: 1.35; }
+.faq__q > .icon { width: 22px; height: 22px; flex-shrink: 0; margin-left: auto; color: var(--c-muted); transition: transform 0.2s ease; }
+.faq__item[open] > .faq__q > .icon { transform: rotate(180deg); }
+.faq__q:focus-visible { outline: 2px solid var(--c-accent); outline-offset: 2px; border-radius: 18px; }
+.faq__a { margin: 0; padding: 0 20px 18px; color: var(--c-muted); line-height: 1.6; }
+@media (prefers-reduced-motion: reduce) { .faq__q > .icon { transition: none; } }

@@ -16,8 +16,8 @@
       langName: 'Bosanski',
       meta: {
         siteName: 'MyShishapedia',
-        homeTitle: 'MyShishapedia - enciklopedija okusa za nargilu',
-        homeDescription: 'Otkrij od čega je napravljen okus koji upravo pušiš. Sastojci, profil okusa, mikser, kviz i vodič za nargilu na jednom mjestu.',
+        homeTitle: 'Nargila: okusi, sastojci, miksevi i vodič | MyShishapedia',
+        homeDescription: 'Sve o nargili na jednom mjestu: od čega je napravljen okus koji pušiš, okusi za nargilu, recepti miksova, mikser i vodič kako pripremiti nargilu.',
         collectionsTitle: 'Kolekcije okusa za nargilu: ledeni, noćni, tropski | MyShishapedia',
         collectionsDescription: 'Okusi za nargilu grupisani po atmosferi: ledeni, noćni, tropski i okusi za početnike. Pronađi svoj stil.',
         collectionTitle: '{name} za nargilu - kolekcija okusa | MyShishapedia',
@@ -41,7 +41,7 @@
         brandsTitle: 'Brendovi duhana za nargilu: Adalya, Al Fakher, Tangiers i drugi | MyShishapedia',
         brandsDescription: 'Svi brendovi u enciklopediji: zemlja porijekla, vrsta lista i okusi. Od turske Adalye do ruskog Darksidea.',
         brandTitle: '{name} okusi za nargilu ({country}) | MyShishapedia',
-        topTitle: 'Najbolje ocijenjeni okusi i miksovi za nargilu | MyShishapedia',
+        topTitle: 'Najbolji okusi za nargilu po ocjenama posjetilaca | MyShishapedia',
         topDescription: 'Rang liste okusa i recepata miksova za nargilu po ocjenama posjetilaca, po brendu i kolekciji. Ocijeni i ti svoje omiljene.',
         sessionTitle: 'Slika sesije: tvoj miks preko fotografije nargile | MyShishapedia',
         journalTitle: 'Dnevnik sesija | MyShishapedia',
@@ -71,8 +71,8 @@
         mixerDescription: 'Spoji dva okusa za nargilu, podesi omjer i pogledaj kombinovanu paletu, sastojke i profil miksa.',
         quizTitle: 'Kviz: koji okus za nargilu je za tebe? | MyShishapedia',
         quizDescription: 'Odgovori na šest kratkih pitanja i pronađi okus za nargilu koji najviše odgovara tvom ukusu.',
-        guideTitle: 'Kako pripremiti nargilu - vodič za početnike | MyShishapedia',
-        guideDescription: 'Korak po korak: voda, sastavljanje, duhan, punjenje posude, folija ili HMD, ugljevi, pušenje i čišćenje nargile.',
+        guideTitle: 'Kako pripremiti nargilu: {n} koraka za početnike | MyShishapedia',
+        guideDescription: 'Kako pripremiti i upaliti nargilu korak po korak: voda u vazi, sastavljanje, punjenje posude, folija ili HMD, ugljevi i čišćenje.',
         glossaryTitle: 'Rječnik pojmova o nargili | MyShishapedia',
         glossaryDescription: 'HMD, phunnel, vortex, melasa, purge ventil i drugi pojmovi o nargili, objašnjeni jednostavno i jasno.',
         glossaryTermTitle: '{term} - šta je to? Rječnik nargile | MyShishapedia',
@@ -84,6 +84,10 @@
         notFoundDescription: 'Ova stranica ne postoji. Pretraži okuse ili se vrati na početnu.'
       },
 
+      faq: {
+        eyebrow: 'Ukratko',
+        title: 'Česta pitanja'
+      },
       pager: {
         label: 'Stranice',
         prev: 'Prethodna stranica',
@@ -250,7 +254,7 @@
         profileTitle: 'Kombinovani profil',
         flavorsTitle: 'Okusi u miksu',
         bowlLabel: 'Posuda odozgo, podijeljena po omjeru: {parts}',
-        featuredTitle: 'Recepti miksova',
+        featuredTitle: 'Recepti miksova za nargilu',
         featuredLead: 'Tri kombinacije za početak.',
         allMixes: 'Svi recepti',
         withFlavorTitle: 'Recepti sa ovim okusom',
@@ -947,7 +951,7 @@
         searchPlaceholder: 'Upiši okus, brend ili sastojak',
         searchClear: 'Obriši pretragu',
         searchHint: 'Pritisni {key} za pretragu',
-        catalogTitle: 'Istraži okuse',
+        catalogTitle: 'Istraži okuse za nargilu',
         catalogSearchLabel: 'Pretraži sve okuse',
         showAll: 'Prikaži sve okuse ({n})',
         showResults: { one: 'Prikaži {n} rezultat', few: 'Prikaži sva {n} rezultata', other: 'Prikaži svih {n} rezultata' },
@@ -1312,6 +1316,10 @@
         notFoundDescription: 'This page does not exist. Search the flavors or head back to the homepage.'
       },
 
+      faq: {
+        eyebrow: 'In short',
+        title: 'Frequently asked questions'
+      },
       pager: {
         label: 'Pages',
         prev: 'Previous page',
