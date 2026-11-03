@@ -8729,3 +8729,13 @@ a.smx__card:hover { border-color: var(--c-line-strong); transform: translateY(-2
 .faq__q:focus-visible { outline: 2px solid var(--c-accent); outline-offset: 2px; border-radius: 18px; }
 .faq__a { margin: 0; padding: 0 20px 18px; color: var(--c-muted); line-height: 1.6; }
 @media (prefers-reduced-motion: reduce) { .faq__q > .icon { transition: none; } }
+
+/* Lista okusa: okusi po vrsti (linkovi) */
+.flgroups__grid { display: grid; gap: 14px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); }
+.flgroup { padding: 20px 22px; border: 1px solid var(--c-line); border-radius: 18px; background: color-mix(in srgb, var(--c-surface) 60%, transparent); }
+.flgroup__title { margin: 0; font-size: 1.1rem; font-weight: 700; line-height: 1.3; display: flex; align-items: baseline; gap: 8px; }
+.flgroup__n { margin-left: auto; font-size: 0.85rem; font-weight: 600; color: var(--c-muted); }
+.flgroup__text { margin: 6px 0 12px; color: var(--c-muted); font-size: 0.95rem; line-height: 1.5; }
+.flgroup__list { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px 14px; }
+.flgroup__list a { color: var(--c-text); text-decoration: underline; text-decoration-color: color-mix(in srgb, var(--c-accent) 55%, transparent); text-underline-offset: 3px; font-size: 0.95rem; }
+.flgroup__list a:hover { color: var(--c-accent-ink); }
