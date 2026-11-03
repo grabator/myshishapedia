@@ -2226,7 +2226,8 @@
         th = V.themeFor(desc.flavor);
         out.main = pageFlavor(desc.flavor, crumbs);
         out.title = t('meta.flavorTitle', { brand: desc.flavor.brand, name: desc.flavor.name, ingredients: V.ingredientList(desc.flavor) });
-        out.description = L(desc.flavor.shortDescription);
+        // kratak opis okusa + šta stranica nudi (jasnije u rezultatima pretrage)
+        out.description = (L(desc.flavor.shortDescription) + ' ' + t('meta.flavorDescriptionMore')).trim();
         out.mood = desc.flavor.mood || '';
         break;
       case 'mixer':
@@ -2243,7 +2244,7 @@
         break;
       case 'guide':
         out.main = pageGuide(crumbs);
-        out.title = t('meta.guideTitle');
+        out.title = t('meta.guideTitle', { n: V.guideSteps().length });
         out.description = t('meta.guideDescription');
         break;
       case 'glossary':

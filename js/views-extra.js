@@ -613,7 +613,7 @@
       case 'terms': return { main: pageLegal('terms', crumbs, cfg), title: t('meta.termsTitle'), description: t('meta.termsDescription') };
       case 'suggest': return { main: pageSuggest(crumbs, cfg), title: t('meta.suggestTitle'), description: t('meta.suggestDescription') };
       case 'report': return { main: pageReport(crumbs, cfg), title: t('meta.reportTitle'), description: t('meta.reportDescription') };
-      case 'flavors': return { main: pageFlavors(crumbs), title: t('meta.flavorsTitle'), description: t('meta.flavorsDescription') };
+      case 'flavors': return { main: pageFlavors(crumbs), title: t('meta.flavorsTitle', { n: V.flavors().length }), description: t('meta.flavorsDescription', { n: V.flavors().length }) };
       case 'search': return { main: pageSearch(crumbs), title: t('meta.searchTitle'), description: t('meta.searchDescription') };
       case 'brands': return { main: pageBrands(crumbs), title: t('meta.brandsTitle'), description: t('meta.brandsDescription') };
       case 'top': return { main: pageTop(crumbs), title: t('meta.topTitle'), description: t('meta.topDescription') };
