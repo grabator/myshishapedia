@@ -439,3 +439,38 @@ window.HISTORY = {
     { t: 'Heritage Images, Delacroix, "Women of Algiers in their Apartment" (Louvre)', u: 'https://prints.aap.com.au/heritage-images/women-algiers-apartment-artist-delacroix-15023754.html' }
   ]
 };
+
+/*
+ * Česta pitanja na dnu stranice "Evolucija nargile". Odgovori su kratko prepričani
+ * dijelovi poglavlja (Porijeklo, Zakoni i zabrane) i stanica, sa istim izvorima.
+ */
+window.HISTORY.faq = [
+  {
+    q: { bs: 'Ko je izmislio nargilu?', en: 'Who invented the hookah?' },
+    a: {
+      bs: 'Najpoznatija priča kaže da je nargilu smislio Abul-Fath Gilani, perzijski ljekar na dvoru mogulskog cara Akbara. Problem su datumi: Encyclopaedia Iranica navodi da je Gilani umro 1588, a duhan na Akbarov dvor stiže tek 1604. Zato se legenda teško slaže sa činjenicama.',
+      en: 'The best-known story credits Abul-Fath Gilani, a Persian physician at the court of the Mughal emperor Akbar. The dates are the problem: Encyclopaedia Iranica gives his death as 1588, while tobacco only reached Akbar\'s court in 1604. So the legend hardly fits the facts.'
+    }
+  },
+  {
+    q: { bs: 'Odakle potiče nargila?', en: 'Where does the hookah come from?' },
+    a: {
+      bs: 'To niko ne može reći sa sigurnošću. Duhan je biljka iz Amerike i u Perziju stiže početkom 16. stoljeća. Stariji nalazi lula u Africi pokazuju da se pušilo i prije duhana, ali ne govore ko je izmislio nargilu, a Iranica upozorava da nema pouzdanih dokaza o vodenoj luli u Perziji prije 1560-ih.',
+      en: 'Nobody can say for certain. Tobacco is a plant from the Americas and reached Persia in the early 16th century. Older pipe finds in Africa show people smoked before tobacco, but they do not tell us who invented the hookah, and Iranica warns there is no reliable evidence of the water pipe in Persia before the 1560s.'
+    }
+  },
+  {
+    q: { bs: 'Odakle dolaze riječi nargila, shisha i hookah?', en: 'Where do the words hookah, shisha and narghile come from?' },
+    a: {
+      bs: 'Nargila dolazi od perzijskog nārgīl, kokos, jer je prva posuda za vodu bila od kokosove ljuske. Shisha dolazi od perzijskog šīša, staklo, preko turskog şişe, boca. Hookah dolazi preko hindustanskog huqqa od arapske riječi ḥuqqa, posuda.',
+      en: 'Narghile comes from Persian nārgīl, coconut, because the first water vessel was a coconut shell. Shisha comes from Persian šīša, glass, via Turkish şişe, bottle. Hookah came via Hindustani huqqa from the Arabic ḥuqqa, a vessel.'
+    }
+  },
+  {
+    q: { bs: 'Da li je nargila nekad bila zabranjena?', en: 'Has the hookah ever been banned?' },
+    a: {
+      bs: 'Jeste, više puta. Šah Abbas I je u Perziji zabranio duhan, a sultan Murad IV je 1633. u Istanbulu zatvorio kafane i uveo smrtnu kaznu za javno pušenje. Danas se zabrane uglavnom odnose na pušenje u zatvorenom, npr. u Turskoj od 2009. i u Federaciji BiH od 2022.',
+      en: 'Yes, many times. Shah Abbas I banned tobacco in Persia, and in 1633 Sultan Murad IV closed Istanbul\'s coffeehouses and introduced the death penalty for public smoking. Today most bans are about smoking indoors, for example in Turkey since 2009 and in the Federation of Bosnia and Herzegovina since 2022.'
+    }
+  }
+];

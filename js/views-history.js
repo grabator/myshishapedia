@@ -760,6 +760,7 @@
         partsSection() +
         mythsSection() +
         healthSection() +
+        V.faqSection(D.faq, 'hx-faq-h') +
         sourcesSection() +
         ctaSection() +
       '</div>'

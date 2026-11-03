@@ -223,3 +223,45 @@ window.GUIDE = {
     ]
   }
 };
+
+/*
+ * Česta pitanja na dnu vodiča. Odgovori su kratko prepričani koraci iznad (iste brojke),
+ * pa se mijenjaju zajedno sa njima.
+ */
+window.GUIDE.faq = [
+  {
+    q: { bs: 'Kako pripremiti nargilu?', en: 'How do you set up a hookah?' },
+    a: {
+      bs: 'U devet koraka: sipaj vodu u vazu, sastavi nargilu, pripremi duhan, napuni posudu, prekrij je folijom ili stavi HMD, upali ugljeve, postavi ih i zagrij posudu, povlači polako i kontroliši toplotu, pa na kraju očisti nargilu.',
+      en: 'In nine steps: fill the base with water, put the hookah together, prep the tobacco, pack the bowl, cover it with foil or an HMD, light the coals, place them and let the bowl heat up, pull slowly while managing the heat, and clean up afterwards.'
+    }
+  },
+  {
+    q: { bs: 'Koliko vode ide u vazu nargile?', en: 'How much water goes in the hookah base?' },
+    a: {
+      bs: 'Sipaj hladnu vodu tako da donji kraj stuba bude otprilike 2 do 3 cm ispod površine vode. Premalo vode i dim se ne hladi; previše i teško se povlači, a voda može doći do crijeva.',
+      en: 'Pour in cold water so the lower end of the stem sits about 2 to 3 cm (roughly an inch) below the waterline. Too little water and the smoke will not cool; too much and the draw gets heavy, and water can creep up toward the hose.'
+    }
+  },
+  {
+    q: { bs: 'Folija ili HMD?', en: 'Foil or HMD?' },
+    a: {
+      bs: 'Folija se zategne preko posude tako da ne dodiruje duhan, pa se čačkalicom izbuše sitne rupice. HMD se samo stavi na posudu, bez bušenja, a toplota se podešava otvorima na njemu.',
+      en: 'Foil is stretched tightly over the bowl so it does not touch the tobacco, then poked with small, evenly spaced holes. An HMD simply sits on the bowl, no poking needed, and you adjust the heat with its vents.'
+    }
+  },
+  {
+    q: { bs: 'Koliko dugo se pale ugljevi i koliko ih treba?', en: 'How long do the coals take, and how many do you need?' },
+    a: {
+      bs: 'Kokosovi ugljevi na rešou se obično pale oko 8 do 10 minuta, dok cijeli ne budu užareni i prekriveni tankim sivim pepelom. Za početak su obično dovoljna tri uglja uz ivicu, pa sačekaj nekoliko minuta da se duhan zagrije.',
+      en: 'Coconut coals on a burner usually take about 8 to 10 minutes, until they glow all over and wear a thin gray ash. Three coals around the edge are usually plenty to start; then give the tobacco a few minutes to warm up.'
+    }
+  },
+  {
+    q: { bs: 'Zašto je dim nargile grub ili gorak?', en: 'Why does the hookah smoke taste harsh?' },
+    a: {
+      bs: 'Najčešće je previše toplote: skloni jedan ugalj na tacnu ili ih pomjeri prema ivici. I ugalj koji je još taman na nekom dijelu nije spreman, pa dim može biti oštar. Ako je dim slab, primakni ugljeve sredini.',
+      en: 'Usually there is too much heat: move one coal to the tray or push the coals toward the edge. A coal that is still dark in places is not ready either, and can make the smoke harsh. If the clouds are thin, bring the coals toward the center.'
+    }
+  }
+];

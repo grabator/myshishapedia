@@ -1729,6 +1729,22 @@
     );
   }
 
+  /**
+   * Česta pitanja: pitanje je naslov (h3) u <summary>, odgovor je odmah u HTML-u (vidi ga i pretraživač).
+   * items: [{ q: {bs, en}, a: {bs, en} }]
+   */
+  V.faqSection = function (items, id) {
+    if (!items || !items.length) return '';
+    return '<section class="fsec faq" aria-labelledby="' + id + '"><div class="container">' +
+      '<header class="faq__head" data-reveal><p class="eyebrow"><span class="eyebrow__dot" aria-hidden="true"></span>' + esc(t('faq.eyebrow')) + '</p>' +
+        '<h2 class="faq__title" id="' + id + '">' + esc(t('faq.title')) + '</h2></header>' +
+      '<div class="faq__list">' + items.map(function (it, i) {
+        return '<details class="faq__item"' + (i === 0 ? ' open' : '') + '><summary class="faq__q"><h3>' + esc(L(it.q)) + '</h3>' + icon('chevronDown') + '</summary>' +
+          '<p class="faq__a">' + esc(L(it.a)) + '</p></details>';
+      }).join('') + '</div>' +
+    '</div></section>';
+  };
+
   function pageGuide(crumbs) {
     var G = root.GUIDE || { steps: [], safety: { items: [] } };
     var steps = G.steps;
@@ -1773,7 +1789,8 @@
             return '<li class="safety__item"><svg class="safety__ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">' + (safetyIcons[it.icon] || safetyIcons.eye) + '</svg><div><h3>' + esc(L(it.title)) + '</h3><p>' + esc(L(it.text)) + '</p></div></li>';
           }).join('') + '</ul>' +
         '</div>' +
-      '</div></section>'
+      '</div></section>' +
+      V.faqSection(G.faq, 'guide-faq')
     );
   }
 
