@@ -152,7 +152,7 @@
     var m0 = list[0];
     var img = function (m, cls, first) {
       return '<img class="hx-morph__img' + cls + '" src="/history/' + m.id + '.webp" srcset="/history/' + m.id + '-s.webp 420w, /history/' + m.id + '.webp 720w" sizes="(min-width: 900px) 40vw, 80vw"' +
-        ' width="' + m.w + '" height="' + m.h + '" decoding="async"' + (first ? ' fetchpriority="high" alt="' + esc(L(m.name)) + '"' : ' alt="" aria-hidden="true"') + '>';
+        ' width="' + m.w + '" height="' + m.h + '" decoding="async"' + (first ? ' fetchpriority="high"' : ' aria-hidden="true"') + ' alt="' + esc(L(m.name)) + '">';
     };
     return (
       '<figure class="hx-morph" id="hx-morph">' +
@@ -165,7 +165,7 @@
         '<span class="hx-rail__end">' + esc(t('history.morphThen')) + '</span>' +
         '<ol class="hx-rail__list" role="list">' + list.map(function (m, i) {
           return '<li><button type="button" class="hx-rail__btn' + (i === 0 ? ' is-on' : '') + '" data-m="' + i + '" aria-pressed="' + (i === 0) + '" aria-label="' + esc(L(m.name)) + '">' +
-            '<img src="/history/' + m.id + '-s.webp" width="' + Math.round(m.w * 420 / m.h) + '" height="420" alt="" loading="lazy" decoding="async"></button></li>';
+            '<img src="/history/' + m.id + '-s.webp" width="' + Math.round(m.w * 420 / m.h) + '" height="420" alt="' + esc(L(m.name)) + '" loading="lazy" decoding="async"></button></li>';
         }).join('') + '</ol>' +
         '<span class="hx-rail__end">' + esc(t('history.morphNow')) + '</span>' +
       '</div>'
