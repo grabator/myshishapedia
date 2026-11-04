@@ -435,5 +435,26 @@ window.BRANDS = [
       ]
     },
     palette: { primary: '#5a2a7a', secondary: '#2fae78', accent: '#c9a0ff', background: '#100a16', text: '#f4eeff' }
+  },
+  {
+    slug: 'element',
+    name: 'Element',
+    country: { bs: 'Rusija', en: 'Russia' },
+    leaf: 'both',
+    short: {
+      bs: 'Ruski brend sa linijama Air, Water, Earth i Fire, od blage do vrlo jake.',
+      en: 'A Russian brand with Air, Water, Earth and Fire lines, from mild to very strong.'
+    },
+    about: {
+      bs: [
+        'Element je ruski brend čije su linije nazvane po četiri elementa.',
+        'Air je najblaža linija, na svijetlom listu, a Water, Earth i Fire su redom sve jače. Isti okus zato može postojati u više linija različite jačine.'
+      ],
+      en: [
+        'Element is a Russian brand whose lines are named after the four elements.',
+        'Air is the mildest line, on blonde leaf, while Water, Earth and Fire get stronger in that order. The same flavor can therefore exist in several lines of different strength.'
+      ]
+    },
+    palette: { primary: '#4a9fd8', secondary: '#e8a03a', accent: '#cfefff', background: '#0b1219', text: '#eef7ff' }
   }
 ];

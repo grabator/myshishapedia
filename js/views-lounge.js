@@ -39,7 +39,7 @@
         '<span class="lm-logo" aria-hidden="true">' + mark(lg) + '</span>' +
         '<span class="lm-head__txt"><b>' + esc(lg.name) + '</b><span>' + esc(L(lg.tagline)) + ' · ' + esc(L(lg.hours)) + '</span></span>' +
         '<span class="lm-price">' + esc(L(lg.price)) + '</span>' +
-        others.map(function (other) { return '<a class="lm-lang" href="' + esc(desc.alternates[other]) + '" hreflang="' + other + '" lang="' + other + '">' + other.toUpperCase() + '</a>'; }).join('') +
+        others.map(function (other) { return '<a class="lm-lang" href="' + esc(desc.alternates[other]) + '" hreflang="' + other + '" lang="' + other + '">' + (MSP.LANG_SHORT[other] || other.toUpperCase()) + '</a>'; }).join('') +
       '</div>'
     );
   };

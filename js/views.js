@@ -809,7 +809,7 @@
         MSP.LANGS.map(function (l) {
           var cur = l === MSP.lang;
           return '<a class="lang__opt" href="' + esc(alt[l] || V.urlFor(l, 'home')) + '" hreflang="' + l + '" lang="' + l + '" data-lang="' + l + '"' +
-            (cur ? ' aria-current="true"' : ' aria-label="' + esc(t('a11y.langOther')) + '"') + '>' + l.toUpperCase() + '</a>';
+            (cur ? ' aria-current="true"' : ' aria-label="' + esc(t('a11y.langOther')) + '"') + '>' + (MSP.LANG_SHORT[l] || l.toUpperCase()) + '</a>';
         }).join('') +
         '<span class="lang__thumb" aria-hidden="true" data-other="' + other + '"></span>' +
       '</div>'
@@ -1837,6 +1837,8 @@
    */
   V.faqSection = function (items, id) {
     if (!items || !items.length) return '';
+    // build skuplja pitanja sa stranice za FAQPage strukturirane podatke (isti tekst koji je vidljiv)
+    if (V.faqLog) items.forEach(function (it) { V.faqLog.push({ q: L(it.q), a: L(it.a) }); });
     return '<section class="fsec faq" aria-labelledby="' + id + '"><div class="container">' +
       '<header class="faq__head" data-reveal><p class="eyebrow"><span class="eyebrow__dot" aria-hidden="true"></span>' + esc(t('faq.eyebrow')) + '</p>' +
         '<h2 class="faq__title" id="' + id + '">' + esc(t('faq.title')) + '</h2></header>' +

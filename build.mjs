@@ -197,11 +197,34 @@ document.addEventListener('click',function(e){var b=e.target.closest&&e.target.c
 
 const LOADER = `<div class="loader" id="loader" aria-hidden="true"><svg class="loader__coal" viewBox="0 0 120 90"><defs><radialGradient id="ld-glow" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="#ff8a2a" stop-opacity="0.7"/><stop offset="0.5" stop-color="#ff5a1a" stop-opacity="0.2"/><stop offset="1" stop-color="#ff5a1a" stop-opacity="0"/></radialGradient><linearGradient id="ld-cold" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#77706a"/><stop offset="1" stop-color="#3a3431"/></linearGradient><radialGradient id="ld-hot" cx="0.5" cy="0.35" r="0.75"><stop offset="0" stop-color="#fff1b8"/><stop offset="0.35" stop-color="#ffb13b"/><stop offset="0.75" stop-color="#e2541b"/><stop offset="1" stop-color="#7a1d0a"/></radialGradient></defs><ellipse class="loader__glow" cx="60" cy="48" rx="60" ry="42" fill="url(#ld-glow)"/><rect x="22" y="24" width="76" height="46" rx="10" fill="url(#ld-cold)"/><rect class="loader__hot" x="22" y="24" width="76" height="46" rx="10" fill="url(#ld-hot)"/><path d="M34 44h28M64 56h22" stroke="#1a1411" stroke-width="2.4" stroke-linecap="round" opacity="0.45"/></svg></div>`;
 
+/** hreflang oznake za jednu verziju sajta (bs je i hr i sr-Latn, vidi site.config.js HREFLANG). */
+const hreflangsOf = (l) => (CFG.HREFLANG && CFG.HREFLANG[l]) || [l];
+function hreflangLinks(urlOf, xml) {
+  const tag = (code, href) => xml
+    ? `    <xhtml:link rel="alternate" hreflang="${code}" href="${href}"/>\n`
+    : `<link rel="alternate" hreflang="${code}" href="${href}">`;
+  return LANGS.flatMap((l) => hreflangsOf(l).map((code) => tag(code, urlOf(l)))).join('') + tag('x-default', urlOf(DEFAULT_LANG));
+}
+
+/** FAQPage iz pitanja koja su vidljiva na stranici (V.faqSection ih upiše u info.faq). */
+function faqLd(info) {
+  if (!info.faq || !info.faq.length) return '';
+  return jsonLd({
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: info.faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } }))
+  });
+}
+
 function jsonLd(obj) {
   return '<script type="application/ld+json">' + JSON.stringify(obj).replace(/</g, '\\u003c') + '</script>';
 }
 
 function structuredData(desc, lang, info) {
+  return pageLd(desc, lang, info) + (isIndexable(desc) ? faqLd(info) : '');
+}
+
+function pageLd(desc, lang, info) {
   if (desc.page === 'home') {
     return jsonLd({
       '@context': 'https://schema.org',
@@ -334,7 +357,7 @@ function head(desc, lang, info) {
     `<title>${esc(title)}</title>`,
     `<meta name="description" content="${esc(d)}">`,
     indexable ? `<link rel="canonical" href="${canonical}">` : '<meta name="robots" content="noindex">',
-    indexable ? LANGS.map((l) => `<link rel="alternate" hreflang="${l}" href="${abs(alt[l])}">`).join('') + `<link rel="alternate" hreflang="x-default" href="${abs(alt[DEFAULT_LANG])}">` : '',
+    indexable ? hreflangLinks((l) => abs(alt[l])) : '',
     `<meta name="theme-color" content="${info.theme.bg}">`,
     CFG.ANALYTICS_TOKEN ? `<meta name="msp-analytics" content="${esc(CFG.ANALYTICS_TOKEN)}">` : '',
     CFG.TURNSTILE_SITE_KEY ? `<meta name="msp-turnstile" content="${esc(CFG.TURNSTILE_SITE_KEY)}">` : '',
@@ -378,7 +401,10 @@ function renderPage(desc) {
   const lang = desc.lang;
   setLang(lang);
   desc.alternates = V.alternates(desc);
+  V.faqLog = [];
   const info = V.page(desc, CFG);
+  info.faq = V.faqLog;
+  V.faqLog = null;
   const t = MSP.t;
   const htmlAttrs = [
     `lang="${lang}"`,
@@ -455,7 +481,7 @@ location.replace(u+q)})();`;
 <title>${esc(titleEn)}</title>
 <meta name="description" content="${esc(tEn('meta.homeDescription'))}">
 <link rel="canonical" href="${abs('/' + DEFAULT_LANG + '/')}">
-${LANGS.map((l) => `<link rel="alternate" hreflang="${l}" href="${abs('/' + l + '/')}">`).join('')}<link rel="alternate" hreflang="x-default" href="${abs('/' + DEFAULT_LANG + '/')}">
+${hreflangLinks((l) => abs('/' + l + '/'))}
 <meta name="theme-color" content="${home.bg}">
 <link rel="icon" href="${asset('favicon.svg')}" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
@@ -1006,6 +1032,11 @@ function writeRatingsIds() {
 function checkData() {
   // id ide u adresu i u API za ocjene: samo mala slova, brojevi i crtica
   const ID_OK = /^[a-z0-9-]{1,80}$/;
+  for (const a of V.articles()) for (const s of a.sections || []) {
+    const b = s.block;
+    if (b && typeof b === 'object' && b.type === 'picks') for (const id of b.ids || []) if (!V.flavorById(id)) errors.push(`članak ${a.id}: nepostojeći okus ${id}`);
+    if (b && typeof b === 'object' && b.type === 'brandCompare') for (const sl of [b.a, b.b]) if (!V.brands().some((x) => x.slug === sl)) errors.push(`članak ${a.id}: nepostojeći brend ${sl}`);
+  }
   for (const fl of V.flavors()) if (!ID_OK.test(fl.id)) errors.push(`okus ${fl.id}: id smije imati samo mala slova, brojeve i crticu`);
   for (const m of V.mixes()) if (!ID_OK.test(m.id)) errors.push(`recept ${m.id}: id smije imati samo mala slova, brojeve i crticu`);
   for (const fl of V.flavors()) {
@@ -1209,8 +1240,7 @@ function build() {
     return '  <url>\n' +
       `    <loc>${abs(r.desc.url)}</loc>\n` +
       `    <lastmod>${lastmod[r.desc.url]}</lastmod>\n` +
-      LANGS.map((l) => `    <xhtml:link rel="alternate" hreflang="${l}" href="${abs(alt[l])}"/>\n`).join('') +
-      `    <xhtml:link rel="alternate" hreflang="x-default" href="${abs(alt[DEFAULT_LANG])}"/>\n` +
+      hreflangLinks((l) => abs(alt[l]), true) +
       '  </url>';
   });
   writeFile('sitemap.xml', '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n' + urls.join('\n') + '\n</urlset>\n');

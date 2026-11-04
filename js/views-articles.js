@@ -101,7 +101,12 @@
     }).join('') + '</ul>';
   }
 
-  var BLOCKS = { beginnerPicks: beginnerPicks, brandCompare: brandCompare, icyPicks: icyPicks, groupPicks: groupPicks };
+  /** Ručno izabrani okusi: { type: 'picks', ids: [...] } (build javi grešku za nepostojeći id). */
+  function picks(opts) {
+    return cardGrid(((opts && opts.ids) || []).map(V.flavorById).filter(Boolean));
+  }
+
+  var BLOCKS = { beginnerPicks: beginnerPicks, brandCompare: brandCompare, icyPicks: icyPicks, groupPicks: groupPicks, picks: picks };
   function block(b) {
     var name = typeof b === 'string' ? b : b && b.type;
     return name && BLOCKS[name] ? BLOCKS[name](typeof b === 'object' ? b : null) : '';

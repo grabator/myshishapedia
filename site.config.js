@@ -14,6 +14,9 @@ var SITE_CONFIG = {
   BS_BROWSER_LANGS: ['bs', 'hr', 'sr', 'sh'],
   // Browser jezici koji idu na njemačku verziju
   DE_BROWSER_LANGS: ['de'],
+  // hreflang oznake po verziji sajta. Bosanska verzija je jedna zajednička verzija za BiH, Hrvatsku i
+  // Srbiju (BHS, latinica), pa je Googleu označena i kao hrvatska i srpska (iste adrese, bez kopija).
+  HREFLANG: { bs: ['bs', 'hr', 'sr-Latn'], en: ['en'], de: ['de'] },
   AUTHOR_NAME: 'Graba',
   // Email se u HTML-u nikad ne ispisuje u čistom obliku (zaštita od spam robota).
   AUTHOR_EMAIL: 'grabafaceit@gmail.com',

@@ -14,7 +14,9 @@
  *              u tekstu [[id|tekst]] postaje link na pojam u rječniku;
  *              block je dio koji se sastavlja iz podataka sajta:
  *                'beginnerPicks'  okusi iz kolekcije "Za početnike"
- *                'brandCompare'   Adalya i Al Fakher jedan pored drugog (brojke iz data/flavors.js)
+ *                'brandCompare'   Adalya i Al Fakher jedan pored drugog (brojke iz data/flavors.js);
+ *                                 { type: 'brandCompare', a, b } za druga dva brenda
+ *                { type: 'picks', ids: [...] }  kartice ručno izabranih okusa
  *              links: [{ page, label }] dugmad na kraju sekcije (page iz V.SEG, npr. 'guide', 'tips')
  *   faq        [{ q, a }] česta pitanja na kraju članka
  *
@@ -510,6 +512,152 @@ window.ARTICLES = [
       {
         q: { bs: 'Da li je nargila bez duhana legalna?', en: 'Is tobacco-free hookah legal?' },
         a: { bs: 'Postoje mješavine bez duhana (npr. od biljaka ili kamenčića), ali pravila za njih se razlikuju po zemljama, a dim i dalje nije zdrav.', en: 'There are tobacco-free blends (made from herbs or stones, for example), but the rules for them differ by country, and the smoke is still not healthy.' }
+      }
+    ]
+  },
+  {
+    id: 'adalya-187',
+    slug: { bs: 'adalya-ili-187', en: 'adalya-vs-187' },
+    published: '2026-11-04',
+    eyebrow: { bs: 'Poređenje brendova', en: 'Brand comparison' },
+    title: { bs: 'Adalya ili 187 Strassenbande: koja je razlika?', en: 'Adalya vs 187 Strassenbande: what is the difference?' },
+    metaTitle: { bs: 'Adalya ili 187: razlika između turskog i njemačkog brenda', en: 'Adalya vs 187: a Turkish and a German shisha brand compared' },
+    metaDescription: {
+      bs: 'Adalya i 187 Strassenbande jedan pored drugog: porijeklo, list, karakter okusa i koji izabrati, uz brojke iz naše enciklopedije okusa.',
+      en: 'Adalya and 187 Strassenbande side by side: origin, leaf, flavor style and which to pick, with numbers from our flavor encyclopedia.'
+    },
+    lead: {
+      bs: 'Dva brenda koja su posebno popularna u Njemačkoj i kod nas. Oba su blaga i voćna, ali imaju različit stil.',
+      en: 'Two brands that are especially popular in Germany and in our region. Both are mild and fruity, but their style is different.'
+    },
+    sections: [
+      {
+        h: { bs: 'Ukratko', en: 'In short' },
+        p: {
+          bs: [
+            'Adalya dolazi iz Turske i poznata je po razigranim kombinacijama voća, bombona i leda, kao što su Love 66, Lady Killer ili Mi Amor.',
+            '187 Strassenbande je njemački brend sa voćnim miksevima neobičnih imena, kao što su I Love Hamburg, Beach Vibez ili Siwlez.',
+            'Oba brenda koriste [[svijetli-list|svijetli list]], pa su blagi i dobri i za početnike.'
+          ],
+          en: [
+            'Adalya comes from Turkey and is known for playful blends of fruit, candy and ice, like Love 66, Lady Killer or Mi Amor.',
+            '187 Strassenbande is a German brand with fruit blends that have unusual names, like I Love Hamburg, Beach Vibez or Siwlez.',
+            'Both brands use [[svijetli-list|blonde leaf]], so both are mild and fine for beginners.'
+          ]
+        }
+      },
+      {
+        h: { bs: 'Jedan pored drugog', en: 'Side by side' },
+        p: {
+          bs: [
+            'Brojke su prosjeci okusa ovih brendova u našoj enciklopediji, na skali od 0 do 10. To su procjene, ali dobro pokazuju razliku u karakteru.'
+          ],
+          en: [
+            'The numbers are averages across these brands\' flavors in our encyclopedia, on a 0 to 10 scale. They are estimates, but they show the difference in character well.'
+          ]
+        },
+        block: { type: 'brandCompare', a: 'adalya', b: '187-strassenbande' }
+      },
+      {
+        h: { bs: 'Koji izabrati?', en: 'Which one should you pick?' },
+        p: {
+          bs: [
+            'Ako voliš slatke, tropske okuse sa ledom, Adalya ima veliki izbor i lako ćeš naći nešto za sebe.',
+            'Ako voliš voćne mikseve sa više citrusa i kiseline, ili klasike kao što je jabuka sa anisom, probaj 187.',
+            'Najbolje je probati oba: u poređenju možeš staviti bilo koja dva okusa jedan pored drugog.'
+          ],
+          en: [
+            'If you like sweet, tropical flavors with ice, Adalya has a huge range and you will easily find something.',
+            'If you like fruit blends with more citrus and tang, or classics like apple with anise, try 187.',
+            'The best way is to try both: in the comparison you can put any two flavors side by side.'
+          ]
+        },
+        links: [{ page: 'compare' }, { page: 'brands' }]
+      }
+    ],
+    faq: [
+      {
+        q: { bs: 'Da li je 187 jači od Adalye?', en: 'Is 187 stronger than Adalya?' },
+        a: { bs: 'Ne bitno. Oba brenda su na svijetlom listu i spadaju u blage duhane. Razlika je u stilu okusa.', en: 'Not really. Both brands are on blonde leaf and count as mild tobaccos. The difference is in flavor style.' }
+      },
+      {
+        q: { bs: 'Odakle su Adalya i 187 Strassenbande?', en: 'Where are Adalya and 187 Strassenbande from?' },
+        a: { bs: 'Adalya je iz Turske, a 187 Strassenbande iz Njemačke.', en: 'Adalya is from Turkey, and 187 Strassenbande is from Germany.' }
+      },
+      {
+        q: { bs: 'Mogu li miješati Adalyu i 187?', en: 'Can I mix Adalya and 187?' },
+        a: { bs: 'Možeš. Oba su na svijetlom listu, pa se dobro slažu. Npr. 187 Glacier uz Adalya voćni okus doda led.', en: 'Yes. Both are on blonde leaf, so they blend well. For example, 187 Glacier adds ice to any Adalya fruit flavor.' }
+      }
+    ]
+  },
+  {
+    id: 'najbolji-al-fakher',
+    slug: { bs: 'najbolji-al-fakher-okusi', en: 'best-al-fakher-flavors' },
+    published: '2026-11-04',
+    eyebrow: { bs: 'Okusi', en: 'Flavors' },
+    title: { bs: 'Najbolji Al Fakher okusi', en: 'The best Al Fakher flavors' },
+    metaTitle: { bs: 'Najbolji Al Fakher okusi: klasici, voće i neobični okusi', en: 'The best Al Fakher flavors: classics, fruit and unusual picks' },
+    metaDescription: {
+      bs: 'Najbolji Al Fakher okusi po vrsti: klasici sa mentom, voćni okusi i neobični izbori, uz savjete za mikseve i za početnike.',
+      en: 'The best Al Fakher flavors by type: classics with mint, fruit flavors and unusual picks, with tips for mixes and for beginners.'
+    },
+    lead: {
+      bs: 'Al Fakher je jedan od najpoznatijih brendova za nargilu. Evo okusa koje vrijedi probati, po vrsti.',
+      en: 'Al Fakher is one of the best-known hookah brands. Here are the flavors worth trying, by type.'
+    },
+    sections: [
+      {
+        h: { bs: 'Klasici', en: 'The classics' },
+        p: {
+          bs: [
+            'Ovo su okusi koje ćeš naći u skoro svakom lounge-u i po kojima je Al Fakher postao poznat: dvostruka jabuka, menta i voće sa mentom.',
+            'Ako ne znaš šta da uzmeš, s njima ne možeš pogriješiti.'
+          ],
+          en: [
+            'These are the flavors you will find in almost every lounge and that made Al Fakher famous: double apple, mint and fruit with mint.',
+            'If you do not know what to pick, you cannot go wrong with these.'
+          ]
+        },
+        block: { type: 'picks', ids: ['al-fakher-double-apple', 'al-fakher-mint', 'al-fakher-grape-mint', 'al-fakher-lemon-mint', 'al-fakher-watermelon-mint', 'al-fakher-blueberry-mint'] }
+      },
+      {
+        h: { bs: 'Voćni okusi', en: 'Fruit flavors' },
+        p: {
+          bs: [
+            'Al Fakher ima i veliki izbor čistih voćnih okusa, bez mente. Dobri su sami, a još bolji kao baza za tvoje mikseve.'
+          ],
+          en: [
+            'Al Fakher also has a big range of pure fruit flavors, without mint. They are good on their own and even better as a base for your own mixes.'
+          ]
+        },
+        block: { type: 'picks', ids: ['al-fakher-watermelon', 'al-fakher-mango', 'al-fakher-peach', 'al-fakher-blueberry', 'al-fakher-strawberry', 'al-fakher-guava'] }
+      },
+      {
+        h: { bs: 'Neobični izbori', en: 'Unusual picks' },
+        p: {
+          bs: [
+            'Ako su ti klasici dosadili, probaj nešto drugačije: tropski Magic Love, žvaku sa cimetom ili kremastu vanilu i kokos.'
+          ],
+          en: [
+            'If you are bored of the classics, try something different: tropical Magic Love, gum with cinnamon, or creamy vanilla and coconut.'
+          ]
+        },
+        block: { type: 'picks', ids: ['al-fakher-magic-love', 'al-fakher-gum-cinnamon', 'al-fakher-vanilla', 'al-fakher-coconut', 'al-fakher-plum', 'al-fakher-gum-mint'] },
+        links: [{ page: 'brands' }, { page: 'mixer' }]
+      }
+    ],
+    faq: [
+      {
+        q: { bs: 'Koji je najpopularniji Al Fakher okus?', en: 'What is the most popular Al Fakher flavor?' },
+        a: { bs: 'Najpoznatiji su klasici: dvostruka jabuka, menta, grožđe sa mentom i limun sa mentom.', en: 'The best known are the classics: double apple, mint, grape mint and lemon mint.' }
+      },
+      {
+        q: { bs: 'Koji Al Fakher okus je najbolji za početnike?', en: 'Which Al Fakher flavor is best for beginners?' },
+        a: { bs: 'Svi Al Fakher okusi su na svijetlom listu i blagi su. Za početak su dobri jednostavni voćni okusi sa mentom, kao što su lubenica ili grožđe sa mentom.', en: 'All Al Fakher flavors are on blonde leaf and mild. Simple fruit flavors with mint, like watermelon mint or grape mint, are good to start with.' }
+      },
+      {
+        q: { bs: 'Šta miješati sa Al Fakherom?', en: 'What should I mix with Al Fakher?' },
+        a: { bs: 'Al Fakher Mint se slaže sa skoro svakim voćem. Za ideje otvori stranicu okusa: svaki okus ima prijedloge za mikseve.', en: 'Al Fakher Mint goes with almost any fruit. For ideas, open a flavor page: every flavor has mix suggestions.' }
       }
     ]
   }
