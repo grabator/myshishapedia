@@ -1,0 +1,609 @@
+[
+  {
+    "id": "al-fakher-watermelon", "brand": "al-fakher", "name": "Watermelon",
+    "ing": ["lubenica:9"],
+    "profile": { "sweetness": 7, "freshness": 6, "fruitiness": 9, "cooling": 0, "strength": 5 },
+    "short": {
+      "bs": "Sočna, slatka lubenica, čista i bez mente.",
+      "en": "Juicy, sweet watermelon, clean and without mint.",
+      "de": "Saftige, süße Wassermelone, klar und ohne Minze."
+    },
+    "desc": {
+      "bs": ["Watermelon je lubenica u najjednostavnijem obliku: slatka, sočna i lagana, kao kriška iz frižidera.", "Za razliku od Watermelon Minta, ovdje nema mente, pa okus ostaje čisto voćni i mekan.", "Dobar je za ljetne sesije i kao baza za mikseve kojima treba malo slatkoće."],
+      "en": ["Watermelon is watermelon in its simplest form: sweet, juicy and light, like a slice straight from the fridge.", "Unlike Watermelon Mint, there is no mint here, so the flavor stays purely fruity and soft.", "Good for summer sessions and as a base for mixes that need a little sweetness."],
+      "de": ["Watermelon ist Wassermelone in ihrer einfachsten Form: süß, saftig und leicht, wie eine Scheibe direkt aus dem Kühlschrank.", "Anders als bei Watermelon Mint gibt es hier keine Minze, deshalb bleibt der Geschmack rein fruchtig und weich.", "Gut für Sommer-Sessions und als Basis für Mixe, die etwas Süße brauchen."]
+    },
+    "mix": {
+      "bs": ["Watermelon i Mint, 70/30, za klasičnu ljetnu kombinaciju.", "Watermelon i Melon, za još slađi i sočniji kotlić.", "Watermelon i Lemon, za ljetnu limunadu od lubenice."],
+      "en": ["Watermelon with Mint, 70/30, for the classic summer pairing.", "Watermelon with Melon for an even sweeter, juicier bowl.", "Watermelon with Lemon for a watermelon lemonade."],
+      "de": ["Watermelon mit Mint, 70/30, für die klassische Sommer-Kombination.", "Watermelon mit Melon für einen noch süßeren, saftigeren Kopf.", "Watermelon mit Lemon für eine Wassermelonen-Limonade."]
+    }
+  },
+  {
+    "id": "al-fakher-mango", "brand": "al-fakher", "name": "Mango",
+    "ing": ["mango:9"],
+    "profile": { "sweetness": 8, "freshness": 4, "fruitiness": 9, "cooling": 0, "strength": 5 },
+    "short": {
+      "bs": "Zreli mango sa mekim, kremastim završetkom.",
+      "en": "Ripe mango with a soft, creamy finish.",
+      "de": "Reife Mango mit weichem, cremigem Abgang."
+    },
+    "desc": {
+      "bs": ["Mango je zreo i sladak, sa onom gustom, skoro kremastom notom koju ima pravi zreli mango.", "Nema mente ni kiseline koja bi ga presjekla, pa je okus pun i topao.", "Sam je dobar za ljubitelje slatkog voća, a u miksevima donosi tropski karakter."],
+      "en": ["Mango is ripe and sweet, with the thick, almost creamy note that real ripe mango has.", "There is no mint or acidity to cut through it, so the flavor is full and warm.", "On its own it suits fans of sweet fruit, and in mixes it brings a tropical character."],
+      "de": ["Mango ist reif und süß, mit der dichten, fast cremigen Note, die echte reife Mango hat.", "Es gibt keine Minze und keine Säure, die ihn durchschneidet, deshalb ist der Geschmack voll und warm.", "Pur passt er zu Fans von süßem Obst, und in Mixen bringt er einen tropischen Charakter."]
+    },
+    "mix": {
+      "bs": ["Mango i Mint, 70/30, za svjež tropski kotlić.", "Mango i Pineapple, za tropski koktel.", "Mango i Lemon, ako želiš malo kiseline."],
+      "en": ["Mango with Mint, 70/30, for a fresh tropical bowl.", "Mango with Pineapple for a tropical cocktail.", "Mango with Lemon if you want a little acidity."],
+      "de": ["Mango mit Mint, 70/30, für einen frischen tropischen Kopf.", "Mango mit Pineapple für einen tropischen Cocktail.", "Mango mit Lemon, wenn du etwas Säure willst."]
+    }
+  },
+  {
+    "id": "al-fakher-banana", "brand": "al-fakher", "name": "Banana",
+    "ing": ["banana:9"],
+    "profile": { "sweetness": 8, "freshness": 3, "fruitiness": 8, "cooling": 0, "strength": 5 },
+    "short": {
+      "bs": "Slatka banana, glatka i kremasta.",
+      "en": "Sweet banana, smooth and creamy.",
+      "de": "Süße Banane, weich und cremig."
+    },
+    "desc": {
+      "bs": ["Banana je mekan, sladak okus sa glatkim, kremastim završetkom.", "Nije kiseo ni oštar, pa je ugodan i za duže sesije i za one koji tek počinju.", "Najbolje se pokazuje u miksevima, gdje drugim okusima daje punoću."],
+      "en": ["Banana is a soft, sweet flavor with a smooth, creamy finish.", "It is neither sour nor sharp, so it is pleasant for longer sessions and for beginners.", "It shines most in mixes, where it gives other flavors more body."],
+      "de": ["Banana ist ein weicher, süßer Geschmack mit glattem, cremigem Abgang.", "Er ist weder sauer noch scharf, deshalb ist er angenehm für längere Sessions und für Einsteiger.", "Am besten zeigt er sich in Mixen, wo er anderen Geschmäckern mehr Fülle gibt."]
+    },
+    "mix": {
+      "bs": ["Banana i Strawberry, za klasični milkshake okus.", "Banana i Coconut, za tropski desert.", "Banana i Mint, 70/30, ako ti je sama banana preteška."],
+      "en": ["Banana with Strawberry for a classic milkshake flavor.", "Banana with Coconut for a tropical dessert.", "Banana with Mint, 70/30, if banana alone feels too heavy."],
+      "de": ["Banana mit Strawberry für einen klassischen Milchshake-Geschmack.", "Banana mit Coconut für ein tropisches Dessert.", "Banana mit Mint, 70/30, wenn dir Banane allein zu schwer ist."]
+    }
+  },
+  {
+    "id": "al-fakher-lemon", "brand": "al-fakher", "name": "Lemon",
+    "ing": ["limun:9"],
+    "profile": { "sweetness": 6, "freshness": 8, "fruitiness": 7, "cooling": 0, "strength": 5 },
+    "short": {
+      "bs": "Slatki limun sa blagom kiselinom u pozadini.",
+      "en": "Sweet lemon with a light tartness behind it.",
+      "de": "Süße Zitrone mit leichter Säure im Hintergrund."
+    },
+    "desc": {
+      "bs": ["Lemon je više sladak nego kiseo: naprijed je slatkoća limuna, a kiselina se javlja tek blago u pozadini.", "Bez mente je, pa je to čist citrus, a ne ledeni okus kao Lemon Mint.", "Odličan je za mikseve, jer gotovo svakom voću doda svježinu."],
+      "en": ["Lemon is more sweet than sour: lemon sweetness comes first and the tartness only shows lightly in the background.", "It has no mint, so it is a clean citrus, not an icy flavor like Lemon Mint.", "Great for mixes, since it adds freshness to almost any fruit."],
+      "de": ["Lemon ist eher süß als sauer: Zuerst kommt die Süße der Zitrone, die Säure zeigt sich nur leicht im Hintergrund.", "Er hat keine Minze, deshalb ist er klare Zitrus und kein eisiger Geschmack wie Lemon Mint.", "Super für Mixe, weil er fast jeder Frucht Frische gibt."]
+    },
+    "mix": {
+      "bs": ["Lemon i Mint, 60/40, za domaću limunadu sa mentom.", "Lemon i Watermelon, za ljetni kotlić.", "Lemon i Blueberry, za limunadu od borovnice."],
+      "en": ["Lemon with Mint, 60/40, for homemade mint lemonade.", "Lemon with Watermelon for a summer bowl.", "Lemon with Blueberry for a blueberry lemonade."],
+      "de": ["Lemon mit Mint, 60/40, für hausgemachte Minz-Limonade.", "Lemon mit Watermelon für einen Sommerkopf.", "Lemon mit Blueberry für eine Heidelbeer-Limonade."]
+    }
+  },
+  {
+    "id": "al-fakher-melon", "brand": "al-fakher", "name": "Melon",
+    "ing": ["dinja:9:Medena dinja|Honeydew melon|Honigmelone"],
+    "profile": { "sweetness": 7, "freshness": 6, "fruitiness": 8, "cooling": 0, "strength": 5 },
+    "short": {
+      "bs": "Zrela medena dinja, slatka i sočna.",
+      "en": "Ripe honeydew melon, sweet and juicy.",
+      "de": "Reife Honigmelone, süß und saftig."
+    },
+    "desc": {
+      "bs": ["Melon je zrela medena dinja: slatka, sočna i mekana, sa blagom notom koja je čini punijom od lubenice.", "Bez mente je, pa je okus čist i voćni.", "Lijepo se slaže sa lubenicom, mentom i citrusima."],
+      "en": ["Melon is ripe honeydew: sweet, juicy and soft, with a light note that makes it fuller than watermelon.", "It has no mint, so the flavor is clean and fruity.", "It pairs nicely with watermelon, mint and citrus."],
+      "de": ["Melon ist reife Honigmelone: süß, saftig und weich, mit einer leichten Note, die sie voller macht als Wassermelone.", "Sie hat keine Minze, deshalb ist der Geschmack klar und fruchtig.", "Sie passt gut zu Wassermelone, Minze und Zitrus."]
+    },
+    "mix": {
+      "bs": ["Melon i Watermelon, za duplu dinju.", "Melon i Mint, 70/30, za svjež ljetni kotlić.", "Melon i Magic Love, za voćniji, tropski mix."],
+      "en": ["Melon with Watermelon for a double melon.", "Melon with Mint, 70/30, for a fresh summer bowl.", "Melon with Magic Love for a fruitier, tropical mix."],
+      "de": ["Melon mit Watermelon für eine doppelte Melone.", "Melon mit Mint, 70/30, für einen frischen Sommerkopf.", "Melon mit Magic Love für einen fruchtigeren, tropischen Mix."]
+    }
+  },
+  {
+    "id": "al-fakher-guava", "brand": "al-fakher", "name": "Guava",
+    "ing": ["guava:9"],
+    "profile": { "sweetness": 7, "freshness": 5, "fruitiness": 9, "cooling": 0, "strength": 5 },
+    "short": {
+      "bs": "Slatka, nježna guava sa blagom kiselkastom notom.",
+      "en": "Sweet, delicate guava with a light sour twist.",
+      "de": "Süße, zarte Guave mit leicht säuerlicher Note."
+    },
+    "desc": {
+      "bs": ["Guava je tropsko voće koje se rijetko nađe samo: slatko i nježno, sa blagom kiselkastom notom na kraju.", "Okus je mekan i mirisan, pa je dobar izbor kad želiš nešto drugačije od klasične jabuke ili grožđa.", "Dobro se slaže sa citrusima i mentom."],
+      "en": ["Guava is a tropical fruit you rarely find on its own: sweet and delicate, with a light sour twist at the end.", "The flavor is soft and fragrant, so it is a good pick when you want something different from classic apple or grape.", "It goes well with citrus and mint."],
+      "de": ["Guave ist eine tropische Frucht, die man selten pur findet: süß und zart, mit einer leicht säuerlichen Note am Ende.", "Der Geschmack ist weich und duftend, deshalb ist er eine gute Wahl, wenn du etwas anderes als klassischen Apfel oder Traube willst.", "Er passt gut zu Zitrus und Minze."]
+    },
+    "mix": {
+      "bs": ["Guava i Mint, 70/30, za svjež tropski okus.", "Guava i Orange, za tropski sok.", "Guava i Plum, za slatko-kiseli mix."],
+      "en": ["Guava with Mint, 70/30, for a fresh tropical flavor.", "Guava with Orange for a tropical juice.", "Guava with Plum for a sweet and sour mix."],
+      "de": ["Guava mit Mint, 70/30, für einen frischen tropischen Geschmack.", "Guava mit Orange für einen tropischen Saft.", "Guava mit Plum für einen süß-sauren Mix."]
+    }
+  },
+  {
+    "id": "al-fakher-pineapple", "brand": "al-fakher", "name": "Pineapple",
+    "ing": ["ananas:9"],
+    "profile": { "sweetness": 7, "freshness": 6, "fruitiness": 9, "cooling": 0, "strength": 5 },
+    "short": {
+      "bs": "Tropski ananas, sladak i kiselkast u isto vrijeme.",
+      "en": "Tropical pineapple, sweet and tart at the same time.",
+      "de": "Tropische Ananas, süß und säuerlich zugleich."
+    },
+    "desc": {
+      "bs": ["Pineapple je ananas kakav i treba biti: sladak, ali sa onom živom kiselinom koja ga čini svježim.", "Bez mente je, pa se tropsko voće osjeti čisto, od prvog do zadnjeg dima.", "Odličan je u tropskim miksevima sa mangom, kokosom ili bananom."],
+      "en": ["Pineapple is pineapple the way it should be: sweet, but with that lively tartness that keeps it fresh.", "It has no mint, so the tropical fruit comes through cleanly from the first puff to the last.", "Great in tropical mixes with mango, coconut or banana."],
+      "de": ["Pineapple ist Ananas, wie sie sein soll: süß, aber mit dieser lebendigen Säure, die sie frisch hält.", "Sie hat keine Minze, deshalb kommt die tropische Frucht vom ersten bis zum letzten Zug klar durch.", "Super in tropischen Mixen mit Mango, Kokos oder Banane."]
+    },
+    "mix": {
+      "bs": ["Pineapple i Coconut, za piña coladu.", "Pineapple i Mango, za tropski koktel.", "Pineapple i Mint, 70/30, za svjež ljetni kotlić."],
+      "en": ["Pineapple with Coconut for a piña colada.", "Pineapple with Mango for a tropical cocktail.", "Pineapple with Mint, 70/30, for a fresh summer bowl."],
+      "de": ["Pineapple mit Coconut für eine Piña Colada.", "Pineapple mit Mango für einen tropischen Cocktail.", "Pineapple mit Mint, 70/30, für einen frischen Sommerkopf."]
+    }
+  },
+  {
+    "id": "al-fakher-cherry", "brand": "al-fakher", "name": "Cherry",
+    "ing": ["visnja:9:Višnja|Cherry|Kirsche"],
+    "profile": { "sweetness": 7, "freshness": 4, "fruitiness": 8, "cooling": 0, "strength": 5 },
+    "short": {
+      "bs": "Puna, zaobljena višnja, slatka i glatka.",
+      "en": "Rich, rounded cherry, sweet and smooth.",
+      "de": "Volle, runde Kirsche, süß und weich."
+    },
+    "desc": {
+      "bs": ["Cherry je puna, zaobljena višnja: slatka, glatka i bez oštre kiseline.", "Za razliku od Cherry Minta, nema mente, pa je okus topliji i bliži slatkom voću.", "Dobar je sam, a u miksevima daje tamnu, voćnu dubinu."],
+      "en": ["Cherry is a rich, rounded cherry: sweet, smooth and without a sharp sourness.", "Unlike Cherry Mint, there is no mint, so the flavor is warmer and closer to sweet fruit.", "Good on its own, and in mixes it adds a dark, fruity depth."],
+      "de": ["Cherry ist eine volle, runde Kirsche: süß, weich und ohne scharfe Säure.", "Anders als Cherry Mint hat er keine Minze, deshalb ist der Geschmack wärmer und näher an süßem Obst.", "Gut pur, und in Mixen bringt er eine dunkle, fruchtige Tiefe."]
+    },
+    "mix": {
+      "bs": ["Cherry i Mint, 70/30, za svježiju višnju.", "Cherry i Vanilla, za višnju sa kremom.", "Cherry i Lemon, za kiselkastu višnju."],
+      "en": ["Cherry with Mint, 70/30, for a fresher cherry.", "Cherry with Vanilla for cherries and cream.", "Cherry with Lemon for a tangier cherry."],
+      "de": ["Cherry mit Mint, 70/30, für eine frischere Kirsche.", "Cherry mit Vanilla für Kirschen mit Sahne.", "Cherry mit Lemon für eine säuerlichere Kirsche."]
+    }
+  },
+  {
+    "id": "al-fakher-coconut", "brand": "al-fakher", "name": "Coconut",
+    "ing": ["kokos:9"],
+    "profile": { "sweetness": 7, "freshness": 3, "fruitiness": 5, "cooling": 0, "strength": 5 },
+    "tags": ["tropski", "slatki", "desertni"],
+    "short": {
+      "bs": "Kremasti kokos, mekan i blago slatkast.",
+      "en": "Creamy coconut, soft and lightly sweet.",
+      "de": "Cremige Kokosnuss, weich und leicht süß."
+    },
+    "desc": {
+      "bs": ["Coconut je kremast, mekan kokos, više desertan nego voćni.", "Slatkoća je umjerena, pa ne zasiti brzo, a dim je gladak.", "Najviše se koristi u miksevima, gdje drugim okusima daje kremastu, tropsku notu."],
+      "en": ["Coconut is a creamy, soft coconut, more dessert than fruit.", "The sweetness is moderate, so it does not get cloying fast, and the smoke is smooth.", "It is used most in mixes, where it gives other flavors a creamy, tropical note."],
+      "de": ["Coconut ist eine cremige, weiche Kokosnuss, eher Dessert als Frucht.", "Die Süße ist mäßig, deshalb wird er nicht schnell zu viel, und der Rauch ist weich.", "Am meisten wird er in Mixen genutzt, wo er anderen Geschmäckern eine cremige, tropische Note gibt."]
+    },
+    "mix": {
+      "bs": ["Coconut i Pineapple, za piña coladu.", "Coconut i Banana, za tropski desert.", "Coconut i Mango, za kremasti tropski kotlić."],
+      "en": ["Coconut with Pineapple for a piña colada.", "Coconut with Banana for a tropical dessert.", "Coconut with Mango for a creamy tropical bowl."],
+      "de": ["Coconut mit Pineapple für eine Piña Colada.", "Coconut mit Banana für ein tropisches Dessert.", "Coconut mit Mango für einen cremigen tropischen Kopf."]
+    }
+  },
+  {
+    "id": "al-fakher-plum", "brand": "al-fakher", "name": "Plum",
+    "ing": ["sljiva:9:Šljiva|Plum|Pflaume"],
+    "profile": { "sweetness": 6, "freshness": 4, "fruitiness": 8, "cooling": 0, "strength": 5 },
+    "short": {
+      "bs": "Šljiva sa ravnotežom slatkog i kiselog.",
+      "en": "Plum with a balance of sweet and sour.",
+      "de": "Pflaume mit einem Gleichgewicht aus süß und sauer."
+    },
+    "desc": {
+      "bs": ["Plum je šljiva koja balansira između slatkog i kiselog, sa tamnom, zrelom notom.", "Umjereno je slatka, pa je dobra za one kojima su desertni okusi previše.", "Lijepo se slaže sa narandžom i guavom."],
+      "en": ["Plum is a plum that balances between sweet and sour, with a dark, ripe note.", "It is moderately sweet, so it suits people who find dessert flavors too much.", "It goes nicely with orange and guava."],
+      "de": ["Plum ist eine Pflaume, die zwischen süß und sauer balanciert, mit einer dunklen, reifen Note.", "Sie ist mäßig süß, deshalb passt sie zu Leuten, denen Dessert-Geschmäcker zu viel sind.", "Sie passt gut zu Orange und Guave."]
+    },
+    "mix": {
+      "bs": ["Plum i Orange, za voćni zimski kotlić.", "Plum i Guava, za slatko-kiseli tropski mix.", "Plum i Mint, 70/30, za svježiju šljivu."],
+      "en": ["Plum with Orange for a fruity winter bowl.", "Plum with Guava for a sweet and sour tropical mix.", "Plum with Mint, 70/30, for a fresher plum."],
+      "de": ["Plum mit Orange für einen fruchtigen Winterkopf.", "Plum mit Guava für einen süß-sauren tropischen Mix.", "Plum mit Mint, 70/30, für eine frischere Pflaume."]
+    }
+  },
+  {
+    "id": "al-fakher-magic-love", "brand": "al-fakher", "name": "Magic Love",
+    "ing": ["marakuja:8", "dinja:7:Dinja|Melon|Melone", "menta:3"],
+    "profile": { "sweetness": 7, "freshness": 6, "fruitiness": 9, "cooling": 3, "strength": 5 },
+    "short": {
+      "bs": "Marakuja i slatka dinja sa svježim, hladnim završetkom.",
+      "en": "Passion fruit and sweet melon with a cool, fresh finish.",
+      "de": "Maracuja und süße Melone mit kühlem, frischem Abgang."
+    },
+    "desc": {
+      "bs": ["Magic Love spaja tropsku marakuju i slatku dinju u voćni, mirisni okus.", "Na izdahu se osjeti svježina koja ga hladi, ali ne preuzima glavnu ulogu.", "Ko voli Adalya Love 66, ovdje će prepoznati sličan stil, samo blaži i bez jakog leda."],
+      "en": ["Magic Love combines tropical passion fruit and sweet melon into a fruity, fragrant flavor.", "On the exhale there is a freshness that cools it down without taking over.", "If you like Adalya Love 66, you will recognize a similar style here, just milder and without strong ice."],
+      "de": ["Magic Love verbindet tropische Maracuja und süße Melone zu einem fruchtigen, duftenden Geschmack.", "Beim Ausatmen spürt man eine Frische, die ihn kühlt, ohne die Hauptrolle zu übernehmen.", "Wer Adalya Love 66 mag, erkennt hier einen ähnlichen Stil, nur milder und ohne starkes Eis."]
+    },
+    "mix": {
+      "bs": ["Magic Love i Watermelon, za ljetni tropski kotlić.", "Magic Love i Mint, 70/30, ako želiš više hlađenja.", "Magic Love i Lemon, za kiselkastiji završetak."],
+      "en": ["Magic Love with Watermelon for a summery tropical bowl.", "Magic Love with Mint, 70/30, if you want more chill.", "Magic Love with Lemon for a tangier finish."],
+      "de": ["Magic Love mit Watermelon für einen sommerlichen tropischen Kopf.", "Magic Love mit Mint, 70/30, wenn du mehr Kühle willst.", "Magic Love mit Lemon für einen säuerlicheren Abgang."]
+    }
+  },
+  {
+    "id": "al-fakher-vanilla", "brand": "al-fakher", "name": "Vanilla",
+    "ing": ["vanila:9"],
+    "profile": { "sweetness": 8, "freshness": 2, "fruitiness": 1, "cooling": 0, "strength": 5 },
+    "tags": ["desertni", "slatki"],
+    "short": {
+      "bs": "Mekana, slatka vanila kremastog, desertnog karaktera.",
+      "en": "Soft, sweet vanilla with a creamy, dessert-like feel.",
+      "de": "Weiche, süße Vanille mit cremigem Dessert-Charakter."
+    },
+    "desc": {
+      "bs": ["Vanilla je mekana i slatka, sa kremastim karakterom koji podsjeća na desert.", "Sama je prilično nježna, pa se najčešće koristi da zaobli i omekša druge okuse.", "U miksevima sa voćem daje utisak voća sa kremom."],
+      "en": ["Vanilla is soft and sweet, with a creamy character that recalls a dessert.", "On its own it is quite gentle, so it is mostly used to round off and soften other flavors.", "In mixes with fruit it gives the feel of fruit with cream."],
+      "de": ["Vanilla ist weich und süß, mit einem cremigen Charakter, der an ein Dessert erinnert.", "Pur ist sie ziemlich sanft, deshalb wird sie meist genutzt, um andere Geschmäcker abzurunden und weicher zu machen.", "In Mixen mit Obst entsteht der Eindruck von Obst mit Sahne."]
+    },
+    "mix": {
+      "bs": ["Vanilla i Strawberry, za jagode sa šlagom.", "Vanilla i Cherry, za višnju sa kremom.", "Vanilla i Banana, za puding od banane."],
+      "en": ["Vanilla with Strawberry for strawberries and cream.", "Vanilla with Cherry for cherry and cream.", "Vanilla with Banana for a banana pudding."],
+      "de": ["Vanilla mit Strawberry für Erdbeeren mit Sahne.", "Vanilla mit Cherry für Kirsche mit Creme.", "Vanilla mit Banana für einen Bananenpudding."]
+    }
+  },
+  {
+    "id": "al-fakher-orange", "brand": "al-fakher", "name": "Orange",
+    "ing": ["narandza:9"],
+    "profile": { "sweetness": 7, "freshness": 7, "fruitiness": 8, "cooling": 0, "strength": 5 },
+    "short": {
+      "bs": "Sočna, slatka narandža, svježa i voćna.",
+      "en": "Juicy, sweet orange, fresh and fruity.",
+      "de": "Saftige, süße Orange, frisch und fruchtig."
+    },
+    "desc": {
+      "bs": ["Orange je sočna, slatka narandža, više kao svježe cijeđeni sok nego kao kora.", "Nema mente, pa se citrus osjeti čisto, a svježina dolazi od samog voća.", "Dobro se slaže sa mentom, šljivom i tropskim voćem."],
+      "en": ["Orange is a juicy, sweet orange, more like fresh-squeezed juice than peel.", "There is no mint, so the citrus comes through cleanly and the freshness comes from the fruit itself.", "It pairs well with mint, plum and tropical fruit."],
+      "de": ["Orange ist eine saftige, süße Orange, eher wie frisch gepresster Saft als wie Schale.", "Es gibt keine Minze, deshalb kommt die Zitrus klar durch, und die Frische kommt von der Frucht selbst.", "Sie passt gut zu Minze, Pflaume und tropischem Obst."]
+    },
+    "mix": {
+      "bs": ["Orange i Mint, 70/30, za svjež sok od narandže.", "Orange i Guava, za tropski sok.", "Orange i Vanilla, za kremu od narandže."],
+      "en": ["Orange with Mint, 70/30, for a fresh orange juice.", "Orange with Guava for a tropical juice.", "Orange with Vanilla for an orange cream."],
+      "de": ["Orange mit Mint, 70/30, für einen frischen Orangensaft.", "Orange mit Guava für einen tropischen Saft.", "Orange mit Vanilla für eine Orangencreme."]
+    }
+  },
+  {
+    "id": "al-fakher-blueberry-mint", "brand": "al-fakher", "name": "Blueberry Mint",
+    "ing": ["borovnica:8", "menta:6"],
+    "profile": { "sweetness": 7, "freshness": 7, "fruitiness": 8, "cooling": 5, "strength": 5 },
+    "short": {
+      "bs": "Slatka borovnica sa svježom mentom.",
+      "en": "Sweet blueberry with fresh mint.",
+      "de": "Süße Heidelbeere mit frischer Minze."
+    },
+    "desc": {
+      "bs": ["Blueberry Mint je Al Fakherova borovnica sa dodatkom mente: slatko bobičasto voće naprijed, a menta na izdahu.", "Menta je umjerena, pa okus osvježava bez jakog leda.", "Ko voli Blueberry, a želi nešto svježije za ljeto, ovo je logičan izbor."],
+      "en": ["Blueberry Mint is Al Fakher's blueberry with added mint: sweet berry up front and mint on the exhale.", "The mint is moderate, so it refreshes without heavy ice.", "If you like Blueberry but want something fresher for summer, this is the obvious pick."],
+      "de": ["Blueberry Mint ist die Heidelbeere von Al Fakher mit Minze: süße Beere vorne und Minze beim Ausatmen.", "Die Minze ist mäßig, deshalb erfrischt der Geschmack ohne starkes Eis.", "Wenn du Blueberry magst, aber etwas Frischeres für den Sommer willst, ist das die naheliegende Wahl."]
+    },
+    "mix": {
+      "bs": ["Blueberry Mint i Lemon, za limunadu od borovnice.", "Blueberry Mint i Grape, za tamno voće sa mentom.", "Blueberry Mint i Watermelon, za ljetni mix."],
+      "en": ["Blueberry Mint with Lemon for a blueberry lemonade.", "Blueberry Mint with Grape for dark fruit with mint.", "Blueberry Mint with Watermelon for a summer mix."],
+      "de": ["Blueberry Mint mit Lemon für eine Heidelbeer-Limonade.", "Blueberry Mint mit Grape für dunkles Obst mit Minze.", "Blueberry Mint mit Watermelon für einen Sommer-Mix."]
+    }
+  },
+  {
+    "id": "al-fakher-gum-cinnamon", "brand": "al-fakher", "name": "Gum Cinnamon",
+    "ing": ["zvaka:7:Žvakaća guma|Chewing gum|Kaugummi", "cimet:7"],
+    "profile": { "sweetness": 7, "freshness": 6, "fruitiness": 1, "cooling": 3, "strength": 5 },
+    "tags": ["bombon", "zacinski", "slatki"],
+    "short": {
+      "bs": "Žvakaća guma sa slatko-ljutkastim cimetom i daškom svježine.",
+      "en": "Chewing gum with sweet, spicy cinnamon and a touch of freshness.",
+      "de": "Kaugummi mit süß-würzigem Zimt und einem Hauch Frische."
+    },
+    "desc": {
+      "bs": ["Gum Cinnamon spaja slatku žvakaću gumu i cimet, koji daje toplu, ljutkastu notu.", "U pozadini je i malo svježine, pa okus nije težak kao klasični začinski okusi.", "Nije za svakoga, ali ko voli cimet žvake, ovdje će ga lako prepoznati."],
+      "en": ["Gum Cinnamon combines sweet chewing gum with cinnamon, which adds a warm, spicy note.", "There is also a little freshness in the background, so the flavor is not as heavy as classic spice flavors.", "Not for everyone, but if you like cinnamon gum, you will recognize it right away."],
+      "de": ["Gum Cinnamon verbindet süßen Kaugummi mit Zimt, der eine warme, würzige Note gibt.", "Im Hintergrund ist auch etwas Frische, deshalb ist der Geschmack nicht so schwer wie klassische Gewürzgeschmäcker.", "Nicht für jeden, aber wer Zimtkaugummi mag, erkennt ihn sofort."]
+    },
+    "mix": {
+      "bs": ["Gum Cinnamon i Double Apple, za jabuku sa cimetom.", "Gum Cinnamon i Mint, 70/30, za svježiju žvaku.", "Gum Cinnamon i Orange, za zimski začinski kotlić."],
+      "en": ["Gum Cinnamon with Double Apple for apple and cinnamon.", "Gum Cinnamon with Mint, 70/30, for a fresher gum.", "Gum Cinnamon with Orange for a spiced winter bowl."],
+      "de": ["Gum Cinnamon mit Double Apple für Apfel mit Zimt.", "Gum Cinnamon mit Mint, 70/30, für einen frischeren Kaugummi.", "Gum Cinnamon mit Orange für einen würzigen Winterkopf."]
+    }
+  },
+
+  {
+    "id": "adalya-mi-amor", "brand": "adalya", "name": "Mi Amor",
+    "ing": ["ananas:8", "banana:7", "kristal:5"],
+    "profile": { "sweetness": 8, "freshness": 6, "fruitiness": 9, "cooling": 5, "strength": 5 },
+    "short": {
+      "bs": "Sočni ananas i zrela banana, zaokruženi hladnim završetkom.",
+      "en": "Juicy pineapple and ripe banana, rounded off with a cool finish.",
+      "de": "Saftige Ananas und reife Banane, abgerundet mit kühlem Abgang."
+    },
+    "desc": {
+      "bs": ["Mi Amor spaja sočni ananas i zrelu bananu, pa je okus tropski, sladak i gotovo kremast.", "Na kraju dolazi hladan završetak koji ga osvježi i ne da mu da bude težak.", "Ko voli Dubai, ovdje će naći sličan tropski stil sa više banane."],
+      "en": ["Mi Amor combines juicy pineapple and ripe banana, so the flavor is tropical, sweet and almost creamy.", "A cool finish at the end freshens it up and keeps it from feeling heavy.", "If you like Dubai, you will find a similar tropical style here with more banana."],
+      "de": ["Mi Amor verbindet saftige Ananas und reife Banane, deshalb ist der Geschmack tropisch, süß und fast cremig.", "Am Ende kommt ein kühler Abgang, der ihn erfrischt und nicht schwer werden lässt.", "Wer Dubai mag, findet hier einen ähnlichen tropischen Stil mit mehr Banane."]
+    },
+    "mix": {
+      "bs": ["Mi Amor i Mango Tango Ice, za tropski koktel.", "Mi Amor i Strawberry Splash, za voćni milkshake.", "Mi Amor i Lemon Mint, za svježiji, kiselkastiji kotlić."],
+      "en": ["Mi Amor with Mango Tango Ice for a tropical cocktail.", "Mi Amor with Strawberry Splash for a fruity milkshake.", "Mi Amor with Lemon Mint for a fresher, tangier bowl."],
+      "de": ["Mi Amor mit Mango Tango Ice für einen tropischen Cocktail.", "Mi Amor mit Strawberry Splash für einen fruchtigen Milchshake.", "Mi Amor mit Lemon Mint für einen frischeren, säuerlicheren Kopf."]
+    }
+  },
+  {
+    "id": "adalya-english-lord", "brand": "adalya", "name": "English Lord",
+    "ing": ["mango:8", "breskva:7", "malina:6", "menta:3"],
+    "profile": { "sweetness": 8, "freshness": 6, "fruitiness": 9, "cooling": 3, "strength": 5 },
+    "short": {
+      "bs": "Mango, sočna breskva i slatka malina sa daškom mente.",
+      "en": "Mango, juicy peach and sweet raspberry with a hint of mint.",
+      "de": "Mango, saftiger Pfirsich und süße Himbeere mit einem Hauch Minze."
+    },
+    "desc": {
+      "bs": ["English Lord spaja mango, sočnu breskvu i slatku malinu u mekan, voćni okus.", "Menta je tu samo kao dašak na kraju, pa okus ostaje sladak i pun.", "Dobar je izbor kad želiš voćni mix koji je već složen za tebe."],
+      "en": ["English Lord combines mango, juicy peach and sweet raspberry into a soft, fruity flavor.", "The mint is only a hint at the end, so the flavor stays sweet and full.", "A good pick when you want a fruity mix that is already put together for you."],
+      "de": ["English Lord verbindet Mango, saftigen Pfirsich und süße Himbeere zu einem weichen, fruchtigen Geschmack.", "Die Minze ist nur ein Hauch am Ende, deshalb bleibt der Geschmack süß und voll.", "Eine gute Wahl, wenn du einen fruchtigen Mix willst, der schon fertig für dich zusammengestellt ist."]
+    },
+    "mix": {
+      "bs": ["English Lord i Berlin Nights, za više breskve.", "English Lord i Mint, 70/30, za svježiji kotlić.", "English Lord i Lady Killer, za voćni mix sa mangom."],
+      "en": ["English Lord with Berlin Nights for more peach.", "English Lord with Mint, 70/30, for a fresher bowl.", "English Lord with Lady Killer for a fruity mango mix."],
+      "de": ["English Lord mit Berlin Nights für mehr Pfirsich.", "English Lord mit Mint, 70/30, für einen frischeren Kopf.", "English Lord mit Lady Killer für einen fruchtigen Mango-Mix."]
+    }
+  },
+  {
+    "id": "adalya-mango-tango-ice", "brand": "adalya", "name": "Mango Tango Ice",
+    "ing": ["mango:9", "marakuja:6", "kristal:6"],
+    "profile": { "sweetness": 8, "freshness": 7, "fruitiness": 9, "cooling": 6, "strength": 5 },
+    "short": {
+      "bs": "Slatki mango i aromatična marakuja sa osvježavajućim mentolom.",
+      "en": "Sweet mango and aromatic passion fruit with a refreshing touch of menthol.",
+      "de": "Süße Mango und aromatische Maracuja mit erfrischendem Menthol."
+    },
+    "desc": {
+      "bs": ["Mango Tango Ice je slatki mango sa aromatičnom marakujom, koja mu daje mirisnu, tropsku notu.", "Mentol je tu da osvježi izdah, pa okus nije težak ni kad je vani vruće.", "Ko voli Lady Killer ili Hawaii, ovdje će naći mango u prvom planu."],
+      "en": ["Mango Tango Ice is sweet mango with aromatic passion fruit, which gives it a fragrant, tropical note.", "The menthol is there to freshen the exhale, so the flavor never feels heavy, even on a hot day.", "If you like Lady Killer or Hawaii, you will find mango front and center here."],
+      "de": ["Mango Tango Ice ist süße Mango mit aromatischer Maracuja, die ihm eine duftende, tropische Note gibt.", "Das Menthol erfrischt das Ausatmen, deshalb wirkt der Geschmack auch an heißen Tagen nie schwer.", "Wer Lady Killer oder Hawaii mag, findet hier Mango im Mittelpunkt."]
+    },
+    "mix": {
+      "bs": ["Mango Tango Ice i Mi Amor, za tropski koktel.", "Mango Tango Ice i Love 66, za voćni ljetni mix.", "Mango Tango Ice i Ice Lime on the Rocks, za kiselkast, leden mango."],
+      "en": ["Mango Tango Ice with Mi Amor for a tropical cocktail.", "Mango Tango Ice with Love 66 for a fruity summer mix.", "Mango Tango Ice with Ice Lime on the Rocks for a tangy, icy mango."],
+      "de": ["Mango Tango Ice mit Mi Amor für einen tropischen Cocktail.", "Mango Tango Ice mit Love 66 für einen fruchtigen Sommer-Mix.", "Mango Tango Ice mit Ice Lime on the Rocks für eine säuerliche, eisige Mango."]
+    }
+  },
+  {
+    "id": "adalya-ice-lime-on-the-rocks", "brand": "adalya", "name": "Ice Lime on the Rocks",
+    "ing": ["limeta:9", "menta:6", "kristal:7"],
+    "profile": { "sweetness": 5, "freshness": 9, "fruitiness": 7, "cooling": 8, "strength": 5 },
+    "short": {
+      "bs": "Kisela limeta sa čistom mentom i hladnim mentolom.",
+      "en": "Zesty lime with clean mint and cold menthol.",
+      "de": "Spritzige Limette mit klarer Minze und kaltem Menthol."
+    },
+    "desc": {
+      "bs": ["Ice Lime on the Rocks je kisela, živa limeta sa mentom i jakim hlađenjem.", "Okus podsjeća na ledeni mojito bez alkohola: svjež, oštar i nimalo težak.", "Sam je odličan za vruće dane, a u miksevima doda kiselinu i led bilo kojem voću."],
+      "en": ["Ice Lime on the Rocks is a zesty, lively lime with mint and strong cooling.", "It recalls an alcohol-free iced mojito: fresh, sharp and not heavy at all.", "On its own it is great for hot days, and in mixes it adds sourness and ice to any fruit."],
+      "de": ["Ice Lime on the Rocks ist eine spritzige, lebendige Limette mit Minze und starker Kühle.", "Er erinnert an einen eisigen Mojito ohne Alkohol: frisch, scharf und überhaupt nicht schwer.", "Pur ist er super für heiße Tage, und in Mixen gibt er jeder Frucht Säure und Eis."]
+    },
+    "mix": {
+      "bs": ["Ice Lime on the Rocks i Watermelon, za ledenu lubenicu sa limetom.", "Ice Lime on the Rocks i Mango Tango Ice, za kiselkast tropski kotlić.", "Ice Lime on the Rocks i Berrymix, za ledene bobice."],
+      "en": ["Ice Lime on the Rocks with Watermelon for icy watermelon with lime.", "Ice Lime on the Rocks with Mango Tango Ice for a tangy tropical bowl.", "Ice Lime on the Rocks with Berrymix for icy berries."],
+      "de": ["Ice Lime on the Rocks mit Watermelon für eisige Wassermelone mit Limette.", "Ice Lime on the Rocks mit Mango Tango Ice für einen säuerlichen tropischen Kopf.", "Ice Lime on the Rocks mit Berrymix für eisige Beeren."]
+    }
+  },
+  {
+    "id": "adalya-watermelon", "brand": "adalya", "name": "Watermelon",
+    "ing": ["lubenica:9"],
+    "profile": { "sweetness": 7, "freshness": 6, "fruitiness": 9, "cooling": 0, "strength": 5 },
+    "short": {
+      "bs": "Slatka lubenica, puna i sočna, bez hlađenja.",
+      "en": "Sweet watermelon, full and juicy, with no cooling.",
+      "de": "Süße Wassermelone, voll und saftig, ohne Kühle."
+    },
+    "desc": {
+      "bs": ["Adalya Watermelon je slatka, sočna lubenica bez mente i bez leda.", "Okus je pun i voćni, pa je dobar kad želiš čisto voće umjesto ledenog okusa.", "Odlična je baza za ljetne mikseve, jer se slaže sa skoro svime."],
+      "en": ["Adalya Watermelon is sweet, juicy watermelon with no mint and no ice.", "The flavor is full and fruity, so it is good when you want pure fruit instead of an icy flavor.", "A great base for summer mixes, since it goes with almost anything."],
+      "de": ["Adalya Watermelon ist süße, saftige Wassermelone ohne Minze und ohne Eis.", "Der Geschmack ist voll und fruchtig, deshalb ist er gut, wenn du reines Obst statt eines eisigen Geschmacks willst.", "Eine super Basis für Sommer-Mixe, weil er zu fast allem passt."]
+    },
+    "mix": {
+      "bs": ["Watermelon i Ice Lime on the Rocks, za ledenu lubenicu.", "Watermelon i Double Melon, za još više dinje.", "Watermelon i Berrymix, za ljetne bobice."],
+      "en": ["Watermelon with Ice Lime on the Rocks for an icy watermelon.", "Watermelon with Double Melon for even more melon.", "Watermelon with Berrymix for summer berries."],
+      "de": ["Watermelon mit Ice Lime on the Rocks für eine eisige Wassermelone.", "Watermelon mit Double Melon für noch mehr Melone.", "Watermelon mit Berrymix für Sommerbeeren."]
+    }
+  },
+  {
+    "id": "adalya-watermelon-mint", "brand": "adalya", "name": "Watermelon Mint",
+    "ing": ["lubenica:9", "menta:6"],
+    "profile": { "sweetness": 7, "freshness": 8, "fruitiness": 9, "cooling": 5, "strength": 5 },
+    "short": {
+      "bs": "Sočna lubenica sa čistim, hladnim završetkom mente.",
+      "en": "Juicy watermelon with a clean, cool mint finish.",
+      "de": "Saftige Wassermelone mit klarem, kühlem Minz-Abgang."
+    },
+    "desc": {
+      "bs": ["Watermelon Mint je sočna lubenica sa mentom koja se javlja na izdahu.", "Menta daje čist, hladan završetak, ali lubenica ostaje glavna.", "Klasična ljetna kombinacija, dobra i za početnike."],
+      "en": ["Watermelon Mint is juicy watermelon with mint that shows up on the exhale.", "The mint gives a clean, cool finish, but the watermelon stays in the lead.", "A classic summer pairing, good for beginners too."],
+      "de": ["Watermelon Mint ist saftige Wassermelone mit Minze, die beim Ausatmen kommt.", "Die Minze gibt einen klaren, kühlen Abgang, aber die Wassermelone bleibt vorne.", "Eine klassische Sommer-Kombination, auch gut für Einsteiger."]
+    },
+    "mix": {
+      "bs": ["Watermelon Mint i Lemon Mint, za ljetnu limunadu.", "Watermelon Mint i Love 66, za tropsku lubenicu.", "Watermelon Mint i Berlin Nights, za lubenicu sa breskvom."],
+      "en": ["Watermelon Mint with Lemon Mint for a summer lemonade.", "Watermelon Mint with Love 66 for a tropical watermelon.", "Watermelon Mint with Berlin Nights for watermelon with peach."],
+      "de": ["Watermelon Mint mit Lemon Mint für eine Sommer-Limonade.", "Watermelon Mint mit Love 66 für eine tropische Wassermelone.", "Watermelon Mint mit Berlin Nights für Wassermelone mit Pfirsich."]
+    }
+  },
+  {
+    "id": "adalya-grape-mint", "brand": "adalya", "name": "Grape Mint",
+    "ing": ["grozdje:9", "menta:6"],
+    "profile": { "sweetness": 7, "freshness": 7, "fruitiness": 8, "cooling": 5, "strength": 5 },
+    "short": {
+      "bs": "Slatko, sočno grožđe sa svježim završetkom mente.",
+      "en": "Sweet, juicy grape with a fresh mint finish.",
+      "de": "Süße, saftige Traube mit frischem Minz-Abgang."
+    },
+    "desc": {
+      "bs": ["Grape Mint je klasična kombinacija: slatko, sočno grožđe i menta.", "Grožđe je naprijed, a menta dolazi na izdahu i osvježava ga.", "Ko voli klasične okuse iz lounge-a, ovo je siguran izbor."],
+      "en": ["Grape Mint is a classic pairing: sweet, juicy grape and mint.", "The grape leads, and the mint comes on the exhale and freshens it up.", "If you like classic lounge flavors, this is a safe pick."],
+      "de": ["Grape Mint ist eine klassische Kombination: süße, saftige Traube und Minze.", "Die Traube ist vorne, und die Minze kommt beim Ausatmen und erfrischt sie.", "Wer klassische Lounge-Geschmäcker mag, liegt hier sicher richtig."]
+    },
+    "mix": {
+      "bs": ["Grape Mint i Blueberry Mint, za tamno voće sa mentom.", "Grape Mint i Lemon Mint, za kiselkastije grožđe.", "Grape Mint i Bağdadi, za voćniji mix."],
+      "en": ["Grape Mint with Blueberry Mint for dark fruit with mint.", "Grape Mint with Lemon Mint for a tangier grape.", "Grape Mint with Bağdadi for a fruitier mix."],
+      "de": ["Grape Mint mit Blueberry Mint für dunkles Obst mit Minze.", "Grape Mint mit Lemon Mint für eine säuerlichere Traube.", "Grape Mint mit Bağdadi für einen fruchtigeren Mix."]
+    }
+  },
+  {
+    "id": "adalya-blueberry-mint", "brand": "adalya", "name": "Blueberry Mint",
+    "ing": ["borovnica:8", "menta:6"],
+    "profile": { "sweetness": 7, "freshness": 7, "fruitiness": 8, "cooling": 5, "strength": 5 },
+    "short": {
+      "bs": "Borovnica i menta u jednostavnom, čistom spoju.",
+      "en": "Blueberry and mint in a simple, clean pairing.",
+      "de": "Heidelbeere und Minze in einer einfachen, klaren Kombination."
+    },
+    "desc": {
+      "bs": ["Blueberry Mint je jednostavan spoj slatke borovnice i mente.", "Nema mnogo slojeva: borovnica je naprijed, a menta osvježava kraj.", "Dobar je sam, a još bolji kao dodatak voćnim miksevima."],
+      "en": ["Blueberry Mint is a simple pairing of sweet blueberry and mint.", "There are not many layers: the blueberry leads and the mint freshens the finish.", "Good on its own and even better as an addition to fruity mixes."],
+      "de": ["Blueberry Mint ist eine einfache Kombination aus süßer Heidelbeere und Minze.", "Es gibt nicht viele Schichten: Die Heidelbeere ist vorne, und die Minze erfrischt das Ende.", "Gut pur und noch besser als Zugabe zu fruchtigen Mixen."]
+    },
+    "mix": {
+      "bs": ["Blueberry Mint i Blue Melon, za više borovnice.", "Blueberry Mint i Grape Mint, za tamno voće.", "Blueberry Mint i Lemon Mint, za limunadu od borovnice."],
+      "en": ["Blueberry Mint with Blue Melon for more blueberry.", "Blueberry Mint with Grape Mint for dark fruit.", "Blueberry Mint with Lemon Mint for a blueberry lemonade."],
+      "de": ["Blueberry Mint mit Blue Melon für mehr Heidelbeere.", "Blueberry Mint mit Grape Mint für dunkles Obst.", "Blueberry Mint mit Lemon Mint für eine Heidelbeer-Limonade."]
+    }
+  },
+  {
+    "id": "adalya-orange-mint", "brand": "adalya", "name": "Orange Mint",
+    "ing": ["narandza:9", "kristal:5"],
+    "profile": { "sweetness": 7, "freshness": 8, "fruitiness": 8, "cooling": 5, "strength": 5 },
+    "short": {
+      "bs": "Svijetla, sočna narandža sa hladnom notom mentola.",
+      "en": "Bright, zesty orange with a cool menthol undertone.",
+      "de": "Spritzige Orange mit kühler Menthol-Note."
+    },
+    "desc": {
+      "bs": ["Orange Mint je sočna, živa narandža sa hladnom notom u pozadini.", "Hlađenje je umjereno, pa citrus ostaje u prvom planu.", "Odličan je i za mikseve: npr. Love 66 dobije citrusnu svježinu."],
+      "en": ["Orange Mint is a juicy, lively orange with a cool note in the background.", "The cooling is moderate, so the citrus stays front and center.", "Great for mixes too: Love 66, for example, gets a citrus lift."],
+      "de": ["Orange Mint ist eine saftige, lebendige Orange mit kühler Note im Hintergrund.", "Die Kühle ist mäßig, deshalb bleibt die Zitrus im Vordergrund.", "Auch super für Mixe: Love 66 zum Beispiel bekommt eine zitrusfrische Note."]
+    },
+    "mix": {
+      "bs": ["Orange Mint i Love 66, za citrusni tropski kotlić.", "Orange Mint i Mango Tango Ice, za tropski sok.", "Orange Mint i Strawberry Splash, za voćni punč."],
+      "en": ["Orange Mint with Love 66 for a citrusy tropical bowl.", "Orange Mint with Mango Tango Ice for a tropical juice.", "Orange Mint with Strawberry Splash for a fruit punch."],
+      "de": ["Orange Mint mit Love 66 für einen zitrusfrischen tropischen Kopf.", "Orange Mint mit Mango Tango Ice für einen tropischen Saft.", "Orange Mint mit Strawberry Splash für einen Fruchtpunsch."]
+    }
+  },
+  {
+    "id": "adalya-berrymix", "brand": "adalya", "name": "Berrymix",
+    "ing": ["borovnica:7", "kupina:7:Kupina|Blackberry|Brombeere", "malina:7", "menta:4"],
+    "profile": { "sweetness": 7, "freshness": 6, "fruitiness": 9, "cooling": 3, "strength": 5 },
+    "short": {
+      "bs": "Borovnica, kupina i malina sa laganom mentom.",
+      "en": "Blueberry, blackberry and raspberry with a light touch of mint.",
+      "de": "Heidelbeere, Brombeere und Himbeere mit einem leichten Hauch Minze."
+    },
+    "desc": {
+      "bs": ["Berrymix spaja tri bobice: borovnicu, kupinu i malinu.", "Rezultat je slatko-kiselkast, tamni voćni okus, a lagana menta ga osvježi na kraju.", "Dobar je za one koji vole bobičasto voće, a ne žele jak led."],
+      "en": ["Berrymix brings together three berries: blueberry, blackberry and raspberry.", "The result is a sweet and slightly tart dark fruit flavor, and a light touch of mint freshens it at the end.", "Good for berry lovers who do not want heavy ice."],
+      "de": ["Berrymix vereint drei Beeren: Heidelbeere, Brombeere und Himbeere.", "Das Ergebnis ist ein süßer, leicht säuerlicher, dunkler Fruchtgeschmack, und ein leichter Hauch Minze erfrischt ihn am Ende.", "Gut für Beeren-Fans, die kein starkes Eis wollen."]
+    },
+    "mix": {
+      "bs": ["Berrymix i Lemon Mint, za limunadu od bobica.", "Berrymix i Raspberry, za više maline.", "Berrymix i Ice Lime on the Rocks, za ledene bobice."],
+      "en": ["Berrymix with Lemon Mint for a berry lemonade.", "Berrymix with Raspberry for more raspberry.", "Berrymix with Ice Lime on the Rocks for icy berries."],
+      "de": ["Berrymix mit Lemon Mint für eine Beeren-Limonade.", "Berrymix mit Raspberry für mehr Himbeere.", "Berrymix mit Ice Lime on the Rocks für eisige Beeren."]
+    }
+  },
+  {
+    "id": "adalya-strawberry-splash", "brand": "adalya", "name": "Strawberry Splash",
+    "ing": ["jagoda:9", "banana:6"],
+    "profile": { "sweetness": 8, "freshness": 4, "fruitiness": 9, "cooling": 0, "strength": 5 },
+    "short": {
+      "bs": "Slatka jagoda i mekana, kremasta banana.",
+      "en": "Sweet strawberry and soft, creamy banana.",
+      "de": "Süße Erdbeere und weiche, cremige Banane."
+    },
+    "desc": {
+      "bs": ["Strawberry Splash je slatka jagoda koju zaokružuje mekana, kremasta banana.", "Okus je gladak i sladak, pa podsjeća na smoothie od jagode i banane.", "Dobar je izbor za početnike i za one koji vole blage, voćne okuse."],
+      "en": ["Strawberry Splash is sweet strawberry rounded off by soft, creamy banana.", "The flavor is smooth and sweet, so it recalls a strawberry banana smoothie.", "A good pick for beginners and for anyone who likes mild, fruity flavors."],
+      "de": ["Strawberry Splash ist süße Erdbeere, abgerundet mit weicher, cremiger Banane.", "Der Geschmack ist weich und süß, deshalb erinnert er an einen Erdbeer-Bananen-Smoothie.", "Eine gute Wahl für Einsteiger und für alle, die milde, fruchtige Geschmäcker mögen."]
+    },
+    "mix": {
+      "bs": ["Strawberry Splash i Mint, 70/30, za svježiji smoothie.", "Strawberry Splash i Mi Amor, za tropski milkshake.", "Strawberry Splash i Lemon Mint, za limunadu od jagode."],
+      "en": ["Strawberry Splash with Mint, 70/30, for a fresher smoothie.", "Strawberry Splash with Mi Amor for a tropical milkshake.", "Strawberry Splash with Lemon Mint for a strawberry lemonade."],
+      "de": ["Strawberry Splash mit Mint, 70/30, für einen frischeren Smoothie.", "Strawberry Splash mit Mi Amor für einen tropischen Milchshake.", "Strawberry Splash mit Lemon Mint für eine Erdbeer-Limonade."]
+    }
+  },
+  {
+    "id": "adalya-sheik-money", "brand": "adalya", "name": "Sheik Money",
+    "ing": ["ananas:8", "banana:8"],
+    "profile": { "sweetness": 8, "freshness": 5, "fruitiness": 9, "cooling": 0, "strength": 5 },
+    "short": {
+      "bs": "Ananas i banana, tropski i slatki, bez mente.",
+      "en": "Pineapple and banana, tropical and sweet, with no mint.",
+      "de": "Ananas und Banane, tropisch und süß, ohne Minze."
+    },
+    "desc": {
+      "bs": ["Sheik Money je tropski spoj ananasa i banane.", "Za razliku od Mi Amora, ovdje nema hlađenja, pa su voće i slatkoća potpuno u prvom planu.", "Dobar je za one koji vole tropsko voće, a ne vole mentu."],
+      "en": ["Sheik Money is a tropical pairing of pineapple and banana.", "Unlike Mi Amor, there is no cooling here, so the fruit and sweetness are fully in front.", "Good for people who love tropical fruit but do not like mint."],
+      "de": ["Sheik Money ist eine tropische Kombination aus Ananas und Banane.", "Anders als bei Mi Amor gibt es hier keine Kühle, deshalb stehen Frucht und Süße ganz vorne.", "Gut für alle, die tropisches Obst lieben, aber keine Minze mögen."]
+    },
+    "mix": {
+      "bs": ["Sheik Money i Mint, 70/30, ako želiš malo svježine.", "Sheik Money i Mango Tango Ice, za tropski koktel.", "Sheik Money i Strawberry Splash, za voćni smoothie."],
+      "en": ["Sheik Money with Mint, 70/30, if you want some freshness.", "Sheik Money with Mango Tango Ice for a tropical cocktail.", "Sheik Money with Strawberry Splash for a fruit smoothie."],
+      "de": ["Sheik Money mit Mint, 70/30, wenn du etwas Frische willst.", "Sheik Money mit Mango Tango Ice für einen tropischen Cocktail.", "Sheik Money mit Strawberry Splash für einen Frucht-Smoothie."]
+    }
+  },
+  {
+    "id": "adalya-bagdadi", "brand": "adalya", "name": "Bağdadi",
+    "ing": ["grozdje:8", "breskva:6", "kupina:6:Bobičasto voće|Mixed berries|Beerenmix", "menta:4"],
+    "profile": { "sweetness": 7, "freshness": 6, "fruitiness": 9, "cooling": 3, "strength": 5 },
+    "short": {
+      "bs": "Grožđe, breskva i bobičasto voće sa daškom mente.",
+      "en": "Grape, peach and mixed berries with a hint of mint.",
+      "de": "Traube, Pfirsich und Beeren mit einem Hauch Minze."
+    },
+    "desc": {
+      "bs": ["Bağdadi je voćni mix u kojem je grožđe glavno, a breskva i bobičasto voće ga zaokružuju.", "Menta je blaga, pa okus ostaje sladak i svjež u isto vrijeme.", "Dobar je kad želiš složen voćni okus, a ne jedno voće."],
+      "en": ["Bağdadi is a fruity mix led by grape, with peach and mixed berries rounding it off.", "The mint is gentle, so the flavor stays sweet and fresh at the same time.", "Good when you want a layered fruit flavor rather than a single fruit."],
+      "de": ["Bağdadi ist ein fruchtiger Mix, bei dem die Traube vorne ist und Pfirsich und Beeren ihn abrunden.", "Die Minze ist sanft, deshalb bleibt der Geschmack gleichzeitig süß und frisch.", "Gut, wenn du einen vielschichtigen Fruchtgeschmack statt einer einzelnen Frucht willst."]
+    },
+    "mix": {
+      "bs": ["Bağdadi i Grape Mint, za više grožđa.", "Bağdadi i Berlin Nights, za više breskve.", "Bağdadi i Lemon Mint, za kiselkastiji kotlić."],
+      "en": ["Bağdadi with Grape Mint for more grape.", "Bağdadi with Berlin Nights for more peach.", "Bağdadi with Lemon Mint for a tangier bowl."],
+      "de": ["Bağdadi mit Grape Mint für mehr Traube.", "Bağdadi mit Berlin Nights für mehr Pfirsich.", "Bağdadi mit Lemon Mint für einen säuerlicheren Kopf."]
+    }
+  },
+  {
+    "id": "adalya-cactus", "brand": "adalya", "name": "Cactus",
+    "ing": ["kaktus:8:Kaktus|Cactus|Kaktus"],
+    "profile": { "sweetness": 7, "freshness": 6, "fruitiness": 7, "cooling": 0, "strength": 5 },
+    "short": {
+      "bs": "Slatki, voćni kaktus sa zelenom, sočnom notom.",
+      "en": "Sweet, fruity cactus with a green, juicy note.",
+      "de": "Süßer, fruchtiger Kaktus mit grüner, saftiger Note."
+    },
+    "desc": {
+      "bs": ["Cactus je slatki, voćni okus sa zelenom, sočnom notom kaktusa.", "Nije tako poznat kao klasično voće, pa je dobar izbor kad želiš probati nešto novo.", "U miksevima se lijepo slaže sa citrusima i lubenicom."],
+      "en": ["Cactus is a sweet, fruity flavor with a green, juicy cactus note.", "It is not as familiar as classic fruit, so it is a good pick when you want to try something new.", "In mixes it goes nicely with citrus and watermelon."],
+      "de": ["Cactus ist ein süßer, fruchtiger Geschmack mit grüner, saftiger Kaktus-Note.", "Er ist nicht so bekannt wie klassisches Obst, deshalb ist er eine gute Wahl, wenn du etwas Neues probieren willst.", "In Mixen passt er gut zu Zitrus und Wassermelone."]
+    },
+    "mix": {
+      "bs": ["Cactus i Ice Lime on the Rocks, za ledeni kaktus sa limetom.", "Cactus i Watermelon, za ljetni zeleni mix.", "Cactus i Lemon Mint, za svjež citrusni kotlić."],
+      "en": ["Cactus with Ice Lime on the Rocks for icy cactus with lime.", "Cactus with Watermelon for a summery green mix.", "Cactus with Lemon Mint for a fresh citrus bowl."],
+      "de": ["Cactus mit Ice Lime on the Rocks für eisigen Kaktus mit Limette.", "Cactus mit Watermelon für einen sommerlichen grünen Mix.", "Cactus mit Lemon Mint für einen frischen Zitrus-Kopf."]
+    }
+  },
+  {
+    "id": "adalya-wind-of-cuba", "brand": "adalya", "name": "Wind of Cuba",
+    "ing": ["bilje:8:Duhan cigare|Cigar tobacco|Zigarrentabak:#8a5a3a", "vanila:7"],
+    "profile": { "sweetness": 6, "freshness": 3, "fruitiness": 1, "cooling": 0, "strength": 6 },
+    "tags": ["desertni", "nocni"],
+    "mood": "night",
+    "similar": ["al-fakher-vanilla", "musthave-vanilla-cream", "fumari-spiced-chai"],
+    "short": {
+      "bs": "Aroma duhana za cigare sa mekom, slatkom vanilom.",
+      "en": "Cigar tobacco aroma with soft, sweet vanilla.",
+      "de": "Zigarrentabak-Aroma mit weicher, süßer Vanille."
+    },
+    "desc": {
+      "bs": ["Wind of Cuba nije voćni okus: spaja aromu duhana za cigare sa mekom, slatkom vanilom.", "Vanila omekša duhansku notu, pa okus nije gorak, nego topao i zaobljen.", "Najviše odgovara mirnim večernjim sesijama i onima koji su se zasitili voća."],
+      "en": ["Wind of Cuba is not a fruity flavor: it combines cigar tobacco aroma with soft, sweet vanilla.", "The vanilla softens the tobacco note, so the flavor is not bitter but warm and rounded.", "It suits calm evening sessions best, and anyone who has had enough of fruit."],
+      "de": ["Wind of Cuba ist kein fruchtiger Geschmack: Er verbindet Zigarrentabak-Aroma mit weicher, süßer Vanille.", "Die Vanille macht die Tabaknote weicher, deshalb ist der Geschmack nicht bitter, sondern warm und rund.", "Er passt am besten zu ruhigen Abend-Sessions und zu allen, die genug von Obst haben."]
+    },
+    "mix": {
+      "bs": ["Wind of Cuba i karamel ili kafa, za desertni večernji kotlić.", "Wind of Cuba i malo mente, 80/20, za svježiji kraj.", "Wind of Cuba i Swiss Bonbon, 80/20, za neobičan, hladniji kontrast."],
+      "en": ["Wind of Cuba with caramel or coffee for a dessert-style evening bowl.", "Wind of Cuba with a little mint, 80/20, for a fresher finish.", "Wind of Cuba with Swiss Bonbon, 80/20, for an unusual, cooler contrast."],
+      "de": ["Wind of Cuba mit Karamell oder Kaffee für einen Dessert-Kopf am Abend.", "Wind of Cuba mit etwas Minze, 80/20, für einen frischeren Abgang.", "Wind of Cuba mit Swiss Bonbon, 80/20, für einen ungewöhnlichen, kühleren Kontrast."]
+    }
+  }
+]

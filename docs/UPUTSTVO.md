@@ -253,6 +253,25 @@ Svi commitovi imaju samo tebe kao autora (git `user.name` / `user.email`). Dvije
 
 ---
 
+## Brzo dodavanje više okusa (generator)
+
+Za veće serije okusa koristi `scripts/flavor-gen.mjs`. Seed fajl (JSON, npr. u `scripts/seeds/`) sadrži samo ono
+što se ne može izračunati: id, brend, ime, sastojke, kratki opis, opis i ideje za mix na bs, en i de.
+Sve ostalo generator složi sam: naziv i boju sastojka (iz postojećih okusa), paletu, procjenu profila,
+tagove, vrstu duhana, slične okuse (i vezu nazad kod postojećih okusa) i njemački prijevod u `data/de.js`.
+
+```bash
+node scripts/flavor-gen.mjs scripts/seeds/okusi.json            # provjera i pregled, ništa ne piše
+node scripts/flavor-gen.mjs scripts/seeds/okusi.json --verbose  # + sve procjene i napomene
+node scripts/flavor-gen.mjs scripts/seeds/okusi.json --write    # upiše okuse i prijevode
+node build.mjs
+```
+
+Sastojak se piše kao `"ključ:intenzitet"` (npr. `"mango:9"`), a ako naziv nije uobičajen za tu ilustraciju,
+dodaju se nazivi i po želji boja: `"bilje:8:Duhan cigare|Cigar tobacco|Zigarrentabak:#8a5a3a"`.
+`profile`, `tags`, `mood`, `similar`, `palette` i `leaf` su opcionalni: ako se navedu, imaju prednost nad procjenom.
+Primjer: `scripts/seeds/2026-11-al-fakher-adalya.json`. Sastav okusa uvijek provjeri na webu prije upisa.
+
 ## Kako dodati novi okus (oba jezika)
 
 Otvori `data/flavors.js` i dodaj objekat u niz `window.FLAVORS`. Redoslijed u nizu je redoslijed na
