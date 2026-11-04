@@ -52,7 +52,9 @@ const SOURCES = [
   'js/views-shelf.js',
   'data/lounges.js',
   'js/views-lounge.js',
-  'js/views-history.js'
+  'js/views-history.js',
+  'data/articles.js',
+  'js/views-articles.js'
 ];
 
 const warnings = [];
@@ -214,6 +216,7 @@ function structuredData(desc, lang, info) {
   if (desc.page === 'notfound' || info.crumbs.length < 2) return '';
   if (desc.page === 'history') return historyLd(desc, lang, info) + breadcrumbLd(info);
   if (desc.page === 'chapter') return chapterLd(desc, lang, info) + breadcrumbLd(info);
+  if (desc.page === 'article') return articleLd(desc, lang, info) + breadcrumbLd(info);
   return breadcrumbLd(info);
 }
 
@@ -242,6 +245,24 @@ function historyLd(desc, lang, info) {
     publisher: { '@type': 'Organization', name: CFG.SITE_NAME, url: abs('/') },
     about: ['hookah', 'shisha', 'narghile', 'qalyan', 'huqqa'],
     citation: H.sources.filter(Boolean).map((s) => s.u)
+  });
+}
+
+/** Članak iz data/articles.js. */
+function articleLd(desc, lang, info) {
+  const a = desc.article;
+  return jsonLd({
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: MSP.L(a.title),
+    description: info.description,
+    inLanguage: lang,
+    url: abs(desc.url),
+    image: abs(info.ogImage || '/og-image.png'),
+    datePublished: a.published,
+    dateModified: a.updated || a.published,
+    author: { '@type': 'Person', name: CFG.AUTHOR_NAME },
+    publisher: { '@type': 'Organization', name: CFG.SITE_NAME, url: abs('/') }
   });
 }
 
@@ -469,6 +490,8 @@ function pageList() {
     const simple = ['home', 'mixer', 'quiz', 'guide', 'glossary', 'gear', 'about', 'history'];
     for (const p of simple) list.push({ lang, page: p, url: V.urlFor(lang, p) });
     for (const ch of V.historyChapters()) list.push({ lang, page: 'chapter', id: ch.id, chapter: ch, url: V.chapterUrl(ch, lang) });
+    list.push({ lang, page: 'articles', url: V.urlFor(lang, 'articles') });
+    for (const a of V.articles()) list.push({ lang, page: 'article', id: a.id, article: a, url: V.articleUrl(a, lang) });
     for (const f of V.flavors()) list.push({ lang, page: 'flavor', id: f.id, flavor: f, url: V.urlFor(lang, 'flavor', f.id) });
     for (const g of V.glossary()) list.push({ lang, page: 'term', id: g.id, term: g, url: V.urlFor(lang, 'term', V.termSlug(g, lang)) });
     list.push({ lang, page: 'collections', url: V.urlFor(lang, 'collections') });
