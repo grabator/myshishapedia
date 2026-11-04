@@ -281,6 +281,7 @@
       text: { bs: 'Kola, limunada, kokteli i čaj u nargili.', en: 'Cola, lemonade, cocktails and tea in your bowl.' } }
   ];
   var GROUP_SIZE = 8;
+  V.FLAVOR_GROUPS = FLAVOR_GROUPS;
 
   function flavorGroupsSection() {
     var all = V.flavors();
@@ -564,6 +565,7 @@
         '<p class="mix__note bnote" role="note">' + icon('alert') + '<span>' + esc(t('brands.disclaimer', { name: b.name })) + '</span></p>' +
       '</div></section>' +
       brandGlance(b, fl) +
+      V.faqSection(V.brandFaq(b, fl), 'brand-faq') +
       '<section class="fsec fsec--alt" aria-labelledby="brand-others"><div class="container">' +
         '<h2 class="mix__h" id="brand-others">' + esc(t('brands.otherTitle')) + '</h2>' +
         '<ul class="bcards bcards--small" role="list">' + others.map(function (x, k) { return '<li class="bcards__item">' + V.brandCard(x, 'h3', k) + '</li>'; }).join('') + '</ul>' +
@@ -688,6 +690,38 @@
   /* ================================================================== */
   /* Stranice (poziva ih V.page iz views.js)                             */
   /* ================================================================== */
+
+  /** "i"/"and" lista (a, b i c). */
+  V.andList = function (arr) {
+    if (arr.length < 2) return arr.join('');
+    return arr.slice(0, -1).join(', ') + (MSP.lang === 'bs' ? ' i ' : ' and ') + arr[arr.length - 1];
+  };
+
+  /** Česta pitanja o brendu, iz podataka (zemlja, list, broj okusa, prosječna jačina, najslađi i najledeniji okusi). */
+  V.brandFaq = function (b, fl) {
+    if (!fl || !fl.length) return [];
+    var one = function (s) { return { bs: s, en: s }; };
+    var top = function (key) {
+      return fl.filter(function (f) { return (f.profile[key] || 0) > 0; })
+        .sort(function (x, y) { return (y.profile[key] || 0) - (x.profile[key] || 0) || x.name.localeCompare(y.name); })
+        .slice(0, 3).map(function (f) { return f.name; });
+    };
+    var avg = Math.round(fl.reduce(function (s, f) { return s + (f.profile.strength || 0); }, 0) / fl.length * 10) / 10;
+    var avgTxt = MSP.lang === 'bs' ? String(avg).replace('.', ',') : String(avg);
+    var leaf = b.leaf === 'dark' || b.leaf === 'both' ? b.leaf : 'light';
+    var items = [
+      { q: one(t('faq.brandFromQ', { name: b.name })), a: one(t('faq.brandFromA', { name: b.name, country: L(b.country) })) },
+      { q: one(t('faq.brandCountQ', { name: b.name })), a: one(t('faq.brandCountA', { count: MSP.plural('home.count', fl.length) })) },
+      { q: one(t('faq.brandStrongQ', { name: b.name })), a: one(t('faq.brandStrongA.' + leaf, { name: b.name, n: avgTxt })) }
+    ];
+    if (fl.length > 3) {
+      var sweet = top('sweetness');
+      if (sweet.length) items.push({ q: one(t('faq.brandSweetQ', { name: b.name })), a: one(t('faq.brandListA', { list: V.andList(sweet) })) });
+      var icy = top('cooling');
+      if (icy.length) items.push({ q: one(t('faq.brandIcyQ', { name: b.name })), a: one(t('faq.brandListA', { list: V.andList(icy) })) });
+    }
+    return items;
+  };
 
   V.EXTRA_PAGES = ['privacy', 'terms', 'suggest', 'report', 'flavors', 'search', 'brands', 'top', 'shelf', 'tips', 'session', 'journal', 'offline'];
   V.NOINDEX_PAGES = ['report', 'search', 'shelf', 'journal', 'offline'];

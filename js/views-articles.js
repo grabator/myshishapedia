@@ -43,9 +43,9 @@
 
   function num(n) { return MSP.lang === 'bs' ? String(n).replace('.', ',') : String(n); }
 
-  function brandCompare() {
-    var A = brandStats('adalya');
-    var B = brandStats('al-fakher');
+  function brandCompare(opts) {
+    var A = brandStats((opts && opts.a) || 'adalya');
+    var B = brandStats((opts && opts.b) || 'al-fakher');
     if (!A || !B) return '';
     var rows = [
       ['country', function (s) { return esc(L(s.brand.country)); }],
@@ -70,7 +70,42 @@
       '</tbody></table></div>';
   }
 
-  var BLOCKS = { beginnerPicks: beginnerPicks, brandCompare: brandCompare };
+  /** Najledeniji okusi (po procjeni hlađenja), po 2 od svakog brenda da lista ne bude samo jedan brend. */
+  function icyPicks() {
+    var perBrand = {};
+    var list = V.flavors().filter(function (f) { return (f.profile.cooling || 0) >= 8; })
+      .sort(function (a, b) { return (b.profile.cooling - a.profile.cooling) || (b.profile.freshness - a.profile.freshness) || (a.brand + a.name).localeCompare(b.brand + b.name); })
+      .filter(function (f) { perBrand[f.brand] = (perBrand[f.brand] || 0) + 1; return perBrand[f.brand] <= 2; })
+      .slice(0, 9);
+    return cardGrid(list);
+  }
+
+  /** Po jedan do dva okusa iz svake grupe sa liste okusa (V.FLAVOR_GROUPS). */
+  function groupPicks() {
+    var groups = V.FLAVOR_GROUPS || [];
+    var used = {};
+    return groups.map(function (g) {
+      var list = V.flavors().filter(function (f) { return !used[f.id] && (f.tags || []).some(function (x) { return g.tags.indexOf(x) !== -1; }); })
+        .sort(function (a, b) { return (b.profile[g.sort] || 0) - (a.profile[g.sort] || 0) || (a.brand + a.name).localeCompare(b.brand + b.name); })
+        .slice(0, 3);
+      list.forEach(function (f) { used[f.id] = 1; });
+      if (!list.length) return '';
+      return '<div class="art-group"><h3 class="art-group__h">' + esc(L(g.title)) + '</h3>' + cardGrid(list) + '</div>';
+    }).join('');
+  }
+
+  function cardGrid(list) {
+    if (!list.length) return '';
+    return '<ul class="grid art-grid" role="list">' + list.map(function (f, i) {
+      return '<li class="grid__item" style="--i:' + (i % 3) + '">' + V.card(f, 'h3') + '</li>';
+    }).join('') + '</ul>';
+  }
+
+  var BLOCKS = { beginnerPicks: beginnerPicks, brandCompare: brandCompare, icyPicks: icyPicks, groupPicks: groupPicks };
+  function block(b) {
+    var name = typeof b === 'string' ? b : b && b.type;
+    return name && BLOCKS[name] ? BLOCKS[name](typeof b === 'object' ? b : null) : '';
+  }
 
   /* ---------- stranice ---------- */
 
@@ -103,7 +138,7 @@
           '<h2 class="art-h" id="' + hid + '">' + esc(L(s.h)) + '</h2>' +
           '<div class="prose">' + (L(s.p) || []).map(function (p) { return '<p>' + V.linkTerms(p) + '</p>'; }).join('') + '</div>' +
         '</div>' +
-        (s.block && BLOCKS[s.block] ? BLOCKS[s.block]() : '') +
+        block(s.block) +
         (links ? '<p class="art-links">' + links + '</p>' : '') +
       '</div></section>';
     }).join('');

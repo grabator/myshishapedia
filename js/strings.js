@@ -119,7 +119,24 @@
         mixQ: 'Sa čim se miješa {name}?',
         similarQ: 'Koji su okusi slični okusu {name}?',
         similarA: 'Slični su mu {list}.',
-        note: 'Ocjene su procjena na skali od 0 do 10 i mogu se razlikovati od tvog iskustva.'
+        note: 'Ocjene su procjena na skali od 0 do 10 i mogu se razlikovati od tvog iskustva.',
+        brandFromQ: 'Odakle je {name}?',
+        brandFromA: '{name} je brend iz zemlje: {country}.',
+        brandCountQ: 'Koliko {name} okusa ima na MyShishapediji?',
+        brandCountA: 'Trenutno {count}. Za svaki su tu sastojci, profil okusa, ideje za mikseve i slični okusi.',
+        brandStrongQ: 'Da li je {name} jak duhan?',
+        brandStrongA: {
+          light: 'Nije. {name} je na svijetlom listu, pa je blag. Prosječna jačina njegovih okusa kod nas je {n}/10.',
+          dark: 'Jeste. {name} je na tamnom listu, pa je jači od duhana na svijetlom listu. Prosječna jačina njegovih okusa kod nas je {n}/10.',
+          both: '{name} ima okuse i na svijetlom i na tamnom listu. Prosječna jačina njegovih okusa kod nas je {n}/10.'
+        },
+        brandSweetQ: 'Koji su najslađi {name} okusi?',
+        brandIcyQ: 'Koji su najledeniji {name} okusi?',
+        brandListA: 'Po našim procjenama: {list}.',
+        colWhatQ: 'Koji okusi su u kolekciji {name}?',
+        colWhatA: 'U kolekciji je {count}, među njima {list}.',
+        colPickQ: 'Koji okus iz kolekcije {name} probati prvo?',
+        colPickA: 'Ako ne znaš odakle krenuti, probaj {name}: {desc}'
       },
       pager: {
         label: 'Stranice',
@@ -1387,7 +1404,24 @@
         mixQ: 'What can I mix {name} with?',
         similarQ: 'Which flavors are similar to {name}?',
         similarA: 'Similar flavors are {list}.',
-        note: 'Ratings are estimates on a 0 to 10 scale and may differ from your own experience.'
+        note: 'Ratings are estimates on a 0 to 10 scale and may differ from your own experience.',
+        brandFromQ: 'Where is {name} from?',
+        brandFromA: '{name} is a brand from {country}.',
+        brandCountQ: 'How many {name} flavors are on MyShishapedia?',
+        brandCountA: 'Right now {count}. Each one has its ingredients, a flavor profile, mix ideas and similar flavors.',
+        brandStrongQ: 'Is {name} strong tobacco?',
+        brandStrongA: {
+          light: 'No. {name} is on blonde leaf, so it is mild. The average strength of its flavors on our site is {n}/10.',
+          dark: 'Yes. {name} is on dark leaf, so it is stronger than blonde leaf tobacco. The average strength of its flavors on our site is {n}/10.',
+          both: '{name} has flavors on both blonde and dark leaf. The average strength of its flavors on our site is {n}/10.'
+        },
+        brandSweetQ: 'What are the sweetest {name} flavors?',
+        brandIcyQ: 'What are the iciest {name} flavors?',
+        brandListA: 'By our estimates: {list}.',
+        colWhatQ: 'Which flavors are in the {name} collection?',
+        colWhatA: 'The collection has {count}, including {list}.',
+        colPickQ: 'Which flavor from {name} should I try first?',
+        colPickA: 'If you are not sure where to start, try {name}: {desc}'
       },
       pager: {
         label: 'Pages',
