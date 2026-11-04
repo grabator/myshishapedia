@@ -195,6 +195,16 @@ window.FLAVORS = [
     brand: 'adalya',
     leaf: 'light',
     name: 'Ice Bonbon',
+    seo: {
+      title: {
+        bs: 'Adalya Ice Bonbon okus za nargilu: ledeni bomboni i pepermint | MyShishapedia',
+        en: 'Adalya Ice Bonbon shisha flavor: icy candy and peppermint | MyShishapedia'
+      },
+      description: {
+        bs: 'Adalya Ice Bonbon: šareni slatki bomboni i jak ledeni pepermint. Koliko je leden, ideje za mikseve i slični okusi poput Swiss Bonbona.',
+        en: 'Adalya Ice Bonbon: sweet candy and strong icy peppermint. How cold it is, mix ideas and similar flavors like Swiss Bonbon.'
+      }
+    },
     shortDescription: {
       bs: 'Šareni slatki bomboni na udahu i snažan ledeni pepermint sa mentolom na izdahu.',
       en: 'Colorful sweet candies on the inhale and a blast of icy peppermint and menthol on the exhale.'
@@ -3113,6 +3123,12 @@ window.FLAVORS = [
     brand: 'tangiers',
     leaf: 'dark',
     name: 'Cane Mint',
+    seo: {
+      description: {
+        bs: 'Tangiers Cane Mint: jedna od najhladnijih i najjačih pepermint menti, na tamnom listu. Jačina, profil okusa, miksevi i slične mente.',
+        en: 'Tangiers Cane Mint: one of the coldest, strongest peppermint flavors, on dark leaf. Strength, flavor profile, mixes and similar mints.'
+      }
+    },
     mood: 'frost',
     shortDescription: {
       bs: 'Vrlo jak, hladan pepermint sa blagom slatkoćom, na tamnom listu. Nije za početnike.',
