@@ -110,7 +110,7 @@
       // pretraga radi na oba jezika (npr. "foil" i "folija")
       terms.forEach(function (g) {
         var parts = [];
-        ['bs', 'en'].forEach(function (l) {
+        MSP.LANGS.filter(function (l) { return MSP.strings[l]; }).forEach(function (l) {
           parts.push(L(g.term, l), L(g.short, l));
           parts = parts.concat(L(g.aka, l) || []).concat(L(g.text, l) || []);
         });
@@ -220,7 +220,7 @@
 
   var guide = { step: 1, liveStarted: false };
 
-  function stepParam() { return MSP.lang === 'bs' ? 'korak' : 'step'; }
+  function stepParam() { return V.stepParam(); }
 
   function setGuideStep(ctx, n, opts) {
     opts = opts || {};
@@ -287,7 +287,7 @@
     mount: function (ctx) {
       var main = ctx.els.main;
       var p = ctx.params();
-      var n = parseInt(p.get(stepParam()) || p.get('korak') || p.get('step'), 10) || 1;
+      var n = parseInt(p.get(stepParam()) || p.get('korak') || p.get('step') || p.get('schritt'), 10) || 1;
       guide = { step: n, liveStarted: false };
 
       function go(d) {

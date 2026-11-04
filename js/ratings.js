@@ -59,7 +59,7 @@
       if (R.state !== 'loading') fn(R.state);
       return function () { listeners = listeners.filter(function (x) { return x !== fn; }); };
     },
-    format: function (avg) { return V.formatNum(avg).replace(/^(\d)$/, MSP.lang === 'bs' ? '$1,0' : '$1.0'); }
+    format: function (avg) { return V.formatNum(avg).replace(/^(\d)$/, MSP.decComma() ? '$1,0' : '$1.0'); }
   };
   MSP.Ratings = R;
   document.dispatchEvent(new Event('msp:ratings'));

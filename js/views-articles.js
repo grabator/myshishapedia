@@ -18,7 +18,7 @@
   function L(v, lang) { return MSP.L(v, lang); }
 
   V.articles = function () { return root.ARTICLES || []; };
-  V.articleUrl = function (a, lang) { return V.urlFor(lang || MSP.lang, 'article', a.slug[lang || MSP.lang]); };
+  V.articleUrl = function (a, lang) { return V.urlFor(lang || MSP.lang, 'article', V.slugOf(a, lang)); };
 
   /* ---------- dijelovi sastavljeni iz podataka sajta ---------- */
 
@@ -30,7 +30,7 @@
     return '<ul class="grid art-grid" role="list">' + list.map(function (f, i) {
       return '<li class="grid__item" style="--i:' + (i % 3) + '">' + V.card(f, 'h3') + '</li>';
     }).join('') + '</ul>' +
-      (col ? '<p class="art-more"><a class="btn btn--ghost" href="' + V.url('collection', col.slug[MSP.lang]) + '">' + esc(t('articles.allInCollection', { name: L(col.title) })) + icon('arrowRight') + '</a></p>' : '');
+      (col ? '<p class="art-more"><a class="btn btn--ghost" href="' + V.url('collection', V.slugOf(col)) + '">' + esc(t('articles.allInCollection', { name: L(col.title) })) + icon('arrowRight') + '</a></p>' : '');
   }
 
   function brandStats(slug) {
@@ -41,7 +41,7 @@
     return { brand: b, flavors: fl, sweetness: avg('sweetness'), cooling: avg('cooling'), fruitiness: avg('fruitiness'), strength: avg('strength') };
   }
 
-  function num(n) { return MSP.lang === 'bs' ? String(n).replace('.', ',') : String(n); }
+  function num(n) { return MSP.decComma() ? String(n).replace('.', ',') : String(n); }
 
   function brandCompare(opts) {
     var A = brandStats((opts && opts.a) || 'adalya');

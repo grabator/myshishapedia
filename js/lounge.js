@@ -50,7 +50,7 @@
   function brandName(f) { var b = V.brandOf(f); return b ? b.name : f.brand; }
   function P(f, k) { return (f.profile && f.profile[k]) || 0; }
   function hasTag(f, tg) { return f.tags.indexOf(tg) !== -1; }
-  function ingNames(f, n) { return f.ingredients.slice(0, n || 9).map(function (i) { return L(i.name).toLowerCase(); }); }
+  function ingNames(f, n) { return f.ingredients.slice(0, n || 9).map(function (i) { return MSP.lower(L(i.name)); }); }
 
   // vrste okusa: chips, filteri i "Šta pušiti večeras?" koriste iste provjere
   var KINDS = {
@@ -119,7 +119,7 @@
   function pairInfo(a, b) {
     var score = 0, why = [], short = [];
     var ia = a.ingredients.map(function (i) { return i.illustration; });
-    var common = b.ingredients.filter(function (i) { return ia.indexOf(i.illustration) !== -1 && i.illustration !== 'kristal'; }).map(function (i) { return L(i.name).toLowerCase(); });
+    var common = b.ingredients.filter(function (i) { return ia.indexOf(i.illustration) !== -1 && i.illustration !== 'kristal'; }).map(function (i) { return MSP.lower(L(i.name)); });
     if (common.length) { score += 3; why.push(t('lounge.whyCommon', { x: common.slice(0, 2).join(' i ') })); short.push(t('lounge.r_common', { x: common[0] })); }
     var fam = FAMILIES.filter(function (x) { return hasTag(a, x) && hasTag(b, x); })[0];
     if (fam) { score += 2; why.push(t('lounge.whyFamily', { x: t('lounge.fam_' + fam) })); short.push(t('lounge.r_family', { x: t('lounge.fam_' + fam) })); }
@@ -350,7 +350,7 @@
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !ov.hidden) closeOv(); });
 
   function bar(label, v, color) {
-    return '<div class="lm-meter"><span>' + esc(label) + '</span><i style="--v:' + Math.max(0, Math.min(10, v)) * 10 + '%;--c:' + color + '"></i><b>' + (Math.round(v * 10) / 10).toString().replace('.', MSP.lang === 'bs' ? ',' : '.') + '</b></div>';
+    return '<div class="lm-meter"><span>' + esc(label) + '</span><i style="--v:' + Math.max(0, Math.min(10, v)) * 10 + '%;--c:' + color + '"></i><b>' + (Math.round(v * 10) / 10).toString().replace('.', MSP.decComma() ? ',' : '.') + '</b></div>';
   }
   function meters(p) {
     return '<div class="lm-meters">' + bar(t('lounge.m_sweet'), p.sweetness, '#ff8fa0') + bar(t('lounge.m_fruit'), p.fruitiness, '#f2a33c') + bar(t('lounge.m_cool'), p.cooling, '#7fd3ff') + bar(t('lounge.m_strength'), p.strength, '#c9bfb3') + '</div>';
@@ -553,9 +553,9 @@
 
   /** Dokaz za "zašto odgovara": sastojci ili brojka iz profila. */
   function evidence(c, k, used) {
-    if (k === 'ice:none' || k === 'ice:low' || k === 'ice:high') return t('lounge.coolValue', { n: String(c.prof.cooling).replace('.', MSP.lang === 'bs' ? ',' : '.') });
-    if (k === 'sweet') return t('lounge.sweetValue', { n: String(c.prof.sweetness).replace('.', MSP.lang === 'bs' ? ',' : '.') });
-    if (k === 'fresh') return t('lounge.freshValue', { n: String(c.prof.freshness).replace('.', MSP.lang === 'bs' ? ',' : '.') });
+    if (k === 'ice:none' || k === 'ice:low' || k === 'ice:high') return t('lounge.coolValue', { n: String(c.prof.cooling).replace('.', MSP.decComma() ? ',' : '.') });
+    if (k === 'sweet') return t('lounge.sweetValue', { n: String(c.prof.sweetness).replace('.', MSP.decComma() ? ',' : '.') });
+    if (k === 'fresh') return t('lounge.freshValue', { n: String(c.prof.freshness).replace('.', MSP.decComma() ? ',' : '.') });
     // sastojci koji pripadaju toj vrsti (npr. "tropsko": ananas, marakuja, banana; ne lubenica)
     var KIND_ILL = { tropic: ['ananas', 'banana', 'mango', 'marakuja', 'kokos', 'papaja', 'guava', 'lici', 'guanabana', 'kivi'],
       berry: ['malina', 'jagoda', 'borovnica', 'kupina', 'bobice', 'ribizla', 'ogrozd', 'visnja', 'brusnica'],
@@ -598,7 +598,7 @@
       ? r.people.map(function (p, i) {
         var nm = p.name || t('lounge.person', { n: i + 1 });
         var ok = b.fits[i].ok.map(okLabel);
-        return '<li><span class="lm-dot" style="--c:' + PCOL[i % PCOL.length] + '">' + esc(nm.charAt(0).toUpperCase()) + '</span><b>' + esc(nm) + '</b><span>' + esc(ok.length ? ok.join(', ').toLowerCase() + ' ✓' : '~') + '</span></li>';
+        return '<li><span class="lm-dot" style="--c:' + PCOL[i % PCOL.length] + '">' + esc(nm.charAt(0).toUpperCase()) + '</span><b>' + esc(nm) + '</b><span>' + esc(ok.length ? MSP.lower(ok.join(', ')) + ' ✓' : '~') + '</span></li>';
       }).join('')
       : b.fits[0].ok.map(function (k) {
         var ev = evidence(c, k, usedIngs);

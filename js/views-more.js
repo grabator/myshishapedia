@@ -70,7 +70,7 @@
     var one = function (s) { return { bs: s, en: s }; };
     var name = L(c.title);
     var names = members.slice(0, 4).map(function (f) { return f.brand + ' ' + f.name; });
-    var and = MSP.lang === 'bs' ? ' i ' : ' and ';
+    var and = MSP.and();
     var list = names.length < 2 ? names.join('') : names.slice(0, -1).join(', ') + and + names[names.length - 1];
     var first = members[0];
     return [
@@ -93,10 +93,10 @@
   };
 
   V.collectionBySlug = function (slug, lang) {
-    return V.collections().filter(function (c) { return c.slug[lang] === slug; })[0] || null;
+    return V.collections().filter(function (c) { return V.slugOf(c, lang) === slug; })[0] || null;
   };
 
-  V.collectionUrl = function (c, lang) { return V.urlFor(lang || MSP.lang, 'collection', c.slug[lang || MSP.lang]); };
+  V.collectionUrl = function (c, lang) { return V.urlFor(lang || MSP.lang, 'collection', V.slugOf(c, lang)); };
 
   var colTheme = {};
   V.collectionTheme = function (c) {
@@ -286,8 +286,8 @@
 
   V.mixes = function () { return root.MIXES || []; };
   V.recipeById = function (id) { return V.mixes().filter(function (m) { return m.id === id; })[0] || null; };
-  V.recipeBySlug = function (slug, lang) { return V.mixes().filter(function (m) { return m.slug[lang] === slug; })[0] || null; };
-  V.recipeUrl = function (m, lang) { return V.urlFor(lang || MSP.lang, 'recipe', m.slug[lang || MSP.lang]); };
+  V.recipeBySlug = function (slug, lang) { return V.mixes().filter(function (m) { return V.slugOf(m, lang) === slug; })[0] || null; };
+  V.recipeUrl = function (m, lang) { return V.urlFor(lang || MSP.lang, 'recipe', V.slugOf(m, lang)); };
   V.recipeFlavors = function (m) { return m.parts.map(function (p) { return V.flavorById(p.flavor); }); };
   V.mixesWith = function (f) {
     return V.mixes().filter(function (m) { return m.parts.some(function (p) { return p.flavor === f.id; }); });
@@ -662,7 +662,7 @@
       parts.push(t(total === 0 ? 'compare.same' : 'compare.close', { a: a.name, b: b.name }));
     }
     var ci = V.compareIngredients(a, b);
-    var low = function (list) { return joinList(list.slice(0, 2).map(function (i) { return L(i.name).toLowerCase(); })); };
+    var low = function (list) { return joinList(list.slice(0, 2).map(function (i) { return MSP.lower(L(i.name)); })); };
     if (ci.shared.length) parts.push(t('compare.sharedNote', { list: low(ci.shared) }));
     if (ci.onlyA.length) parts.push(t('compare.onlyNote', { name: a.name, list: low(ci.onlyA) }));
     if (ci.onlyB.length) parts.push(t('compare.onlyNote', { name: b.name, list: low(ci.onlyB) }));

@@ -458,7 +458,7 @@
 
   function CH() { return root.HISTORY_CHAPTERS || []; }
   V.historyChapters = CH;
-  V.chapterUrl = function (ch, lang) { return V.urlFor(lang || MSP.lang, 'chapter', ch.slug[lang || MSP.lang]); };
+  V.chapterUrl = function (ch, lang) { return V.urlFor(lang || MSP.lang, 'chapter', V.slugOf(ch, lang)); };
   V.chapterById = function (id) { return CH().filter(function (c) { return c.id === id; })[0] || null; };
 
   /** Izvor poglavlja: { g: n } je izvor iz data/history.js, inače { t, u }. */
@@ -534,7 +534,7 @@
             '<div class="hxc-hero__art anim-in" style="--i:2">' + art(ch.art) + '<p class="hxc-hero__num" aria-hidden="true">' + (i + 1 < 10 ? '0' : '') + (i + 1) + '</p></div>' +
           '</div>' +
           (ch.years && ch.years.length ? '<div class="container"><ol class="hxc-years" role="list" aria-label="' + esc(t('history.keyYears')) + '">' + ch.years.map(function (y) {
-            return '<li><b>' + esc(MSP.lang === 'en' && y.yEn ? y.yEn : y.y) + '</b><span>' + esc(L(y.t)) + sup(y.src) + '</span></li>';
+            return '<li><b>' + esc(MSP.lang !== 'bs' && y.yEn ? (MSP.tr(y.yEn, MSP.lang) || y.yEn) : y.y) + '</b><span>' + esc(L(y.t)) + sup(y.src) + '</span></li>';
           }).join('') + '</ol></div>' : '') +
         '</header>' +
         '<div class="container hxc-layout">' +
@@ -612,7 +612,7 @@
       return (
         '<li class="hx-work' + (a.img ? ' hx-work--img' : '') + '" data-reveal style="--i:' + (i % 3) + '">' +
           (a.img ? '<img class="hx-work__img" src="/history/slike/' + a.img.f + '.webp" width="' + a.img.w + '" height="' + a.img.h + '" alt="' + esc(L(a.title) + ', ' + who) + '" loading="lazy" decoding="async">' : '') +
-          '<p class="hx-work__meta"><span>' + esc(L(a.kind)) + '</span>' + (a.noYear ? '' : '<time datetime="' + a.year + '">' + (a.id === 'plemic' ? (MSP.lang === 'bs' ? 'oko ' : 'c. ') : '') + a.year + '</time>') + '</p>' +
+          '<p class="hx-work__meta"><span>' + esc(L(a.kind)) + '</span>' + (a.noYear ? '' : '<time datetime="' + a.year + '">' + (a.id === 'plemic' ? ({ bs: 'oko ', de: 'um ' }[MSP.lang] || 'c. ') : '') + a.year + '</time>') + '</p>' +
           '<h3 class="hx-work__t">' + esc(L(a.title)) + '</h3>' +
           '<p class="hx-work__who">' + esc(who) + '</p>' +
           '<p class="hx-work__d">' + esc(L(a.t)) + sup(a.src) + '</p>' +
@@ -622,7 +622,7 @@
       );
     }).join('');
     var people = P.map(function (p, i) {
-      var nm = MSP.lang === 'en' && p.en ? p.en : p.name;
+      var nm = MSP.lang !== 'bs' && p.en ? (MSP.tr(p.en, MSP.lang) || p.en) : p.name;
       return (
         '<li class="hx-person" data-reveal style="--i:' + (i % 3) + '">' +
           '<span class="hx-person__ini" aria-hidden="true">' + esc(nm.replace(/^(Šah|Shah|Mirza) /, '').charAt(0)) + '</span>' +
@@ -743,7 +743,7 @@
             '<div class="hx-finale" id="hx-finale"><div class="hx-finale__card">' +
               '<p class="eyebrow"><span class="eyebrow__dot" aria-hidden="true"></span>' + esc(t('history.finaleEyebrow')) + '</p>' +
               '<h2 class="hx-h2">' + esc(t('history.finaleTitle')) + '</h2>' +
-              '<p class="hx-finale__km"><b>' + esc(V.formatNum(trailKm(st)).replace(/\B(?=(\d{3})+(?!\d))/g, MSP.lang === 'bs' ? '.' : ',')) + ' km</b><span>' + esc(t('history.kmText', { years: years, n: st.length })) + '</span></p>' +
+              '<p class="hx-finale__km"><b>' + esc(V.formatNum(trailKm(st)).replace(/\B(?=(\d{3})+(?!\d))/g, MSP.decComma() ? '.' : ',')) + ' km</b><span>' + esc(t('history.kmText', { years: years, n: st.length })) + '</span></p>' +
               '<p>' + esc(t('history.finaleText')) + '</p>' +
               '<p class="hx-finale__btns"><button type="button" class="btn btn--ghost" data-go="0">' + esc(t('history.again')) + '</button>' +
                 '<a class="btn btn--primary" href="#hx-museum-h" data-next-sec>' + esc(t('history.onward')) + V.icon('arrowRight') + '</a></p>' +

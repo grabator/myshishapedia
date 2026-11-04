@@ -142,7 +142,7 @@
     // popunjavanje iz adrese: ?q= (predloži) i ?okus= / ?flavor= (prijavi grešku)
     var p = new URLSearchParams(location.search);
     if (form.elements.flavor) {
-      var f = p.get('okus') || p.get('flavor');
+      var f = p.get('okus') || p.get('flavor') || p.get('geschmack');
       if (f && form.elements.flavor.tagName === 'SELECT' && V.flavorById(f)) form.elements.flavor.value = f;
       var q = p.get('q');
       if (q && form.elements.flavor.tagName === 'INPUT') form.elements.flavor.value = q.slice(0, 120);

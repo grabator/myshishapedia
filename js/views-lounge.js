@@ -33,13 +33,13 @@
 
   V.loungeHeader = function (desc) {
     var lg = desc.lounge;
-    var other = MSP.lang === 'bs' ? 'en' : 'bs';
+    var others = MSP.LANGS.filter(function (l) { return l !== MSP.lang; });
     return (
       '<div class="container lm-head" style="' + vars(lg) + '">' +
         '<span class="lm-logo" aria-hidden="true">' + mark(lg) + '</span>' +
         '<span class="lm-head__txt"><b>' + esc(lg.name) + '</b><span>' + esc(L(lg.tagline)) + ' · ' + esc(L(lg.hours)) + '</span></span>' +
         '<span class="lm-price">' + esc(L(lg.price)) + '</span>' +
-        '<a class="lm-lang" href="' + esc(desc.alternates[other]) + '" hreflang="' + other + '" lang="' + other + '">' + other.toUpperCase() + '</a>' +
+        others.map(function (other) { return '<a class="lm-lang" href="' + esc(desc.alternates[other]) + '" hreflang="' + other + '" lang="' + other + '">' + other.toUpperCase() + '</a>'; }).join('') +
       '</div>'
     );
   };

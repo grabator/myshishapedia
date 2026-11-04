@@ -24,6 +24,10 @@
       var months = ['januara', 'februara', 'marta', 'aprila', 'maja', 'juna', 'jula', 'augusta', 'septembra', 'oktobra', 'novembra', 'decembra'];
       return p[2] + '. ' + months[p[1] - 1] + ' ' + p[0] + '.';
     }
+    if (MSP.lang === 'de') {
+      var mde = ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'];
+      return p[2] + '. ' + mde[p[1] - 1] + ' ' + p[0];
+    }
     var d = new Date(Date.UTC(p[0], p[1] - 1, p[2]));
     try {
       return d.toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
@@ -684,7 +688,7 @@
 
   V.reportUrl = function (f, lang) {
     lang = lang || MSP.lang;
-    return V.urlFor(lang, 'report') + '?' + (lang === 'bs' ? 'okus' : 'flavor') + '=' + encodeURIComponent(f.id);
+    return V.urlFor(lang, 'report') + '?' + V.flavorParam(lang) + '=' + encodeURIComponent(f.id);
   };
 
   /* ================================================================== */
@@ -694,7 +698,7 @@
   /** "i"/"and" lista (a, b i c). */
   V.andList = function (arr) {
     if (arr.length < 2) return arr.join('');
-    return arr.slice(0, -1).join(', ') + (MSP.lang === 'bs' ? ' i ' : ' and ') + arr[arr.length - 1];
+    return arr.slice(0, -1).join(', ') + MSP.and() + arr[arr.length - 1];
   };
 
   /** Česta pitanja o brendu, iz podataka (zemlja, list, broj okusa, prosječna jačina, najslađi i najledeniji okusi). */
@@ -707,7 +711,7 @@
         .slice(0, 3).map(function (f) { return f.name; });
     };
     var avg = Math.round(fl.reduce(function (s, f) { return s + (f.profile.strength || 0); }, 0) / fl.length * 10) / 10;
-    var avgTxt = MSP.lang === 'bs' ? String(avg).replace('.', ',') : String(avg);
+    var avgTxt = MSP.decComma() ? String(avg).replace('.', ',') : String(avg);
     var leaf = b.leaf === 'dark' || b.leaf === 'both' ? b.leaf : 'light';
     var items = [
       { q: one(t('faq.brandFromQ', { name: b.name })), a: one(t('faq.brandFromA', { name: b.name, country: L(b.country) })) },

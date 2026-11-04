@@ -1474,6 +1474,91 @@ window.FLAVORS = [
     similar: ['al-fakher-lemon-mint', 'starbuzz-pirates-cave', 'musthave-mandarin', 'starbuzz-sex-on-the-beach']
   },
   {
+    id: 'al-fakher-cherry-mint',
+    brand: 'al-fakher',
+    leaf: 'light',
+    name: 'Cherry Mint',
+    shortDescription: {
+      bs: 'Slatka višnja i hladna menta: voćni klasik sa svježim krajem.',
+      en: 'Sweet cherry and cool mint: a fruity classic with a fresh finish.'
+    },
+    description: {
+      bs: [
+        'Cherry Mint je slatka, sočna višnja sa hladnom mentom. Višnja je tu glavna, a menta daje dugotrajno osvježenje na izdahu.',
+        'Na pakovanju Al Fakhera zove se Cherry with Mint.',
+        'Blag je, na svijetlom listu, pa je dobar i za početnike.'
+      ],
+      en: [
+        'Cherry Mint is sweet, juicy cherry with cool mint. The cherry leads, and the mint adds a lasting freshness on the exhale.',
+        'On the Al Fakher pack it is called Cherry with Mint.',
+        'It is mild and made on blonde leaf, so it suits beginners too.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Višnja', en: 'Cherry' }, illustration: 'visnja', color: '#c8203c', intensity: 8 },
+      { name: { bs: 'Menta', en: 'Mint' }, illustration: 'menta', color: '#2fae78', intensity: 6 }
+    ],
+    profile: { sweetness: 7, freshness: 8, fruitiness: 8, cooling: 5, strength: 5 },
+    tags: ['vocni', 'mint', 'osvjezavajuci'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#c8203c', secondary: '#9fe0b8', accent: '#2fae78', background: '#24080e', text: '#fff0f2' },
+    mixIdeas: {
+      bs: [
+        'Cherry Mint i Grape, za tamni voćni miks sa mentom.',
+        'Cherry Mint i Lemon Mint, za višnja-limunadu.',
+        'Cherry Mint i Watermelon Mint, za ljetni voćni miks.'
+      ],
+      en: [
+        'Cherry Mint with Grape for a dark fruit mix with mint.',
+        'Cherry Mint with Lemon Mint for a cherry lemonade.',
+        'Cherry Mint with Watermelon Mint for a summer fruit mix.'
+      ]
+    },
+    similar: ['adalya-cherry-mint', 'tangiers-maraschino-cherry', 'al-fakher-grape-mint']
+  },
+  {
+    id: 'al-fakher-grapefruit',
+    brand: 'al-fakher',
+    leaf: 'light',
+    name: 'Grapefruit',
+    shortDescription: {
+      bs: 'Slatki grejpfrut sa blagom gorčinom i kiselinom u pozadini.',
+      en: 'Sweet grapefruit with a light bitterness and sourness behind it.'
+    },
+    description: {
+      bs: [
+        'Grapefruit je citrus u kojem je naprijed slatkoća, a u pozadini blaga gorčina i kiselina, kao kod pravog grejpfruta.',
+        'Nema mente, pa je okus čist i voćni, a svježina dolazi od samog citrusa.',
+        'Dobar je sam i kao citrusna nota u miksevima sa mentom ili bobicama.'
+      ],
+      en: [
+        'Grapefruit is a citrus flavor with sweetness up front and a light bitterness and sourness behind it, like real grapefruit.',
+        'There is no mint, so the flavor is clean and fruity, and the freshness comes from the citrus itself.',
+        'Good on its own and as a citrus note in mixes with mint or berries.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Grejpfrut', en: 'Grapefruit' }, illustration: 'grejpfrut', color: '#f26b6b', intensity: 9 }
+    ],
+    profile: { sweetness: 6, freshness: 8, fruitiness: 8, cooling: 0, strength: 5 },
+    tags: ['citrusni', 'vocni', 'osvjezavajuci'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#f26b6b', secondary: '#ffc2a8', accent: '#ff9a3c', background: '#2a1210', text: '#fff2ec' },
+    mixIdeas: {
+      bs: [
+        'Grapefruit i Mint, 70/30, za svjež citrus.',
+        'Grapefruit i Strawberry, za ružičastu limunadu.',
+        'Grapefruit i Orange Mint, za citrusni miks.'
+      ],
+      en: [
+        'Grapefruit with Mint, 70/30, for fresh citrus.',
+        'Grapefruit with Strawberry for a pink lemonade.',
+        'Grapefruit with Orange Mint for a citrus mix.'
+      ]
+    },
+    similar: ['darkside-kalee-grap', 'musthave-grapefruit', 'al-fakher-lemon-mint']
+  },
+  {
     id: 'starbuzz-blue-mist',
     brand: 'starbuzz',
     leaf: 'light',

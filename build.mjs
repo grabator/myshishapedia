@@ -19,6 +19,7 @@ import path from 'node:path';
 import vm from 'node:vm';
 import crypto from 'node:crypto';
 import { fileURLToPath } from 'node:url';
+import { missingStrings, missingContent } from './lib/i18n-check.mjs';
 
 const ROOT = path.dirname(fileURLToPath(import.meta.url));
 const DIST = path.join(ROOT, 'dist');
@@ -31,6 +32,8 @@ const read = (p) => fs.readFileSync(path.join(ROOT, p), 'utf8');
 const SOURCES = [
   'site.config.js',
   'js/strings.js',
+  'js/strings-de.js',
+  'data/de.js',
   'data/brands.js',
   'data/flavors.js',
   'data/glossary.js',
@@ -81,7 +84,9 @@ const V = MSP.V;
 const SITE = String(process.env.SITE_URL || CFG.SITE_URL).replace(/\/+$/, '');
 const LANGS = CFG.LANGS;
 const DEFAULT_LANG = CFG.DEFAULT_LANG;
-const OG_LOCALE = { bs: 'bs_BA', en: 'en_US' };
+const OG_LOCALE = { bs: 'bs_BA', en: 'en_US', de: 'de_DE' };
+// Dodatni fajlovi za jezike čiji tekstovi nisu u strings.js / data (učitavaju se samo na tim stranicama).
+const LANG_SCRIPTS = { de: ['js/strings-de.js', 'data/de.js'] };
 
 /* ------------------------------------------------------------------ */
 /* Statični fajlovi (sa verzijom u adresi, da browser ne drži staru)   */
@@ -91,7 +96,7 @@ function hashOf(file) {
   return crypto.createHash('sha1').update(fs.readFileSync(path.join(ROOT, file))).digest('hex').slice(0, 8);
 }
 
-const ASSETS = ['css/style.css', 'js/strings.js', 'data/brands.js', 'data/flavors.js', 'data/glossary.js', 'data/guide.js', 'data/gear.js', 'data/quiz.js',
+const ASSETS = ['css/style.css', 'js/strings.js', 'js/strings-de.js', 'data/de.js', 'data/brands.js', 'data/flavors.js', 'data/glossary.js', 'data/guide.js', 'data/gear.js', 'data/quiz.js',
   'data/mixes.js', 'js/illustrations.js', 'js/effects.js', 'js/views.js', 'js/views-more.js', 'js/views-extra.js', 'js/pages.js', 'js/app.js',
   'js/search.js', 'js/forms.js', 'js/share.js', 'js/ratings.js', 'js/shelf.js', 'js/qr.js', 'js/journal.js', 'js/session.js', 'js/pwa.js', 'data/lounges.js', 'js/lounge.js', 'data/history.js', 'js/history.js', 'favicon.svg'];
 const VERSION = {};
@@ -320,7 +325,7 @@ function head(desc, lang, info) {
   const views = ['js/views.js']
     .concat(VIEWS_MORE_PAGES.includes(desc.page) ? ['js/views-more.js'] : [])
     .concat(VIEWS_EXTRA_PAGES.includes(desc.page) ? ['js/views-extra.js'] : []);
-  const scripts = ['js/strings.js', 'data/brands.js', 'data/flavors.js'].concat(data, ['js/illustrations.js', 'js/effects.js'], views, ['js/pages.js', 'js/shelf.js', 'js/app.js', 'js/ratings.js', 'js/pwa.js'], PAGE_SCRIPTS[desc.page] || []);
+  const scripts = ['js/strings.js'].concat(LANG_SCRIPTS[lang] || [], ['data/brands.js', 'data/flavors.js'], data, ['js/illustrations.js', 'js/effects.js'], views, ['js/pages.js', 'js/shelf.js', 'js/app.js', 'js/ratings.js', 'js/pwa.js'], PAGE_SCRIPTS[desc.page] || []);
   const other = LANGS.filter((l) => l !== lang);
 
   return [
@@ -420,26 +425,25 @@ function rootPage() {
   // Mapa starih # adresa (npr. #/okus/adalya-dubai) na nove, bez učitavanja podataka.
   const terms = {};
   V.glossary().forEach((g) => { terms[g.id] = { bs: V.termSlug(g, 'bs'), en: V.termSlug(g, 'en') }; });
-  const seg = { bs: V.SEG.bs, en: V.SEG.en };
-  const cfg = { langs: LANGS, def: DEFAULT_LANG, bsLangs: CFG.BS_BROWSER_LANGS, seg, terms };
+  const seg = Object.fromEntries(LANGS.map((l) => [l, V.SEG[l]]));
+  V.glossary().forEach((g) => { for (const l of LANGS) if (!terms[g.id][l]) terms[g.id][l] = V.termSlug(g, l); });
+  const browser = Object.assign({}, ...LANGS.filter((l) => l !== DEFAULT_LANG).map((l) => ({ [l]: l === 'bs' ? CFG.BS_BROWSER_LANGS : (CFG[l.toUpperCase() + '_BROWSER_LANGS'] || [l]) })));
+  const cfg = { langs: LANGS, def: DEFAULT_LANG, browser, seg, terms, step: Object.fromEntries(LANGS.map((l) => [l, V.stepParam(l)])) };
+  const choose = {};
+  const label = {};
+  for (const l of LANGS) { setLang(l); choose[l] = MSP.t('root.choose'); label[l] = MSP.t('root.' + l); }
   setLang('en');
   const tEn = MSP.t;
   const titleEn = tEn('root.title');
-  const chooseEn = tEn('root.choose');
-  const labelEn = tEn('root.en');
-  setLang('bs');
-  const chooseBs = MSP.t('root.choose');
-  const labelBs = MSP.t('root.bs');
-  setLang('en');
   const script = `(function(){var C=${JSON.stringify(cfg)};var lang=null;try{lang=localStorage.getItem('msp-lang')}catch(e){}
-if(C.langs.indexOf(lang)<0){lang=C.def;var l=(navigator.languages&&navigator.languages.length?navigator.languages:[navigator.language||'']);for(var i=0;i<l.length;i++){var p=String(l[i]).toLowerCase().split('-')[0];if(C.bsLangs.indexOf(p)>-1){lang='bs';break}if(p==='en')break}}
+if(C.langs.indexOf(lang)<0){lang=C.def;var l=(navigator.languages&&navigator.languages.length?navigator.languages:[navigator.language||'']);out:for(var i=0;i<l.length;i++){var p=String(l[i]).toLowerCase().split('-')[0];for(var k in C.browser)if(C.browser[k].indexOf(p)>-1){lang=k;break out}if(p===C.def)break}}
 var s=C.seg[lang],h=location.hash||'',m,u='/'+lang+'/',q='';
 function d(x){try{return decodeURIComponent(x)}catch(e){return x}}
 if(h.indexOf('#/')===0){h=d(h.slice(2));
 if(m=h.match(/^okus\\/([^/?#]+)/))u+=s.flavor+'/'+encodeURIComponent(m[1])+'/';
 else if(m=h.match(/^mikser(?:\\/([^/]+)\\+([^/]+)(?:\\/(\\d+))?)?/)){u+=s.mixer+'/';if(m[1])q='?a='+encodeURIComponent(m[1])+'&b='+encodeURIComponent(m[2])+(m[3]?'&r='+m[3]:'')}
 else if(/^kviz/.test(h))u+=s.quiz+'/';
-else if(m=h.match(/^vodic(?:\\/(\\d+))?/)){u+=s.guide+'/';if(m[1])q='?'+(lang==='bs'?'korak':'step')+'='+m[1]}
+else if(m=h.match(/^vodic(?:\\/(\\d+))?/)){u+=s.guide+'/';if(m[1])q='?'+C.step[lang]+'='+m[1]}
 else if(m=h.match(/^rjecnik(?:\\/([^/]+))?/)){u+=s.glossary+'/';if(m[1]&&C.terms[m[1]])u+=C.terms[m[1]][lang]+'/'}
 else if(/^oprema/.test(h))u+=s.gear+'/';}
 location.replace(u+q)})();`;
@@ -468,11 +472,9 @@ a:hover,a:focus-visible{border-color:${home.accentInk};outline:none;color:${home
 <body>
 <main>
 <h1>MyShishapedia</h1>
-<p lang="bs">${esc(chooseBs)}</p>
-<p>${esc(chooseEn)}</p>
-<nav aria-label="Language / Jezik">
-<a href="/bs/" hreflang="bs" lang="bs">${esc(labelBs)}</a>
-<a href="/en/" hreflang="en" lang="en">${esc(labelEn)}</a>
+${LANGS.map((l) => `<p lang="${l}">${esc(choose[l])}</p>`).join('\n')}
+<nav aria-label="Language / Jezik / Sprache">
+${LANGS.map((l) => `<a href="/${l}/" hreflang="${l}" lang="${l}">${esc(label[l])}</a>`).join('\n')}
 </nav>
 </main>
 </body>
@@ -495,11 +497,11 @@ function pageList() {
     for (const f of V.flavors()) list.push({ lang, page: 'flavor', id: f.id, flavor: f, url: V.urlFor(lang, 'flavor', f.id) });
     for (const g of V.glossary()) list.push({ lang, page: 'term', id: g.id, term: g, url: V.urlFor(lang, 'term', V.termSlug(g, lang)) });
     list.push({ lang, page: 'collections', url: V.urlFor(lang, 'collections') });
-    for (const col of V.collections()) list.push({ lang, page: 'collection', id: col.id, collection: col, url: V.urlFor(lang, 'collection', col.slug[lang]) });
+    for (const col of V.collections()) list.push({ lang, page: 'collection', id: col.id, collection: col, url: V.collectionUrl(col, lang) });
     list.push({ lang, page: 'compare', url: V.urlFor(lang, 'compare') });
     for (const pair of V.comparePairs()) list.push({ lang, page: 'comparePair', id: pair.slug, pair, url: V.urlFor(lang, 'comparePair', pair.slug) });
     list.push({ lang, page: 'mixes', url: V.urlFor(lang, 'mixes') });
-    for (const m of V.mixes()) list.push({ lang, page: 'recipe', id: m.id, recipe: m, url: V.urlFor(lang, 'recipe', m.slug[lang]) });
+    for (const m of V.mixes()) list.push({ lang, page: 'recipe', id: m.id, recipe: m, url: V.recipeUrl(m, lang) });
     for (const p of V.EXTRA_PAGES) list.push({ lang, page: p, url: V.urlFor(lang, p) });
     for (const b of V.brands()) list.push({ lang, page: 'brand', id: b.slug, brand: b, url: V.urlFor(lang, 'brand', b.slug) });
     list.push({ lang, page: 'loungeInfo', url: V.urlFor(lang, 'loungeInfo') });
@@ -777,7 +779,8 @@ async function page(e) {
   } catch (err) {
     const hit = (await caches.match(key)) || (await caches.match(req, { ignoreSearch: true }));
     if (hit) return hit;
-    const lang = url.pathname.split('/')[1] === 'bs' ? 'bs' : 'en';
+    const first = url.pathname.split('/')[1];
+    const lang = OFFLINE[first] ? first : 'en';
     return (await caches.match(OFFLINE[lang])) || new Response('Offline', { status: 503, headers: { 'Content-Type': 'text/plain; charset=utf-8' } });
   }
 }
@@ -1023,7 +1026,7 @@ function checkData() {
   for (const col of V.collections()) {
     if (!V.collectionMembers(col).length) errors.push(`kolekcija ${col.id}: nema nijednog okusa`);
     for (const l of LANGS) {
-      if (!col.slug[l] || !MSP.L(col.title, l) || !(MSP.L(col.intro, l) || []).length) errors.push(`kolekcija ${col.id}: fali slug, naslov ili uvod (${l})`);
+      if (!V.slugOf(col, l) || !MSP.L(col.title, l) || !(MSP.L(col.intro, l) || []).length) errors.push(`kolekcija ${col.id}: fali slug, naslov ili uvod (${l})`);
     }
     for (const id of (col.include || []).concat(col.exclude || [])) {
       if (!V.flavorById(id)) errors.push(`kolekcija ${col.id}: nepostojeći okus ${id}`);
@@ -1075,8 +1078,8 @@ function checkData() {
     const used = new Set();
     const use = (src) => (src || []).forEach((k) => used.add(k));
     for (const l of LANGS) {
-      if (chSlugs.has(l + ':' + ch.slug[l])) errors.push(`${tag}: dupli slug (${l})`);
-      chSlugs.add(l + ':' + ch.slug[l]);
+      if (chSlugs.has(l + ':' + V.slugOf(ch, l))) errors.push(`${tag}: dupli slug (${l})`);
+      chSlugs.add(l + ':' + V.slugOf(ch, l));
       if (!MSP.L(ch.title, l) || !MSP.L(ch.lead, l) || !MSP.L(ch.span, l)) errors.push(`${tag}: fali naslov, uvod ili period (${l})`);
       for (const s of ch.sections) {
         if (!MSP.L(s.h, l)) errors.push(`${tag}: fali naslov dijela (${l})`);
@@ -1117,7 +1120,7 @@ function checkData() {
     }
     if (!['light', 'medium', 'strong'].includes(m.strength)) errors.push(`recept ${m.id}: nepoznata jačina ${m.strength}`);
     for (const l of LANGS) {
-      const key = l + ':' + m.slug[l];
+      const key = l + ':' + V.slugOf(m, l);
       if (slugs.has(key)) errors.push(`recept ${m.id}: dupli slug ${key}`);
       slugs.add(key);
       if (!MSP.L(m.name, l) || !(MSP.L(m.description, l) || []).length || !(MSP.L(m.tips, l) || []).length) errors.push(`recept ${m.id}: fali tekst (${l})`);
@@ -1212,6 +1215,14 @@ function build() {
   checkData();
   checkMeta(rendered);
   const stats = checkLinks();
+
+  // jezici bez teksta u samim podacima (npr. njemački) moraju imati prijevod svega
+  for (const l of LANGS.filter((x) => x !== 'bs' && x !== 'en')) {
+    const ms = missingStrings(MSP.strings, l);
+    if (ms.length) errors.push(`${l}: nema prijevoda za ${ms.length} natpisa (npr. ${ms.slice(0, 5).join(', ')}); spisak: node scripts/i18n.mjs ${l}`);
+    const mc = missingContent(sandbox, l);
+    if (mc.length) errors.push(`${l}: nema prijevoda za ${mc.length} tekstova iz podataka (npr. ${mc.slice(0, 3).map((x) => x.where).join(', ')}); spisak: node scripts/i18n.mjs ${l}`);
+  }
 
   const missing = warnings.filter((w) => /Nedostaje tekst/.test(w));
   missing.forEach((w) => errors.push(w));

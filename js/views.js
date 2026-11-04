@@ -27,6 +27,10 @@
       collections: 'kolekcije', collection: 'kolekcije', compare: 'poredjenje', comparePair: 'poredjenje', mixes: 'recepti', recipe: 'recepti',
       privacy: 'privatnost', terms: 'uslovi', suggest: 'predlozi-okus', report: 'prijavi-gresku', flavors: 'okusi', search: 'pretraga',
       brands: 'brendovi', brand: 'brendovi', top: 'najbolje-ocijenjeno', shelf: 'moja-polica', session: 'slika-sesije', journal: 'dnevnik-sesija', offline: 'bez-interneta', lounge: 'lounge', loungeInfo: 'za-lounge', tips: 'savjeti', history: 'evolucija-nargile', chapter: 'evolucija-nargile', articles: 'clanci', article: 'clanci' },
+    de: { home: '', flavor: 'geschmack', mixer: 'mixer', quiz: 'quiz', guide: 'anleitung', glossary: 'glossar', term: 'glossar', gear: 'zubehoer', about: 'ueber-uns', notfound: '404',
+      collections: 'kollektionen', collection: 'kollektionen', compare: 'vergleich', comparePair: 'vergleich', mixes: 'mixe', recipe: 'mixe',
+      privacy: 'datenschutz', terms: 'nutzungsbedingungen', suggest: 'geschmack-vorschlagen', report: 'fehler-melden', flavors: 'geschmacksrichtungen', search: 'suche',
+      brands: 'marken', brand: 'marken', top: 'bestbewertet', shelf: 'mein-regal', session: 'session-foto', journal: 'session-tagebuch', offline: 'offline', lounge: 'lounge', loungeInfo: 'fuer-lounges', tips: 'tipps', history: 'shisha-geschichte', chapter: 'shisha-geschichte', articles: 'artikel', article: 'artikel' },
     en: { home: '', flavor: 'flavor', mixer: 'mixer', quiz: 'quiz', guide: 'guide', glossary: 'glossary', term: 'glossary', gear: 'gear', about: 'about', notfound: '404',
       collections: 'collections', collection: 'collections', compare: 'compare', comparePair: 'compare', mixes: 'mixes', recipe: 'mixes',
       privacy: 'privacy', terms: 'terms', suggest: 'suggest-flavor', report: 'report-issue', flavors: 'flavors', search: 'search',
@@ -43,9 +47,30 @@
   };
 
   V.url = function (page, param) { return V.urlFor(MSP.lang, page, param); };
+  /** Skraćuje tekst na najviše `max` znakova (opis za pretraživače), na granici riječi. */
+  V.clipText = function (s, max) {
+    s = String(s || '').replace(/\s+/g, ' ').trim();
+    max = max || 155;
+    if (s.length <= max) return s;
+    var cut = s.slice(0, max - 3);
+    var sp = cut.lastIndexOf(' ');
+    return cut.slice(0, sp > 60 ? sp : cut.length).replace(/[\s,.;:-]+$/, '') + '...';
+  };
+  /** Ime parametra za korak vodiča u adresi (?korak=, ?step=, ?schritt=). */
+  V.stepParam = function (lang) { return { bs: 'korak', de: 'schritt' }[lang || MSP.lang] || 'step'; };
+  /** Ime parametra za okus u adresi forme za grešku (?okus=, ?flavor=, ?geschmack=). */
+  V.flavorParam = function (lang) { return { bs: 'okus', de: 'geschmack' }[lang || MSP.lang] || 'flavor'; };
+
+  /** Slug stavke na jeziku; jezik bez svog sluga (npr. njemački) koristi engleski. */
+  V.slugOf = function (o, lang) {
+    var sl = o && o.slug;
+    if (!sl || typeof sl !== 'object') return sl;
+    var l = lang || MSP.lang;
+    return sl[l] || sl.en || sl.bs;
+  };
 
   V.termSlug = function (g, lang) {
-    return (g.slug && (g.slug[lang || MSP.lang] || g.slug.bs)) || g.id;
+    return (g.slug && V.slugOf(g, lang)) || g.id;
   };
 
   V.termUrl = function (idOrTerm, lang) {
@@ -62,7 +87,7 @@
 
   V.guideStepUrl = function (n, lang) {
     lang = lang || MSP.lang;
-    return V.urlFor(lang, 'guide') + '?' + (lang === 'bs' ? 'korak' : 'step') + '=' + n;
+    return V.urlFor(lang, 'guide') + '?' + V.stepParam(lang) + '=' + n;
   };
 
   /**
@@ -114,7 +139,7 @@
 
   V.formatNum = function (v) {
     var s = (Math.round(v * 10) / 10).toString();
-    return MSP.lang === 'bs' ? s.replace('.', ',') : s;
+    return MSP.decComma() ? s.replace('.', ',') : s;
   };
 
   var ICONS = {
@@ -245,11 +270,13 @@
   /** Tekst za pretragu okusa na OBA jezika ("mint" i "menta" nalaze isto). */
   V.searchText = function (f) {
     var parts = [f.brand, f.name, f.id];
-    (f.ingredients || []).forEach(function (i) { parts.push(MSP.L(i.name, 'bs'), MSP.L(i.name, 'en')); });
+    // jezici čiji tekstovi su učitani (njemački rječnik je samo na njemačkim stranicama)
+    var langs = MSP.LANGS.filter(function (l) { return MSP.strings[l]; });
+    (f.ingredients || []).forEach(function (i) { langs.forEach(function (l) { parts.push(MSP.L(i.name, l)); }); });
     (f.tags || []).forEach(function (tag) {
-      parts.push(MSP.strings.bs.tags[tag] || tag, MSP.strings.en.tags[tag] || tag);
+      langs.forEach(function (l) { parts.push((MSP.strings[l].tags || {})[tag] || tag); });
     });
-    parts.push(MSP.L(f.shortDescription, 'bs'), MSP.L(f.shortDescription, 'en'));
+    langs.forEach(function (l) { parts.push(MSP.L(f.shortDescription, l)); });
     var text = normalize(parts.join(' '));
     return text + ' ' + text.replace(/dj/g, 'd');
   };
@@ -565,6 +592,7 @@
   V.verifiedDate = function (d) {
     var p = String(d).split('-');
     if (MSP.lang === 'en') return Number(p[2]) + ' ' + ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][Number(p[1]) - 1] + ' ' + p[0];
+    if (MSP.lang === 'de') return Number(p[2]) + '.' + Number(p[1]) + '.' + p[0];
     return Number(p[2]) + '. ' + Number(p[1]) + '. ' + p[0] + '.';
   };
 
@@ -1387,7 +1415,7 @@
     var level = function (n, cuts, keys) { for (var i = 0; i < cuts.length; i++) if (n <= cuts[i]) return keys[i]; return keys[keys.length - 1]; };
     var andList = function (arr) {
       if (arr.length < 2) return arr.join('');
-      return arr.slice(0, -1).join(', ') + (MSP.lang === 'bs' ? ' i ' : ' and ') + arr[arr.length - 1];
+      return arr.slice(0, -1).join(', ') + MSP.and() + arr[arr.length - 1];
     };
     var items = [];
     var desc = L(f.description) || [];
@@ -1422,7 +1450,7 @@
   };
 
   V.ingredientList = function (f) {
-    var names = (f.ingredients || []).map(function (i) { return L(i.name).toLowerCase(); });
+    var names = (f.ingredients || []).map(function (i) { return MSP.lower(L(i.name)); });
     if (names.length < 2) return names.join('');
     return names.slice(0, -1).join(t('flavor.listJoin')) + t('flavor.listLast') + names[names.length - 1];
   };
@@ -1561,14 +1589,15 @@
 
   var ALPHABET = {
     bs: 'A B C Č Ć D Dž Đ E F G H I J K L Lj M N Nj O P R S Š T U V Z Ž'.split(' '),
-    en: 'A B C D E F G H I J K L M N O P Q R S T U V W X Y Z'.split(' ')
+    en: 'A B C D E F G H I J K L M N O P Q R S T U V W X Y Z'.split(' '),
+    de: 'A B C D E F G H I J K L M N O P Q R S T U V W X Y Z'.split(' ')
   };
 
   function letterOf(term) {
     var two = term.slice(0, 2);
     if (MSP.lang === 'bs' && /^(Dž|Lj|Nj)$/i.test(two)) return two.charAt(0).toUpperCase() + two.charAt(1).toLowerCase();
     var ch = term.charAt(0).toUpperCase();
-    if (MSP.lang === 'en') ch = ch.normalize('NFD').replace(/[̀-ͯ]/g, '');
+    if (MSP.lang !== 'bs') ch = ch.normalize('NFD').replace(/[̀-ͯ]/g, '');
     return ch;
   }
 
@@ -1906,7 +1935,7 @@
   V.mixDescription = function (a, b, r, ings, prof) {
     var andW = ' ' + t('mixer.and') + ' ';
     var name = a.name + ' × ' + b.name;
-    var lower = function (s) { return MSP.lang === 'bs' ? s.toLowerCase() : s.toLowerCase(); };
+    var lower = function (s) { return MSP.lower(s); };
     var main = ings.slice(0, 2).map(function (i) { return lower(i.name); }).join(andW);
     var parts = [t('mixer.descStart', { name: name, main: main })];
     var shared = ings.filter(function (i) { return i.shared; }).map(function (i) { return lower(i.name); });
@@ -2318,10 +2347,12 @@
         out.main = pageFlavor(desc.flavor, crumbs);
         // kad je jedini sastojak isti kao naziv ("Elderberry - elderberry"), naslov kaže šta stranica nudi
         var ingList = V.ingredientList(desc.flavor);
-        var solo = (desc.flavor.ingredients || []).length < 2 && String(desc.flavor.name).toLowerCase().indexOf(ingList) !== -1;
+        var solo = (desc.flavor.ingredients || []).length < 2 && String(desc.flavor.name).toLowerCase().indexOf(ingList.toLowerCase()) !== -1;
         out.title = t(solo ? 'meta.flavorTitleSolo' : 'meta.flavorTitle', { brand: desc.flavor.brand, name: desc.flavor.name, ingredients: ingList });
         // kratak opis okusa + šta stranica nudi (jasnije u rezultatima pretrage)
         out.description = (L(desc.flavor.shortDescription) + ' ' + t('meta.flavorDescriptionMore')).trim();
+        // duži jezici (npr. njemački): ako ne stane, ostaje samo kratak opis okusa
+        if (out.description.length > 155) out.description = String(L(desc.flavor.shortDescription)).trim();
         // okus može imati svoj naslov i opis za pretragu (npr. i naziv sa pakovanja: "Lemon with Mint")
         if (desc.flavor.seo) {
           if (desc.flavor.seo.title) out.title = L(desc.flavor.seo.title);
@@ -2370,7 +2401,7 @@
       case 'chapter':
         out.main = V.pageChapter(desc.chapter, crumbs);
         out.title = t('meta.chapterTitle', { title: L(desc.chapter.title) });
-        out.description = L(desc.chapter.lead);
+        out.description = V.clipText(L(desc.chapter.lead));
         out.ogImage = '/og-history.jpg';
         break;
       case 'articles':
@@ -2431,9 +2462,9 @@
       if (desc.page === 'flavor') o[l] = V.urlFor(l, 'flavor', desc.flavor.id);
       else if (desc.page === 'term') o[l] = V.urlFor(l, 'term', V.termSlug(desc.term, l));
       else if (desc.page === 'notfound') o[l] = V.urlFor(l, 'home');
-      else if (desc.page === 'collection') o[l] = V.urlFor(l, 'collection', desc.collection.slug[l]);
+      else if (desc.page === 'collection') o[l] = V.urlFor(l, 'collection', V.slugOf(desc.collection, l));
       else if (desc.page === 'comparePair') o[l] = V.urlFor(l, 'comparePair', desc.pair.slug);
-      else if (desc.page === 'recipe') o[l] = V.urlFor(l, 'recipe', desc.recipe.slug[l]);
+      else if (desc.page === 'recipe') o[l] = V.urlFor(l, 'recipe', V.slugOf(desc.recipe, l));
       else if (desc.page === 'brand') o[l] = V.urlFor(l, 'brand', desc.brand.slug);
       else if (desc.page === 'chapter') o[l] = V.chapterUrl(desc.chapter, l);
       else if (desc.page === 'article') o[l] = V.articleUrl(desc.article, l);
