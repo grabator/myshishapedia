@@ -56,6 +56,8 @@
         shelfTitle: 'Moja polica | MyShishapedia',
         shelfDescription: 'Tvoja lična polica omiljenih okusa za nargilu, poredanih po kolekcijama. Čuva se samo u tvom browseru.',
         tipsTitle: 'Savjeti za bolji okus nargile: punjenje, toplota, dim | MyShishapedia',
+        articlesTitle: 'Članci o nargili: okusi, brendovi i savjeti | MyShishapedia',
+        articlesDescription: 'Članci o nargili: najbolji okusi za početnike, razlika između brendova, koliko traje nargila i drugo, jednostavno objašnjeno.',
         tipsDescription: 'Kako napuniti posudu, kontrolisati toplotu, dobiti gušći dim, koristiti led u vazi i očistiti nargilu za čist okus.',
         historyTitle: 'Evolucija nargile: historija od Mughala do danas | MyShishapedia',
         historyDescription: 'Put dima kroz 14 gradova i pet stoljeća: od Isfahana i Agre preko Istanbula i Kaira do Berlina. Provjerene činjenice, legende i izvori.',
@@ -85,9 +87,39 @@
         notFoundDescription: 'Ova stranica ne postoji. Pretraži okuse ili se vrati na početnu.'
       },
 
+      articles: {
+        eyebrow: 'Članci',
+        title: 'Članci o nargili',
+        lead: 'Odgovori na pitanja koja ljudi najčešće postavljaju o nargili, okusima i brendovima.',
+        read: 'Pročitaj',
+        more: 'Još članaka',
+        allInCollection: 'Svi okusi u kolekciji {name}',
+        property: 'Osobina',
+        row: { country: 'Zemlja', leaf: 'List', count: 'Okusa kod nas', sweetness: 'Slatkoća (prosjek)', fruitiness: 'Voćnost (prosjek)', cooling: 'Hlađenje (prosjek)', strength: 'Jačina (prosjek)', flavors: 'Neki okusi' }
+      },
       faq: {
         eyebrow: 'Ukratko',
-        title: 'Česta pitanja'
+        title: 'Česta pitanja',
+        tasteQ: 'Kakvog je okusa {name}?',
+        strongQ: 'Da li je {name} jak?',
+        strongA: {
+          mild: 'Nije, blag je. Jačina mu je {n}/10 na našoj skali.',
+          medium: 'Srednje je jačine: {n}/10 na našoj skali.',
+          strong: 'Jak je: {n}/10 na našoj skali.',
+          veryStrong: 'Vrlo je jak: {n}/10 na našoj skali, pa nije za početnike.'
+        },
+        leafA: 'Vrsta lista: {leaf}.',
+        coolQ: 'Da li je {name} leden?',
+        coolA: {
+          none: 'Nije. Nema hlađenja, ni mente ni mentola.',
+          light: 'Samo malo. Hlađenje mu je {n}/10.',
+          medium: 'Jeste, umjereno. Hlađenje mu je {n}/10.',
+          strong: 'Jeste, jako je leden. Hlađenje mu je {n}/10.'
+        },
+        mixQ: 'Sa čim se miješa {name}?',
+        similarQ: 'Koji su okusi slični okusu {name}?',
+        similarA: 'Slični su mu {list}.',
+        note: 'Ocjene su procjena na skali od 0 do 10 i mogu se razlikovati od tvog iskustva.'
       },
       pager: {
         label: 'Stranice',
@@ -161,6 +193,7 @@
         offline: 'Bez interneta',
         loungeInfo: 'Za lounge-ove',
         tips: 'Savjeti',
+        articles: 'Članci',
         history: 'Evolucija nargile',
         backToAll: 'Nazad na sve okuse',
         tagline: 'Enciklopedija okusa'
@@ -1291,6 +1324,8 @@
         shelfTitle: 'My shelf | MyShishapedia',
         shelfDescription: 'Your personal shelf of favorite hookah flavors, sorted by collection. It is stored only in your browser.',
         tipsTitle: 'Tips for better hookah flavor: packing, heat, clouds | MyShishapedia',
+        articlesTitle: 'Hookah articles: flavors, brands and tips | MyShishapedia',
+        articlesDescription: 'Hookah articles: the best flavors for beginners, how brands differ, how long a hookah lasts and more, explained simply.',
         tipsDescription: 'How to pack the bowl, manage heat, get thicker clouds, use ice in the base and clean your hookah for a clean taste.',
         historyTitle: 'Who invented the hookah? History and origin of shisha | MyShishapedia',
         historyDescription: 'The best-known story credits Abul-Fath Gilani at Emperor Akbar\'s court, but the dates do not fit. The hookah through 14 cities and five centuries.',
@@ -1320,9 +1355,39 @@
         notFoundDescription: 'This page does not exist. Search the flavors or head back to the homepage.'
       },
 
+      articles: {
+        eyebrow: 'Articles',
+        title: 'Hookah articles',
+        lead: 'Answers to the questions people ask most about hookah, flavors and brands.',
+        read: 'Read',
+        more: 'More articles',
+        allInCollection: 'All flavors in {name}',
+        property: 'Property',
+        row: { country: 'Country', leaf: 'Leaf', count: 'Flavors on our site', sweetness: 'Sweetness (average)', fruitiness: 'Fruitiness (average)', cooling: 'Cooling (average)', strength: 'Strength (average)', flavors: 'Some flavors' }
+      },
       faq: {
         eyebrow: 'In short',
-        title: 'Frequently asked questions'
+        title: 'Frequently asked questions',
+        tasteQ: 'What does {name} taste like?',
+        strongQ: 'Is {name} strong?',
+        strongA: {
+          mild: 'No, it is mild. Its strength is {n}/10 on our scale.',
+          medium: 'It is medium strength: {n}/10 on our scale.',
+          strong: 'Yes, it is strong: {n}/10 on our scale.',
+          veryStrong: 'Yes, it is very strong: {n}/10 on our scale, so it is not for beginners.'
+        },
+        leafA: 'Leaf: {leaf}.',
+        coolQ: 'Is {name} icy?',
+        coolA: {
+          none: 'No. It has no cooling, no mint and no menthol.',
+          light: 'Only a little. Its cooling is {n}/10.',
+          medium: 'Yes, moderately. Its cooling is {n}/10.',
+          strong: 'Yes, it is very icy. Its cooling is {n}/10.'
+        },
+        mixQ: 'What can I mix {name} with?',
+        similarQ: 'Which flavors are similar to {name}?',
+        similarA: 'Similar flavors are {list}.',
+        note: 'Ratings are estimates on a 0 to 10 scale and may differ from your own experience.'
       },
       pager: {
         label: 'Pages',
@@ -1396,6 +1461,7 @@
         offline: 'Offline',
         loungeInfo: 'For lounges',
         tips: 'Tips',
+        articles: 'Articles',
         history: 'Hookah history',
         backToAll: 'Back to all flavors',
         tagline: 'Flavor encyclopedia'

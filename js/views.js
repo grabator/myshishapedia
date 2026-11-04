@@ -26,11 +26,11 @@
     bs: { home: '', flavor: 'okus', mixer: 'mikser', quiz: 'kviz', guide: 'vodic', glossary: 'rjecnik', term: 'rjecnik', gear: 'oprema', about: 'o-nama', notfound: '404',
       collections: 'kolekcije', collection: 'kolekcije', compare: 'poredjenje', comparePair: 'poredjenje', mixes: 'recepti', recipe: 'recepti',
       privacy: 'privatnost', terms: 'uslovi', suggest: 'predlozi-okus', report: 'prijavi-gresku', flavors: 'okusi', search: 'pretraga',
-      brands: 'brendovi', brand: 'brendovi', top: 'najbolje-ocijenjeno', shelf: 'moja-polica', session: 'slika-sesije', journal: 'dnevnik-sesija', offline: 'bez-interneta', lounge: 'lounge', loungeInfo: 'za-lounge', tips: 'savjeti', history: 'evolucija-nargile', chapter: 'evolucija-nargile' },
+      brands: 'brendovi', brand: 'brendovi', top: 'najbolje-ocijenjeno', shelf: 'moja-polica', session: 'slika-sesije', journal: 'dnevnik-sesija', offline: 'bez-interneta', lounge: 'lounge', loungeInfo: 'za-lounge', tips: 'savjeti', history: 'evolucija-nargile', chapter: 'evolucija-nargile', articles: 'clanci', article: 'clanci' },
     en: { home: '', flavor: 'flavor', mixer: 'mixer', quiz: 'quiz', guide: 'guide', glossary: 'glossary', term: 'glossary', gear: 'gear', about: 'about', notfound: '404',
       collections: 'collections', collection: 'collections', compare: 'compare', comparePair: 'compare', mixes: 'mixes', recipe: 'mixes',
       privacy: 'privacy', terms: 'terms', suggest: 'suggest-flavor', report: 'report-issue', flavors: 'flavors', search: 'search',
-      brands: 'brands', brand: 'brands', top: 'top-rated', shelf: 'my-shelf', session: 'session-photo', journal: 'session-journal', offline: 'offline', lounge: 'lounge', loungeInfo: 'for-lounges', tips: 'tips', history: 'hookah-history', chapter: 'hookah-history' }
+      brands: 'brands', brand: 'brands', top: 'top-rated', shelf: 'my-shelf', session: 'session-photo', journal: 'session-journal', offline: 'offline', lounge: 'lounge', loungeInfo: 'for-lounges', tips: 'tips', history: 'hookah-history', chapter: 'hookah-history', articles: 'articles', article: 'articles' }
   };
   V.SEG = SEG;
 
@@ -647,6 +647,7 @@
       { key: 'glossary', page: 'glossary', match: ['glossary', 'term'] },
       { key: 'gear', page: 'gear', match: ['gear'] },
       { key: 'tips', page: 'tips', match: ['tips'] },
+      { key: 'articles', page: 'articles', match: ['articles', 'article'] },
       { key: 'history', page: 'history', match: ['history', 'chapter'] },
       { key: 'loungeInfo', page: 'loungeInfo', match: ['loungeInfo', 'lounge'] }
     ] },
@@ -838,7 +839,7 @@
     var year = desc.year || new Date().getFullYear();
     var email = (cfg && cfg.AUTHOR_EMAIL) || '';
     var name = (cfg && cfg.AUTHOR_NAME) || 'Graba';
-    var links = ['flavors', 'brands', 'collections', 'compare', 'mixes', 'top', 'shelf', 'session', 'journal', 'mixer', 'quiz', 'guide', 'tips', 'history', 'glossary', 'gear', 'loungeInfo', 'about'].map(function (p) {
+    var links = ['flavors', 'brands', 'collections', 'compare', 'mixes', 'top', 'shelf', 'session', 'journal', 'mixer', 'quiz', 'guide', 'tips', 'articles', 'history', 'glossary', 'gear', 'loungeInfo', 'about'].map(function (p) {
       return '<li><a href="' + V.url(p) + '">' + esc(t('nav.' + (p === 'flavors' ? 'allFlavors' : p))) + '</a></li>';
     }).join('');
     return (
@@ -1374,6 +1375,52 @@
   }
 
   /** "ananas, banana i menta" / "pineapple, banana & mint" */
+  /**
+   * Česta pitanja za okus, složena iz podataka okusa (opis, jačina, list, hlađenje, miksevi, slični okusi).
+   * Okus može imati i svoja pitanja (f.faq), tada se koriste ona.
+   */
+  V.flavorFaq = function (f) {
+    var name = f.brand + ' ' + f.name;
+    var P = f.profile || {};
+    // stranica se crta na jednom jeziku, pa je tekst isti pod oba ključa (V.faqSection čita L(...))
+    var both = function (fn) { var v = fn(); return { bs: v, en: v }; };
+    var level = function (n, cuts, keys) { for (var i = 0; i < cuts.length; i++) if (n <= cuts[i]) return keys[i]; return keys[keys.length - 1]; };
+    var andList = function (arr) {
+      if (arr.length < 2) return arr.join('');
+      return arr.slice(0, -1).join(', ') + (MSP.lang === 'bs' ? ' i ' : ' and ') + arr[arr.length - 1];
+    };
+    var items = [];
+    var desc = L(f.description) || [];
+    if (desc.length) items.push({ q: both(function () { return t('faq.tasteQ', { name: name }); }), a: both(function () { return (L(f.description) || [])[0]; }) });
+    if (typeof P.strength === 'number') {
+      items.push({
+        q: both(function () { return t('faq.strongQ', { name: name }); }),
+        a: both(function () {
+          var k = level(P.strength, [4, 6, 8], ['mild', 'medium', 'strong', 'veryStrong']);
+          var leaf = L(f.tobaccoType) || t('leaf.' + V.leafOf(f));
+          return t('faq.strongA.' + k, { n: P.strength }) + ' ' + t('faq.leafA', { leaf: leaf }) + ' ' + t('faq.note');
+        })
+      });
+    }
+    if (typeof P.cooling === 'number') {
+      items.push({
+        q: both(function () { return t('faq.coolQ', { name: name }); }),
+        a: both(function () { return t('faq.coolA.' + level(P.cooling, [0, 3, 6], ['none', 'light', 'medium', 'strong']), { n: P.cooling }); })
+      });
+    }
+    if ((L(f.mixIdeas) || []).length) {
+      items.push({ q: both(function () { return t('faq.mixQ', { name: name }); }), a: both(function () { return (L(f.mixIdeas) || []).slice(0, 2).join(' '); }) });
+    }
+    var sim = (f.similar || []).map(V.flavorById).filter(Boolean).slice(0, 3);
+    if (sim.length) {
+      items.push({
+        q: both(function () { return t('faq.similarQ', { name: name }); }),
+        a: both(function () { return t('faq.similarA', { list: andList(sim.map(function (x) { return x.brand + ' ' + x.name; })) }); })
+      });
+    }
+    return items;
+  };
+
   V.ingredientList = function (f) {
     var names = (f.ingredients || []).map(function (i) { return L(i.name).toLowerCase(); });
     if (names.length < 2) return names.join('');
@@ -1499,7 +1546,7 @@
 
         V.flavorRecipesSection(f, nextNum) +
         V.flavorCompareSection(f, nextNum) +
-        V.faqSection(f.faq, 'flavor-faq') +
+        V.faqSection(f.faq || V.flavorFaq(f), 'flavor-faq') +
         '<nav class="pager container' + (prev && next ? '' : ' pager--single') + '" aria-label="' + esc(t('flavor.pagerLabel')) + '">' +
           (prev ? pagerLink(prev, 'prev') : '') + (next ? pagerLink(next, 'next') : '') +
           '<a class="btn btn--ghost pager__back" href="' + V.url('home') + '#svi-okusi">' + icon('arrowLeft') + '<span>' + esc(t('nav.backToAll')) + '</span></a>' +
@@ -2239,6 +2286,7 @@
           .concat([{ name: fb ? desc.flavor.name : desc.flavor.brand + ' ' + desc.flavor.name, url: V.flavorUrl(desc.flavor) }]);
       case 'term': return [home, { name: t('nav.glossary'), url: V.url('glossary') }, { name: L(desc.term.term), url: V.termUrl(desc.term) }];
       case 'chapter': return [home, { name: t('nav.history'), url: V.url('history') }, { name: L(desc.chapter.title), url: V.chapterUrl(desc.chapter) }];
+      case 'article': return [home, { name: t('nav.articles'), url: V.url('articles') }, { name: L(desc.article.title), url: V.articleUrl(desc.article) }];
       case 'home': case 'notfound': return [home];
       case 'report': return [home, { name: t('forms.reportEyebrow'), url: V.url('report') }];
       case 'flavors': return [home, { name: t('nav.allFlavors'), url: V.url('flavors') }];
@@ -2325,6 +2373,16 @@
         out.description = L(desc.chapter.lead);
         out.ogImage = '/og-history.jpg';
         break;
+      case 'articles':
+        out.main = V.pageArticles(crumbs);
+        out.title = t('meta.articlesTitle');
+        out.description = t('meta.articlesDescription');
+        break;
+      case 'article':
+        out.main = V.pageArticle(desc.article, crumbs);
+        out.title = L(desc.article.metaTitle) + ' | MyShishapedia';
+        out.description = L(desc.article.metaDescription);
+        break;
       case 'about':
         out.main = pageAbout(crumbs, cfg);
         out.title = t('meta.aboutTitle');
@@ -2378,6 +2436,7 @@
       else if (desc.page === 'recipe') o[l] = V.urlFor(l, 'recipe', desc.recipe.slug[l]);
       else if (desc.page === 'brand') o[l] = V.urlFor(l, 'brand', desc.brand.slug);
       else if (desc.page === 'chapter') o[l] = V.chapterUrl(desc.chapter, l);
+      else if (desc.page === 'article') o[l] = V.articleUrl(desc.article, l);
       else if (desc.page === 'lounge') o[l] = V.urlFor(l, 'lounge', desc.lounge.id);
       else o[l] = V.urlFor(l, desc.page);
     });
