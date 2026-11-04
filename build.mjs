@@ -521,8 +521,8 @@ function checkMeta(pages) {
   const titles = new Map();
   const descs = new Map();
   for (const p of pages) {
-    const { html, desc, info } = p;
-    const h1 = (html.match(/<h1[\s>]/g) || []).length;
+    const { desc, info, facts } = p;
+    const h1 = facts.h1;
     if (h1 !== 1) errors.push(`${desc.url}: ${h1} h1 naslova (treba tačno 1)`);
     if (!info.title) errors.push(`${desc.url}: nema naslova`);
     if (!info.description) errors.push(`${desc.url}: nema opisa`);
@@ -532,9 +532,9 @@ function checkMeta(pages) {
     titles.set(info.title, desc.url);
     if (descs.has(info.description)) errors.push(`${desc.url}: isti opis kao ${descs.get(info.description)}`);
     descs.set(info.description, desc.url);
-    if (!/<link rel="canonical"/.test(html)) errors.push(`${desc.url}: nema canonical`);
-    if ((html.match(/hreflang="/g) || []).length < 3) errors.push(`${desc.url}: nedostaju hreflang linkovi`);
-    if (/grabafaceit@|mailto:/.test(html)) errors.push(`${desc.url}: email je u HTML-u kao običan tekst`);
+    if (!facts.canonical) errors.push(`${desc.url}: nema canonical`);
+    if (facts.hreflang < 3) errors.push(`${desc.url}: nedostaju hreflang linkovi`);
+    if (facts.email) errors.push(`${desc.url}: email je u HTML-u kao običan tekst`);
   }
 }
 
@@ -553,7 +553,10 @@ function checkLinks() {
   function idsOf(file) {
     if (!idCache.has(file)) {
       const html = fs.readFileSync(file, 'utf8');
-      idCache.set(file, new Set([...html.matchAll(/\sid="([^"]+)"/g)].map((m) => m[1])));
+      // JSON kopija: podstringovi iz matchAll bi u V8 držali živim cijeli HTML fajla, pa bi keš id-jeva
+      // svih stranica zadržao preko 1 GB teksta u memoriji
+      const ids = JSON.parse(JSON.stringify([...html.matchAll(/\sid="([^"]+)"/g)].map((m) => m[1])));
+      idCache.set(file, new Set(ids));
     }
     return idCache.get(file);
   }
@@ -1136,6 +1139,12 @@ function checkData() {
  * Fajl se mijenja pri buildu; commituj ga zajedno sa izmjenom sadržaja.
  */
 const LASTMOD_FILE = path.join(ROOT, 'seo/lastmod.json');
+/** Otisak samo teksta (bez HTML oznaka), da promjena izgleda ili skripti ne pomjeri datum izmjene. */
+function textPrint(info) {
+  const text = String(info.main || '').replace(/<(script|style|svg)[^>]*>[\s\S]*?<\/\1>/g, ' ').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+  return 't' + crypto.createHash('sha1').update([info.title, info.description, text].join('\n')).digest('hex').slice(0, 11);
+}
+
 function lastModDates(rendered) {
   const today = new Date().toISOString().slice(0, 10);
   let old = {};
@@ -1144,9 +1153,7 @@ function lastModDates(rendered) {
   let changed = 0;
   for (const r of rendered) {
     if (!isIndexable(r.desc)) continue;
-    // otisak samo teksta (bez HTML oznaka), da promjena izgleda ili skripti ne pomjeri datum
-    const text = String(r.info.main || '').replace(/<(script|style|svg)[^>]*>[\s\S]*?<\/\1>/g, ' ').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
-    const h = 't' + crypto.createHash('sha1').update([r.info.title, r.info.description, text].join('\n')).digest('hex').slice(0, 11);
+    const h = r.fp;
     const prev = old[r.desc.url];
     // stari zapis (otisak cijelog HTML-a, bez slova "t" na početku): zadrži datum, samo prepiši otisak
     const migrated = prev && prev[0][0] !== 't';
@@ -1176,7 +1183,19 @@ function build() {
     desc.year = year;
     const { html, info } = renderPage(desc);
     writeFile(fileFor(desc.url), html);
-    rendered.push({ desc, info, html });
+    // HTML svih stranica zajedno ima preko 1 GB; u memoriji ostaje samo ono što trebaju provjere i sitemap
+    // (inače build pređe 4 GB heapa i padne na Cloudflare Pages).
+    rendered.push({
+      desc,
+      info: { title: info.title, description: info.description },
+      fp: textPrint(info),
+      facts: {
+        h1: (html.match(/<h1[\s>]/g) || []).length,
+        canonical: /<link rel="canonical"/.test(html),
+        hreflang: (html.match(/hreflang="/g) || []).length,
+        email: /grabafaceit@|mailto:/.test(html)
+      }
+    });
   }
 
   // Globalni 404 (npr. /nesto) = engleska 404 stranica.
