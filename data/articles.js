@@ -230,5 +230,287 @@ window.ARTICLES = [
         a: { bs: 'Najčešće zbog previše toplote ili nabijenog duhana. Skini jedan ugalj, drži ugljeve uz ivicu i duhan stavljaj rastresito.', en: 'Most often because of too much heat or tobacco that is packed too tight. Take a coal off, keep the coals on the edge and pack the tobacco loosely.' }
       }
     ]
+  },
+  {
+    id: 'najbolji-okusi',
+    slug: { bs: 'najbolji-okusi-za-nargilu', en: 'best-hookah-flavors' },
+    published: '2026-11-05',
+    eyebrow: { bs: 'Okusi', en: 'Flavors' },
+    title: { bs: 'Najbolji okusi za nargilu po vrsti', en: 'The best hookah flavors by type' },
+    metaTitle: { bs: 'Najbolji okusi za nargilu: ledeni, voćni, desertni i citrusni', en: 'Best hookah flavors: icy, fruity, dessert and citrus picks' },
+    metaDescription: {
+      bs: 'Najbolji okusi za nargilu po vrsti: ledeni, voćni, citrusni, desertni, bomboni i pića, plus klasici koje ćeš naći u skoro svakom lounge baru.',
+      en: 'The best hookah flavors by type: icy, fruity, citrus, dessert, candy and drinks, plus the classics you will find in almost every lounge.'
+    },
+    lead: {
+      bs: 'Najbolji okus je onaj koji tebi prija, ali neki okusi se vole više od drugih. Evo izbora po vrsti, da lakše nađeš svoj.',
+      en: 'The best flavor is the one you enjoy, but some flavors are loved more than others. Here are picks by type, so you can find yours faster.'
+    },
+    sections: [
+      {
+        h: { bs: 'Klasici', en: 'The classics' },
+        p: {
+          bs: [
+            'Neki okusi su tu decenijama i nađeš ih u skoro svakom lounge baru: dvostruka jabuka (Double Apple), menta, grožđe sa mentom, limun sa mentom, lubenica sa mentom i borovnica.',
+            'Ako ne znaš šta uzeti, klasik je uvijek siguran izbor.'
+          ],
+          en: [
+            'Some flavors have been around for decades and you will find them in almost every lounge: double apple, mint, grape mint, lemon mint, watermelon mint and blueberry.',
+            'If you are not sure what to get, a classic is always a safe pick.'
+          ]
+        }
+      },
+      {
+        h: { bs: 'Izbor po vrsti', en: 'Picks by type' },
+        p: {
+          bs: ['Za svaku vrstu izdvojili smo okuse koji su u njoj najizraženiji po našim procjenama: najhladniji ledeni, najvoćniji voćni, najslađi desertni i tako dalje.'],
+          en: ['For each type we picked the flavors that stand out most by our estimates: the coldest icy ones, the fruitiest fruit ones, the sweetest desserts and so on.']
+        },
+        block: 'groupPicks',
+        links: [{ page: 'flavors' }, { page: 'top' }]
+      },
+      {
+        h: { bs: 'Kako naći svoj okus', en: 'How to find your flavor' },
+        p: {
+          bs: [
+            'Ako ti se svidio neki okus, na njegovoj stranici su slični okusi i ideje za mikseve. U poređenju možeš staviti dva okusa jedan pored drugog, a kviz ti predloži okus po tvom ukusu.',
+            'Ocjene posjetilaca pokazuju šta se drugima najviše svidjelo.'
+          ],
+          en: [
+            'If you liked a flavor, its page shows similar flavors and mix ideas. In the comparison you can put two flavors side by side, and the quiz suggests a flavor based on your taste.',
+            'Visitor ratings show what other people liked most.'
+          ]
+        },
+        links: [{ page: 'quiz' }, { page: 'compare' }]
+      }
+    ],
+    faq: [
+      {
+        q: { bs: 'Koji je najpopularniji okus za nargilu?', en: 'What is the most popular hookah flavor?' },
+        a: { bs: 'Klasici kao dvostruka jabuka, menta i grožđe sa mentom su tu decenijama. Od novijih su jako popularni ledeni voćni i bombon okusi.', en: 'Classics like double apple, mint and grape mint have been around for decades. Among newer ones, icy fruit and candy flavors are very popular.' }
+      },
+      {
+        q: { bs: 'Koji okus za nargilu je najsvježiji?', en: 'Which hookah flavor is the most refreshing?' },
+        a: { bs: 'Najsvježiji su okusi sa mentom, pepermintom i mentolom, sami ili uz citruse. Na listi ledenih okusa su oni sa najjačim hlađenjem.', en: 'The most refreshing are flavors with mint, peppermint and menthol, on their own or with citrus. The icy list shows the ones with the strongest cooling.' }
+      }
+    ]
+  },
+  {
+    id: 'ledeni-okusi',
+    slug: { bs: 'najbolji-ledeni-okusi', en: 'best-icy-hookah-flavors' },
+    published: '2026-11-05',
+    eyebrow: { bs: 'Ledeni okusi', en: 'Icy flavors' },
+    title: { bs: 'Najbolji ledeni okusi za nargilu', en: 'The best icy hookah flavors' },
+    metaTitle: { bs: 'Najbolji ledeni okusi za nargilu: mentol, menta i led', en: 'Best icy hookah flavors: menthol, mint and ice' },
+    metaDescription: {
+      bs: 'Najhladniji okusi za nargilu po našim procjenama hlađenja, razlika između mente, pepermenta i mentola i kako dobiti ledeniji dim.',
+      en: 'The coldest hookah flavors by our cooling estimates, the difference between mint, peppermint and menthol, and how to get icier smoke.'
+    },
+    lead: {
+      bs: 'Za vruće dane ili kad želiš osjećaj leda u grlu. Ovo su okusi sa najjačim hlađenjem.',
+      en: 'For hot days, or when you want that icy feeling in your throat. These are the flavors with the strongest cooling.'
+    },
+    sections: [
+      {
+        h: { bs: 'Menta, pepermint ili mentol?', en: 'Mint, peppermint or menthol?' },
+        p: {
+          bs: [
+            'Menta daje svjež, zelen okus. Pepermint je oštriji i hladniji. Mentol nema skoro nikakav okus, ali daje jak osjećaj hladnoće, pa ga brendovi dodaju voću i bombonima da budu "ledeni".',
+            'Zato okus može biti voćni i jako leden u isto vrijeme, kao što su mnogi Adalya okusi.'
+          ],
+          en: [
+            'Mint gives a fresh, green taste. Peppermint is sharper and colder. Menthol has almost no taste but a strong cooling feel, so brands add it to fruit and candy flavors to make them icy.',
+            'That is why a flavor can be fruity and very icy at the same time, like many Adalya flavors.'
+          ]
+        }
+      },
+      {
+        h: { bs: 'Najhladniji okusi', en: 'The coldest flavors' },
+        p: {
+          bs: ['Ovo su okusi sa hlađenjem 8/10 ili više po našim procjenama, najviše dva od svakog brenda.'],
+          en: ['These are flavors with cooling of 8/10 or more by our estimates, at most two from each brand.']
+        },
+        block: 'icyPicks',
+        links: [{ page: 'collections' }]
+      },
+      {
+        h: { bs: 'Kako dobiti ledeniji dim', en: 'How to get icier smoke' },
+        p: {
+          bs: [
+            'Hladna voda i par kockica leda u vazi čine dim hladnijim. Ledeni okus se može dodati i u miks: već 15 do 30% mentola ili mente rashladi skoro svaki voćni okus.',
+            'Previše toplote "spali" osjećaj hladnoće, pa kod ledenih okusa drži ugljeve uz ivicu.'
+          ],
+          en: [
+            'Cold water and a few ice cubes in the base make the smoke cooler. You can also add ice to a mix: just 15 to 30% of a menthol or mint flavor cools down almost any fruit flavor.',
+            'Too much heat burns off the cooling feel, so with icy flavors keep the coals on the edge.'
+          ]
+        },
+        links: [{ page: 'tips' }, { page: 'mixer' }]
+      }
+    ],
+    faq: [
+      {
+        q: { bs: 'Koji je najledeniji okus za nargilu?', en: 'What is the iciest hookah flavor?' },
+        a: { bs: 'Najhladniji su okusi sa jakim mentolom ili pepermintom. Na listi u ovom članku su oni sa najvišom ocjenom hlađenja po našim procjenama.', en: 'The coldest are flavors with strong menthol or peppermint. The list in this article shows the ones with the highest cooling rating by our estimates.' }
+      },
+      {
+        q: { bs: 'Šta je razlika između mente i mentola?', en: 'What is the difference between mint and menthol?' },
+        a: { bs: 'Menta daje okus, a mentol uglavnom hladnoću. Zato se mentol dodaje voću da bude leden, a da ne miriše na mentu.', en: 'Mint gives taste, while menthol mostly gives cold. That is why menthol is added to fruit to make it icy without tasting of mint.' }
+      },
+      {
+        q: { bs: 'Da li led u vazi pomaže?', en: 'Does ice in the base help?' },
+        a: { bs: 'Pomaže. Hladna voda i par kockica leda čine dim hladnijim i mekšim.', en: 'Yes. Cold water and a few ice cubes make the smoke cooler and smoother.' }
+      }
+    ]
+  },
+  {
+    id: 'darkside-musthave',
+    slug: { bs: 'darkside-ili-musthave', en: 'darkside-vs-musthave' },
+    published: '2026-11-05',
+    eyebrow: { bs: 'Poređenje brendova', en: 'Brand comparison' },
+    title: { bs: 'Darkside ili Musthave: koja je razlika?', en: 'Darkside vs Musthave: what is the difference?' },
+    metaTitle: { bs: 'Darkside ili Musthave: razlika između dva brenda tamnog lista', en: 'Darkside vs Musthave: two dark leaf shisha brands compared' },
+    metaDescription: {
+      bs: 'Darkside i Musthave jedan pored drugog: oba su ruski brendovi tamnog lista, ali sa različitim karakterom okusa. Brojke iz naše enciklopedije.',
+      en: 'Darkside and Musthave side by side: both are Russian dark leaf brands, but with a different flavor style. Numbers from our flavor encyclopedia.'
+    },
+    lead: {
+      bs: 'Dva brenda tamnog lista za one koji žele jači i izraženiji okus. Slični su po jačini, a razlikuju se po stilu.',
+      en: 'Two dark leaf brands for people who want a stronger, bolder flavor. They are similar in strength but differ in style.'
+    },
+    sections: [
+      {
+        h: { bs: 'Ukratko', en: 'In short' },
+        p: {
+          bs: [
+            'Oba brenda su iz Rusije i rade na [[tamni-list|tamnom listu]], pa su jača od brendova na svijetlom listu, kao što su Adalya i Al Fakher.',
+            'Darkside je poznat po jakim, izraženim okusima i po tome da se često koristi u miksevima, posebno kad treba dodati hlađenje.',
+            'Musthave ima sočne, jasne i često slatko-kisele voćne okuse, i jako veliki izbor.'
+          ],
+          en: [
+            'Both brands come from Russia and use [[tamni-list|dark leaf]], so they are stronger than blonde leaf brands like Adalya and Al Fakher.',
+            'Darkside is known for strong, pronounced flavors and is often used in mixes, especially to add some chill.',
+            'Musthave has juicy, clear and often sweet and tart fruit flavors, and a very large range.'
+          ]
+        }
+      },
+      {
+        h: { bs: 'Jedan pored drugog', en: 'Side by side' },
+        p: {
+          bs: ['Brojke su prosjeci okusa ovih brendova u našoj enciklopediji, na skali od 0 do 10. To su procjene, ali dobro pokazuju razliku.'],
+          en: ['The numbers are averages across these brands\' flavors in our encyclopedia, on a 0 to 10 scale. They are estimates, but they show the difference well.']
+        },
+        block: { type: 'brandCompare', a: 'darkside', b: 'musthave' }
+      },
+      {
+        h: { bs: 'Koji izabrati?', en: 'Which one should you pick?' },
+        p: {
+          bs: [
+            'Oba su za ljude koji već imaju malo iskustva. Ako tek počinješ, bolje je krenuti sa svijetlim listom.',
+            'Ako voliš čist, sočan voćni okus i želiš mnogo izbora, probaj Musthave. Ako voliš jake okuse i praviš mikseve, Darkside je dobar izbor.'
+          ],
+          en: [
+            'Both suit people who already have some experience. If you are just starting, blonde leaf is a better place to begin.',
+            'If you like clean, juicy fruit flavors and want lots of choice, try Musthave. If you like strong flavors and make your own mixes, Darkside is a good pick.'
+          ]
+        },
+        links: [{ page: 'compare' }, { page: 'brands' }]
+      }
+    ],
+    faq: [
+      {
+        q: { bs: 'Da li je Darkside jači od Musthavea?', en: 'Is Darkside stronger than Musthave?' },
+        a: { bs: 'Oba su na tamnom listu i spadaju u jače duhane. Prosječna jačina po našim procjenama je u tabeli iznad.', en: 'Both are on dark leaf and count as stronger tobaccos. The average strength by our estimates is in the table above.' }
+      },
+      {
+        q: { bs: 'Odakle su Darkside i Musthave?', en: 'Where are Darkside and Musthave from?' },
+        a: { bs: 'Oba brenda su iz Rusije.', en: 'Both brands are from Russia.' }
+      },
+      {
+        q: { bs: 'Da li su Darkside i Musthave za početnike?', en: 'Are Darkside and Musthave good for beginners?' },
+        a: { bs: 'Bolje za one sa malo iskustva. Tamni list je jači i ima više nikotina, pa je za početak bolji svijetli list.', en: 'They are better for people with some experience. Dark leaf is stronger and has more nicotine, so blonde leaf is better to start with.' }
+      }
+    ]
+  },
+  {
+    id: 'legalnost',
+    slug: { bs: 'da-li-je-nargila-legalna', en: 'is-hookah-legal' },
+    published: '2026-11-05',
+    eyebrow: { bs: 'Zakon', en: 'Law' },
+    title: { bs: 'Da li je nargila legalna?', en: 'Is hookah legal?' },
+    metaTitle: { bs: 'Da li je nargila legalna: godine, pušenje u lokalima i pravila', en: 'Is hookah legal? Age limits, indoor smoking and the rules' },
+    metaDescription: {
+      bs: 'Da li je nargila legalna, od koliko godina se smije kupiti duhan za nargilu i šta važi za pušenje u lokalima. Opšti pregled, provjeri lokalne propise.',
+      en: 'Is hookah legal, how old you have to be to buy shisha tobacco, and what applies to smoking indoors. A general overview, check your local rules.'
+    },
+    lead: {
+      bs: 'Ukratko: u većini zemalja nargila je legalna za punoljetne, ali pravila o godinama i pušenju u zatvorenim prostorima se razlikuju od zemlje do zemlje.',
+      en: 'In short: in most countries hookah is legal for adults, but the rules on age and indoor smoking differ from country to country.'
+    },
+    sections: [
+      {
+        h: { bs: 'Da li je nargila legalna?', en: 'Is hookah legal?' },
+        p: {
+          bs: [
+            'U većini zemalja posjedovanje nargile i duhana za nargilu je legalno za odrasle. Duhan za nargilu je duhanski proizvod, pa za njega važe ista osnovna pravila kao za cigarete: ograničenje godina, zabrana prodaje maloljetnima i upozorenja na pakovanju.',
+            'Ovo je opšti pregled, a ne pravni savjet. Zakoni se mijenjaju i razlikuju se i unutar iste zemlje, pa uvijek provjeri propise tamo gdje živiš.'
+          ],
+          en: [
+            'In most countries owning a hookah and shisha tobacco is legal for adults. Shisha tobacco is a tobacco product, so the same basic rules apply as for cigarettes: an age limit, no sales to minors and health warnings on the pack.',
+            'This is a general overview, not legal advice. Laws change and can differ even within one country, so always check the rules where you live.'
+          ]
+        }
+      },
+      {
+        h: { bs: 'Od koliko godina?', en: 'How old do you have to be?' },
+        p: {
+          bs: [
+            'U većini evropskih zemalja duhan se smije kupiti od 18 godina. U nekim zemljama granica je viša, npr. u SAD-u je od 2019. godine 21 godina za sve duhanske proizvode.'
+          ],
+          en: [
+            'In most European countries you can buy tobacco from age 18. Some countries set the limit higher; in the United States, for example, it has been 21 for all tobacco products since 2019.'
+          ]
+        }
+      },
+      {
+        h: { bs: 'Pušenje u lokalima', en: 'Smoking indoors' },
+        p: {
+          bs: [
+            'Mnoge zemlje zabranjuju pušenje u zatvorenim javnim prostorima, a to često uključuje i nargilu. Negdje lounge barovi imaju posebna pravila ili dozvole, a negdje je nargila dozvoljena samo napolju.',
+            'Prije nego što otvoriš lounge ili organizuješ sesiju u lokalu, provjeri lokalne propise.'
+          ],
+          en: [
+            'Many countries ban smoking in enclosed public places, and that often includes hookah. In some places hookah lounges have special rules or licences, and in others hookah is only allowed outdoors.',
+            'Before you open a lounge or plan a session in a venue, check the local rules.'
+          ]
+        }
+      },
+      {
+        h: { bs: 'A zdravlje?', en: 'What about health?' },
+        p: {
+          bs: [
+            'Legalno ne znači bezopasno. Dim nargile sadrži nikotin, ugljen-monoksid i katran, a voda ih ne filtrira. Sesija traje dugo, pa se udahne mnogo dima.'
+          ],
+          en: [
+            'Legal does not mean harmless. Hookah smoke contains nicotine, carbon monoxide and tar, and the water does not filter them out. A session lasts a long time, so you inhale a lot of smoke.'
+          ]
+        },
+        links: [{ page: 'guide' }]
+      }
+    ],
+    faq: [
+      {
+        q: { bs: 'Da li je nargila legalna?', en: 'Is hookah legal?' },
+        a: { bs: 'U većini zemalja jeste, za punoljetne. Pravila o godinama i pušenju u zatvorenom se razlikuju, pa provjeri lokalne propise.', en: 'In most countries it is, for adults. Rules on age and indoor smoking differ, so check your local rules.' }
+      },
+      {
+        q: { bs: 'Od koliko godina se smije kupiti duhan za nargilu?', en: 'How old do you have to be to buy shisha tobacco?' },
+        a: { bs: 'U većini evropskih zemalja od 18 godina, a u nekim zemljama, kao u SAD-u, od 21.', en: 'In most European countries from 18, and in some countries, like the United States, from 21.' }
+      },
+      {
+        q: { bs: 'Da li je nargila bez duhana legalna?', en: 'Is tobacco-free hookah legal?' },
+        a: { bs: 'Postoje mješavine bez duhana (npr. od biljaka ili kamenčića), ali pravila za njih se razlikuju po zemljama, a dim i dalje nije zdrav.', en: 'There are tobacco-free blends (made from herbs or stones, for example), but the rules for them differ by country, and the smoke is still not healthy.' }
+      }
+    ]
   }
 ];

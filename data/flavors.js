@@ -764,6 +764,135 @@ window.FLAVORS = [
     similar: ['revoshi-eskimo-lemon', 'al-fakher-lemon-mint', 'adalya-tynky-wynky']
   },
   {
+    id: 'adalya-lemon-mint',
+    brand: 'adalya',
+    leaf: 'light',
+    name: 'Lemon Mint',
+    shortDescription: {
+      bs: 'Kiselkast limun i hladna menta: oštar, čist i jako osvježavajući.',
+      en: 'Tangy lemon and cool mint: sharp, clean and very refreshing.'
+    },
+    description: {
+      bs: [
+        'Adalya Lemon Mint je klasičan par limuna i mente. Limun je kiselkast i svjež, a menta daje hladan, čist izdah.',
+        'Dobar je za vruće dane i kao osvježenje u miksevima sa voćem.'
+      ],
+      en: [
+        'Adalya Lemon Mint is the classic pairing of lemon and mint. The lemon is tangy and fresh, and the mint gives a cool, clean exhale.',
+        'Great for hot days and as a fresh lift in fruit mixes.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Limun', en: 'Lemon' }, illustration: 'limun', color: '#f7e04b', intensity: 8 },
+      { name: { bs: 'Menta', en: 'Mint' }, illustration: 'menta', color: '#2fae78', intensity: 8 }
+    ],
+    profile: { sweetness: 4, freshness: 10, fruitiness: 6, cooling: 7, strength: 5 },
+    tags: ['citrusni', 'mint', 'osvjezavajuci'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#f2d93a', secondary: '#9fe0b8', accent: '#1f9a66', background: '#17240f', text: '#fbffe8' },
+    mixIdeas: {
+      bs: [
+        'Lemon Mint i Love 66, za svježiji Love 66.',
+        'Lemon Mint i Raspberry, za malinovu limunadu.',
+        'Lemon Mint i Double Melon, za dinju sa limunom.'
+      ],
+      en: [
+        'Lemon Mint with Love 66 for a fresher Love 66.',
+        'Lemon Mint with Raspberry for a raspberry lemonade.',
+        'Lemon Mint with Double Melon for melon with lemon.'
+      ]
+    },
+    similar: ['al-fakher-lemon-mint', 'fumari-lemon-mint', 'mazaya-lemon-mint', 'adalya-lemon-cocktail']
+  },
+  {
+    id: 'adalya-delons',
+    brand: 'adalya',
+    leaf: 'light',
+    name: 'Delons',
+    shortDescription: {
+      bs: 'Lubenica i dinja sa svježim mentolom: sočno, slatko i hladno.',
+      en: 'Watermelon and melon with fresh menthol: juicy, sweet and cool.'
+    },
+    description: {
+      bs: [
+        'Delons spaja dvije dinje: sočnu lubenicu i slatku žutu dinju. Mentol ih hladi i čini okus svježim od prvog povlačenja.',
+        'Sladak je, ali ne pretjerano, a led ga drži laganim i za duže sesije.',
+        'Ako voliš Double Melon, a želiš ga hladnijeg, ovo je pravi izbor.'
+      ],
+      en: [
+        'Delons pairs two melons: juicy watermelon and sweet honeydew. Menthol cools them down and keeps the flavor fresh from the first pull.',
+        'It is sweet but not too sweet, and the ice keeps it light even in long sessions.',
+        'If you like Double Melon but want it colder, this is the one.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Lubenica', en: 'Watermelon' }, illustration: 'lubenica', color: '#ff4d6d', intensity: 8 },
+      { name: { bs: 'Dinja', en: 'Melon' }, illustration: 'dinja', color: '#cfe79c', intensity: 7 },
+      { name: { bs: 'Mentol', en: 'Menthol' }, illustration: 'kristal', color: '#cfefff', intensity: 6 }
+    ],
+    profile: { sweetness: 7, freshness: 8, fruitiness: 9, cooling: 7, strength: 5 },
+    tags: ['vocni', 'ledeni', 'ljetni'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#ff6f7d', secondary: '#b8e08a', accent: '#bfeeff', background: '#2a0f16', text: '#fff0f2' },
+    mixIdeas: {
+      bs: [
+        'Delons i Lemon Mint, za ledenu limunadu od dinje.',
+        'Delons i Lady Killer, za voćni ljetni miks.',
+        'Delons i Mint, 70/30, za još hladniji izdah.'
+      ],
+      en: [
+        'Delons with Lemon Mint for an icy melon lemonade.',
+        'Delons with Lady Killer for a fruity summer mix.',
+        'Delons with Mint, 70/30, for an even colder exhale.'
+      ]
+    },
+    similar: ['adalya-double-melon', 'adalya-blue-melon', 'serbetli-ice-watermelon', 'adalya-love-66']
+  },
+  {
+    id: 'adalya-skyfall',
+    brand: 'adalya',
+    leaf: 'light',
+    name: 'SkyFall',
+    shortDescription: {
+      bs: 'Dinja, breskva i lubenica: slatki ljetni voćni miks.',
+      en: 'Honeydew, peach and watermelon: a sweet summer fruit mix.'
+    },
+    description: {
+      bs: [
+        'SkyFall je voćni miks žute dinje, breskve i lubenice. Dinja i lubenica daju sočnost, a breskva mekanu, zrelu slatkoću.',
+        'Okus je sladak i ljetni, bez jakog leda, pa je pitak i lagan.',
+        'Dobar je za one koji vole Love 66, ali žele nešto mekše.'
+      ],
+      en: [
+        'SkyFall is a fruit mix of honeydew, peach and watermelon. The melons bring the juiciness and the peach adds a soft, ripe sweetness.',
+        'It is sweet and summery without heavy ice, so it is smooth and easy to smoke.',
+        'A good pick if you like Love 66 but want something softer.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Dinja', en: 'Honeydew' }, illustration: 'dinja', color: '#cfe79c', intensity: 8 },
+      { name: { bs: 'Breskva', en: 'Peach' }, illustration: 'breskva', color: '#ffb07a', intensity: 7 },
+      { name: { bs: 'Lubenica', en: 'Watermelon' }, illustration: 'lubenica', color: '#ff4d6d', intensity: 6 }
+    ],
+    profile: { sweetness: 8, freshness: 6, fruitiness: 9, cooling: 2, strength: 5 },
+    tags: ['vocni', 'ljetni', 'slatki'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#ffa36b', secondary: '#cfe79c', accent: '#ff4d6d', background: '#2a1a0c', text: '#fff4ea' },
+    mixIdeas: {
+      bs: [
+        'SkyFall i Mint, 70/30, za svježiji voćni miks.',
+        'SkyFall i Lemon Mint, za voćnu limunadu.',
+        'SkyFall i Love 66, za još više tropskog voća.'
+      ],
+      en: [
+        'SkyFall with Mint, 70/30, for a fresher fruit mix.',
+        'SkyFall with Lemon Mint for a fruit lemonade.',
+        'SkyFall with Love 66 for even more tropical fruit.'
+      ]
+    },
+    similar: ['adalya-love-66', 'adalya-double-melon', 'adalya-berlin-nights', 'al-fakher-peach']
+  },
+  {
     id: 'al-fakher-double-apple',
     brand: 'al-fakher',
     leaf: 'light',
@@ -2352,6 +2481,177 @@ window.FLAVORS = [
       ]
     },
     similar: ['darkside-generis-raspberry', '187-wild-beast', 'trifecta-blue-strawberry']
+  },
+  {
+    id: 'darkside-torpedo',
+    brand: 'darkside',
+    leaf: 'dark',
+    name: 'Torpedo',
+    shortDescription: {
+      bs: 'Lubenica i dinja na tamnom listu: sočno, slatko i puno.',
+      en: 'Watermelon and melon on dark leaf: juicy, sweet and full.'
+    },
+    description: {
+      bs: [
+        'Torpedo spaja lubenicu i dinju u jedan sočan, slatki ljetni okus.',
+        'Rađen je na tamnom listu, pa je jači od voćnih okusa na svijetlom listu i ima puniji dim.',
+        'Nema mente, pa se lako miješa sa nečim hladnim, npr. Supernovom.'
+      ],
+      en: [
+        'Torpedo blends watermelon and melon into one juicy, sweet summer flavor.',
+        'It is made on dark leaf, so it is stronger than fruit flavors on blonde leaf and gives a fuller smoke.',
+        'There is no mint, so it is easy to mix with something cold, like Supernova.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Lubenica', en: 'Watermelon' }, illustration: 'lubenica', color: '#ff4d6d', intensity: 8 },
+      { name: { bs: 'Dinja', en: 'Melon' }, illustration: 'dinja', color: '#cfe79c', intensity: 7 }
+    ],
+    profile: { sweetness: 7, freshness: 6, fruitiness: 9, cooling: 0, strength: 8 },
+    tags: ['vocni', 'ljetni', 'slatki'],
+    tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
+    palette: { primary: '#ff4d6d', secondary: '#cfe79c', accent: '#2b9a5a', background: '#1e0b10', text: '#fff0f2' },
+    mixIdeas: {
+      bs: [
+        'Torpedo i Supernova, 80/20, za ledenu lubenicu.',
+        'Torpedo i Falling Star, za tropski voćni miks.',
+        'Torpedo i Generis Raspberry, za lubenicu sa malinom.'
+      ],
+      en: [
+        'Torpedo with Supernova, 80/20, for icy watermelon.',
+        'Torpedo with Falling Star for a tropical fruit mix.',
+        'Torpedo with Generis Raspberry for watermelon and raspberry.'
+      ]
+    },
+    similar: ['musthave-watermelon', 'musthave-sweet-melon', 'adalya-double-melon', 'adalya-delons']
+  },
+  {
+    id: 'darkside-kalee-grap',
+    brand: 'darkside',
+    leaf: 'dark',
+    name: 'Kalee Grap',
+    shortDescription: {
+      bs: 'Slatko-kiseli grejpfrut: jasan, svjež citrus na tamnom listu.',
+      en: 'Sweet and sour grapefruit: clear, fresh citrus on dark leaf.'
+    },
+    description: {
+      bs: [
+        'Kalee Grap je grejpfrut: svijetao citrusni miris i slatko-kiseo, sočan okus.',
+        'Jednostavan je i jasan, bez dodataka, pa ga je lako kombinovati.',
+        'Rađen je na tamnom listu, pa je jači od citrusa na svijetlom listu.'
+      ],
+      en: [
+        'Kalee Grap is grapefruit: a bright citrus aroma and a juicy sweet and sour taste.',
+        'It is simple and clear, with nothing added, so it is easy to mix.',
+        'It is made on dark leaf, so it is stronger than citrus flavors on blonde leaf.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Grejpfrut', en: 'Grapefruit' }, illustration: 'grejpfrut', color: '#f26b6b', intensity: 9 }
+    ],
+    profile: { sweetness: 5, freshness: 8, fruitiness: 8, cooling: 0, strength: 8 },
+    tags: ['citrusni', 'vocni', 'osvjezavajuci'],
+    tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
+    palette: { primary: '#f26b6b', secondary: '#ffc2a8', accent: '#ff9a3c', background: '#2a1210', text: '#fff2ec' },
+    mixIdeas: {
+      bs: [
+        'Kalee Grap i Supernova, 80/20, za ledeni grejpfrut.',
+        'Kalee Grap i Generis Raspberry, za ružičastu limunadu.',
+        'Kalee Grap i Falling Star, za tropski citrus.'
+      ],
+      en: [
+        'Kalee Grap with Supernova, 80/20, for icy grapefruit.',
+        'Kalee Grap with Generis Raspberry for a pink lemonade.',
+        'Kalee Grap with Falling Star for tropical citrus.'
+      ]
+    },
+    similar: ['musthave-grapefruit', 'haze-cucumberita', 'musthave-citrus-spritz']
+  },
+  {
+    id: 'darkside-ice-granny',
+    brand: 'darkside',
+    leaf: 'dark',
+    name: 'Ice Granny',
+    shortDescription: {
+      bs: 'Zelena jabuka Granny Smith sa hladnim, svježim krajem.',
+      en: 'Granny Smith green apple with a cool, fresh finish.'
+    },
+    description: {
+      bs: [
+        'Ice Granny je zelena jabuka sorte Granny Smith: sočna, blago kisela i svježa, sa hladnim krajem.',
+        'Hlađenje je tu da osvježi, ali ne preuzima okus, pa jabuka ostaje glavna.',
+        'Na tamnom listu je, pa je jači i puniji od jabuka na svijetlom listu.'
+      ],
+      en: [
+        'Ice Granny is Granny Smith green apple: juicy, slightly sour and fresh, with a cool finish.',
+        'The cooling is there to freshen it up without taking over, so the apple stays in front.',
+        'It is on dark leaf, so it is stronger and fuller than apple flavors on blonde leaf.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Zelena jabuka', en: 'Green apple' }, illustration: 'jabuka', color: '#8cc63f', intensity: 9 },
+      { name: { bs: 'Hlađenje', en: 'Cooling' }, illustration: 'kristal', color: '#dff4ff', intensity: 5 }
+    ],
+    profile: { sweetness: 5, freshness: 8, fruitiness: 8, cooling: 5, strength: 8 },
+    tags: ['vocni', 'osvjezavajuci', 'kiseli'],
+    tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
+    palette: { primary: '#8cc63f', secondary: '#dff4ff', accent: '#5aa02a', background: '#14200c', text: '#f4ffe6' },
+    mixIdeas: {
+      bs: [
+        'Ice Granny i Kalee Grap, za jabuku sa citrusom.',
+        'Ice Granny i Generis Raspberry, za jabuku i malinu.',
+        'Ice Granny i Supernova, 80/20, za ledenu zelenu jabuku.'
+      ],
+      en: [
+        'Ice Granny with Kalee Grap for apple and citrus.',
+        'Ice Granny with Generis Raspberry for apple and raspberry.',
+        'Ice Granny with Supernova, 80/20, for icy green apple.'
+      ]
+    },
+    similar: ['musthave-sour-apple', 'musthave-apple-drops', 'musthave-kiwi-apple-lime']
+  },
+  {
+    id: 'darkside-mango-lassi',
+    brand: 'darkside',
+    leaf: 'dark',
+    name: 'Mango Lassi',
+    shortDescription: {
+      bs: 'Zreli mango i kremasti jogurt, kao indijski napitak lassi.',
+      en: 'Ripe mango and creamy yogurt, like the Indian lassi drink.'
+    },
+    description: {
+      bs: [
+        'Mango Lassi je inspirisan indijskim napitkom od manga i jogurta. Mango je zreo i sladak, a jogurt ga čini kremastim i mekanim.',
+        'Nema leda ni mente, pa je okus topao, pun i desertni.',
+        'Na tamnom listu je, pa je jači od voćnih okusa na svijetlom listu.'
+      ],
+      en: [
+        'Mango Lassi is inspired by the Indian mango and yogurt drink. The mango is ripe and sweet, and the yogurt makes it creamy and soft.',
+        'There is no ice or mint, so the flavor is warm, full and dessert-like.',
+        'It is on dark leaf, so it is stronger than fruit flavors on blonde leaf.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Mango', en: 'Mango' }, illustration: 'mango', color: '#ffb52e', intensity: 8 },
+      { name: { bs: 'Jogurt', en: 'Yogurt' }, illustration: 'sejk', color: '#f6f1e6', intensity: 7 }
+    ],
+    profile: { sweetness: 7, freshness: 4, fruitiness: 7, cooling: 0, strength: 8 },
+    tags: ['desertni', 'tropski', 'vocni'],
+    tobaccoType: { bs: 'Tamni list', en: 'Dark leaf' },
+    palette: { primary: '#ffb52e', secondary: '#fff6e6', accent: '#e07a2a', background: '#24160a', text: '#fff4e0' },
+    mixIdeas: {
+      bs: [
+        'Mango Lassi i Falling Star, za još više tropskog voća.',
+        'Mango Lassi i Bananapapa, za voćni smoothie.',
+        'Mango Lassi i Supernova, 85/15, za hladni lassi.'
+      ],
+      en: [
+        'Mango Lassi with Falling Star for even more tropical fruit.',
+        'Mango Lassi with Bananapapa for a fruit smoothie.',
+        'Mango Lassi with Supernova, 85/15, for a cold lassi.'
+      ]
+    },
+    similar: ['sebero-mango-yogurt', 'darkside-falling-star', 'musthave-jumango']
   },
   {
     id: 'musthave-pinkman',

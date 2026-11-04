@@ -64,6 +64,21 @@
   V.ruleMatch = ruleMatch;
 
   /** Okusi u kolekciji: pravilo + ručno uključeni, minus ručno izbačeni. Redoslijed kao u flavors.js. */
+  /** Česta pitanja o kolekciji, iz podataka (koji okusi su u njoj i koji probati prvo). */
+  function collectionFaq(c, members) {
+    if (!members || !members.length) return [];
+    var one = function (s) { return { bs: s, en: s }; };
+    var name = L(c.title);
+    var names = members.slice(0, 4).map(function (f) { return f.brand + ' ' + f.name; });
+    var and = MSP.lang === 'bs' ? ' i ' : ' and ';
+    var list = names.length < 2 ? names.join('') : names.slice(0, -1).join(', ') + and + names[names.length - 1];
+    var first = members[0];
+    return [
+      { q: one(t('faq.colWhatQ', { name: name })), a: one(t('faq.colWhatA', { count: MSP.plural('home.count', members.length), list: list })) },
+      { q: one(t('faq.colPickQ', { name: name })), a: one(t('faq.colPickA', { name: first.brand + ' ' + first.name, desc: L(first.shortDescription) })) }
+    ];
+  }
+
   V.collectionMembers = function (c) {
     var inc = c.include || [];
     var exc = c.exclude || [];
@@ -256,6 +271,7 @@
           ? '<ul class="grid grid--big" id="collection-grid" role="list">' + members.map(function (f, i) { return '<li class="grid__item" data-reveal style="--i:' + (i % 2) + '">' + V.card(f, 'h3') + '</li>'; }).join('') + '</ul>'
           : '<p>' + esc(t('collections.empty')) + '</p>') +
       '</div></section>' +
+      V.faqSection(collectionFaq(c, members), 'col-faq') +
       '<section class="fsec fsec--alt" aria-labelledby="col-others"><div class="container">' +
         '<h2 class="mix__h" id="col-others">' + esc(t('collections.otherTitle')) + '</h2>' +
         '<ul class="ccards ccards--small" role="list">' + others.map(function (x, i) { return '<li>' + V.collectionCard(x, 'h3', i) + '</li>'; }).join('') + '</ul>' +
