@@ -9,9 +9,11 @@ var SITE_CONFIG = {
   SITE_URL: 'https://myshishapedia.com',
   SITE_NAME: 'MyShishapedia',
   DEFAULT_LANG: 'en',          // x-default i jezik za posjetioce koji nisu sa ex-YU govornog područja
-  LANGS: ['bs', 'en'],
+  LANGS: ['bs', 'en', 'de'],
   // Browser jezici koji idu na bosansku verziju kad posjetilac otvori "/"
   BS_BROWSER_LANGS: ['bs', 'hr', 'sr', 'sh'],
+  // Browser jezici koji idu na njemačku verziju
+  DE_BROWSER_LANGS: ['de'],
   AUTHOR_NAME: 'Graba',
   // Email se u HTML-u nikad ne ispisuje u čistom obliku (zaštita od spam robota).
   AUTHOR_EMAIL: 'grabafaceit@gmail.com',

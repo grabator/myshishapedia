@@ -461,6 +461,7 @@ button { cursor: pointer; }
 .hero__inner {
   position: relative;
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: 12px;
   container-type: inline-size;
 }
@@ -480,7 +481,7 @@ button { cursor: pointer; }
   margin: 0.35em 0 0.3em;
   font-weight: 800;
   /* Najduža riječ ("rastavljen") mora stati u kolonu: cqi = širina .hero__inner. */
-  font-size: min(clamp(2.9rem, 1.1rem + 7.6vw, 9.25rem), calc(100cqi / 7.2));
+  font-size: min(clamp(2.9rem, 1.1rem + 7.6vw, 9.25rem), calc(100cqi / 7.6));
   line-height: 0.9;
   letter-spacing: -0.04em;
   outline: none;
@@ -488,6 +489,11 @@ button { cursor: pointer; }
 @media (min-width: 1100px) {
   /* "na sastojke." (12 znakova) staje u jedan red */
   .hero__title { font-size: min(7.5rem, calc(61cqi / 8.9)); }
+}
+/* Njemački: "Geschmack," i "in seine Teile." su duži od bs/en linija */
+:lang(de) .hero__title { font-size: min(clamp(2.4rem, 0.9rem + 6.4vw, 7.75rem), calc(100cqi / 10.3)); }
+@media (min-width: 1100px) {
+  :lang(de) .hero__title { font-size: min(6.25rem, calc(61cqi / 10.6)); }
 }
 .hero__title .line {
   display: block;
@@ -1086,6 +1092,9 @@ button { cursor: pointer; }
   line-height: 0.98;
   letter-spacing: -0.04em;
 }
+/* Njemačke složenice ("Geschmacksprofil") su duge: manji font i rastavljanje kao rezerva */
+:lang(de) .fsec__title { font-size: clamp(1.75rem, 0.8rem + 4.2vw, 4.75rem); }
+:lang(de) h1, :lang(de) h2, :lang(de) h3 { overflow-wrap: break-word; hyphens: auto; }
 .fsec__intro {
   margin: 0;
   font-size: 1.0625rem;
@@ -1859,6 +1868,11 @@ button { cursor: pointer; }
   top: 3px;
   font-size: clamp(0.68rem, 1vw, 0.8rem);
   color: var(--c-muted);
+}
+/* Njemačke oznake su duže: na uskom ekranu manji naziv i opis u dva reda */
+@media (max-width: 599px) {
+  :lang(de) .hk-label b { font-size: 0.7rem; letter-spacing: 0.02em; }
+  :lang(de) .hk-label small { width: 7.5em; white-space: normal; line-height: 1.25; }
 }
 .hk-label--t::before { right: auto; left: 0; top: auto; bottom: 4px; width: 1px; height: clamp(16px, 3vw, 30px); background: linear-gradient(0deg, var(--c-accent), transparent); }
 .hk-label--t b,

@@ -197,7 +197,7 @@
       ctx.fillText(t('profile.' + k), x, cy);
       ctx.textAlign = 'right';
       ctx.fillStyle = th.text;
-      ctx.fillText(String(Math.round(v * 10) / 10).replace('.', MSP.lang === 'bs' ? ',' : '.'), x + w, cy);
+      ctx.fillText(String(Math.round(v * 10) / 10).replace('.', MSP.decComma() ? ',' : '.'), x + w, cy);
       var bx = x + w * 0.42;
       var bw = w * 0.5;
       var bh = Math.round(rowH * 0.26);

@@ -121,6 +121,7 @@
     var d = new Date(iso);
     var time = pad(d.getHours()) + ':' + pad(d.getMinutes());
     if (bs) return d.getDate() + '.' + (d.getMonth() + 1) + '.' + d.getFullYear() + '.' + (withTime ? ' · ' + time : '');
+    if (MSP.lang === 'de') return d.getDate() + '.' + (d.getMonth() + 1) + '.' + d.getFullYear() + (withTime ? ', ' + time : '');
     var day = d.getDate() + ' ' + ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][d.getMonth()] + ' ' + d.getFullYear();
     return day + (withTime ? ', ' + time : '');
   }

@@ -120,6 +120,7 @@
         similarQ: 'Koji su okusi slični okusu {name}?',
         similarA: 'Slični su mu {list}.',
         note: 'Ocjene su procjena na skali od 0 do 10 i mogu se razlikovati od tvog iskustva.',
+        and: ' i ',
         brandFromQ: 'Odakle je {name}?',
         brandFromA: '{name} je brend iz zemlje: {country}.',
         brandCountQ: 'Koliko {name} okusa ima na MyShishapediji?',
@@ -1405,6 +1406,7 @@
         similarQ: 'Which flavors are similar to {name}?',
         similarA: 'Similar flavors are {list}.',
         note: 'Ratings are estimates on a 0 to 10 scale and may differ from your own experience.',
+        and: ' and ',
         brandFromQ: 'Where is {name} from?',
         brandFromA: '{name} is a brand from {country}.',
         brandCountQ: 'How many {name} flavors are on MyShishapedia?',
@@ -2584,12 +2586,12 @@
   };
 
   MSP.strings = STRINGS;
-  MSP.LANGS = ['bs', 'en'];
+  MSP.LANGS = ['bs', 'en', 'de'];
   if (!MSP.lang) MSP.lang = 'bs';
 
   function lookup(path, lang) {
     var parts = String(path).split('.');
-    var node = STRINGS[lang || MSP.lang] || STRINGS.bs;
+    var node = STRINGS[lang || MSP.lang] || STRINGS.en;
     for (var i = 0; i < parts.length; i++) {
       if (node == null) break;
       node = node[parts[i]];
@@ -2616,12 +2618,12 @@
 
   /**
    * Množina. Bosanski: one (1, 21...), few (2-4, 22-24...), other.
-   * Engleski: one (1), other.
+   * Engleski i njemački: one (1), other.
    */
   MSP.plural = function (path, n, vars) {
     var forms = lookup(path) || {};
     var form = 'other';
-    if (MSP.lang === 'en') {
+    if (MSP.lang !== 'bs') {
       form = n === 1 ? 'one' : 'other';
     } else {
       var m10 = n % 10;
@@ -2642,14 +2644,51 @@
   };
 
   /**
+   * Prijevod sadržaja za jezike koji nisu u samim podacima (npr. njemački): rječnik
+   * MSP.dict[lang] = { 'engleski tekst': 'prijevod' } (data/de.js). Niz se prevodi član po član.
+   * Vraća null ako bilo šta fali (build to prijavi kao grešku).
+   */
+  MSP.dict = MSP.dict || {};
+  MSP.tr = function (en, lang) {
+    var D = MSP.dict[lang];
+    if (!D || en == null) return null;
+    if (Array.isArray(en)) {
+      var out = [];
+      for (var i = 0; i < en.length; i++) {
+        var x = typeof en[i] === 'string' ? D[en[i]] : null;
+        if (x == null) return null;
+        out.push(x);
+      }
+      return out;
+    }
+    return typeof en === 'string' && D[en] != null ? D[en] : null;
+  };
+
+  /**
    * Lokalizuje vrijednost iz data fajlova: { bs: ..., en: ... } -> vrijednost na trenutnom
-   * jeziku (ako prevoda nema, koristi bosanski). Obične vrijednosti vraća nepromijenjene.
+   * jeziku. Za jezik koji nije u podacima traži prijevod engleskog teksta u MSP.dict,
+   * a ako ga nema, koristi engleski. Obične vrijednosti vraća nepromijenjene.
    */
   MSP.L = function (v, lang) {
     if (v && typeof v === 'object' && !Array.isArray(v) && ('bs' in v || 'en' in v)) {
       var l = lang || MSP.lang;
-      return v[l] != null ? v[l] : v.bs;
+      if (v[l] != null) return v[l];
+      if (l !== 'bs' && l !== 'en') {
+        var tr = MSP.tr(v.en, l);
+        if (tr != null) return tr;
+        return v.en != null ? v.en : v.bs;
+      }
+      return v.bs;
     }
     return v;
   };
+
+  /** Veznik za nabrajanje na trenutnom jeziku (" i ", " and ", " und "). */
+  MSP.and = function () { return lookup('faq.and') || ' and '; };
+
+  /** Mala slova za nazive u rečenici; njemački imenice piše velikim slovom, pa ostaje kako jeste. */
+  MSP.lower = function (s) { s = String(s == null ? '' : s); return MSP.lang === 'de' ? s : s.toLowerCase(); };
+
+  /** Decimalni zarez (bs, de) ili tačka (en). */
+  MSP.decComma = function () { return MSP.lang !== 'en'; };
 })(typeof window !== 'undefined' ? window : globalThis);

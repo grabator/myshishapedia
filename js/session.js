@@ -48,7 +48,7 @@
 
   function norm(s) { return String(s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/đ/g, 'd'); }
   function clamp(v, a, b) { return v < a ? a : v > b ? b : v; }
-  function num(v, d) { return (Math.round(v * Math.pow(10, d)) / Math.pow(10, d)).toFixed(d).replace('.', bs ? ',' : '.'); }
+  function num(v, d) { return (Math.round(v * Math.pow(10, d)) / Math.pow(10, d)).toFixed(d).replace('.', MSP.decComma() ? ',' : '.'); }
 
   /** Boja okusa koja se jasno vidi preko tamne fotografije. */
   function glowColor(hex) {

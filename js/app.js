@@ -15,7 +15,7 @@
 
   var MSP = window.MSP;
   var root = document.documentElement;
-  MSP.lang = root.lang === 'en' ? 'en' : 'bs';
+  MSP.lang = MSP.LANGS.indexOf(root.lang) !== -1 ? root.lang : 'bs';
 
   var V = MSP.V;
   var t = MSP.t;
@@ -776,7 +776,7 @@
       var fl = V.flavors().slice().sort(function () { return Math.random() - 0.5; });
       var out = [];
       fl.slice(0, 5).forEach(function (f) { out.push(f.name); });
-      fl.slice(5, 8).forEach(function (f) { if (f.ingredients[0]) out.push(MSP.L(f.ingredients[0].name).toLowerCase()); });
+      fl.slice(5, 8).forEach(function (f) { if (f.ingredients[0]) out.push(MSP.lower(MSP.L(f.ingredients[0].name))); });
       out.push(pick(V.brands()).name);
       return out.sort(function () { return Math.random() - 0.5; });
     }
@@ -907,8 +907,8 @@
     var lang = a.getAttribute('data-lang');
     var p = ctx.params();
     if (page === 'guide') {
-      var n = p.get('korak') || p.get('step');
-      if (n) href += '?' + (lang === 'bs' ? 'korak' : 'step') + '=' + encodeURIComponent(n);
+      var n = p.get('korak') || p.get('step') || p.get('schritt');
+      if (n) href += '?' + V.stepParam(lang) + '=' + encodeURIComponent(n);
     } else if (page === 'mixer' && p.get('a')) {
       href += location.search;
     }
