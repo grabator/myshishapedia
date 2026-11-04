@@ -5222,6 +5222,19 @@ html:not(.js) .share-btn { display: none; }
   .lang--header .lang__opt { min-width: 34px; min-height: 34px; padding: 0 7px; }
   .menu-btn { min-width: 40px; min-height: 40px; padding: 0 11px; }
 }
+/* Tri jezika (BHS, EN, DE) + pretraga + meni: na uskim telefonima sve mora stati u jedan red */
+@media (max-width: 400px) {
+  .site-header__inner { gap: 5px; padding-left: 12px; padding-right: 12px; }
+  .logo { font-size: 0.98rem; }
+  .lang--header .lang__opt { min-width: 28px; padding: 0 5px; font-size: 0.75rem; letter-spacing: 0.02em; }
+  .menu-btn { padding: 0 10px; }
+}
+@media (max-width: 340px) {
+  .logo { font-size: 0.86rem; }
+  .site-header__inner > .search-btn { width: 36px; height: 36px; }
+  .lang--header .lang__opt { min-width: 26px; min-height: 32px; padding: 0 5px; }
+  .menu-btn { min-width: 36px; min-height: 36px; padding: 0 9px; }
+}
 
 
 /* Okus dana: naziv staje u karticu za svaki okus (prilagodi se širini, najviše 2 reda) */
@@ -8775,6 +8788,13 @@ a.smx__card:hover { border-color: var(--c-line-strong); transform: translateY(-2
 .art-table thead th { font-family: var(--font-display); font-size: 1.1rem; }
 .art-table tbody th { color: var(--c-muted); font-weight: 600; }
 .art-table a { color: var(--c-text); text-decoration-color: color-mix(in srgb, var(--c-accent) 55%, transparent); text-underline-offset: 3px; }
+@media (max-width: 599px) {
+  /* dugi nazivi brendova ("187 Strassenbande") se prelamaju, da tabela stane u širinu ekrana */
+  .art-table { font-size: 0.9rem; table-layout: fixed; }
+  .art-table th, .art-table td { padding: 10px 8px; overflow-wrap: break-word; }
+  .art-table thead th { font-size: 0.95rem; hyphens: auto; }
+  .art-table thead th:first-child, .art-table tbody th { width: 34%; }
+}
 .art-group { margin-top: 30px; }
 .art-group__h { max-width: 46rem; margin: 0 auto; font-family: var(--font-display); font-weight: 800; font-size: 1.3rem; letter-spacing: -0.02em; }
 .art-group .art-grid { margin-top: 14px; }

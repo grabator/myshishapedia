@@ -1,0 +1,415 @@
+[
+  {
+    "id": "187-siwlez", "brand": "187-strassenbande", "name": "Siwlez",
+    "ing": ["jagoda:7", "limeta:6", "narandza:6", "limun:6", "grozdic:5:Ribizla|Currant|Johannisbeere:#2a1630"],
+    "profile": { "sweetness": 7, "freshness": 7, "fruitiness": 9, "cooling": 0, "strength": 5 },
+    "short": {
+      "bs": "Jagoda sa limetom, narandžom, limunom i ribizlom.",
+      "en": "Strawberry with lime, orange, lemon and currant.",
+      "de": "Erdbeere mit Limette, Orange, Zitrone und Johannisbeere."
+    },
+    "desc": {
+      "bs": ["Siwlez spaja jagodu sa tri citrusa, limetom, narandžom i limunom, i ribizlom u pozadini.", "Jagoda daje slatkoću, citrusi svježinu i kiselinu, a ribizla tamniju, voćnu notu.", "Okus podsjeća na voćni punč i dobar je kad želiš nešto živo i kiselkasto."],
+      "en": ["Siwlez pairs strawberry with three citrus fruits, lime, orange and lemon, plus currant in the background.", "The strawberry brings sweetness, the citrus brings freshness and tang, and the currant adds a darker fruity note.", "It recalls a fruit punch and works well when you want something lively and tangy."],
+      "de": ["Siwlez verbindet Erdbeere mit drei Zitrusfrüchten, Limette, Orange und Zitrone, dazu Johannisbeere im Hintergrund.", "Die Erdbeere bringt Süße, die Zitrus Frische und Säure, und die Johannisbeere eine dunklere, fruchtige Note.", "Er erinnert an einen Fruchtpunsch und passt gut, wenn du etwas Lebendiges und Säuerliches willst."]
+    },
+    "mix": {
+      "bs": ["Siwlez i malo mente, 80/20, za svježiji punč.", "Siwlez i Pink Mellow, za ljetni citrusni mix.", "Siwlez i Beach Vibez, za tropski voćni kotlić."],
+      "en": ["Siwlez with a little mint, 80/20, for a fresher punch.", "Siwlez with Pink Mellow for a summer citrus mix.", "Siwlez with Beach Vibez for a tropical fruit bowl."],
+      "de": ["Siwlez mit etwas Minze, 80/20, für einen frischeren Punsch.", "Siwlez mit Pink Mellow für einen Sommer-Zitrus-Mix.", "Siwlez mit Beach Vibez für einen tropischen Fruchtkopf."]
+    }
+  },
+  {
+    "id": "187-oldschool-bang", "brand": "187-strassenbande", "name": "Oldschool Bang",
+    "ing": ["jabuka:8:Dvostruka jabuka|Double apple|Doppelapfel:#d8323c", "anis:6"],
+    "profile": { "sweetness": 6, "freshness": 3, "fruitiness": 6, "cooling": 0, "strength": 5 },
+    "tags": ["klasicni", "vocni", "zacinski"],
+    "short": {
+      "bs": "Klasična dvostruka jabuka sa anisom.",
+      "en": "Classic double apple with anise.",
+      "de": "Klassischer Doppelapfel mit Anis."
+    },
+    "desc": {
+      "bs": ["Oldschool Bang je 187-ica verzija klasika: dvostruka jabuka sa anisom.", "Anis daje toplu, blago začinsku notu, pa je okus puniji od obične jabuke.", "Kao što ime kaže, ovo je za one koji vole stari, tradicionalni stil nargile."],
+      "en": ["Oldschool Bang is 187's take on the classic: double apple with anise.", "The anise adds a warm, gently spiced note, so the flavor is fuller than plain apple.", "As the name says, it is for people who like the old, traditional hookah style."],
+      "de": ["Oldschool Bang ist die Version von 187 des Klassikers: Doppelapfel mit Anis.", "Der Anis gibt eine warme, leicht würzige Note, deshalb ist der Geschmack voller als einfacher Apfel.", "Wie der Name sagt, ist er für alle, die den alten, traditionellen Shisha-Stil mögen."]
+    },
+    "mix": {
+      "bs": ["Oldschool Bang i Mint, 70/30, za klasičnu jabuku sa mentom.", "Oldschool Bang i Quelle, za jabuku i grožđe.", "Oldschool Bang sam, ako želiš čist tradicionalan okus."],
+      "en": ["Oldschool Bang with Mint, 70/30, for classic apple with mint.", "Oldschool Bang with Quelle for apple and grape.", "Oldschool Bang on its own if you want a pure traditional taste."],
+      "de": ["Oldschool Bang mit Mint, 70/30, für klassischen Apfel mit Minze.", "Oldschool Bang mit Quelle für Apfel und Traube.", "Oldschool Bang pur, wenn du einen reinen traditionellen Geschmack willst."]
+    }
+  },
+  {
+    "id": "187-quelle", "brand": "187-strassenbande", "name": "Quelle",
+    "ing": ["grozdje:8", "menta:6"],
+    "profile": { "sweetness": 7, "freshness": 7, "fruitiness": 8, "cooling": 5, "strength": 5 },
+    "short": {
+      "bs": "Grožđe sa mentom u 187 stilu.",
+      "en": "Grape with mint, 187 style.",
+      "de": "Traube mit Minze im Stil von 187."
+    },
+    "desc": {
+      "bs": ["Quelle je spoj grožđa i mente, jedne od najpoznatijih kombinacija u svijetu nargile.", "Grožđe je slatko i naprijed, a menta osvježava izdah.", "Siguran izbor kad želiš poznat okus na njemačkom svijetlom listu."],
+      "en": ["Quelle is a pairing of grape and mint, one of the best-known combinations in the hookah world.", "The grape is sweet and up front, and the mint freshens the exhale.", "A safe pick when you want a familiar flavor on German blonde leaf."],
+      "de": ["Quelle ist eine Kombination aus Traube und Minze, eine der bekanntesten Kombinationen in der Shisha-Welt.", "Die Traube ist süß und vorne, und die Minze erfrischt das Ausatmen.", "Eine sichere Wahl, wenn du einen bekannten Geschmack auf deutschem hellem Tabak willst."]
+    },
+    "mix": {
+      "bs": ["Quelle i Oldschool Bang, za grožđe i jabuku.", "Quelle i Juicy Puzzy, za tamno voće.", "Quelle i malo limuna, za kiselkastije grožđe."],
+      "en": ["Quelle with Oldschool Bang for grape and apple.", "Quelle with Juicy Puzzy for dark fruit.", "Quelle with a little lemon for a tangier grape."],
+      "de": ["Quelle mit Oldschool Bang für Traube und Apfel.", "Quelle mit Juicy Puzzy für dunkles Obst.", "Quelle mit etwas Zitrone für eine säuerlichere Traube."]
+    }
+  },
+  {
+    "id": "187-juicy-puzzy", "brand": "187-strassenbande", "name": "Juicy Puzzy",
+    "ing": ["borovnica:8", "limun:6", "med:5"],
+    "profile": { "sweetness": 8, "freshness": 6, "fruitiness": 8, "cooling": 0, "strength": 5 },
+    "short": {
+      "bs": "Borovnica i limun, zaobljeni slatkoćom meda.",
+      "en": "Blueberry and lemon, rounded off with the sweetness of honey.",
+      "de": "Heidelbeere und Zitrone, abgerundet mit der Süße von Honig."
+    },
+    "desc": {
+      "bs": ["Juicy Puzzy spaja borovnicu, limun i med.", "Borovnica je glavna, limun joj daje svježinu i blagu kiselinu, a med toplu, zaobljenu slatkoću.", "Okus podsjeća na limunadu od borovnice zaslađenu medom."],
+      "en": ["Juicy Puzzy combines blueberry, lemon and honey.", "The blueberry leads, the lemon gives it freshness and a light tang, and the honey adds a warm, rounded sweetness.", "It recalls a blueberry lemonade sweetened with honey."],
+      "de": ["Juicy Puzzy verbindet Heidelbeere, Zitrone und Honig.", "Die Heidelbeere ist vorne, die Zitrone gibt ihr Frische und leichte Säure, und der Honig eine warme, runde Süße.", "Er erinnert an eine Heidelbeer-Limonade, mit Honig gesüßt."]
+    },
+    "mix": {
+      "bs": ["Juicy Puzzy i malo mente, 80/20, za svježiju limunadu.", "Juicy Puzzy i Quelle, za tamno voće.", "Juicy Puzzy i Siwlez, za voćni punč."],
+      "en": ["Juicy Puzzy with a little mint, 80/20, for a fresher lemonade.", "Juicy Puzzy with Quelle for dark fruit.", "Juicy Puzzy with Siwlez for a fruit punch."],
+      "de": ["Juicy Puzzy mit etwas Minze, 80/20, für eine frischere Limonade.", "Juicy Puzzy mit Quelle für dunkles Obst.", "Juicy Puzzy mit Siwlez für einen Fruchtpunsch."]
+    }
+  },
+  {
+    "id": "187-pink-mellow", "brand": "187-strassenbande", "name": "Pink Mellow",
+    "ing": ["lubenica:7", "grejpfrut:7", "limeta:6"],
+    "profile": { "sweetness": 6, "freshness": 8, "fruitiness": 8, "cooling": 0, "strength": 5 },
+    "short": {
+      "bs": "Lubenica, grejpfrut i limeta u svježem, kiselkastom spoju.",
+      "en": "Watermelon, grapefruit and lime in a fresh, tangy blend.",
+      "de": "Wassermelone, Grapefruit und Limette in einer frischen, säuerlichen Mischung."
+    },
+    "desc": {
+      "bs": ["Pink Mellow spaja lubenicu, grejpfrut i limetu.", "Lubenica daje sočnu slatkoću, a grejpfrut i limeta svježinu i blagu gorčinu citrusa.", "Okus je lagan i ljetni, više osvježavajući nego sladak."],
+      "en": ["Pink Mellow combines watermelon, grapefruit and lime.", "The watermelon brings juicy sweetness, and the grapefruit and lime bring freshness and a light citrus bitterness.", "The flavor is light and summery, more refreshing than sweet."],
+      "de": ["Pink Mellow verbindet Wassermelone, Grapefruit und Limette.", "Die Wassermelone bringt saftige Süße, Grapefruit und Limette bringen Frische und eine leichte Zitrus-Bitterkeit.", "Der Geschmack ist leicht und sommerlich, eher erfrischend als süß."]
+    },
+    "mix": {
+      "bs": ["Pink Mellow i malo mente, 80/20, za ljetni kotlić.", "Pink Mellow i Siwlez, za citrusni punč.", "Pink Mellow i I Love Hamburg, za više lubenice."],
+      "en": ["Pink Mellow with a little mint, 80/20, for a summer bowl.", "Pink Mellow with Siwlez for a citrus punch.", "Pink Mellow with I Love Hamburg for more watermelon."],
+      "de": ["Pink Mellow mit etwas Minze, 80/20, für einen Sommerkopf.", "Pink Mellow mit Siwlez für einen Zitrus-Punsch.", "Pink Mellow mit I Love Hamburg für mehr Wassermelone."]
+    }
+  },
+  {
+    "id": "187-sparkling-peaz", "brand": "187-strassenbande", "name": "Sparkling Peaz",
+    "ing": ["breskva:8", "caj:6:Ledeni čaj|Iced tea|Eistee:#c8843a"],
+    "profile": { "sweetness": 7, "freshness": 7, "fruitiness": 7, "cooling": 0, "strength": 5 },
+    "tags": ["vocni", "pice", "osvjezavajuci", "ljetni"],
+    "mood": "fizz",
+    "short": {
+      "bs": "Ledeni čaj od breskve u obliku duhana za nargilu.",
+      "en": "Peach iced tea as a shisha flavor.",
+      "de": "Pfirsich-Eistee als Shisha-Geschmack."
+    },
+    "desc": {
+      "bs": ["Sparkling Peaz je okus ledenog čaja od breskve.", "Breskva je sočna i slatka, a čaj joj daje onu laganu, osvježavajuću notu koju ima ledeni čaj.", "Dobar je za ljeto i za one koji vole okuse pića."],
+      "en": ["Sparkling Peaz is a peach iced tea flavor.", "The peach is juicy and sweet, and the tea gives it the light, refreshing note iced tea has.", "Good for summer and for anyone who likes drink flavors."],
+      "de": ["Sparkling Peaz ist ein Geschmack nach Pfirsich-Eistee.", "Der Pfirsich ist saftig und süß, und der Tee gibt ihm die leichte, erfrischende Note, die Eistee hat.", "Gut für den Sommer und für alle, die Getränke-Geschmäcker mögen."]
+    },
+    "mix": {
+      "bs": ["Sparkling Peaz i malo mente, 80/20, za hladniji čaj.", "Sparkling Peaz i limun, za čaj od breskve i limuna.", "Sparkling Peaz i Pink Mellow, za ljetno piće."],
+      "en": ["Sparkling Peaz with a little mint, 80/20, for a colder tea.", "Sparkling Peaz with lemon for a peach lemon tea.", "Sparkling Peaz with Pink Mellow for a summer drink."],
+      "de": ["Sparkling Peaz mit etwas Minze, 80/20, für einen kälteren Tee.", "Sparkling Peaz mit Zitrone für einen Pfirsich-Zitronen-Tee.", "Sparkling Peaz mit Pink Mellow für ein Sommergetränk."]
+    }
+  },
+  {
+    "id": "187-glacier", "brand": "187-strassenbande", "name": "Glacier",
+    "ing": ["bombon:6:Ledeni bombon|Ice candy|Eisbonbon:#cdefff", "kristal:8"],
+    "profile": { "sweetness": 6, "freshness": 9, "fruitiness": 1, "cooling": 9, "strength": 5 },
+    "tags": ["ledeni", "bombon"],
+    "short": {
+      "bs": "Ledeni bombon: slatko i jako hladno.",
+      "en": "Ice candy: sweet and very cold.",
+      "de": "Eisbonbon: süß und sehr kalt."
+    },
+    "desc": {
+      "bs": ["Glacier je okus ledenog bombona: slatka baza i jako hlađenje.", "Voća tu nema, pa je okus čist, a hladnoća je glavna.", "Najviše se koristi u miksevima, da bilo kojem voću doda led."],
+      "en": ["Glacier is an ice candy flavor: a sweet base and strong cooling.", "There is no fruit, so the flavor is clean and the cold is the main thing.", "It is used most in mixes, to add ice to any fruit."],
+      "de": ["Glacier ist ein Eisbonbon-Geschmack: eine süße Basis und starke Kühle.", "Es gibt kein Obst, deshalb ist der Geschmack klar, und die Kälte steht im Mittelpunkt.", "Er wird am meisten in Mixen genutzt, um jeder Frucht Eis zu geben."]
+    },
+    "mix": {
+      "bs": ["Glacier i Pink Mellow, 20/80, za ledenu lubenicu.", "Glacier i Juicy Puzzy, 20/80, za ledenu borovnicu.", "Glacier i Siwlez, 20/80, za ledeni punč."],
+      "en": ["Glacier with Pink Mellow, 20/80, for an icy watermelon.", "Glacier with Juicy Puzzy, 20/80, for an icy blueberry.", "Glacier with Siwlez, 20/80, for an icy punch."],
+      "de": ["Glacier mit Pink Mellow, 20/80, für eine eisige Wassermelone.", "Glacier mit Juicy Puzzy, 20/80, für eine eisige Heidelbeere.", "Glacier mit Siwlez, 20/80, für einen eisigen Punsch."]
+    },
+    "mixRole": "cooler"
+  },
+
+  {
+    "id": "holster-ice-bomb", "brand": "holster", "name": "Ice Bomb",
+    "ing": ["menta:7", "kristal:8", "bombon:4:Slatki bombon|Sweet candy|Süßer Bonbon:#e8f6ff"],
+    "profile": { "sweetness": 5, "freshness": 9, "fruitiness": 1, "cooling": 9, "strength": 5 },
+    "tags": ["mint", "ledeni", "bombon"],
+    "short": {
+      "bs": "Menta i jak led sa slatkom notom bombona.",
+      "en": "Mint and strong ice with a sweet candy note.",
+      "de": "Minze und starkes Eis mit süßer Bonbon-Note."
+    },
+    "desc": {
+      "bs": ["Ice Bomb je menta sa jakim ledom i slatkom notom bombona u pozadini.", "Hladnoća je glavna, a slatkoća je tu da okus ne bude oštar kao čista menta.", "Odličan je sam za vruće dane, a u miksevima doda led bilo kojem voću."],
+      "en": ["Ice Bomb is mint with strong ice and a sweet candy note in the background.", "The cold leads, and the sweetness is there so the flavor is not as sharp as plain mint.", "Great on its own for hot days, and in mixes it adds ice to any fruit."],
+      "de": ["Ice Bomb ist Minze mit starkem Eis und einer süßen Bonbon-Note im Hintergrund.", "Die Kälte steht vorne, und die Süße sorgt dafür, dass der Geschmack nicht so scharf ist wie reine Minze.", "Pur super für heiße Tage, und in Mixen gibt er jeder Frucht Eis."]
+    },
+    "mix": {
+      "bs": ["Ice Bomb i Ice Kaktuz, za ledeni kaktus.", "Ice Bomb i Miss Joosy, 30/70, za ledene bobice.", "Ice Bomb i Blue Punch, 30/70, za ledenu borovnicu."],
+      "en": ["Ice Bomb with Ice Kaktuz for an icy cactus.", "Ice Bomb with Miss Joosy, 30/70, for icy berries.", "Ice Bomb with Blue Punch, 30/70, for an icy blueberry."],
+      "de": ["Ice Bomb mit Ice Kaktuz für einen eisigen Kaktus.", "Ice Bomb mit Miss Joosy, 30/70, für eisige Beeren.", "Ice Bomb mit Blue Punch, 30/70, für eine eisige Heidelbeere."]
+    }
+  },
+  {
+    "id": "holster-grpe-mnt", "brand": "holster", "name": "Grpe Mnt",
+    "ing": ["grozdje:8:Tamno grožđe|Dark grape|Dunkle Traube:#4a1f5a", "menta:6"],
+    "profile": { "sweetness": 7, "freshness": 7, "fruitiness": 8, "cooling": 5, "strength": 5 },
+    "short": {
+      "bs": "Slatko tamno grožđe sa osvježavajućom mentom.",
+      "en": "Sweet dark grape with refreshing mint.",
+      "de": "Süße dunkle Traube mit erfrischender Minze."
+    },
+    "desc": {
+      "bs": ["Grpe Mnt je Holsterova verzija grožđa sa mentom, napisana na njihov način, bez samoglasnika.", "Slatko tamno grožđe je naprijed, a menta daje svjež završetak.", "Klasičan okus, dobar i za početnike."],
+      "en": ["Grpe Mnt is Holster's take on grape mint, spelled their own way, without the vowels.", "Sweet dark grape leads, and the mint gives a fresh finish.", "A classic flavor, good for beginners too."],
+      "de": ["Grpe Mnt ist die Version von Holster von Traube mit Minze, auf ihre eigene Art geschrieben, ohne Vokale.", "Süße dunkle Traube ist vorne, und die Minze gibt einen frischen Abgang.", "Ein klassischer Geschmack, auch gut für Einsteiger."]
+    },
+    "mix": {
+      "bs": ["Grpe Mnt i Blue Punch, za tamno voće.", "Grpe Mnt i Ice Bomb, 70/30, za ledeno grožđe.", "Grpe Mnt i Twenty Five, za grožđe i jabuku."],
+      "en": ["Grpe Mnt with Blue Punch for dark fruit.", "Grpe Mnt with Ice Bomb, 70/30, for an icy grape.", "Grpe Mnt with Twenty Five for grape and apple."],
+      "de": ["Grpe Mnt mit Blue Punch für dunkles Obst.", "Grpe Mnt mit Ice Bomb, 70/30, für eine eisige Traube.", "Grpe Mnt mit Twenty Five für Traube und Apfel."]
+    }
+  },
+  {
+    "id": "holster-miss-joosy", "brand": "holster", "name": "Miss Joosy",
+    "ing": ["jagoda:8", "malina:7"],
+    "profile": { "sweetness": 7, "freshness": 6, "fruitiness": 9, "cooling": 0, "strength": 5 },
+    "short": {
+      "bs": "Jagoda i malina, sočne i slatke.",
+      "en": "Strawberry and raspberry, juicy and sweet.",
+      "de": "Erdbeere und Himbeere, saftig und süß."
+    },
+    "desc": {
+      "bs": ["Miss Joosy spaja dvije crvene bobice: jagodu i malinu.", "Jagoda daje slatkoću, a malina blagu kiselinu, pa okus nije previše sladak.", "Dobar je sam i kao voćna baza za mikseve sa mentom ili ledom."],
+      "en": ["Miss Joosy brings together two red berries: strawberry and raspberry.", "The strawberry brings sweetness and the raspberry a light tartness, so the flavor is not too sweet.", "Good on its own and as a fruity base for mixes with mint or ice."],
+      "de": ["Miss Joosy vereint zwei rote Beeren: Erdbeere und Himbeere.", "Die Erdbeere bringt Süße und die Himbeere eine leichte Säure, deshalb ist der Geschmack nicht zu süß.", "Gut pur und als fruchtige Basis für Mixe mit Minze oder Eis."]
+    },
+    "mix": {
+      "bs": ["Miss Joosy i Ice Bomb, 70/30, za ledene bobice.", "Miss Joosy i P-Rex, za bobice i breskvu.", "Miss Joosy i Lamoretto, za crveno voće sa limunom."],
+      "en": ["Miss Joosy with Ice Bomb, 70/30, for icy berries.", "Miss Joosy with P-Rex for berries and peach.", "Miss Joosy with Lamoretto for red fruit with lemon."],
+      "de": ["Miss Joosy mit Ice Bomb, 70/30, für eisige Beeren.", "Miss Joosy mit P-Rex für Beeren und Pfirsich.", "Miss Joosy mit Lamoretto für rotes Obst mit Zitrone."]
+    }
+  },
+  {
+    "id": "holster-blue-punch", "brand": "holster", "name": "Blue Punch",
+    "ing": ["borovnica:9"],
+    "profile": { "sweetness": 7, "freshness": 5, "fruitiness": 8, "cooling": 0, "strength": 5 },
+    "short": {
+      "bs": "Borovnica, slatka sa blago kiselkastom notom.",
+      "en": "Blueberry, sweet with a slightly tart note.",
+      "de": "Heidelbeere, süß mit leicht säuerlicher Note."
+    },
+    "desc": {
+      "bs": ["Blue Punch je voćni okus borovnice, sladak sa blago kiselkastom notom.", "Nema mente ni leda, pa se borovnica osjeti čisto.", "Lijepo se slaže sa mentom, ledom i drugim bobicama."],
+      "en": ["Blue Punch is a fruity blueberry flavor, sweet with a slightly tart note.", "There is no mint or ice, so the blueberry comes through cleanly.", "It goes nicely with mint, ice and other berries."],
+      "de": ["Blue Punch ist ein fruchtiger Heidelbeer-Geschmack, süß mit leicht säuerlicher Note.", "Es gibt keine Minze und kein Eis, deshalb kommt die Heidelbeere klar durch.", "Er passt gut zu Minze, Eis und anderen Beeren."]
+    },
+    "mix": {
+      "bs": ["Blue Punch i Ice Bomb, 70/30, za ledenu borovnicu.", "Blue Punch i Miss Joosy, za mix bobica.", "Blue Punch i Grpe Mnt, za tamno voće sa mentom."],
+      "en": ["Blue Punch with Ice Bomb, 70/30, for an icy blueberry.", "Blue Punch with Miss Joosy for a berry mix.", "Blue Punch with Grpe Mnt for dark fruit with mint."],
+      "de": ["Blue Punch mit Ice Bomb, 70/30, für eine eisige Heidelbeere.", "Blue Punch mit Miss Joosy für einen Beeren-Mix.", "Blue Punch mit Grpe Mnt für dunkles Obst mit Minze."]
+    }
+  },
+  {
+    "id": "holster-wild-punch", "brand": "holster", "name": "Wild Punch",
+    "ing": ["kupina:8:Crveno šumsko voće|Red forest berries|Rote Waldbeeren:#a3122a", "kristal:6"],
+    "profile": { "sweetness": 7, "freshness": 7, "fruitiness": 9, "cooling": 6, "strength": 5 },
+    "short": {
+      "bs": "Slatko crveno šumsko voće sa hladnim mentolom.",
+      "en": "Sweet red forest berries with cool menthol.",
+      "de": "Süße rote Waldbeeren mit kühlem Menthol."
+    },
+    "desc": {
+      "bs": ["Wild Punch spaja slatko, voćno crveno šumsko voće sa hladnim mentolom.", "Bobice daju sočnu slatkoću, a mentol svježinu koja se osjeti na izdahu.", "Dobar je za one koji vole voće sa ledom, ali ne žele samo mentu."],
+      "en": ["Wild Punch combines sweet, fruity red forest berries with cool menthol.", "The berries bring juicy sweetness, and the menthol a freshness you feel on the exhale.", "Good for people who like fruit on ice but do not want plain mint."],
+      "de": ["Wild Punch verbindet süße, fruchtige rote Waldbeeren mit kühlem Menthol.", "Die Beeren bringen saftige Süße, und das Menthol eine Frische, die man beim Ausatmen spürt.", "Gut für alle, die Obst mit Eis mögen, aber keine reine Minze wollen."]
+    },
+    "mix": {
+      "bs": ["Wild Punch i Miss Joosy, za više jagode i maline.", "Wild Punch i Blue Punch, za ledene bobice.", "Wild Punch i limun, za kiselkastiji punč."],
+      "en": ["Wild Punch with Miss Joosy for more strawberry and raspberry.", "Wild Punch with Blue Punch for icy berries.", "Wild Punch with lemon for a tangier punch."],
+      "de": ["Wild Punch mit Miss Joosy für mehr Erdbeere und Himbeere.", "Wild Punch mit Blue Punch für eisige Beeren.", "Wild Punch mit Zitrone für einen säuerlicheren Punsch."]
+    }
+  },
+  {
+    "id": "holster-lamoretto", "brand": "holster", "name": "Lamoretto",
+    "ing": ["visnja:7:Višnja|Cherry|Kirsche", "limun:6", "karamel:5:Badem|Almond|Mandel:#d6b48a"],
+    "profile": { "sweetness": 7, "freshness": 5, "fruitiness": 7, "cooling": 0, "strength": 5 },
+    "tags": ["vocni", "desertni", "slatki"],
+    "short": {
+      "bs": "Slatka višnja i svježi limun sa orašastom notom badema.",
+      "en": "Sweet cherry and fresh lemon with a nutty almond note.",
+      "de": "Süße Kirsche und frische Zitrone mit nussiger Mandelnote."
+    },
+    "desc": {
+      "bs": ["Lamoretto spaja slatku višnju, svježi limun i orašastu dubinu badema.", "Badem daje okusu desertni karakter, a limun ga drži svježim.", "Neobičan spoj, dobar kad želiš nešto između voća i deserta."],
+      "en": ["Lamoretto combines sweet cherry, fresh lemon and the nutty depth of almond.", "The almond gives the flavor a dessert-like character, while the lemon keeps it fresh.", "An unusual blend, good when you want something between fruit and dessert."],
+      "de": ["Lamoretto verbindet süße Kirsche, frische Zitrone und die nussige Tiefe von Mandel.", "Die Mandel gibt dem Geschmack einen Dessert-Charakter, während die Zitrone ihn frisch hält.", "Eine ungewöhnliche Mischung, gut, wenn du etwas zwischen Obst und Dessert willst."]
+    },
+    "mix": {
+      "bs": ["Lamoretto i Miss Joosy, za crveno voće.", "Lamoretto i malo mente, 80/20, za svježiji kraj.", "Lamoretto sam, ako želiš puni desertni okus."],
+      "en": ["Lamoretto with Miss Joosy for red fruit.", "Lamoretto with a little mint, 80/20, for a fresher finish.", "Lamoretto on its own if you want the full dessert flavor."],
+      "de": ["Lamoretto mit Miss Joosy für rotes Obst.", "Lamoretto mit etwas Minze, 80/20, für einen frischeren Abgang.", "Lamoretto pur, wenn du den vollen Dessert-Geschmack willst."]
+    }
+  },
+  {
+    "id": "holster-p-rex", "brand": "holster", "name": "P-Rex",
+    "ing": ["breskva:8", "malina:7"],
+    "profile": { "sweetness": 8, "freshness": 5, "fruitiness": 9, "cooling": 0, "strength": 5 },
+    "short": {
+      "bs": "Sočna breskva i slatka malina.",
+      "en": "Juicy peach and sweet raspberry.",
+      "de": "Saftiger Pfirsich und süße Himbeere."
+    },
+    "desc": {
+      "bs": ["P-Rex spaja sočnu breskvu i slatku malinu.", "Breskva je mekana i sočna, a malina joj daje živost i blagu kiselinu.", "Voćan, sladak okus, dobar i sam i u miksevima."],
+      "en": ["P-Rex combines juicy peach and sweet raspberry.", "The peach is soft and juicy, and the raspberry gives it liveliness and a light tartness.", "A fruity, sweet flavor, good on its own and in mixes."],
+      "de": ["P-Rex verbindet saftigen Pfirsich und süße Himbeere.", "Der Pfirsich ist weich und saftig, und die Himbeere gibt ihm Lebendigkeit und leichte Säure.", "Ein fruchtiger, süßer Geschmack, gut pur und in Mixen."]
+    },
+    "mix": {
+      "bs": ["P-Rex i Ice Bomb, 70/30, za ledenu breskvu.", "P-Rex i Miss Joosy, za više bobica.", "P-Rex i Lamoretto, za voćni desert."],
+      "en": ["P-Rex with Ice Bomb, 70/30, for an icy peach.", "P-Rex with Miss Joosy for more berries.", "P-Rex with Lamoretto for a fruity dessert."],
+      "de": ["P-Rex mit Ice Bomb, 70/30, für einen eisigen Pfirsich.", "P-Rex mit Miss Joosy für mehr Beeren.", "P-Rex mit Lamoretto für ein fruchtiges Dessert."]
+    }
+  },
+  {
+    "id": "holster-twenty-five", "brand": "holster", "name": "Twenty Five",
+    "ing": ["jabuka:8:Dvostruka jabuka|Double apple|Doppelapfel:#d8323c", "anis:6"],
+    "profile": { "sweetness": 6, "freshness": 3, "fruitiness": 6, "cooling": 0, "strength": 5 },
+    "tags": ["klasicni", "vocni", "zacinski"],
+    "short": {
+      "bs": "Dvostruka jabuka i anis, klasik na svijetlom listu.",
+      "en": "Double apple and anise, a classic on blonde leaf.",
+      "de": "Doppelapfel und Anis, ein Klassiker auf hellem Tabak."
+    },
+    "desc": {
+      "bs": ["Twenty Five je Holsterova dvostruka jabuka sa anisom.", "Jabuka daje slatkoću, a anis toplu, blago začinsku notu.", "Za one koji vole tradicionalan okus nargile, na blagom svijetlom listu."],
+      "en": ["Twenty Five is Holster's double apple with anise.", "The apple brings sweetness, and the anise a warm, gently spiced note.", "For people who like a traditional hookah taste, on mild blonde leaf."],
+      "de": ["Twenty Five ist der Doppelapfel von Holster mit Anis.", "Der Apfel bringt Süße und der Anis eine warme, leicht würzige Note.", "Für alle, die einen traditionellen Shisha-Geschmack mögen, auf mildem hellem Tabak."]
+    },
+    "mix": {
+      "bs": ["Twenty Five i Grpe Mnt, za jabuku i grožđe sa mentom.", "Twenty Five i malo mente, 80/20, za svježiju jabuku.", "Twenty Five sam, za čist klasičan okus."],
+      "en": ["Twenty Five with Grpe Mnt for apple and grape with mint.", "Twenty Five with a little mint, 80/20, for a fresher apple.", "Twenty Five on its own for a pure classic taste."],
+      "de": ["Twenty Five mit Grpe Mnt für Apfel und Traube mit Minze.", "Twenty Five mit etwas Minze, 80/20, für einen frischeren Apfel.", "Twenty Five pur für einen reinen klassischen Geschmack."]
+    }
+  },
+
+  {
+    "id": "tangiers-cocoa", "brand": "tangiers", "name": "Cocoa",
+    "ing": ["cokolada:9:Kakao|Cocoa|Kakao:#6b3f26"],
+    "profile": { "sweetness": 6, "freshness": 2, "fruitiness": 1, "cooling": 0, "strength": 8 },
+    "tags": ["desertni", "nocni"],
+    "short": {
+      "bs": "Kakao koji podsjeća na čokoladno mlijeko u prahu.",
+      "en": "Cocoa that recalls chocolate milk powder.",
+      "de": "Kakao, der an Kakaopulver für Schokomilch erinnert."
+    },
+    "desc": {
+      "bs": ["Cocoa je Tangiersov okus kakaa, koji podsjeća na čokoladno mlijeko u prahu.", "Nije voćni okus, nego topao i desertni, a na tamnom listu je jači od većine okusa.", "Odličan je u miksevima: sa Horchatom, na primjer, daje okus keksa sa kremom."],
+      "en": ["Cocoa is Tangiers' cocoa flavor, which recalls chocolate milk powder.", "It is not a fruit flavor but a warm, dessert-like one, and on dark leaf it is stronger than most flavors.", "Great in mixes: with Horchata, for example, it gives a cookies and cream taste."],
+      "de": ["Cocoa ist der Kakao-Geschmack von Tangiers, der an Kakaopulver für Schokomilch erinnert.", "Er ist kein fruchtiger, sondern ein warmer Dessert-Geschmack, und auf dunklem Tabak ist er stärker als die meisten Geschmäcker.", "Super in Mixen: Mit Horchata zum Beispiel entsteht ein Geschmack wie Kekse mit Creme."]
+    },
+    "mix": {
+      "bs": ["Cocoa i Horchata, za keks sa kremom.", "Cocoa i Cane Mint, 70/30, za čokoladu sa mentom.", "Cocoa i Maraschino Cherry, za čokoladu sa višnjom."],
+      "en": ["Cocoa with Horchata for cookies and cream.", "Cocoa with Cane Mint, 70/30, for mint chocolate.", "Cocoa with Maraschino Cherry for chocolate cherry."],
+      "de": ["Cocoa mit Horchata für Kekse mit Creme.", "Cocoa mit Cane Mint, 70/30, für Minzschokolade.", "Cocoa mit Maraschino Cherry für Schokolade mit Kirsche."]
+    }
+  },
+  {
+    "id": "tangiers-juicy-peach", "brand": "tangiers", "name": "Juicy Peach",
+    "ing": ["breskva:9"],
+    "profile": { "sweetness": 7, "freshness": 5, "fruitiness": 8, "cooling": 0, "strength": 8 },
+    "short": {
+      "bs": "Slatka, sočna breskva na jakom tamnom listu.",
+      "en": "Sweet, juicy peach on strong dark leaf.",
+      "de": "Süßer, saftiger Pfirsich auf starkem dunklem Tabak."
+    },
+    "desc": {
+      "bs": ["Juicy Peach je slatka, sočna breskva.", "Za razliku od Kashmir Peacha, ovdje nema začina, pa je to čisto voće.", "Tangiers je tamni list, pa je jači od Adalye ili Al Fakhera i više odgovara iskusnijima."],
+      "en": ["Juicy Peach is a sweet, juicy peach.", "Unlike Kashmir Peach, there is no spice here, so it is pure fruit.", "Tangiers is dark leaf, so it is stronger than Adalya or Al Fakher and suits more experienced smokers."],
+      "de": ["Juicy Peach ist ein süßer, saftiger Pfirsich.", "Anders als Kashmir Peach gibt es hier keine Gewürze, deshalb ist er reine Frucht.", "Tangiers ist dunkler Tabak, deshalb ist er stärker als Adalya oder Al Fakher und passt eher zu Erfahreneren."]
+    },
+    "mix": {
+      "bs": ["Juicy Peach i Cane Mint, 70/30, za breskvu sa mentom.", "Juicy Peach i Kashmir Peach, za breskvu sa začinima.", "Juicy Peach i Orange Soda, za voćni sok."],
+      "en": ["Juicy Peach with Cane Mint, 70/30, for peach with mint.", "Juicy Peach with Kashmir Peach for spiced peach.", "Juicy Peach with Orange Soda for a fruit soda."],
+      "de": ["Juicy Peach mit Cane Mint, 70/30, für Pfirsich mit Minze.", "Juicy Peach mit Kashmir Peach für gewürzten Pfirsich.", "Juicy Peach mit Orange Soda für eine Fruchtlimonade."]
+    }
+  },
+
+  {
+    "id": "element-blueberry-yogurt", "brand": "element", "name": "Blueberry Yogurt", "leaf": "light",
+    "ing": ["borovnica:8", "sejk:6:Jogurt|Yogurt|Joghurt:#f6f1e6"],
+    "profile": { "sweetness": 7, "freshness": 5, "fruitiness": 7, "cooling": 0, "strength": 4 },
+    "tags": ["vocni", "bobicasti", "desertni"],
+    "short": {
+      "bs": "Zrela borovnica i kremasti, blago kiselkasti jogurt.",
+      "en": "Ripe blueberry and creamy, slightly tangy yogurt.",
+      "de": "Reife Heidelbeere und cremiger, leicht säuerlicher Joghurt."
+    },
+    "desc": {
+      "bs": ["Blueberry Yogurt je iz Elementove Air linije, najblaže linije ovog brenda.", "Zrela borovnica daje slatkoću, a jogurt kremastu, blago kiselkastu notu.", "Okus podsjeća na voćni jogurt i dobar je za one koji vole blage, kremaste okuse."],
+      "en": ["Blueberry Yogurt is from Element's Air line, the brand's mildest line.", "Ripe blueberry brings sweetness, and the yogurt a creamy, slightly tangy note.", "It recalls a fruit yogurt and suits people who like mild, creamy flavors."],
+      "de": ["Blueberry Yogurt stammt aus der Air-Linie von Element, der mildesten Linie der Marke.", "Reife Heidelbeere bringt Süße, und der Joghurt eine cremige, leicht säuerliche Note.", "Er erinnert an einen Fruchtjoghurt und passt zu allen, die milde, cremige Geschmäcker mögen."]
+    },
+    "mix": {
+      "bs": ["Blueberry Yogurt i malo mente, 80/20, za svježiji jogurt.", "Blueberry Yogurt i Maui, za tropski jogurt.", "Blueberry Yogurt i jagoda, za jogurt od bobica."],
+      "en": ["Blueberry Yogurt with a little mint, 80/20, for a fresher yogurt.", "Blueberry Yogurt with Maui for a tropical yogurt.", "Blueberry Yogurt with strawberry for a berry yogurt."],
+      "de": ["Blueberry Yogurt mit etwas Minze, 80/20, für einen frischeren Joghurt.", "Blueberry Yogurt mit Maui für einen tropischen Joghurt.", "Blueberry Yogurt mit Erdbeere für einen Beerenjoghurt."]
+    }
+  },
+  {
+    "id": "element-maui", "brand": "element", "name": "Maui", "leaf": "light",
+    "ing": ["ananas:8", "papaja:7"],
+    "profile": { "sweetness": 7, "freshness": 6, "fruitiness": 9, "cooling": 0, "strength": 4 },
+    "short": {
+      "bs": "Ananas i papaja, tropski okus iz Air linije.",
+      "en": "Pineapple and papaya, a tropical flavor from the Air line.",
+      "de": "Ananas und Papaya, ein tropischer Geschmack aus der Air-Linie."
+    },
+    "desc": {
+      "bs": ["Maui spaja ananas i papaju, dva tropska voća.", "Ananas daje svježinu i blagu kiselinu, a papaja mekanu, zrelu slatkoću.", "Iz Air linije je, pa je blag i dobar i za one koji tek počinju."],
+      "en": ["Maui combines pineapple and papaya, two tropical fruits.", "The pineapple brings freshness and a light tang, and the papaya a soft, ripe sweetness.", "It is from the Air line, so it is mild and fine for beginners too."],
+      "de": ["Maui verbindet Ananas und Papaya, zwei tropische Früchte.", "Die Ananas bringt Frische und leichte Säure, die Papaya eine weiche, reife Süße.", "Er stammt aus der Air-Linie, deshalb ist er mild und auch für Einsteiger geeignet."]
+    },
+    "mix": {
+      "bs": ["Maui i malo mente, 80/20, za svjež tropski kotlić.", "Maui i Blueberry Yogurt, za tropski jogurt.", "Maui i mango, za još više tropskog voća."],
+      "en": ["Maui with a little mint, 80/20, for a fresh tropical bowl.", "Maui with Blueberry Yogurt for a tropical yogurt.", "Maui with mango for even more tropical fruit."],
+      "de": ["Maui mit etwas Minze, 80/20, für einen frischen tropischen Kopf.", "Maui mit Blueberry Yogurt für einen tropischen Joghurt.", "Maui mit Mango für noch mehr tropisches Obst."]
+    }
+  },
+  {
+    "id": "element-fruit-pulp", "brand": "element", "name": "Fruit Pulp", "leaf": "dark",
+    "ing": ["banana:7", "jabuka:6:Jabuka|Apple|Apfel:#8cc63f", "ananas:6"],
+    "profile": { "sweetness": 7, "freshness": 5, "fruitiness": 9, "cooling": 0, "strength": 7 },
+    "short": {
+      "bs": "Kremasta banana, svježa jabuka i ananas iz Water linije.",
+      "en": "Creamy banana, crisp apple and pineapple from the Water line.",
+      "de": "Cremige Banane, knackiger Apfel und Ananas aus der Water-Linie."
+    },
+    "desc": {
+      "bs": ["Fruit Pulp spaja kremastu bananu, svježu jabuku i kiselkasti ananas.", "Okus podsjeća na gusti voćni sok sa komadićima voća.", "Iz Water linije je, srednje jačine, pa je jači od Air linije i više odgovara iskusnijima."],
+      "en": ["Fruit Pulp combines creamy banana, crisp apple and tangy pineapple.", "It recalls a thick fruit juice with bits of fruit in it.", "It is from the Water line, of medium strength, so it is stronger than the Air line and suits more experienced smokers."],
+      "de": ["Fruit Pulp verbindet cremige Banane, knackigen Apfel und säuerliche Ananas.", "Er erinnert an einen dicken Fruchtsaft mit Fruchtstückchen.", "Er stammt aus der Water-Linie, mittelstark, deshalb ist er stärker als die Air-Linie und passt eher zu Erfahreneren."]
+    },
+    "mix": {
+      "bs": ["Fruit Pulp i malo mente, 80/20, za svježiji sok.", "Fruit Pulp i Maui, za tropski sok.", "Fruit Pulp i jagoda, za voćni smoothie."],
+      "en": ["Fruit Pulp with a little mint, 80/20, for a fresher juice.", "Fruit Pulp with Maui for a tropical juice.", "Fruit Pulp with strawberry for a fruit smoothie."],
+      "de": ["Fruit Pulp mit etwas Minze, 80/20, für einen frischeren Saft.", "Fruit Pulp mit Maui für einen tropischen Saft.", "Fruit Pulp mit Erdbeere für einen Frucht-Smoothie."]
+    }
+  }
+]

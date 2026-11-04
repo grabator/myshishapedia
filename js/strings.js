@@ -1291,7 +1291,7 @@
       root: {
         title: 'MyShishapedia - enciklopedija okusa za nargilu',
         choose: 'Izaberi jezik',
-        bs: 'Bosanski',
+        bs: 'Bosanski / Hrvatski / Srpski',
         en: 'English'
       },
 
@@ -2587,6 +2587,8 @@
 
   MSP.strings = STRINGS;
   MSP.LANGS = ['bs', 'en', 'de'];
+  /** Kratki naziv jezika u prekidaču: bosanska verzija je zajednička za BiH, Hrvatsku i Srbiju. */
+  MSP.LANG_SHORT = { bs: 'BHS', en: 'EN', de: 'DE' };
   if (!MSP.lang) MSP.lang = 'bs';
 
   function lookup(path, lang) {
