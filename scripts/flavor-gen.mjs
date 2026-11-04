@@ -82,7 +82,7 @@ const hex = (h) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16));
 const toHex = (rgb) => '#' + rgb.map((v) => Math.round(Math.max(0, Math.min(255, v))).toString(16).padStart(2, '0')).join('');
 const mix = (a, b, t) => toHex(hex(a).map((v, i) => v + (hex(b)[i] - v) * t));
 const LANGS3 = ['bs', 'en', 'de'];
-const DASH = /[–—]/;
+const DASH = /[\u2013\u2014]/;
 
 function checkText(id, field, v, arr) {
   for (const l of LANGS3) {
