@@ -954,7 +954,7 @@
         return { main: pageCollections(crumbs), title: t('meta.collectionsTitle'), description: t('meta.collectionsDescription') };
       case 'collection':
         c = desc.collection;
-        var names = V.collectionMembers(c).map(function (f) { return f.name; });
+        var names = V.collectionMembers(c).map(function (f) { return V.uniqueName(f); }); // "Mint" postoji kod više brendova
         return {
           main: pageCollection(c, crumbs),
           title: t('meta.collectionTitle', { name: L(c.title) }),

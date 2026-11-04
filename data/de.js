@@ -3110,6 +3110,9 @@
  "Which Al Fakher flavor is best for beginners?": "Welcher Al Fakher Geschmack ist am besten für Einsteiger?",
  "All Al Fakher flavors are on blonde leaf and mild. Simple fruit flavors with mint, like watermelon mint or grape mint, are good to start with.": "Alle Al Fakher Geschmäcker sind auf hellem Tabak und mild. Für den Anfang sind einfache Fruchtgeschmäcker mit Minze gut, wie Wassermelone oder Traube mit Minze.",
  "What should I mix with Al Fakher?": "Was kann ich mit Al Fakher mischen?",
- "Al Fakher Mint goes with almost any fruit. For ideas, open a flavor page: every flavor has mix suggestions.": "Al Fakher Mint passt zu fast jedem Obst. Für Ideen öffne eine Geschmacksseite: Jeder Geschmack hat Mix-Vorschläge."
+ "Al Fakher Mint goes with almost any fruit. For ideas, open a flavor page: every flavor has mix suggestions.": "Al Fakher Mint passt zu fast jedem Obst. Für Ideen öffne eine Geschmacksseite: Jeder Geschmack hat Mix-Vorschläge.",
+ "Adalya Ice Bonbon shisha flavor: icy candy and peppermint | MyShishapedia": "Adalya Ice Bonbon Shisha-Tabak: eisige Bonbons und Pfefferminze | MyShishapedia",
+ "Adalya Ice Bonbon: sweet candy and strong icy peppermint. How cold it is, mix ideas and similar flavors like Swiss Bonbon.": "Adalya Ice Bonbon: süße Bonbons und starke eisige Pfefferminze. Wie kalt er ist, Mix-Ideen und ähnliche Geschmäcker wie Swiss Bonbon.",
+ "Tangiers Cane Mint: one of the coldest, strongest peppermint flavors, on dark leaf. Strength, flavor profile, mixes and similar mints.": "Tangiers Cane Mint: eine der kältesten und stärksten Pfefferminzen, auf dunklem Tabak. Stärke, Geschmacksprofil, Mixe und ähnliche Minzen."
 };
 })(typeof window !== 'undefined' ? window : globalThis);
