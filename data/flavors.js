@@ -142,7 +142,7 @@ window.FLAVORS = [
         'Baku Nights with a bit of extra mint if you want a colder finish.'
       ]
     },
-    similar: ['adalya-berlin-nights', 'adalya-love-66', 'adalya-swiss-bonbon']
+    similar: ['adalya-berlin-nights', 'adalya-love-66', 'adalya-swiss-bonbon', 'social-smoke-citrus-peach']
   },
   {
     id: 'adalya-swiss-bonbon',
@@ -1078,7 +1078,7 @@ window.FLAVORS = [
         'Ice Lime on the Rocks with Berrymix for icy berries.'
       ]
     },
-    similar: ['serbetli-ice-blueberry', 'adalya-swiss-bonbon', 'adalya-tynky-wynky']
+    similar: ['serbetli-ice-blueberry', 'adalya-swiss-bonbon', 'adalya-tynky-wynky', 'social-smoke-lime-chill']
   },
   {
     id: 'adalya-watermelon',
@@ -1163,7 +1163,7 @@ window.FLAVORS = [
         'Watermelon Mint with Berlin Nights for watermelon with peach.'
       ]
     },
-    similar: ['al-fakher-watermelon-mint', 'adalya-love-66', 'adalya-angel-lips']
+    similar: ['al-fakher-watermelon-mint', 'adalya-love-66', 'adalya-angel-lips', 'social-smoke-watermelon-chill']
   },
   {
     id: 'adalya-grape-mint',
@@ -1337,7 +1337,7 @@ window.FLAVORS = [
         'Berrymix with Ice Lime on the Rocks for icy berries.'
       ]
     },
-    similar: ['al-fakher-blueberry-mint', 'adalya-blueberry-mint', 'serbetli-ice-blueberry']
+    similar: ['al-fakher-blueberry-mint', 'adalya-blueberry-mint', 'serbetli-ice-blueberry', 'social-smoke-baja-blue']
   },
   {
     id: 'adalya-strawberry-splash',
@@ -1554,7 +1554,7 @@ window.FLAVORS = [
         'Wind of Cuba with Swiss Bonbon, 80/20, for an unusual, cooler contrast.'
       ]
     },
-    similar: ['al-fakher-vanilla', 'musthave-vanilla-cream', 'fumari-spiced-chai']
+    similar: ['al-fakher-vanilla', 'musthave-vanilla-cream', 'fumari-spiced-chai', 'social-smoke-cigar']
   },
   {
     id: 'al-fakher-double-apple',
@@ -2220,7 +2220,7 @@ window.FLAVORS = [
         'Grapefruit with Orange Mint for a citrus mix.'
       ]
     },
-    similar: ['darkside-kalee-grap', 'musthave-grapefruit', 'al-fakher-lemon-mint']
+    similar: ['darkside-kalee-grap', 'musthave-grapefruit', 'al-fakher-lemon-mint', 'social-smoke-grapefruit-chill']
   },
   {
     id: 'al-fakher-watermelon',
@@ -2304,7 +2304,7 @@ window.FLAVORS = [
         'Mango with Lemon if you want a little acidity.'
       ]
     },
-    similar: ['adalya-english-lord', 'adalya-mango-tango-ice', 'adalya-hawaii']
+    similar: ['adalya-english-lord', 'adalya-mango-tango-ice', 'adalya-hawaii', 'social-smoke-mango-habanero']
   },
   {
     id: 'al-fakher-banana',
@@ -2346,7 +2346,7 @@ window.FLAVORS = [
         'Banana with Mint, 70/30, if banana alone feels too heavy.'
       ]
     },
-    similar: ['haze-bananarama', 'musthave-banana-mama', 'darkside-bananapapa']
+    similar: ['haze-bananarama', 'musthave-banana-mama', 'darkside-bananapapa', 'social-smoke-banana-foster']
   },
   {
     id: 'al-fakher-lemon',
@@ -2388,7 +2388,7 @@ window.FLAVORS = [
         'Lemon with Blueberry for a blueberry lemonade.'
       ]
     },
-    similar: ['adalya-lemon-cocktail', 'starbuzz-pirates-cave', 'musthave-lemon-tonic']
+    similar: ['adalya-lemon-cocktail', 'starbuzz-pirates-cave', 'musthave-lemon-tonic', 'social-smoke-japanese-yuzu']
   },
   {
     id: 'al-fakher-melon',
@@ -2430,7 +2430,7 @@ window.FLAVORS = [
         'Melon with Magic Love for a fruitier, tropical mix.'
       ]
     },
-    similar: ['fumari-ambrosia', 'starbuzz-safari-melon-dew', 'adalya-double-melon']
+    similar: ['fumari-ambrosia', 'starbuzz-safari-melon-dew', 'adalya-double-melon', 'social-smoke-honeydew-melon']
   },
   {
     id: 'al-fakher-guava',
@@ -2598,7 +2598,7 @@ window.FLAVORS = [
         'Coconut with Mango for a creamy tropical bowl.'
       ]
     },
-    similar: ['musthave-coconut-shake', 'musthave-paradise', 'haze-bananarama']
+    similar: ['musthave-coconut-shake', 'musthave-paradise', 'haze-bananarama', 'social-smoke-coconut']
   },
   {
     id: 'al-fakher-plum',
@@ -2684,7 +2684,7 @@ window.FLAVORS = [
         'Magic Love with Lemon for a tangier finish.'
       ]
     },
-    similar: ['adalya-love-66', '187-i-love-hamburg', 'true-passion-cinderella']
+    similar: ['adalya-love-66', '187-i-love-hamburg', 'true-passion-cinderella', 'social-smoke-passion-fruit-mojito']
   },
   {
     id: 'al-fakher-vanilla',
@@ -2726,7 +2726,7 @@ window.FLAVORS = [
         'Vanilla with Banana for a banana pudding.'
       ]
     },
-    similar: ['musthave-vanilla-cream', 'fumari-spiced-chai', 'trifecta-peppermint-shake']
+    similar: ['musthave-vanilla-cream', 'fumari-spiced-chai', 'trifecta-peppermint-shake', 'social-smoke-cinnamon-roll']
   },
   {
     id: 'al-fakher-orange',
@@ -2768,7 +2768,7 @@ window.FLAVORS = [
         'Orange with Vanilla for an orange cream.'
       ]
     },
-    similar: ['starbuzz-sex-on-the-beach', 'adalya-orange-mint', '187-beach-vibez']
+    similar: ['starbuzz-sex-on-the-beach', 'adalya-orange-mint', '187-beach-vibez', 'social-smoke-orange']
   },
   {
     id: 'al-fakher-blueberry-mint',
@@ -2854,7 +2854,7 @@ window.FLAVORS = [
         'Gum Cinnamon with Orange for a spiced winter bowl.'
       ]
     },
-    similar: ['mazaya-gum-mint', 'al-fakher-gum-mint', 'haze-double-bubble']
+    similar: ['mazaya-gum-mint', 'al-fakher-gum-mint', 'haze-double-bubble', 'social-smoke-gumtastic']
   },
   {
     id: 'starbuzz-blue-mist',
@@ -3116,7 +3116,7 @@ window.FLAVORS = [
         'Pink with Safari Melon Dew for a summer melon lemonade.'
       ]
     },
-    similar: ['adalya-raspberry', 'darkside-generis-raspberry', 'musthave-pinkman']
+    similar: ['adalya-raspberry', 'darkside-generis-raspberry', 'musthave-pinkman', 'social-smoke-blue-raspberry']
   },
   {
     id: 'tangiers-cane-mint',
@@ -3255,7 +3255,7 @@ window.FLAVORS = [
         'Horchata with Double Apple for apple pie.'
       ]
     },
-    similar: ['fumari-spiced-chai', 'tangiers-kashmir-peach', 'trifecta-peppermint-shake']
+    similar: ['fumari-spiced-chai', 'tangiers-kashmir-peach', 'trifecta-peppermint-shake', 'social-smoke-cinnamint']
   },
   {
     id: 'tangiers-maraschino-cherry',
@@ -5407,7 +5407,7 @@ window.FLAVORS = [
         'Cucunade and Lemongrass, for even more green freshness.'
       ]
     },
-    similar: ['haze-cucumberita', 'musthave-lemongrass', 'musthave-estragon']
+    similar: ['haze-cucumberita', 'musthave-lemongrass', 'musthave-estragon', 'social-smoke-cucumber-chill']
   },
   {
     id: 'musthave-lemongrass',
@@ -6368,7 +6368,7 @@ window.FLAVORS = [
         'Pistachio Cake and Raspberry, for more raspberry.'
       ]
     },
-    similar: ['musthave-pistachio', 'musthave-cheesecake', 'musthave-raspberry']
+    similar: ['musthave-pistachio', 'musthave-cheesecake', 'musthave-raspberry', 'social-smoke-pistachio-breeze']
   },
   {
     id: 'musthave-pistachio',
@@ -6409,7 +6409,7 @@ window.FLAVORS = [
         'Pistachio and Cacao, for chocolate with pistachio.'
       ]
     },
-    similar: ['musthave-pistachio-cake', 'musthave-maple-pecan']
+    similar: ['musthave-pistachio-cake', 'musthave-maple-pecan', 'social-smoke-pistachio-breeze', 'social-smoke-wonder-flower']
   },
   {
     id: 'musthave-maple-pecan',
@@ -6494,7 +6494,7 @@ window.FLAVORS = [
         'Cinnamon Roll and Vanilla Cream, for extra icing.'
       ]
     },
-    similar: ['musthave-cinnamon', 'musthave-maple-pecan', 'musthave-charlotte-pie']
+    similar: ['musthave-cinnamon', 'musthave-maple-pecan', 'musthave-charlotte-pie', 'social-smoke-cinnamon-roll']
   },
   {
     id: 'musthave-cookie',
@@ -7121,7 +7121,7 @@ window.FLAVORS = [
         'Cinnamon and Cacao, for spiced hot chocolate.'
       ]
     },
-    similar: ['musthave-cinnamon-roll', 'musthave-mulled-wine', 'musthave-masala-tea']
+    similar: ['musthave-cinnamon-roll', 'musthave-mulled-wine', 'musthave-masala-tea', 'social-smoke-cinnamint']
   },
   {
     id: 'musthave-baikal',
@@ -7245,7 +7245,7 @@ window.FLAVORS = [
         'Peppermint and Cacao, for chocolate mint.'
       ]
     },
-    similar: ['musthave-ice-mint', 'trifecta-peppermint-shake', 'al-fakher-mint']
+    similar: ['musthave-ice-mint', 'trifecta-peppermint-shake', 'al-fakher-mint', 'social-smoke-mint']
   },
   {
     id: 'musthave-ice-mint',
@@ -7458,7 +7458,7 @@ window.FLAVORS = [
         'Quince and Mad Pear, for quince and pear.'
       ]
     },
-    similar: ['musthave-mad-pear', 'musthave-feijoa']
+    similar: ['musthave-mad-pear', 'musthave-feijoa', 'social-smoke-pear-chill']
   },
   {
     id: 'musthave-feijoa',
@@ -8038,7 +8038,7 @@ window.FLAVORS = [
         'Pear Lemon Tarragon and Mad Pear, for more pear.'
       ]
     },
-    similar: ['musthave-estragon', 'musthave-mad-pear', 'sebero-green-pear']
+    similar: ['musthave-estragon', 'musthave-mad-pear', 'sebero-green-pear', 'social-smoke-pear-chill']
   },
   {
     id: 'musthave-kiwi-apple-lime',
@@ -8507,7 +8507,7 @@ window.FLAVORS = [
         'Green Pear with Pinkman for pear and grapefruit.'
       ]
     },
-    similar: ['trifecta-pineapple-guava', 'al-fakher-double-apple', 'haze-cucumberita']
+    similar: ['trifecta-pineapple-guava', 'al-fakher-double-apple', 'haze-cucumberita', 'social-smoke-pear-chill']
   },
   {
     id: 'sebero-mango-yogurt',
@@ -8947,7 +8947,7 @@ window.FLAVORS = [
         'Twice the Ice with Pinkman, 20/80, for an icy grapefruit.'
       ]
     },
-    similar: ['tangiers-cane-mint', 'trifecta-peppermint-shake', 'darkside-supernova']
+    similar: ['tangiers-cane-mint', 'trifecta-peppermint-shake', 'darkside-supernova', 'social-smoke-absolute-zero']
   },
   {
     id: 'trifecta-pineapple-guava',
@@ -9078,7 +9078,7 @@ window.FLAVORS = [
         'Ruby with Pineapple Guava for tropical berries.'
       ]
     },
-    similar: ['true-passion-cinderella', 'fumari-red-gummi-bear', 'tangiers-maraschino-cherry']
+    similar: ['true-passion-cinderella', 'fumari-red-gummi-bear', 'tangiers-maraschino-cherry', 'social-smoke-blue-raspberry']
   },
   {
     id: 'trifecta-durty-mint',
@@ -9121,7 +9121,7 @@ window.FLAVORS = [
         'Durty Mint with Pineapple Guava, 30/70, for a tropical mint.'
       ]
     },
-    similar: ['tangiers-cane-mint', 'trifecta-twice-the-ice', 'haze-mint-supreme']
+    similar: ['tangiers-cane-mint', 'trifecta-twice-the-ice', 'haze-mint-supreme', 'social-smoke-mint']
   },
   {
     id: 'nakhla-double-apple',
@@ -9252,7 +9252,7 @@ window.FLAVORS = [
         'Lemon Mint with Starbuzz Pink for a pink lemonade with mint.'
       ]
     },
-    similar: ['al-fakher-lemon-mint', 'fumari-lemon-mint', 'adalya-lemon-cocktail']
+    similar: ['al-fakher-lemon-mint', 'fumari-lemon-mint', 'adalya-lemon-cocktail', 'social-smoke-lemon-chill']
   },
   {
     id: 'al-waha-big-boy',
@@ -9297,7 +9297,7 @@ window.FLAVORS = [
         'Big Boy with Adalya Hawaii for a tropical watermelon.'
       ]
     },
-    similar: ['serbetli-ice-watermelon', 'al-fakher-watermelon-mint', 'adalya-love-66']
+    similar: ['serbetli-ice-watermelon', 'al-fakher-watermelon-mint', 'adalya-love-66', 'social-smoke-voltage']
   },
   {
     id: 'al-waha-grape-mint',
@@ -9386,7 +9386,7 @@ window.FLAVORS = [
         'Pan Raas with Al Fakher Double Apple for a spiced apple.'
       ]
     },
-    similar: ['fumari-spiced-chai', 'adalya-swiss-bonbon', 'al-fakher-mint']
+    similar: ['fumari-spiced-chai', 'adalya-swiss-bonbon', 'al-fakher-mint', 'social-smoke-pandoras-box']
   },
   {
     id: 'serbetli-ice-watermelon',
@@ -9833,7 +9833,7 @@ window.FLAVORS = [
         'Siwlez with Beach Vibez for a tropical fruit bowl.'
       ]
     },
-    similar: ['holster-miss-joosy', 'musthave-strawberry-lemon-watermelon', 'starbuzz-pirates-cave']
+    similar: ['holster-miss-joosy', 'musthave-strawberry-lemon-watermelon', 'starbuzz-pirates-cave', 'social-smoke-strawberry-kiwi']
   },
   {
     id: '187-oldschool-bang',
@@ -9876,7 +9876,7 @@ window.FLAVORS = [
         'Oldschool Bang on its own if you want a pure traditional taste.'
       ]
     },
-    similar: ['holster-twenty-five', 'al-fakher-double-apple', 'revoshi-d-app-strong']
+    similar: ['holster-twenty-five', 'al-fakher-double-apple', 'revoshi-d-app-strong', 'social-smoke-double-apple']
   },
   {
     id: '187-quelle',
@@ -9919,7 +9919,7 @@ window.FLAVORS = [
         'Quelle with a little lemon for a tangier grape.'
       ]
     },
-    similar: ['adalya-grape-mint', 'holster-grpe-mnt', 'al-waha-grape-mint']
+    similar: ['adalya-grape-mint', 'holster-grpe-mnt', 'al-waha-grape-mint', 'social-smoke-grape-chill']
   },
   {
     id: '187-juicy-puzzy',
@@ -10185,7 +10185,7 @@ window.FLAVORS = [
         'Ice Bomb with Blue Punch, 30/70, for an icy blueberry.'
       ]
     },
-    similar: ['haze-mint-supreme', 'adalya-swiss-bonbon', 'musthave-ice-mint']
+    similar: ['haze-mint-supreme', 'adalya-swiss-bonbon', 'musthave-ice-mint', 'social-smoke-absolute-zero']
   },
   {
     id: 'holster-grpe-mnt',
@@ -10228,7 +10228,7 @@ window.FLAVORS = [
         'Grpe Mnt with Twenty Five for grape and apple.'
       ]
     },
-    similar: ['adalya-grape-mint', '187-quelle', 'al-waha-grape-mint']
+    similar: ['adalya-grape-mint', '187-quelle', 'al-waha-grape-mint', 'social-smoke-grape-chill']
   },
   {
     id: 'holster-miss-joosy',
@@ -10271,7 +10271,7 @@ window.FLAVORS = [
         'Miss Joosy with Lamoretto for red fruit with lemon.'
       ]
     },
-    similar: ['al-fakher-strawberry', '187-siwlez', 'adalya-strawberry-splash']
+    similar: ['al-fakher-strawberry', '187-siwlez', 'adalya-strawberry-splash', 'social-smoke-strawberry-kiwi']
   },
   {
     id: 'holster-blue-punch',
@@ -10356,7 +10356,7 @@ window.FLAVORS = [
         'Wild Punch with lemon for a tangier punch.'
       ]
     },
-    similar: ['true-passion-cinderella', 'adalya-lady-killer', '187-wild-beast']
+    similar: ['true-passion-cinderella', 'adalya-lady-killer', '187-wild-beast', 'social-smoke-wild-berry-chill']
   },
   {
     id: 'holster-lamoretto',
@@ -10400,7 +10400,7 @@ window.FLAVORS = [
         'Lamoretto on its own if you want the full dessert flavor.'
       ]
     },
-    similar: ['al-fakher-cherry', 'fumari-red-gummi-bear', 'tangiers-maraschino-cherry']
+    similar: ['al-fakher-cherry', 'fumari-red-gummi-bear', 'tangiers-maraschino-cherry', 'social-smoke-paan']
   },
   {
     id: 'holster-p-rex',
@@ -10443,7 +10443,7 @@ window.FLAVORS = [
         'P-Rex with Lamoretto for a fruity dessert.'
       ]
     },
-    similar: ['al-fakher-peach', 'revoshi-domingo', 'adalya-english-lord']
+    similar: ['al-fakher-peach', 'revoshi-domingo', 'adalya-english-lord', 'social-smoke-cali-peach']
   },
   {
     id: 'holster-twenty-five',
@@ -10486,7 +10486,7 @@ window.FLAVORS = [
         'Twenty Five on its own for a pure classic taste.'
       ]
     },
-    similar: ['187-oldschool-bang', 'al-fakher-double-apple', 'revoshi-d-app-strong']
+    similar: ['187-oldschool-bang', 'al-fakher-double-apple', 'revoshi-d-app-strong', 'social-smoke-double-apple']
   },
   {
     id: 'true-passion-cinderella',
@@ -10708,5 +10708,2557 @@ window.FLAVORS = [
       ]
     },
     similar: ['musthave-banana-mama', 'darkside-bananapapa', 'musthave-paradise']
+  },
+  {
+    id: 'social-smoke-absolute-zero',
+    brand: 'social-smoke',
+    leaf: 'light',
+    name: 'Absolute Zero',
+    mood: 'frost',
+    mixRole: 'cooler',
+    shortDescription: {
+      bs: 'Mješavina više menti sa jakim, ledenim hlađenjem.',
+      en: 'A blend of several mints with strong, icy cooling.'
+    },
+    description: {
+      bs: [
+        'Absolute Zero je jedan od najpoznatijih Social Smoke okusa: mješavina više vrsta mente sa jakim, ledenim hlađenjem.',
+        'Sam je za ljubitelje jake mente, a u miksevima je jedan od najboljih načina da voću dodaš led.'
+      ],
+      en: [
+        'Absolute Zero is one of Social Smoke\'s best-known flavors: a blend of several kinds of mint with strong, icy cooling.',
+        'On its own it is for fans of strong mint, and in mixes it is one of the best ways to add ice to fruit.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Pepermint', en: 'Peppermint' }, illustration: 'pepermint', color: '#1fa874', intensity: 8 },
+      { name: { bs: 'Menta', en: 'Mint' }, illustration: 'menta', color: '#2fae78', intensity: 7 },
+      { name: { bs: 'Mentol', en: 'Menthol' }, illustration: 'kristal', color: '#cdefff', intensity: 9 }
+    ],
+    profile: { sweetness: 4, freshness: 10, fruitiness: 1, cooling: 10, strength: 5 },
+    tags: ['mint', 'ledeni', 'osvjezavajuci'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#1fa874', secondary: '#2fae78', accent: '#cdefff', background: '#0e1e15', text: '#eff9f5' },
+    mixIdeas: {
+      bs: [
+        'Absolute Zero i Watermelon, 30/70, za ledenu lubenicu.',
+        'Absolute Zero i Tiger\'s Blood, 30/70, za ledene bobice.'
+      ],
+      en: [
+        'Absolute Zero with Watermelon, 30/70, for an icy watermelon.',
+        'Absolute Zero with Tiger\'s Blood, 30/70, for icy berries.'
+      ]
+    },
+    similar: ['trifecta-twice-the-ice', 'holster-ice-bomb', 'haze-mint-supreme']
+  },
+  {
+    id: 'social-smoke-arctic-lemon',
+    brand: 'social-smoke',
+    leaf: 'light',
+    name: 'Arctic Lemon',
+    shortDescription: {
+      bs: 'Svježa korica limuna i ledena menta.',
+      en: 'Fresh lemon zest and ice-cold mint.'
+    },
+    description: {
+      bs: [
+        'Arctic Lemon spaja svježu, hrskavu koricu limuna sa ledenom mentom.',
+        'Kiselkast je i jako osvježavajući, odličan za vruće dane.'
+      ],
+      en: [
+        'Arctic Lemon pairs fresh, crisp lemon zest with ice-cold mint.',
+        'It is tangy and very refreshing, great for hot days.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Limun', en: 'Lemon' }, illustration: 'limun', color: '#f7e04b', intensity: 8 },
+      { name: { bs: 'Menta', en: 'Mint' }, illustration: 'menta', color: '#2fae78', intensity: 7 },
+      { name: { bs: 'Mentol', en: 'Menthol' }, illustration: 'kristal', color: '#cdefff', intensity: 6 }
+    ],
+    profile: { sweetness: 5, freshness: 9, fruitiness: 7, cooling: 7, strength: 5 },
+    tags: ['vocni', 'citrusni', 'mint', 'ledeni'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#f7e04b', secondary: '#2fae78', accent: '#cdefff', background: '#2c250f', text: '#fefdf2' },
+    mixIdeas: {
+      bs: [
+        'Arctic Lemon i Watermelon, za ledenu limunadu od lubenice.',
+        'Arctic Lemon i Blackberry, za ledenu limunadu od kupine.'
+      ],
+      en: [
+        'Arctic Lemon with Watermelon for an icy watermelon lemonade.',
+        'Arctic Lemon with Blackberry for an icy blackberry lemonade.'
+      ]
+    },
+    similar: ['al-fakher-lemon-mint', 'adalya-lemon-mint', 'social-smoke-lemon-chill']
+  },
+  {
+    id: 'social-smoke-baja-blue',
+    brand: 'social-smoke',
+    leaf: 'light',
+    name: 'Baja Blue',
+    shortDescription: {
+      bs: 'Borovnica, malina i grožđe sa notom mliječne čokolade.',
+      en: 'Blueberry, raspberry and grape with a touch of milk chocolate.'
+    },
+    description: {
+      bs: [
+        'Baja Blue je voćni mix borovnice, maline i grožđa.',
+        'Na kraju dolazi nota mliječne čokolade, pa okus podsjeća na voće prelito čokoladom.'
+      ],
+      en: [
+        'Baja Blue is a fruit blend of blueberry, raspberry and grape.',
+        'A touch of milk chocolate comes at the end, so it recalls fruit dipped in chocolate.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Borovnica', en: 'Blueberry' }, illustration: 'borovnica', color: '#4a5fc1', intensity: 8 },
+      { name: { bs: 'Malina', en: 'Raspberry' }, illustration: 'malina', color: '#d61f5b', intensity: 6 },
+      { name: { bs: 'Grožđe', en: 'Grape' }, illustration: 'grozdje', color: '#6b2c7a', intensity: 6 },
+      { name: { bs: 'Mliječna čokolada', en: 'Milk chocolate' }, illustration: 'cokolada', color: '#8a5a3a', intensity: 4 }
+    ],
+    profile: { sweetness: 8, freshness: 4, fruitiness: 9, cooling: 0, strength: 5 },
+    tags: ['vocni', 'bobicasti', 'desertni', 'slatki'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#4a5fc1', secondary: '#d61f5b', accent: '#6b2c7a', background: '#14131f', text: '#f2f4fb' },
+    mixIdeas: {
+      bs: [
+        'Baja Blue i Absolute Zero, 80/20, za hladnije bobice.',
+        'Baja Blue i Coconut, za voćni desert.'
+      ],
+      en: [
+        'Baja Blue with Absolute Zero, 80/20, for cooler berries.',
+        'Baja Blue with Coconut for a fruity dessert.'
+      ]
+    },
+    similar: ['social-smoke-tigers-blood', 'adalya-berrymix', 'al-fakher-blueberry']
+  },
+  {
+    id: 'social-smoke-banana-foster',
+    brand: 'social-smoke',
+    leaf: 'light',
+    name: 'Banana Foster',
+    shortDescription: {
+      bs: 'Topla banana sa puterom, smeđim šećerom, rumom i sladoledom od vanile.',
+      en: 'Warm banana with butter, brown sugar, rum and vanilla ice cream.'
+    },
+    description: {
+      bs: [
+        'Banana Foster je inspirisan poznatim desertom iz New Orleansa: topla banana sa puterom, smeđim šećerom i tamnim rumom.',
+        'Na vrhu je sladoled od vanile, pa je okus bogat, sladak i kremast.'
+      ],
+      en: [
+        'Banana Foster is inspired by the famous New Orleans dessert: warm banana with butter, brown sugar and dark rum.',
+        'It is topped with vanilla ice cream, so the flavor is rich, sweet and creamy.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Banana', en: 'Banana' }, illustration: 'banana', color: '#fbe48c', intensity: 8 },
+      { name: { bs: 'Smeđi šećer i puter', en: 'Brown sugar and butter' }, illustration: 'karamel', color: '#b7742f', intensity: 6 },
+      { name: { bs: 'Tamni rum', en: 'Dark rum' }, illustration: 'liker', color: '#b5651d', intensity: 4 },
+      { name: { bs: 'Sladoled od vanile', en: 'Vanilla ice cream' }, illustration: 'sladoled', color: '#f5e9c8', intensity: 5 }
+    ],
+    profile: { sweetness: 9, freshness: 2, fruitiness: 6, cooling: 0, strength: 5 },
+    tags: ['desertni', 'slatki', 'nocni'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#fbe48c', secondary: '#b7742f', accent: '#b5651d', background: '#2d2618', text: '#fffdf7' },
+    mixIdeas: {
+      bs: [
+        'Banana Foster i Coconut, za tropski desert.',
+        'Banana Foster i Cinnamon Roll, za desert sa cimetom.'
+      ],
+      en: [
+        'Banana Foster with Coconut for a tropical dessert.',
+        'Banana Foster with Cinnamon Roll for a cinnamon dessert.'
+      ]
+    },
+    similar: ['haze-bananarama', 'al-fakher-banana', 'musthave-paradise']
+  },
+  {
+    id: 'social-smoke-berry-punch',
+    brand: 'social-smoke',
+    leaf: 'light',
+    name: 'Berry Punch',
+    shortDescription: {
+      bs: 'Jak mix zrelih bobica sa voćnim završetkom.',
+      en: 'A bold mix of ripe berries with a fruity finish.'
+    },
+    description: {
+      bs: [
+        'Berry Punch je jak mix zrelog bobičastog voća.',
+        'Okus je sladak i voćan od početka do kraja, kao voćni punč.'
+      ],
+      en: [
+        'Berry Punch is a bold mix of ripe berries.',
+        'The flavor is sweet and fruity from start to finish, like a fruit punch.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Bobičasto voće', en: 'Mixed berries' }, illustration: 'kupina', color: '#7a2f6b', intensity: 8 }
+    ],
+    profile: { sweetness: 7, freshness: 5, fruitiness: 9, cooling: 0, strength: 5 },
+    tags: ['vocni', 'bobicasti', 'slatki'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#7a2f6b', secondary: '#b68dae', accent: '#5c2350', background: '#1b0d13', text: '#f6f0f5' },
+    mixIdeas: {
+      bs: [
+        'Berry Punch i Lemon, za limunadu od bobica.',
+        'Berry Punch i Absolute Zero, 80/20, za ledene bobice.'
+      ],
+      en: [
+        'Berry Punch with Lemon for a berry lemonade.',
+        'Berry Punch with Absolute Zero, 80/20, for icy berries.'
+      ]
+    },
+    similar: ['social-smoke-wild-berry', 'social-smoke-blackberry', '187-wild-beast']
+  },
+  {
+    id: 'social-smoke-blackberry',
+    brand: 'social-smoke',
+    leaf: 'light',
+    name: 'Blackberry',
+    shortDescription: {
+      bs: 'Tamna kupina, slatka i kiselkasta.',
+      en: 'Dark blackberry, sweet and tart.'
+    },
+    description: {
+      bs: [
+        'Blackberry je sočna tamna kupina sa ravnotežom slatkog i kiselog.',
+        'Dobar je sam i kao tamna voćna baza za mikseve.'
+      ],
+      en: [
+        'Blackberry is a juicy dark blackberry with a balance of sweet and tart.',
+        'Good on its own and as a dark fruit base for mixes.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Kupina', en: 'Blackberry' }, illustration: 'kupina', color: '#5a2a5e', intensity: 9 }
+    ],
+    profile: { sweetness: 7, freshness: 5, fruitiness: 8, cooling: 0, strength: 5 },
+    tags: ['vocni', 'bobicasti', 'slatki'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#5a2a5e', secondary: '#a48aa6', accent: '#442047', background: '#160c11', text: '#f3f0f4' },
+    mixIdeas: {
+      bs: [
+        'Blackberry i Arctic Lemon, za ledenu limunadu od kupine.',
+        'Blackberry i Mint, 70/30, za kupinu sa mentom.'
+      ],
+      en: [
+        'Blackberry with Arctic Lemon for an icy blackberry lemonade.',
+        'Blackberry with Mint, 70/30, for blackberry with mint.'
+      ]
+    },
+    similar: ['social-smoke-berry-punch', 'social-smoke-wild-berry', '187-wild-beast']
+  },
+  {
+    id: 'social-smoke-blue-raspberry',
+    brand: 'social-smoke',
+    leaf: 'light',
+    name: 'Blue Raspberry',
+    shortDescription: {
+      bs: 'Slatka i kisela malina sa daškom plavog bombona.',
+      en: 'Sweet and tart raspberry with a hint of blue candy.'
+    },
+    description: {
+      bs: [
+        'Blue Raspberry spaja slatku zrelu malinu i kiselu malinu.',
+        'Dašak plavog bombona ga čini sličnim plavim lizalicama i sokovima.'
+      ],
+      en: [
+        'Blue Raspberry combines sweet ripe raspberry and tart raspberry.',
+        'A hint of blue candy makes it taste like blue lollipops and drinks.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Malina', en: 'Raspberry' }, illustration: 'malina', color: '#d61f5b', intensity: 8 },
+      { name: { bs: 'Plavi bombon', en: 'Blue candy' }, illustration: 'bombon', color: '#3d6fd8', intensity: 5 }
+    ],
+    profile: { sweetness: 8, freshness: 5, fruitiness: 8, cooling: 0, strength: 5 },
+    tags: ['vocni', 'bobicasti', 'bombon', 'slatki'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#d61f5b', secondary: '#3d6fd8', accent: '#779ae4', background: '#270a11', text: '#fceff4' },
+    mixIdeas: {
+      bs: [
+        'Blue Raspberry i Lemon, za plavu limunadu.',
+        'Blue Raspberry i Absolute Zero, 80/20, za ledeni bombon.'
+      ],
+      en: [
+        'Blue Raspberry with Lemon for a blue lemonade.',
+        'Blue Raspberry with Absolute Zero, 80/20, for an icy candy.'
+      ]
+    },
+    similar: ['adalya-raspberry', 'trifecta-ruby', 'starbuzz-pink']
+  },
+  {
+    id: 'social-smoke-cali-peach',
+    brand: 'social-smoke',
+    leaf: 'light',
+    name: 'Cali Peach',
+    shortDescription: {
+      bs: 'Mekana, slatka ljetna breskva.',
+      en: 'Smooth, sweet summer peach.'
+    },
+    description: {
+      bs: [
+        'Cali Peach je mekana, slatka breskva, kao zrela breskva usred ljeta.',
+        'Okus je opušten i lagan, dobar za duge ljetne sesije.'
+      ],
+      en: [
+        'Cali Peach is a smooth, sweet peach, like a ripe peach in the middle of summer.',
+        'The flavor is relaxed and easy, good for long summer sessions.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Breskva', en: 'Peach' }, illustration: 'breskva', color: '#ffb07a', intensity: 9 }
+    ],
+    profile: { sweetness: 8, freshness: 5, fruitiness: 8, cooling: 0, strength: 5 },
+    tags: ['vocni', 'slatki'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#ffb07a', secondary: '#ffd4b6', accent: '#bf845c', background: '#2d1f15', text: '#fff9f6' },
+    mixIdeas: {
+      bs: [
+        'Cali Peach i Mint, 70/30, za breskvu sa mentom.',
+        'Cali Peach i Chai Latte, za čaj od breskve.'
+      ],
+      en: [
+        'Cali Peach with Mint, 70/30, for peach with mint.',
+        'Cali Peach with Chai Latte for a peach tea.'
+      ]
+    },
+    similar: ['al-fakher-peach', 'holster-p-rex', 'revoshi-domingo']
+  },
+  {
+    id: 'social-smoke-cantaloupe-chill',
+    brand: 'social-smoke',
+    leaf: 'light',
+    name: 'Cantaloupe Chill',
+    shortDescription: {
+      bs: 'Slatka kantalupa dinja sa hladnom mentom.',
+      en: 'Sweet cantaloupe melon with cool mint.'
+    },
+    description: {
+      bs: [
+        'Cantaloupe Chill je slatka, osvježavajuća kantalupa dinja sa hladnom mentom.',
+        'Dinja je glavna, a menta je tu da osvježi izdah.'
+      ],
+      en: [
+        'Cantaloupe Chill is sweet, refreshing cantaloupe melon with cool mint.',
+        'The melon leads, and the mint is there to freshen the exhale.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Kantalupa', en: 'Cantaloupe' }, illustration: 'dinja', color: '#f6a35a', intensity: 8 },
+      { name: { bs: 'Menta', en: 'Mint' }, illustration: 'menta', color: '#2fae78', intensity: 6 }
+    ],
+    profile: { sweetness: 7, freshness: 8, fruitiness: 8, cooling: 5, strength: 5 },
+    tags: ['vocni', 'mint', 'ljetni', 'slatki', 'osvjezavajuci'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#f6a35a', secondary: '#2fae78', accent: '#6dc6a1', background: '#2c1d11', text: '#fef9f3' },
+    mixIdeas: {
+      bs: [
+        'Cantaloupe Chill i Watermelon, za duplu dinju sa mentom.',
+        'Cantaloupe Chill i Cali Peach, za ljetni voćni mix.'
+      ],
+      en: [
+        'Cantaloupe Chill with Watermelon for a double melon with mint.',
+        'Cantaloupe Chill with Cali Peach for a summer fruit mix.'
+      ]
+    },
+    similar: ['social-smoke-honeydew-melon-chill', 'adalya-blue-melon', 'social-smoke-melon-rush']
+  },
+  {
+    id: 'social-smoke-chai-latte',
+    brand: 'social-smoke',
+    leaf: 'light',
+    name: 'Chai Latte',
+    shortDescription: {
+      bs: 'Crni čaj sa daškom kardamoma.',
+      en: 'Black tea with a touch of cardamom.'
+    },
+    description: {
+      bs: [
+        'Chai Latte je jak crni čaj sa daškom kardamoma.',
+        'Nije voćni okus, nego topao i začinski, za mirne večernje sesije.'
+      ],
+      en: [
+        'Chai Latte is brisk black tea with a touch of cardamom.',
+        'It is not a fruit flavor but a warm, spiced one, for calm evening sessions.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Crni čaj', en: 'Black tea' }, illustration: 'caj', color: '#b5651d', intensity: 8 },
+      { name: { bs: 'Kardamom', en: 'Cardamom' }, illustration: 'kardamom', color: '#8fae5a', intensity: 5 }
+    ],
+    profile: { sweetness: 5, freshness: 3, fruitiness: 1, cooling: 0, strength: 5 },
+    tags: ['caj', 'zacinski', 'nocni'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#b5651d', secondary: '#8fae5a', accent: '#b1c68c', background: '#231408', text: '#faf4ef' },
+    mixIdeas: {
+      bs: [
+        'Chai Latte i Cali Peach, za čaj od breskve.',
+        'Chai Latte i French Vanilla, za kremasti chai.'
+      ],
+      en: [
+        'Chai Latte with Cali Peach for a peach tea.',
+        'Chai Latte with French Vanilla for a creamy chai.'
+      ]
+    },
+    similar: ['musthave-masala-tea', 'social-smoke-hong-kong-milk-tea', 'musthave-earl-grey']
+  },
+  {
+    id: 'social-smoke-cigar',
+    brand: 'social-smoke',
+    leaf: 'light',
+    name: 'Cigar',
+    mood: 'night',
+    shortDescription: {
+      bs: 'Dubok, zaobljen okus prirodnog duhanskog lista.',
+      en: 'The deep, rounded taste of natural tobacco leaf.'
+    },
+    description: {
+      bs: [
+        'Cigar nije voćni okus: to je mekan, dubok okus prirodnog duhanskog lista.',
+        'Za one koji vole okus samog duhana, ili žele da voćnim miksevima dodaju dubinu.'
+      ],
+      en: [
+        'Cigar is not a fruit flavor: it is the smooth, deep taste of natural tobacco leaf.',
+        'For people who like the taste of tobacco itself, or want to add depth to fruit mixes.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Duhanski list', en: 'Tobacco leaf' }, illustration: 'bilje', color: '#8a5a3a', intensity: 9 }
+    ],
+    profile: { sweetness: 3, freshness: 2, fruitiness: 1, cooling: 0, strength: 5 },
+    tags: ['klasicni', 'nocni'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#8a5a3a', secondary: '#bfa493', accent: '#68442c', background: '#1d130c', text: '#f7f3f1' },
+    mixIdeas: {
+      bs: [
+        'Cigar i French Vanilla, za cigaru sa vanilom.',
+        'Cigar i Dulce De Leche, za cigaru sa karamelom.'
+      ],
+      en: [
+        'Cigar with French Vanilla for a vanilla cigar.',
+        'Cigar with Dulce De Leche for a caramel cigar.'
+      ]
+    },
+    similar: ['adalya-wind-of-cuba', 'social-smoke-french-vanilla', 'social-smoke-dulce-de-leche']
+  },
+  {
+    id: 'social-smoke-cinnamint',
+    brand: 'social-smoke',
+    leaf: 'light',
+    name: 'Cinnamint',
+    shortDescription: {
+      bs: 'Ljuti cimet sa osvježavajućom mentom.',
+      en: 'Hot cinnamon with refreshing mint.'
+    },
+    description: {
+      bs: [
+        'Cinnamint spaja vatren, ljut cimet sa osvježavajućom mentom u pozadini.',
+        'Okus podsjeća na cimet žvaku: topao naprijed, hladan na kraju.'
+      ],
+      en: [
+        'Cinnamint pairs fiery, hot cinnamon with refreshing mint in the background.',
+        'It recalls cinnamon gum: warm up front, cool at the end.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Cimet', en: 'Cinnamon' }, illustration: 'cimet', color: '#a0522d', intensity: 8 },
+      { name: { bs: 'Menta', en: 'Mint' }, illustration: 'menta', color: '#2fae78', intensity: 6 }
+    ],
+    profile: { sweetness: 5, freshness: 7, fruitiness: 1, cooling: 5, strength: 5 },
+    tags: ['zacinski', 'mint'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#a0522d', secondary: '#2fae78', accent: '#6dc6a1', background: '#20120b', text: '#f8f3f0' },
+    mixIdeas: {
+      bs: [
+        'Cinnamint i Double Apple, za jabuku sa cimetom.',
+        'Cinnamint i Orange, za zimski začinski kotlić.'
+      ],
+      en: [
+        'Cinnamint with Double Apple for apple and cinnamon.',
+        'Cinnamint with Orange for a spiced winter bowl.'
+      ]
+    },
+    similar: ['social-smoke-mirage', 'tangiers-horchata', 'musthave-cinnamon']
+  },
+  {
+    id: 'social-smoke-cinnamon-roll',
+    brand: 'social-smoke',
+    leaf: 'light',
+    name: 'Cinnamon Roll',
+    shortDescription: {
+      bs: 'Topli rolat sa cimetom i bogatom glazurom.',
+      en: 'A warm cinnamon roll with rich frosting.'
+    },
+    description: {
+      bs: [
+        'Cinnamon Roll je desert u nargili: svježe pečen, topao rolat sa cimetom.',
+        'Na vrhu je bogata, slatka glazura, pa je okus pun i sladak.'
+      ],
+      en: [
+        'Cinnamon Roll is a dessert in a bowl: a freshly baked, warm cinnamon roll.',
+        'It is topped with rich, sweet frosting, so the flavor is full and sweet.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Rolat sa cimetom', en: 'Cinnamon roll' }, illustration: 'rolat', color: '#c98a45', intensity: 8 },
+      { name: { bs: 'Glazura', en: 'Frosting' }, illustration: 'vanila', color: '#f3e2b3', intensity: 6 }
+    ],
+    profile: { sweetness: 9, freshness: 2, fruitiness: 1, cooling: 0, strength: 5 },
+    tags: ['desertni', 'slatki', 'zacinski'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#c98a45', secondary: '#f3e2b3', accent: '#f7ebca', background: '#26190e', text: '#fbf7f2' },
+    mixIdeas: {
+      bs: [
+        'Cinnamon Roll i Double Apple, za pitu od jabuke.',
+        'Cinnamon Roll i Chai Latte, za čaj sa kolačem.'
+      ],
+      en: [
+        'Cinnamon Roll with Double Apple for an apple pie.',
+        'Cinnamon Roll with Chai Latte for tea and cake.'
+      ]
+    },
+    similar: ['musthave-cinnamon-roll', 'al-fakher-vanilla', 'social-smoke-french-vanilla']
+  },
+  {
+    id: 'social-smoke-citrus-chill',
+    brand: 'social-smoke',
+    leaf: 'light',
+    name: 'Citrus Chill',
+    shortDescription: {
+      bs: 'Živ, kiselkast citrus sa mirnim, hladnim završetkom.',
+      en: 'A lively, zesty citrus kick with a calm, cool finish.'
+    },
+    description: {
+      bs: [
+        'Citrus Chill je energičan citrusni okus sa kiselinom naprijed.',
+        'Završetak je miran i hladan, pa je okus svjež od početka do kraja.'
+      ],
+      en: [
+        'Citrus Chill is an energetic citrus flavor with tang up front.',
+        'The finish is calm and cool, so the flavor stays fresh from start to finish.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Citrusi', en: 'Citrus' }, illustration: 'narandza', color: '#ff9a2e', intensity: 7 },
+      { name: { bs: 'Limun', en: 'Lemon' }, illustration: 'limun', color: '#f7e04b', intensity: 6 },
+      { name: { bs: 'Menta', en: 'Mint' }, illustration: 'menta', color: '#2fae78', intensity: 6 }
+    ],
+    profile: { sweetness: 6, freshness: 9, fruitiness: 7, cooling: 6, strength: 5 },
+    tags: ['vocni', 'citrusni', 'mint', 'osvjezavajuci'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#ff9a2e', secondary: '#f7e04b', accent: '#2fae78', background: '#2d1c0b', text: '#fff8f0' },
+    mixIdeas: {
+      bs: [
+        'Citrus Chill i Berry Punch, za ledeni punč.',
+        'Citrus Chill i Watermelon, za ljetnu citrusnu lubenicu.'
+      ],
+      en: [
+        'Citrus Chill with Berry Punch for an icy punch.',
+        'Citrus Chill with Watermelon for a summery citrus watermelon.'
+      ]
+    },
+    similar: ['al-fakher-orange-mint', '187-beach-vibez', 'social-smoke-tangerine-rush']
+  },
+  {
+    id: 'social-smoke-citrus-peach',
+    brand: 'social-smoke',
+    leaf: 'light',
+    name: 'Citrus Peach',
+    shortDescription: {
+      bs: 'Kiseli citrus i topla, mekana breskva.',
+      en: 'Tart citrus with warm, soft peach.'
+    },
+    description: {
+      bs: [
+        'Citrus Peach spaja kiseli citrus sa toplom, mekanom breskvom.',
+        'Okus je sunčan i voćan, sa ravnotežom slatkog i kiselog.'
+      ],
+      en: [
+        'Citrus Peach pairs tart citrus with warm, soft peach.',
+        'The flavor is sunny and fruity, with a balance of sweet and tart.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Breskva', en: 'Peach' }, illustration: 'breskva', color: '#ffb07a', intensity: 8 },
+      { name: { bs: 'Citrusi', en: 'Citrus' }, illustration: 'narandza', color: '#ff9a2e', intensity: 6 }
+    ],
+    profile: { sweetness: 7, freshness: 6, fruitiness: 8, cooling: 0, strength: 5 },
+    tags: ['vocni', 'citrusni', 'slatki'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#ffb07a', secondary: '#ff9a2e', accent: '#ffb86d', background: '#2d1f15', text: '#fff9f6' },
+    mixIdeas: {
+      bs: [
+        'Citrus Peach i Mint, 70/30, za svježu breskvu.',
+        'Citrus Peach i Chai Latte, za ledeni čaj od breskve.'
+      ],
+      en: [
+        'Citrus Peach with Mint, 70/30, for a fresh peach.',
+        'Citrus Peach with Chai Latte for a peach iced tea.'
+      ]
+    },
+    similar: ['social-smoke-sex-panther', 'adalya-baku-nights', 'al-fakher-peach']
+  },
+  {
+    id: 'social-smoke-coconut',
+    brand: 'social-smoke',
+    leaf: 'light',
+    name: 'Coconut',
+    shortDescription: {
+      bs: 'Bogat, mliječan i kremast kokos.',
+      en: 'Rich, milky, creamy coconut.'
+    },
+    description: {
+      bs: [
+        'Coconut je bogat, mliječan kokos punog, kremastog okusa.',
+        'Najbolje se pokazuje u miksevima, gdje drugim okusima daje kremastu, tropsku notu.'
+      ],
+      en: [
+        'Coconut is a rich, milky coconut with a full, creamy taste.',
+        'It shines most in mixes, where it gives other flavors a creamy, tropical note.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Kokos', en: 'Coconut' }, illustration: 'kokos', color: '#f7f4ec', intensity: 9 }
+    ],
+    profile: { sweetness: 7, freshness: 3, fruitiness: 5, cooling: 0, strength: 5 },
+    tags: ['tropski', 'slatki', 'desertni'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#f7f4ec', secondary: '#fbf9f5', accent: '#b9b7b1', background: '#2c2825', text: '#fefefe' },
+    mixIdeas: {
+      bs: [
+        'Coconut i Sunbeam, za tropski kotlić.',
+        'Coconut i Banana Foster, za tropski desert.'
+      ],
+      en: [
+        'Coconut with Sunbeam for a tropical bowl.',
+        'Coconut with Banana Foster for a tropical dessert.'
+      ]
+    },
+    similar: ['al-fakher-coconut', 'musthave-coconut-shake', 'social-smoke-sunbeam']
+  },
+  {
+    id: 'social-smoke-cucumber-chill',
+    brand: 'social-smoke',
+    leaf: 'light',
+    name: 'Cucumber Chill',
+    shortDescription: {
+      bs: 'Svježi krastavac i menta sa cvjetnim i biljnim notama.',
+      en: 'Fresh green cucumber and mint with floral and herbal notes.'
+    },
+    description: {
+      bs: [
+        'Cucumber Chill spaja svježi zeleni krastavac i osvježavajuću mentu.',
+        'U pozadini su cvjetne i biljne note, pa je okus smirujući i mirisan.'
+      ],
+      en: [
+        'Cucumber Chill pairs fresh green cucumber with invigorating mint.',
+        'Floral and herbal notes sit in the background, so the flavor is calming and fragrant.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Krastavac', en: 'Cucumber' }, illustration: 'krastavac', color: '#5fae4f', intensity: 8 },
+      { name: { bs: 'Menta', en: 'Mint' }, illustration: 'menta', color: '#2fae78', intensity: 7 },
+      { name: { bs: 'Cvjetne i biljne note', en: 'Floral and herbal notes' }, illustration: 'bilje', color: '#8fae6a', intensity: 4 }
+    ],
+    profile: { sweetness: 4, freshness: 9, fruitiness: 5, cooling: 6, strength: 5 },
+    tags: ['biljni', 'mint', 'osvjezavajuci'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#5fae4f', secondary: '#2fae78', accent: '#8fae6a', background: '#171e0f', text: '#f4f9f3' },
+    mixIdeas: {
+      bs: [
+        'Cucumber Chill i Lime, za mojito sa krastavcem.',
+        'Cucumber Chill i Watermelon, za ljetni zeleni mix.'
+      ],
+      en: [
+        'Cucumber Chill with Lime for a cucumber mojito.',
+        'Cucumber Chill with Watermelon for a summery green mix.'
+      ]
+    },
+    similar: ['haze-cucumberita', 'musthave-cucunade', 'al-fakher-lemon-mint']
+  },
+  {
+    id: 'social-smoke-double-apple',
+    brand: 'social-smoke',
+    leaf: 'light',
+    name: 'Double Apple',
+    shortDescription: {
+      bs: 'Crvena i žuta jabuka sa sladićem i začinima.',
+      en: 'Red and yellow apple with licorice and spices.'
+    },
+    description: {
+      bs: [
+        'Double Apple je klasik: hrskava Red Delicious jabuka i slatka žuta jabuka.',
+        'Sladić i začini mu daju toplu, tradicionalnu notu.'
+      ],
+      en: [
+        'Double Apple is a classic: crisp Red Delicious apple and sweet yellow apple.',
+        'Licorice and spices give it a warm, traditional note.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Crvena jabuka', en: 'Red apple' }, illustration: 'jabuka', color: '#8cc63f', intensity: 8 },
+      { name: { bs: 'Žuta jabuka', en: 'Yellow apple' }, illustration: 'jabuka', color: '#e8c547', intensity: 6 },
+      { name: { bs: 'Sladić i začini', en: 'Licorice and spices' }, illustration: 'anis', color: '#8a4a22', intensity: 6 }
+    ],
+    profile: { sweetness: 6, freshness: 3, fruitiness: 6, cooling: 0, strength: 5 },
+    tags: ['klasicni', 'vocni', 'zacinski'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#8cc63f', secondary: '#e8c547', accent: '#8a4a22', background: '#1d220d', text: '#f7fbf2' },
+    mixIdeas: {
+      bs: [
+        'Double Apple i Mint, 70/30, za klasičnu jabuku sa mentom.',
+        'Double Apple i Cinnamint, za jabuku sa cimetom.'
+      ],
+      en: [
+        'Double Apple with Mint, 70/30, for classic apple with mint.',
+        'Double Apple with Cinnamint for apple and cinnamon.'
+      ]
+    },
+    similar: ['187-oldschool-bang', 'holster-twenty-five', 'al-fakher-double-apple']
+  },
+  {
+    id: 'social-smoke-dulce-de-leche',
+    brand: 'social-smoke',
+    leaf: 'light',
+    name: 'Dulce De Leche',
+    shortDescription: {
+      bs: 'Zlatni karamel sa slatkim, kremastim završetkom.',
+      en: 'Golden caramel with a sweet, creamy finish.'
+    },
+    description: {
+      bs: [
+        'Dulce De Leche je gust, zlatni karamel, kao latinoamerički karamel od mlijeka.',
+        'Završetak je sladak i kremast, za ljubitelje desertnih okusa.'
+      ],
+      en: [
+        'Dulce De Leche is thick golden caramel, like the Latin American milk caramel.',
+        'The finish is sweet and creamy, for fans of dessert flavors.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Karamel', en: 'Caramel' }, illustration: 'karamel', color: '#b7742f', intensity: 9 },
+      { name: { bs: 'Krema', en: 'Cream' }, illustration: 'sejk', color: '#fbf3e3', intensity: 5 }
+    ],
+    profile: { sweetness: 9, freshness: 2, fruitiness: 1, cooling: 0, strength: 5 },
+    tags: ['desertni', 'slatki', 'nocni'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#b7742f', secondary: '#fbf3e3', accent: '#fcf7eb', background: '#23160b', text: '#faf5f0' },
+    mixIdeas: {
+      bs: [
+        'Dulce De Leche i Banana Foster, za karamel bananu.',
+        'Dulce De Leche i Golden Delicious Apple, za karamel jabuku.'
+      ],
+      en: [
+        'Dulce De Leche with Banana Foster for a caramel banana.',
+        'Dulce De Leche with Golden Delicious Apple for a caramel apple.'
+      ]
+    },
+    similar: ['musthave-candy-cow', 'social-smoke-horchata-cajeta', 'social-smoke-cinnamon-roll']
+  },
+  {
+    id: 'social-smoke-french-vanilla',
+    brand: 'social-smoke',
+    leaf: 'light',
+    name: 'French Vanilla',
+    shortDescription: {
+      bs: 'Čista vanila sa egzotičnim začinima.',
+      en: 'Pure vanilla with exotic spices.'
+    },
+    description: {
+      bs: [
+        'French Vanilla je elegantan spoj čiste vanile i egzotičnih začina.',
+        'Mekan je i sladak, a začini mu daju malo topline.'
+      ],
+      en: [
+        'French Vanilla is an elegant blend of pure vanilla and exotic spices.',
+        'It is soft and sweet, and the spices give it a little warmth.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Vanila', en: 'Vanilla' }, illustration: 'vanila', color: '#f3e2b3', intensity: 9 },
+      { name: { bs: 'Egzotični začini', en: 'Exotic spices' }, illustration: 'cimet', color: '#a0522d', intensity: 3 }
+    ],
+    profile: { sweetness: 8, freshness: 2, fruitiness: 1, cooling: 0, strength: 5 },
+    tags: ['desertni', 'slatki'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#f3e2b3', secondary: '#a0522d', accent: '#bd866c', background: '#2b261d', text: '#fefdfa' },
+    mixIdeas: {
+      bs: [
+        'French Vanilla i Chai Latte, za kremasti chai.',
+        'French Vanilla i Cigar, za cigaru sa vanilom.'
+      ],
+      en: [
+        'French Vanilla with Chai Latte for a creamy chai.',
+        'French Vanilla with Cigar for a vanilla cigar.'
+      ]
+    },
+    similar: ['al-fakher-vanilla', 'fumari-spiced-chai', 'musthave-vanilla-cream']
+  },
+  {
+    id: 'social-smoke-ginger-tea',
+    brand: 'social-smoke',
+    leaf: 'light',
+    name: 'Ginger Tea',
+    shortDescription: {
+      bs: 'Začinski čaj sa đumbirom.',
+      en: 'A spicy, ginger-spiked tea.'
+    },
+    description: {
+      bs: [
+        'Ginger Tea je čaj sa đumbirom, inspirisan Azijom.',
+        'Đumbir daje ljutkastu, živu notu koja budi čula.'
+      ],
+      en: [
+        'Ginger Tea is a ginger-spiked tea inspired by Asia.',
+        'The ginger gives a spicy, lively note that wakes up the senses.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Đumbir', en: 'Ginger' }, illustration: 'djumbir', color: '#f2d27a', intensity: 8 },
+      { name: { bs: 'Crni čaj', en: 'Black tea' }, illustration: 'caj', color: '#b5651d', intensity: 6 }
+    ],
+    profile: { sweetness: 5, freshness: 5, fruitiness: 1, cooling: 0, strength: 5 },
+    tags: ['caj', 'zacinski'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#f2d27a', secondary: '#b5651d', accent: '#cb9361', background: '#2b2315', text: '#fefcf6' },
+    mixIdeas: {
+      bs: [
+        'Ginger Tea i Lemon, za čaj od đumbira i limuna.',
+        'Ginger Tea i Orange, za zimski čaj.'
+      ],
+      en: [
+        'Ginger Tea with Lemon for a ginger lemon tea.',
+        'Ginger Tea with Orange for a winter tea.'
+      ]
+    },
+    similar: ['social-smoke-chai-latte', 'musthave-masala-tea', 'social-smoke-hong-kong-milk-tea']
+  },
+  {
+    id: 'social-smoke-golden-delicious-apple',
+    brand: 'social-smoke',
+    leaf: 'light',
+    name: 'Golden Delicious Apple',
+    shortDescription: {
+      bs: 'Slatka, hrskava žuta jabuka.',
+      en: 'A sweet, crisp golden apple.'
+    },
+    description: {
+      bs: [
+        'Golden Delicious Apple je slatka, hrskava žuta jabuka, kao iz sunčanog voćnjaka.',
+        'Za razliku od Double Applea, nema anisa ni začina, pa je to čista jabuka.'
+      ],
+      en: [
+        'Golden Delicious Apple is a sweet, crisp golden apple, like one from a sunny orchard.',
+        'Unlike Double Apple, there is no anise or spice, so it is pure apple.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Žuta jabuka', en: 'Yellow apple' }, illustration: 'jabuka', color: '#e8c547', intensity: 9 }
+    ],
+    profile: { sweetness: 7, freshness: 6, fruitiness: 8, cooling: 0, strength: 5 },
+    tags: ['vocni', 'slatki'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#e8c547', secondary: '#f2df9a', accent: '#ae9435', background: '#2a220e', text: '#fdfbf2' },
+    mixIdeas: {
+      bs: [
+        'Golden Delicious Apple i Dulce De Leche, za karamel jabuku.',
+        'Golden Delicious Apple i Mint, 70/30, za svježu jabuku.'
+      ],
+      en: [
+        'Golden Delicious Apple with Dulce De Leche for a caramel apple.',
+        'Golden Delicious Apple with Mint, 70/30, for a fresh apple.'
+      ]
+    },
+    similar: ['al-fakher-double-apple', 'musthave-apple-drops', '187-oldschool-bang']
+  },
+  {
+    id: 'social-smoke-grape',
+    brand: 'social-smoke',
+    leaf: 'light',
+    name: 'Grape',
+    shortDescription: {
+      bs: 'Mix crnog, crvenog i zelenog grožđa.',
+      en: 'A mix of black, red and green grapes.'
+    },
+    description: {
+      bs: [
+        'Grape spaja tri vrste grožđa: crno, crveno i zeleno.',
+        'Okus je zato puniji od običnog grožđa, sladak i sočan.'
+      ],
+      en: [
+        'Grape blends three kinds of grapes: black, red and green.',
+        'That makes it fuller than plain grape, sweet and juicy.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Grožđe', en: 'Grape' }, illustration: 'grozdje', color: '#6b2c7a', intensity: 9 }
+    ],
+    profile: { sweetness: 7, freshness: 5, fruitiness: 8, cooling: 0, strength: 5 },
+    tags: ['vocni', 'slatki'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#6b2c7a', secondary: '#ae8bb6', accent: '#50215c', background: '#180c15', text: '#f5f0f6' },
+    mixIdeas: {
+      bs: [
+        'Grape i Mint, 70/30, za klasično grožđe sa mentom.',
+        'Grape i Berry Punch, za tamno voće.'
+      ],
+      en: [
+        'Grape with Mint, 70/30, for classic grape mint.',
+        'Grape with Berry Punch for dark fruit.'
+      ]
+    },
+    similar: ['al-fakher-grape', 'haze-purple-krush', 'social-smoke-grape-chill']
+  },
+  {
+    id: 'social-smoke-grape-chill',
+    brand: 'social-smoke',
+    leaf: 'light',
+    name: 'Grape Chill',
+    shortDescription: {
+      bs: 'Zrelo, slatko grožđe sa nježnom mentom.',
+      en: 'Ripe, sweet grapes with delicate mint.'
+    },
+    description: {
+      bs: [
+        'Grape Chill je zrelo, slatko grožđe sa nježnom notom mente.',
+        'Menta je blaga, pa grožđe ostaje glavno.'
+      ],
+      en: [
+        'Grape Chill is ripe, sweet grape with a delicate mint note.',
+        'The mint is gentle, so the grape stays in the lead.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Grožđe', en: 'Grape' }, illustration: 'grozdje', color: '#6b2c7a', intensity: 9 },
+      { name: { bs: 'Menta', en: 'Mint' }, illustration: 'menta', color: '#2fae78', intensity: 5 }
+    ],
+    profile: { sweetness: 7, freshness: 7, fruitiness: 8, cooling: 4, strength: 5 },
+    tags: ['vocni', 'mint', 'slatki', 'osvjezavajuci'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#6b2c7a', secondary: '#2fae78', accent: '#6dc6a1', background: '#180c15', text: '#f5f0f6' },
+    mixIdeas: {
+      bs: [
+        'Grape Chill i Blackberry, za tamno voće sa mentom.',
+        'Grape Chill i Lemon, za kiselkastije grožđe.'
+      ],
+      en: [
+        'Grape Chill with Blackberry for dark fruit with mint.',
+        'Grape Chill with Lemon for a tangier grape.'
+      ]
+    },
+    similar: ['adalya-grape-mint', '187-quelle', 'holster-grpe-mnt']
+  },
+  {
+    id: 'social-smoke-grapefruit-chill',
+    brand: 'social-smoke',
+    leaf: 'light',
+    name: 'Grapefruit Chill',
+    shortDescription: {
+      bs: 'Kisela korica grejpfruta, menta i gorkasti pomelo.',
+      en: 'Tart grapefruit peel, garden mint and bitter pomelo.'
+    },
+    description: {
+      bs: [
+        'Grapefruit Chill spaja kiselu koricu grejpfruta, baštensku mentu i gorkasti pomelo.',
+        'Sočni citrusi i hladan završetak ga čine jako osvježavajućim.'
+      ],
+      en: [
+        'Grapefruit Chill combines tart grapefruit peel, garden mint and bitter pomelo.',
+        'Juicy citrus and a cool finish make it very refreshing.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Grejpfrut', en: 'Grapefruit' }, illustration: 'grejpfrut', color: '#f26b6b', intensity: 8 },
+      { name: { bs: 'Menta', en: 'Mint' }, illustration: 'menta', color: '#2fae78', intensity: 6 },
+      { name: { bs: 'Pomelo', en: 'Pomelo' }, illustration: 'grejpfrut', color: '#e8e07a', intensity: 4 }
+    ],
+    profile: { sweetness: 5, freshness: 9, fruitiness: 7, cooling: 5, strength: 5 },
+    tags: ['vocni', 'citrusni', 'mint', 'osvjezavajuci'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#f26b6b', secondary: '#2fae78', accent: '#e8e07a', background: '#2b1513', text: '#fef5f5' },
+    mixIdeas: {
+      bs: [
+        'Grapefruit Chill i Berry Punch, za ružičastu limunadu.',
+        'Grapefruit Chill i Watermelon, za ljetni citrus.'
+      ],
+      en: [
+        'Grapefruit Chill with Berry Punch for a pink lemonade.',
+        'Grapefruit Chill with Watermelon for a summery citrus.'
+      ]
+    },
+    similar: ['adalya-tynky-wynky', 'al-fakher-grapefruit', 'musthave-grapefruit']
+  },
+  {
+    id: 'social-smoke-gumtastic',
+    brand: 'social-smoke',
+    leaf: 'light',
+    name: 'Gumtastic',
+    shortDescription: {
+      bs: 'Mastika žvaka sa voćnim notama i vanilom.',
+      en: 'Mastic gum with fruity notes and vanilla.'
+    },
+    description: {
+      bs: [
+        'Gumtastic je biljni, aromatičan okus mastike, smole od koje se pravi tradicionalna žvaka.',
+        'Voćne note i vanila ga omekšaju, pa je okus svjež i sladak.'
+      ],
+      en: [
+        'Gumtastic is an herbal, aromatic mastic flavor, from the resin used in traditional chewing gum.',
+        'Fruity notes and vanilla soften it, so the flavor is fresh and sweet.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Mastika', en: 'Mastic gum' }, illustration: 'zvaka', color: '#ff8fc0', intensity: 7 },
+      { name: { bs: 'Voćne note', en: 'Fruity notes' }, illustration: 'kupina', color: '#e8457a', intensity: 4 },
+      { name: { bs: 'Vanila', en: 'Vanilla' }, illustration: 'vanila', color: '#f3e2b3', intensity: 4 }
+    ],
+    profile: { sweetness: 7, freshness: 6, fruitiness: 4, cooling: 2, strength: 5 },
+    tags: ['bombon', 'biljni', 'slatki'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#ff8fc0', secondary: '#e8457a', accent: '#f3e2b3', background: '#2d1a1f', text: '#fff7fb' },
+    mixIdeas: {
+      bs: [
+        'Gumtastic i Mint, 70/30, za klasičnu žvaku sa mentom.',
+        'Gumtastic i Berry Punch, za voćnu žvaku.'
+      ],
+      en: [
+        'Gumtastic with Mint, 70/30, for a classic gum with mint.',
+        'Gumtastic with Berry Punch for a fruity gum.'
+      ]
+    },
+    similar: ['al-fakher-gum-cinnamon', 'haze-double-bubble', 'mazaya-gum-mint']
+  },
+  {
+    id: 'social-smoke-honeydew-melon',
+    brand: 'social-smoke',
+    leaf: 'light',
+    name: 'Honeydew Melon',
+    shortDescription: {
+      bs: 'Klasična, sočna medena dinja.',
+      en: 'Classic, succulent honeydew melon.'
+    },
+    description: {
+      bs: [
+        'Honeydew Melon je klasična, sočna medena dinja prirodnog okusa.',
+        'Bez mente je, pa je okus čist i voćni.'
+      ],
+      en: [
+        'Honeydew Melon is a classic, succulent honeydew with a natural taste.',
+        'It has no mint, so the flavor is clean and fruity.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Medena dinja', en: 'Honeydew melon' }, illustration: 'dinja', color: '#cfe79c', intensity: 9 }
+    ],
+    profile: { sweetness: 7, freshness: 6, fruitiness: 8, cooling: 0, strength: 5 },
+    tags: ['vocni', 'ljetni', 'slatki'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#cfe79c', secondary: '#e5f2c9', accent: '#9bad75', background: '#26261a', text: '#fcfdf8' },
+    mixIdeas: {
+      bs: [
+        'Honeydew Melon i Watermelon, za duplu dinju.',
+        'Honeydew Melon i Absolute Zero, 80/20, za ledenu dinju.'
+      ],
+      en: [
+        'Honeydew Melon with Watermelon for a double melon.',
+        'Honeydew Melon with Absolute Zero, 80/20, for an icy melon.'
+      ]
+    },
+    similar: ['al-fakher-melon', 'fumari-ambrosia', 'starbuzz-safari-melon-dew']
+  },
+  {
+    id: 'social-smoke-honeydew-melon-chill',
+    brand: 'social-smoke',
+    leaf: 'light',
+    name: 'Honeydew Melon Chill',
+    shortDescription: {
+      bs: 'Medena dinja sa mentom, nježna i osvježavajuća.',
+      en: 'Honeydew melon with mint, delicate and refreshing.'
+    },
+    description: {
+      bs: [
+        'Honeydew Melon Chill je medena dinja sa dodatkom mente.',
+        'Okus je nježan i osvježavajući, dobar za ljeto.'
+      ],
+      en: [
+        'Honeydew Melon Chill is honeydew melon with added mint.',
+        'The flavor is delicate and refreshing, good for summer.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Medena dinja', en: 'Honeydew melon' }, illustration: 'dinja', color: '#cfe79c', intensity: 8 },
+      { name: { bs: 'Menta', en: 'Mint' }, illustration: 'menta', color: '#2fae78', intensity: 6 }
+    ],
+    profile: { sweetness: 7, freshness: 8, fruitiness: 8, cooling: 5, strength: 5 },
+    tags: ['vocni', 'mint', 'ljetni', 'slatki', 'osvjezavajuci'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#cfe79c', secondary: '#2fae78', accent: '#6dc6a1', background: '#26261a', text: '#fcfdf8' },
+    mixIdeas: {
+      bs: [
+        'Honeydew Melon Chill i Watermelon Chill, za ledene dinje.',
+        'Honeydew Melon Chill i Lemon, za limunadu od dinje.'
+      ],
+      en: [
+        'Honeydew Melon Chill with Watermelon Chill for icy melons.',
+        'Honeydew Melon Chill with Lemon for a melon lemonade.'
+      ]
+    },
+    similar: ['social-smoke-cantaloupe-chill', 'adalya-blue-melon', 'social-smoke-melon-rush']
+  },
+  {
+    id: 'social-smoke-hong-kong-milk-tea',
+    brand: 'social-smoke',
+    leaf: 'light',
+    name: 'Hong Kong Milk Tea',
+    shortDescription: {
+      bs: 'Crni čaj sa kremastim mlijekom i malo šećera.',
+      en: 'Black tea with creamy milk and a dash of sugar.'
+    },
+    description: {
+      bs: [
+        'Hong Kong Milk Tea je mekan crni čaj umiješan sa kremastim mlijekom.',
+        'Malo šećera ga zaokruži, pa je okus blag i kremast.'
+      ],
+      en: [
+        'Hong Kong Milk Tea is smooth black tea swirled with creamy milk.',
+        'A dash of sugar rounds it off, so the flavor is mild and creamy.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Crni čaj', en: 'Black tea' }, illustration: 'caj', color: '#b5651d', intensity: 8 },
+      { name: { bs: 'Mlijeko', en: 'Milk' }, illustration: 'sejk', color: '#fbf3e3', intensity: 6 }
+    ],
+    profile: { sweetness: 6, freshness: 3, fruitiness: 1, cooling: 0, strength: 5 },
+    tags: ['caj', 'pice', 'desertni'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#b5651d', secondary: '#fbf3e3', accent: '#fcf7eb', background: '#231408', text: '#faf4ef' },
+    mixIdeas: {
+      bs: [
+        'Hong Kong Milk Tea i Coconut, za kokos čaj sa mlijekom.',
+        'Hong Kong Milk Tea i Dulce De Leche, za karamel čaj.'
+      ],
+      en: [
+        'Hong Kong Milk Tea with Coconut for a coconut milk tea.',
+        'Hong Kong Milk Tea with Dulce De Leche for a caramel tea.'
+      ]
+    },
+    similar: ['social-smoke-chai-latte', 'musthave-earl-grey', 'musthave-masala-tea']
+  },
+  {
+    id: 'social-smoke-horchata-cajeta',
+    brand: 'social-smoke',
+    leaf: 'light',
+    name: 'Horchata Cajeta',
+    shortDescription: {
+      bs: 'Meksički napitak od riže sa karamelom i cimetom.',
+      en: 'The Mexican rice drink with caramel and cinnamon.'
+    },
+    description: {
+      bs: [
+        'Horchata Cajeta je inspirisan meksičkom horčatom, napitkom od riže.',
+        'Karamel i cimet mu daju slatku, toplu, desertnu notu.'
+      ],
+      en: [
+        'Horchata Cajeta is inspired by Mexican horchata, a rice drink.',
+        'Caramel and cinnamon give it a sweet, warm, dessert-like note.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Napitak od riže', en: 'Rice drink' }, illustration: 'riza', color: '#f6ecd0', intensity: 7 },
+      { name: { bs: 'Karamel', en: 'Caramel' }, illustration: 'karamel', color: '#b7742f', intensity: 5 },
+      { name: { bs: 'Cimet', en: 'Cinnamon' }, illustration: 'cimet', color: '#a0522d', intensity: 5 }
+    ],
+    profile: { sweetness: 8, freshness: 2, fruitiness: 1, cooling: 0, strength: 5 },
+    tags: ['desertni', 'pice', 'zacinski'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#f6ecd0', secondary: '#b7742f', accent: '#a0522d', background: '#2c2721', text: '#fefefc' },
+    mixIdeas: {
+      bs: [
+        'Horchata Cajeta i Coconut, za kremasti kokos.',
+        'Horchata Cajeta i Banana Foster, za desertni mix.'
+      ],
+      en: [
+        'Horchata Cajeta with Coconut for a creamy coconut.',
+        'Horchata Cajeta with Banana Foster for a dessert mix.'
+      ]
+    },
+    similar: ['musthave-milky-rice', 'fumari-spiced-chai', 'social-smoke-dulce-de-leche']
+  },
+  {
+    id: 'social-smoke-japanese-yuzu',
+    brand: 'social-smoke',
+    leaf: 'light',
+    name: 'Japanese Yuzu',
+    shortDescription: {
+      bs: 'Japanski citrus yuzu: kiseo kao limun, cvjetan, sa daškom grejpfruta.',
+      en: 'Japanese yuzu: tart like lemon, floral, with a touch of grapefruit.'
+    },
+    description: {
+      bs: [
+        'Japanese Yuzu je okus yuzua, posebnog japanskog citrusa.',
+        'Kiseo je kao limun, ali ima cvjetnu notu i blagu gorčinu grejpfruta.'
+      ],
+      en: [
+        'Japanese Yuzu is the flavor of yuzu, a special Japanese citrus.',
+        'It is tart like lemon, but with a floral lift and a light grapefruit bitterness.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Yuzu', en: 'Yuzu' }, illustration: 'limun', color: '#f2d23c', intensity: 8 },
+      { name: { bs: 'Grejpfrut', en: 'Grapefruit' }, illustration: 'grejpfrut', color: '#f26b6b', intensity: 4 }
+    ],
+    profile: { sweetness: 5, freshness: 8, fruitiness: 7, cooling: 0, strength: 5 },
+    tags: ['vocni', 'citrusni', 'osvjezavajuci'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#f2d23c', secondary: '#f26b6b', accent: '#f69797', background: '#2b230d', text: '#fefcf1' },
+    mixIdeas: {
+      bs: [
+        'Japanese Yuzu i Mint, 70/30, za svjež citrus.',
+        'Japanese Yuzu i Honeydew Melon, za dinju sa citrusom.'
+      ],
+      en: [
+        'Japanese Yuzu with Mint, 70/30, for a fresh citrus.',
+        'Japanese Yuzu with Honeydew Melon for melon with citrus.'
+      ]
+    },
+    similar: ['al-fakher-lemon', 'social-smoke-lemon', 'starbuzz-pirates-cave']
+  },
+  {
+    id: 'social-smoke-lemon',
+    brand: 'social-smoke',
+    leaf: 'light',
+    name: 'Lemon',
+    shortDescription: {
+      bs: 'Sunčani limun sa kiselkastim, mekim završetkom.',
+      en: 'Sun-ripened lemon with a tangy, smooth finish.'
+    },
+    description: {
+      bs: [
+        'Lemon je zreo, sunčan limun.',
+        'Kiselkast je, ali sa mekim završetkom, pa je dobar i sam i kao citrusna nota u miksevima.'
+      ],
+      en: [
+        'Lemon is a ripe, sun-ripened lemon.',
+        'It is tangy but with a smooth finish, so it works on its own and as a citrus note in mixes.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Limun', en: 'Lemon' }, illustration: 'limun', color: '#f7e04b', intensity: 9 }
+    ],
+    profile: { sweetness: 6, freshness: 8, fruitiness: 7, cooling: 0, strength: 5 },
+    tags: ['vocni', 'citrusni', 'osvjezavajuci'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#f7e04b', secondary: '#fbee9c', accent: '#b9a838', background: '#2c250f', text: '#fefdf2' },
+    mixIdeas: {
+      bs: [
+        'Lemon i Mint, 60/40, za limunadu sa mentom.',
+        'Lemon i Berry Punch, za limunadu od bobica.'
+      ],
+      en: [
+        'Lemon with Mint, 60/40, for a mint lemonade.',
+        'Lemon with Berry Punch for a berry lemonade.'
+      ]
+    },
+    similar: ['al-fakher-lemon', 'social-smoke-japanese-yuzu', 'adalya-lemon-cocktail']
+  },
+  {
+    id: 'social-smoke-lemon-chill',
+    brand: 'social-smoke',
+    leaf: 'light',
+    name: 'Lemon Chill',
+    shortDescription: {
+      bs: 'Slatki, kiselkasti limun sa svježom mentom.',
+      en: 'Sweet and tangy lemon with fresh mint.'
+    },
+    description: {
+      bs: [
+        'Lemon Chill je slatki, kiselkasti limun sa svježom mentom.',
+        'Menta daje hladan završetak, pa je okus kao limunada sa mentom.'
+      ],
+      en: [
+        'Lemon Chill is sweet and tangy lemon with fresh mint.',
+        'The mint gives a cool finish, so it tastes like mint lemonade.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Limun', en: 'Lemon' }, illustration: 'limun', color: '#f7e04b', intensity: 8 },
+      { name: { bs: 'Menta', en: 'Mint' }, illustration: 'menta', color: '#2fae78', intensity: 6 }
+    ],
+    profile: { sweetness: 6, freshness: 9, fruitiness: 7, cooling: 5, strength: 5 },
+    tags: ['vocni', 'citrusni', 'mint', 'osvjezavajuci'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#f7e04b', secondary: '#2fae78', accent: '#6dc6a1', background: '#2c250f', text: '#fefdf2' },
+    mixIdeas: {
+      bs: [
+        'Lemon Chill i Watermelon, za ljetnu limunadu.',
+        'Lemon Chill i Blackberry, za limunadu od kupine.'
+      ],
+      en: [
+        'Lemon Chill with Watermelon for a summer lemonade.',
+        'Lemon Chill with Blackberry for a blackberry lemonade.'
+      ]
+    },
+    similar: ['al-fakher-lemon-mint', 'social-smoke-arctic-lemon', 'mazaya-lemon-mint']
+  },
+  {
+    id: 'social-smoke-lemon-drop',
+    brand: 'social-smoke',
+    leaf: 'light',
+    name: 'Lemon Drop',
+    shortDescription: {
+      bs: 'Slatki limun bomboni.',
+      en: 'Sweet lemon drop candies.'
+    },
+    description: {
+      bs: [
+        'Lemon Drop je okus slatkih limun bombona.',
+        'Slađi je od običnog limuna, sa kiselinom koja je tek u pozadini.'
+      ],
+      en: [
+        'Lemon Drop is the flavor of sweet lemon drop candies.',
+        'It is sweeter than plain lemon, with the tang only in the background.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Limun', en: 'Lemon' }, illustration: 'limun', color: '#f7e04b', intensity: 7 },
+      { name: { bs: 'Limun bombon', en: 'Lemon drop candy' }, illustration: 'bombon', color: '#f7e04b', intensity: 6 }
+    ],
+    profile: { sweetness: 8, freshness: 6, fruitiness: 6, cooling: 0, strength: 5 },
+    tags: ['bombon', 'citrusni', 'slatki'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#f7e04b', secondary: '#f7e04b', accent: '#f9e981', background: '#2c250f', text: '#fefdf2' },
+    mixIdeas: {
+      bs: [
+        'Lemon Drop i Mint, 70/30, za limun bombon sa mentom.',
+        'Lemon Drop i Strawberry Kiwi, za voćne bombone.'
+      ],
+      en: [
+        'Lemon Drop with Mint, 70/30, for a mint lemon candy.',
+        'Lemon Drop with Strawberry Kiwi for fruit candies.'
+      ]
+    },
+    similar: ['social-smoke-lemon-pie', 'adalya-lemon-cocktail', 'social-smoke-pink-lemonade']
+  },
+  {
+    id: 'social-smoke-lemon-pie',
+    brand: 'social-smoke',
+    leaf: 'light',
+    name: 'Lemon Pie',
+    shortDescription: {
+      bs: 'Kiselkasti limun i slatka, kremasta puslica.',
+      en: 'Tangy lemon with sweet, creamy meringue.'
+    },
+    description: {
+      bs: [
+        'Lemon Pie je desert: kiselkasti limun i slatka, kremasta puslica.',
+        'Okus je osvježavajući i sladak u isto vrijeme, kao pita od limuna.'
+      ],
+      en: [
+        'Lemon Pie is a dessert: tangy lemon and sweet, creamy meringue.',
+        'The flavor is refreshing and sweet at the same time, like a lemon meringue pie.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Limun', en: 'Lemon' }, illustration: 'limun', color: '#f7e04b', intensity: 7 },
+      { name: { bs: 'Puslica', en: 'Meringue' }, illustration: 'puslica', color: '#ffd6e6', intensity: 6 },
+      { name: { bs: 'Tijesto', en: 'Pastry' }, illustration: 'kolac', color: '#f6ecd0', intensity: 5 }
+    ],
+    profile: { sweetness: 8, freshness: 5, fruitiness: 5, cooling: 0, strength: 5 },
+    tags: ['desertni', 'citrusni', 'slatki'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#f7e04b', secondary: '#ffd6e6', accent: '#f6ecd0', background: '#2c250f', text: '#fefdf2' },
+    mixIdeas: {
+      bs: [
+        'Lemon Pie i French Vanilla, za kremastiju pitu.',
+        'Lemon Pie i Blackberry, za pitu od limuna i kupine.'
+      ],
+      en: [
+        'Lemon Pie with French Vanilla for a creamier pie.',
+        'Lemon Pie with Blackberry for a lemon blackberry pie.'
+      ]
+    },
+    similar: ['social-smoke-lemon-drop', 'adalya-lemon-cocktail', 'social-smoke-pink-lemonade']
+  },
+  {
+    id: 'social-smoke-lime',
+    brand: 'social-smoke',
+    leaf: 'light',
+    name: 'Lime',
+    shortDescription: {
+      bs: 'Kisela limeta sa mekim završetkom.',
+      en: 'Zesty lime with a tart, smooth finish.'
+    },
+    description: {
+      bs: [
+        'Lime je živa, kisela limeta.',
+        'Završetak je mekan, pa nije oštra, a odlično se slaže sa mentom i voćem.'
+      ],
+      en: [
+        'Lime is a zesty, tart lime.',
+        'The finish is smooth, so it is not harsh, and it goes great with mint and fruit.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Limeta', en: 'Lime' }, illustration: 'limeta', color: '#7cc242', intensity: 9 }
+    ],
+    profile: { sweetness: 5, freshness: 8, fruitiness: 7, cooling: 0, strength: 5 },
+    tags: ['vocni', 'citrusni', 'osvjezavajuci'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#7cc242', secondary: '#b7dd97', accent: '#5d9232', background: '#1b210e', text: '#f6fbf2' },
+    mixIdeas: {
+      bs: [
+        'Lime i Mint, za mojito.',
+        'Lime i Watermelon, za lubenicu sa limetom.'
+      ],
+      en: [
+        'Lime with Mint for a mojito.',
+        'Lime with Watermelon for watermelon with lime.'
+      ]
+    },
+    similar: ['social-smoke-margarita', 'social-smoke-lime-chill', 'musthave-lemon-lime']
+  },
+  {
+    id: 'social-smoke-lime-chill',
+    brand: 'social-smoke',
+    leaf: 'light',
+    name: 'Lime Chill',
+    shortDescription: {
+      bs: 'Kisela limeta sa hladnom mentom.',
+      en: 'Tangy lime with cool mint.'
+    },
+    description: {
+      bs: [
+        'Lime Chill je kisela limeta sa hladnom mentom.',
+        'Jednostavan, jako svjež okus, blizak mojitu.'
+      ],
+      en: [
+        'Lime Chill is tangy lime with cool mint.',
+        'A simple, very fresh flavor, close to a mojito.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Limeta', en: 'Lime' }, illustration: 'limeta', color: '#7cc242', intensity: 8 },
+      { name: { bs: 'Menta', en: 'Mint' }, illustration: 'menta', color: '#2fae78', intensity: 6 }
+    ],
+    profile: { sweetness: 5, freshness: 9, fruitiness: 7, cooling: 5, strength: 5 },
+    tags: ['vocni', 'citrusni', 'mint', 'osvjezavajuci'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#7cc242', secondary: '#2fae78', accent: '#6dc6a1', background: '#1b210e', text: '#f6fbf2' },
+    mixIdeas: {
+      bs: [
+        'Lime Chill i Strawberry Margarita, za ledenu margaritu.',
+        'Lime Chill i Watermelon, za ljetni kotlić.'
+      ],
+      en: [
+        'Lime Chill with Strawberry Margarita for an icy margarita.',
+        'Lime Chill with Watermelon for a summer bowl.'
+      ]
+    },
+    similar: ['social-smoke-mojito', 'adalya-ice-lime-on-the-rocks', 'social-smoke-lime']
+  },
+  {
+    id: 'social-smoke-mango-habanero',
+    brand: 'social-smoke',
+    leaf: 'light',
+    name: 'Mango Habanero',
+    shortDescription: {
+      bs: 'Sočni mango sa ljutinom habanero papričice.',
+      en: 'Juicy mango with the heat of habanero pepper.'
+    },
+    description: {
+      bs: [
+        'Mango Habanero spaja svjež, sočan mango sa ljutom habanero papričicom.',
+        'Neobičan okus: slatko tropsko voće naprijed, a ljutina na kraju.'
+      ],
+      en: [
+        'Mango Habanero pairs fresh, juicy mango with hot habanero pepper.',
+        'An unusual flavor: sweet tropical fruit up front and heat at the end.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Mango', en: 'Mango' }, illustration: 'mango', color: '#ffb52e', intensity: 8 },
+      { name: { bs: 'Habanero papričica', en: 'Habanero pepper' }, illustration: 'kardamom', color: '#e04a2a', intensity: 5 }
+    ],
+    profile: { sweetness: 7, freshness: 4, fruitiness: 8, cooling: 0, strength: 5 },
+    tags: ['vocni', 'tropski', 'zacinski'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#ffb52e', secondary: '#e04a2a', accent: '#e9806a', background: '#2d1f0b', text: '#fffaf0' },
+    mixIdeas: {
+      bs: [
+        'Mango Habanero i Coconut, za blaži, kremasti mango.',
+        'Mango Habanero i Lime, za ljuti tropski koktel.'
+      ],
+      en: [
+        'Mango Habanero with Coconut for a milder, creamy mango.',
+        'Mango Habanero with Lime for a spicy tropical cocktail.'
+      ]
+    },
+    similar: ['al-fakher-mango', 'social-smoke-twisted', 'adalya-english-lord']
+  },
+  {
+    id: 'social-smoke-margarita',
+    brand: 'social-smoke',
+    leaf: 'light',
+    name: 'Margarita',
+    shortDescription: {
+      bs: 'Koktel od limete, agave i tekile.',
+      en: 'The cocktail of zesty lime, agave and tequila.'
+    },
+    description: {
+      bs: [
+        'Margarita je inspirisana poznatim koktelom: kisela limeta, agava i tekila.',
+        'Okus je osvježavajući i kiselkast, za ljubitelje okusa pića.'
+      ],
+      en: [
+        'Margarita is inspired by the famous cocktail: zesty lime, agave and tequila.',
+        'The flavor is refreshing and tangy, for fans of drink flavors.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Limeta', en: 'Lime' }, illustration: 'limeta', color: '#7cc242', intensity: 8 },
+      { name: { bs: 'Tekila i agava', en: 'Tequila and agave' }, illustration: 'liker', color: '#e8d68a', intensity: 5 }
+    ],
+    profile: { sweetness: 5, freshness: 7, fruitiness: 6, cooling: 0, strength: 5 },
+    tags: ['pice', 'citrusni', 'kiseli'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#7cc242', secondary: '#e8d68a', accent: '#efe2ad', background: '#1b210e', text: '#f6fbf2' },
+    mixIdeas: {
+      bs: [
+        'Margarita i Strawberry Margarita, za voćnu margaritu.',
+        'Margarita i Mango Habanero, za ljutu margaritu.'
+      ],
+      en: [
+        'Margarita with Strawberry Margarita for a fruity margarita.',
+        'Margarita with Mango Habanero for a spicy margarita.'
+      ]
+    },
+    similar: ['social-smoke-lime', 'social-smoke-mojito', 'musthave-lemon-lime']
+  },
+  {
+    id: 'social-smoke-melon-rush',
+    brand: 'social-smoke',
+    leaf: 'light',
+    name: 'Melon Rush',
+    shortDescription: {
+      bs: 'Slatka, hrskava medena dinja sa raznim bobicama.',
+      en: 'Sweet, crisp honeydew with assorted berries.'
+    },
+    description: {
+      bs: [
+        'Melon Rush spaja slatku, hrskavu medenu dinju sa raznim bobičastim voćem.',
+        'Okus je osvježavajući i voćan, dobar za ljeto.'
+      ],
+      en: [
+        'Melon Rush combines sweet, crisp honeydew with assorted berries.',
+        'The flavor is refreshing and fruity, good for summer.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Medena dinja', en: 'Honeydew melon' }, illustration: 'dinja', color: '#cfe79c', intensity: 8 },
+      { name: { bs: 'Bobičasto voće', en: 'Mixed berries' }, illustration: 'kupina', color: '#7a2f6b', intensity: 6 }
+    ],
+    profile: { sweetness: 7, freshness: 7, fruitiness: 9, cooling: 0, strength: 5 },
+    tags: ['vocni', 'bobicasti', 'ljetni', 'slatki', 'osvjezavajuci'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#cfe79c', secondary: '#7a2f6b', accent: '#a26d97', background: '#26261a', text: '#fcfdf8' },
+    mixIdeas: {
+      bs: [
+        'Melon Rush i Absolute Zero, 80/20, za ledeni mix.',
+        'Melon Rush i Lemon, za kiselkastiji kotlić.'
+      ],
+      en: [
+        'Melon Rush with Absolute Zero, 80/20, for an icy mix.',
+        'Melon Rush with Lemon for a tangier bowl.'
+      ]
+    },
+    similar: ['adalya-double-melon', 'al-fakher-melon', 'starbuzz-safari-melon-dew']
+  },
+  {
+    id: 'social-smoke-mesmerise',
+    brand: 'social-smoke',
+    leaf: 'light',
+    name: 'Mesmerise',
+    shortDescription: {
+      bs: 'Slojevit mix voćnih bombona za ljubitelje slatkog.',
+      en: 'A multi-layered fruit candy blend for a sweet tooth.'
+    },
+    description: {
+      bs: [
+        'Mesmerise je slojevit mix voćnih bombona.',
+        'Jako je sladak, pa je za one koji vole bombone i slatke okuse.'
+      ],
+      en: [
+        'Mesmerise is a multi-layered fruit candy blend.',
+        'It is very sweet, so it is for people who love candy and sweet flavors.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Voćni bomboni', en: 'Fruit candy' }, illustration: 'bomboni', color: '#ff4fa3', intensity: 8 }
+    ],
+    profile: { sweetness: 9, freshness: 4, fruitiness: 7, cooling: 0, strength: 5 },
+    tags: ['bombon', 'slatki', 'vocni'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#ff4fa3', secondary: '#ff9ecc', accent: '#bf3b7a', background: '#2d111b', text: '#fff3f9' },
+    mixIdeas: {
+      bs: [
+        'Mesmerise i Absolute Zero, 80/20, za ledene bombone.',
+        'Mesmerise i Lemon, ako ti je presladak.'
+      ],
+      en: [
+        'Mesmerise with Absolute Zero, 80/20, for icy candy.',
+        'Mesmerise with Lemon if it is too sweet for you.'
+      ]
+    },
+    similar: ['social-smoke-white-gummy-bear', 'fumari-red-gummi-bear', 'social-smoke-blue-raspberry']
+  },
+  {
+    id: 'social-smoke-mint',
+    brand: 'social-smoke',
+    leaf: 'light',
+    name: 'Mint',
+    mood: 'frost',
+    shortDescription: {
+      bs: 'Intenzivan prirodni pepermint, mlađi brat Absolute Zera.',
+      en: 'Intense natural peppermint, Absolute Zero\'s younger sibling.'
+    },
+    description: {
+      bs: [
+        'Mint je intenzivan, prirodni pepermint.',
+        'Social Smoke ga zove mlađim bratom Absolute Zera: svjež i živ, ali čistiji i manje leden.'
+      ],
+      en: [
+        'Mint is an intense, natural peppermint.',
+        'Social Smoke calls it Absolute Zero\'s younger sibling: fresh and lively, but cleaner and less icy.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Pepermint', en: 'Peppermint' }, illustration: 'pepermint', color: '#1fa874', intensity: 9 }
+    ],
+    profile: { sweetness: 4, freshness: 9, fruitiness: 1, cooling: 8, strength: 5 },
+    tags: ['mint', 'osvjezavajuci'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#1fa874', secondary: '#84cfb3', accent: '#177e57', background: '#0e1e15', text: '#eff9f5' },
+    mixIdeas: {
+      bs: [
+        'Mint i Double Apple, 30/70, za klasičnu jabuku sa mentom.',
+        'Mint i Lemon, za limunadu sa mentom.'
+      ],
+      en: [
+        'Mint with Double Apple, 30/70, for classic apple mint.',
+        'Mint with Lemon for a mint lemonade.'
+      ]
+    },
+    similar: ['social-smoke-absolute-zero', 'trifecta-durty-mint', 'musthave-peppermint']
+  },
+  {
+    id: 'social-smoke-mirage',
+    brand: 'social-smoke',
+    leaf: 'light',
+    name: 'Mirage',
+    shortDescription: {
+      bs: 'Menta i cvijet jasmina.',
+      en: 'Mint with jasmine flower.'
+    },
+    description: {
+      bs: [
+        'Mirage je neobičan spoj mente i cvijeta jasmina.',
+        'Jasmin daje mirisnu, cvjetnu notu, a menta svježinu.'
+      ],
+      en: [
+        'Mirage is an unusual blend of mint and jasmine flower.',
+        'The jasmine brings a fragrant, floral note, and the mint brings freshness.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Menta', en: 'Mint' }, illustration: 'menta', color: '#2fae78', intensity: 7 },
+      { name: { bs: 'Jasmin', en: 'Jasmine flower' }, illustration: 'ruza', color: '#f4f0d8', intensity: 6 }
+    ],
+    profile: { sweetness: 5, freshness: 8, fruitiness: 1, cooling: 5, strength: 5 },
+    tags: ['mint', 'biljni', 'osvjezavajuci'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#2fae78', secondary: '#f4f0d8', accent: '#f7f5e4', background: '#101e15', text: '#f0f9f6' },
+    mixIdeas: {
+      bs: [
+        'Mirage i Lemon, za cvjetnu limunadu.',
+        'Mirage i Honeydew Melon, za cvjetnu dinju.'
+      ],
+      en: [
+        'Mirage with Lemon for a floral lemonade.',
+        'Mirage with Honeydew Melon for a floral melon.'
+      ]
+    },
+    similar: ['adalya-mint', 'al-fakher-mint', 'haze-mint-supreme']
+  },
+  {
+    id: 'social-smoke-mojito',
+    brand: 'social-smoke',
+    leaf: 'light',
+    name: 'Mojito',
+    shortDescription: {
+      bs: 'Koktel od šećera, soka limete i mente.',
+      en: 'The highball of sugar, lime juice and mint.'
+    },
+    description: {
+      bs: [
+        'Mojito je inspirisan poznatim koktelom: šećer, sok limete i menta.',
+        'Okus je svjež, kiselkast i lagano sladak.'
+      ],
+      en: [
+        'Mojito is inspired by the famous cocktail: sugar, lime juice and mint.',
+        'The flavor is fresh, tangy and lightly sweet.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Limeta', en: 'Lime' }, illustration: 'limeta', color: '#7cc242', intensity: 7 },
+      { name: { bs: 'Menta', en: 'Mint' }, illustration: 'menta', color: '#2fae78', intensity: 7 },
+      { name: { bs: 'Šećer', en: 'Sugar' }, illustration: 'med', color: '#f3c96b', intensity: 4 }
+    ],
+    profile: { sweetness: 6, freshness: 9, fruitiness: 6, cooling: 5, strength: 5 },
+    tags: ['pice', 'mint', 'citrusni', 'osvjezavajuci'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#7cc242', secondary: '#2fae78', accent: '#f3c96b', background: '#1b210e', text: '#f6fbf2' },
+    mixIdeas: {
+      bs: [
+        'Mojito i Passion Fruit Mojito, za tropski mojito.',
+        'Mojito i Watermelon, za mojito od lubenice.'
+      ],
+      en: [
+        'Mojito with Passion Fruit Mojito for a tropical mojito.',
+        'Mojito with Watermelon for a watermelon mojito.'
+      ]
+    },
+    similar: ['social-smoke-lime-chill', 'adalya-ice-lime-on-the-rocks', 'social-smoke-passion-fruit-mojito']
+  },
+  {
+    id: 'social-smoke-orange',
+    brand: 'social-smoke',
+    leaf: 'light',
+    name: 'Orange',
+    shortDescription: {
+      bs: 'Slatke, svježe narandže.',
+      en: 'Sweet, fresh oranges.'
+    },
+    description: {
+      bs: [
+        'Orange je slatka, sunčana narandža, svježe ubrana.',
+        'Bez mente je, pa je to čist citrus.'
+      ],
+      en: [
+        'Orange is a sweet, sunny orange, freshly picked.',
+        'It has no mint, so it is pure citrus.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Narandža', en: 'Orange' }, illustration: 'narandza', color: '#ff9a2e', intensity: 9 }
+    ],
+    profile: { sweetness: 7, freshness: 7, fruitiness: 8, cooling: 0, strength: 5 },
+    tags: ['vocni', 'citrusni', 'slatki', 'osvjezavajuci'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#ff9a2e', secondary: '#ffc78c', accent: '#bf7423', background: '#2d1c0b', text: '#fff8f0' },
+    mixIdeas: {
+      bs: [
+        'Orange i Mint, 70/30, za svjež sok od narandže.',
+        'Orange i French Vanilla, za kremu od narandže.'
+      ],
+      en: [
+        'Orange with Mint, 70/30, for a fresh orange juice.',
+        'Orange with French Vanilla for an orange cream.'
+      ]
+    },
+    similar: ['al-fakher-orange', 'social-smoke-tangerine-rush', 'starbuzz-sex-on-the-beach']
+  },
+  {
+    id: 'social-smoke-paan',
+    brand: 'social-smoke',
+    leaf: 'light',
+    name: 'Paan',
+    shortDescription: {
+      bs: 'Zrele crvene višnje sa gorko-slatkim cimetom.',
+      en: 'Ripe red cherries with bittersweet cinnamon.'
+    },
+    description: {
+      bs: [
+        'Paan spaja zrele crvene višnje sa gorko-slatkim cimetom.',
+        'Okus je začinski i sladak, toplog karaktera.'
+      ],
+      en: [
+        'Paan combines ripe red cherries with bittersweet cinnamon.',
+        'The flavor is spiced and sweet, with a warm character.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Višnja', en: 'Cherry' }, illustration: 'visnja', color: '#a3122a', intensity: 7 },
+      { name: { bs: 'Cimet', en: 'Cinnamon' }, illustration: 'cimet', color: '#a0522d', intensity: 6 }
+    ],
+    profile: { sweetness: 7, freshness: 4, fruitiness: 6, cooling: 0, strength: 5 },
+    tags: ['vocni', 'zacinski', 'slatki'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#a3122a', secondary: '#a0522d', accent: '#bd866c', background: '#20090a', text: '#f9eef0' },
+    mixIdeas: {
+      bs: [
+        'Paan i Pandora\'s Box, za indijski mix.',
+        'Paan i Mint, 70/30, za svježiju višnju.'
+      ],
+      en: [
+        'Paan with Pandora\'s Box for an Indian-style mix.',
+        'Paan with Mint, 70/30, for a fresher cherry.'
+      ]
+    },
+    similar: ['holster-lamoretto', 'al-fakher-cherry', 'fumari-red-gummi-bear']
+  },
+  {
+    id: 'social-smoke-pandoras-box',
+    brand: 'social-smoke',
+    leaf: 'light',
+    name: 'Pandora\'s Box',
+    shortDescription: {
+      bs: 'Areka orah, začini i suho voće umotani u betel list.',
+      en: 'Areca nuts, spices and dried fruit wrapped in a betel leaf.'
+    },
+    description: {
+      bs: [
+        'Pandora\'s Box je inspirisan indijskom grickalicom: areka orah, začini i komadići suhog voća umotani u betel list.',
+        'Okus je neobičan, biljni i začinski, za one koji žele nešto potpuno drugačije.'
+      ],
+      en: [
+        'Pandora\'s Box is inspired by an Indian snack: areca nuts, spices and bits of dried fruit wrapped in a betel leaf.',
+        'The flavor is unusual, herbal and spiced, for people who want something completely different.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Betel list', en: 'Betel leaf' }, illustration: 'betel', color: '#3f9a4a', intensity: 7 },
+      { name: { bs: 'Areka orah', en: 'Areca nut' }, illustration: 'karamel', color: '#8a5a3a', intensity: 5 },
+      { name: { bs: 'Začini', en: 'Spices' }, illustration: 'anis', color: '#8a4a22', intensity: 4 },
+      { name: { bs: 'Suho voće', en: 'Dried fruit' }, illustration: 'dzem', color: '#b0103a', intensity: 4 }
+    ],
+    profile: { sweetness: 6, freshness: 4, fruitiness: 3, cooling: 0, strength: 5 },
+    tags: ['biljni', 'zacinski'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#3f9a4a', secondary: '#8a5a3a', accent: '#8a4a22', background: '#121c0f', text: '#f2f8f2' },
+    mixIdeas: {
+      bs: [
+        'Pandora\'s Box i Paan, za indijski mix.',
+        'Pandora\'s Box i Mint, 80/20, za svježiji kraj.'
+      ],
+      en: [
+        'Pandora\'s Box with Paan for an Indian-style mix.',
+        'Pandora\'s Box with Mint, 80/20, for a fresher finish.'
+      ]
+    },
+    similar: ['afzal-pan-raas', 'social-smoke-chai-latte', 'social-smoke-ginger-tea']
+  },
+  {
+    id: 'social-smoke-passion-fruit-mojito',
+    brand: 'social-smoke',
+    leaf: 'light',
+    name: 'Passion Fruit Mojito',
+    shortDescription: {
+      bs: 'Limun, limeta, egzotična marakuja i hladna menta.',
+      en: 'Lemon and lime juice, exotic passion fruit and cool mint.'
+    },
+    description: {
+      bs: [
+        'Passion Fruit Mojito spaja sok limuna i limete, egzotičnu marakuju i hladnu mentu.',
+        'To je tropska verzija mojita: voćnija i slađa od klasičnog.'
+      ],
+      en: [
+        'Passion Fruit Mojito combines lemon and lime juice, exotic passion fruit and cool mint.',
+        'It is a tropical take on the mojito: fruitier and sweeter than the classic.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Marakuja', en: 'Passion fruit' }, illustration: 'marakuja', color: '#f2a03a', intensity: 8 },
+      { name: { bs: 'Limun', en: 'Lemon' }, illustration: 'limun', color: '#f7e04b', intensity: 5 },
+      { name: { bs: 'Limeta', en: 'Lime' }, illustration: 'limeta', color: '#7cc242', intensity: 5 },
+      { name: { bs: 'Menta', en: 'Mint' }, illustration: 'menta', color: '#2fae78', intensity: 6 }
+    ],
+    profile: { sweetness: 7, freshness: 8, fruitiness: 8, cooling: 5, strength: 5 },
+    tags: ['pice', 'tropski', 'mint', 'osvjezavajuci'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#f2a03a', secondary: '#f7e04b', accent: '#7cc242', background: '#2b1c0c', text: '#fef8f1' },
+    mixIdeas: {
+      bs: [
+        'Passion Fruit Mojito i Mojito, za više mente i limete.',
+        'Passion Fruit Mojito i Sunbeam, za tropski koktel.'
+      ],
+      en: [
+        'Passion Fruit Mojito with Mojito for more mint and lime.',
+        'Passion Fruit Mojito with Sunbeam for a tropical cocktail.'
+      ]
+    },
+    similar: ['al-fakher-magic-love', 'adalya-tynky-wynky', 'adalya-love-66']
+  },
+  {
+    id: 'social-smoke-pear-chill',
+    brand: 'social-smoke',
+    leaf: 'light',
+    name: 'Pear Chill',
+    shortDescription: {
+      bs: 'Blaga, slatka kruška sa mekom mentom.',
+      en: 'Mild, sweet pear with smooth mint.'
+    },
+    description: {
+      bs: [
+        'Pear Chill je blaga, slatka kruška sa suptilnom mentom.',
+        'Okus je nježan i osvježavajući, dobar i za početnike.'
+      ],
+      en: [
+        'Pear Chill is mild, sweet pear with a subtle touch of mint.',
+        'The flavor is gentle and refreshing, good for beginners too.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Kruška', en: 'Pear' }, illustration: 'kruska', color: '#d4c64a', intensity: 8 },
+      { name: { bs: 'Menta', en: 'Mint' }, illustration: 'menta', color: '#2fae78', intensity: 5 }
+    ],
+    profile: { sweetness: 6, freshness: 7, fruitiness: 7, cooling: 4, strength: 5 },
+    tags: ['vocni', 'mint', 'osvjezavajuci'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#d4c64a', secondary: '#2fae78', accent: '#6dc6a1', background: '#27220f', text: '#fcfbf2' },
+    mixIdeas: {
+      bs: [
+        'Pear Chill i Golden Delicious Apple, za voćnjak.',
+        'Pear Chill i Cinnamon Roll, za krušku sa cimetom.'
+      ],
+      en: [
+        'Pear Chill with Golden Delicious Apple for an orchard mix.',
+        'Pear Chill with Cinnamon Roll for pear with cinnamon.'
+      ]
+    },
+    similar: ['musthave-pear-lemon-tarragon', 'sebero-green-pear', 'musthave-quince']
+  },
+  {
+    id: 'social-smoke-pink-lemonade',
+    brand: 'social-smoke',
+    leaf: 'light',
+    name: 'Pink Lemonade',
+    shortDescription: {
+      bs: 'Slatki, kiselkasti limun sa ružičastim dodatkom.',
+      en: 'Sweet, tangy lemons with a splash of pink.'
+    },
+    description: {
+      bs: [
+        'Pink Lemonade je ljetni klasik: slatki, kiselkasti limun sa ružičastim, voćnim dodatkom.',
+        'Osvježavajuća je i lagana, kao hladna limunada.'
+      ],
+      en: [
+        'Pink Lemonade is a summer classic: sweet, tangy lemon with a pink, fruity splash.',
+        'It is refreshing and light, like a cold lemonade.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Limun', en: 'Lemon' }, illustration: 'limun', color: '#f7e04b', intensity: 8 },
+      { name: { bs: 'Ružičasti dodatak', en: 'Pink splash' }, illustration: 'malina', color: '#d61f5b', intensity: 5 }
+    ],
+    profile: { sweetness: 7, freshness: 8, fruitiness: 7, cooling: 0, strength: 5 },
+    tags: ['pice', 'citrusni', 'osvjezavajuci', 'ljetni'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#f7e04b', secondary: '#d61f5b', accent: '#e2628c', background: '#2c250f', text: '#fefdf2' },
+    mixIdeas: {
+      bs: [
+        'Pink Lemonade i Absolute Zero, 80/20, za ledenu limunadu.',
+        'Pink Lemonade i Watermelon, za limunadu od lubenice.'
+      ],
+      en: [
+        'Pink Lemonade with Absolute Zero, 80/20, for an icy lemonade.',
+        'Pink Lemonade with Watermelon for a watermelon lemonade.'
+      ]
+    },
+    similar: ['adalya-lemon-cocktail', 'al-fakher-lemon', 'social-smoke-lemon']
+  },
+  {
+    id: 'social-smoke-pistachio-breeze',
+    brand: 'social-smoke',
+    leaf: 'light',
+    name: 'Pistachio Breeze',
+    shortDescription: {
+      bs: 'Puterasta pistacija, šafran i dašak vanile.',
+      en: 'Buttery pistachio, saffron and a touch of vanilla.'
+    },
+    description: {
+      bs: [
+        'Pistachio Breeze spaja puterastu pistaciju sa šafranom i daškom vanile.',
+        'Okus podsjeća na orijentalni desert, mekan i bogat.'
+      ],
+      en: [
+        'Pistachio Breeze blends buttery pistachio with saffron and a touch of vanilla.',
+        'It recalls an oriental dessert, soft and rich.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Pistacija', en: 'Pistachio' }, illustration: 'pistacija', color: '#8fbf4a', intensity: 8 },
+      { name: { bs: 'Šafran', en: 'Saffron' }, illustration: 'kardamom', color: '#e8a03a', intensity: 4 },
+      { name: { bs: 'Vanila', en: 'Vanilla' }, illustration: 'vanila', color: '#f3e2b3', intensity: 4 }
+    ],
+    profile: { sweetness: 7, freshness: 2, fruitiness: 1, cooling: 0, strength: 5 },
+    tags: ['desertni', 'zacinski', 'slatki'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#8fbf4a', secondary: '#e8a03a', accent: '#f3e2b3', background: '#1d210f', text: '#f7fbf2' },
+    mixIdeas: {
+      bs: [
+        'Pistachio Breeze i Wonder Flower, za pistaciju sa ružom.',
+        'Pistachio Breeze i Chai Latte, za začinski desert.'
+      ],
+      en: [
+        'Pistachio Breeze with Wonder Flower for pistachio with rose.',
+        'Pistachio Breeze with Chai Latte for a spiced dessert.'
+      ]
+    },
+    similar: ['social-smoke-wonder-flower', 'musthave-pistachio', 'musthave-pistachio-cake']
+  },
+  {
+    id: 'social-smoke-sex-panther',
+    brand: 'social-smoke',
+    leaf: 'light',
+    name: 'Sex Panther',
+    shortDescription: {
+      bs: 'Koktel od breskve, kisele brusnice i slatke narandže.',
+      en: 'A cocktail of peach, tangy cranberry and sweet orange.'
+    },
+    description: {
+      bs: [
+        'Sex Panther je voćni koktel od breskve, kisele brusnice i slatke narandže.',
+        'Okus je sočan i živ, sa ravnotežom slatkog i kiselog.'
+      ],
+      en: [
+        'Sex Panther is a fruit cocktail of peach, tangy cranberry and sweet orange.',
+        'The flavor is juicy and lively, with a balance of sweet and tart.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Breskva', en: 'Peach' }, illustration: 'breskva', color: '#ffb07a', intensity: 7 },
+      { name: { bs: 'Brusnica', en: 'Cranberry' }, illustration: 'bobice', color: '#c8102e', intensity: 6 },
+      { name: { bs: 'Narandža', en: 'Orange' }, illustration: 'narandza', color: '#ff9a2e', intensity: 6 }
+    ],
+    profile: { sweetness: 7, freshness: 6, fruitiness: 9, cooling: 0, strength: 5 },
+    tags: ['vocni', 'pice', 'slatki'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#ffb07a', secondary: '#c8102e', accent: '#ff9a2e', background: '#2d1f15', text: '#fff9f6' },
+    mixIdeas: {
+      bs: [
+        'Sex Panther i Mint, 70/30, za svježiji koktel.',
+        'Sex Panther i Cali Peach, za više breskve.'
+      ],
+      en: [
+        'Sex Panther with Mint, 70/30, for a fresher cocktail.',
+        'Sex Panther with Cali Peach for more peach.'
+      ]
+    },
+    similar: ['social-smoke-citrus-peach', 'adalya-baku-nights', 'al-fakher-peach']
+  },
+  {
+    id: 'social-smoke-strawberry-kiwi',
+    brand: 'social-smoke',
+    leaf: 'light',
+    name: 'Strawberry Kiwi',
+    shortDescription: {
+      bs: 'Lagan, osvježavajući spoj jagode i kivija.',
+      en: 'A light, refreshing combination of strawberry and kiwi.'
+    },
+    description: {
+      bs: [
+        'Strawberry Kiwi spaja slatku jagodu i svježi kivi.',
+        'Okus je lagan i osvježavajući, poznata kombinacija iz sokova.'
+      ],
+      en: [
+        'Strawberry Kiwi combines sweet strawberry and fresh kiwi.',
+        'The flavor is light and refreshing, a familiar combination from juices.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Jagoda', en: 'Strawberry' }, illustration: 'jagoda', color: '#e8354a', intensity: 8 },
+      { name: { bs: 'Kivi', en: 'Kiwi' }, illustration: 'kivi', color: '#7cbf3a', intensity: 7 }
+    ],
+    profile: { sweetness: 7, freshness: 7, fruitiness: 9, cooling: 0, strength: 5 },
+    tags: ['vocni', 'bobicasti', 'slatki', 'osvjezavajuci'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#e8354a', secondary: '#7cbf3a', accent: '#a3d275', background: '#2a0d0f', text: '#fdf1f2' },
+    mixIdeas: {
+      bs: [
+        'Strawberry Kiwi i Mint, 70/30, za svjež voćni kotlić.',
+        'Strawberry Kiwi i Lemon, za limunadu od jagode i kivija.'
+      ],
+      en: [
+        'Strawberry Kiwi with Mint, 70/30, for a fresh fruit bowl.',
+        'Strawberry Kiwi with Lemon for a strawberry kiwi lemonade.'
+      ]
+    },
+    similar: ['187-siwlez', 'holster-miss-joosy', 'al-fakher-strawberry']
+  },
+  {
+    id: 'social-smoke-strawberry-margarita',
+    brand: 'social-smoke',
+    leaf: 'light',
+    name: 'Strawberry Margarita',
+    shortDescription: {
+      bs: 'Sočne jagode i limeta sa daškom tekile.',
+      en: 'Juicy strawberries and zesty lime with a touch of tequila.'
+    },
+    description: {
+      bs: [
+        'Strawberry Margarita spaja sočne jagode i kiselu limetu sa daškom tekile.',
+        'Voćnija je i slađa od obične Margarite.'
+      ],
+      en: [
+        'Strawberry Margarita blends juicy strawberries and zesty lime with a touch of tequila.',
+        'It is fruitier and sweeter than the plain Margarita.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Jagoda', en: 'Strawberry' }, illustration: 'jagoda', color: '#e8354a', intensity: 8 },
+      { name: { bs: 'Limeta', en: 'Lime' }, illustration: 'limeta', color: '#7cc242', intensity: 6 },
+      { name: { bs: 'Tekila', en: 'Tequila' }, illustration: 'liker', color: '#e8d68a', intensity: 3 }
+    ],
+    profile: { sweetness: 7, freshness: 7, fruitiness: 8, cooling: 0, strength: 5 },
+    tags: ['pice', 'vocni', 'citrusni'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#e8354a', secondary: '#7cc242', accent: '#e8d68a', background: '#2a0d0f', text: '#fdf1f2' },
+    mixIdeas: {
+      bs: [
+        'Strawberry Margarita i Lime Chill, za ledenu margaritu.',
+        'Strawberry Margarita i Margarita, za više limete.'
+      ],
+      en: [
+        'Strawberry Margarita with Lime Chill for an icy margarita.',
+        'Strawberry Margarita with Margarita for more lime.'
+      ]
+    },
+    similar: ['187-siwlez', 'social-smoke-strawberry-kiwi', 'holster-miss-joosy']
+  },
+  {
+    id: 'social-smoke-sunbeam',
+    brand: 'social-smoke',
+    leaf: 'light',
+    name: 'Sunbeam',
+    shortDescription: {
+      bs: 'Kokos, đumbir i ananas u tropskom spoju.',
+      en: 'Coconut, ginger and pineapple in a tropical treat.'
+    },
+    description: {
+      bs: [
+        'Sunbeam spaja kokos, đumbir i ananas.',
+        'Ananas i kokos daju tropsku slatkoću, a đumbir blagu ljutinu.'
+      ],
+      en: [
+        'Sunbeam brings together coconut, ginger and pineapple.',
+        'Pineapple and coconut bring tropical sweetness, and ginger a light heat.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Kokos', en: 'Coconut' }, illustration: 'kokos', color: '#f7f4ec', intensity: 7 },
+      { name: { bs: 'Đumbir', en: 'Ginger' }, illustration: 'djumbir', color: '#f2d27a', intensity: 5 },
+      { name: { bs: 'Ananas', en: 'Pineapple' }, illustration: 'ananas', color: '#f8cf4a', intensity: 7 }
+    ],
+    profile: { sweetness: 7, freshness: 6, fruitiness: 8, cooling: 0, strength: 5 },
+    tags: ['tropski', 'vocni', 'zacinski'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#f7f4ec', secondary: '#f2d27a', accent: '#f8cf4a', background: '#2c2825', text: '#fefefe' },
+    mixIdeas: {
+      bs: [
+        'Sunbeam i Coconut, za više kokosa.',
+        'Sunbeam i Passion Fruit Mojito, za tropski koktel.'
+      ],
+      en: [
+        'Sunbeam with Coconut for more coconut.',
+        'Sunbeam with Passion Fruit Mojito for a tropical cocktail.'
+      ]
+    },
+    similar: ['al-fakher-coconut', 'social-smoke-coconut', 'al-fakher-pineapple']
+  },
+  {
+    id: 'social-smoke-tangerine-rush',
+    brand: 'social-smoke',
+    leaf: 'light',
+    name: 'Tangerine Rush',
+    shortDescription: {
+      bs: 'Svježe mandarine sa raznim sočnim citrusima.',
+      en: 'Fresh tangerines with a variety of juicy citrus.'
+    },
+    description: {
+      bs: [
+        'Tangerine Rush je val svježih mandarina sa raznim sočnim citrusima.',
+        'Sladak je i živ, sa citrusnom svježinom.'
+      ],
+      en: [
+        'Tangerine Rush is a rush of fresh tangerines with a variety of juicy citrus.',
+        'It is sweet and lively, with citrus freshness.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Mandarina', en: 'Mandarin' }, illustration: 'narandza', color: '#ff9a2e', intensity: 8 },
+      { name: { bs: 'Citrusi', en: 'Citrus' }, illustration: 'limun', color: '#f7e04b', intensity: 5 }
+    ],
+    profile: { sweetness: 7, freshness: 8, fruitiness: 8, cooling: 0, strength: 5 },
+    tags: ['vocni', 'citrusni', 'slatki', 'osvjezavajuci'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#ff9a2e', secondary: '#f7e04b', accent: '#f9e981', background: '#2d1c0b', text: '#fff8f0' },
+    mixIdeas: {
+      bs: [
+        'Tangerine Rush i Mint, 70/30, za ledeni sok.',
+        'Tangerine Rush i Berry Punch, za voćni punč.'
+      ],
+      en: [
+        'Tangerine Rush with Mint, 70/30, for an icy juice.',
+        'Tangerine Rush with Berry Punch for a fruit punch.'
+      ]
+    },
+    similar: ['starbuzz-sex-on-the-beach', 'al-fakher-orange', 'social-smoke-orange']
+  },
+  {
+    id: 'social-smoke-tigers-blood',
+    brand: 'social-smoke',
+    leaf: 'light',
+    name: 'Tiger\'s Blood',
+    shortDescription: {
+      bs: 'Borovnica, malina, jagoda i višnja.',
+      en: 'Blueberries, raspberries, strawberries and cherries.'
+    },
+    description: {
+      bs: [
+        'Tiger\'s Blood je mix zrelih borovnica, malina, jagoda i višanja.',
+        'Okus je sladak, pun i voćan, crveno i tamno voće zajedno.'
+      ],
+      en: [
+        'Tiger\'s Blood is a mix of ripe blueberries, raspberries, strawberries and cherries.',
+        'The flavor is sweet, full and fruity, red and dark fruit together.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Borovnica', en: 'Blueberry' }, illustration: 'borovnica', color: '#4a5fc1', intensity: 6 },
+      { name: { bs: 'Malina', en: 'Raspberry' }, illustration: 'malina', color: '#d61f5b', intensity: 6 },
+      { name: { bs: 'Jagoda', en: 'Strawberry' }, illustration: 'jagoda', color: '#e8354a', intensity: 6 },
+      { name: { bs: 'Višnja', en: 'Cherry' }, illustration: 'visnja', color: '#a3122a', intensity: 6 }
+    ],
+    profile: { sweetness: 8, freshness: 5, fruitiness: 9, cooling: 0, strength: 5 },
+    tags: ['vocni', 'bobicasti', 'slatki'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#4a5fc1', secondary: '#d61f5b', accent: '#e8354a', background: '#14131f', text: '#f2f4fb' },
+    mixIdeas: {
+      bs: [
+        'Tiger\'s Blood i Absolute Zero, 70/30, za ledene bobice.',
+        'Tiger\'s Blood i Coconut, za voćni desert.'
+      ],
+      en: [
+        'Tiger\'s Blood with Absolute Zero, 70/30, for icy berries.',
+        'Tiger\'s Blood with Coconut for a fruity dessert.'
+      ]
+    },
+    similar: ['social-smoke-twisted', 'trifecta-blue-strawberry', 'social-smoke-baja-blue']
+  },
+  {
+    id: 'social-smoke-twisted',
+    brand: 'social-smoke',
+    leaf: 'light',
+    name: 'Twisted',
+    shortDescription: {
+      bs: 'Mango, jagoda, malina i borovnica.',
+      en: 'Mango, strawberry, raspberry and blueberry.'
+    },
+    description: {
+      bs: [
+        'Twisted spaja slatki mango, sočne jagode, maline i borovnice.',
+        'Okus je voćan i sladak, sa tropskom notom manga.'
+      ],
+      en: [
+        'Twisted combines sweet mango, juicy strawberries, raspberries and blueberries.',
+        'The flavor is fruity and sweet, with a tropical mango note.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Mango', en: 'Mango' }, illustration: 'mango', color: '#ffb52e', intensity: 7 },
+      { name: { bs: 'Jagoda', en: 'Strawberry' }, illustration: 'jagoda', color: '#e8354a', intensity: 6 },
+      { name: { bs: 'Malina', en: 'Raspberry' }, illustration: 'malina', color: '#d61f5b', intensity: 6 },
+      { name: { bs: 'Borovnica', en: 'Blueberry' }, illustration: 'borovnica', color: '#4a5fc1', intensity: 6 }
+    ],
+    profile: { sweetness: 8, freshness: 5, fruitiness: 9, cooling: 0, strength: 5 },
+    tags: ['vocni', 'tropski', 'bobicasti', 'slatki'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#ffb52e', secondary: '#e8354a', accent: '#d61f5b', background: '#2d1f0b', text: '#fffaf0' },
+    mixIdeas: {
+      bs: [
+        'Twisted i Mint, 70/30, za svjež voćni mix.',
+        'Twisted i Lemon, za kiselkastiji kotlić.'
+      ],
+      en: [
+        'Twisted with Mint, 70/30, for a fresh fruit mix.',
+        'Twisted with Lemon for a tangier bowl.'
+      ]
+    },
+    similar: ['adalya-english-lord', 'social-smoke-tigers-blood', 'al-fakher-mango']
+  },
+  {
+    id: 'social-smoke-voltage',
+    brand: 'social-smoke',
+    leaf: 'light',
+    name: 'Voltage',
+    shortDescription: {
+      bs: 'Lubenica i limun sa daškom badema kao u amarettu.',
+      en: 'Watermelon and lemon with a hint of amaretto-style almond.'
+    },
+    description: {
+      bs: [
+        'Voltage spaja lubenicu i limun sa daškom slatkog badema, kao u amarettu.',
+        'Lubenica i limun su svježi, a badem dodaje neobičnu, mekanu dubinu.'
+      ],
+      en: [
+        'Voltage combines watermelon and lemon with a hint of sweet almond, like amaretto.',
+        'The watermelon and lemon are fresh, and the almond adds an unusual, soft depth.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Lubenica', en: 'Watermelon' }, illustration: 'lubenica', color: '#e8434f', intensity: 8 },
+      { name: { bs: 'Limun', en: 'Lemon' }, illustration: 'limun', color: '#f7e04b', intensity: 6 },
+      { name: { bs: 'Badem (amaretto)', en: 'Almond (amaretto)' }, illustration: 'karamel', color: '#d6b48a', intensity: 4 }
+    ],
+    profile: { sweetness: 7, freshness: 7, fruitiness: 8, cooling: 0, strength: 5 },
+    tags: ['vocni', 'citrusni', 'desertni', 'ljetni', 'slatki'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#e8434f', secondary: '#f7e04b', accent: '#d6b48a', background: '#2a0f0f', text: '#fdf2f3' },
+    mixIdeas: {
+      bs: [
+        'Voltage i Absolute Zero, 80/20, za ledeni kotlić.',
+        'Voltage i Watermelon, za više lubenice.'
+      ],
+      en: [
+        'Voltage with Absolute Zero, 80/20, for an icy bowl.',
+        'Voltage with Watermelon for more watermelon.'
+      ]
+    },
+    similar: ['social-smoke-watermelon', 'al-waha-big-boy', 'adalya-watermelon']
+  },
+  {
+    id: 'social-smoke-watermelon',
+    brand: 'social-smoke',
+    leaf: 'light',
+    name: 'Watermelon',
+    shortDescription: {
+      bs: 'Sočna, slatka i osvježavajuća lubenica.',
+      en: 'Juicy, sweet and refreshing watermelon.'
+    },
+    description: {
+      bs: [
+        'Watermelon je sočna, slatka lubenica punog okusa.',
+        'Bez mente je, pa je to čisto ljetno voće.'
+      ],
+      en: [
+        'Watermelon is juicy, sweet watermelon with a full flavor.',
+        'It has no mint, so it is pure summer fruit.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Lubenica', en: 'Watermelon' }, illustration: 'lubenica', color: '#e8434f', intensity: 9 }
+    ],
+    profile: { sweetness: 7, freshness: 7, fruitiness: 9, cooling: 0, strength: 5 },
+    tags: ['vocni', 'ljetni', 'slatki', 'osvjezavajuci'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#e8434f', secondary: '#f2989e', accent: '#ae323b', background: '#2a0f0f', text: '#fdf2f3' },
+    mixIdeas: {
+      bs: [
+        'Watermelon i Absolute Zero, 70/30, za ledenu lubenicu.',
+        'Watermelon i Lime, za lubenicu sa limetom.'
+      ],
+      en: [
+        'Watermelon with Absolute Zero, 70/30, for an icy watermelon.',
+        'Watermelon with Lime for watermelon with lime.'
+      ]
+    },
+    similar: ['adalya-watermelon', 'al-fakher-watermelon', 'social-smoke-voltage']
+  },
+  {
+    id: 'social-smoke-watermelon-chill',
+    brand: 'social-smoke',
+    leaf: 'light',
+    name: 'Watermelon Chill',
+    shortDescription: {
+      bs: 'Sočna lubenica sa izraženom mentom.',
+      en: 'Juicy watermelon with deep hints of mint.'
+    },
+    description: {
+      bs: [
+        'Watermelon Chill je sočna lubenica sa izraženom, osvježavajućom mentom.',
+        'Klasična ljetna kombinacija, dobra i za početnike.'
+      ],
+      en: [
+        'Watermelon Chill is juicy watermelon with deep, refreshing hints of mint.',
+        'A classic summer pairing, good for beginners too.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Lubenica', en: 'Watermelon' }, illustration: 'lubenica', color: '#e8434f', intensity: 9 },
+      { name: { bs: 'Menta', en: 'Mint' }, illustration: 'menta', color: '#2fae78', intensity: 6 }
+    ],
+    profile: { sweetness: 7, freshness: 8, fruitiness: 9, cooling: 5, strength: 5 },
+    tags: ['vocni', 'mint', 'ljetni', 'slatki', 'osvjezavajuci'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#e8434f', secondary: '#2fae78', accent: '#6dc6a1', background: '#2a0f0f', text: '#fdf2f3' },
+    mixIdeas: {
+      bs: [
+        'Watermelon Chill i Lemon, za ljetnu limunadu.',
+        'Watermelon Chill i Honeydew Melon Chill, za ledene dinje.'
+      ],
+      en: [
+        'Watermelon Chill with Lemon for a summer lemonade.',
+        'Watermelon Chill with Honeydew Melon Chill for icy melons.'
+      ]
+    },
+    similar: ['adalya-watermelon-mint', 'al-fakher-watermelon-mint', 'adalya-love-66']
+  },
+  {
+    id: 'social-smoke-white-gummy-bear',
+    brand: 'social-smoke',
+    leaf: 'light',
+    name: 'White Gummy Bear',
+    shortDescription: {
+      bs: 'Slatki i kiselkasti bijeli gumeni medvjedići sa ananasom.',
+      en: 'The sweet and tangy pineapple twist of white gummy bears.'
+    },
+    description: {
+      bs: [
+        'White Gummy Bear je okus bijelih gumenih medvjedića.',
+        'Sladak je i kiselkast, sa notom ananasa.'
+      ],
+      en: [
+        'White Gummy Bear is the flavor of white gummy bears.',
+        'It is sweet and tangy, with a pineapple note.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Bijeli gumeni medvjedić', en: 'White gummy bear' }, illustration: 'medo', color: '#fff0a0', intensity: 8 },
+      { name: { bs: 'Ananas', en: 'Pineapple' }, illustration: 'ananas', color: '#f8cf4a', intensity: 6 }
+    ],
+    profile: { sweetness: 8, freshness: 5, fruitiness: 7, cooling: 0, strength: 5 },
+    tags: ['bombon', 'vocni', 'slatki'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#fff0a0', secondary: '#f8cf4a', accent: '#fadd80', background: '#2d281b', text: '#fffef8' },
+    mixIdeas: {
+      bs: [
+        'White Gummy Bear i Absolute Zero, 80/20, za ledene bombone.',
+        'White Gummy Bear i Strawberry Kiwi, za voćne bombone.'
+      ],
+      en: [
+        'White Gummy Bear with Absolute Zero, 80/20, for icy candy.',
+        'White Gummy Bear with Strawberry Kiwi for fruit candy.'
+      ]
+    },
+    similar: ['fumari-white-gummi-bear', 'fumari-red-gummi-bear', 'adalya-sheik-money']
+  },
+  {
+    id: 'social-smoke-wild-berry',
+    brand: 'social-smoke',
+    leaf: 'light',
+    name: 'Wild Berry',
+    shortDescription: {
+      bs: 'Šumsko voće sa notom cvijeta bobica.',
+      en: 'Wild berries with hints of berry blossom.'
+    },
+    description: {
+      bs: [
+        'Wild Berry je sočan mix šumskog voća.',
+        'U pozadini je blaga cvjetna nota cvijeta bobica.'
+      ],
+      en: [
+        'Wild Berry is a juicy mix of wild berries.',
+        'A light floral note of berry blossom sits in the background.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Šumsko voće', en: 'Wild berries' }, illustration: 'kupina', color: '#5a2a5e', intensity: 8 },
+      { name: { bs: 'Cvijet bobica', en: 'Berry blossom' }, illustration: 'ruza', color: '#e86a9a', intensity: 3 }
+    ],
+    profile: { sweetness: 7, freshness: 5, fruitiness: 9, cooling: 0, strength: 5 },
+    tags: ['vocni', 'bobicasti', 'slatki'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#5a2a5e', secondary: '#e86a9a', accent: '#ef97b8', background: '#160c11', text: '#f3f0f4' },
+    mixIdeas: {
+      bs: [
+        'Wild Berry i Lemon, za limunadu od šumskog voća.',
+        'Wild Berry i Coconut, za voćni desert.'
+      ],
+      en: [
+        'Wild Berry with Lemon for a wild berry lemonade.',
+        'Wild Berry with Coconut for a fruity dessert.'
+      ]
+    },
+    similar: ['social-smoke-berry-punch', 'social-smoke-blackberry', '187-wild-beast']
+  },
+  {
+    id: 'social-smoke-wild-berry-chill',
+    brand: 'social-smoke',
+    leaf: 'light',
+    name: 'Wild Berry Chill',
+    shortDescription: {
+      bs: 'Šumsko voće sa hladnim završetkom mente.',
+      en: 'Wild berries with a cool mint finish.'
+    },
+    description: {
+      bs: [
+        'Wild Berry Chill je egzotičan mix šumskog voća sa mentom.',
+        'Menta daje hladan završetak, pa je okus svježiji od običnog Wild Berryja.'
+      ],
+      en: [
+        'Wild Berry Chill is an exotic mix of wild berries with mint.',
+        'The mint gives a cool finish, so it is fresher than plain Wild Berry.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Šumsko voće', en: 'Wild berries' }, illustration: 'kupina', color: '#5a2a5e', intensity: 8 },
+      { name: { bs: 'Menta', en: 'Mint' }, illustration: 'menta', color: '#2fae78', intensity: 6 }
+    ],
+    profile: { sweetness: 7, freshness: 7, fruitiness: 9, cooling: 5, strength: 5 },
+    tags: ['vocni', 'bobicasti', 'mint', 'slatki', 'osvjezavajuci'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#5a2a5e', secondary: '#2fae78', accent: '#6dc6a1', background: '#160c11', text: '#f3f0f4' },
+    mixIdeas: {
+      bs: [
+        'Wild Berry Chill i Lemon Chill, za ledenu limunadu od bobica.',
+        'Wild Berry Chill i Grape, za tamno voće sa mentom.'
+      ],
+      en: [
+        'Wild Berry Chill with Lemon Chill for an icy berry lemonade.',
+        'Wild Berry Chill with Grape for dark fruit with mint.'
+      ]
+    },
+    similar: ['holster-wild-punch', 'true-passion-cinderella', 'adalya-angel-lips']
+  },
+  {
+    id: 'social-smoke-wonder-flower',
+    brand: 'social-smoke',
+    leaf: 'light',
+    name: 'Wonder Flower',
+    shortDescription: {
+      bs: 'Kremasta pistacija sa laganom notom ruže.',
+      en: 'Creamy pistachio with light notes of rose.'
+    },
+    description: {
+      bs: [
+        'Wonder Flower spaja kremastu pistaciju sa laganom notom ruže.',
+        'Okus podsjeća na orijentalne slatkiše, bogat i mirisan.'
+      ],
+      en: [
+        'Wonder Flower pairs creamy pistachio with light notes of rose.',
+        'It recalls oriental sweets, rich and fragrant.'
+      ]
+    },
+    ingredients: [
+      { name: { bs: 'Pistacija', en: 'Pistachio' }, illustration: 'pistacija', color: '#8fbf4a', intensity: 8 },
+      { name: { bs: 'Ruža', en: 'Rose' }, illustration: 'ruza', color: '#e86a9a', intensity: 5 }
+    ],
+    profile: { sweetness: 7, freshness: 3, fruitiness: 1, cooling: 0, strength: 5 },
+    tags: ['desertni', 'slatki'],
+    tobaccoType: { bs: 'Virginia (svijetli list)', en: 'Virginia (blonde leaf)' },
+    palette: { primary: '#8fbf4a', secondary: '#e86a9a', accent: '#ef97b8', background: '#1d210f', text: '#f7fbf2' },
+    mixIdeas: {
+      bs: [
+        'Wonder Flower i Pistachio Breeze, za više pistacije.',
+        'Wonder Flower i French Vanilla, za kremasti desert.'
+      ],
+      en: [
+        'Wonder Flower with Pistachio Breeze for more pistachio.',
+        'Wonder Flower with French Vanilla for a creamy dessert.'
+      ]
+    },
+    similar: ['social-smoke-pistachio-breeze', 'musthave-pistachio-cake', 'musthave-pistachio']
   }
 ];

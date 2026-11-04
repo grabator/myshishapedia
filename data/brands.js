@@ -456,5 +456,28 @@ window.BRANDS = [
       ]
     },
     palette: { primary: '#4a9fd8', secondary: '#e8a03a', accent: '#cfefff', background: '#0b1219', text: '#eef7ff' }
+  },
+  {
+    slug: 'social-smoke',
+    name: 'Social Smoke',
+    country: { bs: 'SAD', en: 'United States' },
+    leaf: 'light',
+    short: {
+      bs: 'Američki porodični brend sa duhanom od 2010. godine, na nepranom Virginia listu.',
+      en: 'An American family brand making tobacco since 2010, on unwashed Virginia leaf.'
+    },
+    about: {
+      bs: [
+        'Social Smoke je osnovan 2003. godine u SAD-u, prvo kao prodavnica i distributer opreme za nargilu. Vlastiti duhan, Social Smoke Tobacco, izbacili su 2010. godine, nakon skoro pet godina razvoja.',
+        'Duhan je američkog stila, na nepranom, sušenom Virginia listu (svijetli list), bez umjetnih boja. Danas se proizvodi u Tunisu.',
+        'Opisi okusa na našem sajtu su napisani našim riječima na osnovu zvaničnih opisa sa socialsmoke.com, a sastav i profil su naša procjena.'
+      ],
+      en: [
+        'Social Smoke was founded in 2003 in the United States, first as a hookah retailer and distributor. Its own tobacco, Social Smoke Tobacco, launched in 2010 after nearly five years of development.',
+        'The tobacco is American style, on unwashed, flue-cured Virginia leaf (blonde leaf), with no artificial coloring. Today it is made in Tunisia.',
+        'The flavor descriptions on our site are written in our own words based on the official descriptions at socialsmoke.com, and the ingredients and profiles are our estimates.'
+      ]
+    },
+    palette: { primary: '#e8b84a', secondary: '#3fa7d6', accent: '#f4e3b5', background: '#14110c', text: '#fbf4e4' }
   }
 ];

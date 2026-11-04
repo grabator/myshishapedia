@@ -212,10 +212,12 @@ for (const s of seed) {
 /* slični okusi: zajednički sastojci, tagovi i blizina profila; najviše 2 istog brenda */
 const all = FLAVORS.concat(out);
 const PK = ['sweetness', 'freshness', 'fruitiness', 'cooling', 'strength'];
+const GENERIC = new Set(['bilje', 'caj', 'kardamom', 'karamel', 'liker', 'bomboni', 'bombon', 'kolac', 'sejk', 'anis', 'dzem']);
 function score(a, b) {
   let s = 0;
   for (const i of a.ingredients) {
-    const j = b.ingredients.find((x) => x.illustration === i.illustration);
+    // opšte ilustracije (list, čaj, začin...) crtaju različite stvari: tu mora biti isto i ime sastojka
+    const j = b.ingredients.find((x) => x.illustration === i.illustration && (!GENERIC.has(i.illustration) || x.name.en === i.name.en));
     if (j) s += (Math.min(i.intensity, j.intensity) / 10) * 3 + (i === a.ingredients[0] && j === b.ingredients[0] ? 2 : 0);
   }
   s += a.tags.filter((t) => b.tags.includes(t)).length * 0.4;
