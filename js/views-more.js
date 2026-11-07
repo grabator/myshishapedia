@@ -957,8 +957,9 @@
         var names = V.collectionMembers(c).map(function (f) { return V.uniqueName(f); }); // "Mint" postoji kod više brendova
         return {
           main: pageCollection(c, crumbs),
-          title: t('meta.collectionTitle', { name: L(c.title) }),
-          description: V.clip(L(c.short) + ' ' + t('collections.metaIn', { list: joinList(names) })),
+          // c.seo: naslov i uvod za Google, {n} je broj okusa u kolekciji
+          title: c.seo ? L(c.seo.title).replace('{n}', names.length) : t('meta.collectionTitle', { name: L(c.title) }),
+          description: V.clip(L(c.seo ? c.seo.lead : c.short) + ' ' + t('collections.metaIn', { list: joinList(names) })),
           theme: V.collectionTheme(c),
           mood: { ice: 'ice', night: 'night', tropical: 'tropical', calm: 'calm' }[c.mood]
         };
@@ -976,7 +977,7 @@
           description: V.clip(t('meta.comparePairLead', { a: V.uniqueName(p.a), b: V.uniqueName(p.b) }) + ' ' + V.compareText(p.a, p.b))
         };
       case 'mixes':
-        return { main: pageMixes(crumbs), title: t('meta.mixesTitle'), description: t('meta.mixesDescription') };
+        return { main: pageMixes(crumbs), title: t('meta.mixesTitle', { n: V.mixes().length }), description: t('meta.mixesDescription') };
       case 'recipe':
         m = desc.recipe;
         return {
