@@ -1199,7 +1199,8 @@
     {
       q: { bs: 'Koji su najpopularniji okusi za nargilu?', en: 'What are the most popular hookah flavors?' },
       a: { bs: 'Klasici su dvostruka jabuka, menta, grožđe sa mentom, limun sa mentom, lubenica sa mentom i borovnica. Od novijih su omiljeni ledeni voćni i bombon okusi. Sve okuse, sa sastojcima i profilom, nađeš u listi okusa.',
-        en: 'The classics are double apple, mint, grape mint, lemon mint, watermelon mint and blueberry. Among newer flavors, icy fruit and candy blends are a favorite. You will find every flavor, with its ingredients and profile, in the flavors list.' }
+        en: 'The classics are double apple, mint, grape mint, lemon mint, watermelon mint and blueberry. Among newer flavors, icy fruit and candy blends are a favorite. You will find every flavor, with its ingredients and profile, in the flavors list.' },
+      links: ['al-fakher-double-apple', 'al-fakher-mint', 'al-fakher-grape-mint', 'al-fakher-lemon-mint', 'al-fakher-watermelon-mint', 'al-fakher-gum-mint', 'nakhla-double-apple', 'adalya-ice-bonbon', 'adalya-love-66', 'musthave-pinkman']
     },
     {
       q: { bs: 'Kako pripremiti nargilu?', en: 'How do you set up a hookah?' },
@@ -1844,7 +1845,11 @@
         '<h2 class="faq__title" id="' + id + '">' + esc(t('faq.title')) + '</h2></header>' +
       '<div class="faq__list">' + items.map(function (it, i) {
         return '<details class="faq__item"' + (i === 0 ? ' open' : '') + '><summary class="faq__q"><h3>' + esc(L(it.q)) + '</h3>' + icon('chevronDown') + '</summary>' +
-          '<p class="faq__a">' + esc(L(it.a)) + '</p></details>';
+          '<p class="faq__a">' + esc(L(it.a)) + '</p>' +
+          // links: id-jevi okusa, linkovi ispod odgovora (nisu dio teksta za FAQPage)
+          (it.links ? '<p class="faq__links">' + it.links.map(V.flavorById).filter(Boolean).map(function (f) {
+            return '<a class="chip" href="' + V.flavorUrl(f) + '">' + esc(f.brand + ' ' + f.name) + '</a>';
+          }).join('') + '</p>' : '') + '</details>';
       }).join('') + '</div>' +
     '</div></section>';
   };

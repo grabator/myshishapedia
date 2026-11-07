@@ -24,6 +24,115 @@
  */
 window.ARTICLES = [
   {
+    id: 'najbolji-duhan',
+    slug: { bs: 'najbolji-duhan-za-nargilu', en: 'best-hookah-tobacco-brands', de: 'bester-shisha-tabak' },
+    published: '2026-11-07',
+    eyebrow: { bs: 'Brendovi', en: 'Brands' },
+    title: { bs: 'Najbolji duhan za nargilu: brendovi po stilu', en: 'The best hookah tobacco brands by style', de: 'Bester Shisha-Tabak: die beliebtesten Marken nach Stil' },
+    metaTitle: {
+      bs: 'Najbolji duhan za nargilu: koji brend izabrati',
+      en: 'Best hookah tobacco brands: which shisha brand to pick',
+      de: 'Bester Shisha-Tabak: welche Marke passt zu dir?'
+    },
+    metaDescription: {
+      bs: 'Koji je najbolji duhan za nargilu? Blagi brendovi za početnike, njemački brendovi i jaki duhani na tamnom listu, sa okusima koje vrijedi probati.',
+      en: 'Which hookah tobacco is best? Mild brands for beginners, German brands and strong dark leaf tobaccos, with the flavors worth trying from each.',
+      de: 'Welcher Shisha-Tabak ist der beste? Milde Marken für Einsteiger, deutsche Marken und starker Tabak auf dunklem Blatt, mit Sorten zum Probieren.'
+    },
+    lead: {
+      bs: 'Najbolji duhan za nargilu ne postoji, ali postoji najbolji za tebe. Najviše zavisi od toga da li voliš blag ili jak duhan, i kakve okuse voliš.',
+      en: 'There is no single best hookah tobacco, but there is a best one for you. It mostly depends on whether you like mild or strong tobacco, and which flavors you enjoy.'
+    },
+    sections: [
+      {
+        h: { bs: 'Prvo pitanje: svijetli ili tamni list', en: 'The first question: blonde or dark leaf' },
+        p: {
+          bs: [
+            'Duhan za nargilu se pravi na dvije vrste lista. [[svijetli-list|Svijetli list]] je blag, sladak i daje puno dima, pa je dobar za početnike i duge sesije.',
+            '[[tamni-list|Tamni list]] je jači, okus mu je intenzivniji i duže traje, ali više udara. Njega biraju iskusniji pušači.',
+            'Kad znaš šta ti odgovara, izbor brenda je mnogo lakši.'
+          ],
+          en: [
+            'Hookah tobacco is made on two kinds of leaf. [[svijetli-list|Blonde leaf]] is mild, sweet and gives plenty of smoke, so it suits beginners and long sessions.',
+            '[[tamni-list|Dark leaf]] is stronger, its flavor is more intense and lasts longer, but it hits harder. Experienced smokers tend to pick it.',
+            'Once you know what suits you, choosing a brand gets much easier.'
+          ]
+        }
+      },
+      {
+        h: { bs: 'Blagi brendovi za početnike', en: 'Mild brands for beginners' },
+        p: {
+          bs: [
+            'Al Fakher iz Emirata je skoro sinonim za klasične okuse: dvostruka jabuka, menta i voće sa mentom. Adalya iz Turske ima ogroman izbor voćnih, slatkih i ledenih okusa.',
+            'Američki Starbuzz i Fumari su poznati po sočnim, slatkim okusima. Svi su na svijetlom listu, pa su blagi i laki za početak.'
+          ],
+          en: [
+            'Al Fakher from the Emirates is close to a byword for classic flavors: double apple, mint and fruit with mint. Adalya from Turkey has a huge range of fruity, sweet and icy flavors.',
+            'The American Starbuzz and Fumari are known for juicy, sweet flavors. They are all on blonde leaf, so they are mild and easy to start with.'
+          ]
+        },
+        block: { type: 'picks', ids: ['al-fakher-double-apple', 'al-fakher-grape-mint', 'adalya-love-66', 'adalya-ice-bonbon', 'starbuzz-blue-mist', 'fumari-white-gummi-bear'] }
+      },
+      {
+        h: { bs: 'Njemački brendovi', en: 'German brands' },
+        p: {
+          bs: [
+            'Njemačka ima svoje brendove sa voćnim miksevima, često sa ledom: 187 Strassenbande, Holster, True Passion i Nameless. Revoshi je njemački brend čiji se duhan pravi u Turskoj.',
+            'Većina ih je na svijetlom listu, pa su dobri i za one koji ne vole prejak duhan.'
+          ],
+          en: [
+            'Germany has its own brands with fruit blends, often on ice: 187 Strassenbande, Holster, True Passion and Nameless. Revoshi is a German brand whose tobacco is made in Turkey.',
+            'Most of them are on blonde leaf, so they also suit people who do not like tobacco that is too strong.'
+          ]
+        },
+        block: { type: 'picks', ids: ['187-i-love-hamburg', 'holster-ice-kaktuz', 'true-passion-cinderella', 'nameless-black-nana', 'revoshi-d-app-strong', 'holster-grpe-mnt'] }
+      },
+      {
+        h: { bs: 'Jaki duhani na tamnom listu', en: 'Strong dark leaf tobaccos' },
+        p: {
+          bs: [
+            'Ruski Darkside i MUSTHAVE su poznati po jakim, modernim okusima i po tome da su odlični za mikseve. Sebero ima razigrane voćne i ledene kombinacije.',
+            'Američki Tangiers je jak duhan za iskusne, a egipatska Nakhla je stari, tradicionalni moassel poznat po dvostrukoj jabuci.',
+            'Ovi duhani traže rastresito pakovanje i pažljivu toplotu. Ako tek počinješ, kreni sa svijetlim listom.'
+          ],
+          en: [
+            'The Russian Darkside and MUSTHAVE are known for strong, modern flavors and for being great in mixes. Sebero has playful fruit and icy blends.',
+            'The American Tangiers is a strong tobacco for experienced smokers, and the Egyptian Nakhla is an old, traditional moassel known for its double apple.',
+            'These tobaccos need a loose pack and careful heat. If you are just starting out, begin with blonde leaf.'
+          ]
+        },
+        block: { type: 'picks', ids: ['musthave-pinkman', 'darkside-cola', 'darkside-supernova', 'tangiers-cane-mint', 'sebero-black-cola', 'nakhla-double-apple'] }
+      },
+      {
+        h: { bs: 'Blago ili jako: dva brenda jedan pored drugog', en: 'Mild or strong: two brands side by side' },
+        p: {
+          bs: ['Adalya i MUSTHAVE su dobar primjer razlike između svijetlog i tamnog lista. Brojke su izračunate iz okusa na našem sajtu.'],
+          en: ['Adalya and MUSTHAVE are a good example of the difference between blonde and dark leaf. The numbers are calculated from the flavors on our site.']
+        },
+        block: { type: 'brandCompare', a: 'adalya', b: 'musthave' },
+        links: [{ page: 'brands' }, { page: 'compare' }]
+      }
+    ],
+    faq: [
+      {
+        q: { bs: 'Koji je najbolji duhan za nargilu?', en: 'What is the best hookah tobacco?' },
+        a: { bs: 'Zavisi od toga šta voliš. Za blag i sladak dim izaberi brend na svijetlom listu, npr. Al Fakher ili Adalya. Za jak i intenzivan okus izaberi tamni list, npr. MUSTHAVE ili Darkside.', en: 'It depends on what you like. For mild, sweet smoke pick a blonde leaf brand such as Al Fakher or Adalya. For a strong, intense flavor pick dark leaf, such as MUSTHAVE or Darkside.' }
+      },
+      {
+        q: { bs: 'Koji duhan za nargilu je najblaži?', en: 'Which hookah tobacco is the mildest?' },
+        a: { bs: 'Najblaži su duhani na svijetlom listu, kao Al Fakher, Adalya, Starbuzz i Fumari. Zato su dobar izbor za početnike.', en: 'The mildest are blonde leaf tobaccos such as Al Fakher, Adalya, Starbuzz and Fumari. That makes them a good choice for beginners.' }
+      },
+      {
+        q: { bs: 'Koji brendovi duhana za nargilu su iz Njemačke?', en: 'Which hookah tobacco brands are from Germany?' },
+        a: { bs: 'Na našem sajtu su 187 Strassenbande, Holster, True Passion, Nameless i Revoshi, čiji se duhan pravi u Turskoj.', en: 'On our site they are 187 Strassenbande, Holster, True Passion, Nameless and Revoshi, whose tobacco is made in Turkey.' }
+      },
+      {
+        q: { bs: 'Da li je tamni list bolji od svijetlog?', en: 'Is dark leaf better than blonde leaf?' },
+        a: { bs: 'Nije bolji, nego drugačiji. Tamni list je jači i okus mu duže traje, a svijetli je blaži i daje više dima.', en: 'It is not better, just different. Dark leaf is stronger and its flavor lasts longer, while blonde leaf is milder and gives more smoke.' }
+      }
+    ]
+  },
+  {
     id: 'pocetnici',
     slug: { bs: 'okusi-za-pocetnike', en: 'best-hookah-flavors-for-beginners' },
     published: '2026-11-04',

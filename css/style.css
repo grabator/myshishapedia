@@ -8798,3 +8798,7 @@ a.smx__card:hover { border-color: var(--c-line-strong); transform: translateY(-2
 .art-group { margin-top: 30px; }
 .art-group__h { max-width: 46rem; margin: 0 auto; font-family: var(--font-display); font-weight: 800; font-size: 1.3rem; letter-spacing: -0.02em; }
 .art-group .art-grid { margin-top: 14px; }
+
+/* linkovi na okuse ispod odgovora u čestim pitanjima */
+.faq__links { display: flex; flex-wrap: wrap; gap: 8px; margin: -4px 0 0; padding: 0 20px 20px; }
+.faq__links .chip { display: inline-flex; align-items: center; min-height: 40px; padding: 0 14px; font-size: 0.875rem; line-height: 1.2; text-decoration: none; }
