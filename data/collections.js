@@ -23,6 +23,10 @@
 window.COLLECTIONS = [
   {
     id: 'icy',
+    seo: {
+      title: { bs: 'Ledeni okusi za nargilu: lista od {n} okusa sa mentolom i ledom | MyShishapedia', en: 'Icy hookah flavors: {n} ice and menthol shisha flavors | MyShishapedia', de: 'Eisige Shisha-Geschmäcker: {n} Sorten mit Menthol und Ice | MyShishapedia' },
+      lead: { bs: 'Najhladniji okusi za nargilu na jednom mjestu, sa jačinom hlađenja, sastojcima i miksevima.', en: 'The coldest shisha flavors in one list, with cooling level, ingredients and mixes.', de: 'Die kältesten Shisha-Geschmäcker in einer Liste, mit Kühlung, Zutaten und Mixen.' }
+    },
     slug: { bs: 'ledeni-okusi', en: 'icy-flavors' },
     mood: 'ice',
     title: { bs: 'Ledeni okusi', en: 'Icy flavors' },
@@ -72,6 +76,10 @@ window.COLLECTIONS = [
   },
   {
     id: 'tropical',
+    seo: {
+      title: { bs: 'Tropski okusi za nargilu: lista od {n} okusa | MyShishapedia', en: 'Tropical hookah flavors: {n} fruity shisha flavors | MyShishapedia', de: 'Tropische Shisha-Geschmäcker: {n} fruchtige Sorten | MyShishapedia' },
+      lead: { bs: 'Mango, ananas, marakuja i drugi tropski okusi za nargilu, sa sastojcima i miksevima.', en: 'Mango, pineapple, passion fruit and other tropical shisha flavors, with ingredients and mixes.', de: 'Mango, Ananas, Maracuja und andere tropische Shisha-Geschmäcker, mit Zutaten und Mixen.' }
+    },
     slug: { bs: 'tropski-okusi', en: 'tropical-flavors' },
     mood: 'tropical',
     title: { bs: 'Tropski okusi', en: 'Tropical flavors' },
@@ -96,6 +104,10 @@ window.COLLECTIONS = [
   },
   {
     id: 'beginners',
+    seo: {
+      title: { bs: 'Okusi za nargilu za početnike: lista od {n} okusa | MyShishapedia', en: 'Hookah flavors for beginners: {n} easy, sweet shisha flavors | MyShishapedia', de: 'Shisha-Geschmäcker für Anfänger: {n} milde, süße Sorten | MyShishapedia' },
+      lead: { bs: 'Umjereni, voćni i slatki okusi za prve sesije, sa sastojcima i miksevima.', en: 'Easygoing, fruity and sweet shisha flavors for your first sessions, with ingredients and mixes.', de: 'Milde, fruchtige und süße Shisha-Geschmäcker für die ersten Sessions, mit Zutaten und Mixen.' }
+    },
     slug: { bs: 'za-pocetnike', en: 'for-beginners' },
     mood: 'calm',
     title: { bs: 'Za početnike', en: 'For beginners' },

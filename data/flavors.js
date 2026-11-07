@@ -1562,6 +1562,16 @@ window.FLAVORS = [
     leaf: 'light',
     name: 'Double Apple',
     mood: 'honey',
+    seo: {
+      title: {
+        bs: 'Al Fakher Double Apple (Two Apples) okus za nargilu | MyShishapedia',
+        en: 'Al Fakher Double Apple (Two Apples) shisha flavor | MyShishapedia'
+      },
+      description: {
+        bs: 'Al Fakher Two Apples: slatka crvena i kiselkasta zelena jabuka sa anisom. Okus, jačina, najbolji miksevi i razlika u odnosu na Nakhla Double Apple.',
+        en: 'Al Fakher Two Apples: sweet red apple, tart green apple and warm anise. Taste, strength, best mixes and how it differs from Nakhla Double Apple.'
+      }
+    },
     shortDescription: {
       bs: 'Klasična dvostruka jabuka: slatka crvena, kiselkasta zelena i topla nota anisa.',
       en: 'The classic double apple: sweet red, tart green and a warm touch of anise.'
@@ -1599,6 +1609,28 @@ window.FLAVORS = [
         'Double Apple with Berlin Nights for a warmer, honeyed take.'
       ]
     },
+    faq: [
+      {
+        q: { bs: 'Da li je Al Fakher Double Apple isto što i Two Apples?', en: 'Is Al Fakher Double Apple the same as Two Apples?' },
+        a: { bs: 'Da. U prodavnicama se Al Fakherova dvostruka jabuka često prodaje pod nazivom Two Apples, a većina ljudi je zove Double Apple.', en: 'Yes. Shops often sell the Al Fakher double apple as Two Apples, while most people simply call it Double Apple.' }
+      },
+      {
+        q: { bs: 'Kakvog je okusa Al Fakher Double Apple?', en: 'What does Al Fakher Double Apple taste like?' },
+        a: { bs: 'Slatka crvena i kiselkasta zelena jabuka sa toplom notom anisa. Nema mente ni hlađenja.', en: 'Sweet red apple and tart green apple with a warm note of anise. There is no mint or cooling.' }
+      },
+      {
+        q: { bs: 'Koja je razlika između Al Fakher i Nakhla Double Apple?', en: 'What is the difference between Al Fakher and Nakhla Double Apple?' },
+        a: { bs: 'Al Fakher je rađen na svijetlom listu, pa je blaži i mekši. Nakhla je na tamnom listu, jača je i grublja, a anis joj je izraženiji.', en: 'Al Fakher is made on blonde leaf, so it is milder and smoother. Nakhla is on dark leaf, stronger and coarser, with a more pronounced anise.' }
+      },
+      {
+        q: { bs: 'Kako napraviti Double Apple sa mentom?', en: 'How do I make Double Apple with mint?' },
+        a: { bs: 'Pomiješaj Double Apple i Al Fakher Mint u omjeru otprilike 70/30. Za hladniji izdah dodaj malo Cane Minta.', en: 'Mix Double Apple and Al Fakher Mint at roughly 70/30. For a colder exhale, add a little Cane Mint.' }
+      },
+      {
+        q: { bs: 'Da li je Al Fakher Double Apple jak?', en: 'Is Al Fakher Double Apple strong?' },
+        a: { bs: 'Umjereno. Svijetli list ga čini blažim od tamnih duhana, pa je dobar i za one koji tek počinju.', en: 'Moderately. The blonde leaf makes it milder than dark tobaccos, so it also suits people who are just starting out.' }
+      }
+    ],
     similar: ['nakhla-double-apple', 'revoshi-d-app-strong', 'adalya-berlin-nights', 'adalya-mint']
   },
   {
@@ -1691,6 +1723,16 @@ window.FLAVORS = [
     brand: 'al-fakher',
     leaf: 'light',
     name: 'Grape Mint',
+    seo: {
+      title: {
+        bs: 'Al Fakher Grape Mint (Grape with Mint) okus za nargilu | MyShishapedia',
+        en: 'Al Fakher Grape Mint (Grape with Mint) shisha flavor | MyShishapedia'
+      },
+      description: {
+        bs: 'Al Fakher Grape Mint: slatko bijelo grožđe i hladna menta. Okus, jačina, najbolji miksevi i slični grape mint okusi za nargilu.',
+        en: 'Al Fakher Grape Mint: sweet white grape and cool mint. Taste, strength, best mixes and similar grape mint hookah flavors.'
+      }
+    },
     shortDescription: {
       bs: 'Slatko bijelo grožđe i hladna menta: jedan od najprodavanijih klasika.',
       en: 'Sweet white grape and cool mint: one of the best selling classics.'
@@ -1727,6 +1769,28 @@ window.FLAVORS = [
         'Grape Mint with Watermelon Mint for a summer mix with mint.'
       ]
     },
+    faq: [
+      {
+        q: { bs: 'Da li je Al Fakher Grape Mint isto što i Grape with Mint?', en: 'Is Al Fakher Grape Mint the same as Grape with Mint?' },
+        a: { bs: 'Da, to je isti okus. Neki ga zovu Grape Mint, a drugi Grape with Mint.', en: 'Yes, it is the same flavor. Some call it Grape Mint and others Grape with Mint.' }
+      },
+      {
+        q: { bs: 'Kakvog je okusa Grape Mint?', en: 'What does Grape Mint taste like?' },
+        a: { bs: 'Slatko i sočno grožđe, bliže bijelom nego tamnom, sa hladnom mentom koja ga čini laganim.', en: 'Sweet, juicy grape, closer to white than dark, with cool mint that keeps it light.' }
+      },
+      {
+        q: { bs: 'Da li je Grape Mint ledeni okus?', en: 'Is Grape Mint an icy flavor?' },
+        a: { bs: 'Nije. Menta je izražena, ali nije ledena, pa je okus svjež bez peckanja u grlu.', en: 'No. The mint is pronounced but not icy, so it is fresh without biting the throat.' }
+      },
+      {
+        q: { bs: 'Sa čim se miješa Grape Mint?', en: 'What can I mix Grape Mint with?' },
+        a: { bs: 'Dobro ide uz Double Apple za stari orijentalni miks, uz Blueberry za tamnije grožđe ili uz Watermelon Mint za ljeto.', en: 'It goes well with Double Apple for an old-school café mix, with Blueberry for a darker grape, or with Watermelon Mint for summer.' }
+      },
+      {
+        q: { bs: 'Koji su okusi slični Al Fakher Grape Mintu?', en: 'Which flavors are similar to Al Fakher Grape Mint?' },
+        a: { bs: 'Al Waha Grape Mint je isti par grožđa i mente. Ako želiš više mente, probaj Al Fakher Mint ili Watermelon Mint.', en: 'Al Waha Grape Mint is the same grape and mint pair. If you want more mint, try Al Fakher Mint or Watermelon Mint.' }
+      }
+    ],
     similar: ['al-waha-grape-mint', 'nameless-black-nana', 'al-fakher-mint', 'al-fakher-watermelon-mint']
   },
   {
@@ -9129,6 +9193,16 @@ window.FLAVORS = [
     leaf: 'dark',
     name: 'Double Apple',
     mood: 'honey',
+    seo: {
+      title: {
+        bs: 'Nakhla Double Apple (Two Apples) okus za nargilu | MyShishapedia',
+        en: 'Nakhla Double Apple (Two Apples) shisha flavor | MyShishapedia'
+      },
+      description: {
+        bs: 'Nakhla Two Apples: originalna dvostruka jabuka sa jakim anisom na tamnom listu. Okus, jačina, savjeti za pakovanje i razlika u odnosu na Al Fakher.',
+        en: 'Nakhla Two Apples: the original double apple with strong anise on dark leaf. Taste, strength, packing tips and how it differs from Al Fakher.'
+      }
+    },
     shortDescription: {
       bs: 'Crvena i zelena jabuka sa jakim anisom: originalna, stara dvostruka jabuka.',
       en: 'Red and green apple with strong anise: the original, old-school double apple.'
@@ -9166,6 +9240,28 @@ window.FLAVORS = [
         'Nakhla Double Apple with Spiced Chai for spiced apple.'
       ]
     },
+    faq: [
+      {
+        q: { bs: 'Da li je Nakhla Double Apple isto što i Two Apples?', en: 'Is Nakhla Double Apple the same as Two Apples?' },
+        a: { bs: 'Da. Nakhla ovaj okus prodaje pod nazivom Two Apples, a ljudi ga zovu Double Apple ili kraće Nakhla DA.', en: 'Yes. Nakhla sells this flavor as Two Apples, and people call it Double Apple or simply Nakhla DA.' }
+      },
+      {
+        q: { bs: 'Kakvog je okusa Nakhla Double Apple?', en: 'What does Nakhla Double Apple taste like?' },
+        a: { bs: 'Crvena i zelena jabuka sa jakim anisom. Anis je toliko izražen da mnogi kažu da okus više podsjeća na anis nego na jabuku.', en: 'Red and green apple with strong anise. The anise is so pronounced that many say it tastes more of anise than of apple.' }
+      },
+      {
+        q: { bs: 'Da li je Nakhla Double Apple jak?', en: 'Is Nakhla Double Apple strong?' },
+        a: { bs: 'Jeste. Rađen je na tamnom listu, pa je jači i grublji od modernih okusa na svijetlom listu.', en: 'Yes. It is made on dark leaf, so it is stronger and coarser than modern blonde leaf flavors.' }
+      },
+      {
+        q: { bs: 'Koja je razlika između Nakhla i Al Fakher Double Apple?', en: 'What is the difference between Nakhla and Al Fakher Double Apple?' },
+        a: { bs: 'Nakhla je na tamnom listu, jača je i ima izraženiji anis. Al Fakher je na svijetlom listu, blaži je i mekši.', en: 'Nakhla is on dark leaf, stronger and with a more pronounced anise. Al Fakher is on blonde leaf, milder and smoother.' }
+      },
+      {
+        q: { bs: 'Kako pakovati Nakhla Double Apple?', en: 'How should I pack Nakhla Double Apple?' },
+        a: { bs: 'Rastresito, bez sabijanja, i sa umjerenom toplotom. Previše uglja brzo pregrije tamni list.', en: 'Loosely, without pressing it down, and with moderate heat. Too much coal quickly overheats dark leaf.' }
+      }
+    ],
     similar: ['al-fakher-double-apple', 'revoshi-d-app-strong', 'al-fakher-mint']
   },
   {
