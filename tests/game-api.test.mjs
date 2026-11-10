@@ -78,6 +78,14 @@ test('rezultat: jedan dnevno po uređaju, rang i liste', async () => {
   assert.deepEqual(week.body.me, { rank: 1, score: 750 });
   const day2 = await call(e, 'GET', 'board', null, { qs: 'scope=day', now: tomorrow });
   assert.equal(day2.body.top.length, 1);
+  // sljedeće sedmice: "prošla sedmica" je konačan poredak, a nova sedmica je prazna
+  const nextWeek = new Date('2026-11-18T10:00:00Z');
+  const last = await call(e, 'GET', 'board', null, { qs: 'scope=lastweek&device=' + dev('a'), now: nextWeek });
+  assert.equal(last.body.scope, 'lastweek');
+  assert.equal(last.body.week, '2026-11-09');
+  assert.deepEqual(last.body.top.map((r) => [r.rank, r.nick, r.score]), [[1, 'Amar', 750], [2, 'Belma', 500], [3, 'Cane', 400]]);
+  assert.deepEqual(last.body.me, { rank: 1, score: 750 });
+  assert.deepEqual((await call(e, 'GET', 'board', null, { qs: 'scope=week', now: nextWeek })).body.top, []);
 });
 
 test('rezultat: pogrešan dan, bez nadimka, nemoguć rezultat', async () => {

@@ -31,9 +31,21 @@
   function reduced() { return mqReduce.matches; }
   function g(k, v) { return MSP.gt(k, v); }
   function $(id) { return document.getElementById(id); }
-  var LOCALE = { bs: 'bs-BA', en: 'en-GB', de: 'de-DE' }[MSP.lang] || 'en-GB';
-  var nf = new Intl.NumberFormat(LOCALE);
-  function num(n) { return nf.format(n); }
+  // brojevi i datumi bez oslanjanja na podatke o jeziku u browseru (neki telefoni nemaju bosanski)
+  var THOUSANDS = MSP.lang === 'en' ? ',' : '.';
+  function num(n) { return String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, THOUSANDS); }
+  var MONTHS = {
+    bs: ['januara', 'februara', 'marta', 'aprila', 'maja', 'juna', 'jula', 'augusta', 'septembra', 'oktobra', 'novembra', 'decembra'],
+    en: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+    de: ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember']
+  };
+  function dateText(day, withYear) {
+    var p = String(day).split('-');
+    if (p.length !== 3) return day;
+    var m = (MONTHS[MSP.lang] || MONTHS.en)[+p[1] - 1], d = +p[2];
+    var out = MSP.lang === 'en' ? d + ' ' + m : d + '. ' + m;
+    return withYear ? out + ' ' + p[0] + (MSP.lang === 'bs' ? '.' : '') : out;
+  }
 
   /* ------------------------------------------------------------------ */
   /* Spremanje                                                           */
@@ -248,12 +260,14 @@
     date: $('sd-date'), status: $('sd-status'), best: $('sd-best'), rank: $('sd-rank'), nick: $('sd-nick'), nickBtn: $('sd-nick-btn'),
     play: $('sd-play'), practice: $('sd-practice'), next: $('sd-next'), offline: $('sd-offline'),
     boardList: $('sd-board-list'), boardNote: $('sd-board-note'),
+    champ: $('sd-champ'), champNick: $('sd-champ-nick'), champScore: $('sd-champ-score'),
     score: $('sdx-score'), nextCv: $('sdx-next'), rankPill: $('sdx-rankpill'), rankLabel: $('sdx-ranklabel'), rankV: $('sdx-rank'),
     sound: $('sdx-sound'), pauseBtn: $('sdx-pause'), stage: $('sdx-stage'), bg: $('sdx-bg'), fg: $('sdx-fg'), hint: $('sdx-hint'),
     pausePanel: $('sdx-pausepanel'), resume: $('sdx-resume'), quit: $('sdx-quit'), quitNote: $('sdx-quitnote'),
     end: $('sdx-end'), endTitle: $('sdx-endtitle'), endArt: $('sdx-endart'), biggest: $('sdx-biggest'), final: $('sdx-final'),
     record: $('sdx-record'), rankLine: $('sdx-rankline'), miniBoard: $('sdx-board'), a2hs: $('sdx-a2hs'), a2hsLater: $('sdx-a2hs-later'),
     again: $('sdx-again'), againLabel: $('sdx-again-label'), share: $('sdx-share'), close: $('sdx-close'), shareMsg: $('sdx-sharemsg'),
+    restart: $('sdx-restart'),
     info: $('sdx-info'), infoPanel: $('sdx-infopanel'), infoClose: $('sdx-info-close'),
     mForm: $('sdm-form'), mInput: $('sdm-input'), mErr: $('sdm-err'), mCancel: $('sdm-cancel'), mSave: $('sdm-save')
   };
@@ -295,6 +309,7 @@
   var PADB = 22;
   var ICE_REACH = 92;
   var ICE_MAX = 3;
+  var MAX_UP = 7;               // najveća brzina prema gore po koraku (odskok poslije spajanja ostaje nizak)
   var MAX_V = 26;               // najveća brzina po koraku (jedinica), da ništa ne "proleti"
 
   function radiusOf(kind) { return kind <= TOP ? FRUITS[kind].r : C.SPECIAL_R[kind]; }
@@ -310,7 +325,7 @@
     return {
       kind: kind, x: x, y: y, px: x, py: y, a: 0, pa: 0,
       r: r0 || rt, rt: rt, m: rt * rt, born: born,
-      dead: false, trig: -1, touched: false, floor: false
+      dead: false, trig: -1, touched: false, floor: false, contact: false
     };
   }
 
@@ -365,6 +380,7 @@
         var d2 = dx * dx + dy * dy;
         if (d2 >= rr * rr) continue;
         a.touched = b.touched = true;
+        a.contact = b.contact = true;
         // spajanje: dvije iste voćke, ili menta sa voćkom; led reaguje na prvi dodir
         if (a.kind === b.kind && a.kind <= TOP) { merges.push(a, b); a.dead = b.dead = true; continue; }
         if (a.kind === C.MINT && b.kind <= TOP) { merges.push(a, b); a.dead = b.dead = true; continue; }
@@ -396,12 +412,13 @@
     var i, b;
     for (i = 0; i < bodies.length; i++) {
       b = bodies[i];
-      if (b.r < b.rt) b.r = Math.min(b.rt, b.r + b.rt * STEP * 7);
+      if (b.r < b.rt) b.r = Math.min(b.rt, b.r + b.rt * STEP * 5);
       var vx = (b.x - b.px) * AIR, vy = (b.y - b.py) * AIR + gg;
       if (vy > MAX_V) vy = MAX_V;
       if (vx > MAX_V) vx = MAX_V; else if (vx < -MAX_V) vx = -MAX_V;
       b.px = b.x; b.py = b.y; b.pa = b.a;
       b.x += vx; b.y += vy;
+      b.contact = false;
     }
     sortBodies();
     for (var it = 0; it < ITER; it++) {
@@ -410,6 +427,7 @@
     }
     for (i = 0; i < bodies.length; i++) {
       b = bodies[i];
+      if (b.y - b.py < -MAX_UP) b.py = b.y + MAX_UP;    // najveća brzina prema gore
       if (b.floor) b.px = b.x - (b.x - b.px) * 0.86;   // trenje o dno
       b.a += (b.x - b.px) / b.r * 0.9;                  // kotrljanje
       if (b.kind === C.ICE && b.trig < 0 && (b.floor || b.touched)) b.trig = game.sim;
@@ -505,7 +523,9 @@
     var over = false;
     for (var i = 0; i < bodies.length; i++) {
       var b = bodies[i];
-      if (!b.dead && b.y - b.r < LINE && game.sim - b.born > 1000) { over = true; break; }
+      if (b.dead || b.y - b.r >= LINE || game.sim - b.born <= 1000) continue;
+      var sp = Math.abs(b.x - b.px) + Math.abs(b.y - b.py);
+      if ((b.contact || b.floor) && sp < 0.8) { over = true; break; }
     }
     if (over) {
       game.danger += STEP_MS;
@@ -1273,6 +1293,7 @@
     game.state = 'pause';
     save();
     el.quitNote.textContent = g('pause.quitSaved');
+    el.restart.hidden = game.mode !== 'practice';
     el.pausePanel.hidden = false;
     el.resume.focus({ preventScroll: true });
   }
@@ -1361,6 +1382,18 @@
   el.infoClose.addEventListener('click', closeInfo);
   el.infoPanel.addEventListener('click', function (e) { if (e.target === el.infoPanel) closeInfo(); });
   el.resume.addEventListener('click', resume);
+  // vježba ispočetka (dnevni izazov se ne može ponoviti)
+  el.restart.addEventListener('click', function () {
+    if (!game || game.mode !== 'practice') return;
+    Snd.unlock();
+    lsSet(K.practice, null);
+    el.pausePanel.hidden = true;
+    begin(newGame('practice'));
+    startLoop();
+    loop.last = performance.now();
+    loop.acc = 0;
+    el.fg.focus({ preventScroll: true });
+  });
   el.quit.addEventListener('click', function () { close(false); });
   el.close.addEventListener('click', function () { close(false); });
 
@@ -1501,46 +1534,66 @@
   /* Slika za dijeljenje                                                 */
   /* ------------------------------------------------------------------ */
 
+  // link na izazov (stranica igre na jeziku igrača), npr. myshishapedia.com/bs/igra
+  function challengeUrl() { return location.origin + location.pathname; }
+  function challengeLabel() { return (location.host + location.pathname).replace(/^www\./, '').replace(/\/$/, ''); }
+  function fmtDayLong(day) { return dateText(day, true); }
+
+  /** Slika za WhatsApp/Instagram (1080 × 1350): datum, rezultat, "Možeš li me pobijediti?" i link na izazov. */
   function shareImage(end) {
+    var W2 = 1080, H2 = 1350;
     var c = document.createElement('canvas');
-    c.width = 1080; c.height = 1350;
+    c.width = W2; c.height = H2;
     var x = c.getContext('2d');
-    var bg = x.createLinearGradient(0, 0, 0, 1350);
-    bg.addColorStop(0, '#1b120c'); bg.addColorStop(1, '#0d0907');
-    x.fillStyle = bg; x.fillRect(0, 0, 1080, 1350);
-    var gl = x.createRadialGradient(540, 620, 20, 540, 620, 760);
-    gl.addColorStop(0, 'rgba(242,163,60,0.38)'); gl.addColorStop(1, 'rgba(0,0,0,0)');
-    x.fillStyle = gl; x.fillRect(0, 0, 1080, 1350);
+    var bg = x.createLinearGradient(0, 0, 0, H2);
+    bg.addColorStop(0, '#1d130d'); bg.addColorStop(1, '#0d0907');
+    x.fillStyle = bg; x.fillRect(0, 0, W2, H2);
+    var gl = x.createRadialGradient(540, 560, 20, 540, 560, 720);
+    gl.addColorStop(0, 'rgba(242,163,60,0.36)'); gl.addColorStop(1, 'rgba(0,0,0,0)');
+    x.fillStyle = gl; x.fillRect(0, 0, W2, H2);
+    x.strokeStyle = 'rgba(242,163,60,0.35)';
+    x.lineWidth = 4;
+    roundRect(x, 28, 28, W2 - 56, H2 - 56, 48); x.stroke();
     x.textAlign = 'center';
     x.textBaseline = 'alphabetic';
-    x.fillStyle = '#f2a33c';
-    x.font = '700 40px ' + font;
-    x.fillText((end.mode === 'daily' ? g('share.daily') + ' · ' + fmtDay(end.day) : g('share.practice')).toUpperCase(), 540, 150);
-    x.fillStyle = '#f4ebdf';
-    x.font = '800 104px ' + font;
-    x.fillText('Shisha Drop', 540, 270);
+    function text(t, y, size, weight, color, max) {
+      var f = size;
+      x.font = weight + ' ' + f + 'px ' + font;
+      while (x.measureText(t).width > (max || 940) && f > 20) { f -= 2; x.font = weight + ' ' + f + 'px ' + font; }
+      x.fillStyle = color;
+      x.fillText(t, 540, y);
+    }
+    var day = end.day || today();
+    text((end.mode === 'daily' ? g('share.daily') : g('share.practice')).toUpperCase(), 130, 38, '800', '#f2a33c');
+    text(fmtDayLong(day), 192, 52, '700', '#f4ebdf');
+    text('Shisha Drop', 300, 96, '800', '#f4ebdf');
     var id = end.golden > 0 ? 'golden' : FRUITS[end.maxLevel].id;
-    x.drawImage(iconCanvas(id, 480), 300, 330);
-    x.fillStyle = '#ffd36b';
-    x.font = '800 190px ' + font;
-    x.fillText(num(end.score), 540, 1000);
-    x.fillStyle = '#f4ebdf';
-    x.font = '600 46px ' + font;
-    x.fillText(g('share.points') + (end.rank ? '  ·  #' + end.rank : ''), 540, 1070);
-    x.fillStyle = '#b4aa9e';
-    x.font = '600 40px ' + font;
-    x.fillText(g('end.biggest', { name: g('fruits.' + id) }), 540, 1140);
-    x.fillStyle = '#f2a33c';
-    x.font = '700 42px ' + font;
-    x.fillText(location.host.replace(/^www\./, ''), 540, 1270);
+    x.drawImage(iconCanvas(id, 340), 370, 330);
+    text(num(end.score), 820, 170, '800', '#ffd36b');
+    var sub = end.rank ? rankText(end.rank, end.total) : g('share.points');
+    text(sub, 892, 46, '700', '#f4ebdf');
+    text(g('end.biggest', { name: g('fruits.' + id) }), 950, 36, '600', '#b4aa9e');
+    text(g('share.challenge'), 1075, 74, '800', '#ff9a4d');
+    // link na izazov u "dugmetu"
+    var label = challengeLabel();
+    x.font = '800 40px ' + font;
+    var lw = Math.min(940, x.measureText(label).width + 90);
+    var grd = x.createLinearGradient(540 - lw / 2, 0, 540 + lw / 2, 0);
+    grd.addColorStop(0, '#f2a33c'); grd.addColorStop(1, '#ffc56b');
+    x.fillStyle = grd;
+    roundRect(x, 540 - lw / 2, 1150, lw, 96, 48); x.fill();
+    text(label, 1212, 40, '800', '#1a0f08', lw - 60);
     return c;
   }
 
   el.share.addEventListener('click', function () {
     if (!lastEnd) return;
     var end = lastEnd;
-    var text = end.mode === 'daily' && end.rank ? g('share.textDaily', { score: num(end.score), rank: end.rank }) : g('share.text', { score: num(end.score) });
-    var url = location.origin + location.pathname;
+    var date = fmtDay(end.day || today());
+    var text = end.mode === 'daily'
+      ? (end.rank ? g('share.textDaily', { score: num(end.score), rank: end.rank, date: date }) : g('share.textDailyPlain', { score: num(end.score), date: date }))
+      : g('share.text', { score: num(end.score) });
+    var url = challengeUrl();
     var c = shareImage(end);
     c.toBlob(function (blob) {
       var file = blob && window.File ? new File([blob], 'shisha-drop.png', { type: 'image/png' }) : null;
@@ -1618,11 +1671,7 @@
   /* Početni ekran i rang lista na stranici                              */
   /* ------------------------------------------------------------------ */
 
-  function fmtDay(day) {
-    try {
-      return new Intl.DateTimeFormat(LOCALE, { day: 'numeric', month: 'long', timeZone: 'UTC' }).format(new Date(day + 'T12:00:00Z'));
-    } catch (e) { return day; }
-  }
+  function fmtDay(day) { return dateText(day, false); }
   function fmtLeft(ms) {
     var s = Math.max(0, Math.floor(ms / 1000));
     var h = Math.floor(s / 3600), m = Math.floor((s % 3600) / 60), sec = s % 60;
@@ -1660,7 +1709,7 @@
     el.offline.hidden = online.api;
     host.setAttribute('data-ready', '1');
     host.setAttribute('data-state', d.status === 'done' ? 'done' : saved ? 'playing' : 'ready');
-    if (shownDay && shownDay !== day) loadBoard();
+    if (shownDay && shownDay !== day) { loadBoard(); loadChamp(); }
     shownDay = day;
     tickNext();
   }
@@ -1681,17 +1730,19 @@
     open(load('daily') || newGame('daily'));
   });
   el.practice.addEventListener('click', function () {
-    open(load('practice') || newGame('practice'));
+    var saved = load('practice');
+    if (saved && saved.drops > 0) open(saved, true);
+    else open(newGame('practice'));
   });
 
   var scope = 'day';
-  function renderBoard(list, data, limit) {
+  function renderBoard(list, data, limit, emptyText) {
     list.innerHTML = '';
     var top = (data.top || []).slice(0, limit || 50);
     if (!top.length) {
       var li = document.createElement('li');
       li.className = 'sd-board__msg';
-      li.textContent = g('board.empty');
+      li.textContent = emptyText || g('board.empty');
       list.appendChild(li);
       return;
     }
@@ -1731,14 +1782,35 @@
         return;
       }
       if (sc === 'day') boardScores = r.data.top.map(function (x) { return x.score; });
-      el.boardNote.textContent = sc === 'week' ? g('board.weekNote') : (r.data.total ? g('board.players', { n: num(r.data.total) }) : '');
-      renderBoard(el.boardList, r.data, 50);
+      if (sc === 'lastweek') el.boardNote.textContent = g('board.lastWeekNote', { from: fmtDay(r.data.week), to: fmtDay(C.addDays(r.data.week, 6)) });
+      else el.boardNote.textContent = sc === 'week' ? g('board.weekNote') : (r.data.total ? g('board.players', { n: num(r.data.total) }) : '');
+      renderBoard(el.boardList, r.data, 50, sc === 'lastweek' ? g('board.lastWeekEmpty') : null);
+      if (sc === 'lastweek') showChamp(r.data);
       if (sc === 'day' && r.data.me) {
         var d = lsGet(K.daily);
         if (d && d.day === today() && !d.rank) { d.rank = r.data.me.rank; lsSet(K.daily, d); refreshStart(); }
       }
     });
   }
+  // pobjednik prošle sedmice: vidi se na kartici izazova cijelu sljedeću sedmicu
+  function showChamp(data) {
+    var w = data && data.top && data.top[0];
+    el.champ.hidden = !w;
+    if (!w) return;
+    el.champNick.textContent = w.nick;
+    el.champScore.textContent = g('start.champPoints', { score: num(w.score) });
+  }
+  function loadChamp() {
+    api('board', { query: { scope: 'lastweek', device: DEVICE } }).then(function (r) { if (r.ok) showChamp(r.data); });
+  }
+  function selectScope(sc) {
+    scope = sc;
+    Array.prototype.forEach.call(document.querySelectorAll('.sd-tabs .seg-btn'), function (o) { o.setAttribute('aria-pressed', o.getAttribute('data-scope') === sc ? 'true' : 'false'); });
+    el.boardList.innerHTML = '<li class="sd-board__msg">' + MSP.V.esc(g('board.loading')) + '</li>';
+    loadBoard();
+  }
+  el.champ.addEventListener('click', function () { selectScope('lastweek'); });
+
   function loadBoardScores() {
     if (boardScores) return;
     api('board', { query: { scope: 'day', device: DEVICE, day: today() } }).then(function (r) {
@@ -1746,12 +1818,7 @@
     });
   }
   Array.prototype.forEach.call(document.querySelectorAll('.sd-tabs .seg-btn'), function (b) {
-    b.addEventListener('click', function () {
-      scope = b.getAttribute('data-scope');
-      Array.prototype.forEach.call(document.querySelectorAll('.sd-tabs .seg-btn'), function (o) { o.setAttribute('aria-pressed', o === b ? 'true' : 'false'); });
-      el.boardList.innerHTML = '<li class="sd-board__msg">' + MSP.V.esc(g('board.loading')) + '</li>';
-      loadBoard();
-    });
+    b.addEventListener('click', function () { selectScope(b.getAttribute('data-scope')); });
   });
 
   /* ------------------------------------------------------------------ */
@@ -1764,6 +1831,7 @@
     syncDay().then(function () {
       refreshStart();
       loadBoard();
+      loadChamp();
       // nadimak sa servera (ako je uklonjen ili promijenjen na drugom mjestu)
       api('player', { query: { device: DEVICE } }).then(function (r) {
         if (!r.ok) return;
@@ -1788,6 +1856,7 @@
     state: function () { return game ? { mode: game.mode, state: game.state, score: game.score, drops: game.drops, bodies: bodies.length, danger: game.danger, dpr: view.dpr, quality: quality } : null; },
     drop: function (x) { if (game) { game.aim = x; drop(); } },
     js: function (reset) { var r = { avg: jsTime.n ? +(jsTime.sum / jsTime.n).toFixed(2) : 0, max: +jsTime.max.toFixed(2), n: jsTime.n }; if (reset) { jsTime.sum = jsTime.n = jsTime.max = 0; } return r; },
-    end: function () { gameOver(); }
+    end: function () { gameOver(); },
+    shareImage: function (o) { return shareImage(o).toDataURL('image/png'); }
   };
 })();
