@@ -223,34 +223,35 @@
       ctx.restore();
     },
     pineapple: function (ctx) {
-      for (var i = 0; i < 5; i++) {
-        var a = -26 + i * 13;
-        ctx.beginPath();
-        ctx.moveTo(-6, -22);
-        ctx.quadraticCurveTo(a * 0.5, -44, a * 1.1, -66 + Math.abs(a) * 0.3);
-        ctx.quadraticCurveTo(a * 0.5 + 6, -40, 6, -22);
-        ctx.closePath();
-        ctx.fillStyle = lg(ctx, 0, -66, 0, -22, [[0, '#a6ec74'], [1, '#2c7a34']]);
-        ctx.fill();
-      }
+      // tijelo ispunjava cijeli krug (kao i krug za sudare), kruna je mali čuperak na vrhu
       ctx.save();
-      ellipse(ctx, 0, 12, 40, 40);
-      ctx.fillStyle = rg(ctx, -8, 0, 58, [[0, '#ffe58e'], [0.5, '#e8a52a'], [1, '#8a5410']]);
+      circle(ctx, 0, 0, 49);
+      ctx.fillStyle = rg(ctx, -12, -14, 66, [[0, '#ffe58e'], [0.5, '#e8a52a'], [1, '#8a5410']]);
       ctx.fill();
-      ellipse(ctx, 0, 12, 40, 40);
+      circle(ctx, 0, 0, 49);
       ctx.clip();
       ctx.strokeStyle = 'rgba(140,85,18,0.6)';
-      ctx.lineWidth = 2;
-      for (var k = -6; k <= 6; k++) {
-        ctx.beginPath(); ctx.moveTo(k * 13 - 40, -30); ctx.lineTo(k * 13 + 40, 54); ctx.stroke();
-        ctx.beginPath(); ctx.moveTo(k * 13 + 40, -30); ctx.lineTo(k * 13 - 40, 54); ctx.stroke();
+      ctx.lineWidth = 2.2;
+      for (var k = -8; k <= 8; k++) {
+        ctx.beginPath(); ctx.moveTo(k * 14 - 50, -50); ctx.lineTo(k * 14 + 50, 50); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(k * 14 + 50, -50); ctx.lineTo(k * 14 - 50, 50); ctx.stroke();
       }
       ctx.fillStyle = 'rgba(90,52,8,0.55)';
-      for (var x = -36; x <= 36; x += 13) for (var y = -24; y <= 50; y += 13) {
-        circle(ctx, x + ((y / 13) % 2 ? 6.5 : 0), y, 1.8);
+      for (var x = -49; x <= 49; x += 14) for (var y = -49; y <= 49; y += 14) {
+        circle(ctx, x, y + 7, 2);
         ctx.fill();
       }
       ctx.restore();
+      for (var i = 0; i < 5; i++) {
+        var a = -16 + i * 8;
+        ctx.beginPath();
+        ctx.moveTo(-7, -40);
+        ctx.quadraticCurveTo(a * 0.6, -54, a * 1.1, -64 + Math.abs(a) * 0.4);
+        ctx.quadraticCurveTo(a * 0.6 + 6, -52, 7, -40);
+        ctx.closePath();
+        ctx.fillStyle = lg(ctx, 0, -64, 0, -40, [[0, '#a6ec74'], [1, '#2c7a34']]);
+        ctx.fill();
+      }
     },
     melon: function (ctx) {
       ctx.save();
@@ -390,7 +391,7 @@
   };
 
   // Koliko crtež izlazi van kruga (listovi, kruna ananasa...), da sprite ima mjesta.
-  var PAD = { pineapple: 1.45, mango: 1.3, peach: 1.2, orange: 1.15, strawberry: 1.15, mint: 1.2, golden: 1.25 };
+  var PAD = { pineapple: 1.32, mango: 1.3, peach: 1.2, orange: 1.15, strawberry: 1.15, mint: 1.2, golden: 1.25 };
 
   /**
    * Sprite za predmet `id` sa poluprečnikom `rPx` piksela.
