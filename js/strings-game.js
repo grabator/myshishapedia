@@ -64,7 +64,7 @@
         pause: 'Pauza',
         soundOn: 'Uključi zvuk',
         soundOff: 'Isključi zvuk',
-        aim: 'Vuci prstom lijevo-desno, pusti da voćka padne.'
+        aim: 'Dodirni mjesto u vazi gdje želiš da voćka padne.'
       },
       fx: {
         combo: 'Combo ×{n}',
@@ -114,8 +114,8 @@
       how: {
         title: 'Kako se igra',
         steps: [
-          'Vuci prstom lijevo-desno iznad vaze. Isprekidana linija pokazuje gdje će voćka pasti.',
-          'Pusti prst i voćka padne. Kotrlja se i gura ostalo voće.',
+          'Dodirni bilo gdje u vazi (i dolje, gdje prst ne smeta pogledu) i voćka padne tačno iznad tog mjesta.',
+          'Možeš i vući prstom lijevo-desno: isprekidana linija pokazuje gdje će pasti, a kad pustiš prst, voćka padne. Kotrlja se i gura ostalo voće.',
           'Dvije iste voćke se spoje u sljedeću u lancu. Veće voće donosi više bodova.',
           'Spajanja jedno za drugim daju combo i dodatne bodove.',
           'Ako voće stoji iznad crvene linije 3 sekunde, vaza je puna i partija je gotova.'
@@ -207,7 +207,7 @@
         pause: 'Pause',
         soundOn: 'Turn sound on',
         soundOff: 'Turn sound off',
-        aim: 'Drag left and right, let go to drop the fruit.'
+        aim: 'Tap the spot in the base where you want the fruit to drop.'
       },
       fx: {
         combo: 'Combo ×{n}',
@@ -257,8 +257,8 @@
       how: {
         title: 'How to play',
         steps: [
-          'Drag left and right above the base. The dashed line shows where the fruit will land.',
-          'Let go and the fruit drops. It rolls and pushes the other fruit.',
+          'Tap anywhere in the base (even near the bottom, where your finger does not block the view) and the fruit drops right above that spot.',
+          'You can also drag left and right: the dashed line shows where it will land, and when you let go, the fruit drops. It rolls and pushes the other fruit.',
           'Two of the same fruit merge into the next one in the chain. Bigger fruit scores more.',
           'Merges in quick succession build a combo and extra points.',
           'If fruit stays above the red line for 3 seconds, the base is full and the game is over.'
@@ -350,7 +350,7 @@
         pause: 'Pause',
         soundOn: 'Ton einschalten',
         soundOff: 'Ton ausschalten',
-        aim: 'Zieh nach links und rechts, lass los, damit die Frucht fällt.'
+        aim: 'Tippe auf die Stelle in der Bowl, wo die Frucht fallen soll.'
       },
       fx: {
         combo: 'Combo ×{n}',
@@ -400,8 +400,8 @@
       how: {
         title: 'So wird gespielt',
         steps: [
-          'Zieh mit dem Finger über der Bowl nach links und rechts. Die gestrichelte Linie zeigt, wo die Frucht landet.',
-          'Lass los, und die Frucht fällt. Sie rollt und schiebt die anderen Früchte.',
+          'Tippe irgendwo in die Bowl (auch unten, wo der Finger nicht die Sicht verdeckt), und die Frucht fällt genau über dieser Stelle.',
+          'Du kannst auch mit dem Finger nach links und rechts ziehen: Die gestrichelte Linie zeigt, wo sie landet, und wenn du loslässt, fällt die Frucht. Sie rollt und schiebt die anderen Früchte.',
           'Zwei gleiche Früchte verschmelzen zur nächsten in der Kette. Größere Früchte bringen mehr Punkte.',
           'Schnell hintereinander verschmolzene Früchte ergeben eine Combo und Extrapunkte.',
           'Bleibt eine Frucht 3 Sekunden über der roten Linie, ist die Bowl voll und das Spiel vorbei.'
