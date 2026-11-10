@@ -25,6 +25,7 @@
       close: '<path d="M6 6l12 12M18 6L6 18"/>',
       share: '<path d="M12 3v12M7 8l5-5 5 5"/><path d="M5 14v5a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-5"/>',
       play: '<path d="M8 5l11 7-11 7z"/>',
+      info: '<circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/>',
       trophy: '<path d="M8 4h8v5a4 4 0 0 1-8 0zM8 6H5a3 3 0 0 0 3 4M16 6h3a3 3 0 0 1-3 4M12 13v4M8.5 20h7M10 17h4"/>'
     };
     return '<svg class="sd-ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false">' + P[name] + '</svg>';
@@ -119,7 +120,12 @@
           '<canvas class="sdx__fg" id="sdx-fg" tabindex="0" role="img" aria-label="' + esc(g('hud.aim')) + '"></canvas>' +
           '<p class="sdx__aimhint" id="sdx-hint">' + esc(g('hud.aim')) + '</p>' +
         '</div>' +
-        '<div class="sdx__chain" aria-hidden="true">' + CHAIN.map(function (id) { return '<span class="sd-art" data-art="' + id + '"></span>'; }).join('') + '</div>' +
+        '<div class="sdx__foot">' +
+          '<div class="sdx__chain" aria-hidden="true">' + CHAIN.map(function (id) { return '<span class="sd-art" data-art="' + id + '"></span>'; }).join('') + '</div>' +
+          '<button type="button" class="sdx__specials" id="sdx-info" aria-label="' + esc(g('hud.info')) + '">' +
+            ['mint', 'ice', 'golden'].map(function (id) { return '<span class="sd-art" data-art="' + id + '" aria-hidden="true"></span>'; }).join('') + ico('info') +
+          '</button>' +
+        '</div>' +
         '<p class="sdx__rotate">' + esc(g('rotate')) + '</p>' +
         // pauza
         '<div class="sdx__panel sdx__pause" id="sdx-pausepanel" hidden>' +
@@ -128,6 +134,18 @@
             '<button type="button" class="btn btn--primary sdx__wide" id="sdx-resume">' + ico('play') + '<span>' + esc(g('pause.resume')) + '</span></button>' +
             '<button type="button" class="btn btn--ghost sdx__wide" id="sdx-quit">' + esc(g('pause.quit')) + '</button>' +
             '<p class="sdx__small" id="sdx-quitnote"></p>' +
+          '</div>' +
+        '</div>' +
+        // posebni predmeti (dugme "i" na dnu ekrana)
+        '<div class="sdx__panel sdx__info" id="sdx-infopanel" hidden>' +
+          '<div class="sdx__sheet sdx__sheet--info" role="document">' +
+            '<h2 class="sdx__title">' + esc(g('how.specials')) + '</h2>' +
+            '<ul class="sdx__infolist" role="list">' +
+              [['mint', 'how.mint'], ['ice', 'how.ice'], ['golden', 'how.golden']].map(function (x) {
+                return '<li><span class="sd-art" data-art="' + x[0] + '" aria-hidden="true"></span><p><strong>' + esc(g('fruits.' + x[0])) + '</strong>' + esc(g(x[1])) + '</p></li>';
+              }).join('') +
+            '</ul>' +
+            '<button type="button" class="btn btn--primary sdx__wide" id="sdx-info-close">' + ico('play') + '<span>' + esc(g('pause.resume')) + '</span></button>' +
           '</div>' +
         '</div>' +
         // kraj partije

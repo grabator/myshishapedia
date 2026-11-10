@@ -254,6 +254,7 @@
     end: $('sdx-end'), endTitle: $('sdx-endtitle'), endArt: $('sdx-endart'), biggest: $('sdx-biggest'), final: $('sdx-final'),
     record: $('sdx-record'), rankLine: $('sdx-rankline'), miniBoard: $('sdx-board'), a2hs: $('sdx-a2hs'), a2hsLater: $('sdx-a2hs-later'),
     again: $('sdx-again'), againLabel: $('sdx-again-label'), share: $('sdx-share'), close: $('sdx-close'), shareMsg: $('sdx-sharemsg'),
+    info: $('sdx-info'), infoPanel: $('sdx-infopanel'), infoClose: $('sdx-info-close'),
     mForm: $('sdm-form'), mInput: $('sdm-input'), mErr: $('sdm-err'), mCancel: $('sdm-cancel'), mSave: $('sdm-save')
   };
 
@@ -1229,6 +1230,7 @@
     }
     el.end.hidden = true;
     el.pausePanel.hidden = true;
+    el.infoPanel.hidden = true;
     view.cssW = 0;
     resize();
     warmSprites();
@@ -1324,7 +1326,8 @@
     if (!sdm.hidden) return;
     if (e.key === 'Escape') {
       e.preventDefault();
-      if (game && game.state === 'play') pause();
+      if (!el.infoPanel.hidden) closeInfo();
+      else if (game && game.state === 'play') pause();
       else if (game && game.state === 'pause') resume();
       return;
     }
@@ -1339,6 +1342,24 @@
   });
 
   el.pauseBtn.addEventListener('click', pause);
+
+  // posebni predmeti: objašnjenje preko igre, igra stoji dok je otvoreno
+  var infoResume = false;
+  function openInfo() {
+    infoResume = !!(game && game.state === 'play');
+    if (infoResume) { game.state = 'pause'; save(); }
+    el.infoPanel.hidden = false;
+    el.infoClose.focus({ preventScroll: true });
+  }
+  function closeInfo() {
+    el.infoPanel.hidden = true;
+    if (infoResume && game && game.state === 'pause' && el.pausePanel.hidden) resume();
+    else if (!el.pausePanel.hidden) el.resume.focus({ preventScroll: true });
+    infoResume = false;
+  }
+  el.info.addEventListener('click', openInfo);
+  el.infoClose.addEventListener('click', closeInfo);
+  el.infoPanel.addEventListener('click', function (e) { if (e.target === el.infoPanel) closeInfo(); });
   el.resume.addEventListener('click', resume);
   el.quit.addEventListener('click', function () { close(false); });
   el.close.addEventListener('click', function () { close(false); });
