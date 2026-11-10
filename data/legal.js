@@ -38,6 +38,7 @@ window.LEGAL = {
             '- izabrani jezik (bosanski ili engleski),',
             '- okuse koje dodaš na svoju policu ("Moja polica"),',
             '- zadnjih 8 okusa koje si otvorio/la ("Nedavno gledano"); listu možeš obrisati dugmetom "Obriši listu",',
+            '- ako igraš Shisha Drop: ključ uređaja za igru, nadimak, partiju u toku i rekord (vidi "Igra Shisha Drop"),',
             '- ako ocjenjuješ okuse ili recepte: nasumičan anonimni ID uređaja i tvoje ocjene, da vidiš svoju ocjenu i možeš je promijeniti (vidi "Ocjene okusa i recepata").',
             'Tokom jedne posjete (sessionStorage) pamti se i da li je uvodna animacija već prikazana i boja prelaza između stranica. To se briše kad zatvoriš tab.',
             'Iz police, nedavno gledanih okusa i tvojih ocjena stranica u browseru sama izračuna "Preporučeno za tebe"; za to se ništa ne šalje niti dodatno čuva.',
@@ -49,6 +50,7 @@ window.LEGAL = {
             '- your chosen language (Bosnian or English),',
             '- the flavors you add to your shelf ("My shelf"),',
             '- the last 8 flavors you opened ("Recently viewed"); you can clear the list with the "Clear list" button,',
+            '- if you play Shisha Drop: a device key for the game, your nickname, the game in progress and your best score (see "The Shisha Drop game"),',
             '- if you rate flavors or recipes: a random anonymous device ID and your ratings, so you can see your rating and change it (see "Flavor and recipe ratings").',
             'During a single visit (sessionStorage) it also remembers whether the intro animation has already played and the color of the page transition. That is cleared when you close the tab.',
             'From your shelf, recently viewed flavors and your ratings, the site works out "Recommended for you" right in your browser; nothing is sent or stored for that.',
@@ -78,6 +80,27 @@ window.LEGAL = {
             'For bot protection we use Cloudflare Turnstile. When you rate, Turnstile checks in your browser that you are not a bot (without tracking cookies and, usually, without puzzles). Cloudflare processes technical browser and device data for this, under its own privacy policy.',
             'Ratings are stored in a Cloudflare D1 database and are only shown as totals: the average and the number of ratings. Individual ratings are never published.',
             'If you clear the site data in your browser, the link to your earlier ratings is lost: they stay in the average, but you can no longer change them.'
+          ]
+        }
+      },
+      {
+        title: { bs: 'Igra Shisha Drop', en: 'The Shisha Drop game' },
+        body: {
+          bs: [
+            "Igra Shisha Drop radi bez računa i bez prijave. U tvom browseru (localStorage) se čuvaju: nasumičan skriveni ključ uređaja za igru, tvoj nadimak, partija u toku (da se ne izgubi kad osvježiš stranicu), tvoj rekord, stanje današnjeg izazova i da li je zvuk uključen.",
+            "Kad izabereš nadimak, na server se šalju nadimak i ključ uređaja. Kad završiš dnevni izazov, šalju se ključ uređaja, dan i podaci o partiji (bodovi, broj bacanja i spajanja, najveće voće i trajanje), da server provjeri da li rezultat ima smisla.",
+            "Na serveru se ključ uređaja ne čuva u izvornom obliku, nego samo kao nepovratan hash, uz nadimak i dnevne rezultate. Ne čuvamo ime, email ni IP adresu. Za ograničenje broja zahtjeva privremeno se čuva samo hash IP adrese i broj zahtjeva, kao kod ocjena.",
+            "Na rang listi (Danas i Ova sedmica) javno se vide nadimak i bodovi. Ako ne želiš da te neko prepozna, ne biraj nadimak sa svojim imenom i prezimenom.",
+            "Uvredljive nadimke i nadimke koji se lažno predstavljaju kao neko drugi uklanjamo. Ako želiš da obrišemo tvoj nadimak i rezultate, piši nam na adresu ispod i navedi nadimak.",
+            "Ako obrišeš podatke stranice u browseru, gubi se veza sa tvojim nadimkom: on ostaje zauzet, a ti možeš izabrati novi."
+          ],
+          en: [
+            "The Shisha Drop game works without an account or sign-in. Your browser (localStorage) keeps: a random hidden device key for the game, your nickname, the game in progress (so it is not lost when you refresh the page), your best score, the state of today's challenge and whether sound is on.",
+            "When you pick a nickname, the nickname and the device key are sent to the server. When you finish the daily challenge, the device key, the day and the game details (score, number of drops and merges, biggest fruit and duration) are sent, so the server can check that the score makes sense.",
+            "On the server the device key is never stored as is, only as a one-way hash, together with your nickname and daily scores. We do not store your name, email or IP address. To limit the number of requests, only a hash of the IP address and the request count are kept for a short time, as with ratings.",
+            "On the leaderboard (Today and This week) your nickname and score are public. If you do not want to be recognized, do not use your full name as a nickname.",
+            "We remove offensive nicknames and nicknames that pretend to be someone else. If you want us to delete your nickname and scores, write to us at the address below and include your nickname.",
+            "If you clear the site data in your browser, the link to your nickname is lost: it stays taken, and you can pick a new one."
           ]
         }
       },

@@ -13,6 +13,8 @@
  *     ocjene su u memoriji (sa par primjera), Turnstile se ne provjerava, a ponovno
  *     pokretanje servera vraća početne primjere.
  *       node serve.mjs --no-api      API ne radi (da se vidi kako stranica izgleda bez ocjena)
+ *   - API igre Shisha Drop (/api/game/...): isti kod kao na Cloudflareu (lib/game-api.mjs),
+ *     nad SQLite bazom u memoriji koja se ponaša kao D1 (lib/d1-sqlite.mjs)
  * Samo ugrađeni Node moduli.
  */
 import http from 'node:http';
@@ -24,6 +26,30 @@ import {
   validateRating, validItem, payloadFromTotals, summary, deviceKey, rateKey, rateWindow,
   IDS_PATH, RATE_LIMIT_MAX, RATE_LIMIT_WINDOW
 } from './lib/ratings-core.mjs';
+import { handleGame } from './lib/game-api.mjs';
+
+// Baza za igru se pravi tek pri prvom pozivu (node:sqlite je u Node-u 22 još "eksperimentalan").
+let gameEnv = null;
+async function gameDb() {
+  if (!gameEnv) {
+    const { D1Sqlite } = await import('./lib/d1-sqlite.mjs');
+    gameEnv = { DB: new D1Sqlite(':memory:'), GAME_SALT: 'lokalno' };
+  }
+  return gameEnv;
+}
+
+/** /api/game/<akcija>: Node zahtjev -> Request -> isti handler kao na Cloudflareu -> odgovor. */
+async function gameApi(req, res, urlPath, qs) {
+  const action = urlPath.replace(/^\/api\/game\/?/, '').replace(/\/$/, '');
+  const body = req.method === 'POST' ? await readBody(req, 8192) : undefined;
+  const headers = { 'CF-Connecting-IP': req.socket.remoteAddress || 'lokalno' };
+  if (req.headers['content-type']) headers['Content-Type'] = req.headers['content-type'];
+  const request = new Request('http://localhost' + urlPath + qs, { method: req.method, headers, body });
+  const env = NO_API ? {} : await gameDb();
+  const out = await handleGame(request, env, action);
+  res.writeHead(out.status, Object.fromEntries(out.headers));
+  res.end(Buffer.from(await out.arrayBuffer()));
+}
 
 const ROOT = path.join(path.dirname(fileURLToPath(import.meta.url)), 'dist');
 if (!fs.existsSync(path.join(ROOT, '404.html'))) {
@@ -237,6 +263,10 @@ http.createServer((req, res) => {
   const [urlPath, query] = req.url.split('?');
   const qs = query ? '?' + query : '';
 
+  if (urlPath.startsWith('/api/game/')) {
+    gameApi(req, res, urlPath, qs).catch((e) => { console.error(e); sendJson(res, 500, { error: 'server' }); });
+    return;
+  }
   if (urlPath === '/api' || urlPath.startsWith('/api/')) {
     api(req, res, urlPath).catch((e) => { console.error(e); sendJson(res, 500, { error: 'server' }); });
     return;

@@ -8802,3 +8802,95 @@ a.smx__card:hover { border-color: var(--c-line-strong); transform: translateY(-2
 /* linkovi na okuse ispod odgovora u čestim pitanjima */
 .faq__links { display: flex; flex-wrap: wrap; gap: 8px; margin: -4px 0 0; padding: 0 20px 20px; }
 .faq__links .chip { display: inline-flex; align-items: center; min-height: 40px; padding: 0 14px; font-size: 0.875rem; line-height: 1.2; text-decoration: none; }
+
+/* ------------------------------------------------------------------ */
+/* Shisha Drop: oznaka "Novo", kartica na početnoj, stavka u meniju     */
+/* (sama igra ima svoje stilove u css/game.css)                         */
+/* ------------------------------------------------------------------ */
+
+.nav-new {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 2px 7px 3px;
+  border-radius: 999px;
+  background: #ff5a46;
+  color: #fff;
+  font-family: var(--font-body);
+  font-size: 0.625rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  line-height: 1.2;
+  text-transform: uppercase;
+  vertical-align: 2px;
+}
+.site-nav__link .nav-new { margin-left: 5px; }
+
+.gpromo { padding-block: clamp(28px, 5vw, 56px); }
+.gpromo__card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: center;
+  gap: 18px;
+  padding: clamp(20px, 4vw, 36px);
+  border-radius: var(--radius-lg);
+  border: 1px solid color-mix(in srgb, #f2a33c 40%, transparent);
+  background:
+    radial-gradient(70% 90% at 15% 60%, rgba(242, 163, 60, 0.26), transparent 70%),
+    linear-gradient(135deg, #1d130d, #120c09);
+  color: #f4ebdf;
+  text-decoration: none;
+  overflow: hidden;
+  transition: transform 0.5s var(--ease-out), border-color 0.4s;
+}
+@media (min-width: 640px) { .gpromo__card { grid-template-columns: 200px minmax(0, 1fr); gap: 32px; } }
+@media (hover: hover) {
+  .gpromo__card:hover { transform: translate3d(0, -4px, 0); border-color: #f2a33c; }
+  .gpromo__card:hover .gpromo__cta .icon { transform: translateX(5px); }
+}
+.gpromo__art { display: grid; place-items: center; }
+.gpromo__vase {
+  position: relative;
+  width: 150px;
+  height: 172px;
+  border: 5px solid rgba(255, 240, 220, 0.2);
+  border-top: 0;
+  border-radius: 0 0 40px 40px;
+  background: linear-gradient(180deg, transparent 30%, rgba(140, 190, 200, 0.12) 30%, rgba(217, 100, 63, 0.2));
+}
+.gp { position: absolute; border-radius: 50%; box-shadow: inset -6px -8px 12px rgba(0, 0, 0, 0.3), inset 5px 6px 10px rgba(255, 255, 255, 0.35); }
+.gp--1 { width: 70px; height: 70px; left: 2px; bottom: 2px; background: radial-gradient(circle at 50% 40%, #e2333f 0 45%, #f6efe0 46% 52%, #3c9a3c 53%); }
+.gp--2 { width: 56px; height: 56px; right: 2px; bottom: 2px; background: #ff8f1f; }
+.gp--3 { width: 42px; height: 42px; right: 14px; bottom: 56px; background: #ffe23a; }
+.gp--4 { width: 34px; height: 34px; left: 62px; bottom: 54px; background: #8fd332; }
+.gp--5 { width: 26px; height: 26px; left: 22px; bottom: 74px; background: #e3253b; }
+.gp--6 { width: 20px; height: 20px; left: 50px; bottom: 92px; background: #3b3f9e; }
+.gp--drop { width: 28px; height: 28px; left: 60px; top: -22px; background: #ffab7a; animation: gp-drop 2.8s var(--ease-in-out) infinite; }
+@keyframes gp-drop { 0%, 30% { transform: translate(-30px, 0); } 55% { transform: translate(18px, 0); } 75%, 100% { transform: translate(18px, 0); opacity: 1; } }
+.gpromo__body { display: grid; gap: 10px; justify-items: start; }
+.gpromo__body .eyebrow { color: #f2a33c; }
+.gpromo__title { font-family: var(--font-display); font-weight: 800; font-size: clamp(2rem, 1.5rem + 2.4vw, 3rem); letter-spacing: -0.03em; line-height: 1; }
+.gpromo__text { max-width: 46ch; color: rgba(244, 235, 223, 0.78); line-height: 1.55; }
+.gpromo__cta { margin-top: 6px; gap: 8px; }
+.gpromo__cta .icon { transition: transform 0.4s var(--ease-out); }
+
+.mgame {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-height: 62px;
+  padding: 10px 16px;
+  border-radius: 18px;
+  border: 1px solid color-mix(in srgb, #f2a33c 45%, transparent);
+  background: radial-gradient(80% 120% at 0% 50%, rgba(242, 163, 60, 0.22), transparent 70%), color-mix(in srgb, var(--c-text) 4%, transparent);
+  color: var(--c-text);
+  text-decoration: none;
+}
+.mgame[aria-current='page'] { border-color: #f2a33c; }
+.mgame .icon { flex: none; width: 18px; height: 18px; opacity: 0.7; }
+.mgame__art { position: relative; flex: none; width: 34px; height: 34px; }
+.mgame__art i { position: absolute; border-radius: 50%; box-shadow: inset -2px -3px 4px rgba(0, 0, 0, 0.3); }
+.mgame__art i:nth-child(1) { width: 20px; height: 20px; left: 0; bottom: 0; background: #ff8f1f; }
+.mgame__art i:nth-child(2) { width: 15px; height: 15px; right: 0; bottom: 0; background: #8fd332; }
+.mgame__art i:nth-child(3) { width: 11px; height: 11px; right: 3px; bottom: 14px; background: #e3253b; }
+.mgame__art i:nth-child(4) { width: 8px; height: 8px; left: 8px; top: 0; background: #3b3f9e; }
+@media (prefers-reduced-motion: reduce) { .gp--drop { animation: none; } }

@@ -26,15 +26,15 @@
     bs: { home: '', flavor: 'okus', mixer: 'mikser', quiz: 'kviz', guide: 'vodic', glossary: 'rjecnik', term: 'rjecnik', gear: 'oprema', about: 'o-nama', notfound: '404',
       collections: 'kolekcije', collection: 'kolekcije', compare: 'poredjenje', comparePair: 'poredjenje', mixes: 'recepti', recipe: 'recepti',
       privacy: 'privatnost', terms: 'uslovi', suggest: 'predlozi-okus', report: 'prijavi-gresku', flavors: 'okusi', search: 'pretraga',
-      brands: 'brendovi', brand: 'brendovi', top: 'najbolje-ocijenjeno', shelf: 'moja-polica', session: 'slika-sesije', journal: 'dnevnik-sesija', offline: 'bez-interneta', lounge: 'lounge', loungeInfo: 'za-lounge', tips: 'savjeti', history: 'evolucija-nargile', chapter: 'evolucija-nargile', articles: 'clanci', article: 'clanci' },
+      brands: 'brendovi', brand: 'brendovi', top: 'najbolje-ocijenjeno', shelf: 'moja-polica', session: 'slika-sesije', journal: 'dnevnik-sesija', offline: 'bez-interneta', lounge: 'lounge', loungeInfo: 'za-lounge', tips: 'savjeti', game: 'igra', history: 'evolucija-nargile', chapter: 'evolucija-nargile', articles: 'clanci', article: 'clanci' },
     de: { home: '', flavor: 'geschmack', mixer: 'mixer', quiz: 'quiz', guide: 'anleitung', glossary: 'glossar', term: 'glossar', gear: 'zubehoer', about: 'ueber-uns', notfound: '404',
       collections: 'kollektionen', collection: 'kollektionen', compare: 'vergleich', comparePair: 'vergleich', mixes: 'mixe', recipe: 'mixe',
       privacy: 'datenschutz', terms: 'nutzungsbedingungen', suggest: 'geschmack-vorschlagen', report: 'fehler-melden', flavors: 'geschmacksrichtungen', search: 'suche',
-      brands: 'marken', brand: 'marken', top: 'bestbewertet', shelf: 'mein-regal', session: 'session-foto', journal: 'session-tagebuch', offline: 'offline', lounge: 'lounge', loungeInfo: 'fuer-lounges', tips: 'tipps', history: 'shisha-geschichte', chapter: 'shisha-geschichte', articles: 'artikel', article: 'artikel' },
+      brands: 'marken', brand: 'marken', top: 'bestbewertet', shelf: 'mein-regal', session: 'session-foto', journal: 'session-tagebuch', offline: 'offline', lounge: 'lounge', loungeInfo: 'fuer-lounges', tips: 'tipps', game: 'spiel', history: 'shisha-geschichte', chapter: 'shisha-geschichte', articles: 'artikel', article: 'artikel' },
     en: { home: '', flavor: 'flavor', mixer: 'mixer', quiz: 'quiz', guide: 'guide', glossary: 'glossary', term: 'glossary', gear: 'gear', about: 'about', notfound: '404',
       collections: 'collections', collection: 'collections', compare: 'compare', comparePair: 'compare', mixes: 'mixes', recipe: 'mixes',
       privacy: 'privacy', terms: 'terms', suggest: 'suggest-flavor', report: 'report-issue', flavors: 'flavors', search: 'search',
-      brands: 'brands', brand: 'brands', top: 'top-rated', shelf: 'my-shelf', session: 'session-photo', journal: 'session-journal', offline: 'offline', lounge: 'lounge', loungeInfo: 'for-lounges', tips: 'tips', history: 'hookah-history', chapter: 'hookah-history', articles: 'articles', article: 'articles' }
+      brands: 'brands', brand: 'brands', top: 'top-rated', shelf: 'my-shelf', session: 'session-photo', journal: 'session-journal', offline: 'offline', lounge: 'lounge', loungeInfo: 'for-lounges', tips: 'tips', game: 'game', history: 'hookah-history', chapter: 'hookah-history', articles: 'articles', article: 'articles' }
   };
   V.SEG = SEG;
 
@@ -670,6 +670,7 @@
     ] },
     { key: 'mixer', page: 'mixer', match: ['mixer'] },
     { key: 'quiz', page: 'quiz', match: ['quiz'] },
+    { key: 'game', page: 'game', match: ['game'], badge: true },
     { group: 'hookah', key: 'groupHookah', items: [
       { key: 'guide', page: 'guide', match: ['guide'] },
       { key: 'glossary', page: 'glossary', match: ['glossary', 'term'] },
@@ -682,6 +683,9 @@
     { key: 'about', page: 'about', match: ['about'] }
   ];
   V.NAV = NAV;
+  var NAV_HOOKAH = NAV.filter(function (n) { return n.group === 'hookah'; })[0];
+  var NAV_GAME = NAV.filter(function (n) { return n.page === 'game'; })[0];
+  function newBadge(n) { return n.badge ? ' <span class="nav-new">' + esc(t('nav.newBadge')) + '</span>' : ''; }
 
   function navHref(n, desc) {
     return V.url(n.page) + (n.hash ? n.hash : '');
@@ -689,7 +693,7 @@
 
   function navLink(n, desc, cls, i) {
     var current = n.match.indexOf(desc.page) !== -1;
-    return '<li style="--i:' + (i || 0) + '"><a class="' + cls + '" href="' + navHref(n, desc) + '"' + (current ? ' aria-current="page"' : '') + '>' + esc(t('nav.' + n.key)) + '</a></li>';
+    return '<li style="--i:' + (i || 0) + '"><a class="' + cls + '" href="' + navHref(n, desc) + '"' + (current ? ' aria-current="page"' : '') + '>' + esc(t('nav.' + n.key)) + newBadge(n) + '</a></li>';
   }
 
   function navLinks(desc, cls) {
@@ -724,9 +728,9 @@
       { n: NAV[0].items[7], color: '#ff6fae' }, { n: NAV[0].items[8], color: '#7bd389' }
     ] },
     { key: 'groupHookah', items: [
-      { n: NAV[3].items[0], color: '#3fc1c9' }, { n: NAV[3].items[3], color: '#2fae78' },
-      { n: NAV[3].items[2], color: '#c58a52' }, { n: NAV[3].items[1], color: '#a99a8a' },
-      { n: NAV[3].items[4], color: '#e2541b' }, { n: NAV[3].items[5], color: '#e0b25e' }
+      { n: NAV_HOOKAH.items[0], color: '#3fc1c9' }, { n: NAV_HOOKAH.items[3], color: '#2fae78' },
+      { n: NAV_HOOKAH.items[2], color: '#c58a52' }, { n: NAV_HOOKAH.items[1], color: '#a99a8a' },
+      { n: NAV_HOOKAH.items[4], color: '#e2541b' }, { n: NAV_HOOKAH.items[5], color: '#e0b25e' }
     ] }
   ];
 
@@ -788,6 +792,11 @@
         '<span class="msurprise__sub" aria-live="polite">' + esc(t('nav.surpriseSub')) + '</span>' +
         icon('arrowRight') +
       '</button>' +
+      '<a class="menu-link mgame" href="' + navHref(NAV_GAME, desc) + '"' + curAttr(NAV_GAME, desc) + ' style="--i:' + (k++) + '">' +
+        '<span class="mgame__art" aria-hidden="true"><i></i><i></i><i></i><i></i></span>' +
+        '<span class="mshelf__text"><span class="mshelf__name">Shisha Drop <span class="nav-new">' + esc(t('nav.newBadge')) + '</span></span><span class="mshelf__sub">' + esc(t('nav.gameSub')) + '</span></span>' +
+        icon('arrowRight') +
+      '</a>' +
       '<a class="menu-link mshelf" href="' + navHref(shelfNav, desc) + '"' + curAttr(shelfNav, desc) + ' style="--i:' + (k++) + '">' +
         '<span class="mshelf__dots" aria-hidden="true"><i></i><i></i><i></i><i></i></span>' +
         '<span class="mshelf__text"><span class="mshelf__name">' + esc(t('nav.shelf')) + '</span><span class="mshelf__sub">' + esc(t('nav.shelfSub')) + '</span></span>' +
@@ -835,7 +844,7 @@
 
   /** Mobilni meni preko cijelog ekrana (van headera, vidi app.js). */
   V.menu = function (desc) {
-    var about = NAV[4];
+    var about = NAV.filter(function (n) { return n.page === 'about'; })[0];
     return (
       '<div class="menu-overlay" id="menu-overlay" role="dialog" aria-modal="true" aria-label="' + esc(t('a11y.mainNav')) + '" hidden>' +
         '<div class="menu-overlay__smoke" aria-hidden="true"><span></span><span></span><span></span></div>' +
@@ -867,7 +876,7 @@
     var year = desc.year || new Date().getFullYear();
     var email = (cfg && cfg.AUTHOR_EMAIL) || '';
     var name = (cfg && cfg.AUTHOR_NAME) || 'Graba';
-    var links = ['flavors', 'brands', 'collections', 'compare', 'mixes', 'top', 'shelf', 'session', 'journal', 'mixer', 'quiz', 'guide', 'tips', 'articles', 'history', 'glossary', 'gear', 'loungeInfo', 'about'].map(function (p) {
+    var links = ['flavors', 'brands', 'collections', 'compare', 'mixes', 'top', 'shelf', 'session', 'journal', 'mixer', 'quiz', 'game', 'guide', 'tips', 'articles', 'history', 'glossary', 'gear', 'loungeInfo', 'about'].map(function (p) {
       return '<li><a href="' + V.url(p) + '">' + esc(t('nav.' + (p === 'flavors' ? 'allFlavors' : p))) + '</a></li>';
     }).join('');
     return (
@@ -1156,6 +1165,25 @@
       '<span class="hero-now__name">' + esc(f.brand + ' ' + f.name) + '</span>' + icon('arrowRight') + '</a></p>';
   }
 
+  /** Kartica za igru Shisha Drop na početnoj (crtež je CSS, bez skripti igre). */
+  function gamePromo() {
+    return (
+      '<section class="gpromo" aria-labelledby="gpromo-title"><div class="container">' +
+        '<a class="gpromo__card" href="' + V.url('game') + '" data-reveal>' +
+          '<span class="gpromo__art" aria-hidden="true"><span class="gpromo__vase">' +
+            '<i class="gp gp--1"></i><i class="gp gp--2"></i><i class="gp gp--3"></i><i class="gp gp--4"></i><i class="gp gp--5"></i><i class="gp gp--6"></i><i class="gp gp--drop"></i>' +
+          '</span></span>' +
+          '<span class="gpromo__body">' +
+            '<span class="eyebrow"><span class="eyebrow__dot" aria-hidden="true"></span>' + esc(t('explore.gameEyebrow')) + ' <span class="nav-new">' + esc(t('nav.newBadge')) + '</span></span>' +
+            '<span class="gpromo__title" id="gpromo-title">Shisha Drop</span>' +
+            '<span class="gpromo__text">' + esc(t('explore.gameText')) + '</span>' +
+            '<span class="btn btn--primary gpromo__cta">' + esc(t('explore.gameCta')) + icon('arrowRight') + '</span>' +
+          '</span>' +
+        '</a>' +
+      '</div></section>'
+    );
+  }
+
   function pageHome() {
     var th = V.themeFor(null);
     var now = V.heroCycle()[0];
@@ -1180,6 +1208,7 @@
       V.recentStrip() +
       V.recoSection() +
       V.fotdSection(V.fotdPick(new Date())) +
+      gamePromo() +
       V.homeCollections() +
       '<div class="marquee" aria-hidden="true"><div class="marquee__track">' + marquee() + '</div></div>' +
       catalog('catalog-title') +
@@ -2373,6 +2402,13 @@
         out.main = mx.html;
         out.title = t('meta.mixerTitle');
         out.description = t('meta.mixerDescription');
+        break;
+      case 'game':
+        out.main = V.pageGame(crumbs);
+        out.title = t('meta.gameTitle');
+        out.description = t('meta.gameDescription');
+        out.ogImage = '/og-game.jpg';
+        out.ogAlt = 'Shisha Drop: ' + t('nav.gameSub');
         break;
       case 'quiz':
         out.main = pageQuiz(crumbs);

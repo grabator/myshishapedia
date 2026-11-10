@@ -130,7 +130,7 @@ privatnost i uslovi).
 /site.config.js         SITE_URL, email, ANALYTICS_TOKEN, FORM_ENDPOINT, TURNSTILE_SITE_KEY, LEGAL_UPDATED
 /functions/             Cloudflare Pages Functions: API za ocjene (/api/ratings)
 /lib/                   zajednička pravila za ocjene (koriste ih functions/ i serve.mjs)
-/migrations/            SQL za Cloudflare D1 bazu (tabele za ocjene)
+/migrations/            SQL za Cloudflare D1 bazu (tabele za ocjene i igru)
 /.node-version          verzija Nodea za Cloudflare Pages (20)
 /favicon.svg
 /static/                kopira se u dist/: og-image.png, manifest.webmanifest, icons/ (PNG ikone)
@@ -689,6 +689,82 @@ U D1 → Console, npr. sve ocjene jednog okusa:
 DELETE FROM ratings WHERE kind = 'flavor' AND item_id = 'adalya-dubai';
 DELETE FROM rating_totals WHERE kind = 'flavor' AND item_id = 'adalya-dubai';
 ```
+
+---
+
+## Igra Shisha Drop
+
+Stranica `/bs/igra/`, `/en/game/`, `/de/spiel/` (kratke adrese `/igra`, `/game`, `/spiel`). Ubacuješ voće u vazu
+nargile, dvije iste voćke se spoje u veću (borovnica → ... → lubenica, dvije lubenice = Zlatna nargila).
+U meniju je stavka "Igra" sa oznakom "Novo", kartica je na početnoj i link u podnožju.
+
+### Fajlovi
+
+```
+js/game-core.js        pravila: lanac voća, bodovi, dnevni redoslijed, dan i sedmica (Sarajevo),
+                       nadimak i filter psovki, provjera rezultata. Isti fajl koriste browser, server i testovi.
+js/game-art.js         crteži voća, mente, leda i Zlatne nargile (canvas, bez slika)
+js/game.js             igra: fizika, crtanje, zvuk, ekrani, rang lista, čuvanje partije
+js/strings-game.js     svi tekstovi igre (bs, en, de); build javi grešku ako jeziku fali neki ključ
+js/views-game.js       HTML stranice igre (uvod, dnevni izazov, rang lista, pravila, pitanja)
+css/game.css           stilovi igre (učitava se samo na stranici igre)
+lib/game-api.mjs       API: /api/game/today, /player, /score, /board (+ pravi tabele u bazi)
+functions/api/game/    Cloudflare Pages Function koja poziva lib/game-api.mjs
+migrations/0002_game.sql  iste tabele kao u lib/game-api.mjs (za ručno pokretanje, nije obavezno)
+tests/                 testovi: node --test tests/*.test.mjs
+static/og-game.jpg     slika za dijeljenje stranice (1200 × 630)
+```
+
+### Kako radi
+
+- **Dnevni izazov:** svi isti dan dobiju isti redoslijed voća (sjeme iz datuma, `dailySeed` u `js/game-core.js`).
+  Dan počinje u ponoć po vremenu u Sarajevu. Jedna partija dnevno po telefonu ide na rang listu; vježba je
+  neograničena i ne šalje se nigdje.
+- **Nadimak** je vezan za telefon i preglednik: browser napravi nasumičan skriveni ključ (`msp-sd-device`).
+  Server čuva samo hash ključa. Nadimak je jedinstven (bez obzira na velika slova, razmake i kvačice),
+  3 do 16 znakova, uz filter psovki na bs, en i de (`BLOCKED` u `js/game-core.js`).
+- **Rang liste:** Danas i Ova sedmica (zbir dnevnih rezultata od ponedjeljka), najboljih 50 + tvoje mjesto.
+- **Server provjerava:** da je dan današnji (ili jučerašnji do 20 minuta poslije ponoći), da uređaj ima nadimak,
+  jednu partiju dnevno (druga se odbije) i da rezultat ima smisla za broj bacanja, spajanja i trajanje.
+  Ograničenje: 20 promjena nadimka i 30 rezultata u 10 minuta po IP adresi (u bazi je samo hash adrese).
+  Provjera ne ponavlja samu fiziku partije, pa vješt varalica može poslati izmišljen, ali "uvjerljiv" rezultat.
+- **Partija se čuva** u browseru svake 2 sekunde i kad se ode sa stranice, pa se poslije osvježavanja vraća na pauzi.
+  Ako rezultat ne stigne do servera (nema interneta), šalje se kad se veza vrati.
+- **Brzina:** fizika ide u fiksnim koracima od 1/120 sekunde, voće je unaprijed nacrtano, a ako telefon ne stiže
+  60 sličica u sekundi, igra sama smanji efekte i oštrinu. Dim sa stranice se gasi dok traje igra.
+
+### Cloudflare: ništa ručno
+
+Igra koristi istu D1 bazu kao ocjene (binding `DB`). Tabele `game_players`, `game_scores` i `game_limits` se
+same naprave pri prvom zahtjevu prema `/api/game/...` (`CREATE TABLE IF NOT EXISTS`). Fajl
+`migrations/0002_game.sql` ima isti SQL, ako ih ikad želiš napraviti ručno (D1 → Console). Opcionalno: secret
+`GAME_SALT` za hash ključeva uređaja; bez njega se koristi `RATE_SALT` ili `TURNSTILE_SECRET_KEY`.
+
+Ako baza nije povezana, igra i vježba rade normalno, a rang lista piše da trenutno nije dostupna.
+
+**Provjera nakon objave:** `https://myshishapedia.com/api/game/board?scope=day` treba vratiti `{"scope":"day",...}`.
+
+### Uklanjanje nadimka
+
+U D1 → Console (nadimak nestaje sa listi, a igrač pri sljedećem otvaranju bira novi):
+
+```sql
+UPDATE game_players SET removed = 1, nick_key = 'removed:' || device WHERE nick = 'Nadimak';
+```
+
+Potpuno brisanje igrača i rezultata (npr. na zahtjev iz politike privatnosti):
+
+```sql
+DELETE FROM game_scores WHERE device = (SELECT device FROM game_players WHERE nick = 'Nadimak');
+DELETE FROM game_players WHERE nick = 'Nadimak';
+```
+
+### Lokalno
+
+`node serve.mjs` ima pravi API igre sa bazom u memoriji (Node 22+, `node:sqlite`), pa rang lista radi i lokalno.
+Za testove: `node --test tests/*.test.mjs`.
+Provjera u emuliranom telefonu (treba Playwright): uz pokrenut `node serve.mjs`, `node scripts/game-qa.mjs`
+(ili `node scripts/game-qa.mjs "iPhone 13" 4 en`). Mjeri sličice u sekundi uz usporen procesor i pravi snimke u `qa-out/`.
 
 ---
 

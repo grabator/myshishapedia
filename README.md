@@ -10,6 +10,7 @@ The hookah flavour encyclopedia, in English and Bosnian.
 - Similar flavours you might also like
 - Brand pages, a flavour mixer, a quiz, flavour comparison, mix recipes and a guide to preparing a hookah
 - Ratings stored in a database
+- Shisha Drop, a fruit merging game with a daily challenge and leaderboards
 
 ## Tech
 
@@ -21,6 +22,6 @@ Plain HTML, CSS and JavaScript, no framework. A small build script (`build.mjs`,
 node build.mjs && node serve.mjs
 ```
 
-Then open http://localhost:5173. More details are in `docs/UPUTSTVO.md`.
+Then open http://localhost:5173. Tests: `node --test tests/*.test.mjs`. More details are in `docs/UPUTSTVO.md`.
 
 Made by [Ahmed Grabus (Graba)](https://graba-portofolio.grabafaceit.workers.dev)
