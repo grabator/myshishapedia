@@ -24,7 +24,7 @@ window.COLLECTIONS = [
   {
     id: 'icy',
     seo: {
-      title: { bs: 'Ledeni okusi za nargilu: lista od {n} okusa sa mentolom i ledom | MyShishapedia', en: 'Icy hookah flavors: {n} ice and menthol shisha flavors | MyShishapedia', de: 'Eisige Shisha-Geschmäcker: {n} Sorten mit Menthol und Ice | MyShishapedia' },
+      title: { bs: 'Ledeni okusi za nargilu: lista od {n} okusa sa mentolom i ledom | MyShishapedia', en: 'Best icy hookah flavors: {n} ice and menthol shisha flavors | MyShishapedia', de: 'Eisige Shisha-Geschmäcker: {n} Sorten mit Menthol und Ice | MyShishapedia' },
       lead: { bs: 'Najhladniji okusi za nargilu na jednom mjestu, sa jačinom hlađenja, sastojcima i miksevima.', en: 'The coldest shisha flavors in one list, with cooling level, ingredients and mixes.', de: 'Die kältesten Shisha-Geschmäcker in einer Liste, mit Kühlung, Zutaten und Mixen.' }
     },
     slug: { bs: 'ledeni-okusi', en: 'icy-flavors' },
