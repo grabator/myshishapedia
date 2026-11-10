@@ -57,7 +57,9 @@ const SOURCES = [
   'js/views-lounge.js',
   'js/views-history.js',
   'data/articles.js',
-  'js/views-articles.js'
+  'js/views-articles.js',
+  'js/strings-game.js',
+  'js/views-game.js'
 ];
 
 const warnings = [];
@@ -98,7 +100,8 @@ function hashOf(file) {
 
 const ASSETS = ['css/style.css', 'js/strings.js', 'js/strings-de.js', 'data/de.js', 'data/brands.js', 'data/flavors.js', 'data/glossary.js', 'data/guide.js', 'data/gear.js', 'data/quiz.js',
   'data/mixes.js', 'js/illustrations.js', 'js/effects.js', 'js/views.js', 'js/views-more.js', 'js/views-extra.js', 'js/pages.js', 'js/app.js',
-  'js/search.js', 'js/forms.js', 'js/share.js', 'js/ratings.js', 'js/shelf.js', 'js/qr.js', 'js/journal.js', 'js/session.js', 'js/pwa.js', 'data/lounges.js', 'js/lounge.js', 'data/history.js', 'js/history.js', 'favicon.svg'];
+  'js/search.js', 'js/forms.js', 'js/share.js', 'js/ratings.js', 'js/shelf.js', 'js/qr.js', 'js/journal.js', 'js/session.js', 'js/pwa.js', 'data/lounges.js', 'js/lounge.js', 'data/history.js', 'js/history.js', 'favicon.svg',
+  'css/game.css', 'js/strings-game.js', 'js/game-core.js', 'js/game-art.js', 'js/game.js'];
 const VERSION = {};
 for (const a of ASSETS) VERSION[a] = hashOf(a);
 const asset = (p) => '/' + p + '?v=' + VERSION[p];
@@ -130,7 +133,13 @@ const PAGE_SCRIPTS = {
   history: ['js/history.js'],
   session: ['js/qr.js', 'js/journal.js', 'js/session.js'],
   journal: ['js/journal.js'],
-  lounge: ['js/lounge.js']
+  lounge: ['js/lounge.js'],
+  game: ['js/strings-game.js', 'js/game-core.js', 'js/game-art.js', 'js/game.js']
+};
+
+// Stilovi koji trebaju samo jednoj stranici (ostale stranice ih ne preuzimaju).
+const PAGE_STYLES = {
+  game: ['css/game.css']
 };
 
 /* ------------------------------------------------------------------ */
@@ -371,7 +380,7 @@ function head(desc, lang, info) {
     indexable ? `<meta property="og:url" content="${canonical}">` : '',
     `<meta property="og:image" content="${ogImage}">`,
     '<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">',
-    `<meta property="og:image:alt" content="${esc(t('meta.ogImageAlt'))}">`,
+    `<meta property="og:image:alt" content="${esc(info.ogAlt || t('meta.ogImageAlt'))}">`,
     '<meta name="twitter:card" content="summary_large_image">',
     `<meta name="twitter:title" content="${esc(title)}">`,
     `<meta name="twitter:description" content="${esc(d)}">`,
@@ -383,6 +392,7 @@ function head(desc, lang, info) {
     '<meta name="apple-mobile-web-app-title" content="MyShishapedia">',
     FONT_PRELOADS.concat(lang === 'bs' ? FONT_PRELOADS_BS : [], PAGE_FONTS[desc.page] || []).map((f) => `<link rel="preload" as="font" type="font/woff2" crossorigin href="${f}">`).join(''),
     `<link rel="stylesheet" href="${asset('css/style.css')}">`,
+    (PAGE_STYLES[desc.page] || []).map((f) => `<link rel="stylesheet" href="${asset(f)}">`).join(''),
     `<script>${HEAD_SCRIPT}</script>`,
     // skripte se preuzimaju i pokreću tek kad se stranica prvi put iscrta (brži LCP na slabim telefonima)
     `<script>${scriptLoader(scripts.map(asset))}</script>`,
@@ -391,6 +401,21 @@ function head(desc, lang, info) {
 }
 
 /** Pokreće skripte redom, ali tek poslije DOMContentLoaded i prvog iscrtavanja (vidi renderHead). */
+/** Ključevi koji fale ili su viška u `b` u odnosu na `a` (nizovi moraju biti iste dužine). */
+function sameShape(a, b, at) {
+  if (b == null) return [at];
+  if (Array.isArray(a)) {
+    if (!Array.isArray(b) || a.length !== b.length) return [at];
+    return a.flatMap((x, i) => sameShape(x, b[i], at + '[' + i + ']'));
+  }
+  if (a && typeof a === 'object') {
+    if (typeof b !== 'object') return [at];
+    const keys = new Set(Object.keys(a).concat(Object.keys(b)));
+    return [...keys].flatMap((k) => (k in a && k in b ? sameShape(a[k], b[k], at + '.' + k) : [at + '.' + k]));
+  }
+  return typeof a === typeof b && (typeof b !== 'string' || b.trim()) ? [] : [at];
+}
+
 function scriptLoader(list) {
   return "(function(l){function go(){l.forEach(function(s){var e=document.createElement('script');e.src=s;e.async=false;document.head.appendChild(e)})}" +
     "function paint(){requestAnimationFrame(function(){setTimeout(go,0)})}" +
@@ -515,7 +540,7 @@ ${LANGS.map((l) => `<a href="/${l}/" hreflang="${l}" lang="${l}">${esc(label[l])
 function pageList() {
   const list = [];
   for (const lang of LANGS) {
-    const simple = ['home', 'mixer', 'quiz', 'guide', 'glossary', 'gear', 'about', 'history'];
+    const simple = ['home', 'mixer', 'quiz', 'game', 'guide', 'glossary', 'gear', 'about', 'history'];
     for (const p of simple) list.push({ lang, page: p, url: V.urlFor(lang, p) });
     for (const ch of V.historyChapters()) list.push({ lang, page: 'chapter', id: ch.id, chapter: ch, url: V.chapterUrl(ch, lang) });
     list.push({ lang, page: 'articles', url: V.urlFor(lang, 'articles') });
@@ -992,6 +1017,9 @@ function writeCloudflareFiles(rendered) {
     '',
     '/og-history.jpg',
     '  Cache-Control: public, max-age=86400',
+    '',
+    '/og-game.jpg',
+    '  Cache-Control: public, max-age=86400',
     ''
   ];
   writeFile('_headers', headers.join('\n'));
@@ -1005,6 +1033,9 @@ function writeCloudflareFiles(rendered) {
     '/mixer  /en/mixer/  301',
     '/kviz  /bs/kviz/  301',
     '/quiz  /en/quiz/  301',
+    '/igra  /bs/igra/  301',
+    '/game  /en/game/  301',
+    '/spiel  /de/spiel/  301',
     '/rjecnik/*  /bs/rjecnik/:splat  301',
     '/glossary/*  /en/glossary/:splat  301',
     '/recepti/*  /bs/recepti/:splat  301',
@@ -1271,6 +1302,12 @@ function build() {
     if (ms.length) errors.push(`${l}: nema prijevoda za ${ms.length} natpisa (npr. ${ms.slice(0, 5).join(', ')}); spisak: node scripts/i18n.mjs ${l}`);
     const mc = missingContent(sandbox, l);
     if (mc.length) errors.push(`${l}: nema prijevoda za ${mc.length} tekstova iz podataka (npr. ${mc.slice(0, 3).map((x) => x.where).join(', ')}); spisak: node scripts/i18n.mjs ${l}`);
+  }
+
+  // tekstovi igre (js/strings-game.js): svi jezici imaju iste ključeve kao bosanski
+  for (const l of LANGS) {
+    const gm = sameShape(MSP.GAME_STRINGS.bs, MSP.GAME_STRINGS[l], 'game');
+    if (gm.length) errors.push(`${l}: tekstovi igre se razlikuju od bosanskih (${gm.slice(0, 5).join(', ')})`);
   }
 
   const missing = warnings.filter((w) => /Nedostaje tekst/.test(w));

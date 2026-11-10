@@ -69,6 +69,8 @@
       "mixerDescription": "Mische zwei Shisha-Geschmäcker, stelle das Verhältnis ein und sieh Farben, Zutaten und Geschmacksprofil deines Mixes.",
       "quizTitle": "Quiz: Welcher Shisha-Geschmack passt zu dir? | MyShishapedia",
       "quizDescription": "Beantworte sechs kurze Fragen und finde den Shisha-Geschmack, der am besten zu dir passt.",
+      "gameTitle": "Shisha Drop: Frucht-Merge-Spiel mit täglicher Challenge | MyShishapedia",
+      "gameDescription": "Kostenloses Spiel in der Shisha-Vase: Früchte bis zur Wassermelone verbinden, tägliche Challenge spielen und die Rangliste erklimmen.",
       "guideTitle": "Shisha richtig vorbereiten: {n} Schritte für Einsteiger | MyShishapedia",
       "guideDescription": "Shisha Schritt für Schritt vorbereiten: Wasserstand, Aufbau, Kopf befüllen, Alufolie oder HMD, Kohlen anzünden, erste Züge und Reinigung.",
       "glossaryTitle": "Shisha-Glossar - Begriffe erklärt | MyShishapedia",
@@ -202,6 +204,9 @@
       "menuSearch": "Geschmäcker, Marken, Zutaten suchen…",
       "mixerSub": "Stell deinen eigenen Mix zusammen",
       "quizSub": "Finde deinen Geschmack",
+      "game": "Spiel",
+      "gameSub": "Tägliche Challenge und Rangliste",
+      "newBadge": "Neu",
       "surprise": "Überrasch mich",
       "surpriseSub": "zufälliger Geschmack",
       "shelfSub": "Geschmäcker, die du hast und probieren willst",
@@ -1220,6 +1225,9 @@
       "navLabel": "Links in der Fußzeile"
     },
     "explore": {
+      "gameEyebrow": "Neues Spiel",
+      "gameText": "Verbinde Früchte in der Shisha-Vase. Jeden Tag eine neue Challenge und eine Rangliste für alle.",
+      "gameCta": "Jetzt spielen",
       "eyebrow": "Mehr als Geschmäcker",
       "title": "Entdecke die Welt der Shisha",
       "mixerTitle": "Geschmacks-Mixer",

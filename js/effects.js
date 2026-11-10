@@ -203,7 +203,8 @@
     trailDist: 0,
     slowFrames: 0,
     lastBurst: 0,
-    nextId: 1
+    nextId: 1,
+    hold: false // true dok traje igra preko cijelog ekrana (Shisha Drop): dim stoji
   };
 
   Field.init = function () {
@@ -240,6 +241,7 @@
   };
 
   Field.onPointer = function (e) {
+    if (Field.hold) return;
     var h = Field.hand;
     var now = performance.now();
     var dt = Math.max(8, now - h.t);
@@ -407,7 +409,7 @@
   };
 
   Field.wake = function () {
-    if (!Field.ready || Field.running || document.hidden) return;
+    if (!Field.ready || Field.running || Field.hold || document.hidden) return;
     Field.running = true;
     Field.last = performance.now();
     Field.raf = requestAnimationFrame(Field.tick);

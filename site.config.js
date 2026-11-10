@@ -36,7 +36,7 @@ var SITE_CONFIG = {
 
 
   // Datum zadnje izmjene politike privatnosti i uslova korištenja (GGGG-MM-DD).
-  LEGAL_UPDATED: '2026-10-01',
+  LEGAL_UPDATED: '2026-11-10',
 
   // Stranice poređenja ("X vs Y") koje Google smije prikazivati. Sve ostale rade normalno na sajtu,
   // ali imaju "noindex" i nisu u sitemap.xml (ima ih ~400 po jeziku, a skoro niko ih ne traži).
