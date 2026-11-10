@@ -52,6 +52,7 @@ const SOURCES = [
   'js/views.js',
   'js/views-more.js',
   'js/views-extra.js',
+  'js/views-ingredients.js',
   'js/views-shelf.js',
   'data/lounges.js',
   'js/views-lounge.js',
@@ -547,6 +548,7 @@ function pageList() {
     for (const a of V.articles()) list.push({ lang, page: 'article', id: a.id, article: a, url: V.articleUrl(a, lang) });
     for (const f of V.flavors()) list.push({ lang, page: 'flavor', id: f.id, flavor: f, url: V.urlFor(lang, 'flavor', f.id) });
     for (const g of V.glossary()) list.push({ lang, page: 'term', id: g.id, term: g, url: V.urlFor(lang, 'term', V.termSlug(g, lang)) });
+    for (const ip of V.ingredientPages()) list.push({ lang, page: 'ingredient', id: ip.id, ingredient: ip, url: V.ingredientUrl(ip, lang) });
     list.push({ lang, page: 'collections', url: V.urlFor(lang, 'collections') });
     for (const col of V.collections()) list.push({ lang, page: 'collection', id: col.id, collection: col, url: V.collectionUrl(col, lang) });
     list.push({ lang, page: 'compare', url: V.urlFor(lang, 'compare') });
@@ -1287,6 +1289,7 @@ function build() {
   fs.copyFileSync(path.join(ROOT, 'favicon.svg'), path.join(DIST, 'favicon.svg'));
   if (fs.existsSync(path.join(ROOT, 'static'))) copyDir('static', '.');
 
+  if (CFG.INDEXNOW_KEY) writeFile(CFG.INDEXNOW_KEY + '.txt', CFG.INDEXNOW_KEY);
   writeSearchIndex();
   writeRatingsIds();
   writeCloudflareFiles(rendered);
@@ -1321,6 +1324,36 @@ function build() {
   }
   console.log(`Build gotov za ${Date.now() - started} ms: ${rendered.length} stranica + početna i 404, ` +
     `${stats.links} internih linkova provjereno u ${stats.files} HTML fajlova. SITE_URL = ${SITE}`);
+  return lastmod;
 }
 
-build();
+/**
+ * IndexNow: javi Bingu, Yandexu i ostalim pretraživačima koje su stranice nove ili izmijenjene u zadnja
+ * dva dana (po seo/lastmod.json). Radi samo na Cloudflare Pages za glavnu granu (CF_PAGES_BRANCH = main),
+ * ne lokalno i ne za probne verzije. Greška ili spora mreža nikad ne zaustavlja build.
+ */
+async function pingIndexNow(lastmod) {
+  const key = CFG.INDEXNOW_KEY;
+  const branch = process.env.INDEXNOW_BRANCH || 'main';
+  if (!key || process.env.CF_PAGES !== '1' || process.env.CF_PAGES_BRANCH !== branch) return;
+  const since = new Date(Date.now() - 2 * 86400000).toISOString().slice(0, 10);
+  const urls = Object.keys(lastmod).filter((u) => lastmod[u] >= since).map(abs).slice(0, 10000);
+  if (!urls.length) { console.log('IndexNow: nema novih ni izmijenjenih stranica'); return; }
+  const ctl = new AbortController();
+  const timer = setTimeout(() => ctl.abort(), 10000);
+  try {
+    const res = await fetch('https://api.indexnow.org/indexnow', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json; charset=utf-8' },
+      body: JSON.stringify({ host: new URL(SITE).host, key, keyLocation: abs('/' + key + '.txt'), urlList: urls }),
+      signal: ctl.signal
+    });
+    console.log(`IndexNow: ${urls.length} adresa poslano (odgovor ${res.status})`);
+  } catch (e) {
+    console.log('IndexNow: nije poslano (' + e.message + '), build ide dalje');
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+await pingIndexNow(build());

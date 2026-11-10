@@ -255,7 +255,9 @@
         '</div>' +
         '<p class="fl-suggest-line">' + esc(t('flavorsPage.suggestLine')) + ' <a href="' + V.url('suggest') + '">' + esc(t('nav.suggest')) + '</a></p>' +
       '</div></section>' +
+      (V.ingredientIndexSection ? V.ingredientIndexSection() : '') +
       flavorGroupsSection() +
+      (V.flavorsAZSection ? V.flavorsAZSection() : '') +
       V.faqSection(flavorsFaq(), 'fl-faq')
     );
   }

@@ -25,6 +25,10 @@ var SITE_CONFIG = {
   // vrijednost "token"). Prazno = na stranicama nema nikakve analitike. Vidi docs/UPUTSTVO.md.
   ANALYTICS_TOKEN: '2b3d031ad68d4922bbdc6bdd63777390',
 
+  // IndexNow ključ (javan, nije tajna): build ga upiše u /<ključ>.txt i pri objavi glavne grane na
+  // Cloudflare Pages javi Bingu, Yandexu i ostalima koje su stranice nove ili izmijenjene. Prazno = isključeno.
+  INDEXNOW_KEY: '1f266d4686aaa856e32063ea003cd2c6',
+
   // Adresa servisa za forme (npr. https://formspree.io/f/abcdwxyz). Prazno = forme otvaraju
   // email program (mailto) sa već sastavljenom porukom. Vidi docs/UPUTSTVO.md.
   FORM_ENDPOINT: 'https://formspree.io/f/mzezwlrd',

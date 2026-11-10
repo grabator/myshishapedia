@@ -32,7 +32,7 @@
       "suggestDescription": "Fehlt ein Geschmack in der Enzyklopädie? Schlag ihn mit Marke, Namen und Zutaten vor, wir prüfen ihn und nehmen ihn auf.",
       "reportTitle": "Fehler melden | MyShishapedia",
       "reportDescription": "Fehler bei Zutaten, Beschreibung oder Profil eines Geschmacks entdeckt? Sag uns Bescheid und wir korrigieren ihn.",
-      "flavorsTitle": "Shisha-Geschmäcker: Liste mit {n} Sorten nach Marke | MyShishapedia",
+      "flavorsTitle": "Shisha-Geschmäcker von A bis Z: Liste mit {n} Sorten | MyShishapedia",
       "brandsTitle": "Shisha-Tabak-Marken: Adalya, Al Fakher, Tangiers und mehr | MyShishapedia",
       "brandsDescription": "Alle Marken der Enzyklopädie: Herkunftsland, Tabakart und Geschmäcker. Von Adalya aus der Türkei bis Darkside aus Russland.",
       "brandTitle": "{name} Shisha-Tabak: alle {count} im Überblick | MyShishapedia",

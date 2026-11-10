@@ -1210,6 +1210,7 @@
       V.fotdSection(V.fotdPick(new Date())) +
       gamePromo() +
       V.homeCollections() +
+      (V.ingredientIndexSection ? V.ingredientIndexSection() : '') +
       '<div class="marquee" aria-hidden="true"><div class="marquee__track">' + marquee() + '</div></div>' +
       catalog('catalog-title') +
       V.homeMixes() +
@@ -1270,6 +1271,15 @@
         '</li>'
       );
     }).join('');
+  }
+
+  /** "Još okusa sa: Lubenica, Menta" ispod sastojaka (linkovi na stranice po sastojku). */
+  function ingredientLinks(f) {
+    var pages = V.ingredientPagesFor ? V.ingredientPagesFor(f) : [];
+    if (!pages.length) return '';
+    return '<p class="ing-more"><span>' + esc(V.ingredientText('moreWith')) + '</span> ' + pages.map(function (p) {
+      return '<a class="chip" href="' + V.ingredientUrl(p) + '">' + esc(L(p.h1)) + '</a>';
+    }).join('') + '</p>';
   }
 
   function radar(f) {
@@ -1552,6 +1562,7 @@
         '<section class="fsec" aria-labelledby="sec-ingredients"><div class="container">' +
           sectionHead(nextNum(), t('flavor.ingredientsTitle'), t('flavor.ingredientsIntro'), 'sec-ingredients') +
           '<ul class="ings" role="list">' + ingredientsList(f, th) + '</ul>' +
+          ingredientLinks(f) +
         '</div></section>' +
 
         '<section class="fsec fsec--alt" aria-labelledby="sec-profile"><div class="container profile">' +
@@ -2355,6 +2366,7 @@
       case 'home': case 'notfound': return [home];
       case 'report': return [home, { name: t('forms.reportEyebrow'), url: V.url('report') }];
       case 'flavors': return [home, { name: t('nav.allFlavors'), url: V.url('flavors') }];
+      case 'ingredient': return [home, { name: t('nav.allFlavors'), url: V.url('flavors') }, { name: L(desc.ingredient.h1), url: V.ingredientUrl(desc.ingredient) }];
       case 'collection': case 'comparePair': case 'recipe': return V.crumbsMore(desc, home);
       case 'brand': return [home, { name: t('nav.brands'), url: V.url('brands') }, { name: desc.brand.name, url: V.brandUrl(desc.brand) }];
       case 'lounge': return [home, { name: t('nav.loungeInfo'), url: V.url('loungeInfo') }, { name: desc.lounge.name, url: V.url('lounge', desc.lounge.id) }];
@@ -2447,6 +2459,12 @@
         out.description = V.clipText(L(desc.chapter.lead));
         out.ogImage = '/og-history.jpg';
         break;
+      case 'ingredient':
+        out.main = V.pageIngredient(desc.ingredient, crumbs);
+        var im = V.ingredientMeta(desc.ingredient);
+        out.title = im.title;
+        out.description = im.description;
+        break;
       case 'articles':
         out.main = V.pageArticles(crumbs);
         out.title = t('meta.articlesTitle');
@@ -2512,6 +2530,7 @@
       else if (desc.page === 'chapter') o[l] = V.chapterUrl(desc.chapter, l);
       else if (desc.page === 'article') o[l] = V.articleUrl(desc.article, l);
       else if (desc.page === 'lounge') o[l] = V.urlFor(l, 'lounge', desc.lounge.id);
+      else if (desc.page === 'ingredient') o[l] = V.ingredientUrl(desc.ingredient, l);
       else o[l] = V.urlFor(l, desc.page);
     });
     return o;

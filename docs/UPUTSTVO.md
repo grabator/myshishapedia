@@ -768,6 +768,32 @@ Provjera u emuliranom telefonu (treba Playwright): uz pokrenut `node serve.mjs`,
 
 ---
 
+## Okusi po sastojku
+
+Stranice tipa "okusi za nargilu sa lubenicom", "watermelon hookah flavors" i "Shisha Tabak Wassermelone",
+na adresama ispod liste okusa: `/bs/okusi/lubenica/`, `/en/flavors/watermelon/`, `/de/geschmacksrichtungen/wassermelone/`.
+Sve je u `js/views-ingredients.js` (tekstovi na sva tri jezika su u istom fajlu).
+
+- **Lista okusa se pravi sama** iz sastojaka u `data/flavors.js`: novi okus sa lubenicom se sam pojavi na stranici lubenice
+  (i na njenim stranicama na sva tri jezika). Okusi su poredani po tome koliko se sastojak osjeti (`intensity`).
+- **Nova stranica:** dodaj objekat u `PAGES` (id, slug po jeziku, `match`, `h1`, `noun`, `about`, `related`). `match` je lista
+  grupa ilustracija sastojaka, okus mora imati bar jednu iz svake grupe: `[['limun'], ['menta', 'pepermint']]` = limun i menta.
+  Umjesto liste može biti tag, npr. `'kiseli'`. Stranica se ne pravi ako ima manje od 4 okusa.
+- Na svakoj stranici okusa ispod sastojaka su linkovi "Još okusa sa: ..." na odgovarajuće stranice, a na listi svih okusa
+  i na početnoj je spisak svih sastojaka. Lista svih okusa ima i pregled od A do Ž.
+- Pitanja na dnu (i FAQPage podaci za Google) se prave iz podataka: najizraženiji okusi, brendovi, najhladniji, okusi bez mente.
+
+## IndexNow (Bing, Yandex i drugi)
+
+Pri objavi glavne grane na Cloudflare Pages build sam javi IndexNow servisu koje su stranice nove ili izmijenjene u zadnja
+dva dana (po `seo/lastmod.json`). Ključ je `INDEXNOW_KEY` u `site.config.js` (javan, nije tajna), a build ga upiše u
+`/<ključ>.txt`. Lokalno i za probne verzije se ništa ne šalje, a greška u slanju nikad ne zaustavlja build.
+Google ne koristi IndexNow; za Google je i dalje sitemap u Search Consoleu.
+
+Preporuka: dodaj sajt u **Bing Webmaster Tools** (može uvoz iz Search Consolea), da vidiš i Bing statistiku.
+
+---
+
 ## Kako dodati savjet
 
 Savjeti su u `data/tips.js` (stranica `/bs/savjeti/`, `/en/tips/`). Stranica ima sekcije, a svaka sekcija svoje
