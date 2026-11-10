@@ -64,7 +64,8 @@
         pause: 'Pauza',
         soundOn: 'Uključi zvuk',
         soundOff: 'Isključi zvuk',
-        aim: 'Dodirni mjesto u vazi gdje želiš da voćka padne.'
+        aim: 'Dodirni mjesto u vazi gdje želiš da voćka padne.',
+        info: 'Posebni predmeti: šta je menta, led i Zlatna nargila'
       },
       fx: {
         combo: 'Combo ×{n}',
@@ -207,7 +208,8 @@
         pause: 'Pause',
         soundOn: 'Turn sound on',
         soundOff: 'Turn sound off',
-        aim: 'Tap the spot in the base where you want the fruit to drop.'
+        aim: 'Tap the spot in the base where you want the fruit to drop.',
+        info: 'Special items: what mint, ice and the Golden hookah do'
       },
       fx: {
         combo: 'Combo ×{n}',
@@ -350,7 +352,8 @@
         pause: 'Pause',
         soundOn: 'Ton einschalten',
         soundOff: 'Ton ausschalten',
-        aim: 'Tippe auf die Stelle in der Bowl, wo die Frucht fallen soll.'
+        aim: 'Tippe auf die Stelle in der Bowl, wo die Frucht fallen soll.',
+        info: 'Besondere Items: was Minze, Eis und die Goldene Shisha machen'
       },
       fx: {
         combo: 'Combo ×{n}',
