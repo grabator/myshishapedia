@@ -76,6 +76,7 @@
       pause: {
         title: 'Pauza',
         resume: 'Nastavi',
+        restart: 'Počni ispočetka',
         quit: 'Izađi',
         quitSaved: 'Partija ostaje sačuvana, nastavljaš kad se vratiš.',
         quitPractice: 'Vježba se završava.'
@@ -220,6 +221,7 @@
       pause: {
         title: 'Paused',
         resume: 'Resume',
+        restart: 'Start over',
         quit: 'Leave',
         quitSaved: 'The game is saved, you continue when you come back.',
         quitPractice: 'The practice game ends.'
@@ -364,6 +366,7 @@
       pause: {
         title: 'Pause',
         resume: 'Weiter',
+        restart: 'Neu starten',
         quit: 'Verlassen',
         quitSaved: 'Das Spiel bleibt gespeichert, du machst weiter, wenn du zurückkommst.',
         quitPractice: 'Die Übung wird beendet.'

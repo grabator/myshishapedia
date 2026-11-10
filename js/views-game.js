@@ -132,6 +132,7 @@
           '<div class="sdx__sheet">' +
             '<h2 class="sdx__title">' + esc(g('pause.title')) + '</h2>' +
             '<button type="button" class="btn btn--primary sdx__wide" id="sdx-resume">' + ico('play') + '<span>' + esc(g('pause.resume')) + '</span></button>' +
+            '<button type="button" class="btn btn--ghost sdx__wide" id="sdx-restart" hidden>' + esc(g('pause.restart')) + '</button>' +
             '<button type="button" class="btn btn--ghost sdx__wide" id="sdx-quit">' + esc(g('pause.quit')) + '</button>' +
             '<p class="sdx__small" id="sdx-quitnote"></p>' +
           '</div>' +

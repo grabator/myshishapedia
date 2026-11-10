@@ -254,6 +254,7 @@
     end: $('sdx-end'), endTitle: $('sdx-endtitle'), endArt: $('sdx-endart'), biggest: $('sdx-biggest'), final: $('sdx-final'),
     record: $('sdx-record'), rankLine: $('sdx-rankline'), miniBoard: $('sdx-board'), a2hs: $('sdx-a2hs'), a2hsLater: $('sdx-a2hs-later'),
     again: $('sdx-again'), againLabel: $('sdx-again-label'), share: $('sdx-share'), close: $('sdx-close'), shareMsg: $('sdx-sharemsg'),
+    restart: $('sdx-restart'),
     info: $('sdx-info'), infoPanel: $('sdx-infopanel'), infoClose: $('sdx-info-close'),
     mForm: $('sdm-form'), mInput: $('sdm-input'), mErr: $('sdm-err'), mCancel: $('sdm-cancel'), mSave: $('sdm-save')
   };
@@ -295,6 +296,7 @@
   var PADB = 22;
   var ICE_REACH = 92;
   var ICE_MAX = 3;
+  var MAX_UP = 7;               // najveća brzina prema gore po koraku (odskok poslije spajanja ostaje nizak)
   var MAX_V = 26;               // najveća brzina po koraku (jedinica), da ništa ne "proleti"
 
   function radiusOf(kind) { return kind <= TOP ? FRUITS[kind].r : C.SPECIAL_R[kind]; }
@@ -310,7 +312,7 @@
     return {
       kind: kind, x: x, y: y, px: x, py: y, a: 0, pa: 0,
       r: r0 || rt, rt: rt, m: rt * rt, born: born,
-      dead: false, trig: -1, touched: false, floor: false
+      dead: false, trig: -1, touched: false, floor: false, contact: false
     };
   }
 
@@ -365,6 +367,7 @@
         var d2 = dx * dx + dy * dy;
         if (d2 >= rr * rr) continue;
         a.touched = b.touched = true;
+        a.contact = b.contact = true;
         // spajanje: dvije iste voćke, ili menta sa voćkom; led reaguje na prvi dodir
         if (a.kind === b.kind && a.kind <= TOP) { merges.push(a, b); a.dead = b.dead = true; continue; }
         if (a.kind === C.MINT && b.kind <= TOP) { merges.push(a, b); a.dead = b.dead = true; continue; }
@@ -396,12 +399,13 @@
     var i, b;
     for (i = 0; i < bodies.length; i++) {
       b = bodies[i];
-      if (b.r < b.rt) b.r = Math.min(b.rt, b.r + b.rt * STEP * 7);
+      if (b.r < b.rt) b.r = Math.min(b.rt, b.r + b.rt * STEP * 5);
       var vx = (b.x - b.px) * AIR, vy = (b.y - b.py) * AIR + gg;
       if (vy > MAX_V) vy = MAX_V;
       if (vx > MAX_V) vx = MAX_V; else if (vx < -MAX_V) vx = -MAX_V;
       b.px = b.x; b.py = b.y; b.pa = b.a;
       b.x += vx; b.y += vy;
+      b.contact = false;
     }
     sortBodies();
     for (var it = 0; it < ITER; it++) {
@@ -410,6 +414,7 @@
     }
     for (i = 0; i < bodies.length; i++) {
       b = bodies[i];
+      if (b.y - b.py < -MAX_UP) b.py = b.y + MAX_UP;    // najveća brzina prema gore
       if (b.floor) b.px = b.x - (b.x - b.px) * 0.86;   // trenje o dno
       b.a += (b.x - b.px) / b.r * 0.9;                  // kotrljanje
       if (b.kind === C.ICE && b.trig < 0 && (b.floor || b.touched)) b.trig = game.sim;
@@ -505,7 +510,9 @@
     var over = false;
     for (var i = 0; i < bodies.length; i++) {
       var b = bodies[i];
-      if (!b.dead && b.y - b.r < LINE && game.sim - b.born > 1000) { over = true; break; }
+      if (b.dead || b.y - b.r >= LINE || game.sim - b.born <= 1000) continue;
+      var sp = Math.abs(b.x - b.px) + Math.abs(b.y - b.py);
+      if ((b.contact || b.floor) && sp < 0.8) { over = true; break; }
     }
     if (over) {
       game.danger += STEP_MS;
@@ -1273,6 +1280,7 @@
     game.state = 'pause';
     save();
     el.quitNote.textContent = g('pause.quitSaved');
+    el.restart.hidden = game.mode !== 'practice';
     el.pausePanel.hidden = false;
     el.resume.focus({ preventScroll: true });
   }
@@ -1361,6 +1369,18 @@
   el.infoClose.addEventListener('click', closeInfo);
   el.infoPanel.addEventListener('click', function (e) { if (e.target === el.infoPanel) closeInfo(); });
   el.resume.addEventListener('click', resume);
+  // vježba ispočetka (dnevni izazov se ne može ponoviti)
+  el.restart.addEventListener('click', function () {
+    if (!game || game.mode !== 'practice') return;
+    Snd.unlock();
+    lsSet(K.practice, null);
+    el.pausePanel.hidden = true;
+    begin(newGame('practice'));
+    startLoop();
+    loop.last = performance.now();
+    loop.acc = 0;
+    el.fg.focus({ preventScroll: true });
+  });
   el.quit.addEventListener('click', function () { close(false); });
   el.close.addEventListener('click', function () { close(false); });
 
@@ -1681,7 +1701,9 @@
     open(load('daily') || newGame('daily'));
   });
   el.practice.addEventListener('click', function () {
-    open(load('practice') || newGame('practice'));
+    var saved = load('practice');
+    if (saved && saved.drops > 0) open(saved, true);
+    else open(newGame('practice'));
   });
 
   var scope = 'day';
