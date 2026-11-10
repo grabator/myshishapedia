@@ -117,6 +117,25 @@
   cursor: pointer;
 }
 .sd-link:disabled { opacity: 0.5; cursor: default; }
+.sd-champ {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 16px;
+  padding: 12px 14px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 211, 107, 0.45);
+  background: linear-gradient(100deg, rgba(255, 211, 107, 0.18), rgba(242, 163, 60, 0.06));
+  color: var(--c-text);
+  text-decoration: none;
+}
+.sd-champ[hidden] { display: none; }
+.sd-champ .sd-ico { width: 28px; height: 28px; color: #ffd36b; flex: none; }
+.sd-champ__text { display: grid; flex: 1; min-width: 0; }
+.sd-champ__label { font-size: 0.6875rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: #e9b44c; }
+.sd-champ__nick { font-size: 1.0625rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.sd-champ__score { font-size: 0.875rem; font-weight: 700; color: var(--c-muted); font-variant-numeric: tabular-nums; }
+.sd-tabs .seg-btn { padding-inline: 14px; }
 .sd-actions { display: grid; grid-template-columns: minmax(0, 1fr); gap: 10px; }
 @media (min-width: 420px) { .sd-actions { grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); } }
 .sd-actions .btn { min-height: 56px; justify-content: center; gap: 10px; }

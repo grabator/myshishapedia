@@ -56,6 +56,10 @@
             '<div class="sd-stat sd-stat--nick"><dt>' + esc(g('start.nick')) + '</dt><dd><span id="sd-nick">' + esc(g('start.nickNone')) + '</span> ' +
               '<button type="button" class="sd-link" id="sd-nick-btn" disabled>' + esc(g('start.nickPick')) + '</button></dd></div>' +
           '</dl>' +
+          '<a class="sd-champ" id="sd-champ" href="#sd-board" data-scope-link="lastweek" hidden>' + ico('trophy') +
+            '<span class="sd-champ__text"><span class="sd-champ__label">' + esc(g('start.champ')) + '</span><b class="sd-champ__nick" id="sd-champ-nick"></b>' +
+            '<span class="sd-champ__score" id="sd-champ-score"></span></span>' +
+          '</a>' +
           '<div class="sd-actions">' +
             '<button type="button" class="btn btn--primary sd-btn-play" id="sd-play" disabled>' + ico('play') + '<span>' + esc(g('start.play')) + '</span></button>' +
             '<button type="button" class="btn btn--ghost sd-btn-practice" id="sd-practice" disabled><span>' + esc(g('start.practice')) + '</span><small>' + esc(g('start.practiceSub')) + '</small></button>' +
@@ -76,6 +80,7 @@
         '<div class="segctl sd-tabs" role="group" aria-label="' + esc(g('board.title')) + '">' +
           '<button type="button" class="seg-btn" data-scope="day" aria-pressed="true">' + esc(g('board.day')) + '</button>' +
           '<button type="button" class="seg-btn" data-scope="week" aria-pressed="false">' + esc(g('board.week')) + '</button>' +
+          '<button type="button" class="seg-btn" data-scope="lastweek" aria-pressed="false">' + esc(g('board.lastWeek')) + '</button>' +
         '</div>' +
         '<p class="sd-board__note" id="sd-board-note"></p>' +
         '<ol class="sd-board" id="sd-board-list" aria-live="polite"><li class="sd-board__msg">' + esc(g('board.loading')) + '</li></ol>' +
