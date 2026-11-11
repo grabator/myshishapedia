@@ -42,7 +42,9 @@ async function gameDb() {
 async function gameApi(req, res, urlPath, qs) {
   const action = urlPath.replace(/^\/api\/game\/?/, '').replace(/\/$/, '');
   const body = req.method === 'POST' ? await readBody(req, 8192) : undefined;
-  const headers = { 'CF-Connecting-IP': req.socket.remoteAddress || 'lokalno' };
+  // X-Forwarded-For samo lokalno: za probu lige kafića sa "druge mreže" (na Cloudflareu je to CF-Connecting-IP)
+  const ip = String(req.headers['x-forwarded-for'] || '').split(',')[0].trim() || req.socket.remoteAddress || 'lokalno';
+  const headers = { 'CF-Connecting-IP': ip };
   if (req.headers['content-type']) headers['Content-Type'] = req.headers['content-type'];
   const request = new Request('http://localhost' + urlPath + qs, { method: req.method, headers, body });
   const env = NO_API ? {} : await gameDb();

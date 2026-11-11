@@ -502,3 +502,21 @@ html.sdm-open { overflow: hidden; }
 @media (prefers-reduced-motion: reduce) {
   .sd-vase__f--8, .sdx__aimhint, .sdx__sheet, .sdm__box { animation: none; }
 }
+
+/* liga kafića (/bs/igra/?bar=babylon) */
+.sd-venue { margin: 0 0 16px; padding: 14px; border-radius: 16px; border: 1px solid color-mix(in srgb, var(--c-text) 18%, transparent); background: color-mix(in srgb, var(--c-text) 5%, transparent); }
+.sd-venue.is-inside { border-color: rgba(111, 207, 127, 0.55); background: rgba(111, 207, 127, 0.08); }
+.sd-venue__head { display: flex; align-items: center; gap: 12px; }
+.sd-venue__logo { display: grid; place-items: center; flex: none; width: 42px; height: 42px; border-radius: 12px; background: #8a5a1f; color: #16100a; font-family: var(--font-display); font-weight: 800; font-size: 1.25rem; }
+.sd-venue__name { margin: 0; font-family: var(--font-display); font-weight: 800; font-size: 1.25rem; }
+.sd-venue__status { margin: 10px 0 0; font-size: 0.9375rem; line-height: 1.5; }
+.sd-venue__actions { display: flex; flex-wrap: wrap; gap: 4px 16px; margin: 6px 0 0; }
+.sd-venue__actions .sd-link[hidden] { display: none; }
+.sd-venue__admin { display: grid; gap: 8px; margin-top: 14px; padding-top: 14px; border-top: 1px dashed color-mix(in srgb, var(--c-text) 25%, transparent); }
+.sd-venue__admin-title { margin: 0; font-weight: 800; }
+.sd-venue__admin-text { margin: 0; font-size: 0.875rem; color: var(--c-muted); }
+.sd-venue__admin label { display: grid; gap: 4px; font-size: 0.8125rem; font-weight: 700; }
+.sd-venue__admin .sd-venue__reset { display: flex; align-items: center; gap: 8px; font-weight: 600; }
+.sd-venue__pin { color: var(--c-text); background: color-mix(in srgb, var(--c-text) 6%, transparent); border-color: color-mix(in srgb, var(--c-text) 25%, transparent); text-transform: uppercase; letter-spacing: 0.08em; }
+.sd-venue__admin-msg { margin: 0; font-weight: 700; }
+.sd-venue__admin-msg:empty { display: none; }

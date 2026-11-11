@@ -605,6 +605,8 @@
       "demo": "Demo-Lounge: erfunden, nur zur Vorschau",
       "ask": "Was soll ich heute Abend rauchen?",
       "askSub": "Sag uns, was du magst, und wir finden einen Geschmack oder einen Mix. Allein oder mit Freunden.",
+      "game": "{name} Liga: Shisha Drop",
+      "gameSub": "Spiel auf deinem Handy, während du hier bist. Der Beste der Woche gewinnt einen Preis.",
       "search": "Geschmack, Marke oder Zutat suchen",
       "searchPh": "Geschmack, Marke, Zutat suchen…",
       "all": "Alle",
