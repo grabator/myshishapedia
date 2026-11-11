@@ -8921,3 +8921,5 @@ a.smx__card:hover { border-color: var(--c-line-strong); transform: translateY(-2
 .flaz__list li { padding: 3px 0; line-height: 1.4; }
 .flaz__list a { color: var(--c-text); font-weight: 600; }
 .flaz__list span { font-size: 0.8125rem; color: var(--c-muted); }
+.lm-game { margin-top: 12px; text-decoration: none; background: linear-gradient(135deg, #2a1d15, #120c09); color: #f4ebdf; border: 1px solid var(--lm-a); }
+.lm-game b { color: var(--lm-a); }

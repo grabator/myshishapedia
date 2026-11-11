@@ -14,6 +14,7 @@
  *   flavors   okusi u ponudi: { id, tag } gdje je tag 'top' | 'new' | 'out' (nema danas) ili ništa
  *   top       id-jevi za "Najtraženije večeras" (redom)
  *   mixes     kućni miksevi: { id, name, parts: [[idOkusa, postotak], ...] }
+ *   game      true = lounge ima svoju ligu u igri Shisha Drop (mora biti i u lib/game-venues.mjs)
  *
  * Kad lounge javi promjenu (novi okus, nema okusa, nova cijena), mijenja se samo ovaj fajl.
  */
@@ -21,6 +22,7 @@ window.LOUNGES = [
   {
     id: 'babylon',
     demo: true,
+    game: true, // ima svoju ligu u igri Shisha Drop (lib/game-venues.mjs)
     name: 'Babylon',
     nameIn: { loc: 'Babylonu', gen: 'Babylona' },
     tagline: { bs: 'Shisha lounge', en: 'Shisha lounge' },

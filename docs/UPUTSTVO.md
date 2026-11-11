@@ -768,6 +768,28 @@ Provjera u emuliranom telefonu (treba Playwright): uz pokrenut `node serve.mjs`,
 
 ---
 
+## Lige kafića (Shisha Drop u kafiću)
+
+Kafić dobije svoju ligu u igri: gost skenira QR kod na stolu (`/bs/igra/?bar=babylon`), a dnevna partija se broji
+samo ako je telefon na **WiFi-ju tog kafića**. Od kuće se može igrati vježba, ali ne za listu kafića. Kafić ima svoju
+listu Danas, Ova sedmica i Prošla sedmica, odvojenu od opšte liste. Prva (probna) liga je izmišljeni lounge **Babylon**.
+
+- **Kako se provjerava:** server uporedi mrežu iz koje dolazi zahtjev (IPv4 adresa ili IPv6 /64) sa mrežom koju je kafić
+  zapamtio. U bazi je samo hash mreže (`game_venue_nets`), nikad adresa. Rezultati su u `game_venue_scores`.
+  Tabele se same naprave; isti SQL je u `migrations/0003_game_venues.sql`.
+- **Podešavanje WiFi-ja (jednom):** sa WiFi-ja kafića otvori `/bs/igra/?bar=babylon&admin=1`, upiši PIN kafića i klikni
+  "Ovo je WiFi kafića". Može više puta (npr. sa dva telefona, ako jedan ide preko IPv4 a drugi preko IPv6);
+  pamti se najviše 6 mreža. "Obriši ranije zapamćene mreže" ako se promijeni internet.
+  Ako se kafiću promijeni internet adresa (ruter, provajder), gosti vide "igra se samo u kafiću": samo ponovi podešavanje.
+- **PIN** nije u repou: u `lib/game-venues.mjs` je samo njegov hash. Novi kafić ili novi PIN: vidi komentar u tom fajlu.
+- **Novi kafić:** dodaj ga u `lib/game-venues.mjs` (ime, boje, hash PIN-a) i, ako ima stranicu sa menijem, `game: true`
+  u `data/lounges.js` (na stranici kafića se pojavi dugme "<ime> liga: Shisha Drop").
+- **Lokalno:** `node serve.mjs`; drugu mrežu glumi zaglavlje `X-Forwarded-For` (samo lokalni server).
+- **Ograničenja:** neko na mobilnim podacima ne prolazi dok se ne spoji na WiFi. Ko se jako razumije (npr. pokrene
+  proxy na računaru u kafiću) mogao bi zaobići provjeru; za nagrade tipa besplatna nargila to je dovoljno.
+
+---
+
 ## Okusi po sastojku
 
 Stranice tipa "okusi za nargilu sa lubenicom", "watermelon hookah flavors" i "Shisha Tabak Wassermelone",

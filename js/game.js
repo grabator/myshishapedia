@@ -55,6 +55,17 @@
     device: 'msp-sd-device', nick: 'msp-sd-nick', daily: 'msp-sd-daily', stats: 'msp-sd-stats',
     pending: 'msp-sd-pending', sound: 'msp-sd-sound', game: 'msp-sd-game', practice: 'msp-sd-game-p', a2hs: 'msp-sd-a2hs'
   };
+  // Liga kafića: /bs/igra/?bar=babylon. Dnevna partija, njeno stanje i slanje su odvojeni od opšte igre;
+  // partija se broji samo sa WiFi-ja kafića (provjerava server, lib/game-venues.mjs).
+  var BAR = (function () {
+    try { var b = new URLSearchParams(location.search).get('bar'); return b && /^[a-z0-9-]{2,30}$/.test(b) ? b : null; } catch (e) { return null; }
+  })();
+  var ADMIN = BAR && /[?&]admin=1/.test(location.search);
+  var venue = { info: null, inside: false, wifiSet: false, checked: false, unknown: false };
+  if (BAR) { K.daily += '-' + BAR; K.game += '-' + BAR; K.pending += '-' + BAR; }
+  /** Upit za rang listu: u ligi kafića ide i id kafića. */
+  function bq(o) { o = Object.assign({ device: DEVICE }, o); if (BAR) o.venue = BAR; return { query: o }; }
+
   function lsGet(k) {
     try { var v = localStorage.getItem(k); return v == null ? null : JSON.parse(v); } catch (e) { return null; }
   }
@@ -1116,7 +1127,7 @@
 
   function newGame(mode) {
     var day = today();
-    var seed = mode === 'daily' ? C.dailySeed(day) : (Math.random() * 4294967296) >>> 0;
+    var seed = mode === 'daily' ? (BAR ? C.hashString('shisha-drop|venue|' + BAR + '|' + day) : C.dailySeed(day)) : (Math.random() * 4294967296) >>> 0;
     return {
       v: 1, mode: mode, day: day, seed: seed, queue: C.makeQueue(seed),
       drops: 0, score: 0, merges: 0, golden: 0, maxLevel: 0, iced: 0,
@@ -1221,6 +1232,7 @@
       device: DEVICE, day: game.day, score: game.score, drops: game.drops, merges: game.merges,
       golden: game.golden, maxLevel: game.maxLevel, ms: Math.round(game.sim), iced: game.iced
     };
+    if (BAR) result.venue = BAR;
     if (game.mode === 'daily') {
       lsSet(K.daily, { day: game.day, status: 'done', score: game.score });
       lsSet(K.pending, result);
@@ -1510,6 +1522,9 @@
         var da = lsGet(K.daily) || {};
         if (da.day === body.day) { da.rank = d.rank; da.total = d.total; da.sent = true; da.score = d.score; lsSet(K.daily, da); }
         if (show) el.rankLine.textContent = g('end.already', { score: num(d.score || 0) }) + (d.rank ? ' ' + rankText(d.rank, d.total) : '');
+      } else if (r.status === 403 && d.error === 'not-inside') {
+        // telefon nije na WiFi-ju kafića (npr. prešao na mobilne podatke): rezultat čeka i šalje se kasnije
+        if (show) el.rankLine.textContent = g('venue.notInside');
       } else if (r.status === 400 || r.status === 403) {
         // rezultat koji server ne prima (stari dan, uklonjen nadimak): ne šalji ponovo
         lsSet(K.pending, null);
@@ -1523,7 +1538,7 @@
   }
 
   function miniBoard() {
-    api('board', { query: { scope: 'day', device: DEVICE, day: today() } }).then(function (r) {
+    api('board', bq({ scope: 'day', day: today() })).then(function (r) {
       if (!r.ok || !isOpen) return;
       boardScores = r.data.top.map(function (x) { return x.score; });
       renderBoard(el.miniBoard, r.data, 5);
@@ -1705,6 +1720,12 @@
       label.textContent = g('start.play');
       el.play.disabled = false;
     }
+    // liga kafića: dnevna partija samo sa WiFi-ja kafića (vježba uvijek može)
+    if (BAR && d.status !== 'done' && !venue.inside) {
+      label.textContent = g('venue.onlyThere');
+      el.play.disabled = true;
+    }
+    renderVenue();
     el.practice.disabled = false;
     el.offline.hidden = online.api;
     host.setAttribute('data-ready', '1');
@@ -1727,6 +1748,7 @@
   el.play.addEventListener('click', function () {
     var d = daily();
     if (d.status === 'done') return;
+    if (BAR && !venue.inside) return;
     open(load('daily') || newGame('daily'));
   });
   el.practice.addEventListener('click', function () {
@@ -1773,7 +1795,7 @@
 
   function loadBoard() {
     var sc = scope;
-    api('board', { query: { scope: sc, device: DEVICE, day: today() } }).then(function (r) {
+    api('board', bq({ scope: sc, day: today() })).then(function (r) {
       if (sc !== scope) return;
       el.offline.hidden = online.api;
       if (!r.ok) {
@@ -1801,7 +1823,7 @@
     el.champScore.textContent = g('start.champPoints', { score: num(w.score) });
   }
   function loadChamp() {
-    api('board', { query: { scope: 'lastweek', device: DEVICE } }).then(function (r) { if (r.ok) showChamp(r.data); });
+    api('board', bq({ scope: 'lastweek' })).then(function (r) { if (r.ok) showChamp(r.data); });
   }
   function selectScope(sc) {
     scope = sc;
@@ -1813,7 +1835,7 @@
 
   function loadBoardScores() {
     if (boardScores) return;
-    api('board', { query: { scope: 'day', device: DEVICE, day: today() } }).then(function (r) {
+    api('board', bq({ scope: 'day', day: today() })).then(function (r) {
       if (r.ok) boardScores = r.data.top.map(function (x) { return x.score; });
     });
   }
@@ -1825,6 +1847,88 @@
   /* Pokretanje                                                          */
   /* ------------------------------------------------------------------ */
 
+  /* ------------------------------------------------------------------ */
+  /* Liga kafića                                                         */
+  /* ------------------------------------------------------------------ */
+
+  var venueEl = null;
+  function checkVenue() {
+    if (!BAR) return Promise.resolve();
+    return api('venue', { query: { venue: BAR } }).then(function (r) {
+      venue.checked = true;
+      if (r.status === 404) { venue.unknown = true; venue.inside = false; }
+      else if (r.ok) {
+        venue.info = r.data.venue;
+        venue.inside = !!r.data.inside;
+        venue.wifiSet = !!r.data.wifiSet;
+        var title = $('sd-board-title');
+        if (title) title.lastChild.textContent = g('venue.league', { name: venue.info.name });
+      }
+      refreshStart();
+      if (venue.inside && venue.info) submitPending();
+    });
+  }
+
+  function renderVenue() {
+    if (!BAR) return;
+    if (!venueEl) {
+      venueEl = document.createElement('div');
+      venueEl.className = 'sd-venue';
+      venueEl.innerHTML =
+        '<div class="sd-venue__head"><span class="sd-venue__logo" aria-hidden="true"></span><p class="sd-venue__name"></p></div>' +
+        '<p class="sd-venue__status" aria-live="polite"></p>' +
+        '<p class="sd-venue__actions"><button type="button" class="sd-link sd-venue__recheck"></button> <a class="sd-link sd-venue__general"></a></p>' +
+        (ADMIN
+          ? '<form class="sd-venue__admin" novalidate><p class="sd-venue__admin-title"></p><p class="sd-venue__admin-text"></p>' +
+              '<label><span class="sd-venue__pin-label"></span><input class="sdm__input sd-venue__pin" type="text" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="40"></label>' +
+              '<label class="sd-venue__reset"><input type="checkbox"> <span></span></label>' +
+              '<button type="submit" class="btn btn--primary sd-venue__save"></button><p class="sd-venue__admin-msg" role="status"></p></form>'
+          : '');
+      var card = host.querySelector('.sd-card');
+      card.insertBefore(venueEl, card.firstChild);
+      venueEl.querySelector('.sd-venue__recheck').addEventListener('click', function () {
+        venueEl.querySelector('.sd-venue__status').textContent = g('venue.checking');
+        checkVenue();
+      });
+      var gen = venueEl.querySelector('.sd-venue__general');
+      gen.href = location.pathname;
+      gen.textContent = g('venue.general');
+      if (ADMIN) {
+        var form = venueEl.querySelector('.sd-venue__admin');
+        form.querySelector('.sd-venue__admin-title').textContent = g('venue.adminTitle');
+        form.querySelector('.sd-venue__admin-text').textContent = g('venue.adminText');
+        form.querySelector('.sd-venue__pin-label').textContent = g('venue.pin');
+        form.querySelector('.sd-venue__reset span').textContent = g('venue.reset');
+        form.querySelector('.sd-venue__save').textContent = g('venue.save');
+        form.addEventListener('submit', function (e) {
+          e.preventDefault();
+          var msg = form.querySelector('.sd-venue__admin-msg');
+          var btn = form.querySelector('.sd-venue__save');
+          btn.disabled = true;
+          api('venue-wifi', { body: { venue: BAR, pin: form.querySelector('.sd-venue__pin').value, reset: form.querySelector('.sd-venue__reset input').checked } }).then(function (r) {
+            btn.disabled = false;
+            msg.textContent = r.ok ? g('venue.ok') : r.data.error === 'bad-pin' ? g('venue.badPin') : r.data.error === 'rate-limited' ? g('nick.rate') : g('venue.error');
+            if (r.ok) checkVenue();
+          });
+        });
+      }
+    }
+    var name = venue.info ? venue.info.name : BAR;
+    var logo = venueEl.querySelector('.sd-venue__logo');
+    logo.textContent = name.charAt(0).toUpperCase();
+    if (venue.info && venue.info.colors) logo.style.background = 'linear-gradient(135deg,' + venue.info.colors[0] + ',' + venue.info.colors[1] + ')';
+    venueEl.querySelector('.sd-venue__name').textContent = g('venue.league', { name: name });
+    var st = !venue.checked ? g('venue.checking')
+      : venue.unknown ? g('venue.unknown')
+      : venue.inside ? g('venue.inside', { name: name })
+      : !venue.wifiSet ? g('venue.notSet', { name: name })
+      : g('venue.outside', { name: name });
+    venueEl.querySelector('.sd-venue__status').textContent = st;
+    venueEl.classList.toggle('is-inside', venue.inside);
+    venueEl.querySelector('.sd-venue__recheck').textContent = g('venue.recheck');
+    venueEl.querySelector('.sd-venue__recheck').hidden = venue.inside || venue.unknown;
+  }
+
   function init() {
     paintArt(document);
     refreshStart();
@@ -1832,6 +1936,7 @@
       refreshStart();
       loadBoard();
       loadChamp();
+      checkVenue();
       // nadimak sa servera (ako je uklonjen ili promijenjen na drugom mjestu)
       api('player', { query: { device: DEVICE } }).then(function (r) {
         if (!r.ok) return;

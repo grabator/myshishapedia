@@ -26,7 +26,7 @@ test('tabele se prave same, bez migracije', async () => {
   assert.equal(r.status, 200);
   assert.deepEqual(r.body.top, []);
   const t = e.DB.db.prepare("SELECT name FROM sqlite_master WHERE type='table' ORDER BY name").all().map((x) => x.name);
-  assert.deepEqual(t, ['game_limits', 'game_players', 'game_scores']);
+  assert.deepEqual(t, ['game_limits', 'game_players', 'game_scores', 'game_venue_nets', 'game_venue_scores']);
 });
 
 test('bez baze: today radi, ostalo javi da nije podešeno', async () => {
@@ -133,4 +133,50 @@ test('nepoznata akcija i metod', async () => {
   assert.equal((await call(e, 'GET', 'nesto')).status, 404);
   assert.equal((await call(e, 'GET', 'score')).status, 405);
   assert.equal((await handleGame(new Request('https://x/api/game/player', { method: 'POST', body: 'x' }), e, 'player', NOW)).status, 400);
+});
+
+test('liga kafića: WiFi kafića, posebna lista, od kuće se ne broji', async () => {
+  const e = env();
+  const PIN = 'TEST-PIN1-2345';
+  const { VENUES } = await import('../lib/game-venues.mjs');
+  const { createHash } = await import('node:crypto');
+  VENUES.testbar = { name: 'Test bar', colors: ['#fff', '#000'], pinHash: createHash('sha256').update('msp-venue-pin|testbar|' + PIN).digest('hex') };
+  const BAR = '81.1.2.3', HOME = '92.9.9.9';
+  await call(e, 'POST', 'player', { device: dev('a'), nick: 'Amar' });
+  await call(e, 'POST', 'player', { device: dev('b'), nick: 'Belma' });
+  // WiFi još nije zapamćen: niko nije "u kafiću"
+  let v = await call(e, 'GET', 'venue', null, { qs: 'venue=testbar', ip: BAR });
+  assert.deepEqual([v.body.inside, v.body.wifiSet, v.body.venue.name], [false, false, 'Test bar']);
+  assert.equal((await call(e, 'GET', 'venue', null, { qs: 'venue=nema' })).status, 404);
+  // pogrešan PIN, pa tačan (mala slova su ista)
+  assert.equal((await call(e, 'POST', 'venue-wifi', { venue: 'testbar', pin: 'krivi' }, { ip: BAR })).body.error, 'bad-pin');
+  assert.equal((await call(e, 'POST', 'venue-wifi', { venue: 'testbar', pin: PIN.toLowerCase() }, { ip: BAR })).body.ok, true);
+  v = await call(e, 'GET', 'venue', null, { qs: 'venue=testbar', ip: BAR });
+  assert.deepEqual([v.body.inside, v.body.wifiSet], [true, true]);
+  assert.equal((await call(e, 'GET', 'venue', null, { qs: 'venue=testbar', ip: HOME })).body.inside, false);
+  // rezultat iz kafića ide na listu kafića, od kuće se odbije
+  const inBar = await call(e, 'POST', 'score', score(dev('a'), 300, { venue: 'testbar' }), { ip: BAR });
+  assert.deepEqual([inBar.status, inBar.body.rank, inBar.body.venue], [200, 1, 'testbar']);
+  const fromHome = await call(e, 'POST', 'score', score(dev('b'), 900, { venue: 'testbar' }), { ip: HOME });
+  assert.deepEqual([fromHome.status, fromHome.body.error], [403, 'not-inside']);
+  assert.equal((await call(e, 'POST', 'score', score(dev('a'), 500, { venue: 'testbar' }), { ip: BAR })).body.error, 'already');
+  // lista kafića i opšta lista su odvojene
+  const vb = await call(e, 'GET', 'board', null, { qs: 'scope=day&venue=testbar&device=' + dev('a') });
+  assert.deepEqual(vb.body.top.map((r) => [r.nick, r.score, r.mine]), [['Amar', 300, true]]);
+  assert.deepEqual((await call(e, 'GET', 'board', null, { qs: 'scope=day' })).body.top, []);
+  // ista osoba može odigrati i opšti dnevni izazov
+  assert.equal((await call(e, 'POST', 'score', score(dev('a'), 700))).status, 200);
+  // IPv6: drugi telefon na istom WiFi-ju ima drugu adresu, ali istu mrežu (/64)
+  await call(e, 'POST', 'venue-wifi', { venue: 'testbar', pin: PIN }, { ip: '2a02:810d:1:2:aaaa:bbbb:cccc:1' });
+  assert.equal((await call(e, 'GET', 'venue', null, { qs: 'venue=testbar', ip: '2a02:810d:1:2::77' })).body.inside, true);
+  assert.equal((await call(e, 'GET', 'venue', null, { qs: 'venue=testbar', ip: '2a02:810d:1:3::77' })).body.inside, false);
+  delete VENUES.testbar;
+});
+
+test('mreža iz IP adrese', async () => {
+  const { networkOf } = await import('../lib/game-api.mjs');
+  assert.equal(networkOf('81.1.2.3'), '81.1.2.3');
+  assert.equal(networkOf('::ffff:81.1.2.3'), '81.1.2.3');
+  assert.equal(networkOf('2a02:810d:0001:0002:aaaa::1'), '2a02:810d:1:2::/64');
+  assert.equal(networkOf('2a02:810d:1::5'), '2a02:810d:1:0::/64');
 });

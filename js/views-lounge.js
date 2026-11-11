@@ -61,6 +61,8 @@
         (lg.demo ? '<p class="lm-demo">' + icon('info') + '<span>' + esc(t('lounge.demo')) + '</span></p>' : '') +
         '<h1 class="sr-only">' + esc(lg.name) + '</h1>' +
         '<button type="button" class="lm-ask" data-go="pitanje"><b>' + esc(t('lounge.ask')) + '</b><span>' + esc(t('lounge.askSub')) + '</span><i aria-hidden="true">' + icon('arrowRight') + '</i></button>' +
+        // liga kafića u igri Shisha Drop (lib/game-venues.mjs): igra se samo sa WiFi-ja kafića
+        (lg.game ? '<a class="lm-ask lm-game" href="' + V.url('game') + '?bar=' + esc(lg.id) + '"><b>' + esc(t('lounge.game', { name: lg.name })) + '</b><span>' + esc(t('lounge.gameSub')) + '</span><i aria-hidden="true">' + icon('arrowRight') + '</i></a>' : '') +
         '<div class="lm-tools">' +
           '<div class="search search--small lm-search"><span class="search__icon" aria-hidden="true">' + icon('search') + '</span>' +
             '<label class="sr-only" for="lm-q">' + esc(t('lounge.search')) + '</label>' +

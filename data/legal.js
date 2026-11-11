@@ -92,6 +92,7 @@ window.LEGAL = {
             "Na serveru se ključ uređaja ne čuva u izvornom obliku, nego samo kao nepovratan hash, uz nadimak i dnevne rezultate. Ne čuvamo ime, email ni IP adresu. Za ograničenje broja zahtjeva privremeno se čuva samo hash IP adrese i broj zahtjeva, kao kod ocjena.",
             "Na rang listi (Danas i Ova sedmica) javno se vide nadimak i bodovi. Ako ne želiš da te neko prepozna, ne biraj nadimak sa svojim imenom i prezimenom.",
             "Uvredljive nadimke i nadimke koji se lažno predstavljaju kao neko drugi uklanjamo. Ako želiš da obrišemo tvoj nadimak i rezultate, piši nam na adresu ispod i navedi nadimak.",
+            "U ligi kafića (npr. Babylon liga) server provjerava da li je telefon na WiFi-ju tog kafića, tako što uporedi mrežu iz koje dolazi zahtjev sa mrežom koju je kafić zapamtio. Čuva se samo nepovratan hash mreže kafića, nikad adresa igrača, a rezultati lige kafića se vide samo uz nadimak.",
             "Ako obrišeš podatke stranice u browseru, gubi se veza sa tvojim nadimkom: on ostaje zauzet, a ti možeš izabrati novi."
           ],
           en: [
@@ -100,6 +101,7 @@ window.LEGAL = {
             "On the server the device key is never stored as is, only as a one-way hash, together with your nickname and daily scores. We do not store your name, email or IP address. To limit the number of requests, only a hash of the IP address and the request count are kept for a short time, as with ratings.",
             "On the leaderboard (Today and This week) your nickname and score are public. If you do not want to be recognized, do not use your full name as a nickname.",
             "We remove offensive nicknames and nicknames that pretend to be someone else. If you want us to delete your nickname and scores, write to us at the address below and include your nickname.",
+            "In a venue league (for example the Babylon league) the server checks whether the phone is on that venue's WiFi by comparing the network a request comes from with the network the venue saved. Only a one-way hash of the venue's network is stored, never a player's address, and venue league scores are only shown with the nickname.",
             "If you clear the site data in your browser, the link to your nickname is lost: it stays taken, and you can pick a new one."
           ]
         }
