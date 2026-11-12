@@ -899,6 +899,7 @@ const KNOWN_GONE = [
   '/en/compare/adalya-angel-lips-vs-adalya-double-melon/',
   '/en/compare/adalya-tynky-wynky-vs-fumari-white-gummi-bear/',
   '/bs/poredjenje/adalya-angel-lips-vs-adalya-blue-ice/',
+  '/en/compare/adalya-angel-lips-vs-adalya-blue-ice/',
   // parovi iz ranijih verzija podataka (izračunato iz git historije data/flavors.js)
   '/bs/poredjenje/adalya-baku-nights-vs-al-fakher-double-apple/',
   '/en/compare/adalya-baku-nights-vs-al-fakher-double-apple/',
