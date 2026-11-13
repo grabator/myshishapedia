@@ -26,15 +26,15 @@
     bs: { home: '', flavor: 'okus', mixer: 'mikser', quiz: 'kviz', guide: 'vodic', glossary: 'rjecnik', term: 'rjecnik', gear: 'oprema', about: 'o-nama', notfound: '404',
       collections: 'kolekcije', collection: 'kolekcije', compare: 'poredjenje', comparePair: 'poredjenje', mixes: 'recepti', recipe: 'recepti',
       privacy: 'privatnost', terms: 'uslovi', suggest: 'predlozi-okus', report: 'prijavi-gresku', flavors: 'okusi', search: 'pretraga',
-      brands: 'brendovi', brand: 'brendovi', top: 'najbolje-ocijenjeno', shelf: 'moja-polica', session: 'slika-sesije', journal: 'dnevnik-sesija', offline: 'bez-interneta', lounge: 'lounge', loungeInfo: 'za-lounge', tips: 'savjeti', game: 'igra', history: 'evolucija-nargile', chapter: 'evolucija-nargile', articles: 'clanci', article: 'clanci' },
+      brands: 'brendovi', brand: 'brendovi', top: 'najbolje-ocijenjeno', shelf: 'moja-polica', session: 'slika-sesije', journal: 'dnevnik-sesija', offline: 'bez-interneta', lounge: 'lounge', loungeInfo: 'za-lounge', tips: 'savjeti', game: 'igra', history: 'evolucija-nargile', chapter: 'evolucija-nargile', articles: 'clanci', article: 'clanci', creators: 'kreatori', creator: 'kreatori', cmix: 'kreatori' },
     de: { home: '', flavor: 'geschmack', mixer: 'mixer', quiz: 'quiz', guide: 'anleitung', glossary: 'glossar', term: 'glossar', gear: 'zubehoer', about: 'ueber-uns', notfound: '404',
       collections: 'kollektionen', collection: 'kollektionen', compare: 'vergleich', comparePair: 'vergleich', mixes: 'mixe', recipe: 'mixe',
       privacy: 'datenschutz', terms: 'nutzungsbedingungen', suggest: 'geschmack-vorschlagen', report: 'fehler-melden', flavors: 'geschmacksrichtungen', search: 'suche',
-      brands: 'marken', brand: 'marken', top: 'bestbewertet', shelf: 'mein-regal', session: 'session-foto', journal: 'session-tagebuch', offline: 'offline', lounge: 'lounge', loungeInfo: 'fuer-lounges', tips: 'tipps', game: 'spiel', history: 'shisha-geschichte', chapter: 'shisha-geschichte', articles: 'artikel', article: 'artikel' },
+      brands: 'marken', brand: 'marken', top: 'bestbewertet', shelf: 'mein-regal', session: 'session-foto', journal: 'session-tagebuch', offline: 'offline', lounge: 'lounge', loungeInfo: 'fuer-lounges', tips: 'tipps', game: 'spiel', history: 'shisha-geschichte', chapter: 'shisha-geschichte', articles: 'artikel', article: 'artikel', creators: 'creator', creator: 'creator', cmix: 'creator' },
     en: { home: '', flavor: 'flavor', mixer: 'mixer', quiz: 'quiz', guide: 'guide', glossary: 'glossary', term: 'glossary', gear: 'gear', about: 'about', notfound: '404',
       collections: 'collections', collection: 'collections', compare: 'compare', comparePair: 'compare', mixes: 'mixes', recipe: 'mixes',
       privacy: 'privacy', terms: 'terms', suggest: 'suggest-flavor', report: 'report-issue', flavors: 'flavors', search: 'search',
-      brands: 'brands', brand: 'brands', top: 'top-rated', shelf: 'my-shelf', session: 'session-photo', journal: 'session-journal', offline: 'offline', lounge: 'lounge', loungeInfo: 'for-lounges', tips: 'tips', game: 'game', history: 'hookah-history', chapter: 'hookah-history', articles: 'articles', article: 'articles' }
+      brands: 'brands', brand: 'brands', top: 'top-rated', shelf: 'my-shelf', session: 'session-photo', journal: 'session-journal', offline: 'offline', lounge: 'lounge', loungeInfo: 'for-lounges', tips: 'tips', game: 'game', history: 'hookah-history', chapter: 'hookah-history', articles: 'articles', article: 'articles', creators: 'creators', creator: 'creators', cmix: 'creators' }
   };
   V.SEG = SEG;
 
@@ -663,6 +663,7 @@
       { key: 'collections', page: 'collections', match: ['collections', 'collection'] },
       { key: 'compare', page: 'compare', match: ['compare', 'comparePair'] },
       { key: 'mixes', page: 'mixes', match: ['mixes', 'recipe'] },
+      { key: 'creators', page: 'creators', match: ['creators', 'creator', 'cmix'] },
       { key: 'top', page: 'top', match: ['top'] },
       { key: 'shelf', page: 'shelf', match: ['shelf'] },
       { key: 'session', page: 'session', match: ['session'] },
@@ -876,7 +877,7 @@
     var year = desc.year || new Date().getFullYear();
     var email = (cfg && cfg.AUTHOR_EMAIL) || '';
     var name = (cfg && cfg.AUTHOR_NAME) || 'Graba';
-    var links = ['flavors', 'brands', 'collections', 'compare', 'mixes', 'top', 'shelf', 'session', 'journal', 'mixer', 'quiz', 'game', 'guide', 'tips', 'articles', 'history', 'glossary', 'gear', 'loungeInfo', 'about'].map(function (p) {
+    var links = ['flavors', 'brands', 'collections', 'compare', 'mixes', 'creators', 'top', 'shelf', 'session', 'journal', 'mixer', 'quiz', 'game', 'guide', 'tips', 'articles', 'history', 'glossary', 'gear', 'loungeInfo', 'about'].map(function (p) {
       return '<li><a href="' + V.url(p) + '">' + esc(t('nav.' + (p === 'flavors' ? 'allFlavors' : p))) + '</a></li>';
     }).join('');
     return (
@@ -2368,6 +2369,7 @@
       case 'flavors': return [home, { name: t('nav.allFlavors'), url: V.url('flavors') }];
       case 'ingredient': return [home, { name: t('nav.allFlavors'), url: V.url('flavors') }, { name: L(desc.ingredient.h1), url: V.ingredientUrl(desc.ingredient) }];
       case 'collection': case 'comparePair': case 'recipe': return V.crumbsMore(desc, home);
+      case 'creators': case 'creator': case 'cmix': return V.crumbsCreators(desc, home);
       case 'brand': return [home, { name: t('nav.brands'), url: V.url('brands') }, { name: desc.brand.name, url: V.brandUrl(desc.brand) }];
       case 'lounge': return [home, { name: t('nav.loungeInfo'), url: V.url('loungeInfo') }, { name: desc.lounge.name, url: V.url('lounge', desc.lounge.id) }];
       default: return [home, { name: t('nav.' + desc.page), url: V.url(desc.page) }];
@@ -2506,6 +2508,13 @@
         out.description = more.description;
         out.mood = more.mood || '';
         break;
+      case 'creators': case 'creator': case 'cmix':
+        var cr = V.pageCreators(desc, crumbs);
+        out.main = cr.main;
+        out.title = cr.title;
+        out.description = cr.description;
+        if (cr.ogImage) { out.ogImage = cr.ogImage; out.ogAlt = cr.title; }
+        break;
       default:
         out.main = pageNotFound();
         out.title = t('meta.notFoundTitle');
@@ -2531,6 +2540,8 @@
       else if (desc.page === 'article') o[l] = V.articleUrl(desc.article, l);
       else if (desc.page === 'lounge') o[l] = V.urlFor(l, 'lounge', desc.lounge.id);
       else if (desc.page === 'ingredient') o[l] = V.ingredientUrl(desc.ingredient, l);
+      else if (desc.page === 'creator') o[l] = V.creatorUrl(desc.creator, l);
+      else if (desc.page === 'cmix') o[l] = V.creatorMixUrl(desc.mix, l);
       else o[l] = V.urlFor(l, desc.page);
     });
     return o;

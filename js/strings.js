@@ -217,6 +217,7 @@
         loungeInfo: 'Za lounge-ove',
         tips: 'Savjeti',
         articles: 'Članci',
+        creators: 'Miksovi kreatora',
         history: 'Evolucija nargile',
         backToAll: 'Nazad na sve okuse',
         tagline: 'Enciklopedija okusa'
@@ -1513,6 +1514,7 @@
         loungeInfo: 'For lounges',
         tips: 'Tips',
         articles: 'Articles',
+        creators: 'Creator mixes',
         history: 'Hookah history',
         backToAll: 'Back to all flavors',
         tagline: 'Flavor encyclopedia'
