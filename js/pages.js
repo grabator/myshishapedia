@@ -1314,6 +1314,10 @@
     }
   };
 
+  // kreatori: spisak i profil (samo pojavljivanje sekcija); miks ima dim u bojama okusa kao recept
+  Pages.creators = Pages.creator = { mount: function (ctx) { ctx.cleanup(FX.reveal(ctx.els.main)); } };
+  Pages.cmix = { mount: function (ctx) { Pages.recipe.mount(ctx); } };
+
   Pages.recipe = {
     mount: function (ctx) {
       var main = ctx.els.main;

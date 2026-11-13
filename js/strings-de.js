@@ -181,6 +181,7 @@
       "pHoseSub": "daran ziehst du"
     },
     "nav": {
+      "creators": "Creator-Mixe",
       "home": "Startseite",
       "flavors": "Geschmäcker",
       "mixer": "Mixer",

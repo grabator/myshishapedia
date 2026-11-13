@@ -59,6 +59,8 @@ const SOURCES = [
   'js/views-history.js',
   'data/articles.js',
   'js/views-articles.js',
+  'data/creators.js',
+  'js/views-creators.js',
   'js/strings-game.js',
   'js/views-game.js'
 ];
@@ -102,7 +104,7 @@ function hashOf(file) {
 const ASSETS = ['css/style.css', 'js/strings.js', 'js/strings-de.js', 'data/de.js', 'data/brands.js', 'data/flavors.js', 'data/glossary.js', 'data/guide.js', 'data/gear.js', 'data/quiz.js',
   'data/mixes.js', 'js/illustrations.js', 'js/effects.js', 'js/views.js', 'js/views-more.js', 'js/views-extra.js', 'js/pages.js', 'js/app.js',
   'js/search.js', 'js/forms.js', 'js/share.js', 'js/ratings.js', 'js/shelf.js', 'js/qr.js', 'js/journal.js', 'js/session.js', 'js/pwa.js', 'data/lounges.js', 'js/lounge.js', 'data/history.js', 'js/history.js', 'favicon.svg',
-  'css/game.css', 'js/strings-game.js', 'js/game-core.js', 'js/game-art.js', 'js/game.js'];
+  'css/game.css', 'js/strings-game.js', 'js/game-core.js', 'js/game-art.js', 'js/game.js', 'js/creators.js'];
 const VERSION = {};
 for (const a of ASSETS) VERSION[a] = hashOf(a);
 const asset = (p) => '/' + p + '?v=' + VERSION[p];
@@ -135,6 +137,7 @@ const PAGE_SCRIPTS = {
   session: ['js/qr.js', 'js/journal.js', 'js/session.js'],
   journal: ['js/journal.js'],
   lounge: ['js/lounge.js'],
+  cmix: ['js/creators.js'],
   game: ['js/strings-game.js', 'js/game-core.js', 'js/game-art.js', 'js/game.js']
 };
 
@@ -255,6 +258,7 @@ function pageLd(desc, lang, info) {
   if (desc.page === 'history') return historyLd(desc, lang, info) + breadcrumbLd(info);
   if (desc.page === 'chapter') return chapterLd(desc, lang, info) + breadcrumbLd(info);
   if (desc.page === 'article') return articleLd(desc, lang, info) + breadcrumbLd(info);
+  if (desc.page === 'creator' || desc.page === 'cmix') return creatorLd(desc, lang, info) + breadcrumbLd(info);
   return breadcrumbLd(info);
 }
 
@@ -302,6 +306,32 @@ function articleLd(desc, lang, info) {
     author: { '@type': 'Person', name: CFG.AUTHOR_NAME },
     publisher: { '@type': 'Organization', name: CFG.SITE_NAME, url: abs('/') }
   });
+}
+
+/** Kreator (ProfilePage) i njegov miks (CreativeWork sa videom sa Instagrama). */
+function creatorLd(desc, lang, info) {
+  const c = desc.creator || V.creatorById(desc.mix.creator);
+  const person = { '@type': 'Person', name: c.name, url: abs(V.creatorUrl(c, lang)), sameAs: ['https://www.instagram.com/' + c.instagram + '/'] };
+  if (c.logo) person.image = abs(V.creatorAsset(c, c.logo));
+  if (desc.page === 'creator') return jsonLd({ '@context': 'https://schema.org', '@type': 'ProfilePage', url: abs(desc.url), inLanguage: lang, name: info.title, mainEntity: person });
+  const m = desc.mix;
+  const o = {
+    '@context': 'https://schema.org',
+    '@type': 'CreativeWork',
+    name: m.name,
+    headline: m.name,
+    description: info.description,
+    inLanguage: lang,
+    url: abs(desc.url),
+    image: abs(info.ogImage || '/og-image.png'),
+    datePublished: m.added,
+    author: person,
+    publisher: { '@type': 'Organization', name: CFG.SITE_NAME, url: abs('/') },
+    keywords: ['hookah mix', 'shisha mix'].concat(m.parts.map((p) => p.brand + ' ' + p.flavor)).join(', ')
+  };
+  const code = /\/(?:reel|p)\/([A-Za-z0-9_-]+)/.exec(m.video || '');
+  if (code) o.video = { '@type': 'VideoObject', name: m.name + ' · ' + c.name, description: info.description, thumbnailUrl: abs(V.creatorAsset(c, m.photo)), embedUrl: 'https://www.instagram.com/reel/' + code[1] + '/embed/', url: m.video };
+  return jsonLd(o);
 }
 
 /** Poglavlje "Evolucije nargile": Article, dio glavnog članka, sa izvorima. */
@@ -546,6 +576,9 @@ function pageList() {
     for (const ch of V.historyChapters()) list.push({ lang, page: 'chapter', id: ch.id, chapter: ch, url: V.chapterUrl(ch, lang) });
     list.push({ lang, page: 'articles', url: V.urlFor(lang, 'articles') });
     for (const a of V.articles()) list.push({ lang, page: 'article', id: a.id, article: a, url: V.articleUrl(a, lang) });
+    list.push({ lang, page: 'creators', url: V.urlFor(lang, 'creators') });
+    for (const c of V.creators()) list.push({ lang, page: 'creator', id: c.id, creator: c, url: V.creatorUrl(c, lang) });
+    for (const m of V.creatorMixes()) list.push({ lang, page: 'cmix', id: m.id, mix: m, url: V.creatorMixUrl(m, lang) });
     for (const f of V.flavors()) list.push({ lang, page: 'flavor', id: f.id, flavor: f, url: V.urlFor(lang, 'flavor', f.id) });
     for (const g of V.glossary()) list.push({ lang, page: 'term', id: g.id, term: g, url: V.urlFor(lang, 'term', V.termSlug(g, lang)) });
     for (const ip of V.ingredientPages()) list.push({ lang, page: 'ingredient', id: ip.id, ingredient: ip, url: V.ingredientUrl(ip, lang) });
@@ -899,6 +932,7 @@ const KNOWN_GONE = [
   '/en/compare/adalya-angel-lips-vs-adalya-double-melon/',
   '/en/compare/adalya-tynky-wynky-vs-fumari-white-gummi-bear/',
   '/bs/poredjenje/adalya-angel-lips-vs-adalya-blue-ice/',
+  '/en/compare/adalya-angel-lips-vs-adalya-blue-ice/',
   // parovi iz ranijih verzija podataka (izračunato iz git historije data/flavors.js)
   '/bs/poredjenje/adalya-baku-nights-vs-al-fakher-double-apple/',
   '/en/compare/adalya-baku-nights-vs-al-fakher-double-apple/',
@@ -970,7 +1004,8 @@ function writeCloudflareFiles(rendered) {
     "style-src 'self' 'unsafe-inline'",
     "font-src 'self'",
     "img-src 'self' data: blob:",
-    'frame-src ' + TURNSTILE,
+    // Instagram: video kreatora (učitava se tek na klik)
+    'frame-src ' + TURNSTILE + ' https://www.instagram.com',
     ["connect-src 'self'", analytics ? 'https://cloudflareinsights.com' : '', form].filter(Boolean).join(' '),
     ["form-action 'self'", form].filter(Boolean).join(' '),
     "frame-ancestors 'none'",
