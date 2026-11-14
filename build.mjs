@@ -86,6 +86,15 @@ for (const key of ['ANALYTICS_TOKEN', 'FORM_ENDPOINT', 'TURNSTILE_SITE_KEY']) {
 }
 const MSP = sandbox.MSP;
 const V = MSP.V;
+// slike kreatora dobiju verziju u adresi (?v=hash), da browser i instalirana aplikacija ne drže staru sliku
+{
+  const plain = V.creatorAsset;
+  V.creatorAsset = (c, file) => {
+    const u = plain(c, file);
+    if (!u) return u;
+    try { return u + '?v=' + crypto.createHash('sha1').update(fs.readFileSync(path.join(ROOT, 'static', u))).digest('hex').slice(0, 8); } catch { return u; }
+  };
+}
 const SITE = String(process.env.SITE_URL || CFG.SITE_URL).replace(/\/+$/, '');
 const LANGS = CFG.LANGS;
 const DEFAULT_LANG = CFG.DEFAULT_LANG;

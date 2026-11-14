@@ -14,7 +14,7 @@
 
   var TX = {
     bs: {
-      nav: 'Kreatori', eyebrow: 'Kreatori', listTitle: 'Miksovi kreatora',
+      nav: 'Kreatori', flavorsN: function (n) { return n + ' okusa'; }, open: 'Otvori recept', inBowl: 'U posudi', eyebrow: 'Kreatori', listTitle: 'Miksovi kreatora',
       listLead: 'Stvarni miksovi ljudi koji pune posude svaki dan: okusi, procenti, posuda i način punjenja, uz njihov video.',
       listMetaTitle: 'Miksovi za nargilu od kreatora · recepti sa procentima | MyShishapedia',
       listMetaDesc: 'Miksovi za nargilu od pravih kreatora: okusi i procenti, posuda, savjeti za punjenje i video. Isprobaj i prati kreatore na Instagramu.',
@@ -28,7 +28,7 @@
       join: 'Praviš miksove i snimaš ih? Javi nam se i dobij svoju stranicu na MyShishapediji.', joinCta: 'Javi se'
     },
     en: {
-      nav: 'Creators', eyebrow: 'Creators', listTitle: 'Creator mixes',
+      nav: 'Creators', flavorsN: function (n) { return n + ' flavors'; }, open: 'Open the recipe', inBowl: 'In the bowl', eyebrow: 'Creators', listTitle: 'Creator mixes',
       listLead: 'Real mixes from people who pack bowls every day: flavors, percentages, bowl and packing, with their video.',
       listMetaTitle: 'Hookah mixes by creators · recipes with percentages | MyShishapedia',
       listMetaDesc: 'Hookah mixes from real creators: flavors and percentages, the bowl, packing tips and a video. Try them and follow the creators on Instagram.',
@@ -42,7 +42,7 @@
       join: 'Do you make mixes and film them? Get in touch and get your own page on MyShishapedia.', joinCta: 'Get in touch'
     },
     de: {
-      nav: 'Creator', eyebrow: 'Creator', listTitle: 'Mixe von Creatorn',
+      nav: 'Creator', flavorsN: function (n) { return n + ' Sorten'; }, open: 'Rezept öffnen', inBowl: 'Im Kopf', eyebrow: 'Creator', listTitle: 'Mixe von Creatorn',
       listLead: 'Echte Mixe von Leuten, die jeden Tag Köpfe bauen: Sorten, Prozente, Kopf und Bautechnik, mit ihrem Video.',
       listMetaTitle: 'Shisha-Mixe von Creatorn · Rezepte mit Prozenten | MyShishapedia',
       listMetaDesc: 'Shisha-Mixe von echten Creatorn: Sorten und Prozente, Kopf, Tipps zum Bauen und ein Video. Ausprobieren und den Creatorn auf Instagram folgen.',
@@ -101,13 +101,29 @@
   }
   function igIcon() { return '<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="17.2" cy="6.8" r="1.2" fill="currentColor"/></svg>'; }
 
+  function splitBar(m, cls) {
+    return '<span class="' + (cls || 'crt-split') + '" aria-hidden="true">' + m.parts.map(function (p) { return '<i style="flex:' + p.pct + ';background:' + esc(p.color) + '"></i>'; }).join('') + '</span>';
+  }
+  function bowlIcon() { return '<svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 10h16l-1.8 7.2A3 3 0 0 1 15.3 19H8.7a3 3 0 0 1-2.9-1.8z"/><path d="M8 10V7M12 10V5M16 10V7"/></svg>'; }
+
   function mixCard(m, i) {
     var c = V.creatorById(m.creator);
+    var rows = m.parts.map(function (p) {
+      return '<li style="--sw:' + esc(p.color) + '"><span class="crt-mix__pct">' + p.pct + '%</span><span class="crt-mix__fl"><b>' + esc(p.flavor) + '</b><small>' + esc(p.brand) + (p.note ? ' · ' + esc(L(p.note)) : '') + '</small></span></li>';
+    }).join('');
     return '<a class="crt-mix" href="' + V.creatorMixUrl(m) + '" style="--i:' + (i || 0) + '">' +
-      '<span class="crt-mix__img">' + (m.photo ? '<img src="' + esc(V.creatorAsset(c, m.photo)) + '" alt="' + esc(m.name + ' · ' + c.name) + '" loading="lazy" width="1080" height="1428">' : bowlArt(m)) + '</span>' +
-      '<span class="crt-mix__body"><b>' + esc(m.name) + '</b><span class="crt-mix__by">' + esc(tx('by')) + ' ' + esc(c.name) + '</span>' +
-      '<span class="crt-split" aria-hidden="true">' + m.parts.map(function (p) { return '<i style="flex:' + p.pct + ';background:' + esc(p.color) + '"></i>'; }).join('') + '</span>' +
-      '<span class="crt-mix__parts">' + esc(V.creatorMixParts(m)) + '</span></span></a>';
+      '<span class="crt-mix__img">' +
+        (m.photo ? '<img src="' + esc(V.creatorAsset(c, m.photo)) + '" alt="' + esc(m.name + ' · ' + c.name) + '" loading="lazy" width="1080" height="1428">' : bowlArt(m)) +
+        '<span class="crt-mix__top">' + (c.logo ? '<img class="crt-mix__logo" src="' + esc(V.creatorAsset(c, c.logo)) + '" alt="" width="1200" height="666" loading="lazy">' : '<span></span>') +
+          '<span class="crt-mix__tag">' + esc(tx('flavorsN')(m.parts.length)) + '</span></span>' +
+        '<span class="crt-mix__title"><span class="crt-mix__by">' + esc(tx('by')) + ' ' + esc(c.name) + '</span><b>' + esc(m.name) + '</b></span>' +
+        bowlArt(m, 'crt-mix__donut') +
+      '</span>' +
+      '<span class="crt-mix__body">' + splitBar(m) +
+        '<ul class="crt-mix__list" role="list">' + rows + '</ul>' +
+        '<span class="crt-mix__foot">' + (m.bowl ? '<span class="crt-mix__bowl">' + bowlIcon() + esc(m.bowl) + '</span>' : '<span></span>') +
+          '<span class="crt-mix__go">' + esc(tx('open')) + icon('arrowRight') + '</span></span>' +
+      '</span></a>';
   }
 
   function pageList(crumbs) {
@@ -160,7 +176,12 @@
           '</div>' +
           '<div class="rhero__stage crt-stage">' +
             (m.photo ? '<figure class="crt-photo"><img src="' + esc(V.creatorAsset(c, m.photo)) + '" alt="' + esc(m.name + ' packed in a ' + m.bowl + ', by ' + c.name) + '" width="1080" height="1428"></figure>' : '') +
-            '<div class="rbowl crt-bowl" data-bowl>' + bowlArt(m, 'crt-bowl__svg') + '</div>' +
+            '<div class="crt-inbowl">' +
+              '<div class="crt-inbowl__head"><div class="rbowl crt-bowl" data-bowl>' + bowlArt(m, 'crt-bowl__svg') + '</div>' +
+                '<div><p class="crt-inbowl__k">' + esc(tx('inBowl')) + '</p><p class="crt-inbowl__bowl">' + bowlIcon() + esc(m.bowl) + '</p></div></div>' +
+              splitBar(m, 'crt-split crt-split--lg') +
+              '<ul class="crt-inbowl__list" role="list">' + m.parts.map(function (p) { return '<li style="--sw:' + esc(p.color) + '"><b>' + p.pct + '%</b><span>' + esc(p.flavor) + '</span><small>' + esc(L(p.note) || p.brand) + '</small></li>'; }).join('') + '</ul>' +
+            '</div>' +
           '</div>' +
         '</div>' +
       '</section>' +
