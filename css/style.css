@@ -9003,3 +9003,6 @@ a.smx__card:hover { border-color: var(--c-line-strong); transform: translateY(-2
 .crt-profile > div { min-width: 0; container-type: inline-size; }
 .crt-profile .phero__title { font-size: min(clamp(2.8rem, 1.3rem + 5.6vw, 6.4rem), calc(100cqi / (var(--len, 8) * 0.95))); }
 .crt-recipe .rgrid .fsec__title { font-size: clamp(1.9rem, 1.2rem + 1.8vw, 2.8rem); overflow-wrap: anywhere; }
+a.crt-video__play { text-decoration: none; }
+.crt-video__lbl { display: inline-flex; align-items: center; justify-content: center; gap: 8px; }
+.crt-video__lbl .icon { width: 20px; height: 20px; }

@@ -330,7 +330,7 @@ function creatorLd(desc, lang, info) {
     keywords: ['hookah mix', 'shisha mix'].concat(m.parts.map((p) => p.brand + ' ' + p.flavor)).join(', ')
   };
   const code = /\/(?:reel|p)\/([A-Za-z0-9_-]+)/.exec(m.video || '');
-  if (code) o.video = { '@type': 'VideoObject', name: m.name + ' · ' + c.name, description: info.description, thumbnailUrl: abs(V.creatorAsset(c, m.photo)), embedUrl: 'https://www.instagram.com/reel/' + code[1] + '/embed/', url: m.video };
+  if (code && m.embed) o.video = { '@type': 'VideoObject', name: m.name + ' · ' + c.name, description: info.description, thumbnailUrl: abs(V.creatorAsset(c, m.photo)), embedUrl: 'https://www.instagram.com/reel/' + code[1] + '/embed/', url: m.video };
   return jsonLd(o);
 }
 
