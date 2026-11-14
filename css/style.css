@@ -9058,3 +9058,4 @@ a.crt-video__play { text-decoration: none; }
 .crt-inbowl__list li:first-child { border-top: 0; padding-top: 2px; }
 .crt-inbowl__list b { grid-row: auto; font-size: 1.15rem; }
 .crt-inbowl__list small { grid-column: auto; text-align: right; }
+.crt-mix__list li { grid-template-columns: 70px minmax(0, 1fr); }

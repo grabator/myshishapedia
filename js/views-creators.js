@@ -14,12 +14,12 @@
 
   var TX = {
     bs: {
-      nav: 'Kreatori', flavorsN: function (n) { return n + ' okusa'; }, open: 'Otvori recept', inBowl: 'U posudi', eyebrow: 'Kreatori', listTitle: 'Miksovi kreatora',
+      nav: 'Kreatori', flavorsN: function (n) { return n === 1 ? 'Jedan okus' : n + ' okusa'; }, open: 'Otvori recept', inBowl: 'U posudi', eyebrow: 'Kreatori', listTitle: 'Miksovi kreatora',
       listLead: 'Stvarni miksovi ljudi koji pune posude svaki dan: okusi, procenti, posuda i način punjenja, uz njihov video.',
       listMetaTitle: 'Miksovi za nargilu od kreatora · recepti sa procentima | MyShishapedia',
       listMetaDesc: 'Miksovi za nargilu od pravih kreatora: okusi i procenti, posuda, savjeti za punjenje i video. Isprobaj i prati kreatore na Instagramu.',
       mixes: function (n) { return n === 1 ? '1 miks' : n + ' miksova'; },
-      by: 'Miks od', follow: 'Prati na Instagramu', flavorsTitle: 'Okusi i procenti', bowl: 'Posuda', packTitle: 'Savjet za punjenje',
+      by: 'Miks od', byOne: 'Okus puni', follow: 'Prati na Instagramu', flavorsTitle: 'Okusi i procenti', bowl: 'Posuda', packTitle: 'Savjet za punjenje',
       aboutTitle: 'O miksu', words: 'Riječi kreatora', videoTitle: 'Pogledaj kako puni', play: 'Pogledaj video na Instagramu', playEmbed: 'Pusti video sa Instagrama',
       videoNote: 'Video se otvara na Instagramu kreatora.', videoNoteEmbed: 'Video se pušta sa Instagrama kreatora.', moreBy: 'Još miksova od', allCreators: 'Svi kreatori', card: 'Kartica miksa',
       cardNote: 'Slika miksa za story ili kraj videa.', download: 'Preuzmi karticu', inDb: 'u bazi', creatorMetaTitle: '{name} · miksovi za nargilu i savjeti za punjenje | MyShishapedia',
@@ -28,12 +28,12 @@
       join: 'Praviš miksove i snimaš ih? Javi nam se i dobij svoju stranicu na MyShishapediji.', joinCta: 'Javi se'
     },
     en: {
-      nav: 'Creators', flavorsN: function (n) { return n + ' flavors'; }, open: 'Open the recipe', inBowl: 'In the bowl', eyebrow: 'Creators', listTitle: 'Creator mixes',
+      nav: 'Creators', flavorsN: function (n) { return n === 1 ? 'Single flavor' : n + ' flavors'; }, open: 'Open the recipe', inBowl: 'In the bowl', eyebrow: 'Creators', listTitle: 'Creator mixes',
       listLead: 'Real mixes from people who pack bowls every day: flavors, percentages, bowl and packing, with their video.',
       listMetaTitle: 'Hookah mixes by creators · recipes with percentages | MyShishapedia',
       listMetaDesc: 'Hookah mixes from real creators: flavors and percentages, the bowl, packing tips and a video. Try them and follow the creators on Instagram.',
       mixes: function (n) { return n === 1 ? '1 mix' : n + ' mixes'; },
-      by: 'Mix by', follow: 'Follow on Instagram', flavorsTitle: 'Flavors and percentages', bowl: 'Bowl', packTitle: 'Packing tip',
+      by: 'Mix by', byOne: 'Packed by', follow: 'Follow on Instagram', flavorsTitle: 'Flavors and percentages', bowl: 'Bowl', packTitle: 'Packing tip',
       aboutTitle: 'About the mix', words: 'In the creator’s words', videoTitle: 'Watch how it’s packed', play: 'Watch the video on Instagram', playEmbed: 'Play the video from Instagram',
       videoNote: 'The video opens on the creator’s Instagram.', videoNoteEmbed: 'The video plays from the creator’s Instagram.', moreBy: 'More mixes by', allCreators: 'All creators', card: 'Mix card',
       cardNote: 'The mix as an image for a story or the end of a video.', download: 'Download the card', inDb: 'in our database', creatorMetaTitle: '{name} · hookah mixes and packing tips | MyShishapedia',
@@ -42,12 +42,12 @@
       join: 'Do you make mixes and film them? Get in touch and get your own page on MyShishapedia.', joinCta: 'Get in touch'
     },
     de: {
-      nav: 'Creator', flavorsN: function (n) { return n + ' Sorten'; }, open: 'Rezept öffnen', inBowl: 'Im Kopf', eyebrow: 'Creator', listTitle: 'Mixe von Creatorn',
+      nav: 'Creator', flavorsN: function (n) { return n === 1 ? 'Eine Sorte' : n + ' Sorten'; }, open: 'Rezept öffnen', inBowl: 'Im Kopf', eyebrow: 'Creator', listTitle: 'Mixe von Creatorn',
       listLead: 'Echte Mixe von Leuten, die jeden Tag Köpfe bauen: Sorten, Prozente, Kopf und Bautechnik, mit ihrem Video.',
       listMetaTitle: 'Shisha-Mixe von Creatorn · Rezepte mit Prozenten | MyShishapedia',
       listMetaDesc: 'Shisha-Mixe von echten Creatorn: Sorten und Prozente, Kopf, Tipps zum Bauen und ein Video. Ausprobieren und den Creatorn auf Instagram folgen.',
       mixes: function (n) { return n === 1 ? '1 Mix' : n + ' Mixe'; },
-      by: 'Mix von', follow: 'Auf Instagram folgen', flavorsTitle: 'Sorten und Prozente', bowl: 'Kopf', packTitle: 'Tipp zum Bauen',
+      by: 'Mix von', byOne: 'Gebaut von', follow: 'Auf Instagram folgen', flavorsTitle: 'Sorten und Prozente', bowl: 'Kopf', packTitle: 'Tipp zum Bauen',
       aboutTitle: 'Über den Mix', words: 'In den Worten des Creators', videoTitle: 'So wird er gebaut', play: 'Video auf Instagram ansehen', playEmbed: 'Video von Instagram abspielen',
       videoNote: 'Das Video öffnet sich auf dem Instagram des Creators.', videoNoteEmbed: 'Das Video läuft über das Instagram des Creators.', moreBy: 'Mehr Mixe von', allCreators: 'Alle Creator', card: 'Mix-Karte',
       cardNote: 'Der Mix als Bild für eine Story oder das Ende eines Videos.', download: 'Karte herunterladen', inDb: 'in unserer Datenbank', creatorMetaTitle: '{name} · Shisha-Mixe und Tipps zum Bauen | MyShishapedia',
@@ -80,6 +80,7 @@
   function bowlArt(m, cls) {
     var cx = 120, cy = 120, r = 92, a0 = -Math.PI / 2, out = '';
     m.parts.forEach(function (p) {
+      if (p.pct >= 100) { out += '<circle cx="120" cy="120" r="92" fill="' + esc(p.color) + '"/>'; return; }
       var a1 = a0 + (p.pct / 100) * Math.PI * 2, large = a1 - a0 > Math.PI ? 1 : 0;
       var x0 = cx + r * Math.cos(a0), y0 = cy + r * Math.sin(a0), x1 = cx + r * Math.cos(a1), y1 = cy + r * Math.sin(a1);
       out += '<path d="M' + cx + ' ' + cy + 'L' + x0.toFixed(1) + ' ' + y0.toFixed(1) + 'A' + r + ' ' + r + ' 0 ' + large + ' 1 ' + x1.toFixed(1) + ' ' + y1.toFixed(1) + 'Z" fill="' + esc(p.color) + '"/>';
@@ -116,7 +117,7 @@
         (m.photo ? '<img src="' + esc(V.creatorAsset(c, m.photo)) + '" alt="' + esc(m.name + ' · ' + c.name) + '" loading="lazy" width="1080" height="1428">' : bowlArt(m)) +
         '<span class="crt-mix__top">' + (c.logo ? '<img class="crt-mix__logo" src="' + esc(V.creatorAsset(c, c.logo)) + '" alt="" width="1200" height="666" loading="lazy">' : '<span></span>') +
           '<span class="crt-mix__tag">' + esc(tx('flavorsN')(m.parts.length)) + '</span></span>' +
-        '<span class="crt-mix__title"><span class="crt-mix__by">' + esc(tx('by')) + ' ' + esc(c.name) + '</span><b>' + esc(m.name) + '</b></span>' +
+        '<span class="crt-mix__title"><span class="crt-mix__by">' + esc(tx(m.parts.length === 1 ? 'byOne' : 'by')) + ' ' + esc(c.name) + '</span><b>' + esc(m.name) + '</b></span>' +
         bowlArt(m, 'crt-mix__donut') +
       '</span>' +
       '<span class="crt-mix__body">' + splitBar(m) +
@@ -166,7 +167,7 @@
       '<section class="rhero" aria-labelledby="crt-title">' + crumbs +
         '<div class="container rhero__inner">' +
           '<div class="rhero__copy">' +
-            '<p class="eyebrow anim-in" style="--i:0"><span class="eyebrow__dot" aria-hidden="true"></span>' + esc(tx('by')) + ' ' + esc(c.name) + '</p>' +
+            '<p class="eyebrow anim-in" style="--i:0"><span class="eyebrow__dot" aria-hidden="true"></span>' + esc(tx(m.parts.length === 1 ? 'byOne' : 'by')) + ' ' + esc(c.name) + '</p>' +
             '<h1 class="phero__title rhero__title anim-in" style="--i:1;--len:' + Math.max.apply(null, m.name.split(/\s+/).map(function (w) { return w.length; })) + '" id="crt-title" tabindex="-1">' + esc(m.name) + '</h1>' +
             '<p class="rhero__parts anim-in" style="--i:2">' + esc(V.creatorMixParts(m)) + '</p>' +
             '<p class="phero__lead anim-in" style="--i:3">' + esc(L(m.description)) + '</p>' +
