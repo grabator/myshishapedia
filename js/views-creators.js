@@ -20,8 +20,8 @@
       listMetaDesc: 'Miksovi za nargilu od pravih kreatora: okusi i procenti, posuda, savjeti za punjenje i video. Isprobaj i prati kreatore na Instagramu.',
       mixes: function (n) { return n === 1 ? '1 miks' : n + ' miksova'; },
       by: 'Miks od', follow: 'Prati na Instagramu', flavorsTitle: 'Okusi i procenti', bowl: 'Posuda', packTitle: 'Savjet za punjenje',
-      aboutTitle: 'O miksu', words: 'Riječi kreatora', videoTitle: 'Pogledaj kako puni', play: 'Pusti video sa Instagrama',
-      videoNote: 'Video se pušta sa Instagrama kreatora.', moreBy: 'Još miksova od', allCreators: 'Svi kreatori', card: 'Kartica miksa',
+      aboutTitle: 'O miksu', words: 'Riječi kreatora', videoTitle: 'Pogledaj kako puni', play: 'Pogledaj video na Instagramu', playEmbed: 'Pusti video sa Instagrama',
+      videoNote: 'Video se otvara na Instagramu kreatora.', videoNoteEmbed: 'Video se pušta sa Instagrama kreatora.', moreBy: 'Još miksova od', allCreators: 'Svi kreatori', card: 'Kartica miksa',
       cardNote: 'Slika miksa za story ili kraj videa.', download: 'Preuzmi karticu', inDb: 'u bazi', creatorMetaTitle: '{name} · miksovi za nargilu i savjeti za punjenje | MyShishapedia',
       creatorMetaDesc: 'Miksovi za nargilu od {name} ({country}): okusi sa procentima, posuda, savjeti za punjenje i video sa Instagrama.',
       mixMetaTitle: '{mix}: miks za nargilu od {name} | MyShishapedia', mixMetaDesc: '{mix} od {name}: {parts}. Okusi, savjet za punjenje i video.',
@@ -34,8 +34,8 @@
       listMetaDesc: 'Hookah mixes from real creators: flavors and percentages, the bowl, packing tips and a video. Try them and follow the creators on Instagram.',
       mixes: function (n) { return n === 1 ? '1 mix' : n + ' mixes'; },
       by: 'Mix by', follow: 'Follow on Instagram', flavorsTitle: 'Flavors and percentages', bowl: 'Bowl', packTitle: 'Packing tip',
-      aboutTitle: 'About the mix', words: 'In the creator’s words', videoTitle: 'Watch how it’s packed', play: 'Play the video from Instagram',
-      videoNote: 'The video plays from the creator’s Instagram.', moreBy: 'More mixes by', allCreators: 'All creators', card: 'Mix card',
+      aboutTitle: 'About the mix', words: 'In the creator’s words', videoTitle: 'Watch how it’s packed', play: 'Watch the video on Instagram', playEmbed: 'Play the video from Instagram',
+      videoNote: 'The video opens on the creator’s Instagram.', videoNoteEmbed: 'The video plays from the creator’s Instagram.', moreBy: 'More mixes by', allCreators: 'All creators', card: 'Mix card',
       cardNote: 'The mix as an image for a story or the end of a video.', download: 'Download the card', inDb: 'in our database', creatorMetaTitle: '{name} · hookah mixes and packing tips | MyShishapedia',
       creatorMetaDesc: 'Hookah mixes by {name} ({country}): flavors with percentages, the bowl, packing tips and the video from Instagram.',
       mixMetaTitle: '{mix}: hookah mix by {name} | MyShishapedia', mixMetaDesc: '{mix} by {name}: {parts}. Flavors, packing tip and video.',
@@ -48,8 +48,8 @@
       listMetaDesc: 'Shisha-Mixe von echten Creatorn: Sorten und Prozente, Kopf, Tipps zum Bauen und ein Video. Ausprobieren und den Creatorn auf Instagram folgen.',
       mixes: function (n) { return n === 1 ? '1 Mix' : n + ' Mixe'; },
       by: 'Mix von', follow: 'Auf Instagram folgen', flavorsTitle: 'Sorten und Prozente', bowl: 'Kopf', packTitle: 'Tipp zum Bauen',
-      aboutTitle: 'Über den Mix', words: 'In den Worten des Creators', videoTitle: 'So wird er gebaut', play: 'Video von Instagram abspielen',
-      videoNote: 'Das Video läuft über das Instagram des Creators.', moreBy: 'Mehr Mixe von', allCreators: 'Alle Creator', card: 'Mix-Karte',
+      aboutTitle: 'Über den Mix', words: 'In den Worten des Creators', videoTitle: 'So wird er gebaut', play: 'Video auf Instagram ansehen', playEmbed: 'Video von Instagram abspielen',
+      videoNote: 'Das Video öffnet sich auf dem Instagram des Creators.', videoNoteEmbed: 'Das Video läuft über das Instagram des Creators.', moreBy: 'Mehr Mixe von', allCreators: 'Alle Creator', card: 'Mix-Karte',
       cardNote: 'Der Mix als Bild für eine Story oder das Ende eines Videos.', download: 'Karte herunterladen', inDb: 'in unserer Datenbank', creatorMetaTitle: '{name} · Shisha-Mixe und Tipps zum Bauen | MyShishapedia',
       creatorMetaDesc: 'Shisha-Mixe von {name} ({country}): Sorten mit Prozenten, Kopf, Tipps zum Bauen und das Video von Instagram.',
       mixMetaTitle: '{mix}: Shisha-Mix von {name} | MyShishapedia', mixMetaDesc: '{mix} von {name}: {parts}. Sorten, Tipp zum Bauen und Video.',
@@ -73,6 +73,7 @@
   function partFlavor(p) { return p.ref && V.flavorById ? V.flavorById(p.ref) : null; }
   V.creatorMixParts = function (m) { return m.parts.map(function (p) { return p.pct + '% ' + p.brand + ' ' + p.flavor; }).join(', '); };
   function igUrl(c) { return 'https://www.instagram.com/' + encodeURIComponent(c.instagram) + '/'; }
+  function reelUrl(code) { return 'https://www.instagram.com/reel/' + code + '/'; }
   function reelCode(u) { var x = /instagram\.com\/(?:[^/]+\/)?(?:reel|p)\/([A-Za-z0-9_-]+)/.exec(u || ''); return x ? x[1] : ''; }
 
   /** Pogled odozgo na posudu sa sektorima u bojama okusa. */
@@ -172,12 +173,12 @@
       '</div></section>' +
       (code ? '<section class="fsec fsec--alt" id="crt-video" aria-labelledby="crt-video-t"><div class="container crt-videowrap">' +
         V.sectionHead('03', tx('videoTitle'), '', 'crt-video-t') +
-        '<div class="crt-video" data-reel="' + esc(code) + '">' +
-          '<button type="button" class="crt-video__play" data-play aria-label="' + esc(tx('play')) + '">' +
+        '<div class="crt-video"' + (m.embed ? ' data-reel="' + esc(code) + '"' : '') + '>' +
+          (m.embed ? '<button type="button" class="crt-video__play" data-play aria-label="' + esc(tx('playEmbed')) + '">' : '<a class="crt-video__play" href="' + esc(reelUrl(code)) + '" target="_blank" rel="noopener">') +
             (m.photo ? '<img src="' + esc(V.creatorAsset(c, m.photo)) + '" alt="" loading="lazy" width="1080" height="1428">' : '') +
-            '<span class="crt-video__btn" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg></span><span class="crt-video__lbl">' + esc(tx('play')) + '</span></button>' +
+            '<span class="crt-video__btn" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg></span><span class="crt-video__lbl">' + (m.embed ? esc(tx('playEmbed')) + '</span></button>' : igIcon() + esc(tx('play')) + '</span></a>') +
         '</div>' +
-        '<p class="crt-video__note">' + igIcon() + '<span>' + esc(tx('videoNote')) + ' <a href="' + esc(m.video) + '" target="_blank" rel="noopener">@' + esc(c.instagram) + '</a></span></p>' +
+        '<p class="crt-video__note">' + igIcon() + '<span>' + esc(tx(m.embed ? 'videoNoteEmbed' : 'videoNote')) + ' <a href="' + esc(igUrl(c)) + '" target="_blank" rel="noopener">@' + esc(c.instagram) + '</a></span></p>' +
       '</div></section>' : '') +
       (m.card ? '<section class="fsec" aria-labelledby="crt-card-t"><div class="container crt-cardrow">' +
         '<div>' + V.sectionHead(code ? '04' : '03', tx('card'), '', 'crt-card-t') + '<p class="crt-card__note">' + esc(tx('cardNote')) + '</p><a class="btn btn--ghost" href="' + esc(V.creatorAsset(c, m.card)) + '" download>' + icon('download') + '<span>' + esc(tx('download')) + '</span></a></div>' +

@@ -21,7 +21,8 @@
  *   bowl            posuda (tekst)
  *   packing         { en } savjet za punjenje
  *   description     { en } kreatorove riječi o miksu
- *   video           link na Instagram reel (ugrađuje se, pregledi idu kreatoru)
+ *   video           link na Instagram reel; dugme otvara reel na Instagramu (pregledi idu kreatoru)
+ *   embed           true = video se pušta na stranici (samo ako kreator dozvoli ugrađivanje na Instagramu)
  *   photo           slika gotovog bowla u static/creators/<creator>/
  *   card            kartica miksa (JPG 1080x1920, pravi je scripts/creator-cards.mjs)
  *   added           datum objave (YYYY-MM-DD)
@@ -52,7 +53,7 @@ window.CREATOR_MIXES = [
     bowl: 'Kaloud Samsaris Vitria II',
     packing: { en: 'Wave mix packing tip: pack your blonde leaf slightly lower than your dark leaf. Dark leaf handles more heat, and the different heights create a wave look from the side.' },
     description: { en: 'Sweet and nice fruit mix.' },
-    video: 'https://www.instagram.com/shishaliciousdenmark/reel/DfX1TWhx0LZ/',
+    video: 'https://www.instagram.com/reel/DfX1TWhx0LZ/',
     photo: 'wavey-fruity-mix.jpg',
     card: 'wavey-fruity-mix-card.jpg',
     added: '2026-11-13'
