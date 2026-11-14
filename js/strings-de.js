@@ -447,7 +447,7 @@
     },
     "flavorsPage": {
       "eyebrow": "Geschmäcker",
-      "title": "Alle Shisha-Geschmäcker",
+      "title": "Shisha-Geschmäcker: die Liste",
       "lead": "Durchsuche, filtere und sortiere alle Shisha-Geschmäcker der Enzyklopädie, von den Klassikern bis zu Ice- und Dessert-Sorten.",
       "groupsEyebrow": "Nach Art",
       "groupsTitle": "Shisha-Geschmäcker nach Art",
