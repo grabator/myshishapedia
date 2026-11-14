@@ -33,6 +33,7 @@ const font = (f) => dataUrl(path.join(ROOT, 'static/fonts', f)).replace('image/w
 function bowl(parts) {
   let a0 = -Math.PI / 2, out = '';
   for (const p of parts) {
+    if (p.pct >= 100) { out += `<circle cx="120" cy="120" r="92" fill="${p.color}"/>`; continue; }
     const a1 = a0 + (p.pct / 100) * Math.PI * 2, large = a1 - a0 > Math.PI ? 1 : 0, r = 92;
     out += `<path d="M120 120L${(120 + r * Math.cos(a0)).toFixed(1)} ${(120 + r * Math.sin(a0)).toFixed(1)}A${r} ${r} 0 ${large} 1 ${(120 + r * Math.cos(a1)).toFixed(1)} ${(120 + r * Math.sin(a1)).toFixed(1)}Z" fill="${p.color}"/>`;
     a0 = a1;
@@ -93,12 +94,12 @@ h1{font-family:Syne,sans-serif;font-weight:800;font-size:88px;line-height:.98;le
 </style></head><body>
 <div class="wrap">
   <div class="frame"><div class="ph"></div>
-    <div class="top">${c.logo ? `<img class="logo" src="${dataUrl(path.join(dir, c.logo))}">` : '<span></span>'}<span class="tag">Hookah mix</span></div>
+    <div class="top">${c.logo ? `<img class="logo" src="${dataUrl(path.join(dir, c.logo))}">` : '<span></span>'}<span class="tag">${m.parts.length === 1 ? 'Single flavor' : 'Hookah mix'}</span></div>
   </div>
   <div class="bowl">${bowl(m.parts)}</div>
-  <div class="head"><p class="by">Mix by ${esc(c.name)}</p><h1>${esc(m.name)}</h1></div>
+  <div class="head"><p class="by">${m.parts.length === 1 ? 'Packed by' : 'Mix by'} ${esc(c.name)}</p><h1>${esc(m.name)}</h1></div>
   <div class="mixbar">${bar}</div>
-  <div class="tiles">${tiles}</div>
+  <div class="tiles"${m.parts.length === 1 ? ' style="grid-template-columns:1fr"' : ''}>${tiles}</div>
   <div class="chips">
     ${m.bowl ? `<span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 9h16l-2 8a3 3 0 0 1-3 2H9a3 3 0 0 1-3-2z"/><path d="M8 9V6M12 9V4M16 9V6"/></svg>Bowl <b>${esc(m.bowl)}</b></span>` : ''}
     ${m.packing ? `<span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 15c3 0 3-4 6-4s3 4 6 4 3-4 6-4"/><path d="M3 20c3 0 3-4 6-4s3 4 6 4 3-4 6-4"/></svg>Packing tip on the site</span>` : ''}
