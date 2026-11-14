@@ -127,6 +127,10 @@
       '</span></a>';
   }
 
+  V.creatorMixCard = mixCard;
+  V.creatorsNavLabel = function () { return tx('listTitle'); };
+  V.creatorsAllLabel = function () { return tx('allCreators'); };
+
   function pageList(crumbs) {
     var cards = V.creatorMixes().slice().sort(function (a, b) { return String(b.added).localeCompare(String(a.added)); }).map(mixCard).join('');
     return '<section class="phero crt-hero" aria-labelledby="crt-title">' + crumbs +

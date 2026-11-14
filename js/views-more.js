@@ -473,9 +473,62 @@
         '<div class="empty" id="mix-empty" hidden><p class="empty__title">' + esc(t('mixes.empty')) + '</p>' +
           '<button type="button" class="btn btn--ghost" id="mix-reset">' + esc(t('mixes.reset')) + '</button></div>' +
         '<p class="mix__note" role="note">' + icon('alert') + '<span>' + esc(t('mixes.note')) + '</span></p>' +
-      '</div></section>'
+      '</div></section>' +
+      mixesCreators() +
+      V.faqSection(MIXES_FAQ, 'mixes-faq')
     );
   }
+
+  // miksovi kreatora ispod recepata (samo u buildu, gdje je učitan views-creators.js)
+  function mixesCreators() {
+    if (!V.creatorMixes || !V.creatorMixCard || !V.creatorMixes().length) return '';
+    var list = V.creatorMixes().slice().sort(function (a, b) { return String(b.added).localeCompare(String(a.added)); }).slice(0, 3);
+    return '<section class="fsec fsec--alt" aria-labelledby="mixes-creators"><div class="container">' +
+      V.sectionHead('', V.creatorsNavLabel(), L(MIXES_CREATORS_INTRO), 'mixes-creators') +
+      '<div class="crt-grid">' + list.map(V.creatorMixCard).join('') + '</div>' +
+      '<p class="crt-back"><a href="' + V.url('creators') + '">' + esc(V.creatorsAllLabel()) + icon('arrowRight') + '</a></p>' +
+    '</div></section>';
+  }
+  var MIXES_CREATORS_INTRO = {
+    bs: 'Miksovi koje su napravili i snimili kreatori: okusi sa procentima, posuda, savjet za punjenje i njihov video.',
+    en: 'Mixes packed and filmed by creators: flavors with percentages, the bowl, a packing tip and their video.',
+    de: 'Mixe, die Creator gebaut und gefilmt haben: Sorten mit Prozenten, Kopf, Tipp zum Bauen und ihr Video.'
+  };
+  // pitanja na stranici recepata (i FAQPage za Google)
+  var MIXES_FAQ = [
+    {
+      q: { bs: 'Koje su najbolje kombinacije okusa za nargilu?', en: 'What are the best hookah flavor combinations?', de: 'Welche Shisha-Geschmackskombinationen sind die besten?' },
+      a: {
+        bs: 'Klasici koji skoro uvijek rade su voće sa mentom (jabuka, lubenica, grožđe ili limun sa mentom), dva slična voća zajedno (npr. jagoda i malina) i voće sa malo leda. Za prvi miks uzmi dva okusa koja voliš i kreni od jednog od recepata iznad.',
+        en: 'Classics that almost always work are fruit with mint (apple, watermelon, grape or lemon with mint), two similar fruits together (for example strawberry and raspberry) and fruit with a little ice. For your first mix, pick two flavors you like and start from one of the recipes above.',
+        de: 'Klassiker, die fast immer funktionieren, sind Frucht mit Minze (Apfel, Wassermelone, Traube oder Zitrone mit Minze), zwei ähnliche Früchte zusammen (zum Beispiel Erdbeere und Himbeere) und Frucht mit etwas Ice. Für deinen ersten Mix nimm zwei Sorten, die du magst, und starte mit einem der Rezepte oben.'
+      }
+    },
+    {
+      q: { bs: 'U kojem omjeru miješati okuse za nargilu?', en: 'What ratio should I use for a hookah mix?', de: 'In welchem Verhältnis mischt man Shisha-Tabak?' },
+      a: {
+        bs: '50/50 je dobar početak kad su oba okusa podjednako jaka. Kad je jedan okus jak (menta, led, citrus, anis), stavi ga manje, 20 do 30 posto, da ne prekrije drugi. Svaki recept iznad ima tačan omjer.',
+        en: '50/50 is a good start when both flavors are about equally strong. When one flavor is strong (mint, ice, citrus, anise), use less of it, around 20 to 30 percent, so it does not cover the other. Every recipe above lists the exact ratio.',
+        de: '50/50 ist ein guter Start, wenn beide Sorten etwa gleich stark sind. Wenn eine Sorte stark ist (Minze, Ice, Zitrus, Anis), nimm weniger davon, etwa 20 bis 30 Prozent, damit sie die andere nicht überdeckt. Jedes Rezept oben nennt das genaue Verhältnis.'
+      }
+    },
+    {
+      q: { bs: 'Kako napuniti posudu sa miksom?', en: 'How do you pack a bowl with a mix?', de: 'Wie baut man einen Kopf mit einem Mix?' },
+      a: {
+        bs: 'Ako želiš jedan ujednačen okus, prvo rukom izmiješaj duhan, pa ga rahlo stavi u posudu. Ako želiš da se okusi smjenjuju, puni ih u dijelove ili slojeve. U oba slučaja ne pritiskaj duhan i ne puni iznad ruba.',
+        en: 'If you want one even flavor, mix the tobacco by hand first, then sprinkle it loosely into the bowl. If you want the flavors to take turns, pack them in sections or layers. Either way, do not press the tobacco down and do not fill above the rim.',
+        de: 'Wenn du einen gleichmäßigen Geschmack willst, misch den Tabak zuerst mit der Hand und streu ihn dann locker in den Kopf. Wenn sich die Sorten abwechseln sollen, bau sie in Abschnitten oder Schichten. In beiden Fällen den Tabak nicht andrücken und nicht über den Rand füllen.'
+      }
+    },
+    {
+      q: { bs: 'Mogu li miješati okuse različitih brendova?', en: 'Can I mix flavors from different brands?', de: 'Kann man Sorten verschiedener Marken mischen?' },
+      a: {
+        bs: 'Možeš. Pazi samo na vrstu lista: svijetli list (npr. Al Fakher, Adalya) i tamni list (npr. Darkside, Tangiers) različito podnose toplotu. Kad ih miješaš, tamni list stavi tamo gdje dolazi više toplote, a svijetli malo niže.',
+        en: 'Yes. Just watch the type of leaf: blonde leaf (for example Al Fakher, Adalya) and dark leaf (for example Darkside, Tangiers) handle heat differently. When you mix them, put the dark leaf where more heat hits and the blonde leaf a little lower.',
+        de: 'Ja. Achte nur auf die Blattart: heller Tabak (zum Beispiel Al Fakher, Adalya) und dunkler Tabak (zum Beispiel Darkside, Tangiers) vertragen Hitze unterschiedlich. Beim Mischen kommt der dunkle Tabak dorthin, wo mehr Hitze ankommt, und der helle etwas tiefer.'
+      }
+    }
+  ];
 
   function pageRecipe(m, crumbs) {
     var fl = V.recipeFlavors(m);

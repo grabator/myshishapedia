@@ -1718,7 +1718,7 @@
 
       flavorsPage: {
         eyebrow: 'Flavors',
-        title: 'All hookah flavors',
+        title: 'Hookah flavors list',
         lead: 'Search, filter and sort every hookah flavor in the encyclopedia, from the classics to icy and dessert shisha flavors.',
         groupsEyebrow: 'By type',
         groupsTitle: 'Hookah flavors by type',
