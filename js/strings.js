@@ -2610,7 +2610,10 @@
   MSP.strings = STRINGS;
   MSP.LANGS = ['bs', 'en', 'de'];
   /** Kratki naziv jezika u prekidaču: bosanska verzija je zajednička za BiH, Hrvatsku i Srbiju. */
-  MSP.LANG_SHORT = { bs: 'BHS', en: 'EN', de: 'DE' };
+  MSP.LANG_SHORT = { bs: 'BHS', en: 'EN', de: 'DE', ru: 'RU' };
+  // ime jezika na samom tom jeziku (izbornik jezika) i kratak opis ispod
+  MSP.LANG_NAME = { bs: 'Bosanski', en: 'English', de: 'Deutsch', ru: 'Русский' };
+  MSP.LANG_SUB = { bs: 'Hrvatski · Srpski', en: 'International', de: 'Deutschland · Österreich', ru: 'Россия · СНГ' };
   if (!MSP.lang) MSP.lang = 'bs';
 
   function lookup(path, lang) {

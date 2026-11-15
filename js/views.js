@@ -811,18 +811,35 @@
     );
   }
 
-  function langSwitch(desc, cls) {
-    var other = MSP.lang === 'bs' ? 'en' : 'bs';
+  /**
+   * Izbornik jezika. U headeru je padajući (details/summary, radi i bez JavaScripta),
+   * u meniju su svi jezici kao kartice. Linkovi imaju klasu lang__opt (app.js pamti izbor).
+   */
+  function langOptions(desc) {
     var alt = desc.alternates || {};
+    return MSP.LANGS.map(function (l) {
+      var cur = l === MSP.lang;
+      return '<li><a class="lang__opt langdd__opt" href="' + esc(alt[l] || V.urlFor(l, 'home')) + '" hreflang="' + l + '" lang="' + l + '" data-lang="' + l + '"' +
+        (cur ? ' aria-current="true"' : '') + '>' +
+        '<span class="langdd__code" aria-hidden="true">' + esc(MSP.LANG_SHORT[l] || l.toUpperCase()) + '</span>' +
+        '<span class="langdd__txt"><b>' + esc(MSP.LANG_NAME[l] || l) + '</b><small>' + esc(MSP.LANG_SUB[l] || '') + '</small></span>' +
+        '<span class="langdd__check" aria-hidden="true">' + icon('check') + '</span></a></li>';
+    }).join('');
+  }
+  function langSwitch(desc, cls) {
+    if (cls === 'lang--menu') {
+      return '<div class="langgrid" role="group" aria-label="' + esc(t('a11y.langSwitch')) + '"><ul class="langgrid__list" role="list">' + langOptions(desc) + '</ul></div>';
+    }
     return (
-      '<div class="lang ' + (cls || '') + '" role="group" aria-label="' + esc(t('a11y.langSwitch')) + '">' +
-        MSP.LANGS.map(function (l) {
-          var cur = l === MSP.lang;
-          return '<a class="lang__opt" href="' + esc(alt[l] || V.urlFor(l, 'home')) + '" hreflang="' + l + '" lang="' + l + '" data-lang="' + l + '"' +
-            (cur ? ' aria-current="true"' : ' aria-label="' + esc(t('a11y.langOther')) + '"') + '>' + (MSP.LANG_SHORT[l] || l.toUpperCase()) + '</a>';
-        }).join('') +
-        '<span class="lang__thumb" aria-hidden="true" data-other="' + other + '"></span>' +
-      '</div>'
+      '<details class="langdd ' + (cls || '') + '">' +
+        '<summary class="langdd__btn" aria-label="' + esc(t('a11y.langSwitch') + ': ' + (MSP.LANG_NAME[MSP.lang] || MSP.lang)) + '">' +
+          icon('globe', 'langdd__globe') + '<span class="langdd__cur">' + esc(MSP.LANG_SHORT[MSP.lang] || MSP.lang.toUpperCase()) + '</span>' + icon('chevronDown', 'langdd__chev') +
+        '</summary>' +
+        '<div class="langdd__panel">' +
+          '<p class="langdd__title">' + icon('globe') + '<span>' + esc(t('a11y.langSwitch')) + '</span></p>' +
+          '<ul class="langdd__list" role="list">' + langOptions(desc) + '</ul>' +
+        '</div>' +
+      '</details>'
     );
   }
 
