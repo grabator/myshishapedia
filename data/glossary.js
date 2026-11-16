@@ -65,11 +65,13 @@ window.GLOSSARY = [
     text: {
       bs: [
         'Phunnel posuda umjesto više rupica na dnu ima jedan otvor na uzdignutom "tornjiću" u sredini. Duhan se slaže oko njega.',
-        'Pošto sok ostaje u posudi, okus traje duže i manje je šanse da duhan brzo izgori. Zato je vrlo popularna.'
+        'Pošto sok ostaje u posudi, okus traje duže i manje je šanse da duhan brzo izgori. Zato je vrlo popularna.',
+        'Kako napuniti phunnel: rastresi duhan oko tornjića, ne pritišći ga i pazi da vrh tornjića i otvor ostanu slobodni. Ostavi 1-2 mm mjesta ispod folije ili HMD-a, da duhan ne dodiruje toplotu direktno.'
       ],
       en: [
         'Instead of several holes in the floor, a phunnel bowl has one opening on a raised spire in the middle. The tobacco is packed around it.',
-        'Because the juice stays in the bowl, the flavor lasts longer and the tobacco is less likely to burn quickly. That is why it is so popular.'
+        'Because the juice stays in the bowl, the flavor lasts longer and the tobacco is less likely to burn quickly. That is why it is so popular.',
+        'How to pack a phunnel: sprinkle the tobacco loosely around the spire, do not press it down, and keep the top of the spire and the hole clear. Leave 1-2 mm of space under the foil or HMD so the tobacco does not touch the heat directly.'
       ]
     },
     icon: 'phunnel', guide: 4, gear: 'bowls', related: ['klasicna-posuda', 'vortex', 'melasa']

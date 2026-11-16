@@ -57,5 +57,21 @@ window.CREATOR_MIXES = [
     photo: 'wavey-fruity-mix.jpg',
     card: 'wavey-fruity-mix-card.jpg',
     added: '2026-11-13'
+  },
+  {
+    id: 'shishalicious-perfekt',
+    creator: 'shishalicious',
+    slug: 'perfekt-mix',
+    name: 'Perfekt Mix',
+    parts: [
+      { brand: 'Al Waha', flavor: 'Traube Minze', ref: 'al-waha-grape-mint', pct: 60, color: '#7b4fa8', note: { bs: 'grožđe i menta', en: 'grape and mint', de: 'Traube und Minze', ru: 'виноград и мята' } },
+      { brand: 'Darkside', flavor: 'Beach Shake', pct: 20, color: '#3fb6c9' },
+      { brand: 'Blackburn', flavor: 'Etalon MLN', pct: 20, color: '#e3b23c', note: { bs: 'dinja', en: 'melon', de: 'Melone', ru: 'дыня' } }
+    ],
+    bowl: 'Kaloud Samsaris Vitria II',
+    packing: { en: 'Layer pack: I pack the blonde leaf in the bottom and the dark leaf on top, because dark leaf is more heat resistant than blonde. I let the coals sit for 8-10 minutes before I start smoking, so a crisp forms on top. That protects the tobacco underneath, and you get a much better session.' },
+    description: { en: 'Perfekt mix.' },
+    video: 'https://www.instagram.com/reel/DfNnZfixRMs/',
+    added: '2026-11-16'
   }
 ];

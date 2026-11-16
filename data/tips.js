@@ -278,6 +278,46 @@ window.TIPS = {
         { label: { bs: 'Soda bikarbona', en: 'Baking soda' }, value: { bs: '1 kašika', en: '1 spoonful' } }
       ],
       more: [{ guide: 9 }, { term: 'crijevo' }, { term: 'sesija' }]
+    },
+    {
+      id: 'cuvanje',
+      icon: 'store',
+      title: { bs: 'Čuvanje duhana', en: 'Storing shisha tobacco' },
+      lead: {
+        bs: 'Duhan za nargilu je vlažan zbog [[melasa|melase]] i [[glicerin|glicerina]]. Ako se osuši, daje manje dima i slabiji okus.',
+        en: 'Shisha tobacco is moist because of the [[melasa|molasses]] and [[glicerin|glycerin]]. If it dries out, it gives less smoke and a weaker flavor.'
+      },
+      tips: [
+        {
+          title: { bs: 'Dobro zatvoreno', en: 'Keep it sealed' },
+          text: {
+            bs: 'Poslije punjenja odmah zatvori pakovanje ili prespi duhan u staklenku sa poklopcem koji dobro dihtuje. Vazduh isušuje duhan i ispire okus.',
+            en: 'Close the tub right after packing, or move the tobacco into a jar with a tight lid. Air dries the tobacco and fades the flavor.'
+          }
+        },
+        {
+          title: { bs: 'Hladno i tamno', en: 'Cool and dark' },
+          text: {
+            bs: 'Drži duhan na sobnoj temperaturi ili hladnije, dalje od sunca i radijatora. Toplota i svjetlo brže isušuju duhan i mijenjaju okus.',
+            en: 'Keep the tobacco at room temperature or cooler, away from sunlight and radiators. Heat and light dry it out faster and change the flavor.'
+          }
+        },
+        {
+          title: { bs: 'Svaki okus posebno', en: 'Each flavor on its own' },
+          text: {
+            bs: 'Ne drži otvorene okuse zajedno u jednoj kutiji bez poklopca. Mentol i jaki okusi lako prelaze na ostale.',
+            en: 'Do not keep open flavors together in one box without lids. Menthol and strong flavors easily rub off on the others.'
+          }
+        },
+        {
+          title: { bs: 'Promiješaj prije punjenja', en: 'Stir before packing' },
+          text: {
+            bs: 'Sok se vremenom slegne na dno. Promiješaj duhan prije svakog punjenja, da i vrh pakovanja bude vlažan.',
+            en: 'The juice settles at the bottom over time. Stir the tobacco before every bowl so the top of the tub stays moist too.'
+          }
+        }
+      ],
+      more: [{ term: 'melasa' }, { term: 'glicerin' }]
     }
   ]
 };

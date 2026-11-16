@@ -549,10 +549,10 @@ window.ARTICLES = [
     published: '2026-11-05',
     eyebrow: { bs: 'Zakon', en: 'Law' },
     title: { bs: 'Da li je nargila legalna?', en: 'Is hookah legal?' },
-    metaTitle: { bs: 'Da li je nargila legalna: godine, pušenje u lokalima i pravila', en: 'Is hookah legal? Age limits, indoor smoking and the rules' },
+    metaTitle: { bs: 'Od koliko godina je nargila dozvoljena? Godine, zakoni i pušenje u lokalima', en: 'How old do you have to be to smoke hookah? Age limits and laws' },
     metaDescription: {
-      bs: 'Da li je nargila legalna, od koliko godina se smije kupiti duhan za nargilu i šta važi za pušenje u lokalima. Opšti pregled, provjeri lokalne propise.',
-      en: 'Is hookah legal, how old you have to be to buy shisha tobacco, and what applies to smoking indoors. A general overview, check your local rules.'
+      bs: 'Od koliko godina se smije pušiti nargila i kupiti duhan (18 u većini Evrope, 21 u SAD-u) i šta važi za pušenje u lokalima. Opšti pregled.',
+      en: 'How old you have to be to smoke hookah or buy shisha tobacco (18 in most of Europe, 21 in the US) and the rules for smoking indoors. A general overview.'
     },
     lead: {
       bs: 'Ukratko: u većini zemalja nargila je legalna za punoljetne, ali pravila o godinama i pušenju u zatvorenim prostorima se razlikuju od zemlje do zemlje.',
@@ -617,6 +617,10 @@ window.ARTICLES = [
       {
         q: { bs: 'Od koliko godina se smije kupiti duhan za nargilu?', en: 'How old do you have to be to buy shisha tobacco?' },
         a: { bs: 'U većini evropskih zemalja od 18 godina, a u nekim zemljama, kao u SAD-u, od 21.', en: 'In most European countries from 18, and in some countries, like the United States, from 21.' }
+      },
+      {
+        q: { bs: 'Od koliko godina se smije pušiti nargila u lokalu?', en: 'How old do you have to be to smoke hookah in a lounge?' },
+        a: { bs: 'Za lokale važi ista starosna granica kao za duhan: u većini evropskih zemalja 18 godina, a u SAD-u 21.', en: 'Lounges follow the same age limit as tobacco: 18 in most European countries and 21 in the US.' }
       },
       {
         q: { bs: 'Da li je nargila bez duhana legalna?', en: 'Is tobacco-free hookah legal?' },
