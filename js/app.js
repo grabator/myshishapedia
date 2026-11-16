@@ -955,6 +955,8 @@
   }
 
   function onDocClick(e) {
+    // izbornik jezika: klik van njega ga zatvori
+    Array.prototype.forEach.call(document.querySelectorAll('details.langdd[open]'), function (d) { if (!d.contains(e.target)) d.open = false; });
     if (onLangClick(e)) return;
     var a = e.target.closest('a[href]');
     var url = isInternalNav(a, e);
@@ -1041,6 +1043,12 @@
       if (e.persisted) FX.veilReset();
     });
 
+    // Escape zatvori izbornik jezika i vrati fokus na dugme
+    document.addEventListener('keydown', function (e) {
+      if (e.key !== 'Escape') return;
+      var d = document.querySelector('details.langdd[open]');
+      if (d) { d.open = false; var s = d.querySelector('summary'); if (s) s.focus(); }
+    });
     document.addEventListener('keydown', function (e) {
       if (e.key !== '/' || e.ctrlKey || e.metaKey || e.altKey) return;
       var tag = (e.target && e.target.tagName) || '';

@@ -612,7 +612,7 @@
       return (
         '<li class="hx-work' + (a.img ? ' hx-work--img' : '') + '" data-reveal style="--i:' + (i % 3) + '">' +
           (a.img ? '<img class="hx-work__img" src="/history/slike/' + a.img.f + '.webp" width="' + a.img.w + '" height="' + a.img.h + '" alt="' + esc(L(a.title) + ', ' + who) + '" loading="lazy" decoding="async">' : '') +
-          '<p class="hx-work__meta"><span>' + esc(L(a.kind)) + '</span>' + (a.noYear ? '' : '<time datetime="' + a.year + '">' + (a.id === 'plemic' ? ({ bs: 'oko ', de: 'um ' }[MSP.lang] || 'c. ') : '') + a.year + '</time>') + '</p>' +
+          '<p class="hx-work__meta"><span>' + esc(L(a.kind)) + '</span>' + (a.noYear ? '' : '<time datetime="' + a.year + '">' + (a.id === 'plemic' ? ({ bs: 'oko ', de: 'um ', ru: 'ок. ' }[MSP.lang] || 'c. ') : '') + a.year + '</time>') + '</p>' +
           '<h3 class="hx-work__t">' + esc(L(a.title)) + '</h3>' +
           '<p class="hx-work__who">' + esc(who) + '</p>' +
           '<p class="hx-work__d">' + esc(L(a.t)) + sup(a.src) + '</p>' +

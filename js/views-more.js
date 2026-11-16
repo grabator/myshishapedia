@@ -67,7 +67,7 @@
   /** Česta pitanja o kolekciji, iz podataka (koji okusi su u njoj i koji probati prvo). */
   function collectionFaq(c, members) {
     if (!members || !members.length) return [];
-    var one = function (s) { return { bs: s, en: s }; };
+    var one = function (s) { var o = { bs: s, en: s }; o[MSP.lang] = s; return o; };
     var name = L(c.title);
     var names = members.slice(0, 4).map(function (f) { return f.brand + ' ' + f.name; });
     var and = MSP.and();

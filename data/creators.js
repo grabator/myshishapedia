@@ -32,7 +32,7 @@ window.CREATORS = [
     id: 'shishalicious',
     name: 'Shishalicious Denmark',
     instagram: 'shishaliciousdenmark',
-    country: { bs: 'Danska', en: 'Denmark', de: 'Dänemark' },
+    country: { bs: 'Danska', en: 'Denmark', de: 'Dänemark', ru: 'Дания' },
     bio: { en: 'Hookah reviews, bowl packing, tobacco and mixes from Denmark. Tips, tricks and techniques for a better session.' },
     logo: 'logo.jpg'
   }
@@ -45,10 +45,10 @@ window.CREATOR_MIXES = [
     slug: 'wavey-fruity-mix',
     name: 'Wavey Fruity Mix',
     parts: [
-      { brand: 'Al Waha', flavor: 'Traube Minze', ref: 'al-waha-grape-mint', pct: 40, color: '#7b4fa8', note: { bs: 'grožđe i menta', en: 'grape and mint', de: 'Traube und Minze' } },
-      { brand: 'Blackburn', flavor: 'Etalon MLN', pct: 30, color: '#e3b23c', note: { bs: 'dinja', en: 'melon', de: 'Melone' } },
-      { brand: 'Darkside', flavor: 'Virgin Peach 2.0', pct: 20, color: '#f08a4b', note: { bs: 'breskva', en: 'peach', de: 'Pfirsich' } },
-      { brand: 'Darkside', flavor: 'Forest Shake', pct: 10, color: '#b8344f', note: { bs: 'šumsko voće', en: 'forest berries', de: 'Waldbeeren' } }
+      { brand: 'Al Waha', flavor: 'Traube Minze', ref: 'al-waha-grape-mint', pct: 40, color: '#7b4fa8', note: { bs: 'grožđe i menta', en: 'grape and mint', de: 'Traube und Minze', ru: 'виноград и мята' } },
+      { brand: 'Blackburn', flavor: 'Etalon MLN', pct: 30, color: '#e3b23c', note: { bs: 'dinja', en: 'melon', de: 'Melone', ru: 'дыня' } },
+      { brand: 'Darkside', flavor: 'Virgin Peach 2.0', pct: 20, color: '#f08a4b', note: { bs: 'breskva', en: 'peach', de: 'Pfirsich', ru: 'персик' } },
+      { brand: 'Darkside', flavor: 'Forest Shake', pct: 10, color: '#b8344f', note: { bs: 'šumsko voće', en: 'forest berries', de: 'Waldbeeren', ru: 'лесные ягоды' } }
     ],
     bowl: 'Kaloud Samsaris Vitria II',
     packing: { en: 'Wave mix packing tip: pack your blonde leaf slightly lower than your dark leaf. Dark leaf handles more heat, and the different heights create a wave look from the side.' },

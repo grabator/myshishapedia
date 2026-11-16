@@ -54,11 +54,25 @@
       creatorMetaDesc: 'Shisha-Mixe von {name} ({country}): Sorten mit Prozenten, Kopf, Tipps zum Bauen und das Video von Instagram.',
       mixMetaTitle: '{mix}: Shisha-Mix von {name} | MyShishapedia', mixMetaDesc: '{mix} von {name}: {parts}. Sorten, Tipp zum Bauen und Video.',
       join: 'Du baust Mixe und filmst sie? Melde dich und bekomme deine eigene Seite auf MyShishapedia.', joinCta: 'Melden'
+    },
+    ru: {
+      nav: 'Креаторы', flavorsN: function (n) { return n === 1 ? 'Один вкус' : MSP.plural('home.count', n); }, open: 'Открыть рецепт', inBowl: 'В чаше', eyebrow: 'Креаторы', listTitle: 'Миксы креаторов',
+      listLead: 'Настоящие миксы от людей, которые забивают чаши каждый день: вкусы, проценты, чаша и забивка, с их видео.',
+      listMetaTitle: 'Миксы для кальяна от креаторов · рецепты с процентами | MyShishapedia',
+      listMetaDesc: 'Миксы для кальяна от настоящих креаторов: вкусы и проценты, чаша, советы по забивке и видео. Попробуйте и подпишитесь на креаторов в Instagram.',
+      mixes: function (n) { var m = n % 10, h = n % 100; return n + (m === 1 && h !== 11 ? ' микс' : m >= 2 && m <= 4 && (h < 12 || h > 14) ? ' микса' : ' миксов'); },
+      by: 'Микс от', byOne: 'Забил', follow: 'Подписаться в Instagram', flavorsTitle: 'Вкусы и проценты', bowl: 'Чаша', packTitle: 'Совет по забивке',
+      aboutTitle: 'О миксе', words: 'Словами креатора', videoTitle: 'Как его забить', play: 'Смотреть видео в Instagram', playEmbed: 'Включить видео из Instagram',
+      videoNote: 'Видео откроется в Instagram креатора.', videoNoteEmbed: 'Видео воспроизводится из Instagram креатора.', moreBy: 'Ещё миксы от', allCreators: 'Все креаторы', card: 'Карточка микса',
+      cardNote: 'Микс в виде картинки для сторис или для конца видео.', download: 'Скачать карточку', inDb: 'в нашей базе', creatorMetaTitle: '{name} · миксы для кальяна и советы по забивке | MyShishapedia',
+      creatorMetaDesc: 'Миксы для кальяна от {name} ({country}): вкусы с процентами, чаша, советы по забивке и видео из Instagram.',
+      mixMetaTitle: '{mix}: микс для кальяна от {name} | MyShishapedia', mixMetaDesc: '{mix} от {name}: {parts}. Вкусы, совет по забивке и видео.',
+      join: 'Вы делаете миксы и снимаете их? Напишите нам и получите свою страницу на MyShishapedia.', joinCta: 'Написать'
     }
   };
   function tx(k) { var d = TX[MSP.lang] || TX.en; return d[k] != null ? d[k] : TX.en[k]; }
   function fill(s, o) { return String(s).replace(/\{(\w+)\}/g, function (m, k) { return o[k] != null ? o[k] : ''; }); }
-  function L(v) { return v ? (v[MSP.lang] || v.en || v.bs || '') : ''; }
+  function L(v) { return v ? (v[MSP.lang] || (v.en && MSP.tr ? MSP.tr(v.en, MSP.lang) : null) || v.en || v.bs || '') : ''; }
 
   V.creators = function () { return root.CREATORS || []; };
   V.creatorMixes = function () { return root.CREATOR_MIXES || []; };

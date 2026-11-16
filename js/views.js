@@ -31,6 +31,10 @@
       collections: 'kollektionen', collection: 'kollektionen', compare: 'vergleich', comparePair: 'vergleich', mixes: 'mixe', recipe: 'mixe',
       privacy: 'datenschutz', terms: 'nutzungsbedingungen', suggest: 'geschmack-vorschlagen', report: 'fehler-melden', flavors: 'geschmacksrichtungen', search: 'suche',
       brands: 'marken', brand: 'marken', top: 'bestbewertet', shelf: 'mein-regal', session: 'session-foto', journal: 'session-tagebuch', offline: 'offline', lounge: 'lounge', loungeInfo: 'fuer-lounges', tips: 'tipps', game: 'spiel', history: 'shisha-geschichte', chapter: 'shisha-geschichte', articles: 'artikel', article: 'artikel', creators: 'creator', creator: 'creator', cmix: 'creator' },
+    ru: { home: '', flavor: 'vkus', mixer: 'mikser', quiz: 'test', guide: 'gid', glossary: 'slovar', term: 'slovar', gear: 'aksessuary', about: 'o-nas', notfound: '404',
+      collections: 'kollekcii', collection: 'kollekcii', compare: 'sravnenie', comparePair: 'sravnenie', mixes: 'miksy', recipe: 'miksy',
+      privacy: 'konfidencialnost', terms: 'usloviya', suggest: 'predlozhit-vkus', report: 'soobshchit-ob-oshibke', flavors: 'vkusy', search: 'poisk',
+      brands: 'brendy', brand: 'brendy', top: 'luchshie', shelf: 'moya-polka', session: 'foto-sessii', journal: 'dnevnik-sessiy', offline: 'offline', lounge: 'lounge', loungeInfo: 'dlya-lounge', tips: 'sovety', game: 'igra', history: 'istoriya-kalyana', chapter: 'istoriya-kalyana', articles: 'stati', article: 'stati', creators: 'kreatory', creator: 'kreatory', cmix: 'kreatory' },
     en: { home: '', flavor: 'flavor', mixer: 'mixer', quiz: 'quiz', guide: 'guide', glossary: 'glossary', term: 'glossary', gear: 'gear', about: 'about', notfound: '404',
       collections: 'collections', collection: 'collections', compare: 'compare', comparePair: 'compare', mixes: 'mixes', recipe: 'mixes',
       privacy: 'privacy', terms: 'terms', suggest: 'suggest-flavor', report: 'report-issue', flavors: 'flavors', search: 'search',
@@ -589,10 +593,11 @@
   };
 
   /** Datum provjere sastava (YYYY-MM-DD) u čitljivom obliku. */
+  function pad2(n) { n = Number(n); return (n < 10 ? '0' : '') + n; }
   V.verifiedDate = function (d) {
     var p = String(d).split('-');
     if (MSP.lang === 'en') return Number(p[2]) + ' ' + ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][Number(p[1]) - 1] + ' ' + p[0];
-    if (MSP.lang === 'de') return Number(p[2]) + '.' + Number(p[1]) + '.' + p[0];
+    if (MSP.lang === 'de' || MSP.lang === 'ru') return pad2(p[2]) + '.' + pad2(p[1]) + '.' + p[0];
     return Number(p[2]) + '. ' + Number(p[1]) + '. ' + p[0] + '.';
   };
 
@@ -811,18 +816,35 @@
     );
   }
 
-  function langSwitch(desc, cls) {
-    var other = MSP.lang === 'bs' ? 'en' : 'bs';
+  /**
+   * Izbornik jezika. U headeru je padajući (details/summary, radi i bez JavaScripta),
+   * u meniju su svi jezici kao kartice. Linkovi imaju klasu lang__opt (app.js pamti izbor).
+   */
+  function langOptions(desc) {
     var alt = desc.alternates || {};
+    return MSP.LANGS.map(function (l) {
+      var cur = l === MSP.lang;
+      return '<li><a class="lang__opt langdd__opt" href="' + esc(alt[l] || V.urlFor(l, 'home')) + '" hreflang="' + l + '" lang="' + l + '" data-lang="' + l + '"' +
+        (cur ? ' aria-current="true"' : '') + '>' +
+        '<span class="langdd__code" aria-hidden="true">' + esc(MSP.LANG_SHORT[l] || l.toUpperCase()) + '</span>' +
+        '<span class="langdd__txt"><b>' + esc(MSP.LANG_NAME[l] || l) + '</b><small>' + esc(MSP.LANG_SUB[l] || '') + '</small></span>' +
+        '<span class="langdd__check" aria-hidden="true">' + icon('check') + '</span></a></li>';
+    }).join('');
+  }
+  function langSwitch(desc, cls) {
+    if (cls === 'lang--menu') {
+      return '<div class="langgrid" role="group" aria-label="' + esc(t('a11y.langSwitch')) + '"><ul class="langgrid__list" role="list">' + langOptions(desc) + '</ul></div>';
+    }
     return (
-      '<div class="lang ' + (cls || '') + '" role="group" aria-label="' + esc(t('a11y.langSwitch')) + '">' +
-        MSP.LANGS.map(function (l) {
-          var cur = l === MSP.lang;
-          return '<a class="lang__opt" href="' + esc(alt[l] || V.urlFor(l, 'home')) + '" hreflang="' + l + '" lang="' + l + '" data-lang="' + l + '"' +
-            (cur ? ' aria-current="true"' : ' aria-label="' + esc(t('a11y.langOther')) + '"') + '>' + (MSP.LANG_SHORT[l] || l.toUpperCase()) + '</a>';
-        }).join('') +
-        '<span class="lang__thumb" aria-hidden="true" data-other="' + other + '"></span>' +
-      '</div>'
+      '<details class="langdd ' + (cls || '') + '">' +
+        '<summary class="langdd__btn" aria-label="' + esc(t('a11y.langSwitch') + ': ' + (MSP.LANG_NAME[MSP.lang] || MSP.lang)) + '">' +
+          icon('globe', 'langdd__globe') + '<span class="langdd__cur">' + esc(MSP.LANG_SHORT[MSP.lang] || MSP.lang.toUpperCase()) + '</span>' + icon('chevronDown', 'langdd__chev') +
+        '</summary>' +
+        '<div class="langdd__panel">' +
+          '<p class="langdd__title">' + icon('globe') + '<span>' + esc(t('a11y.langSwitch')) + '</span></p>' +
+          '<ul class="langdd__list" role="list">' + langOptions(desc) + '</ul>' +
+        '</div>' +
+      '</details>'
     );
   }
 
@@ -1452,7 +1474,7 @@
     var name = f.brand + ' ' + f.name;
     var P = f.profile || {};
     // stranica se crta na jednom jeziku, pa je tekst isti pod oba ključa (V.faqSection čita L(...))
-    var both = function (fn) { var v = fn(); return { bs: v, en: v }; };
+    var both = function (fn) { var v = fn(); var o = { bs: v, en: v }; o[MSP.lang] = v; return o; };
     var level = function (n, cuts, keys) { for (var i = 0; i < cuts.length; i++) if (n <= cuts[i]) return keys[i]; return keys[keys.length - 1]; };
     var andList = function (arr) {
       if (arr.length < 2) return arr.join('');
@@ -1632,13 +1654,15 @@
   var ALPHABET = {
     bs: 'A B C Č Ć D Dž Đ E F G H I J K L Lj M N Nj O P R S Š T U V Z Ž'.split(' '),
     en: 'A B C D E F G H I J K L M N O P Q R S T U V W X Y Z'.split(' '),
-    de: 'A B C D E F G H I J K L M N O P Q R S T U V W X Y Z'.split(' ')
+    de: 'A B C D E F G H I J K L M N O P Q R S T U V W X Y Z'.split(' '),
+    ru: 'А Б В Г Д Е Ж З И К Л М Н О П Р С Т У Ф Х Ц Ч Ш Щ Э Ю Я'.split(' ')
   };
 
   function letterOf(term) {
     var two = term.slice(0, 2);
     if (MSP.lang === 'bs' && /^(Dž|Lj|Nj)$/i.test(two)) return two.charAt(0).toUpperCase() + two.charAt(1).toLowerCase();
     var ch = term.charAt(0).toUpperCase();
+    if (MSP.lang === 'ru') return ch === 'Ё' ? 'Е' : ch; // Й ostaje Й
     if (MSP.lang !== 'bs') ch = ch.normalize('NFD').replace(/[̀-ͯ]/g, '');
     return ch;
   }

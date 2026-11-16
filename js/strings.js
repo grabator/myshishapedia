@@ -1303,7 +1303,9 @@
         title: 'MyShishapedia - enciklopedija okusa za nargilu',
         choose: 'Izaberi jezik',
         bs: 'Bosanski / Hrvatski / Srpski',
-        en: 'English'
+        en: 'English',
+        de: 'Deutsch',
+        ru: 'Русский'
       },
 
       noscript: 'Neki dijelovi (animacije, mikser, kviz) rade tek kad je uključen JavaScript.'
@@ -2600,7 +2602,9 @@
         title: 'MyShishapedia - the hookah flavor encyclopedia',
         choose: 'Choose your language',
         bs: 'Bosanski',
-        en: 'English'
+        en: 'English',
+        de: 'Deutsch',
+        ru: 'Русский'
       },
 
       noscript: 'Some parts (animations, the mixer, the quiz) only work with JavaScript turned on.'
@@ -2608,9 +2612,12 @@
   };
 
   MSP.strings = STRINGS;
-  MSP.LANGS = ['bs', 'en', 'de'];
+  MSP.LANGS = ['bs', 'en', 'de', 'ru'];
   /** Kratki naziv jezika u prekidaču: bosanska verzija je zajednička za BiH, Hrvatsku i Srbiju. */
-  MSP.LANG_SHORT = { bs: 'BHS', en: 'EN', de: 'DE' };
+  MSP.LANG_SHORT = { bs: 'BHS', en: 'EN', de: 'DE', ru: 'RU' };
+  // ime jezika na samom tom jeziku (izbornik jezika) i kratak opis ispod
+  MSP.LANG_NAME = { bs: 'Bosanski', en: 'English', de: 'Deutsch', ru: 'Русский' };
+  MSP.LANG_SUB = { bs: 'Hrvatski · Srpski', en: 'International', de: 'Deutschland · Österreich', ru: 'Россия · СНГ' };
   if (!MSP.lang) MSP.lang = 'bs';
 
   function lookup(path, lang) {
@@ -2647,7 +2654,7 @@
   MSP.plural = function (path, n, vars) {
     var forms = lookup(path) || {};
     var form = 'other';
-    if (MSP.lang !== 'bs') {
+    if (MSP.lang !== 'bs' && MSP.lang !== 'ru') {
       form = n === 1 ? 'one' : 'other';
     } else {
       var m10 = n % 10;
@@ -2700,6 +2707,7 @@
       if (l !== 'bs' && l !== 'en') {
         var tr = MSP.tr(v.en, l);
         if (tr != null) return tr;
+        if (MSP.onMiss) MSP.onMiss(v, l);
         return v.en != null ? v.en : v.bs;
       }
       return v.bs;
