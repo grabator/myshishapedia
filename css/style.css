@@ -9,6 +9,24 @@
  * @fontsource-variable/syne i @fontsource-variable/manrope 5.3.0 (isti fontovi kao na Google Fonts),
  * a unicode-range je isti kao kod Google Fonts. Preload istih fajlova je u build.mjs (FONT_PRELOADS).
  */
+/* ćirilica (ruski): Manrope ima svoju; Syne nema ćirilicu, pa naslove na ruskom piše Unbounded (sličan širok font) */
+@font-face {
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url(/fonts/manrope-cyrillic-wght-5.3.woff2) format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: 'Syne';
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: swap;
+  src: url(/fonts/unbounded-cyrillic-wght-5.3.woff2) format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+  size-adjust: 88%;
+}
 @font-face {
   font-family: 'Manrope';
   font-style: normal;
@@ -7166,6 +7184,22 @@ html:not(.js) .localnote { display: none; }
 /* ================================================================== */
 
 /* Serif za staru kartu (Cormorant Garamond, OFL; samo ova stranica ga koristi, pa se drugdje ne preuzima). */
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(/fonts/cormorant-garamond-cyrillic-600-normal.woff2) format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: italic;
+  font-weight: 500;
+  font-display: swap;
+  src: url(/fonts/cormorant-garamond-cyrillic-500-italic.woff2) format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
 @font-face {
   font-family: 'Cormorant Garamond';
   font-style: normal;

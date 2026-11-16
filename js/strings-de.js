@@ -1378,7 +1378,8 @@
       "choose": "Wähle deine Sprache",
       "bs": "Bosanski",
       "en": "English",
-      "de": "Deutsch"
+      "de": "Deutsch",
+      "ru": "Русский"
     },
     "noscript": "Einige Teile (Animationen, der Mixer, das Quiz) funktionieren nur mit aktiviertem JavaScript."
   };

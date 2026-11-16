@@ -28,6 +28,10 @@
       var mde = ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'];
       return p[2] + '. ' + mde[p[1] - 1] + ' ' + p[0];
     }
+    if (MSP.lang === 'ru') {
+      var mru = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'];
+      return p[2] + ' ' + mru[p[1] - 1] + ' ' + p[0] + ' г.';
+    }
     var d = new Date(Date.UTC(p[0], p[1] - 1, p[2]));
     try {
       return d.toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
@@ -326,7 +330,9 @@
       {
         q: { bs: 'Koliko okusa ima na MyShishapediji?', en: 'How many hookah flavors are on MyShishapedia?' },
         a: { bs: 'Trenutno ' + n + ' okusa od ' + b + ' brendova. Za svaki okus su tu sastojci, profil okusa, ideje za mikseve i slični okusi.',
-          en: 'Right now ' + n + ' flavors from ' + b + ' brands. Every flavor has its ingredients, a flavor profile, mix ideas and similar flavors.' }
+          en: 'Right now ' + n + ' flavors from ' + b + ' brands. Every flavor has its ingredients, a flavor profile, mix ideas and similar flavors.',
+          de: 'Aktuell ' + n + ' Sorten von ' + b + ' Marken. Zu jeder Sorte gibt es Zutaten, ein Geschmacksprofil, Mix-Ideen und ähnliche Sorten.',
+          ru: 'Сейчас ' + MSP.plural('home.count', n) + ', брендов: ' + b + '. У каждого вкуса есть состав, профиль вкуса, идеи миксов и похожие вкусы.' }
       },
       {
         q: { bs: 'Koja je razlika između svijetlog i tamnog lista?', en: 'What is the difference between blonde and dark leaf?' },
@@ -706,7 +712,7 @@
   /** Česta pitanja o brendu, iz podataka (zemlja, list, broj okusa, prosječna jačina, najslađi i najledeniji okusi). */
   V.brandFaq = function (b, fl) {
     if (!fl || !fl.length) return [];
-    var one = function (s) { return { bs: s, en: s }; };
+    var one = function (s) { var o = { bs: s, en: s }; o[MSP.lang] = s; return o; };
     var top = function (key) {
       return fl.filter(function (f) { return (f.profile[key] || 0) > 0; })
         .sort(function (x, y) { return (y.profile[key] || 0) - (x.profile[key] || 0) || x.name.localeCompare(y.name); })

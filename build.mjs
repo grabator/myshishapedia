@@ -16,6 +16,7 @@
  */
 import fs from 'node:fs';
 import path from 'node:path';
+import os from 'node:os';
 import vm from 'node:vm';
 import crypto from 'node:crypto';
 import { fileURLToPath } from 'node:url';
@@ -34,6 +35,8 @@ const SOURCES = [
   'js/strings.js',
   'js/strings-de.js',
   'data/de.js',
+  'js/strings-ru.js',
+  'data/ru.js',
   'data/brands.js',
   'data/flavors.js',
   'data/glossary.js',
@@ -98,9 +101,9 @@ const V = MSP.V;
 const SITE = String(process.env.SITE_URL || CFG.SITE_URL).replace(/\/+$/, '');
 const LANGS = CFG.LANGS;
 const DEFAULT_LANG = CFG.DEFAULT_LANG;
-const OG_LOCALE = { bs: 'bs_BA', en: 'en_US', de: 'de_DE' };
+const OG_LOCALE = { bs: 'bs_BA', en: 'en_US', de: 'de_DE', ru: 'ru_RU' };
 // Dodatni fajlovi za jezike čiji tekstovi nisu u strings.js / data (učitavaju se samo na tim stranicama).
-const LANG_SCRIPTS = { de: ['js/strings-de.js', 'data/de.js'] };
+const LANG_SCRIPTS = { de: ['js/strings-de.js', 'data/de.js'], ru: ['js/strings-ru.js', 'data/ru.js'] };
 
 /* ------------------------------------------------------------------ */
 /* Statični fajlovi (sa verzijom u adresi, da browser ne drži staru)   */
@@ -110,7 +113,7 @@ function hashOf(file) {
   return crypto.createHash('sha1').update(fs.readFileSync(path.join(ROOT, file))).digest('hex').slice(0, 8);
 }
 
-const ASSETS = ['css/style.css', 'js/strings.js', 'js/strings-de.js', 'data/de.js', 'data/brands.js', 'data/flavors.js', 'data/glossary.js', 'data/guide.js', 'data/gear.js', 'data/quiz.js',
+const ASSETS = ['css/style.css', 'js/strings.js', 'js/strings-de.js', 'data/de.js', 'js/strings-ru.js', 'data/ru.js', 'data/brands.js', 'data/flavors.js', 'data/glossary.js', 'data/guide.js', 'data/gear.js', 'data/quiz.js',
   'data/mixes.js', 'js/illustrations.js', 'js/effects.js', 'js/views.js', 'js/views-more.js', 'js/views-extra.js', 'js/pages.js', 'js/app.js',
   'js/search.js', 'js/forms.js', 'js/share.js', 'js/ratings.js', 'js/shelf.js', 'js/qr.js', 'js/journal.js', 'js/session.js', 'js/pwa.js', 'data/lounges.js', 'js/lounge.js', 'data/history.js', 'js/history.js', 'favicon.svg',
   'css/game.css', 'js/strings-game.js', 'js/game-core.js', 'js/game-art.js', 'js/game.js', 'js/creators.js'];
@@ -200,6 +203,7 @@ const FONT_PRELOADS = [
   '/fonts/manrope-latin-wght-5.3.woff2'
 ];
 const FONT_PRELOADS_BS = ['/fonts/syne-latin-ext-wght-5.3.woff2'];
+const FONT_PRELOADS_RU = ['/fonts/unbounded-cyrillic-wght-5.3.woff2', '/fonts/manrope-cyrillic-wght-5.3.woff2'];
 // Fontovi samo za pojedine stranice (serif za staru kartu na "Evoluciji nargile").
 const PAGE_FONTS = { history: ['/fonts/cormorant-garamond-latin-600-normal.woff2'], chapter: ['/fonts/cormorant-garamond-latin-600-normal.woff2'] };
 
@@ -430,7 +434,7 @@ function head(desc, lang, info) {
     '<link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">',
     `<link rel="manifest" href="/manifest-${lang}.webmanifest">`,
     '<meta name="apple-mobile-web-app-title" content="MyShishapedia">',
-    FONT_PRELOADS.concat(lang === 'bs' ? FONT_PRELOADS_BS : [], PAGE_FONTS[desc.page] || []).map((f) => `<link rel="preload" as="font" type="font/woff2" crossorigin href="${f}">`).join(''),
+    FONT_PRELOADS.concat(lang === 'bs' ? FONT_PRELOADS_BS : [], lang === 'ru' ? FONT_PRELOADS_RU : [], PAGE_FONTS[desc.page] || []).map((f) => `<link rel="preload" as="font" type="font/woff2" crossorigin href="${f}">`).join(''),
     `<link rel="stylesheet" href="${asset('css/style.css')}">`,
     (PAGE_STYLES[desc.page] || []).map((f) => `<link rel="stylesheet" href="${asset(f)}">`).join(''),
     `<script>${HEAD_SCRIPT}</script>`,
@@ -462,9 +466,16 @@ function scriptLoader(list) {
     "if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',paint);else paint()})(" + JSON.stringify(list) + ')';
 }
 
+// tekstovi koji na trećem jeziku padnu na engleski (nema ih ni u podacima ni u rječniku)
+const langMiss = new Map();
+
 function renderPage(desc) {
   const lang = desc.lang;
   setLang(lang);
+  MSP.onMiss = (v, l) => {
+    const key = l + ': ' + (typeof v.en === 'string' ? v.en : JSON.stringify(v.en));
+    if (!langMiss.has(key)) langMiss.set(key, { lang: l, url: desc.url });
+  };
   desc.alternates = V.alternates(desc);
   V.faqLog = [];
   const info = V.page(desc, CFG);
@@ -1341,6 +1352,11 @@ function build() {
 
   checkData();
   checkMeta(rendered);
+  if (langMiss.size) {
+    const ex = [...langMiss.entries()].slice(0, 5).map(([k, w]) => `${w.url} "${k.slice(0, 50)}"`);
+    errors.push(`${langMiss.size} tekstova nema prijevoda pa su prikazani na engleskom (npr. ${ex.join('; ')})`);
+    fs.writeFileSync(path.join(os.tmpdir(), 'msp-lang-miss.json'), JSON.stringify([...langMiss.entries()], null, 1));
+  }
   const stats = checkLinks();
 
   // jezici bez teksta u samim podacima (npr. njemački) moraju imati prijevod svega

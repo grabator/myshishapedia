@@ -37,13 +37,14 @@
   var MONTHS = {
     bs: ['januara', 'februara', 'marta', 'aprila', 'maja', 'juna', 'jula', 'augusta', 'septembra', 'oktobra', 'novembra', 'decembra'],
     en: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-    de: ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember']
+    de: ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'],
+    ru: ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря']
   };
   function dateText(day, withYear) {
     var p = String(day).split('-');
     if (p.length !== 3) return day;
     var m = (MONTHS[MSP.lang] || MONTHS.en)[+p[1] - 1], d = +p[2];
-    var out = MSP.lang === 'en' ? d + ' ' + m : d + '. ' + m;
+    var out = MSP.lang === 'en' || MSP.lang === 'ru' ? d + ' ' + m : d + '. ' + m;
     return withYear ? out + ' ' + p[0] + (MSP.lang === 'bs' ? '.' : '') : out;
   }
 
