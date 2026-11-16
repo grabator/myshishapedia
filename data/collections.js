@@ -29,7 +29,7 @@ window.COLLECTIONS = [
     },
     slug: { bs: 'ledeni-okusi', en: 'icy-flavors' },
     mood: 'ice',
-    title: { bs: 'Ledeni okusi', en: 'Icy flavors' },
+    title: { bs: 'Ledeni okusi za nargilu', en: 'Icy hookah flavors' },
     short: {
       bs: 'Mentol, led i hladan, bistar izdah.',
       en: 'Menthol, ice and a crisp, cold exhale.'
@@ -82,7 +82,7 @@ window.COLLECTIONS = [
     },
     slug: { bs: 'tropski-okusi', en: 'tropical-flavors' },
     mood: 'tropical',
-    title: { bs: 'Tropski okusi', en: 'Tropical flavors' },
+    title: { bs: 'Tropski okusi za nargilu', en: 'Tropical hookah flavors' },
     short: {
       bs: 'Sunce, zrelo voće i ljetni koktel.',
       en: 'Sunshine, ripe fruit and a summer cocktail.'
