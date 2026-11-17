@@ -72,6 +72,8 @@ window.CREATOR_MIXES = [
     packing: { en: 'Layer pack: I pack the blonde leaf in the bottom and the dark leaf on top, because dark leaf is more heat resistant than blonde. I let the coals sit for 8-10 minutes before I start smoking, so a crisp forms on top. That protects the tobacco underneath, and you get a much better session.' },
     description: { en: 'Perfekt mix.' },
     video: 'https://www.instagram.com/reel/DfNnZfixRMs/',
+    photo: 'perfekt-mix.jpg',
+    card: 'perfekt-mix-card.jpg',
     added: '2026-11-16'
   }
 ];
