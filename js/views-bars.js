@@ -258,8 +258,8 @@
       return '<text x="500" y="' + y + '" text-anchor="middle" font-family="Syne,Unbounded,sans-serif" font-weight="800" font-size="' + size + '" textLength="' + len + '" lengthAdjust="spacingAndGlyphs" fill="url(#bh-ink)" fill-opacity="' + op + '" stroke="#ffcf8a" stroke-opacity="' + (op * 1.6).toFixed(2) + '" stroke-width=".6" vector-effect="non-scaling-stroke">' + esc(txt) + '</text>';
     }
     return '<g class="bh-words" transform="' + mtx + '" aria-hidden="true">' +
-      line(w[0], -95, 330, 1040, 0.09) +
-      line(w[1], 1215, 190, 1060, 0.12) +
+      line(w[0], -95, 300, 860, 0.09) +
+      line(w[1], 1100, 160, 900, 0.16) +
     '</g>';
   }
 
@@ -571,6 +571,7 @@
     faq.push({ q: tx('q4'), a: tx('a4') });
     return (
       '<div class="ct" id="ct" data-city="' + esc(c.id) + '">' +
+        '<div class="ct-dive" aria-hidden="true"></div>' +
         cityPoster(c) +
         '<div class="container ct-body">' +
           tabs + '<p class="ct-lead">' + esc(fill(tx(pins.length ? 'cityLead' : 'cityLeadNoMap'), { n: tx('bars')(list.length), loc: cityLoc(c) })) + ' <a class="ct-all" href="' + V.url('bars') + '">' + esc(tx('allCities')) + ' →</a></p>' + ctl +
