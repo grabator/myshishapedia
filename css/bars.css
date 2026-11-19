@@ -80,9 +80,15 @@
 .cp svg { position: absolute; left: 50%; bottom: 0; width: 100%; height: 100%; transform: translateX(-50%); }
 .cp-smoke { opacity: 0.95; }
 .cp-glow { mix-blend-mode: screen; }
-@media (min-width: 900px) { .cp { height: 440px; } }
+.cp-w { display: none; }
+@media (min-width: 900px) {
+  .cp { height: clamp(460px, 30vw, 620px); }
+  .cp-m { display: none; }
+  .cp-w { display: block; }
+  .cp-w .cp-smoke { opacity: 0.8; }
+}
 
-.ct-body { position: relative; z-index: 2; margin-top: -40px; max-width: 760px; padding-bottom: clamp(24px, 5vw, 48px); }
+.ct-body { position: relative; z-index: 2; margin-top: -40px; max-width: 860px; padding-bottom: clamp(24px, 5vw, 48px); }
 .ct-crumbs { margin-bottom: 4px; }
 .ct-tabs { display: flex; align-items: flex-end; gap: 20px; overflow-x: auto; scrollbar-width: none; white-space: nowrap; border-bottom: 1px solid var(--b-line); padding-bottom: 0; -webkit-mask-image: linear-gradient(90deg, #000 85%, transparent); mask-image: linear-gradient(90deg, #000 85%, transparent); }
 .ct-tabs::-webkit-scrollbar { display: none; }
@@ -252,6 +258,7 @@ html.js .cp-smoke { animation: cp-drift 9s ease-in-out infinite; }
   .bx-stage { margin-top: -120px; }
   .ct-body { margin-top: -70px; }
 }
+@media (min-width: 900px) { .ct-body { margin-top: -28px; } }
 
 /* ---------- Vrh stranice lounge-a (lokal sa dogovorom) ---------- */
 .lp-hero { position: relative; text-align: center; padding: 26px 0 6px; --b-amber: #f2a33c; --b-glow: rgba(242, 163, 60, 0.6); --b-line: rgba(244, 235, 223, 0.12); }
