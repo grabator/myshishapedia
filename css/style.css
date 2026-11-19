@@ -8928,6 +8928,34 @@ a.smx__card:hover { border-color: var(--c-line-strong); transform: translateY(-2
 .mgame__art i:nth-child(3) { width: 11px; height: 11px; right: 3px; bottom: 14px; background: #e3253b; }
 .mgame__art i:nth-child(4) { width: 8px; height: 8px; left: 8px; top: 0; background: #3b3f9e; }
 @media (prefers-reduced-motion: reduce) { .gp--drop { animation: none; } }
+/* meni: Shisha Drop i nargila barovi jedno pored drugog, jezici u jednom redu (sve stane bez listanja) */
+.mpair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.mpair .mgame { min-height: 58px; padding: 8px 10px 8px 12px; gap: 10px; }
+.mpair .mgame > .icon { display: none; }
+.mpair .mshelf__name { font-size: 0.875rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.mpair .mshelf__name .nav-new { font-size: 0.6rem; padding: 1px 5px; }
+.mpair .mshelf__sub { font-size: 0.68rem; }
+.mpair .mgame__art { width: 28px; height: 28px; transform: scale(0.85); }
+.menu-overlay__foot .langgrid__list { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; }
+.menu-overlay__foot .langgrid .langdd__opt { grid-template-columns: 1fr; justify-items: center; gap: 4px; min-height: 0; padding: 7px 4px; text-align: center; }
+.menu-overlay__foot .langgrid .langdd__code { width: 40px; height: 28px; }
+.menu-overlay__foot .langgrid .langdd__txt b { font-size: 0.72rem; white-space: nowrap; }
+.menu-overlay__foot .langgrid .langdd__txt small, .menu-overlay__foot .langgrid .langdd__check { display: none; }
+.menu-overlay__foot { padding-top: 12px; }
+.mtile { min-height: 80px; padding: 12px; }
+.menu-overlay__nav { gap: 8px; }
+.mtiles { gap: 8px; }
+.mpair { gap: 8px; }
+.msearch { min-height: 46px; }
+.msurprise { min-height: 50px; }
+.mlists { margin-top: 4px; }
+.mlist__link { min-height: 33px; font-size: 0.9rem; }
+.menu-overlay__foot { padding-bottom: calc(10px + env(safe-area-inset-bottom)); }
+.mlist__title { margin-bottom: 0; }
+.menu-overlay__top { height: 60px; }
+.mfx { transform: scale(0.8); transform-origin: top right; }
+@media (max-height: 740px) { .mtile { min-height: 68px; } .mlist__link { min-height: 30px; } }
+.mlist__link { min-height: 40px; }
 /* meni: nargila barovi (tri stuba svjetla) */
 .mbars__art { position: relative; flex: none; width: 34px; height: 34px; border-radius: 10px; background: #1a120d; border: 1px solid rgba(255, 207, 138, 0.25); overflow: hidden; }
 .mbars__art i { position: absolute; bottom: 7px; width: 3px; border-radius: 2px; background: linear-gradient(0deg, #fff1d6, #f2a33c 60%, rgba(242, 163, 60, 0)); box-shadow: 0 0 6px rgba(242, 163, 60, 0.8); }
@@ -8946,6 +8974,11 @@ a.smx__card:hover { border-color: var(--c-line-strong); transform: translateY(-2
 .ingp__chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; }
 .ingp__chips .chip,
 .ing-more .chip { display: inline-flex; align-items: center; gap: 6px; text-decoration: none; line-height: 1.25; padding-block: 6px; }
+.ingp__chips--home .chip { font-size: 0.875rem; min-height: 38px; padding: 5px 12px; }
+.ingp__more { display: contents; }
+.ingp__more summary { cursor: pointer; list-style: none; color: var(--c-accent-ink); }
+.ingp__more summary::-webkit-details-marker { display: none; }
+.ingp__more[open] summary { display: none; }
 .ingp__chips--small .chip { font-size: 0.8125rem; min-height: 36px; padding-block: 4px; }
 .ingp__cols { display: grid; gap: 32px; }
 @media (min-width: 860px) { .ingp__cols { grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); } }
@@ -9158,3 +9191,8 @@ a.crt-video__play { text-decoration: none; }
 @media (prefers-reduced-motion: reduce) { .langdd__panel { animation: none; } }
 .menu-overlay__foot { flex-wrap: wrap; }
 @media (max-width: 600px) { .langdd.lang--header .langdd__panel { right: -50px; } }
+.menu-overlay__foot { gap: 4px 12px; padding-top: 10px; }
+.menu-overlay__foot .mabout { min-height: 30px; }
+.menu-overlay__foot .langgrid .langdd__opt { padding: 5px 4px; gap: 3px; }
+.menu-overlay__foot .langgrid .langdd__code { height: 24px; }
+.mpair .mshelf__name .nav-new { display: none; }

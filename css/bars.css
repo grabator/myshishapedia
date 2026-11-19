@@ -137,8 +137,9 @@
 .bl-list { list-style: none; margin: 0; padding: 0; }
 .bl { display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--b-line); transition: background-color 0.4s; }
 .bl.is-flash { background: rgba(242, 163, 60, 0.08); }
-.bl-n { width: 40px; flex: none; text-align: center; }
-.bl-n b { display: block; font: 800 1.05rem/1 var(--font-display); color: #8d847a; font-variant-numeric: tabular-nums; }
+.bl-n { width: 44px; flex: none; text-align: center; overflow: hidden; }
+.bl-n b { display: block; font: 800 1.05rem/1 var(--font-display); color: #8d847a; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.bl-n b.is-long { font-size: 0.82rem; letter-spacing: -0.02em; }
 .bl-n small { display: block; font-size: 0.6rem; font-weight: 800; letter-spacing: 0.08em; color: var(--c-muted); margin-top: 3px; }
 .bl.has-dist .bl-n b { color: var(--c-text); }
 .bl-t { min-width: 0; flex: 1; }
@@ -277,3 +278,11 @@ html.js .cp-smoke { animation: cp-drift 9s ease-in-out infinite; }
 @media (prefers-reduced-motion: reduce) { .lp-coal::before { animation: none; } }
 .lp-stats__txt b { font-size: 0.82rem; }
 .ct-card .bl-go { width: auto; padding: 0 14px; }
+
+/* dorada: FAQ uvijek vidljiv, link "Svi gradovi" u redu ispod tabova, natpis na podu */
+.bx [data-reveal], .ct [data-reveal] { opacity: 1; transform: none; }
+.ct-lead .ct-all { color: var(--b-amber); font-weight: 700; text-decoration: none; white-space: nowrap; }
+.ct-lead .ct-all:hover { text-decoration: underline; }
+.ct-tabs { padding-right: 24px; }
+html.js .bh-map.is-play .bh-words { animation: bh-lv 1.4s ease both; animation-delay: 0.6s; }
+@media (prefers-reduced-motion: reduce) { html.js .bh-map .bh-words { animation: none !important; } }
