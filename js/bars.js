@@ -53,6 +53,120 @@
   /* Karta BiH                                                           */
   /* ------------------------------------------------------------------ */
 
+  /* ------------------------------------------------------------------ */
+  /* Uranjanje u stub (karta BiH -> stranica grada)                      */
+  /* ------------------------------------------------------------------ */
+  // 1) kamera priđe vrhu stuba, ostalo se ugasi; 2) spusti se niz stub u svjetlo; 3) nova stranica izađe
+  // iz istog svjetla (html.dive-in, vidi HEAD_SCRIPT u build.mjs i .ct-dive u css/bars.css).
+  // Stranica grada se preuzima čim prst dotakne grad, pa obično nema čekanja; ako kasni, svjetlo tinja.
+
+  var prefetched = {};
+  function prefetch(u) {
+    if (!u || prefetched[u]) return;
+    prefetched[u] = 1;
+    var l = doc.createElement('link');
+    l.rel = 'prefetch';
+    l.href = u;
+    doc.head.appendChild(l);
+  }
+
+  var DIVE_MS = 1050, diving = null;
+  function dive(map, id, url, src) {
+    if (diving) return;
+    if (reduce || !Element.prototype.animate) { location.href = url; return; }
+    prefetch(url);
+    try { sessionStorage.setItem('msp-dive', String(Date.now())); } catch (e) { /* bez izlaska iz svjetla */ }
+    var W = window.innerWidth, H = window.innerHeight, cx = W / 2, cy = H * 0.3, cy2 = H * 0.56;
+    var main = doc.getElementById('main') || doc.body;
+    var beam = $('.bh-beam[data-city="' + id + '"]', map);
+    var core = beam && $('.bh-rise rect:nth-child(2)', beam);
+    var r = core && core.getBoundingClientRect();
+    // stub mora biti na ekranu; inače (npr. klik na red u listi ispod karte) svjetlo krene iz reda
+    var cam = !!(r && r.height > 8 && r.top > 0 && r.bottom < H);
+    // stub nije na ekranu (klik na red u listi ispod karte): kamera se prvo brzo vrati gore do karte
+    if (!cam && r && r.height > 8 && !src.__back) {
+      var y0 = window.pageYOffset, y1 = Math.max(0, y0 + r.top - H * 0.3), t0 = 0, dur = Math.min(650, 250 + Math.abs(y1 - y0) * 0.4);
+      diving = { ov: doc.createElement('i'), anims: [], beam: null, main: main };
+      src.__back = 1;
+      prefetch(url);
+      requestAnimationFrame(function step(t) {
+        if (!diving) return;
+        if (!t0) t0 = t;
+        var k = Math.min(1, (t - t0) / dur);
+        window.scrollTo(0, y0 + (y1 - y0) * (k < 0.5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2));
+        if (k < 1) requestAnimationFrame(step);
+        else { diving = null; dive(map, id, url, src); src.__back = 0; }
+      });
+      return;
+    }
+    var tip, base, bw, q;
+    if (cam) { tip = [r.left + r.width / 2, r.top]; base = [tip[0], r.bottom]; bw = Math.max(3, r.width); }
+    else { q = src.getBoundingClientRect(); tip = base = [q.left + q.width / 2, q.top + q.height / 2]; bw = 4; }
+
+    doc.documentElement.classList.add('is-diving');
+    if (beam) beam.classList.add('is-dive');
+
+    // kamera: stranica se uveća oko vrha stuba, pa se spusti do dna (samo transform)
+    var mr = main.getBoundingClientRect();
+    var s1 = cam ? 2.2 : 1.05, s2 = cam ? 3.6 : 1.14;
+    function tf(dx, dy, s) { return 'translate(' + dx.toFixed(1) + 'px,' + dy.toFixed(1) + 'px) scale(' + s + ')'; }
+    main.style.transformOrigin = (tip[0] - mr.left).toFixed(1) + 'px ' + (tip[1] - mr.top).toFixed(1) + 'px';
+    var ease1 = 'cubic-bezier(.6,0,.25,1)', ease2 = 'cubic-bezier(.42,0,.8,.45)';
+    var anims = [main.animate([
+      { transform: 'none', easing: ease1 },
+      { transform: cam ? tf(cx - tip[0], cy - tip[1], s1) : tf(0, 0, s1), offset: 0.4, easing: ease2 },
+      { transform: cam ? tf(cx - tip[0] - s2 * (base[0] - tip[0]), cy2 - tip[1] - s2 * (base[1] - tip[1]), s2) : tf(0, 0, s2) }
+    ], { duration: DIVE_MS, fill: 'forwards' })];
+
+    // svjetlo preko svega: stub se raširi preko ekrana, iskre lete gore (spuštamo se), pa sve postane žar
+    var ov = doc.createElement('div');
+    ov.className = 'dive';
+    ov.setAttribute('aria-hidden', 'true');
+    var st = '';
+    for (var i = 0; i < 18; i++) {
+      st += '<i class="dive__st" style="left:' + (6 + Math.random() * 88).toFixed(1) + '%;--d:' + (0.36 + Math.random() * 0.42).toFixed(2) + 's;--l:' + (50 + Math.random() * 150 | 0) + 'px"></i>';
+    }
+    ov.innerHTML = '<i class="dive__beam"></i>' + st +
+      '<i class="dive__base"></i><i class="dive__glow"></i>';
+    doc.body.appendChild(ov);
+    var x1 = cam ? cx : tip[0];
+    anims.push(ov.firstChild.animate([
+      { transform: 'translateX(' + x1.toFixed(1) + 'px) scaleX(' + (bw * s1 / 40).toFixed(3) + ')', opacity: 0 },
+      { transform: 'translateX(' + x1.toFixed(1) + 'px) scaleX(' + (bw * s1 / 40).toFixed(3) + ')', opacity: 0, offset: 0.45, easing: ease2 },
+      { transform: 'translateX(' + x1.toFixed(1) + 'px) scaleX(' + (W * 1.8 / 40).toFixed(2) + ')', opacity: 1 }
+    ], { duration: DIVE_MS, fill: 'forwards' }));
+    // dno stuba (užareni krug) poleti prema kameri i preraste ekran
+    if (cam) {
+      var bs = ov.querySelector('.dive__base'), bxy = [cx + s1 * (base[0] - tip[0]), cy + s1 * (base[1] - tip[1])];
+      anims.push(bs.animate([
+        { transform: 'translate(' + bxy[0].toFixed(1) + 'px,' + bxy[1].toFixed(1) + 'px) scale(' + (bw * 2 * s1 / 120).toFixed(3) + ')', opacity: 0 },
+        { transform: 'translate(' + bxy[0].toFixed(1) + 'px,' + bxy[1].toFixed(1) + 'px) scale(' + (bw * 2 * s1 / 120).toFixed(3) + ')', opacity: 0, offset: 0.4, easing: ease2 },
+        { opacity: 1, offset: 0.62 },
+        { transform: 'translate(' + cx.toFixed(1) + 'px,' + cy2.toFixed(1) + 'px) scale(' + (W * 3 / 120).toFixed(2) + ')', opacity: 1 }
+      ], { duration: DIVE_MS, fill: 'forwards' }));
+    }
+    anims.push(ov.lastChild.animate([{ opacity: 0 }, { opacity: 0, offset: 0.55 }, { opacity: 1 }], { duration: DIVE_MS, easing: 'ease-in', fill: 'forwards' }));
+
+    diving = { ov: ov, anims: anims, beam: beam, main: main };
+    anims[0].onfinish = function () {
+      ov.classList.add('is-hold');
+      location.href = url;
+    };
+  }
+
+  /** Povratak "nazad" iz keša browsera: stranica kakva je bila prije klika. */
+  function undive() {
+    if (!diving) return;
+    diving.anims.forEach(function (a) { a.cancel(); });
+    diving.ov.remove();
+    diving.main.style.transformOrigin = '';
+    if (diving.beam) diving.beam.classList.remove('is-dive');
+    doc.documentElement.classList.remove('is-diving');
+    diving = null;
+    try { sessionStorage.removeItem('msp-dive'); } catch (e) { /* nije bitno */ }
+  }
+  window.addEventListener('pageshow', function (e) { if (e.persisted) undive(); });
+
   function initBih() {
     var map = $('#bh-map');
     if (!map) return;
@@ -101,6 +215,22 @@
       el.addEventListener('blur', function () { hl(null); });
     });
 
+    // klik na grad (oznaka, stub ili red u listi): uranjanje u stub, pa stranica grada
+    function urlOf(id) { var p = $('.bh-pill[data-city="' + id + '"]', map); return p ? p.getAttribute('href') : null; }
+    $$('.bh-beam').forEach(function (g) { if (urlOf(g.getAttribute('data-city'))) g.classList.add('is-link'); });
+    function go(e) {
+      if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      var el = e.currentTarget, id = el.getAttribute('data-city'), url = el.getAttribute('href') || urlOf(id);
+      if (!url) return;
+      e.preventDefault();
+      dive(map, id, url, el);
+    }
+    $$('.bh-pill, .bc-row, .bh-beam.is-link').forEach(function (el) {
+      el.addEventListener('click', go);
+      var u = el.getAttribute('href') || urlOf(el.getAttribute('data-city'));
+      ['pointerdown', 'mouseenter', 'focus'].forEach(function (t) { el.addEventListener(t, function () { prefetch(u); }, { passive: true }); });
+    });
+
     // lagani nagib karte za prstom ili mišem (samo transform, bez ponovnog crtanja)
     if (!reduce) {
       var svg = $('.bh-svg', map), raf = 0, tx = 0, ty = 0;
@@ -127,7 +257,12 @@
         sub.textContent = old;
         var best = null, bd = Infinity;
         D.near.forEach(function (b) { var d = dist(p.la, p.lo, b.la, b.lo); if (d < bd) { bd = d; best = b; } });
-        if (best && best.u) { location.href = best.u + '?near=1'; return; }
+        if (best && best.u) {
+          var pill = $$('.bh-pill', map).filter(function (x) { return x.getAttribute('href') === best.u; })[0];
+          if (pill) dive(map, pill.getAttribute('data-city'), best.u + '?near=1', btn);
+          else location.href = best.u + '?near=1';
+          return;
+        }
         res.hidden = false;
         res.innerHTML = esc(D.t.res.replace('{name}', best.n).replace('{city}', best.c).replace('{dist}', fmtDist(bd))) +
           ' · <a href="' + esc(best.d) + '" target="_blank" rel="noopener">' + esc(D.t.dir) + '</a>';

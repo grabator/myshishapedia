@@ -37,7 +37,7 @@
 .bh-beam { transition: opacity 0.35s; }
 
 .bx-body { position: relative; z-index: 2; padding-bottom: clamp(24px, 5vw, 48px); max-width: 760px; }
-.bx-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; border-radius: 20px; overflow: hidden; background: rgba(255, 207, 138, 0.18); border: 1px solid rgba(255, 207, 138, 0.18); margin-top: clamp(-40px, -4vw, -10px); }
+.bx-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; border-radius: 20px; overflow: hidden; background: rgba(255, 207, 138, 0.18); border: 1px solid rgba(255, 207, 138, 0.18); margin-top: clamp(-40px, -4vw, 10px); }
 .bx-stats div { background: rgba(18, 13, 10, 0.86); padding: 12px 12px 11px; }
 .bx-stats b { display: block; font: 800 clamp(1.4rem, 1.1rem + 1.4vw, 2rem)/1 var(--font-display); font-variant-numeric: tabular-nums; }
 .bx-stats span { font-size: 0.72rem; color: var(--c-muted); font-weight: 700; }
@@ -286,3 +286,50 @@ html.js .cp-smoke { animation: cp-drift 9s ease-in-out infinite; }
 .ct-tabs { padding-right: 24px; }
 html.js .bh-map.is-play .bh-words { animation: bh-lv 1.4s ease both; animation-delay: 0.6s; }
 @media (prefers-reduced-motion: reduce) { html.js .bh-map .bh-words { animation: none !important; } }
+
+/* ---------- Uranjanje u stub: karta BiH -> stranica grada (vidi dive() u js/bars.js) ---------- */
+:root { --dive-glow: radial-gradient(circle at 50% 54%, #fff7ea 0, #ffd697 16%, #f2a33c 38%, #b8521d 70%, #3a1608 100%); }
+.bh-beam.is-link { cursor: pointer; }
+html.is-diving .site-header,
+html.is-diving .bx-hero,
+html.is-diving .bx-body,
+html.is-diving .bh-pill,
+html.is-diving .bh-lead,
+html.is-diving .bh-words,
+html.is-diving .bh-beam:not(.is-dive) { opacity: 0 !important; transition: opacity 0.35s ease; }
+html.is-diving #main { will-change: transform; }
+.dive { position: fixed; inset: 0; z-index: 400; overflow: hidden; pointer-events: auto; }
+.dive__beam {
+  position: absolute; top: -10%; left: 0; width: 40px; margin-left: -20px; height: 120%; opacity: 0;
+  background: linear-gradient(90deg, rgba(242, 163, 60, 0), rgba(242, 163, 60, 0.55) 22%, #fff3dc 50%, rgba(242, 163, 60, 0.55) 78%, rgba(242, 163, 60, 0));
+  filter: blur(1.5px);
+  -webkit-mask-image: linear-gradient(to top, #000 40%, transparent 92%); mask-image: linear-gradient(to top, #000 40%, transparent 92%);
+}
+.dive__st {
+  position: absolute; top: 0; width: 2px; height: var(--l); border-radius: 2px; opacity: 0;
+  background: linear-gradient(rgba(255, 226, 176, 0), #fff1d6);
+  animation: dive-st 0.42s var(--d) cubic-bezier(0.4, 0, 1, 1) both;
+}
+.dive__base { position: absolute; left: 0; top: 0; width: 120px; height: 46px; margin: -23px 0 0 -60px; opacity: 0; border-radius: 50%; background: radial-gradient(closest-side, #fffaf0, #ffe3ad 40%, rgba(242, 163, 60, 0.75) 70%, rgba(242, 163, 60, 0)); }
+.dive__glow { position: absolute; inset: 0; opacity: 0; background: var(--dive-glow); }
+.dive.is-hold .dive__glow { animation: dive-hold 1.6s ease-in-out infinite alternate; }
+@keyframes dive-st { 0% { opacity: 0; transform: translateY(105vh); } 30% { opacity: 0.9; } 100% { opacity: 0; transform: translateY(-35vh); } }
+@keyframes dive-hold { to { transform: scale(1.06); filter: brightness(0.9); } }
+
+/* Stranica grada: izlazak iz istog svjetla (klasa dive-in dolazi iz HEAD_SCRIPT prije prvog crtanja) */
+.ct-dive { display: none; }
+html.dive-in .ct-dive {
+  display: block; position: fixed; inset: 0; z-index: 400; pointer-events: none; background: var(--dive-glow);
+  animation: ct-dive-out 0.85s cubic-bezier(0.3, 0, 0.2, 1) 0.05s both;
+}
+html.dive-in .cp { transform-origin: 50% 75%; animation: ct-emerge 1.3s cubic-bezier(0.16, 1, 0.3, 1) both; }
+html.dive-in .ct-body { animation: ct-rise 0.75s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both; }
+html.dive-in .site-header { animation: ct-fade 0.5s ease 0.55s both; }
+@keyframes ct-dive-out { 60% { opacity: 0.35; } to { opacity: 0; transform: translateY(-8vh) scale(1.35); } }
+@keyframes ct-emerge { from { transform: translateY(40px) scale(1.25); } }
+@keyframes ct-rise { from { opacity: 0; transform: translateY(30px); } }
+@keyframes ct-fade { from { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) {
+  html.dive-in .ct-dive { display: none; }
+  html.dive-in .cp, html.dive-in .ct-body, html.dive-in .site-header { animation: none; }
+}
