@@ -733,12 +733,14 @@
     { key: 'groupDiscover', items: [
       { n: NAV[0].items[2], color: '#ffb547' }, { n: NAV[0].items[3], color: '#e8457a' },
       { n: NAV[0].items[4], color: '#9b6cf0' }, { n: NAV[0].items[5], color: '#f2c230' },
-      { n: NAV[0].items[7], color: '#ff6fae' }, { n: NAV[0].items[8], color: '#7bd389' }
+      { n: NAV[0].items[7], color: '#ff6fae' }, { n: NAV[0].items[8], color: '#7bd389' },
+      { n: NAV[0].items[9], color: '#8fc6ff' }
     ] },
     { key: 'groupHookah', items: [
       { n: NAV_HOOKAH.items[0], color: '#3fc1c9' }, { n: NAV_HOOKAH.items[3], color: '#2fae78' },
       { n: NAV_HOOKAH.items[2], color: '#c58a52' }, { n: NAV_HOOKAH.items[1], color: '#a99a8a' },
-      { n: NAV_HOOKAH.items[4], color: '#e2541b' }, { n: NAV_HOOKAH.items[5], color: '#e0b25e' }
+      { n: NAV_HOOKAH.items[4], color: '#e2541b' }, { n: NAV_HOOKAH.items[5], color: '#e0b25e' },
+      { n: NAV_HOOKAH.items.filter(function (x) { return x.page === 'loungeInfo'; })[0], color: '#f2a33c' }
     ] }
   ];
 
@@ -775,7 +777,6 @@
         '</a>'
       );
     }).join('');
-    var shelfNav = NAV[0].items[6];
     var lists = MENU_LISTS.map(function (g, gi) {
       var id = 'mgroup-' + gi;
       return (
@@ -800,6 +801,7 @@
         '<span class="msurprise__sub" aria-live="polite">' + esc(t('nav.surpriseSub')) + '</span>' +
         icon('arrowRight') +
       '</button>' +
+      '<div class="mpair">' +
       '<a class="menu-link mgame" href="' + navHref(NAV_GAME, desc) + '"' + curAttr(NAV_GAME, desc) + ' style="--i:' + (k++) + '">' +
         '<span class="mgame__art" aria-hidden="true"><i></i><i></i><i></i><i></i></span>' +
         '<span class="mshelf__text"><span class="mshelf__name">Shisha Drop <span class="nav-new">' + esc(t('nav.newBadge')) + '</span></span><span class="mshelf__sub">' + esc(t('nav.gameSub')) + '</span></span>' +
@@ -810,11 +812,7 @@
         '<span class="mshelf__text"><span class="mshelf__name">' + esc(t('nav.bars')) + '</span><span class="mshelf__sub">' + esc(t('nav.barsSub')) + '</span></span>' +
         icon('arrowRight') +
       '</a>' +
-      '<a class="menu-link mshelf" href="' + navHref(shelfNav, desc) + '"' + curAttr(shelfNav, desc) + ' style="--i:' + (k++) + '">' +
-        '<span class="mshelf__dots" aria-hidden="true"><i></i><i></i><i></i><i></i></span>' +
-        '<span class="mshelf__text"><span class="mshelf__name">' + esc(t('nav.shelf')) + '</span><span class="mshelf__sub">' + esc(t('nav.shelfSub')) + '</span></span>' +
-        '<span class="mshelf__count" hidden></span>' +
-      '</a>' +
+      '</div>' +
       '<button type="button" class="menu-link minstall" data-install data-install-btn hidden style="--i:' + (k++) + '">' +
         '<span class="minstall__icon" aria-hidden="true">' + icon('download') + '</span>' +
         '<span class="mshelf__text"><span class="mshelf__name">' + esc(t('pwa.install')) + '</span><span class="mshelf__sub">' + esc(t('pwa.installSub')) + '</span></span>' +

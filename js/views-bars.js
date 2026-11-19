@@ -250,6 +250,19 @@
     return out;
   }
 
+  /** Ime zemlje ispisano na podu oko ploče (ista perspektiva kao karta): prva riječ iza, ostatak ispred. */
+  var COUNTRY = { bs: ['BOSNA', 'I HERCEGOVINA'], en: ['BOSNIA', 'AND HERZEGOVINA'], de: ['BOSNIEN', 'UND HERZEGOWINA'], ru: ['БОСНИЯ', 'И ГЕРЦЕГОВИНА'] };
+  function floorWords(mtx) {
+    var w = COUNTRY[MSP.lang] || COUNTRY.en;
+    function line(txt, y, size, len, op) {
+      return '<text x="500" y="' + y + '" text-anchor="middle" font-family="Syne,Unbounded,sans-serif" font-weight="800" font-size="' + size + '" textLength="' + len + '" lengthAdjust="spacingAndGlyphs" fill="url(#bh-ink)" fill-opacity="' + op + '" stroke="#ffcf8a" stroke-opacity="' + (op * 1.6).toFixed(2) + '" stroke-width=".6" vector-effect="non-scaling-stroke">' + esc(txt) + '</text>';
+    }
+    return '<g class="bh-words" transform="' + mtx + '" aria-hidden="true">' +
+      line(w[0], -95, 330, 1040, 0.09) +
+      line(w[1], 1215, 190, 1060, 0.12) +
+    '</g>';
+  }
+
   function rng(seed) { var s = seed; return function () { s = (s * 16807) % 2147483647; return s / 2147483647; }; }
 
   function bihMap() {
@@ -273,7 +286,7 @@
         '<ellipse class="bh-pool" cx="' + bb.X.toFixed(1) + '" cy="' + bb.Y.toFixed(1) + '" rx="' + rx.toFixed(1) + '" ry="' + (rx * 0.36).toFixed(1) + '" fill="url(#bh-pool)"/>' +
         '<ellipse cx="' + bb.X.toFixed(1) + '" cy="' + bb.Y.toFixed(1) + '" rx="' + (10 + c * 1.6).toFixed(1) + '" ry="' + ((10 + c * 1.6) * 0.36).toFixed(1) + '" fill="none" stroke="#ffcf8a" stroke-opacity=".5" stroke-width=".8"/>' +
         '<g class="bh-rise">' +
-          '<rect x="' + (bb.X - w * 3.2).toFixed(1) + '" y="' + (bb.Y - bb.h).toFixed(1) + '" width="' + (w * 6.4).toFixed(1) + '" height="' + bb.h + '" fill="url(#bh-soft)" opacity=".55"/>' +
+          '<rect x="' + (bb.X - w * 2.4).toFixed(1) + '" y="' + (bb.Y - bb.h).toFixed(1) + '" width="' + (w * 4.8).toFixed(1) + '" height="' + bb.h + '" rx="' + (w * 2.4).toFixed(1) + '" fill="url(#bh-soft)" opacity=".6" filter="url(#bh-soften)"/>' +
           '<rect x="' + (bb.X - w / 2).toFixed(1) + '" y="' + (bb.Y - bb.h).toFixed(1) + '" width="' + w.toFixed(1) + '" height="' + bb.h + '" fill="url(#bh-beam)"/>' +
           '<rect x="' + (bb.X - 0.9).toFixed(1) + '" y="' + (bb.Y - bb.h).toFixed(1) + '" width="1.8" height="' + bb.h + '" fill="url(#bh-core)"/>' +
         '</g>' +
@@ -294,8 +307,11 @@
           '<linearGradient id="bh-face" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#2e2018"/><stop offset="1" stop-color="#1a120d"/></linearGradient>' +
           '<clipPath id="bh-clip"><use href="#bh-shape"/></clipPath>' +
           '<filter id="bh-blur" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="18"/></filter>' +
+          '<filter id="bh-soften" x="-150%" y="-10%" width="400%" height="120%"><feGaussianBlur stdDeviation="4 2"/></filter>' +
+          '<linearGradient id="bh-ink" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#ffcf8a" stop-opacity="0"/><stop offset=".2" stop-color="#ffcf8a"/><stop offset=".8" stop-color="#ffcf8a"/><stop offset="1" stop-color="#ffcf8a" stop-opacity="0"/></linearGradient>' +
         '</defs>' +
         '<path class="bh-grid" d="' + grid + '" stroke="#f2a33c" stroke-opacity=".17" stroke-width=".7" mask="url(#bh-gm)"/>' +
+        floorWords(mtx) +
         '<g class="bh-plate">' +
           '<use href="#bh-shape" transform="translate(0 46) ' + mtx + '" fill="#000" opacity=".7" filter="url(#bh-blur)"/>' +
           slab +
@@ -536,7 +552,6 @@
     var tabs = '<nav class="ct-tabs" aria-label="' + esc(tx('cities')) + '">' +
       '<h1 class="ct-cur">' + esc(V.barCityName(c)) + '<sup>' + list.length + '</sup></h1>' +
       pages.filter(function (o) { return o !== c; }).map(function (o) { return '<a href="' + V.barCityUrl(o) + '">' + esc(V.barCityName(o)) + '<sup>' + V.barsOf(o).length + '</sup></a>'; }).join('') +
-      '<a class="ct-all" href="' + V.url('bars') + '">' + esc(tx('allCities')) + '</a>' +
     '</nav>';
     var ctl = '<div class="ct-ctl" id="ct-ctl">' +
       (pins.length ? '<button type="button" class="ct-chip" id="ct-near" aria-pressed="false">' + ic('near') + esc(tx('nearest')) + '</button>' : '') +
@@ -558,7 +573,7 @@
       '<div class="ct" id="ct" data-city="' + esc(c.id) + '">' +
         cityPoster(c) +
         '<div class="container ct-body">' +
-          tabs + '<p class="ct-lead">' + esc(fill(tx(pins.length ? 'cityLead' : 'cityLeadNoMap'), { n: tx('bars')(list.length), loc: cityLoc(c) })) + '</p>' + ctl +
+          tabs + '<p class="ct-lead">' + esc(fill(tx(pins.length ? 'cityLead' : 'cityLeadNoMap'), { n: tx('bars')(list.length), loc: cityLoc(c) })) + ' <a class="ct-all" href="' + V.url('bars') + '">' + esc(tx('allCities')) + ' →</a></p>' + ctl +
           '<div class="ct-view" id="ct-list">' +
             (lit.length ? '<div class="bf-list">' + lit.map(litCard).join('') + '</div>' : '') +
             '<h2 class="bx-h bx-h--sm"><span>' + esc(lit.length ? tx('otherBars') : tx('allBars')) + '</span><span>' + plain.length + '</span></h2>' +

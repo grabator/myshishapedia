@@ -278,3 +278,11 @@ html.js .cp-smoke { animation: cp-drift 9s ease-in-out infinite; }
 @media (prefers-reduced-motion: reduce) { .lp-coal::before { animation: none; } }
 .lp-stats__txt b { font-size: 0.82rem; }
 .ct-card .bl-go { width: auto; padding: 0 14px; }
+
+/* dorada: FAQ uvijek vidljiv, link "Svi gradovi" u redu ispod tabova, natpis na podu */
+.bx [data-reveal], .ct [data-reveal] { opacity: 1; transform: none; }
+.ct-lead .ct-all { color: var(--b-amber); font-weight: 700; text-decoration: none; white-space: nowrap; }
+.ct-lead .ct-all:hover { text-decoration: underline; }
+.ct-tabs { padding-right: 24px; }
+html.js .bh-map.is-play .bh-words { animation: bh-lv 1.4s ease both; animation-delay: 0.6s; }
+@media (prefers-reduced-motion: reduce) { html.js .bh-map .bh-words { animation: none !important; } }
