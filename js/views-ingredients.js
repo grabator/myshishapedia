@@ -267,6 +267,7 @@
     aCool: { bs: 'Najviše hlade {list}.', en: 'The coolest ones are {list}.', de: 'Am meisten kühlen {list}.', ru: 'Сильнее всего холодят {list}.' },
     qNoMint: { bs: 'Ima li ovih okusa bez mente?', en: 'Are there {noun} flavors without mint?', de: 'Gibt es Sorten mit {noun} ohne Minze?', ru: 'Есть ли табак со вкусом {noun} без мяты?' },
     aNoMint: { bs: 'Da, bez mente i leda: {N}, na primjer {list}.', en: 'Yes, {n} have no mint or ice, for example {list}.', de: 'Ja, {n} Sorten haben weder Minze noch Ice, zum Beispiel {list}.', ru: 'Да, без мяты и льда: {N}, например {list}.' },
+    showAll: { bs: 'Prikaži sve', en: 'Show all', de: 'Alle zeigen', ru: 'Показать все' },
     indexTitle: { bs: 'Okusi po sastojku', en: 'Hookah flavors by ingredient', de: 'Shisha Tabak nach Zutat', ru: 'Вкусы для кальяна по ингредиенту' },
     indexText: { bs: 'Lubenica, limun i menta, grožđe, jabuka i drugo: svi okusi sa jednim sastojkom na jednoj stranici.',
       en: 'Watermelon, lemon mint, grape, apple and more: every flavor with one ingredient on a single page.',
@@ -380,9 +381,20 @@
       '<header class="faq__head"><p class="eyebrow"><span class="eyebrow__dot" aria-hidden="true"></span>' + esc(tx('eyebrow')) + '</p>' +
         '<h2 class="faq__title" id="ingidx-h">' + esc(tx('indexTitle')) + '</h2></header>' +
       '<p class="ingp__p">' + esc(tx('indexText')) + '</p>' +
-      '<p class="ingp__chips">' + chipLinks(list) + '</p>' +
+      '<div class="ingp__chips ingp__chips--home">' + shortChips(list.slice(0, 12)) +
+        (list.length > 12 ? '<details class="ingp__more"><summary class="chip">' + esc(tx('showAll')) + ' <span class="ingp__n">+' + (list.length - 12) + '</span></summary>' + shortChips(list.slice(12)) + '</details>' : '') +
+      '</div>' +
     '</div></section>';
   };
+
+  /** Kratki čipovi za početnu: samo sastojak ("Lubenica 23"), pun naslov je u title. */
+  function shortChips(list) {
+    return list.map(function (p) {
+      var n = MSP.lang === 'ru' ? L(p.h1) : String(L(p.noun) || L(p.h1));
+      n = n.charAt(0).toUpperCase() + n.slice(1);
+      return '<a class="chip" href="' + V.ingredientUrl(p) + '" title="' + esc(L(p.h1)) + '">' + esc(n) + ' <span class="ingp__n">' + p.flavors.length + '</span></a>';
+    }).join('');
+  }
 
   V.flavorsAZSection = function () {
     var fl = V.flavors().slice().sort(function (a, b) { return a.name.localeCompare(b.name, MSP.lang) || a.brand.localeCompare(b.brand); });

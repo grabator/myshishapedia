@@ -1067,14 +1067,6 @@
     return btn(null, t('home.filterAll')) + tagCounts().map(function (tag) { return btn(tag, MSP.tagLabel(tag)); }).join('');
   };
 
-  function marquee() {
-    var names = allIngredients().map(function (i) { return L(i.name); });
-    var chunk = names.map(function (name, i) {
-      return '<span class="marquee__item' + (i % 2 ? ' marquee__item--outline' : '') + '">' + esc(name) + '</span>' + icon('spark', 'marquee__sep');
-    }).join('');
-    return '<div class="marquee__group">' + chunk + '</div><div class="marquee__group">' + chunk + '</div>';
-  }
-
   function explore() {
     var items = [
       { page: 'mixer', kind: 'mixer', title: 'explore.mixerTitle', text: 'explore.mixerText' },
@@ -1241,7 +1233,6 @@
       gamePromo() +
       V.homeCollections() +
       (V.ingredientIndexSection ? V.ingredientIndexSection() : '') +
-      '<div class="marquee" aria-hidden="true"><div class="marquee__track">' + marquee() + '</div></div>' +
       catalog('catalog-title') +
       V.homeMixes() +
       explore() +

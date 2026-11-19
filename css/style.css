@@ -8946,6 +8946,11 @@ a.smx__card:hover { border-color: var(--c-line-strong); transform: translateY(-2
 .ingp__chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; }
 .ingp__chips .chip,
 .ing-more .chip { display: inline-flex; align-items: center; gap: 6px; text-decoration: none; line-height: 1.25; padding-block: 6px; }
+.ingp__chips--home .chip { font-size: 0.875rem; min-height: 38px; padding: 5px 12px; }
+.ingp__more { display: contents; }
+.ingp__more summary { cursor: pointer; list-style: none; color: var(--c-accent-ink); }
+.ingp__more summary::-webkit-details-marker { display: none; }
+.ingp__more[open] summary { display: none; }
 .ingp__chips--small .chip { font-size: 0.8125rem; min-height: 36px; padding-block: 4px; }
 .ingp__cols { display: grid; gap: 32px; }
 @media (min-width: 860px) { .ingp__cols { grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); } }

@@ -31,6 +31,13 @@
   }
   /** Minute pješke: zračna linija + 30% za ulice, 80 m u minuti. */
   function walkMin(m) { return Math.max(1, Math.round(m * 1.3 / 80)); }
+  /** Kratko za kolonu lijevo: do 3 km minute pješke, dalje kilometri (npr. 1122 min bi prešlo u ime lokala). */
+  function short(m) {
+    if (m <= 3000) return [walkMin(m), T0.min];
+    var km = m < 10000 ? (m / 1000).toFixed(1) : String(Math.round(m / 1000));
+    return [lang === 'en' ? km : km.replace('.', ','), 'km'];
+  }
+  var T0 = { min: 'min' };
 
   var pos = null;
   function locate(ok, fail) {
@@ -142,6 +149,7 @@
     if (!root) return;
     var D = data('ct-data') || { bars: [], t: {} };
     var T = D.t;
+    T0.min = T.min || 'min';
     var list = $('#ct-list'), mapView = $('#ct-map'), listEl = $('#bl-list');
     var status = doc.createElement('p');
     status.className = 'bx-near-res';
@@ -161,15 +169,16 @@
         var d = dist(p.la, p.lo, la, lo);
         row._d = d;
         row.classList.add('has-dist');
-        $('.bl-n', row).innerHTML = '<b>' + walkMin(d) + '</b><small>' + esc(T.min) + '</small>';
+        var s = short(d);
+        $('.bl-n', row).innerHTML = '<b' + (String(s[0]).length > 2 ? ' class="is-long"' : '') + '>' + esc(s[0]) + '</b><small>' + esc(s[1]) + '</small>';
         var dd = $('[data-dist]', row);
-        if (dd) dd.textContent = ' · ' + fmtDist(d);
+        if (dd) dd.textContent = d <= 3000 ? ' · ' + fmtDist(d) : '';
       });
       rows.sort(function (a, b) { return a._d - b._d; }).forEach(function (r) { listEl.appendChild(r); });
       $$('.bf[data-lat]').forEach(function (card) {
         var d = dist(p.la, p.lo, +card.getAttribute('data-lat'), +card.getAttribute('data-lon'));
         var dd = $('[data-dist]', card);
-        if (dd) dd.textContent = ' · ' + walkMin(d) + ' ' + T.min;
+        if (dd) dd.textContent = ' · ' + (d <= 3000 ? walkMin(d) + ' ' + T.min : fmtDist(d));
       });
       if (leaf) showYou();
     }
