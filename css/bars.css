@@ -276,3 +276,4 @@ html.js .cp-smoke { animation: cp-drift 9s ease-in-out infinite; }
 @keyframes bc-breathe2 { 50% { opacity: 0.6; transform: scale(0.94); } }
 @media (prefers-reduced-motion: reduce) { .lp-coal::before { animation: none; } }
 .lp-stats__txt b { font-size: 0.82rem; }
+.ct-card .bl-go { width: auto; padding: 0 14px; }
