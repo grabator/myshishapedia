@@ -15,6 +15,8 @@
  *   top       id-jevi za "Najtraženije večeras" (redom)
  *   mixes     kućni miksevi: { id, name, parts: [[idOkusa, postotak], ...] }
  *   game      true = lounge ima svoju ligu u igri Shisha Drop (mora biti i u lib/game-venues.mjs)
+ *   closes    do kad radi, npr. '01:00' (traka na vrhu stranice); mark: slovo u logu (inače prvo slovo imena)
+ *   phone, instagram   za dugmad "Pozovi" i Instagram na vrhu stranice (adresa i mapa su u data/bars.js, polje lounge)
  *
  * Kad lounge javi promjenu (novi okus, nema okusa, nova cijena), mijenja se samo ovaj fajl.
  */
@@ -27,6 +29,7 @@ window.LOUNGES = [
     nameIn: { loc: 'Babylonu', gen: 'Babylona' },
     tagline: { bs: 'Shisha lounge', en: 'Shisha lounge' },
     hours: { bs: 'Otvoreno do 01:00', en: 'Open until 1 am' },
+    closes: '01:00', // za traku na vrhu stranice (lokal javlja)
     price: { bs: 'Nargila 15 KM', en: 'Hookah 15 KM' },
     colors: ['#e0b25e', '#8a5a1f'],
     flavors: [

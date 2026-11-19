@@ -684,6 +684,7 @@
       { key: 'tips', page: 'tips', match: ['tips'] },
       { key: 'articles', page: 'articles', match: ['articles', 'article'] },
       { key: 'history', page: 'history', match: ['history', 'chapter'] },
+      { key: 'bars', page: 'bars', match: ['bars', 'barCity'] },
       { key: 'loungeInfo', page: 'loungeInfo', match: ['loungeInfo', 'lounge'] }
     ] },
     { key: 'about', page: 'about', match: ['about'] }
@@ -899,7 +900,7 @@
     var year = desc.year || new Date().getFullYear();
     var email = (cfg && cfg.AUTHOR_EMAIL) || '';
     var name = (cfg && cfg.AUTHOR_NAME) || 'Graba';
-    var links = ['flavors', 'brands', 'collections', 'compare', 'mixes', 'creators', 'top', 'shelf', 'session', 'journal', 'mixer', 'quiz', 'game', 'guide', 'tips', 'articles', 'history', 'glossary', 'gear', 'loungeInfo', 'about'].map(function (p) {
+    var links = ['flavors', 'brands', 'collections', 'compare', 'mixes', 'creators', 'top', 'shelf', 'session', 'journal', 'mixer', 'quiz', 'game', 'guide', 'tips', 'articles', 'history', 'glossary', 'gear', 'bars', 'loungeInfo', 'about'].map(function (p) {
       return '<li><a href="' + V.url(p) + '">' + esc(t('nav.' + (p === 'flavors' ? 'allFlavors' : p))) + '</a></li>';
     }).join('');
     return (
@@ -2396,6 +2397,7 @@
       case 'creators': case 'creator': case 'cmix': return V.crumbsCreators(desc, home);
       case 'brand': return [home, { name: t('nav.brands'), url: V.url('brands') }, { name: desc.brand.name, url: V.brandUrl(desc.brand) }];
       case 'lounge': return [home, { name: t('nav.loungeInfo'), url: V.url('loungeInfo') }, { name: desc.lounge.name, url: V.url('lounge', desc.lounge.id) }];
+      case 'bars': case 'barCity': return V.barsCrumbs(desc, home);
       default: return [home, { name: t('nav.' + desc.page), url: V.url(desc.page) }];
     }
   };
@@ -2511,6 +2513,12 @@
         out.title = t('meta.loungeTitle', V.loungeNames(desc.lounge));
         out.description = t('meta.loungeDescription', V.loungeNames(desc.lounge));
         break;
+      case 'bars': case 'barCity':
+        var bp = V.pageBarsAll(desc, crumbs);
+        out.main = bp.main;
+        out.title = bp.title;
+        out.description = bp.description;
+        break;
       case 'loungeInfo':
         out.main = V.pageLoungeInfo(crumbs);
         out.title = t('meta.loungeInfoTitle');
@@ -2563,6 +2571,7 @@
       else if (desc.page === 'chapter') o[l] = V.chapterUrl(desc.chapter, l);
       else if (desc.page === 'article') o[l] = V.articleUrl(desc.article, l);
       else if (desc.page === 'lounge') o[l] = V.urlFor(l, 'lounge', desc.lounge.id);
+      else if (desc.page === 'barCity') o[l] = V.barCityUrl(desc.city, l);
       else if (desc.page === 'ingredient') o[l] = V.ingredientUrl(desc.ingredient, l);
       else if (desc.page === 'creator') o[l] = V.creatorUrl(desc.creator, l);
       else if (desc.page === 'cmix') o[l] = V.creatorMixUrl(desc.mix, l);
