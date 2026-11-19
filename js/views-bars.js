@@ -338,20 +338,22 @@
   /* Poster grada (dim, nebo, znamenitost)                               */
   /* ------------------------------------------------------------------ */
 
-  function ridge(base, amp, freq, ph) {
-    var d = 'M0 ' + base;
-    for (var x = 0; x <= 390; x += 6) {
+  function ridge(base, amp, freq, ph, W) {
+    var d = 'M0 ' + base, st = W > 600 ? 10 : 6;
+    for (var x = 0; x <= W; x += st) {
       var y = base - amp * (Math.sin(x / freq + ph) * 0.55 + Math.sin(x / (freq * 0.37) + ph * 2) * 0.3 + Math.sin(x / (freq * 0.13) + ph) * 0.15);
       d += 'L' + x + ' ' + y.toFixed(1);
     }
-    return d + 'L390 400L0 400Z';
+    return d + 'L' + W + ' 400L0 400Z';
   }
 
+  /* Znamenitost grada. cx = sredina, W = širina scene, k = uvećanje (široka scena na računaru), s = sufiks id-ova */
+  function grow(cx, by, k, body) { return k === 1 ? body : '<g transform="translate(' + cx + ' ' + by + ') scale(' + k + ') translate(' + (-cx) + ' ' + (-by) + ')">' + body + '</g>'; }
   var LANDMARK = {
     // Sebilj (Baščaršija): osmougaona česma sa krovom i kupolom
-    sebilj: function () {
-      var sx = 195, sb = 336;
-      return '<g fill="#0c0706">' +
+    sebilj: function (sx, W, k, s) {
+      var sb = 336;
+      return grow(sx, sb, k, '<g fill="#0c0706">' +
         '<rect x="' + (sx - 60) + '" y="' + (sb - 8) + '" width="120" height="10" rx="2"/><rect x="' + (sx - 52) + '" y="' + (sb - 16) + '" width="104" height="9"/>' +
         '<rect x="' + (sx - 40) + '" y="' + (sb - 70) + '" width="80" height="56"/>' +
         '<path d="M' + (sx - 66) + ' ' + (sb - 70) + 'L' + (sx + 66) + ' ' + (sb - 70) + 'L' + (sx + 46) + ' ' + (sb - 92) + 'L' + (sx - 46) + ' ' + (sb - 92) + 'Z"/>' +
@@ -362,63 +364,82 @@
           return '<path d="M' + (sx + o - 6) + ' ' + (sb - 20) + 'L' + (sx + o - 6) + ' ' + (sb - 52) + 'A6 7 0 0 1 ' + (sx + o + 6) + ' ' + (sb - 52) + 'L' + (sx + o + 6) + ' ' + (sb - 20) + 'Z"/>';
         }).join('') + '</g>' +
         '<path d="M' + (sx - 66) + ' ' + (sb - 70) + 'L' + (sx + 66) + ' ' + (sb - 70) + 'M' + (sx - 30) + ' ' + (sb - 99) + 'A30 32 0 0 1 ' + (sx + 30) + ' ' + (sb - 99) + '" stroke="#ffcf8a" stroke-opacity=".55" stroke-width="1.1" fill="none"/>' +
-        '<ellipse cx="' + sx + '" cy="' + (sb - 34) + '" rx="70" ry="40" fill="url(#cp-eg)" opacity=".6"/>';
+        '<ellipse cx="' + sx + '" cy="' + (sb - 34) + '" rx="70" ry="40" fill="url(#cp-eg' + s + ')" opacity=".6"/>');
     },
     // Stari most (Mostar): dvije kule i luk nad Neretvom
-    most: function () {
-      var y0 = 284;
-      return '<path d="M0 ' + (y0 + 34) + 'C70 ' + (y0 + 26) + ' 110 ' + (y0 + 44) + ' 195 ' + (y0 + 36) + 'S330 ' + (y0 + 26) + ' 390 ' + (y0 + 34) + 'L390 400L0 400Z" fill="#132428"/>' +
-        '<g fill="#0c0706"><rect x="96" y="' + (y0 - 46) + '" width="30" height="84"/><rect x="264" y="' + (y0 - 46) + '" width="30" height="84"/>' +
-        '<path d="M92 ' + (y0 - 46) + 'L111 ' + (y0 - 60) + 'L130 ' + (y0 - 46) + 'Z"/><path d="M260 ' + (y0 - 46) + 'L279 ' + (y0 - 60) + 'L298 ' + (y0 - 46) + 'Z"/>' +
-        '<path d="M126 ' + (y0 - 6) + 'Q195 ' + (y0 - 88) + ' 264 ' + (y0 - 6) + 'L264 ' + (y0 + 6) + 'Q195 ' + (y0 - 72) + ' 126 ' + (y0 + 6) + 'Z"/>' +
-        '<rect x="0" y="' + (y0 + 2) + '" width="96" height="40"/><rect x="294" y="' + (y0 + 2) + '" width="96" height="40"/></g>' +
-        '<path d="M126 ' + (y0 - 6) + 'Q195 ' + (y0 - 88) + ' 264 ' + (y0 - 6) + '" stroke="#ffcf8a" stroke-opacity=".6" stroke-width="1.2" fill="none"/>' +
-        '<g class="cp-win" fill="#ffb24d"><rect x="106" y="' + (y0 - 30) + '" width="8" height="12" rx="4"/><rect x="274" y="' + (y0 - 30) + '" width="8" height="12" rx="4"/></g>' +
-        '<path d="M150 ' + (y0 + 48) + 'Q195 ' + (y0 + 80) + ' 240 ' + (y0 + 48) + '" stroke="#ffcf8a" stroke-opacity=".2" stroke-width="2" stroke-dasharray="4 5" fill="none"/>';
+    most: function (cx, W, k, s) {
+      var y0 = 284, o = cx - 195;
+      function X(v) { return v + o; }
+      return '<path d="M0 ' + (y0 + 34) + 'C' + (W * 0.18) + ' ' + (y0 + 26) + ' ' + (W * 0.28) + ' ' + (y0 + 44) + ' ' + (W / 2) + ' ' + (y0 + 36) + 'S' + (W * 0.85) + ' ' + (y0 + 26) + ' ' + W + ' ' + (y0 + 34) + 'L' + W + ' 400L0 400Z" fill="#132428"/>' +
+        grow(cx, y0 + 40, k, '<g fill="#0c0706"><rect x="' + X(96) + '" y="' + (y0 - 46) + '" width="30" height="84"/><rect x="' + X(264) + '" y="' + (y0 - 46) + '" width="30" height="84"/>' +
+        '<path d="M' + X(92) + ' ' + (y0 - 46) + 'L' + X(111) + ' ' + (y0 - 60) + 'L' + X(130) + ' ' + (y0 - 46) + 'Z"/><path d="M' + X(260) + ' ' + (y0 - 46) + 'L' + X(279) + ' ' + (y0 - 60) + 'L' + X(298) + ' ' + (y0 - 46) + 'Z"/>' +
+        '<path d="M' + X(126) + ' ' + (y0 - 6) + 'Q' + cx + ' ' + (y0 - 88) + ' ' + X(264) + ' ' + (y0 - 6) + 'L' + X(264) + ' ' + (y0 + 6) + 'Q' + cx + ' ' + (y0 - 72) + ' ' + X(126) + ' ' + (y0 + 6) + 'Z"/>' +
+        (k === 1 ? '<rect x="' + X(0) + '" y="' + (y0 + 2) + '" width="96" height="40"/><rect x="' + X(294) + '" y="' + (y0 + 2) + '" width="96" height="40"/>'
+          : '<path d="M' + X(98) + ' ' + (y0 + 40) + 'L' + X(98) + ' ' + (y0 + 4) + 'L' + X(70) + ' ' + (y0 + 6) + 'C' + X(50) + ' ' + (y0 + 8) + ' ' + X(40) + ' ' + (y0 + 22) + ' ' + X(10) + ' ' + (y0 + 40) + 'Z"/><path d="M' + X(292) + ' ' + (y0 + 40) + 'L' + X(292) + ' ' + (y0 + 4) + 'L' + X(320) + ' ' + (y0 + 6) + 'C' + X(340) + ' ' + (y0 + 8) + ' ' + X(350) + ' ' + (y0 + 22) + ' ' + X(380) + ' ' + (y0 + 40) + 'Z"/>') + '</g>' +
+        '<path d="M' + X(126) + ' ' + (y0 - 6) + 'Q' + cx + ' ' + (y0 - 88) + ' ' + X(264) + ' ' + (y0 - 6) + '" stroke="#ffcf8a" stroke-opacity=".6" stroke-width="1.2" fill="none"/>' +
+        '<g class="cp-win" fill="#ffb24d"><rect x="' + X(106) + '" y="' + (y0 - 30) + '" width="8" height="12" rx="4"/><rect x="' + X(274) + '" y="' + (y0 - 30) + '" width="8" height="12" rx="4"/></g>') +
+        '<path d="M' + X(150) + ' ' + (y0 + 48) + 'Q' + cx + ' ' + (y0 + 80) + ' ' + X(240) + ' ' + (y0 + 48) + '" stroke="#ffcf8a" stroke-opacity=".2" stroke-width="2" stroke-dasharray="4 5" fill="none"/>';
     }
   };
 
-  function cityPoster(c) {
-    var r = rng(5 + c.id.length * 7);
+  /**
+   * Jedna scena postera. Uska (mobitel): 390 široka. Široka (računar): 3000 široka, sa više neba iznad,
+   * tako da se na širokom ekranu ne uvećava 8 puta nego ostaje oštra i ime grada se vidi cijelo.
+   */
+  function posterScene(c, wide) {
+    var s = wide ? 'w' : 'm';
+    var W = wide ? 3000 : 390, cx = W / 2, top = wide ? -130 : 0, VH = 360 - top;
+    var r = rng(5 + c.id.length * 7 + (wide ? 3 : 0));
     var name = V.barCityName(c).toUpperCase();
-    var tl = Math.min(350, 42 * name.length + 10);
+    var fs = wide ? 104 : 62;
+    var tl = wide ? Math.min(1150, 72 * name.length + 20) : Math.min(300, 40 * name.length + 10);
+    var ty = wide ? 112 : 128;
     var stars = '', lights = '', i;
-    for (i = 0; i < 60; i++) stars += '<circle cx="' + (r() * 390).toFixed(1) + '" cy="' + (r() * 170).toFixed(1) + '" r="' + (r() * 1 + 0.3).toFixed(2) + '" opacity="' + (r() * 0.5 + 0.15).toFixed(2) + '"/>';
-    for (i = 0; i < 200; i++) {
-      var x = r() * 390, y = 288 + Math.pow(r(), 1.3) * 52 + Math.sin(x / 45) * 5;
+    var nS = wide ? 260 : 60, nL = wide ? 900 : 200;
+    for (i = 0; i < nS; i++) stars += '<circle cx="' + (r() * W).toFixed(1) + '" cy="' + (top + r() * (170 - top)).toFixed(1) + '" r="' + (r() * 1 + 0.3).toFixed(2) + '" opacity="' + (r() * 0.5 + 0.15).toFixed(2) + '"/>';
+    for (i = 0; i < nL; i++) {
+      var x = r() * W, y = 288 + Math.pow(r(), 1.3) * 52 + Math.sin(x / 45) * 5;
       lights += '<circle cx="' + x.toFixed(1) + '" cy="' + y.toFixed(1) + '" r="' + (r() * 1.2 + 0.4).toFixed(2) + '" fill="' + (r() > 0.3 ? '#ffc879' : '#fff1d6') + '" opacity="' + (r() * 0.6 + 0.3).toFixed(2) + '"/>';
     }
-    var embers = [[46, 320, 1], [110, 328, 3], [292, 324, 4], [346, 316, 5]];
+    // žar sa dimom: na mobitelu 4, na računaru raspoređen oko imena grada
+    var embers = wide
+      ? [[-560, 322, 2], [-400, 330, 4], [-250, 318, 1], [250, 326, 3], [410, 316, 5], [570, 328, 2], [-820, 324, 3], [830, 320, 4]].map(function (e) { return [cx + e[0], e[1], e[2]]; })
+      : [[46, 320, 1], [110, 328, 3], [292, 324, 4], [346, 316, 5]];
     var smoke = embers.map(function (e) {
-      var x = e[0], y = e[1];
-      return '<path d="M' + x + ' ' + y + 'C' + (x - 22) + ' ' + (y - 80) + ',' + (x + 40) + ' ' + (y - 130) + ',' + (x + 6) + ' ' + (y - 200) + 'S' + (x - 30) + ' ' + (y - 300) + ',' + (x + 10) + ' ' + (y - 380) + '" stroke="url(#cp-smk)" stroke-width="' + (10 + e[2] * 5) + '" fill="none" stroke-linecap="round"/>';
+      var x = e[0], y = e[1], h = wide ? 0.62 + e[2] * 0.05 : 1;
+      return '<path d="M' + x + ' ' + y + 'C' + (x - 22) + ' ' + (y - 80 * h) + ',' + (x + 40) + ' ' + (y - 130 * h) + ',' + (x + 6) + ' ' + (y - 200 * h) + 'S' + (x - 30) + ' ' + (y - 300 * h) + ',' + (x + 10) + ' ' + (y - 380 * h) + '" stroke="url(#cp-smk' + s + ')" stroke-width="' + (wide ? 8 + e[2] * 4 : 10 + e[2] * 5) + '" fill="none" stroke-linecap="round"/>';
     }).join('');
     var glow = embers.map(function (e, n) {
-      return '<g class="cp-ember" style="--d:' + (n * 0.7).toFixed(1) + 's"><circle cx="' + e[0] + '" cy="' + e[1] + '" r="26" fill="url(#cp-eg)"/><circle cx="' + e[0] + '" cy="' + e[1] + '" r="' + (4 + e[2] * 0.8).toFixed(1) + '" fill="#fff1d6"/></g>';
+      return '<g class="cp-ember" style="--d:' + (n * 0.7).toFixed(1) + 's"><circle cx="' + e[0] + '" cy="' + e[1] + '" r="26" fill="url(#cp-eg' + s + ')"/><circle cx="' + e[0] + '" cy="' + e[1] + '" r="' + (4 + e[2] * 0.8).toFixed(1) + '" fill="#fff1d6"/></g>';
     }).join('');
-    var lm = c.landmark && LANDMARK[c.landmark] ? LANDMARK[c.landmark]() : '';
+    var lm = c.landmark && LANDMARK[c.landmark] ? LANDMARK[c.landmark](cx, W, wide ? 1.45 : 1, s) : '';
     var defs = '<defs>' +
-      '<linearGradient id="cp-sk" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#0a0b12"/><stop offset=".35" stop-color="#1d1520"/><stop offset=".62" stop-color="#4f2818"/><stop offset=".8" stop-color="#9a4c20"/><stop offset="1" stop-color="#140d0a"/></linearGradient>' +
-      '<radialGradient id="cp-eg"><stop stop-color="#ffb24d" stop-opacity=".85"/><stop offset="1" stop-color="#ffb24d" stop-opacity="0"/></radialGradient>' +
-      '<linearGradient id="cp-smk" x1="0" y1="1" x2="0" y2="0"><stop stop-color="#fff2df" stop-opacity=".5"/><stop offset=".6" stop-color="#e8d8c4" stop-opacity=".18"/><stop offset="1" stop-color="#e8d8c4" stop-opacity="0"/></linearGradient>' +
-      '<linearGradient id="cp-txt" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#fff7ea"/><stop offset=".75" stop-color="#f4ebdf" stop-opacity=".8"/><stop offset="1" stop-color="#f4ebdf" stop-opacity=".1"/></linearGradient>' +
-      '<filter id="cp-wisp" x="-60%" y="-20%" width="220%" height="140%"><feTurbulence type="fractalNoise" baseFrequency=".018 .045" numOctaves="3" seed="4" result="t"/><feDisplacementMap in="SourceGraphic" in2="t" scale="46" xChannelSelector="R" yChannelSelector="G" result="d"/><feGaussianBlur in="d" stdDeviation="3.2"/></filter>' +
-      '<filter id="cp-smt" x="-15%" y="-40%" width="130%" height="180%"><feTurbulence type="fractalNoise" baseFrequency=".02 .06" numOctaves="3" seed="9" result="t"/><feDisplacementMap in="SourceGraphic" in2="t" scale="11" xChannelSelector="R" yChannelSelector="G" result="d"/><feGaussianBlur in="d" stdDeviation=".5" result="b"/><feGaussianBlur in="d" stdDeviation="10" result="g"/><feMerge><feMergeNode in="g"/><feMergeNode in="b"/></feMerge></filter>' +
-      '<linearGradient id="cp-fd" x1="0" y1="0" x2="0" y2="1"><stop offset=".78" stop-color="#140f0c" stop-opacity="0"/><stop offset="1" stop-color="#140f0c"/></linearGradient>' +
+      '<linearGradient id="cp-sk' + s + '" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#0a0b12"/><stop offset="' + (wide ? '.45' : '.35') + '" stop-color="#1d1520"/><stop offset="' + (wide ? '.68' : '.62') + '" stop-color="#4f2818"/><stop offset=".82" stop-color="#9a4c20"/><stop offset="1" stop-color="#140d0a"/></linearGradient>' +
+      '<radialGradient id="cp-eg' + s + '"><stop stop-color="#ffb24d" stop-opacity=".85"/><stop offset="1" stop-color="#ffb24d" stop-opacity="0"/></radialGradient>' +
+      '<linearGradient id="cp-smk' + s + '" x1="0" y1="1" x2="0" y2="0"><stop stop-color="#fff2df" stop-opacity=".5"/><stop offset=".6" stop-color="#e8d8c4" stop-opacity=".18"/><stop offset="1" stop-color="#e8d8c4" stop-opacity="0"/></linearGradient>' +
+      '<linearGradient id="cp-txt' + s + '" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#fff7ea"/><stop offset=".75" stop-color="#f4ebdf" stop-opacity=".85"/><stop offset="1" stop-color="#f4ebdf" stop-opacity=".2"/></linearGradient>' +
+      '<filter id="cp-wisp' + s + '" x="-60%" y="-20%" width="220%" height="140%"><feTurbulence type="fractalNoise" baseFrequency=".018 .045" numOctaves="3" seed="4" result="t"/><feDisplacementMap in="SourceGraphic" in2="t" scale="46" xChannelSelector="R" yChannelSelector="G" result="d"/><feGaussianBlur in="d" stdDeviation="3.2"/></filter>' +
+      '<filter id="cp-smt' + s + '" x="-15%" y="-40%" width="130%" height="180%"><feTurbulence type="fractalNoise" baseFrequency="' + (wide ? '.012 .04' : '.02 .06') + '" numOctaves="3" seed="9" result="t"/><feDisplacementMap in="SourceGraphic" in2="t" scale="' + (wide ? 14 : 11) + '" xChannelSelector="R" yChannelSelector="G" result="d"/><feGaussianBlur in="d" stdDeviation=".5" result="b"/><feGaussianBlur in="d" stdDeviation="' + (wide ? 16 : 10) + '" result="g"/><feMerge><feMergeNode in="g"/><feMergeNode in="b"/></feMerge></filter>' +
+      '<linearGradient id="cp-fd' + s + '" x1="0" y1="0" x2="0" y2="1"><stop offset=".78" stop-color="#140f0c" stop-opacity="0"/><stop offset="1" stop-color="#140f0c"/></linearGradient>' +
+      (wide ? '<radialGradient id="cp-halo' + s + '" cx=".5" cy=".5" r=".5"><stop stop-color="#ff9a3c" stop-opacity=".22"/><stop offset="1" stop-color="#ff9a3c" stop-opacity="0"/></radialGradient>' : '') +
       '</defs>';
-    return '<div class="cp" aria-hidden="true">' +
-      '<svg class="cp-bg" viewBox="0 0 390 360" preserveAspectRatio="xMidYMax slice" focusable="false">' + defs +
-        '<rect width="390" height="400" fill="url(#cp-sk)"/><g fill="#fff">' + stars + '</g>' +
-        '<path d="' + ridge(242, 70, 80, 2) + '" fill="#3a1d18"/><path d="' + ridge(270, 46, 55, 4) + '" fill="#26130f"/><path d="' + ridge(296, 22, 36, 6) + '" fill="#190d0b"/>' +
-        lights + '<path d="M0 350C90 342 160 356 230 346S340 338 390 344" stroke="#7fb1c2" stroke-opacity=".35" stroke-width="2" fill="none"/>' +
-        lm + '<rect width="390" height="400" fill="url(#cp-fd)"/>' +
-      '</svg>' +
-      '<svg class="cp-smoke" viewBox="0 0 390 360" preserveAspectRatio="xMidYMax slice" focusable="false">' +
-        '<g filter="url(#cp-wisp)">' + smoke + '</g>' +
-        '<text x="195" y="128" text-anchor="middle" font-family="Syne,Unbounded,sans-serif" font-weight="800" font-size="62" textLength="' + tl + '" lengthAdjust="spacingAndGlyphs" fill="url(#cp-txt)" filter="url(#cp-smt)">' + esc(name) + '</text>' +
-      '</svg>' +
-      '<svg class="cp-glow" viewBox="0 0 390 360" preserveAspectRatio="xMidYMax slice" focusable="false">' + glow + '</svg>' +
+    var vb = '0 ' + top + ' ' + W + ' ' + VH;
+    var svg = function (cls, body) { return '<svg class="' + cls + '" viewBox="' + vb + '" preserveAspectRatio="xMidYMax slice" focusable="false">' + body + '</svg>'; };
+    return '<div class="cp-' + s + '">' +
+      svg('cp-bg', defs +
+        '<rect y="' + top + '" width="' + W + '" height="' + (400 - top) + '" fill="url(#cp-sk' + s + ')"/><g fill="#fff">' + stars + '</g>' +
+        (wide ? '<ellipse cx="' + cx + '" cy="' + (ty - 30) + '" rx="760" ry="190" fill="url(#cp-halo' + s + ')"/>' : '') +
+        '<path d="' + ridge(242, 70, 80, 2, W) + '" fill="#3a1d18"/><path d="' + ridge(270, 46, 55, 4, W) + '" fill="#26130f"/><path d="' + ridge(296, 22, 36, 6, W) + '" fill="#190d0b"/>' +
+        lights + '<path d="M0 350C' + (W * 0.23) + ' 342 ' + (W * 0.41) + ' 356 ' + (W * 0.59) + ' 346S' + (W * 0.87) + ' 338 ' + W + ' 344" stroke="#7fb1c2" stroke-opacity=".35" stroke-width="2" fill="none"/>' +
+        lm + '<rect y="' + top + '" width="' + W + '" height="' + (400 - top) + '" fill="url(#cp-fd' + s + ')"/>') +
+      svg('cp-smoke', '<g filter="url(#cp-wisp' + s + ')">' + smoke + '</g>' +
+        '<text x="' + cx + '" y="' + ty + '" text-anchor="middle" font-family="Syne,Unbounded,sans-serif" font-weight="800" font-size="' + fs + '" textLength="' + tl + '" lengthAdjust="spacingAndGlyphs" fill="url(#cp-txt' + s + ')" filter="url(#cp-smt' + s + ')">' + esc(name) + '</text>') +
+      svg('cp-glow', glow) +
     '</div>';
+  }
+
+  function cityPoster(c) {
+    return '<div class="cp" aria-hidden="true">' + posterScene(c, false) + posterScene(c, true) + '</div>';
   }
 
   /* ------------------------------------------------------------------ */
