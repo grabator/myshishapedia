@@ -768,6 +768,51 @@ Provjera u emuliranom telefonu (treba Playwright): uz pokrenut `node serve.mjs`,
 
 ---
 
+## Nargila barovi u BiH (karta, gradovi, mapa)
+
+Adrese: `/bs/nargila-barovi/` (karta BiH), `/bs/nargila-barovi/sarajevo/` (grad); engleski `/en/hookah-bars/`,
+njemački `/de/shisha-bars/`, ruski `/ru/kalyannye/`.
+
+### Fajlovi
+
+- `data/bars.js`: gradovi (`BAR_CITIES`) i lokali (`BARS`). Opis polja je na vrhu fajla.
+- `js/views-bars.js`: stranice (3D karta BiH, poster grada, lista, tekstovi na 4 jezika, vrh stranice lounge-a).
+- `js/bars.js`: kretanje u browseru (stubovi, brojači, "Najbliži lokal", sortiranje po blizini, mapa).
+- `css/bars.css`: izgled (učitava se samo na tim stranicama i na stranici lounge-a).
+- `data/bih-outline.js`: obris BiH (Natural Earth, javno vlasništvo).
+- `js/vendor/leaflet.js` i `css/vendor/leaflet.css`: biblioteka za mapu (Leaflet 1.9.4, BSD licenca). Preuzima se
+  tek kad posjetilac otvori "Mapa". Podloga mape su pločice OpenStreetMapa (dozvoljene u CSP-u u `build.mjs`).
+
+### Kako dodati lokal
+
+1. U `data/bars.js` dodaj red u `BARS`: `id`, `name`, `city`, `area` (kvart), `address`, i ako je poznato `lat`/`lon`
+   (tačna lokacija, npr. iz OpenStreetMapa ili Google Maps: desni klik na lokal, prvi broj je lat, drugi lon),
+   `instagram` (bez @) i `website`.
+2. Lokal bez `lat`/`lon` je samo na listi (sa napomenom da se tačna lokacija provjerava), ne i na mapi.
+3. Grad dobija svoju stranicu kad ima bar 3 lokala. Novi grad se dodaje u `BAR_CITIES` (centar mape i zoom);
+   `landmark: null` daje jednostavan poster (nebo, planine, dim), a `'sebilj'` ili `'most'` crtež.
+   Za bosanski padež ("u Tuzli") dopiši grad u `LOC_BS` u `js/views-bars.js`.
+4. `node build.mjs`. Za brzu probu samo ovih stranica: `MSP_ONLY=bars,barCity,lounge node build.mjs`
+   (bez sitemapa i provjera linkova, samo lokalno, ne za objavu).
+
+Cijene i radno vrijeme besplatnih lokala se ne upisuju.
+
+### Lokal sa dogovorom ("gori")
+
+1. Napravi lounge u `data/lounges.js` (meni okusa, kućni miksevi; `closes: '01:00'`, po želji `phone`, `instagram`).
+2. Lokalu u `data/bars.js` dopiši `lounge: '<id lounge-a>'`.
+
+Tada lokal na stranici grada dobije istaknutu karticu sa najtraženijim okusima i dugmetom "Otvori meni", na mapi je
+užareni ugalj (ostali su bijele tačke), na karti BiH se pojavi broj "sa menijem", a stranica lounge-a dobije vrh sa
+adresom i dugmetom "Kako do nas". Filter "Sa menijem" se pojavi u gradu čim tamo ima bar jedan takav lokal.
+
+### Lokacija posjetioca
+
+"Najbliži lokal" i "Najbliže" pitaju za lokaciju samo na dodir. Lokacija ostaje u browseru (računa se udaljenost
+i minute pješke) i nigdje se ne šalje. Zato je u `_headers` `geolocation=(self)`.
+
+---
+
 ## Lige kafića (Shisha Drop u kafiću)
 
 Kafić dobije svoju ligu u igri: gost skenira QR kod na stolu (`/bs/igra/?bar=babylon`), a dnevna partija se broji

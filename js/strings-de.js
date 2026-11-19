@@ -221,6 +221,7 @@
       "journal": "Session-Tagebuch",
       "offline": "Offline",
       "loungeInfo": "Für Lounges",
+      "bars": "Shisha-Bars",
       "tips": "Tipps",
       "articles": "Artikel",
       "history": "Geschichte der Shisha",
