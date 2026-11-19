@@ -692,6 +692,7 @@
   V.NAV = NAV;
   var NAV_HOOKAH = NAV.filter(function (n) { return n.group === 'hookah'; })[0];
   var NAV_GAME = NAV.filter(function (n) { return n.page === 'game'; })[0];
+  var NAV_BARS = NAV_HOOKAH.items.filter(function (n) { return n.page === 'bars'; })[0];
   function newBadge(n) { return n.badge ? ' <span class="nav-new">' + esc(t('nav.newBadge')) + '</span>' : ''; }
 
   function navHref(n, desc) {
@@ -802,6 +803,11 @@
       '<a class="menu-link mgame" href="' + navHref(NAV_GAME, desc) + '"' + curAttr(NAV_GAME, desc) + ' style="--i:' + (k++) + '">' +
         '<span class="mgame__art" aria-hidden="true"><i></i><i></i><i></i><i></i></span>' +
         '<span class="mshelf__text"><span class="mshelf__name">Shisha Drop <span class="nav-new">' + esc(t('nav.newBadge')) + '</span></span><span class="mshelf__sub">' + esc(t('nav.gameSub')) + '</span></span>' +
+        icon('arrowRight') +
+      '</a>' +
+      '<a class="menu-link mgame mbars" href="' + V.url('bars') + '"' + curAttr(NAV_BARS, desc) + ' style="--i:' + (k++) + '">' +
+        '<span class="mbars__art" aria-hidden="true"><i></i><i></i><i></i></span>' +
+        '<span class="mshelf__text"><span class="mshelf__name">' + esc(t('nav.bars')) + '</span><span class="mshelf__sub">' + esc(t('nav.barsSub')) + '</span></span>' +
         icon('arrowRight') +
       '</a>' +
       '<a class="menu-link mshelf" href="' + navHref(shelfNav, desc) + '"' + curAttr(shelfNav, desc) + ' style="--i:' + (k++) + '">' +

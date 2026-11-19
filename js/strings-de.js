@@ -222,6 +222,7 @@
       "offline": "Offline",
       "loungeInfo": "Für Lounges",
       "bars": "Shisha-Bars",
+      "barsSub": "Karte nach Stadt und die nächste Bar",
       "tips": "Tipps",
       "articles": "Artikel",
       "history": "Geschichte der Shisha",
