@@ -17,12 +17,212 @@
  *                'brandCompare'   Adalya i Al Fakher jedan pored drugog (brojke iz data/flavors.js);
  *                                 { type: 'brandCompare', a, b } za druga dva brenda
  *                { type: 'picks', ids: [...] }  kartice ručno izabranih okusa
+ *                'podLab', 'podSize', 'podSpecs'  presjek PurjFam POD-a, poređenje veličine i podaci (članak stemless)
+ *   styles, scripts  dodatni CSS/JS samo za taj članak (moraju biti i u ASSETS u build.mjs)
+ *   studio     Studio vrh stranice: { eyebrow, title, title2, image, imageAlt, stats: [{ v, l }] }
+ *              (blok 'podFeatures': kartice sa ikonama { icon, t, d })
  *              links: [{ page, label }] dugmad na kraju sekcije (page iz V.SEG, npr. 'guide', 'tips')
  *   faq        [{ q, a }] česta pitanja na kraju članka
  *
  * Brojke i tvrdnje u tekstu su opšte poznate ili izračunate iz podataka sajta; trajanje sesije je okvirno.
  */
 window.ARTICLES = [
+  {
+    id: 'stemless',
+    slug: { bs: 'nargila-bez-stuba-stemless', en: 'stemless-hookah', de: 'stemless-shisha', ru: 'kalyan-bez-shakhty' },
+    published: '2026-11-21',
+    styles: ['css/stemless.css'],
+    scripts: ['js/stemless.js'],
+    eyebrow: { bs: 'Oprema', en: 'Gear' },
+    title: { bs: 'Nargila bez stuba (stemless): kako radi', en: 'Stemless hookah: how it works' },
+    studio: {
+      eyebrow: { bs: 'Oprema · PurjFam POD', en: 'Gear · PurjFam POD' },
+      title: { bs: 'Nargila bez stuba.', en: 'The stemless hookah.' },
+      title2: { bs: '12,7 cm.', en: '12.7 cm.' },
+      image: 'voda',
+      imageAlt: { bs: 'PurjFam POD sa vodom, bočni pogled', en: 'PurjFam POD with water, side view' },
+      stats: [
+        { v: { bs: '12,7 cm', en: '12.7 cm' }, l: { bs: 'Visina', en: 'Height' } },
+        { v: { bs: '800 g', en: '800 g' }, l: { bs: 'Težina bez vode', en: 'Dry weight' } },
+        { v: { bs: '77', en: '77' }, l: { bs: 'Rupa na difuzoru', en: 'Diffuser holes' } },
+        { v: { bs: '0%', en: '0%' }, l: { bs: 'Plastike', en: 'Plastic' } }
+      ]
+    },
+    metaTitle: { bs: 'Stemless nargila: šta je i kako radi (PurjFam POD)', en: 'Stemless hookah: what it is and how it works (PurjFam POD)' },
+    metaDescription: {
+      bs: 'Šta je nargila bez stuba i kako radi, na primjeru PurjFam POD-a: put dima, ispuhivanje i mjehurići u animaciji, veličina, tehnički podaci i cijene.',
+      en: 'What a stemless hookah is and how it works, using the PurjFam POD: smoke path, purge and bubbles in an animation, size, specs and prices.'
+    },
+    lead: {
+      bs: 'Klasična nargila ima dugi stub i veliku vazu. Stemless nargila sve to stavi u jedno malo tijelo. Pogledaj kako dim putuje kroz PurjFam POD.',
+      en: 'A classic hookah has a long stem and a big base. A stemless hookah puts all of that into one small body. See how the smoke travels through the PurjFam POD.'
+    },
+    sections: [
+      {
+        h: { bs: 'Šta je nargila bez stuba', en: 'What a stemless hookah is' },
+        p: {
+          bs: [
+            'Kod klasične nargile dim iz posude ide kroz dugi metalni stub i završi pod vodom u staklenoj vazi. Stemless nargila nema taj dugi stub: kanali za dim i voda su u samom tijelu, a posuda stoji skoro direktno na njemu.',
+            'Primjer je PurjFam POD. Visok je 12,7 cm bez posude, napravljen od aluminija, kaljenog stakla, nehrđajućeg čelika i silikona. Prema PurjFamu, to je prvi stemless dizajn na svijetu. Na crtežu ispod klikni dugmad i pogledaj šta se dešava unutra.'
+          ],
+          en: [
+            'In a classic hookah, smoke from the bowl travels down a long metal stem and ends up under the water in a glass base. A stemless hookah has no long stem: the smoke channels and the water are inside the body itself, and the bowl sits almost directly on top.',
+            'One example is the PurjFam POD. It is 12.7 cm tall without the bowl and made of aluminum, tempered glass, stainless steel and silicone. According to PurjFam, it is the world\'s first stemless design. Tap the buttons on the drawing below to see what happens inside.'
+          ]
+        },
+        block: {
+          type: 'podLab',
+          tabs: {
+            path: { bs: 'Put dima', en: 'Smoke path' },
+            purge: { bs: 'Ispuhivanje', en: 'Purge' },
+            bubbles: { bs: 'Mjehurići', en: 'Bubbles' }
+          },
+          quiet: { bs: 'Tiho: 77 rupa', en: 'Quiet: 77 holes' },
+          loud: { bs: 'Glasno: puna ploča', en: 'Loud: solid plate' },
+          steps: {
+            path: [
+              { bs: 'Žar zagrije duhan, a dim krene dolje kroz kratki vrat.', en: 'The coals heat the tobacco and the smoke goes down a short neck.' },
+              { bs: 'Dim se razdvoji u dva kanala kroz aluminijsko tijelo, koje ga usput hladi.', en: 'The smoke splits into two channels through the aluminum body, which cools it on the way.' },
+              { bs: 'Na difuzoru izađe kroz 77 rupa od 2 mm i pravi gomilu sitnih mjehurića.', en: 'At the diffuser it comes out through 77 holes of 2 mm and makes lots of small bubbles.' },
+              { bs: 'Iznad vode pregrada skuplja kapljice, da voda ne ode u crijevo.', en: 'Above the water a separator catches droplets, so water does not go into the hose.' },
+              { bs: 'Ohlađen dim izlazi kroz priključak sa strane u crijevo.', en: 'The cooled smoke leaves through the side port into the hose.' }
+            ],
+            purge: [
+              { bs: 'Duneš u crijevo, pa pritisak gura vazduh nazad u POD.', en: 'You blow into the hose, and the pressure pushes air back into the POD.' },
+              { bs: 'Dva ventila na dnu se otvore, a dim izađe u četiri mlaza ispod POD-a.', en: 'Two valves on the bottom open and the smoke leaves in four streams under the POD.' },
+              { bs: 'Vrata od nehrđajućeg čelika u difuzoru se zatvore, pa voda ne može do posude.', en: 'A stainless steel door in the diffuser closes, so the water cannot reach the bowl.' }
+            ],
+            bubbles: [
+              { bs: 'Ploča sa 77 rupa: sitni mjehurići, tiše i više filtriranja.', en: 'Plate with 77 holes: small bubbles, quieter and more filtering.' },
+              { bs: 'Puna ploča: dim ide kroz velike rupe sa strane, mjehurići su veći i glasniji, a okus direktniji.', en: 'Solid plate: smoke goes through the big side holes, the bubbles are bigger and louder and the taste is more direct.' }
+            ]
+          },
+          note: { bs: 'Pojednostavljen prikaz prema opisu PurjFama, nije tehnički nacrt.', en: 'Simplified drawing based on PurjFam\'s description, not a technical blueprint.' }
+        }
+      },
+      {
+        h: { bs: 'Koliko je mali', en: 'How small it is' },
+        p: {
+          bs: [
+            'POD je 127 × 124 × 106 mm i težak 800 g bez vode. Uzima samo 150 do 250 ml vode, mnogo manje nego klasična vaza. Zato ga je lako ponijeti na put, u ruksaku ili u koferu.',
+            'PurjFam navodi da izdrži pad sa 2 m na beton, jer silikonske zaptivke unutra rade kao amortizeri, a staklo je zaštićeno debelim aluminijskim okvirom.'
+          ],
+          en: [
+            'The POD is 127 × 124 × 106 mm and weighs 800 g without water. It takes only 150 to 250 ml of water, much less than a classic base. That makes it easy to take with you, in a backpack or a suitcase.',
+            'PurjFam says it survives a 2 m drop onto concrete, because the silicone seals inside act as shock absorbers and the glass is protected by a thick aluminum frame.'
+          ]
+        },
+        block: {
+          type: 'podSize',
+          classic: { bs: 'Klasična nargila', en: 'Classic hookah' },
+          classicH: { bs: 'oko 70 cm', en: 'about 70 cm' },
+          pod: { bs: 'PurjFam POD', en: 'PurjFam POD' },
+          podH: { bs: '12,7 cm bez posude', en: '12.7 cm without bowl' },
+          note: { bs: 'Visina klasične nargile je okvirna, zavisi od modela.', en: 'The classic hookah height is approximate and depends on the model.' }
+        }
+      },
+      {
+        h: { bs: 'Šta je dobro', en: 'What is good about it' },
+        p: {
+          bs: [
+            'Čišćenje je brzo: tijelo se rastavi na dijelove bez alata, pa se sve unutra vidi odjednom. PurjFam kaže da se cijeli POD očisti za manje od dvije minute. Nema magneta ni dijelova koji hrđaju, pa ga je dovoljno isprati poslije sesije.',
+            'Nema plastike. Tijelo je od aluminija, stakla, nehrđajućeg čelika i silikona, a to su materijali koji ne upijaju miris okusa. Žljebovi u jezgri hvataju sok od duhana, da voda ne pjeni.',
+            'Ispuhivanje ne može poplaviti posudu, a jačina povlačenja se podešava na tri načina, sa pločicom koja se samo umetne. Aluminijsko tijelo hladi vodu, pa prema PurjFamu sesija ostaje hladna i sat vremena ili duže.'
+          ],
+          en: [
+            'Cleaning is quick: the body comes apart without tools, so you can see everything inside at once. PurjFam says the whole POD can be cleaned in under two minutes. There are no magnets or parts that rust, so rinsing it after a session is enough.',
+            'There is no plastic. The body is aluminum, glass, stainless steel and silicone, materials that do not soak up flavor. Grooves in the core catch the tobacco juice, so the water does not foam.',
+            'A purge cannot flood the bowl, and the draw can be set three ways with a plate you simply slide in. The aluminum body cools the water, so according to PurjFam the session stays cool for an hour or more.'
+          ]
+        },
+        block: {
+          type: 'podFeatures',
+          items: [
+            { icon: 'clean', t: { bs: 'Brzo čišćenje', en: 'Fast to clean' }, d: { bs: 'Rastavi se bez alata za par sekundi.', en: 'Comes apart without tools in seconds.' } },
+            { icon: 'leaf', t: { bs: 'Bez plastike', en: 'No plastic' }, d: { bs: 'Aluminij, staklo, čelik i silikon.', en: 'Aluminum, glass, steel and silicone.' } },
+            { icon: 'shield', t: { bs: 'Ne poplavi posudu', en: 'Flood-free purge' }, d: { bs: 'Čelična vrata ne puštaju vodu do posude.', en: 'A steel door keeps water out of the bowl.' } },
+            { icon: 'dial', t: { bs: 'Podesivo povlačenje', en: 'Adjustable draw' }, d: { bs: 'Tri jačine sa pločicom koja se umetne.', en: 'Three settings with a slide-in plate.' } },
+            { icon: 'wave', t: { bs: 'Dva zvuka', en: 'Two sounds' }, d: { bs: 'Tiha ploča sa 77 rupa ili glasna puna ploča.', en: 'A quiet 77-hole plate or a loud solid plate.' } },
+            { icon: 'bag', t: { bs: 'Za put', en: 'Travel ready' }, d: { bs: '800 g, a PurjFam navodi da izdrži pad sa 2 m.', en: '800 g, and PurjFam rates it for a 2 m drop.' } }
+          ]
+        }
+      },
+      {
+        h: { bs: 'Na šta paziti', en: 'What to watch out for' },
+        p: {
+          bs: [
+            'POD ne smije u mašinu za suđe: deterdžent skine zaštitni sloj sa aluminija i ostavi mrlje. Boja može izblijediti na suncu ili na visokoj temperaturi, a to garancija ne pokriva.',
+            'Manje vode znači i manje mjesta za filtriranje nego u velikoj vazi. Cijena je visoka u odnosu na klasičnu nargilu, a crijevo i drška dolaze samo u kompletu.',
+            'Mi POD još nismo testirali uživo. Sve na ovoj stranici je prema podacima i slikama koje je objavio PurjFam.'
+          ],
+          en: [
+            'The POD must not go in the dishwasher: the detergent strips the protective layer from the aluminum and leaves marks. The color can fade in the sun or at high temperatures, and the warranty does not cover that.',
+            'Less water also means less room for filtering than in a big base. The price is high compared with a classic hookah, and the hose and handle only come with the kit.',
+            'We have not tested the POD in person yet. Everything on this page is based on the information and photos published by PurjFam.'
+          ]
+        }
+      },
+      {
+        h: { bs: 'Tehnički podaci i cijene', en: 'Specs and prices' },
+        p: {
+          bs: ['Podaci sa sajta PurjFama. Cijene su u američkim dolarima, provjerene u novembru 2026.'],
+          en: ['Data from the PurjFam website. Prices are in US dollars, checked in November 2026.']
+        },
+        block: {
+          type: 'podSpecs',
+          rows: [
+            [{ bs: 'Dimenzije', en: 'Dimensions' }, { bs: '127 × 124 × 106 mm', en: '127 × 124 × 106 mm' }],
+            [{ bs: 'Težina bez vode', en: 'Dry weight' }, { bs: '800 g', en: '800 g' }],
+            [{ bs: 'Voda', en: 'Water' }, { bs: '150 do 250 ml', en: '150 to 250 ml' }],
+            [{ bs: 'Materijali', en: 'Materials' }, { bs: 'aluminij 71%, staklo 15%, silikon 12%, nehrđajući čelik 2%, bez plastike', en: 'aluminum 71%, glass 15%, silicone 12%, stainless steel 2%, no plastic' }],
+            [{ bs: 'Difuzor', en: 'Diffuser' }, { bs: '77 rupa, 2 načina zvuka', en: '77 holes, 2 sound settings' }],
+            [{ bs: 'Povlačenje', en: 'Draw' }, { bs: '3 jačine', en: '3 settings' }],
+            [{ bs: 'Crijevo', en: 'Hose' }, { bs: 'odgovara svako crijevo; u kompletu 1,5 m', en: 'fits any hose; 1.5 m in the kit' }],
+            [{ bs: 'Pad', en: 'Drop rating' }, { bs: 'do 2 m (prema PurjFamu)', en: 'up to 2 m (according to PurjFam)' }],
+            [{ bs: 'Garancija', en: 'Warranty' }, { bs: 'doživotna ograničena garancija, uz uslove', en: 'lifetime limited warranty, with conditions' }]
+          ],
+          prices: [
+            { n: { bs: 'POD', en: 'POD' }, s: { bs: 'Bez crijeva i drške', en: 'No hose or handle' }, p: { bs: '225 $', en: '$225' } },
+            { n: { bs: 'POD komplet', en: 'POD kit' }, s: { bs: 'Sa crijevom i drškom', en: 'With hose and handle' }, p: { bs: '259 $', en: '$259' } },
+            { n: { bs: 'POD komplet vivid', en: 'POD kit vivid' }, s: { bs: 'Tijelo i drška u istoj boji', en: 'Matched color body and handle' }, p: { bs: '279 $', en: '$279' } }
+          ],
+          shop: { bs: 'Pogledaj na purjfam.com', en: 'See it on purjfam.com' },
+          shopUrl: 'https://purjfam.com/collections/all',
+          gallery: [
+            { img: 'kit', cap: { bs: 'Komplet: POD, crijevo, drška i rezervni dijelovi', en: 'The kit: POD, hose, handle and spare parts' } },
+            { img: 'dim', cap: { bs: 'Dim i mjehurići iza stakla', en: 'Smoke and bubbles behind the glass' } },
+            { img: 'voda', cap: { bs: 'Bočni pogled sa vodom', en: 'Side view with water' } },
+            { img: 'dimenzije', cap: { bs: 'Dimenzije', en: 'Dimensions' } },
+            { img: 'mokri', cap: { bs: 'Dijelovi poslije pranja, složeni da se osuše (pored mobitela)', en: 'Parts after washing, stacked to dry (next to a phone)' } }
+          ],
+          credit: { bs: 'Podaci i fotografije: PurjFam. POD još nismo testirali uživo.', en: 'Data and photos: PurjFam. We have not tested the POD in person yet.' }
+        },
+        links: [{ page: 'gear' }, { page: 'guide' }]
+      }
+    ],
+    faq: [
+      {
+        q: { bs: 'Šta je stemless nargila?', en: 'What is a stemless hookah?' },
+        a: { bs: 'To je nargila bez dugog stuba. Kanali za dim i voda su u samom tijelu, pa je mnogo manja od klasične. Primjer je PurjFam POD, visok 12,7 cm bez posude.', en: 'It is a hookah without a long stem. The smoke channels and the water are inside the body, so it is much smaller than a classic one. One example is the PurjFam POD, 12.7 cm tall without the bowl.' }
+      },
+      {
+        q: { bs: 'Koliko košta PurjFam POD?', en: 'How much does the PurjFam POD cost?' },
+        a: { bs: 'U novembru 2026. POD bez crijeva i drške košta 225 $, a komplet sa crijevom i drškom 259 $ ili 279 $ za komplet u jednoj boji.', en: 'In November 2026 the POD without hose and handle costs $225, and the kit with hose and handle $259, or $279 for the matched color kit.' }
+      },
+      {
+        q: { bs: 'Može li POD u mašinu za suđe?', en: 'Can the POD go in the dishwasher?' },
+        a: { bs: 'Ne. Deterdžent skine zaštitni sloj sa aluminija. Dovoljno ga je rastaviti i isprati vodom.', en: 'No. The detergent strips the protective layer from the aluminum. Taking it apart and rinsing it with water is enough.' }
+      },
+      {
+        q: { bs: 'Koliko vode ide u POD?', en: 'How much water goes in the POD?' },
+        a: { bs: 'Od 150 do 250 ml. Prema PurjFamovim uputama, vodu sipaš do ivice difuzora.', en: 'From 150 to 250 ml. According to PurjFam\'s instructions, you fill it up to the edge of the diffuser.' }
+      },
+      {
+        q: { bs: 'Da li odgovara moje crijevo i posuda?', en: 'Will my hose and bowl fit?' },
+        a: { bs: 'PurjFam kaže da odgovara svako crijevo. Za opremu sa uskim dnom, kao Xkah ili Quasar, preporučuju komad silikonskog crijeva od 30 mm kao umetak.', en: 'PurjFam says any hose fits. For gear with a narrow base, like Xkah or Quasar, they suggest a 30 mm piece of silicone hose as a grommet.' }
+      }
+    ]
+  },
   {
     id: 'najbolji-duhan',
     slug: { bs: 'najbolji-duhan-za-nargilu', en: 'best-hookah-tobacco-brands', de: 'bester-shisha-tabak' },

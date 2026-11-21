@@ -119,7 +119,8 @@ function hashOf(file) {
 const ASSETS = ['css/style.css', 'js/strings.js', 'js/strings-de.js', 'data/de.js', 'js/strings-ru.js', 'data/ru.js', 'data/brands.js', 'data/flavors.js', 'data/glossary.js', 'data/guide.js', 'data/gear.js', 'data/quiz.js',
   'data/mixes.js', 'js/illustrations.js', 'js/effects.js', 'js/views.js', 'js/views-more.js', 'js/views-extra.js', 'js/pages.js', 'js/app.js',
   'js/search.js', 'js/forms.js', 'js/share.js', 'js/ratings.js', 'js/shelf.js', 'js/qr.js', 'js/journal.js', 'js/session.js', 'js/pwa.js', 'data/lounges.js', 'js/lounge.js', 'data/history.js', 'js/history.js', 'favicon.svg',
-  'css/game.css', 'js/strings-game.js', 'js/game-core.js', 'js/game-art.js', 'js/game.js', 'js/creators.js', 'js/bars.js', 'css/bars.css', 'js/vendor/leaflet.js', 'css/vendor/leaflet.css'];
+  'css/game.css', 'js/strings-game.js', 'js/game-core.js', 'js/game-art.js', 'js/game.js', 'js/creators.js', 'js/bars.js', 'css/bars.css', 'js/vendor/leaflet.js', 'css/vendor/leaflet.css',
+  'css/stemless.css', 'js/stemless.js'];
 const VERSION = {};
 for (const a of ASSETS) VERSION[a] = hashOf(a);
 const asset = (p) => '/' + p + '?v=' + VERSION[p];
@@ -425,7 +426,9 @@ function head(desc, lang, info) {
   const views = ['js/views.js']
     .concat(VIEWS_MORE_PAGES.includes(desc.page) ? ['js/views-more.js'] : [])
     .concat(VIEWS_EXTRA_PAGES.includes(desc.page) ? ['js/views-extra.js'] : []);
-  const scripts = ['js/strings.js'].concat(LANG_SCRIPTS[lang] || [], ['data/brands.js', 'data/flavors.js'], data, ['js/illustrations.js', 'js/effects.js'], views, ['js/pages.js', 'js/shelf.js', 'js/app.js', 'js/ratings.js', 'js/pwa.js'], PAGE_SCRIPTS[desc.page] || []);
+  // članak može tražiti svoj stil i skriptu (npr. animacija u članku o stemless nargili)
+  const art = desc.page === 'article' && desc.article ? desc.article : null;
+  const scripts = ['js/strings.js'].concat(LANG_SCRIPTS[lang] || [], ['data/brands.js', 'data/flavors.js'], data, ['js/illustrations.js', 'js/effects.js'], views, ['js/pages.js', 'js/shelf.js', 'js/app.js', 'js/ratings.js', 'js/pwa.js'], PAGE_SCRIPTS[desc.page] || [], (art && art.scripts) || []);
   const other = LANGS.filter((l) => l !== lang);
 
   return [
@@ -460,7 +463,7 @@ function head(desc, lang, info) {
     '<meta name="apple-mobile-web-app-title" content="MyShishapedia">',
     FONT_PRELOADS.concat(lang === 'bs' ? FONT_PRELOADS_BS : [], lang === 'ru' ? FONT_PRELOADS_RU : [], PAGE_FONTS[desc.page] || []).map((f) => `<link rel="preload" as="font" type="font/woff2" crossorigin href="${f}">`).join(''),
     `<link rel="stylesheet" href="${asset('css/style.css')}">`,
-    (PAGE_STYLES[desc.page] || []).map((f) => `<link rel="stylesheet" href="${asset(f)}">`).join(''),
+    (PAGE_STYLES[desc.page] || []).concat((art && art.styles) || []).map((f) => `<link rel="stylesheet" href="${asset(f)}">`).join(''),
     `<script>${HEAD_SCRIPT}</script>`,
     // skripte se preuzimaju i pokreću tek kad se stranica prvi put iscrta (brži LCP na slabim telefonima)
     `<script>${scriptLoader(scripts.map(asset))}</script>`,
