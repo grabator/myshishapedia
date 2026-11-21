@@ -151,13 +151,22 @@
 @keyframes ps-pop { 0% { opacity: 0; transform: scale(0.2); } 100% { opacity: 1; transform: scale(1); } }
 
 /* ---------- prednosti ---------- */
-.pf { list-style: none; margin: clamp(26px, 4vw, 44px) auto 0; padding: 0; max-width: 64rem; display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
-.pf-i { padding: 18px 16px; border-radius: 22px; background: var(--st-card); border: 1px solid var(--st-line); text-align: left; }
-.pf-ic { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 12px; background: var(--st-card2); margin-bottom: 14px; }
-.pf-ic svg { width: 22px; height: 22px; fill: none; stroke: var(--st-text); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
-.pf-i b { display: block; font: 800 1rem/1.25 var(--font-body); letter-spacing: -0.01em; color: var(--st-text); }
-.pf-i span { display: block; margin-top: 6px; font-size: 0.86rem; line-height: 1.45; color: var(--st-muted); }
-@media (min-width: 860px) { .pf { grid-template-columns: repeat(3, 1fr); gap: 14px; } .pf-i { padding: 24px; } }
+.pf { list-style: none; margin: clamp(26px, 4vw, 44px) auto 0; padding: 0; max-width: 64rem; display: grid; grid-template-columns: 1fr; gap: 10px; text-align: left; }
+.pf-i { position: relative; display: grid; grid-template-columns: 54px 1fr; gap: 16px; align-items: center; padding: 18px 20px 18px 18px; border-radius: 24px; overflow: hidden;
+  background: radial-gradient(120% 140% at 0% 0%, rgba(255, 45, 70, 0.07), transparent 55%), linear-gradient(180deg, #121214, #0b0b0c); border: 1px solid var(--st-line); }
+.pf-i::after { content: ''; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05); }
+.pf-ic { display: flex; align-items: center; justify-content: center; width: 54px; height: 54px; border-radius: 17px; flex: none;
+  background: radial-gradient(circle at 30% 25%, rgba(255, 45, 70, 0.28), rgba(255, 45, 70, 0.06) 70%); box-shadow: inset 0 0 0 1px rgba(255, 45, 70, 0.32), 0 6px 22px rgba(255, 45, 70, 0.12); }
+.pf-ic svg { display: block; width: 26px; height: 26px; fill: none; stroke: #ff5a6b; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+.pf-tx { min-width: 0; }
+.pf-t { display: block; font: 800 1.05rem/1.2 var(--font-body); letter-spacing: -0.015em; color: var(--st-text); }
+.pf-d { margin: 5px 0 0; font-size: 0.9rem; line-height: 1.45; color: var(--st-muted); }
+@media (min-width: 640px) { .pf { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 900px) {
+  .pf { grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .pf-i { grid-template-columns: 1fr; align-items: start; gap: 20px; padding: 26px; }
+  .pf-ic { width: 58px; height: 58px; }
+}
 
 /* ---------- podaci, cijene, galerija ---------- */
 .pspec { margin: clamp(26px, 4vw, 44px) auto 0; max-width: 72rem; text-align: left; }
