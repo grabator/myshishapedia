@@ -106,69 +106,116 @@
     return cardGrid(((opts && opts.ids) || []).map(V.flavorById).filter(Boolean));
   }
 
-  /* ---------- stemless nargila (PurjFam POD): presjek, veličina, podaci ---------- */
-  // Pojednostavljen bočni presjek prema opisu PurjFama (nije tehnički nacrt).
-  // Ponašanje (dugmad, pokretanje kad se vidi) je u js/stemless.js, animacije u css/stemless.css.
+  /* ---------- stemless nargila (PurjFam POD): Studio izgled, presjek, veličina, podaci ---------- */
+  // Presjek je pojednostavljen bočni prikaz prema opisu i fotografijama PurjFama (nije tehnički nacrt).
+  // Čestice dima idu SVG animacijom (animateMotion), pa ih js/stemless.js pauzira kad presjek nije na ekranu.
+  // Stil je u css/stemless.css (učitava se samo uz ovaj članak).
+
+  var POD = {
+    hot: 'M135 96V150',
+    chA: 'M135 150C96 190 88 262 106 316L246 326',
+    chB: 'M135 150C176 190 190 256 186 312L246 326',
+    air: 'M372 262C412 246 440 214 470 206C486 202 494 212 500 226L540 236',
+    hose: 'M572 237C604 237 622 262 626 330',
+    back: 'M626 330C622 262 604 237 572 237L500 230',
+    jets: ['M150 364C126 370 98 374 62 376', 'M168 364C192 370 220 374 256 376', 'M424 364C400 370 372 374 336 376', 'M442 364C466 370 494 374 530 376']
+  };
+
+  /** Čestice koje putuju po putanji (n komada, ravnomjerno raspoređene u vremenu). */
+  function podDots(path, n, dur, cls, r) {
+    var out = '';
+    for (var i = 0; i < n; i++) {
+      out += '<circle class="' + cls + '" r="' + r + '"><animateMotion dur="' + dur + 's" begin="' + (-dur * i / n).toFixed(2) + 's" repeatCount="indefinite" path="' + path + '"/>' +
+        '<animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.12;.85;1" dur="' + dur + 's" begin="' + (-dur * i / n).toFixed(2) + 's" repeatCount="indefinite"/></circle>';
+    }
+    return out;
+  }
 
   function podMarker(n, x, y, mode) {
-    return '<g class="pl-mk pl-mk--' + mode + '" style="--n:' + n + '"><circle cx="' + x + '" cy="' + y + '" r="9"/><text x="' + x + '" y="' + (y + 3.6) + '" text-anchor="middle">' + (n + 1) + '</text></g>';
+    return '<g class="pl-mk pl-mk--' + mode + '" style="--n:' + n + '"><circle cx="' + x + '" cy="' + y + '" r="11"/><text x="' + x + '" y="' + (y + 4) + '" text-anchor="middle">' + (n + 1) + '</text></g>';
+  }
+
+  function podBody() {
+    // tijelo: aluminij (lijevo), staklo sa vodom (desno), vrat i posuda na vrhu
+    return '<rect x="70" y="150" width="470" height="210" rx="42" fill="url(#pd-al)"/>' +
+      '<rect x="70" y="150" width="470" height="210" rx="42" fill="url(#pd-sheen)"/>' +
+      '<path d="M206 156V354" stroke="#0a0a0b" stroke-width="2" opacity=".7"/><path d="M209 156V354" stroke="#ffffff" stroke-width="1" opacity=".06"/>' +
+      '<rect x="222" y="166" width="302" height="178" rx="30" fill="#0b0b0c"/>' +
+      '<rect x="232" y="176" width="282" height="158" rx="22" fill="url(#pd-in)"/>';
   }
 
   function podSvg() {
-    var holes = '', bq = '', bl = '', i;
-    for (i = 0; i < 15; i++) holes += '<circle cx="' + (180 + i * 9.3).toFixed(1) + '" cy="253" r="1.3"/>';
-    // sitni mjehurići (77 rupa) i veliki (puna ploča, kroz bočne rupe)
-    for (i = 0; i < 22; i++) {
-      var x = 180 + ((i * 37) % 130), d = ((i * 7) % 22) / 10, s = 1.4 + ((i * 5) % 9) / 10;
-      bq += '<circle class="pl-b" cx="' + x + '" cy="248" r="' + (1.3 + (i % 3) * 0.5) + '" style="--d:' + d.toFixed(1) + 's;--s:' + s.toFixed(1) + 's"/>';
+    var bq = '', bl = '', holes = '', i;
+    for (i = 0; i < 17; i++) holes += '<circle cx="' + (262 + i * 9.4).toFixed(1) + '" cy="325" r="1.4"/>';
+    for (i = 0; i < 26; i++) {
+      var x = 262 + ((i * 41) % 152), d = ((i * 7) % 24) / 10, s = 1.5 + ((i * 5) % 9) / 10;
+      bq += '<circle class="pl-b" cx="' + x + '" cy="318" r="' + (1.4 + (i % 3) * 0.6) + '" style="--d:' + d.toFixed(1) + 's;--s:' + s.toFixed(1) + 's"/>';
     }
-    [[176, 0], [314, 0.5], [178, 1.1], [312, 1.6], [180, 2.1]].forEach(function (b, k) {
-      bl += '<circle class="pl-b pl-b--big" cx="' + b[0] + '" cy="246" r="' + (6 + (k % 2) * 2) + '" style="--d:' + b[1] + 's;--s:1.9s"/>';
+    [[254, 0], [424, 0.6], [256, 1.2], [422, 1.7], [258, 2.2], [426, 2.6]].forEach(function (b, k) {
+      bl += '<circle class="pl-b pl-b--big" cx="' + b[0] + '" cy="316" r="' + (7 + (k % 2) * 3) + '" style="--d:' + b[1] + 's;--s:2s"/>';
     });
-    var chA = 'M95 112C68 142 58 196 72 238L172 252', chB = 'M95 112C122 142 134 192 128 236L172 252';
-    var out = 'M246 204C286 186 296 150 322 148C334 147 340 152 344 158L398 158';
-    return '<svg class="pl-svg" viewBox="0 0 430 310" role="img" aria-hidden="true" focusable="false">' +
+    return '<svg class="pl-svg" viewBox="30 16 616 396" role="img" aria-hidden="true" focusable="false">' +
       '<defs>' +
-        '<linearGradient id="pl-al" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#4a4038"/><stop offset="1" stop-color="#241d19"/></linearGradient>' +
-        '<filter id="pl-blur" x="-30%" y="-60%" width="160%" height="220%"><feGaussianBlur stdDeviation="5"/></filter>' +
-        '<linearGradient id="pl-w" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#5fc4e8" stop-opacity=".42"/><stop offset="1" stop-color="#2a7ea6" stop-opacity=".32"/></linearGradient>' +
-        '<radialGradient id="pl-coal"><stop stop-color="#fff1c4"/><stop offset=".45" stop-color="#ff9a3c"/><stop offset="1" stop-color="#ff6a1a" stop-opacity="0"/></radialGradient>' +
-        '<clipPath id="pl-win"><rect x="150" y="124" width="205" height="142" rx="16"/></clipPath>' +
+        '<linearGradient id="pd-al" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#3a3a3e"/><stop offset=".18" stop-color="#26262a"/><stop offset="1" stop-color="#121214"/></linearGradient>' +
+        '<linearGradient id="pd-sheen" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#fff" stop-opacity=".07"/><stop offset=".35" stop-color="#fff" stop-opacity="0"/><stop offset=".8" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#fff" stop-opacity=".05"/></linearGradient>' +
+        '<linearGradient id="pd-in" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#55555b"/><stop offset=".45" stop-color="#2e2e33"/><stop offset="1" stop-color="#1b1b1e"/></linearGradient>' +
+        '<linearGradient id="pd-water" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#bfe9f7" stop-opacity=".42"/><stop offset="1" stop-color="#3f9ec4" stop-opacity=".5"/></linearGradient>' +
+        '<linearGradient id="pd-steel" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#e9e9ec"/><stop offset="1" stop-color="#8e8e93"/></linearGradient>' +
+        '<linearGradient id="pd-neck" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#1a1a1c"/><stop offset=".4" stop-color="#3c3c40"/><stop offset="1" stop-color="#151517"/></linearGradient>' +
+        '<linearGradient id="pd-clay" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#7b5843"/><stop offset=".45" stop-color="#a8806a"/><stop offset="1" stop-color="#6a4a37"/></linearGradient>' +
+        '<linearGradient id="pd-glass" x1="0" y1="0" x2="1" y2="1"><stop offset=".1" stop-color="#fff" stop-opacity="0"/><stop offset=".22" stop-color="#fff" stop-opacity=".09"/><stop offset=".3" stop-color="#fff" stop-opacity="0"/></linearGradient>' +
+        '<linearGradient id="pd-refl" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#fff" stop-opacity=".1"/><stop offset=".6" stop-color="#fff" stop-opacity="0"/></linearGradient>' +
+        '<radialGradient id="pd-coal"><stop stop-color="#fff3d1"/><stop offset=".35" stop-color="#ff9a3c"/><stop offset="1" stop-color="#ff4d2a" stop-opacity="0"/></radialGradient>' +
+        '<filter id="pd-glow" x="-100%" y="-100%" width="300%" height="300%"><feGaussianBlur stdDeviation="2.4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>' +
+        '<filter id="pd-blur" x="-40%" y="-80%" width="180%" height="260%"><feGaussianBlur stdDeviation="7"/></filter>' +
+        '<clipPath id="pd-win"><rect x="232" y="176" width="282" height="158" rx="22"/></clipPath>' +
+        '<mask id="pd-fade"><rect x="0" y="360" width="660" height="70" fill="url(#pd-refl)"/></mask>' +
       '</defs>' +
-      '<path class="pl-table" d="M10 292H420"/>' +
-      // posuda i žar
-      '<g class="pl-bowl"><ellipse class="pl-glow" cx="95" cy="26" rx="34" ry="14" fill="url(#pl-coal)"/>' +
-        '<rect x="74" y="18" width="42" height="10" rx="3" fill="#2b2b2b"/><rect class="pl-ember" x="80" y="20" width="30" height="6" rx="2"/>' +
-        '<path d="M66 30H124L114 70H76Z" fill="#8a6a52"/><path d="M70 38H120" stroke="#6d5241" stroke-width="2"/></g>' +
-      '<rect x="80" y="68" width="30" height="46" rx="4" fill="url(#pl-al)" stroke="#4a3d33"/>' +
+      // odraz na stolu
+      '<g class="pl-refl" mask="url(#pd-fade)"><g transform="translate(0 724) scale(1 -1)">' + podBody() + '</g></g>' +
+      '<path class="pl-table" d="M20 362H640"/>' +
+      // posuda, ugljevi i vrat
+      '<ellipse class="pl-glow" cx="135" cy="40" rx="52" ry="20" fill="url(#pd-coal)"/>' +
+      '<g class="pl-bowl"><rect x="98" y="34" width="74" height="12" rx="4" fill="#2a2a2c"/>' +
+        '<rect class="pl-ember" x="106" y="31" width="22" height="7" rx="3"/><rect class="pl-ember" x="132" y="31" width="22" height="7" rx="3" style="animation-delay:-1.2s"/>' +
+        '<path d="M96 46H174L162 92H108Z" fill="url(#pd-clay)"/><path d="M100 56H170" stroke="#5e412f" stroke-width="2" opacity=".6"/></g>' +
+      '<path d="M112 92H158L162 152H108Z" fill="url(#pd-neck)"/>' +
       // tijelo
-      '<rect x="40" y="110" width="330" height="170" rx="26" fill="url(#pl-al)" stroke="#4a3d33" stroke-width="1.5"/>' +
-      '<rect x="150" y="124" width="205" height="142" rx="16" fill="rgba(255,255,255,.035)"/>' +
-      '<g clip-path="url(#pl-win)"><path class="pl-water" d="M150 210C180 204 205 214 235 208S300 202 330 209S350 206 360 208V270H150Z" fill="url(#pl-w)"/>' +
-        '<g class="pl-haze" filter="url(#pl-blur)"><ellipse cx="215" cy="190" rx="40" ry="11"/><ellipse cx="285" cy="178" rx="46" ry="12"/><ellipse cx="250" cy="160" rx="34" ry="9"/></g>' +
+      podBody() +
+      // unutra iza stakla: dim, voda, mjehurići, difuzor
+      '<g clip-path="url(#pd-win)">' +
+        '<g class="pl-haze" filter="url(#pd-blur)"><ellipse cx="300" cy="248" rx="48" ry="12"/><ellipse cx="388" cy="232" rx="56" ry="14"/><ellipse cx="350" cy="208" rx="40" ry="10"/></g>' +
+        '<path class="pl-water" d="M232 270C262 263 292 275 330 268S400 260 440 268S494 264 514 266V340H232Z" fill="url(#pd-water)"/>' +
+        '<path class="pl-water pl-surf" d="M232 270C262 263 292 275 330 268S400 260 440 268S494 264 514 266" fill="none" stroke="#e8f8ff" stroke-opacity=".55" stroke-width="1.5"/>' +
         '<g class="pl-bq">' + bq + '</g><g class="pl-bl">' + bl + '</g>' +
-        '<path class="pl-up" d="M245 246V214"/></g>' +
-      '<rect x="150" y="124" width="205" height="142" rx="16" fill="none" stroke="#7d6c5e" stroke-width="2"/>' +
-      // kanali u aluminiju
-      '<path class="pl-ch2" d="' + chA + '"/><path class="pl-ch2" d="' + chB + '"/><path class="pl-ch" d="' + chA + '"/><path class="pl-ch" d="' + chB + '"/>' +
-      '<path class="pl-flow pl-flow--in" d="M95 34V112"/>' +
-      '<path class="pl-flow pl-flow--in" d="' + chA + '"/><path class="pl-flow pl-flow--in" d="' + chB + '"/>' +
-      // difuzor sa rupama i vratima
-      '<rect x="170" y="249" width="152" height="9" rx="3" fill="#b9b1a6"/><g class="pl-holes" fill="#4a3f36">' + holes + '</g>' +
-      '<path class="pl-door" d="M172 244V256"/>' +
-      // pregrada i izlaz
-      '<path d="M330 128V166H350" fill="none" stroke="#9c8f82" stroke-width="3" stroke-linecap="round"/>' +
-      '<path class="pl-flow pl-flow--out" d="' + out + '"/>' +
-      '<rect x="370" y="150" width="24" height="16" rx="3" fill="#a59c92"/>' +
-      '<path class="pl-hose" d="M394 158C410 158 418 170 420 196"/>' +
-      '<path class="pl-flow pl-flow--back" d="M420 196C418 170 410 158 394 158L352 158"/>' +
-      // ventili na dnu i mlazovi pri ispuhivanju
-      '<rect class="pl-valve" x="104" y="279" width="26" height="7" rx="2"/><rect class="pl-valve" x="282" y="279" width="26" height="7" rx="2"/>' +
-      '<g class="pl-purge"><path d="M108 288C92 292 74 294 52 294"/><path d="M126 288C142 292 160 294 182 294"/><path d="M286 288C270 292 252 294 230 294"/><path d="M304 288C320 292 338 294 360 294"/></g>' +
-      '<g class="pl-stop"><circle cx="150" cy="232" r="11"/><path d="M144 226L156 238M156 226L144 238"/></g>' +
-      // brojevi koraka
-      podMarker(0, 132, 24, 'path') + podMarker(1, 46, 186, 'path') + podMarker(2, 246, 272, 'path') + podMarker(3, 342, 118, 'path') + podMarker(4, 404, 140, 'path') +
-      podMarker(0, 404, 140, 'purge') + podMarker(1, 206, 300, 'purge') + podMarker(2, 150, 210, 'purge') +
+        '<rect x="248" y="318" width="186" height="15" rx="4" fill="url(#pd-steel)"/><g fill="#55555b">' + holes + '</g>' +
+        '<text x="341" y="344" text-anchor="middle" class="pl-brand">PurjFam</text>' +
+        '<path d="M478 186V238H506" fill="none" stroke="url(#pd-steel)" stroke-width="3.5" stroke-linecap="round"/>' +
+        '<rect x="232" y="176" width="282" height="158" rx="22" fill="url(#pd-glass)"/>' +
+      '</g>' +
+      '<rect x="232" y="176" width="282" height="158" rx="22" fill="none" stroke="#8e8e93" stroke-opacity=".55" stroke-width="1.5"/>' +
+      // kanali (rendgen kroz aluminij)
+      '<path class="pl-ch" d="' + POD.chA + '"/><path class="pl-ch" d="' + POD.chB + '"/>' +
+      '<path class="pl-ch pl-ch--neck" d="' + POD.hot + '"/>' +
+      // priključak i crijevo
+      '<rect x="540" y="227" width="34" height="20" rx="5" fill="url(#pd-steel)"/><path d="M548 227V247M556 227V247" stroke="#6e6e73" stroke-width="1.2"/>' +
+      '<path class="pl-hose" d="' + POD.hose + '"/>' +
+      // ventili na dnu i vrata difuzora
+      '<rect class="pl-valve" x="146" y="358" width="26" height="6" rx="2"/><rect class="pl-valve" x="420" y="358" width="26" height="6" rx="2"/>' +
+      '<rect class="pl-door" x="240" y="312" width="6" height="18" rx="2"/>' +
+      '<g class="pl-stop"><circle cx="214" cy="296" r="13"/><path d="M207 289L221 303M221 289L207 303"/></g>' +
+      // čestice: vruć dim (put), ohlađen dim, ispuhivanje
+      '<g class="pl-dots pl-dots--path" filter="url(#pd-glow)">' +
+        podDots(POD.hot, 3, 1.1, 'pl-d pl-d--hot', 3.4) + podDots(POD.chA, 7, 2.4, 'pl-d pl-d--hot', 3.2) + podDots(POD.chB, 7, 2.4, 'pl-d pl-d--hot', 3.2) +
+        podDots(POD.air, 7, 2.6, 'pl-d pl-d--cool', 3) + podDots(POD.hose, 5, 1.6, 'pl-d pl-d--cool', 3) +
+      '</g>' +
+      '<g class="pl-dots pl-dots--purge" filter="url(#pd-glow)">' +
+        podDots(POD.back, 7, 1.6, 'pl-d pl-d--air', 3.2) +
+        POD.jets.map(function (j) { return podDots(j, 4, 0.9, 'pl-d pl-d--air', 2.6); }).join('') +
+      '</g>' +
+      // brojevi
+      podMarker(0, 196, 40, 'path') + podMarker(1, 64, 236, 'path') + podMarker(2, 341, 372, 'path') + podMarker(3, 478, 168, 'path') + podMarker(4, 606, 214, 'path') +
+      podMarker(0, 606, 214, 'purge') + podMarker(1, 296, 396, 'purge') + podMarker(2, 214, 266, 'purge') +
     '</svg>';
   }
 
@@ -176,17 +223,19 @@
     var modes = ['path', 'purge', 'bubbles'];
     var steps = function (m) {
       return '<ol class="pl-steps pl-steps--' + m + '">' + (o.steps[m] || []).map(function (s, i) {
-        return '<li style="--n:' + i + '"><span class="pl-num">' + (i + 1) + '</span><span>' + esc(L(s)) + '</span></li>';
+        return '<li style="--n:' + i + '"><span class="pl-num">' + (i + 1 < 10 ? '0' : '') + (i + 1) + '</span><span>' + esc(L(s)) + '</span></li>';
       }).join('') + '</ol>';
     };
     return '<div class="pl" data-pl data-mode="path" data-bub="quiet">' +
       '<div class="pl-tabs" role="tablist">' + modes.map(function (m, i) {
         return '<button type="button" class="pl-tab" role="tab" data-mode="' + m + '" aria-selected="' + (i === 0) + '">' + esc(L(o.tabs[m])) + '</button>';
       }).join('') + '</div>' +
-      '<div class="pl-stage">' + podSvg() +
-        '<div class="pl-bubsw" role="group"><button type="button" data-bub="quiet" aria-pressed="true">' + esc(L(o.quiet)) + '</button><button type="button" data-bub="loud" aria-pressed="false">' + esc(L(o.loud)) + '</button></div>' +
+      '<div class="pl-grid">' +
+        '<div class="pl-stage">' + podSvg() +
+          '<div class="pl-bubsw" role="group"><button type="button" data-bub="quiet" aria-pressed="true">' + esc(L(o.quiet)) + '</button><button type="button" data-bub="loud" aria-pressed="false">' + esc(L(o.loud)) + '</button></div>' +
+        '</div>' +
+        '<div class="pl-side">' + modes.map(steps).join('') + '</div>' +
       '</div>' +
-      modes.map(steps).join('') +
       '<p class="pl-note">' + esc(L(o.note)) + '</p>' +
     '</div>';
   }
@@ -194,50 +243,86 @@
   function podSize(o) {
     // 3 px po cm: klasična oko 70 cm, POD 12,7 cm (bez posude)
     var base = 236;
+    var podH = esc(L(o.podH).split(' ')[0]);
     return '<figure class="ps" data-ps>' +
       '<svg class="ps-svg" viewBox="0 0 320 250" aria-hidden="true" focusable="false">' +
-        '<path d="M10 ' + base + 'H310" stroke="var(--c-line-strong)" stroke-width="1.5"/>' +
-        '<g class="ps-classic" fill="none" stroke="var(--c-muted)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round">' +
-          // vaza
+        '<defs><linearGradient id="ps-al" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#3a3a3e"/><stop offset="1" stop-color="#121214"/></linearGradient></defs>' +
+        '<path d="M10 ' + base + 'H310" stroke="#3a3a3c" stroke-width="1.5"/>' +
+        '<g class="ps-classic" fill="none" stroke="#8e8e93" stroke-width="2" stroke-linejoin="round" stroke-linecap="round">' +
           '<path d="M80 ' + (base - 70) + 'C80 ' + (base - 56) + ' 56 ' + (base - 48) + ' 56 ' + (base - 24) + 'C56 ' + (base - 8) + ' 70 ' + base + ' 90 ' + base + 'C110 ' + base + ' 124 ' + (base - 8) + ' 124 ' + (base - 24) + 'C124 ' + (base - 48) + ' 100 ' + (base - 56) + ' 100 ' + (base - 70) + 'Z"/>' +
-          '<path d="M60 ' + (base - 26) + 'H120" stroke-opacity=".35"/>' +
-          // stub, priključak za crijevo i tacna
           '<path d="M86 ' + (base - 70) + 'V' + (base - 176) + 'M94 ' + (base - 70) + 'V' + (base - 176) + '"/>' +
           '<path d="M94 ' + (base - 120) + 'H106V' + (base - 112) + 'H94"/>' +
           '<path d="M106 ' + (base - 116) + 'C130 ' + (base - 116) + ' 140 ' + (base - 90) + ' 136 ' + (base - 50) + '" stroke-opacity=".6"/>' +
           '<path d="M66 ' + (base - 164) + 'C70 ' + (base - 158) + ' 110 ' + (base - 158) + ' 114 ' + (base - 164) + '"/>' +
-          // posuda i ugljevi
           '<path d="M80 ' + (base - 196) + 'H100L96 ' + (base - 178) + 'H84Z"/>' +
           '<path d="M78 ' + (base - 204) + 'H102V' + (base - 196) + 'H78Z"/>' +
-          '<path d="M82 ' + (base - 210) + 'H98" stroke="#ff9a3c"/>' +
         '</g>' +
-        '<path class="ps-dim" d="M140 ' + base + 'V' + (base - 210) + '"/>' +
-        '<text class="ps-t" x="146" y="' + (base - 196) + '">' + esc(L(o.classicH)) + '</text>' +
-        '<g class="ps-pod"><rect x="214" y="' + (base - 32) + '" width="37" height="32" rx="6" fill="url(#ps-al)" stroke="#4a3d33"/>' +
-          '<rect x="226" y="' + (base - 28) + '" width="22" height="22" rx="3" fill="rgba(95,196,232,.25)" stroke="#7d6c5e"/>' +
-          '<rect x="218" y="' + (base - 38) + '" width="8" height="7" rx="1.5" fill="#3a312b"/></g>' +
-        '<defs><linearGradient id="ps-al" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#3a312b"/><stop offset="1" stop-color="#1a1411"/></linearGradient></defs>' +
+        '<path class="ps-dim" d="M150 ' + base + 'V' + (base - 210) + '"/>' +
+        '<text class="ps-t" x="157" y="' + (base - 196) + '">' + esc(L(o.classicH)) + '</text>' +
+        '<g class="ps-pod"><rect x="206" y="' + (base - 30) + '" width="44" height="30" rx="7" fill="url(#ps-al)"/>' +
+          '<rect x="222" y="' + (base - 26) + '" width="24" height="20" rx="4" fill="#2e2e33" stroke="#8e8e93" stroke-width=".8"/>' +
+          '<rect x="222" y="' + (base - 14) + '" width="24" height="8" rx="2" fill="rgba(95,196,232,.45)"/>' +
+          '<rect x="211" y="' + (base - 38) + '" width="10" height="9" rx="2" fill="#2a2a2c"/></g>' +
         '<path class="ps-dim ps-dim--pod" d="M262 ' + base + 'V' + (base - 38) + '"/>' +
-        '<text class="ps-t ps-t--pod" x="268" y="' + (base - 22) + '">' + esc(L(o.podH).split(' ')[0]) + '</text>' +
+        '<text class="ps-t ps-t--pod" x="268" y="' + (base - 22) + '">' + podH + '</text>' +
       '</svg>' +
       '<figcaption class="ps-cap"><span><b>' + esc(L(o.classic)) + '</b> ' + esc(L(o.classicH)) + '</span><span><b>' + esc(L(o.pod)) + '</b> ' + esc(L(o.podH)) + '</span><small>' + esc(L(o.note)) + '</small></figcaption>' +
     '</figure>';
   }
 
+  var FEAT_IC = {
+    clean: '<path d="M6 18h12M8 18V9l4-4 4 4v9M10 13h4"/>',
+    leaf: '<path d="M5 19c8 0 14-6 14-14C11 5 5 11 5 19zM5 19l7-7"/>',
+    shield: '<path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4"/>',
+    dial: '<circle cx="12" cy="12" r="8"/><path d="M12 12l4-3M7 16h0M17 16h0"/>',
+    wave: '<path d="M3 14c2-3 4-3 6 0s4 3 6 0 4-3 6 0M3 9c2-3 4-3 6 0s4 3 6 0 4-3 6 0"/>',
+    bag: '<rect x="5" y="8" width="14" height="12" rx="3"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/>'
+  };
+
+  function podFeatures(o) {
+    return '<ul class="pf" role="list">' + o.items.map(function (f) {
+      return '<li class="pf-i"><span class="pf-ic" aria-hidden="true"><svg viewBox="0 0 24 24">' + (FEAT_IC[f.icon] || '') + '</svg></span><b>' + esc(L(f.t)) + '</b><span>' + esc(L(f.d)) + '</span></li>';
+    }).join('') + '</ul>';
+  }
+
   function podSpecs(o) {
     return '<div class="pspec">' +
-      '<table class="pspec-t"><tbody>' + o.rows.map(function (r) {
-        return '<tr><th scope="row">' + esc(L(r[0])) + '</th><td>' + esc(L(r[1])) + '</td></tr>';
-      }).join('') + '</tbody></table>' +
-      '<p class="pspec-shop"><a class="btn btn--primary" href="' + esc(o.shopUrl) + '" target="_blank" rel="noopener">' + esc(L(o.shop)) + icon('arrowRight') + '</a></p>' +
+      '<div class="pspec-grid">' +
+        '<dl class="pspec-t">' + o.rows.map(function (r) {
+          return '<div><dt>' + esc(L(r[0])) + '</dt><dd>' + esc(L(r[1])) + '</dd></div>';
+        }).join('') + '</dl>' +
+        '<div class="pprice">' + o.prices.map(function (p, i) {
+          return '<div class="pprice-c' + (i === 1 ? ' is-hl' : '') + '"><div><b>' + esc(L(p.n)) + '</b><small>' + esc(L(p.s)) + '</small></div><span>' + esc(L(p.p)) + '</span></div>';
+        }).join('') +
+          '<a class="pprice-btn" href="' + esc(o.shopUrl) + '" target="_blank" rel="noopener">' + esc(L(o.shop)) + icon('arrowRight') + '</a>' +
+          '<p class="pprice-note">' + esc(L(o.credit)) + '</p>' +
+        '</div>' +
+      '</div>' +
       '<div class="pgal">' + o.gallery.map(function (g, i) {
         return '<figure class="pgal-f' + (i === 0 ? ' pgal-f--wide' : '') + '"><img src="/gear/purjfam/' + esc(g.img) + '.webp" alt="' + esc(L(g.cap)) + '" loading="lazy" decoding="async" width="1000" height="' + (i === 0 ? 667 : 1000) + '"><figcaption>' + esc(L(g.cap)) + '</figcaption></figure>';
       }).join('') + '</div>' +
-      '<p class="pgal-credit">' + esc(L(o.credit)) + '</p>' +
     '</div>';
   }
 
-  var BLOCKS = { beginnerPicks: beginnerPicks, brandCompare: brandCompare, icyPicks: icyPicks, groupPicks: groupPicks, picks: picks, podLab: podLab, podSize: podSize, podSpecs: podSpecs };
+  /** Vrh stranice u Studio izgledu: veliki naslov, fotografija proizvoda i traka sa brojevima. */
+  function studioHero(a, crumbs) {
+    var s = a.studio;
+    return '<section class="sh" aria-labelledby="article-title">' + (crumbs || '') +
+      '<div class="container sh-in">' +
+        '<div class="sh-copy">' +
+          '<p class="sh-eye">' + esc(L(s.eyebrow)) + '</p>' +
+          '<h1 class="sh-title" id="article-title" tabindex="-1">' + esc(L(s.title)) + ' <span>' + esc(L(s.title2)) + '</span></h1>' +
+          '<p class="sh-lead">' + esc(L(a.lead)) + '</p>' +
+        '</div>' +
+        '<div class="sh-media"><img src="/gear/purjfam/' + esc(s.image) + '.webp" alt="' + esc(L(s.imageAlt)) + '" width="1000" height="1000" fetchpriority="high"></div>' +
+      '</div>' +
+      '<div class="container"><ul class="sh-stats" role="list">' + s.stats.map(function (x) {
+        return '<li><b>' + esc(L(x.v)) + '</b><span>' + esc(L(x.l)) + '</span></li>';
+      }).join('') + '</ul></div>' +
+    '</section>';
+  }
+
+  var BLOCKS = { beginnerPicks: beginnerPicks, brandCompare: brandCompare, icyPicks: icyPicks, groupPicks: groupPicks, picks: picks, podLab: podLab, podSize: podSize, podSpecs: podSpecs, podFeatures: podFeatures };
   function block(b) {
     var name = typeof b === 'string' ? b : b && b.type;
     return name && BLOCKS[name] ? BLOCKS[name](typeof b === 'object' ? b : null) : '';
@@ -280,8 +365,8 @@
     }).join('');
     var others = V.articles().filter(function (x) { return x !== a; });
     return (
-      '<article class="art">' +
-        V.pageHero({ id: 'article-title', eyebrow: L(a.eyebrow), title: L(a.title), lead: L(a.lead), crumbs: crumbs }) +
+      '<article class="art' + (a.studio ? ' art--studio' : '') + '">' +
+        (a.studio ? studioHero(a, crumbs) : V.pageHero({ id: 'article-title', eyebrow: L(a.eyebrow), title: L(a.title), lead: L(a.lead), crumbs: crumbs })) +
         secs +
         V.faqSection(a.faq, 'art-faq') +
         (others.length

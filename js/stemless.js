@@ -18,7 +18,10 @@
 
   Array.prototype.forEach.call(document.querySelectorAll('[data-pl]'), function (pl) {
     var tabs = pl.querySelectorAll('.pl-tab'), bubs = pl.querySelectorAll('.pl-bubsw button');
-    var visible = false;
+    var svg = pl.querySelector('svg'), visible = false;
+    // čestice dima su SVG animacije: stoje dok presjek nije na ekranu (i kad su animacije isključene)
+    function smil(on) { if (svg && svg.pauseAnimations) { if (on && !reduce) svg.unpauseAnimations(); else svg.pauseAnimations(); } }
+    smil(false);
     Array.prototype.forEach.call(tabs, function (b) {
       b.addEventListener('click', function () {
         pl.setAttribute('data-mode', b.getAttribute('data-mode'));
@@ -33,7 +36,7 @@
       });
     });
     // animacije rade samo dok je presjek na ekranu (štedi bateriju)
-    onView(pl, function (on) { visible = on; pl.classList.toggle('is-on', on); }, true);
+    onView(pl, function (on) { visible = on; pl.classList.toggle('is-on', on); smil(on); }, true);
   });
 
   Array.prototype.forEach.call(document.querySelectorAll('[data-ps]'), function (ps) {

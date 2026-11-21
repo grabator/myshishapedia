@@ -19,6 +19,8 @@
  *                { type: 'picks', ids: [...] }  kartice ručno izabranih okusa
  *                'podLab', 'podSize', 'podSpecs'  presjek PurjFam POD-a, poređenje veličine i podaci (članak stemless)
  *   styles, scripts  dodatni CSS/JS samo za taj članak (moraju biti i u ASSETS u build.mjs)
+ *   studio     Studio vrh stranice: { eyebrow, title, title2, image, imageAlt, stats: [{ v, l }] }
+ *              (blok 'podFeatures': kartice sa ikonama { icon, t, d })
  *              links: [{ page, label }] dugmad na kraju sekcije (page iz V.SEG, npr. 'guide', 'tips')
  *   faq        [{ q, a }] česta pitanja na kraju članka
  *
@@ -33,6 +35,19 @@ window.ARTICLES = [
     scripts: ['js/stemless.js'],
     eyebrow: { bs: 'Oprema', en: 'Gear' },
     title: { bs: 'Nargila bez stuba (stemless): kako radi', en: 'Stemless hookah: how it works' },
+    studio: {
+      eyebrow: { bs: 'Oprema · PurjFam POD', en: 'Gear · PurjFam POD' },
+      title: { bs: 'Nargila bez stuba.', en: 'The stemless hookah.' },
+      title2: { bs: '12,7 cm.', en: '12.7 cm.' },
+      image: 'voda',
+      imageAlt: { bs: 'PurjFam POD sa vodom, bočni pogled', en: 'PurjFam POD with water, side view' },
+      stats: [
+        { v: { bs: '12,7 cm', en: '12.7 cm' }, l: { bs: 'Visina', en: 'Height' } },
+        { v: { bs: '800 g', en: '800 g' }, l: { bs: 'Težina bez vode', en: 'Dry weight' } },
+        { v: { bs: '77', en: '77' }, l: { bs: 'Rupa na difuzoru', en: 'Diffuser holes' } },
+        { v: { bs: '0%', en: '0%' }, l: { bs: 'Plastike', en: 'Plastic' } }
+      ]
+    },
     metaTitle: { bs: 'Stemless nargila: šta je i kako radi (PurjFam POD)', en: 'Stemless hookah: what it is and how it works (PurjFam POD)' },
     metaDescription: {
       bs: 'Šta je nargila bez stuba i kako radi, na primjeru PurjFam POD-a: put dima, ispuhivanje i mjehurići u animaciji, veličina, tehnički podaci i cijene.',
@@ -119,6 +134,17 @@ window.ARTICLES = [
             'There is no plastic. The body is aluminum, glass, stainless steel and silicone, materials that do not soak up flavor. Grooves in the core catch the tobacco juice, so the water does not foam.',
             'A purge cannot flood the bowl, and the draw can be set three ways with a plate you simply slide in. The aluminum body cools the water, so according to PurjFam the session stays cool for an hour or more.'
           ]
+        },
+        block: {
+          type: 'podFeatures',
+          items: [
+            { icon: 'clean', t: { bs: 'Brzo čišćenje', en: 'Fast to clean' }, d: { bs: 'Rastavi se bez alata za par sekundi.', en: 'Comes apart without tools in seconds.' } },
+            { icon: 'leaf', t: { bs: 'Bez plastike', en: 'No plastic' }, d: { bs: 'Aluminij, staklo, čelik i silikon.', en: 'Aluminum, glass, steel and silicone.' } },
+            { icon: 'shield', t: { bs: 'Ne poplavi posudu', en: 'Flood-free purge' }, d: { bs: 'Čelična vrata ne puštaju vodu do posude.', en: 'A steel door keeps water out of the bowl.' } },
+            { icon: 'dial', t: { bs: 'Podesivo povlačenje', en: 'Adjustable draw' }, d: { bs: 'Tri jačine sa pločicom koja se umetne.', en: 'Three settings with a slide-in plate.' } },
+            { icon: 'wave', t: { bs: 'Dva zvuka', en: 'Two sounds' }, d: { bs: 'Tiha ploča sa 77 rupa ili glasna puna ploča.', en: 'A quiet 77-hole plate or a loud solid plate.' } },
+            { icon: 'bag', t: { bs: 'Za put', en: 'Travel ready' }, d: { bs: '800 g, a PurjFam navodi da izdrži pad sa 2 m.', en: '800 g, and PurjFam rates it for a 2 m drop.' } }
+          ]
         }
       },
       {
@@ -153,10 +179,12 @@ window.ARTICLES = [
             [{ bs: 'Povlačenje', en: 'Draw' }, { bs: '3 jačine', en: '3 settings' }],
             [{ bs: 'Crijevo', en: 'Hose' }, { bs: 'odgovara svako crijevo; u kompletu 1,5 m', en: 'fits any hose; 1.5 m in the kit' }],
             [{ bs: 'Pad', en: 'Drop rating' }, { bs: 'do 2 m (prema PurjFamu)', en: 'up to 2 m (according to PurjFam)' }],
-            [{ bs: 'Garancija', en: 'Warranty' }, { bs: 'doživotna ograničena garancija, uz uslove', en: 'lifetime limited warranty, with conditions' }],
-            [{ bs: 'POD, bez crijeva i drške', en: 'POD, no hose or handle' }, { bs: '225 $', en: '$225' }],
-            [{ bs: 'POD komplet sa crijevom i drškom', en: 'POD kit with hose and handle' }, { bs: '259 $', en: '$259' }],
-            [{ bs: 'POD komplet u jednoj boji (vivid)', en: 'Matched color POD kit (vivid)' }, { bs: '279 $', en: '$279' }]
+            [{ bs: 'Garancija', en: 'Warranty' }, { bs: 'doživotna ograničena garancija, uz uslove', en: 'lifetime limited warranty, with conditions' }]
+          ],
+          prices: [
+            { n: { bs: 'POD', en: 'POD' }, s: { bs: 'Bez crijeva i drške', en: 'No hose or handle' }, p: { bs: '225 $', en: '$225' } },
+            { n: { bs: 'POD komplet', en: 'POD kit' }, s: { bs: 'Sa crijevom i drškom', en: 'With hose and handle' }, p: { bs: '259 $', en: '$259' } },
+            { n: { bs: 'POD komplet vivid', en: 'POD kit vivid' }, s: { bs: 'Tijelo i drška u istoj boji', en: 'Matched color body and handle' }, p: { bs: '279 $', en: '$279' } }
           ],
           shop: { bs: 'Pogledaj na purjfam.com', en: 'See it on purjfam.com' },
           shopUrl: 'https://purjfam.com/collections/all',
@@ -167,7 +195,7 @@ window.ARTICLES = [
             { img: 'dimenzije', cap: { bs: 'Dimenzije', en: 'Dimensions' } },
             { img: 'mokri', cap: { bs: 'Dijelovi poslije pranja, složeni da se osuše (pored mobitela)', en: 'Parts after washing, stacked to dry (next to a phone)' } }
           ],
-          credit: { bs: 'Fotografije: PurjFam', en: 'Photos: PurjFam' }
+          credit: { bs: 'Podaci i fotografije: PurjFam. POD još nismo testirali uživo.', en: 'Data and photos: PurjFam. We have not tested the POD in person yet.' }
         },
         links: [{ page: 'gear' }, { page: 'guide' }]
       }
