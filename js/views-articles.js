@@ -271,17 +271,17 @@
   }
 
   var FEAT_IC = {
-    clean: '<path d="M6 18h12M8 18V9l4-4 4 4v9M10 13h4"/>',
-    leaf: '<path d="M5 19c8 0 14-6 14-14C11 5 5 11 5 19zM5 19l7-7"/>',
-    shield: '<path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4"/>',
-    dial: '<circle cx="12" cy="12" r="8"/><path d="M12 12l4-3M7 16h0M17 16h0"/>',
-    wave: '<path d="M3 14c2-3 4-3 6 0s4 3 6 0 4-3 6 0M3 9c2-3 4-3 6 0s4 3 6 0 4-3 6 0"/>',
-    bag: '<rect x="5" y="8" width="14" height="12" rx="3"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/>'
+    clean: '<path d="M12 3.5c3.2 4.1 6 7.3 6 10.8a6 6 0 0 1-12 0c0-3.5 2.8-6.7 6-10.8z"/><path d="M9.3 14.6a2.8 2.8 0 0 0 2.7 2.6"/>',
+    leaf: '<path d="M5 19c8.5 0 14-5.5 14-14C10.5 5 5 10.5 5 19z"/><path d="M5 19l7.5-7.5"/>',
+    shield: '<path d="M12 3l7 3v5.5c0 4.6-3 7.9-7 9.5-4-1.6-7-4.9-7-9.5V6z"/><path d="M9 12.2l2.2 2.2L15.2 10"/>',
+    dial: '<path d="M4 7h9M17 7h3M4 17h3M11 17h9"/><circle cx="15" cy="7" r="2.2"/><circle cx="9" cy="17" r="2.2"/>',
+    wave: '<path d="M4 10.5v3M8 7.5v9M12 4.5v15M16 8.5v7M20 11v2"/>',
+    bag: '<rect x="5" y="7.5" width="14" height="12.5" rx="4"/><path d="M9 7.5V6a3 3 0 0 1 6 0v1.5M9 13.5h6"/>'
   };
 
   function podFeatures(o) {
     return '<ul class="pf" role="list">' + o.items.map(function (f) {
-      return '<li class="pf-i"><span class="pf-ic" aria-hidden="true"><svg viewBox="0 0 24 24">' + (FEAT_IC[f.icon] || '') + '</svg></span><b>' + esc(L(f.t)) + '</b><span>' + esc(L(f.d)) + '</span></li>';
+      return '<li class="pf-i"><span class="pf-ic" aria-hidden="true"><svg viewBox="0 0 24 24">' + (FEAT_IC[f.icon] || '') + '</svg></span><div class="pf-tx"><b class="pf-t">' + esc(L(f.t)) + '</b><p class="pf-d">' + esc(L(f.d)) + '</p></div></li>';
     }).join('') + '</ul>';
   }
 
