@@ -165,12 +165,14 @@ window.GLOSSARY = [
     },
     text: {
       bs: [
-        'Stub je glavni dio nargile. Na vrhu drži posudu i tacnu, a donji kraj (donja cijev) ulazi u vodu u vazi.',
-        'Na njemu je i priključak za crijevo, a često i ventil za izduvavanje.'
+        'Stub je glavni dio nargile. Na vrhu drži glavu i tacnu, a kod klasične nargile njegov donji kraj (cijev u vodi) ulazi u vodu u vazi.',
+        'Kod modularnih nargila stub stoji između glave i vaze, a cijev koja ide u vodu je poseban dio ispod vaze. Ko traži rezervni dio, treba znati koji je od ovih dijelova oštećen.',
+        'Na klasičnom stubu je priključak za crijevo, a često i ventil za izduvavanje. Kod modularnih nargila priključci za crijevo mogu biti i na vazi.'
       ],
       en: [
-        'The stem is the main body of the hookah. It holds the bowl and tray on top, and its lower end (the downstem) sits in the water in the base.',
-        'It also has the hose port and, very often, a purge valve.'
+        'The stem is the main body of the hookah. It holds the bowl and tray on top, and on a classic hookah its lower end (the downstem) sits in the water in the base.',
+        'On modular hookahs the stem sits between the bowl and the base, and the downstem that goes into the water is a separate part below the base. If you are looking for a spare part, it helps to know which of these parts is damaged.',
+        'A classic stem has the hose port and, very often, a purge valve. On modular hookahs the hose ports can also sit on the base.'
       ]
     },
     icon: 'stem', guide: 2, related: ['vaza', 'tacna', 'purge-ventil']
@@ -225,11 +227,11 @@ window.GLOSSARY = [
     },
     text: {
       bs: [
-        'Crijevo se spaja na priključak stuba, a na drugom kraju ima usnik. Kroz njega se povlači dim.',
+        'Crijevo se spaja na priključak stuba (kod nekih modularnih nargila na priključak na vazi), a na drugom kraju ima usnik. Kroz njega se povlači dim.',
         'Silikonska crijeva se lako peru i ne upijaju mirise, pa se okusi ne miješaju.'
       ],
       en: [
-        'The hose plugs into the port on the stem and has a mouthpiece at the other end. You pull the smoke through it.',
+        'The hose plugs into the port on the stem (on some modular hookahs, into a port on the base) and has a mouthpiece at the other end. You pull the smoke through it.',
         'Silicone hoses are easy to wash and do not hold on to smells, so flavors do not carry over.'
       ]
     },
@@ -279,8 +281,8 @@ window.GLOSSARY = [
     term: { bs: 'Ventil za izduvavanje', en: 'Purge valve' },
     aka: { bs: ['purge ventil', 'purge valve'], en: ['purge'] },
     short: {
-      bs: 'Mali ventil na stubu kroz koji se izduvava ustajali dim.',
-      en: 'A small valve on the stem for blowing out stale smoke.'
+      bs: 'Mali ventil kroz koji se izduvava ustajali dim, obično na stubu, a kod nekih modularnih nargila na vazi.',
+      en: 'A small valve for blowing out stale smoke, usually on the stem and on some modular hookahs on the base.'
     },
     text: {
       bs: [

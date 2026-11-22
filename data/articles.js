@@ -18,6 +18,7 @@
  *                                 { type: 'brandCompare', a, b } za druga dva brenda
  *                { type: 'picks', ids: [...] }  kartice ručno izabranih okusa
  *                'podLab', 'podSize', 'podSpecs'  presjek PurjFam POD-a, poređenje veličine i podaci (članak stemless)
+ *                'cleanLab', 'cleanSteps', 'cleanBrand'  crtež "šta smije u vodu", koraci i okvir THE HOOKAH (članak ciscenje)
  *   styles, scripts  dodatni CSS/JS samo za taj članak (moraju biti i u ASSETS u build.mjs)
  *   studio     Studio vrh stranice: { eyebrow, title, title2, image, imageAlt, stats: [{ v, l }] }
  *              (blok 'podFeatures': kartice sa ikonama { icon, t, d })
@@ -27,6 +28,160 @@
  * Brojke i tvrdnje u tekstu su opšte poznate ili izračunate iz podataka sajta; trajanje sesije je okvirno.
  */
 window.ARTICLES = [
+  {
+    id: 'ciscenje',
+    slug: { bs: 'kako-ocistiti-nargilu', en: 'how-to-clean-a-hookah', de: 'shisha-reinigen', ru: 'kak-chistit-kalyan' },
+    published: '2026-11-23',
+    styles: ['css/clean.css'],
+    scripts: ['js/clean.js'],
+    eyebrow: { bs: 'Održavanje · u saradnji sa THE HOOKAH', en: 'Care · in collaboration with THE HOOKAH' },
+    title: { bs: 'Kako očistiti nargilu: šta smije u vodu, a šta ne', en: 'How to clean a hookah: what can get wet and what can\'t' },
+    metaTitle: { bs: 'Kako očistiti nargilu: šta smije u vodu, a šta ne (korak po korak)', en: 'How to clean a hookah: what can get wet and what can\'t (step by step)' },
+    metaDescription: {
+      bs: 'Kako očistiti nargilu korak po korak: vaza, stub, glava i crijevo. Šta smije u vodu, a šta ne, i kako se čiste nargile sa drvetom, kožom i LED-om.',
+      en: 'How to clean a hookah step by step: base, stem, bowl and hose. What can get wet and what can\'t, and how to clean hookahs with wood, leather and LEDs.'
+    },
+    lead: {
+      bs: 'Većina nargile se čisti vodom i četkom, ali ne sve. Pogledaj koji dijelovi smiju u vodu, a koji moraju ostati suhi, uz savjete proizvođača THE HOOKAH za modularne nargile.',
+      en: 'Most of a hookah cleans up with water and a brush, but not all of it. See which parts can get wet and which must stay dry, with tips from the manufacturer THE HOOKAH for modular hookahs.'
+    },
+    sections: [
+      {
+        h: { bs: 'Zašto čistiti nargilu', en: 'Why clean your hookah' },
+        p: {
+          bs: [
+            'Nakon svake sesije u vodi, stubu i crijevu ostanu dim, melasa i sitni ostaci duhana. Ako ostanu danima, sljedeća sesija ima ukus prethodne, a voda počne neprijatno mirisati.',
+            'Dobra vijest: većina dijelova se čisti samo vodom i četkom. Ali nisu svi dijelovi isti. Moderne modularne nargile imaju i drvo, kožu ili elektroniku, a oni ne smiju u vodu. Na crtežu ispod dodirni dio i pogledaj kako se čisti.'
+          ],
+          en: [
+            'After every session, smoke, molasses and small bits of tobacco stay behind in the water, the stem and the hose. If they sit there for days, the next session tastes like the last one and the water starts to smell.',
+            'The good news: most parts clean up with just water and a brush. But not every part is the same. Modern modular hookahs also have wood, leather or electronics, and those must not get wet. Tap a part on the drawing below to see how it is cleaned.'
+          ]
+        },
+        block: {
+          type: 'cleanLab',
+          partner: { bs: 'U saradnji sa', en: 'In collaboration with' },
+          modes: { classic: { bs: 'Klasična nargila', en: 'Classic hookah' }, modular: { bs: 'Modularna: LED, drvo, koža', en: 'Modular: LED, wood, leather' } },
+          legend: { water: { bs: 'Smije u vodu', en: 'Can get wet' }, care: { bs: 'Pažljivo', en: 'Careful' }, dry: { bs: 'Mora ostati suho', en: 'Keep dry' } },
+          hint: { bs: 'Dodirni dio nargile', en: 'Tap a part of the hookah' },
+          parts: [
+            { id: 'bowl', name: { bs: 'Glava', en: 'Bowl' },
+              classic: { s: 'water', t: { bs: 'Očisti ostatke duhana i isperi glavu vodom. Glinenu glavu peri samo vodom, bez sapuna, jer glina upija miris.', en: 'Clear out the old tobacco and rinse the bowl with water. Wash a clay bowl with water only, no soap, because clay soaks up smells.' } },
+              modular: { s: 'water', t: { bs: 'Očisti ostatke duhana i isperi glavu vodom kad se potpuno ohladi. Glinenu glavu peri samo vodom, bez sapuna.', en: 'Clear out the old tobacco and rinse the bowl with water once it has fully cooled down. Wash a clay bowl with water only, no soap.' } } },
+            { id: 'tray', name: { bs: 'Tacna', en: 'Tray' },
+              classic: { s: 'water', t: { bs: 'Otresi pepeo i isperi tacnu vodom kad se ohladi.', en: 'Shake off the ash and rinse the tray with water once it has cooled down.' } },
+              modular: { s: 'water', t: { bs: 'Otresi pepeo i isperi tacnu vodom kad se ohladi.', en: 'Shake off the ash and rinse the tray with water once it has cooled down.' } } },
+            { id: 'stem', name: { bs: 'Stub', en: 'Stem' },
+              classic: { s: 'water', t: { bs: 'Isperi stub iznutra vodom i provuci četku kroz cijev, dok voda ne izlazi čista.', en: 'Rinse the inside of the stem with water and run a brush through it until the water comes out clean.' } },
+              modular: { s: 'care', t: { bs: 'Ako stub svijetli i ima priključak za punjenje, izvuci kabl i ne potapaj ga. Rastavljive dijelove bez elektronike operi posebno.', en: 'If the stem lights up and has a charging port, unplug the cable and do not submerge it. Wash the detachable parts without electronics separately.' } } },
+            { id: 'down', name: { bs: 'Cijev u vodi i difuzor', en: 'Downstem and diffuser' },
+              classic: { s: 'water', t: { bs: 'Isperi cijev i provuci četku. Ako se difuzor na dnu odvrće, skini ga i operi posebno.', en: 'Rinse the downstem and run a brush through it. If the diffuser at the bottom unscrews, take it off and wash it separately.' } },
+              modular: { s: 'water', t: { bs: 'Cijev u vodi je često iz više dijelova. Rastavi je, isperi i provuci četku, a difuzor na dnu odvrni i operi posebno.', en: 'A modular downstem often comes in several parts. Take it apart, rinse it and run a brush through it, and unscrew the diffuser at the bottom to wash it separately.' } } },
+            { id: 'base', name: { bs: 'Vaza', en: 'Base' },
+              classic: { s: 'water', t: { bs: 'Prospi vodu, isperi vazu i očisti je četkom. Ne sipaj vruću vodu u hladno staklo niti hladnu u vruće.', en: 'Pour out the water, rinse the base and clean it with a brush. Do not pour hot water into cold glass or cold water into hot glass.' } },
+              modular: { s: 'care', t: { bs: 'Neke vaze se smiju prati samo hladnom vodom, npr. vaza modela TIGER WOOD. Operi je odvojeno, da voda ne curi po drvetu ili koži.', en: 'Some bases may only be rinsed with cold water, for example the TIGER WOOD base. Wash it separately so water does not run over wood or leather.' } } },
+            { id: 'hose', name: { bs: 'Crijevo', en: 'Hose' },
+              classic: { s: 'care', t: { bs: 'Perivo silikonsko crijevo isperi vodom i ostavi da se osuši. Klasično neperivo crijevo se ne pere vodom.', en: 'Rinse a washable silicone hose with water and let it dry. A classic non-washable hose should not be washed with water.' } },
+              modular: { s: 'care', t: { bs: 'Ako je crijevo presvučeno kožom, ne namači ga cijelo, čak ni kad je ispod silikon.', en: 'If the hose is wrapped in leather, do not soak the whole hose, even if there is silicone underneath.' } } },
+            { id: 'mouth', name: { bs: 'Usnik', en: 'Mouthpiece' },
+              classic: { s: 'water', t: { bs: 'Metalni ili stakleni usnik isperi vodom i osuši.', en: 'Rinse a metal or glass mouthpiece with water and dry it.' } },
+              modular: { s: 'dry', t: { bs: 'Drveni usnik i usnik sa LED svjetlom i priključkom za punjenje moraju ostati suhi. Ne potapaj ih u vodu.', en: 'A wooden mouthpiece and a mouthpiece with an LED light and charging port must stay dry. Do not put them in water.' } } }
+          ]
+        }
+      },
+      {
+        h: { bs: 'Čišćenje korak po korak', en: 'Cleaning step by step' },
+        p: {
+          bs: ['Ovo je opšti redoslijed za većinu nargila. Kod svoje nargile uvijek provjeri upute proizvođača, posebno ako ima drvo, kožu ili elektroniku.'],
+          en: ['This is the general order for most hookahs. Always check the manufacturer\'s instructions for your own hookah, especially if it has wood, leather or electronics.']
+        },
+        block: {
+          type: 'cleanSteps',
+          steps: [
+            { t: { bs: 'Ohladi', en: 'Let it cool' }, d: { bs: 'Sačekaj da se glava, ugalj i tacna potpuno ohlade.', en: 'Wait until the bowl, coals and tray have cooled down completely.' } },
+            { t: { bs: 'Rastavi', en: 'Take it apart' }, d: { bs: 'Skini glavu, tacnu, crijevo i usnik, pa izvadi stub iz vaze.', en: 'Remove the bowl, tray, hose and mouthpiece, then lift the stem out of the base.' } },
+            { t: { bs: 'Vaza', en: 'Base' }, d: { bs: 'Prospi vodu, isperi vazu i očisti je četkom.', en: 'Pour out the water, rinse the base and clean it with a brush.' } },
+            { t: { bs: 'Stub i cijev', en: 'Stem and downstem' }, d: { bs: 'Isperi ih vodom i provuci četku kroz cijev, dok voda ne izlazi čista.', en: 'Rinse them with water and run a brush through until the water comes out clean.' } },
+            { t: { bs: 'Glava i tacna', en: 'Bowl and tray' }, d: { bs: 'Očisti ostatke duhana i isperi glavu i tacnu.', en: 'Clear out the old tobacco and rinse the bowl and tray.' } },
+            { t: { bs: 'Crijevo i usnik', en: 'Hose and mouthpiece' }, d: { bs: 'Perivo crijevo isperi, a drvo, kožu i dijelove sa punjenjem samo obriši suhom krpom.', en: 'Rinse a washable hose, and only wipe wood, leather and charging parts with a dry cloth.' } },
+            { t: { bs: 'Osuši', en: 'Dry' }, d: { bs: 'Ostavi sve da se potpuno osuši prije sljedeće sesije ili punjenja.', en: 'Let everything dry completely before the next session or before charging.' } }
+          ]
+        }
+      },
+      {
+        h: { bs: 'Modularne nargile: elektronika, drvo i koža', en: 'Modular hookahs: electronics, wood and leather' },
+        p: {
+          bs: [
+            'Usnik spolja može biti od drveta, a unutra imati cijev od inoksa. Drugi usnik na istom mjestu ima priključak za punjenje. Ko ih oba čisti samo prema materijalu unutrašnje cijevi, može oštetiti drvo ili elektroniku.',
+            'THE HOOKAH, proizvođač i online prodavnica nargila iz Eschenburga u Njemačkoj, to pokazuje na dva svoja modela.'
+          ],
+          en: [
+            'One mouthpiece can be wood on the outside with a stainless steel tube inside. Another has a charging port in the same spot. Clean both based only on the material of the inner tube and you risk damaging the wood or the electronics.',
+            'THE HOOKAH, a hookah manufacturer and online shop from Eschenburg in Germany, shows this with two of its models.'
+          ]
+        },
+        block: {
+          type: 'cleanBrand',
+          logo: '/gear/thehookah/logo.webp',
+          url: 'https://www.thehookah.de/',
+          models: [
+            { name: 'DAYWALKER', sub: { bs: 'Elektronika i priključci moraju ostati suhi', en: 'Keep the electronics and ports dry' }, kind: 'led',
+              points: [
+                { bs: 'Stub i usnik svijetle i svaki ima svoj micro-USB priključak.', en: 'The stem and the mouthpiece light up, and each has its own micro-USB port.' },
+                { bs: 'Prije čišćenja izvuci oba kabla i stavi dijelove na suhu podlogu.', en: 'Before cleaning, unplug both cables and put the parts on a dry surface.' },
+                { bs: 'Usnik se ne potapa u vodu: LED i priključak ne smiju biti mokri.', en: 'Do not submerge the mouthpiece: the LED and the port must not get wet.' },
+                { bs: 'Hvatač melase iznad stuba skuplja sok, ali ne štiti priključak od vode.', en: 'The molasses catcher above the stem collects dripping juice, but it does not seal the port against water.' },
+                { bs: 'Puni samo potpuno suh dio. Ako voda uđe u priključak, taj dio ne koristi.', en: 'Only charge a part that is completely dry. If water gets into a port, stop using that part.' }
+              ] },
+            { name: 'TIGER WOOD', sub: { bs: 'Svaki materijal se čisti posebno', en: 'Each material needs its own care' }, kind: 'wood',
+              points: [
+                { bs: 'Usnik je spolja drvo, a unutra inoks. Drveni dijelovi moraju ostati suhi.', en: 'The mouthpiece is wood on the outside and stainless steel inside. The wooden parts must stay dry.' },
+                { bs: 'Crijevo je silikon presvučen pravom kožom, pa se ne namače cijelo.', en: 'The hose is silicone wrapped in genuine leather, so do not soak the whole hose.' },
+                { bs: 'Stub se rastavlja, cijev u vodi je iz više dijelova, a difuzor na dnu se odvrće.', en: 'The stem comes apart, the downstem has several parts and the diffuser at the bottom unscrews.' },
+                { bs: 'Staklena vaza se pere samo hladnom vodom, odvojeno od ostalih dijelova.', en: 'The glass base may only be rinsed with cold water, separately from the other parts.' },
+                { bs: 'Prije rastavljanja sačekaj da se glava i tacna ohlade.', en: 'Let the bowl and tray cool down before you take it apart.' }
+              ] }
+          ],
+          checkTitle: { bs: 'Prije prvog pranja', en: 'Before the first rinse' },
+          check: [
+            { bs: 'Na svakom dijelu potraži priključke za punjenje, spojeve različitih materijala i mjesta gdje se rastavlja.', en: 'Look for charging ports, joints between materials and the points where each part comes apart.' },
+            { bs: 'Osjetljive dijelove prvo ostavi sa strane.', en: 'Put the parts that cannot get wet aside first.' },
+            { bs: 'To što se nargila rastavlja ne znači da svi dijelovi smiju u vodu.', en: 'A hookah that comes apart does not mean every part can go in water.' }
+          ],
+          caption: { bs: 'DAYWALKER: stub i usnik imaju svaki svoj priključak za punjenje. TIGER WOOD: drvo na usniku i staklo vaze traže različitu njegu.', en: 'DAYWALKER: the stem and the mouthpiece each have their own charging port. TIGER WOOD: the wood on the mouthpiece and the glass base need different care.' },
+          credit: { bs: 'Savjeti o modelima: THE HOOKAH, prema uputama proizvođača.', en: 'Model tips: THE HOOKAH, based on the manufacturer\'s instructions.' },
+          visit: { bs: 'Posjeti THE HOOKAH', en: 'Visit THE HOOKAH' }
+        }
+      },
+      {
+        h: { bs: 'Česte greške', en: 'Common mistakes' },
+        p: {
+          bs: [
+            'Pranje dok je nargila još vruća. Vruće staklo može puknuti od hladne vode, a vrući dijelovi mogu opeći.',
+            'Namakanje crijeva koje nije perivo ili je presvučeno kožom.',
+            'Punjenje dijela sa svjetlom dok još nije potpuno suh.',
+            'Sapun u glinenoj glavi: glina upije miris, pa sljedeća sesija ima ukus sapuna.',
+            'Sastavljanje dok su dijelovi još mokri: zaostala voda u stubu i crijevu brzo počne neprijatno mirisati.'
+          ],
+          en: [
+            'Washing the hookah while it is still hot. Hot glass can crack under cold water, and hot parts can burn you.',
+            'Soaking a hose that is not washable or that is wrapped in leather.',
+            'Charging a light-up part before it is completely dry.',
+            'Soap in a clay bowl: clay soaks up the smell, so the next session tastes like soap.',
+            'Putting it back together while the parts are still wet: water left in the stem and hose quickly starts to smell.'
+          ]
+        },
+        links: [{ page: 'guide' }, { page: 'gear' }]
+      }
+    ],
+    faq: [
+      { q: { bs: 'Koliko često treba čistiti nargilu?', en: 'How often should you clean a hookah?' }, a: { bs: 'Vodu promijeni i vazu isperi nakon svake sesije. Stub, cijev i perivo crijevo temeljito očisti redovno, a najkasnije kad osjetiš stari okus ili miris.', en: 'Change the water and rinse the base after every session. Clean the stem, downstem and a washable hose thoroughly on a regular basis, and at the latest when you notice an old taste or smell.' } },
+      { q: { bs: 'Smijem li prati nargilu sapunom?', en: 'Can I wash a hookah with soap?' }, a: { bs: 'Za staklo i metal su obično dovoljni voda i četka. Glinenu glavu ne peri sapunom, jer glina upija miris. Ako koristiš sredstvo za pranje, sve dobro isperi.', en: 'Water and a brush are usually enough for glass and metal. Do not wash a clay bowl with soap, because clay soaks up the smell. If you use a cleaning product, rinse everything well.' } },
+      { q: { bs: 'Smije li crijevo u vodu?', en: 'Can the hose go in water?' }, a: { bs: 'Samo ako je perivo, npr. silikonsko. Klasično crijevo i crijevo presvučeno kožom se ne namaču.', en: 'Only if it is washable, for example silicone. A classic hose and a hose wrapped in leather should not be soaked.' } },
+      { q: { bs: 'Šta ako voda uđe u priključak za punjenje?', en: 'What if water gets into a charging port?' }, a: { bs: 'Ne puni taj dio i ne koristi ga, kako za svoje LED modele savjetuje THE HOOKAH. Kućište elektronike se ne otvara.', en: 'Do not charge or use that part, as THE HOOKAH advises for its LED models. The electronics housing is not meant to be opened.' } },
+      { q: { bs: 'Zašto se neka staklena vaza pere samo hladnom vodom?', en: 'Why can some glass bases only be rinsed with cold water?' }, a: { bs: 'Tako proizvođač propisuje za tu vazu, npr. THE HOOKAH za vazu modela TIGER WOOD. Uvijek prati upute za svoj model.', en: 'Because the manufacturer specifies it for that base, for example THE HOOKAH for the TIGER WOOD base. Always follow the instructions for your own model.' } }
+    ]
+  },
   {
     id: 'stemless',
     slug: { bs: 'nargila-bez-stuba-stemless', en: 'stemless-hookah', de: 'stemless-shisha', ru: 'kalyan-bez-shakhty' },
