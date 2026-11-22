@@ -62,6 +62,7 @@ const SOURCES = [
   'data/bars.js',
   'data/bih-outline.js',
   'js/views-bars.js',
+  'js/views-fmap.js',
   'js/views-history.js',
   'data/articles.js',
   'js/views-articles.js',
@@ -120,7 +121,7 @@ const ASSETS = ['css/style.css', 'js/strings.js', 'js/strings-de.js', 'data/de.j
   'data/mixes.js', 'js/illustrations.js', 'js/effects.js', 'js/views.js', 'js/views-more.js', 'js/views-extra.js', 'js/pages.js', 'js/app.js',
   'js/search.js', 'js/forms.js', 'js/share.js', 'js/ratings.js', 'js/shelf.js', 'js/qr.js', 'js/journal.js', 'js/session.js', 'js/pwa.js', 'data/lounges.js', 'js/lounge.js', 'data/history.js', 'js/history.js', 'favicon.svg',
   'css/game.css', 'js/strings-game.js', 'js/game-core.js', 'js/game-art.js', 'js/game.js', 'js/creators.js', 'js/bars.js', 'css/bars.css', 'js/vendor/leaflet.js', 'css/vendor/leaflet.css',
-  'css/stemless.css', 'js/stemless.js'];
+  'css/stemless.css', 'js/stemless.js', 'js/views-fmap.js', 'js/fmap.js', 'css/fmap.css'];
 const VERSION = {};
 for (const a of ASSETS) VERSION[a] = hashOf(a);
 const asset = (p) => '/' + p + '?v=' + VERSION[p];
@@ -156,7 +157,8 @@ const PAGE_SCRIPTS = {
   cmix: ['js/creators.js'],
   bars: ['js/bars.js'],
   barCity: ['js/bars.js'],
-  game: ['js/strings-game.js', 'js/game-core.js', 'js/game-art.js', 'js/game.js']
+  game: ['js/strings-game.js', 'js/game-core.js', 'js/game-art.js', 'js/game.js'],
+  fmap: ['js/views-fmap.js', 'js/fmap.js']
 };
 
 // Stilovi koji trebaju samo jednoj stranici (ostale stranice ih ne preuzimaju).
@@ -164,7 +166,8 @@ const PAGE_STYLES = {
   game: ['css/game.css'],
   bars: ['css/bars.css'],
   barCity: ['css/bars.css'],
-  lounge: ['css/bars.css']
+  lounge: ['css/bars.css'],
+  fmap: ['css/fmap.css']
 };
 
 /* ------------------------------------------------------------------ */
@@ -641,6 +644,7 @@ function pageList() {
     for (const b of V.brands()) list.push({ lang, page: 'brand', id: b.slug, brand: b, url: V.urlFor(lang, 'brand', b.slug) });
     list.push({ lang, page: 'loungeInfo', url: V.urlFor(lang, 'loungeInfo') });
     for (const lg of V.lounges()) list.push({ lang, page: 'lounge', id: lg.id, lounge: lg, url: V.urlFor(lang, 'lounge', lg.id) });
+    list.push({ lang, page: 'fmap', url: V.urlFor(lang, 'fmap') });
     list.push({ lang, page: 'bars', url: V.urlFor(lang, 'bars') });
     for (const c of V.barCityPages()) list.push({ lang, page: 'barCity', id: c.id, city: c, url: V.barCityUrl(c, lang) });
     list.push({ lang, page: 'notfound', url: '/' + lang + '/404.html', year: null });
@@ -783,6 +787,8 @@ function writeSearchIndex() {
     for (const [page, navKey, metaKey] of pages) {
       add('page', MSP.t('nav.' + navKey), MSP.t('meta.' + metaKey), V.url(page), '', LANGS.map((l) => MSP.strings[l].nav[navKey]));
     }
+    // mapa okusa
+    add('page', MSP.t('nav.fmap'), V.fmapTx().lead, V.url('fmap'), '', LANGS.map((l) => MSP.strings[l].nav.fmap).concat(['flavor map', 'mapa okusa', 'geschmackskarte']));
     // nargila barovi: stranica BiH i gradovi (pretraga i po imenu lokala)
     add('page', MSP.t('nav.bars'), V.barsTx('lead'), V.url('bars'), '', LANGS.map((l) => MSP.strings[l].nav.bars).concat(['nargila bar', 'shisha bar', 'hookah lounge']));
     for (const c of V.barCityPages()) {

@@ -669,6 +669,7 @@
       { key: 'compare', page: 'compare', match: ['compare', 'comparePair'] },
       { key: 'mixes', page: 'mixes', match: ['mixes', 'recipe'] },
       { key: 'creators', page: 'creators', match: ['creators', 'creator', 'cmix'] },
+      { key: 'fmap', page: 'fmap', match: ['fmap'], badge: true },
       { key: 'top', page: 'top', match: ['top'] },
       { key: 'shelf', page: 'shelf', match: ['shelf'] },
       { key: 'session', page: 'session', match: ['session'] },
@@ -904,7 +905,7 @@
     var year = desc.year || new Date().getFullYear();
     var email = (cfg && cfg.AUTHOR_EMAIL) || '';
     var name = (cfg && cfg.AUTHOR_NAME) || 'Graba';
-    var links = ['flavors', 'brands', 'collections', 'compare', 'mixes', 'creators', 'top', 'shelf', 'session', 'journal', 'mixer', 'quiz', 'game', 'guide', 'tips', 'articles', 'history', 'glossary', 'gear', 'bars', 'loungeInfo', 'about'].map(function (p) {
+    var links = ['flavors', 'brands', 'collections', 'compare', 'mixes', 'creators', 'top', 'shelf', 'session', 'journal', 'mixer', 'quiz', 'game', 'fmap', 'guide', 'tips', 'articles', 'history', 'glossary', 'gear', 'bars', 'loungeInfo', 'about'].map(function (p) {
       return '<li><a href="' + V.url(p) + '">' + esc(t('nav.' + (p === 'flavors' ? 'allFlavors' : p))) + '</a></li>';
     }).join('');
     return (
@@ -1229,6 +1230,7 @@
       V.recoSection() +
       V.fotdSection(V.fotdPick(new Date())) +
       gamePromo() +
+      (V.fmapPromo ? V.fmapPromo() : '') +
       V.homeCollections() +
       (V.ingredientIndexSection ? V.ingredientIndexSection() : '') +
       catalog('catalog-title') +
@@ -1588,6 +1590,7 @@
           '<div class="profile__intro">' +
             sectionHead(nextNum(), t('flavor.profileTitle'), t('flavor.profileIntro'), 'sec-profile') +
             '<div class="radar-wrap" data-reveal>' + radar(f) + '</div>' +
+            (V.fmapLink ? V.fmapLink(f) : '') +
           '</div>' +
           gauges(f) +
         '</div></section>' +
@@ -2507,6 +2510,12 @@
         out.main = V.pageLounge(desc);
         out.title = t('meta.loungeTitle', V.loungeNames(desc.lounge));
         out.description = t('meta.loungeDescription', V.loungeNames(desc.lounge));
+        break;
+      case 'fmap':
+        out.main = V.pageFlavorMap(desc, crumbs);
+        var fmm = V.fmapMeta();
+        out.title = fmm.title;
+        out.description = fmm.description;
         break;
       case 'bars': case 'barCity':
         var bp = V.pageBarsAll(desc, crumbs);
