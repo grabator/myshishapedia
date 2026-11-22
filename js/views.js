@@ -2442,7 +2442,7 @@
         out.main = V.pageGame(crumbs);
         out.title = t('meta.gameTitle');
         out.description = t('meta.gameDescription');
-        out.ogImage = '/og-game.jpg';
+        out.ogImage = '/og-game-' + MSP.lang + '.jpg';
         out.ogAlt = 'Shisha Drop: ' + t('nav.gameSub');
         break;
       case 'quiz':
