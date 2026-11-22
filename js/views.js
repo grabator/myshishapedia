@@ -724,6 +724,9 @@
   }
 
   /** Mobilni meni: pločice za glavne stranice i dvije kratke liste. */
+  /** Stavka menija po stranici (da novi unos u grupi ne pomjeri ostale). */
+  function navItem(page) { return NAV[0].items.filter(function (x) { return x.page === page; })[0]; }
+  var NAV_FMAP = navItem('fmap');
   var MENU_TILES = [
     { n: NAV[0].items[0], fx: 'lava', color: '#ff8a3d' },
     { n: NAV[0].items[1], fx: 'ring', color: '#e8457a' },
@@ -732,10 +735,10 @@
   ];
   var MENU_LISTS = [
     { key: 'groupDiscover', items: [
-      { n: NAV[0].items[2], color: '#ffb547' }, { n: NAV[0].items[3], color: '#e8457a' },
-      { n: NAV[0].items[4], color: '#9b6cf0' }, { n: NAV[0].items[5], color: '#f2c230' },
-      { n: NAV[0].items[7], color: '#ff6fae' }, { n: NAV[0].items[8], color: '#7bd389' },
-      { n: NAV[0].items[9], color: '#8fc6ff' }
+      { n: navItem('collections'), color: '#ffb547' }, { n: navItem('compare'), color: '#e8457a' },
+      { n: navItem('mixes'), color: '#9b6cf0' }, { n: navItem('creators'), color: '#f2c230' },
+      { n: navItem('shelf'), color: '#ff6fae' }, { n: navItem('session'), color: '#7bd389' },
+      { n: navItem('journal'), color: '#8fc6ff' }
     ] },
     { key: 'groupHookah', items: [
       { n: NAV_HOOKAH.items[0], color: '#3fc1c9' }, { n: NAV_HOOKAH.items[3], color: '#2fae78' },
@@ -802,6 +805,11 @@
         '<span class="msurprise__sub" aria-live="polite">' + esc(t('nav.surpriseSub')) + '</span>' +
         icon('arrowRight') +
       '</button>' +
+      '<a class="menu-link mgame mfmap" href="' + V.url('fmap') + '"' + curAttr(NAV_FMAP, desc) + ' style="--i:' + (k++) + '">' +
+        '<span class="mfmap__art" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>' +
+        '<span class="mshelf__text"><span class="mshelf__name">' + esc(t('nav.fmap')) + ' <span class="nav-new">' + esc(t('nav.newBadge')) + '</span></span><span class="mshelf__sub">' + esc(t('nav.fmapSub')) + '</span></span>' +
+        icon('arrowRight') +
+      '</a>' +
       '<div class="mpair">' +
       '<a class="menu-link mgame" href="' + navHref(NAV_GAME, desc) + '"' + curAttr(NAV_GAME, desc) + ' style="--i:' + (k++) + '">' +
         '<span class="mgame__art" aria-hidden="true"><i></i><i></i><i></i><i></i></span>' +
