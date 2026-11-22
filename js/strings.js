@@ -1363,7 +1363,7 @@
         historyTitle: 'Who invented the hookah? History of shisha from the 1500s to today | MyShishapedia',
         historyDescription: 'Who invented the hookah and where does it come from? The Akbar legend, why its dates do not fit, and the hookah through 14 cities and five centuries.',
         chapterTitle: '{title} | History of the Hookah',
-        flavorsDescription: 'A list of {n} hookah and shisha flavors from Adalya, Al Fakher, Musthave, Tangiers and more. Search by name or ingredient, filter by tag.',
+        flavorsDescription: 'The full list of {n} hookah and shisha flavour names from Adalya, Al Fakher, Musthave, Tangiers and more. Search by name or ingredient, filter by taste.',
         searchTitle: 'Search | MyShishapedia',
         searchDescription: 'Search flavors, collections, mixes, glossary terms and the guide on MyShishapedia.',
         ogImageAlt: 'MyShishapedia: a hookah with rising smoke, surrounded by fruit',

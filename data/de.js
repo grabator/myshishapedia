@@ -3567,7 +3567,7 @@
     "Lounges follow the same age limit as tobacco: 18 in most European countries and 21 in the US.": "In Shisha-Bars gilt dieselbe Altersgrenze wie für Tabak: in den meisten europäischen Ländern 18 Jahre, in den USA 21.",
     "Icy hookah flavors": "Eisige Shisha-Geschmäcker",
     "Tropical hookah flavors": "Tropische Shisha-Geschmäcker",
-    "Molasses": "Melasse (Molasse)",
+    "Molasses": "Molasse (Melasse)",
     "How to pack a phunnel: sprinkle the tobacco loosely around the spire, do not press it down, and keep the top of the spire and the hole clear. Leave 1-2 mm of space under the foil or HMD so the tobacco does not touch the heat directly.": "So baust du einen Phunnel-Kopf: Tabak locker um die Säule streuen, nicht andrücken und die Spitze der Säule und das Loch frei lassen. Lass 1-2 mm Platz unter der Alufolie oder dem HMD, damit der Tabak die Hitze nicht direkt berührt.",
     "Keep it sealed": "Luftdicht verschließen",
     "Close the tub right after packing, or move the tobacco into a jar with a tight lid. Air dries the tobacco and fades the flavor.": "Schließ die Dose direkt nach dem Befüllen oder füll den Tabak in ein Glas mit dichtem Deckel um. Luft trocknet den Tabak aus und lässt den Geschmack verblassen.",
@@ -3688,6 +3688,14 @@
     "With hose and handle": "Mit Schlauch und Mundstück",
     "POD kit vivid": "POD-Set vivid",
     "Matched color body and handle": "Körper und Mundstück in einer Farbe",
-    "Data and photos: PurjFam. We have not tested the POD in person yet.": "Daten und Fotos: PurjFam. Wir haben den POD noch nicht selbst getestet."
+    "Data and photos: PurjFam. We have not tested the POD in person yet.": "Daten und Fotos: PurjFam. Wir haben den POD noch nicht selbst getestet.",
+    "Hookah age limit: how old do you have to be? 18 or 21": "Shisha Altersgrenze: ab wie viel Jahren darf man rauchen? 18 oder 21",
+    "Short answer: 18 in most of Europe, 21 in the US since 2019. The age limit for smoking hookah and buying shisha tobacco, and the rules for lounges.": "Kurz gesagt: 18 in den meisten Ländern Europas, 21 in den USA seit 2019. Die Altersgrenze für Shisha und Tabakkauf und was in Lounges gilt.",
+    "Can you smoke hookah at 18?": "Darf man mit 18 Shisha rauchen?",
+    "In most of Europe, yes, because the age limit there is 18. In the United States you have to be 21. Check the rules where you live.": "In den meisten Ländern Europas ja, weil die Altersgrenze dort bei 18 liegt. In den USA musst du 21 sein. Prüfe die Regeln dort, wo du lebst.",
+    "Holster Grape Mint (Grpe Mnt) shisha flavor: dark grape and mint | MyShishapedia": "Holster Grape Mint (Grpe Mnt) Shisha Tabak: dunkle Traube und Minze | MyShishapedia",
+    "Holster Grpe Mnt is Holster's grape mint: sweet dark grape with a fresh mint finish. How cold and strong it is, best mixes and similar grape mint flavors.": "Holster Grpe Mnt ist Traube Minze von Holster: süße dunkle Traube mit frischer Minze. Kühle, Stärke, die besten Mischungen und ähnliche Sorten.",
+    "Nameless Black Nana shisha flavor: dark grape and nana mint | MyShishapedia": "Nameless Black Nana Shisha Tabak: dunkle Traube und Nana-Minze | MyShishapedia",
+    "Nameless Black Nana: sweet dark grape with fresh nana mint. How cold and strong it is, best mixes and similar flavors like Al Fakher Grape Mint.": "Nameless Black Nana: süße dunkle Traube mit frischer Nana-Minze. Kühle, Stärke, die besten Mischungen und ähnliche Sorten wie Al Fakher Grape Mint."
   };
 })(typeof window !== 'undefined' ? window : globalThis);
