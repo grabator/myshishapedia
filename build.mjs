@@ -1113,9 +1113,7 @@ function writeCloudflareFiles(rendered) {
     '/og-history.jpg',
     '  Cache-Control: public, max-age=86400',
     '',
-    '/og-game.jpg',
-    '  Cache-Control: public, max-age=86400',
-    ''
+    ...['', '-bs', '-en', '-de', '-ru'].flatMap((l) => [`/og-game${l}.jpg`, '  Cache-Control: public, max-age=86400', ''])
   ];
   writeFile('_headers', headers.join('\n'));
 
