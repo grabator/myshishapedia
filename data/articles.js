@@ -749,10 +749,10 @@ window.ARTICLES = [
     published: '2026-11-05',
     eyebrow: { bs: 'Zakon', en: 'Law' },
     title: { bs: 'Da li je nargila legalna?', en: 'Is hookah legal?' },
-    metaTitle: { bs: 'Od koliko godina je nargila dozvoljena? Godine, zakoni i pušenje u lokalima', en: 'How old do you have to be to smoke hookah? Age limits and laws' },
+    metaTitle: { bs: 'Od koliko godina je nargila dozvoljena? 18 ili 21, zakoni i lokali', en: 'Hookah age limit: how old do you have to be? 18 or 21' },
     metaDescription: {
-      bs: 'Od koliko godina se smije pušiti nargila i kupiti duhan (18 u većini Evrope, 21 u SAD-u) i šta važi za pušenje u lokalima. Opšti pregled.',
-      en: 'How old you have to be to smoke hookah or buy shisha tobacco (18 in most of Europe, 21 in the US) and the rules for smoking indoors. A general overview.'
+      bs: 'Ukratko: 18 godina u većini Evrope, 21 u SAD-u od 2019. Od koliko godina se smije pušiti nargila i kupiti duhan i šta važi u lokalima.',
+      en: 'Short answer: 18 in most of Europe, 21 in the US since 2019. The age limit for smoking hookah and buying shisha tobacco, and the rules for lounges.'
     },
     lead: {
       bs: 'Ukratko: u većini zemalja nargila je legalna za punoljetne, ali pravila o godinama i pušenju u zatvorenim prostorima se razlikuju od zemlje do zemlje.',
@@ -821,6 +821,10 @@ window.ARTICLES = [
       {
         q: { bs: 'Od koliko godina se smije pušiti nargila u lokalu?', en: 'How old do you have to be to smoke hookah in a lounge?' },
         a: { bs: 'Za lokale važi ista starosna granica kao za duhan: u većini evropskih zemalja 18 godina, a u SAD-u 21.', en: 'Lounges follow the same age limit as tobacco: 18 in most European countries and 21 in the US.' }
+      },
+      {
+        q: { bs: 'Smije li se pušiti nargila sa 18 godina?', en: 'Can you smoke hookah at 18?' },
+        a: { bs: 'U većini Evrope da, jer je granica 18 godina. U SAD-u moraš imati 21. Provjeri pravila tamo gdje živiš.', en: 'In most of Europe, yes, because the age limit there is 18. In the United States you have to be 21. Check the rules where you live.' }
       },
       {
         q: { bs: 'Da li je nargila bez duhana legalna?', en: 'Is tobacco-free hookah legal?' },

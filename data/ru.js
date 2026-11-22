@@ -3752,6 +3752,14 @@
     "With hose and handle": "Со шлангом и мундштуком",
     "POD kit vivid": "Комплект POD vivid",
     "Matched color body and handle": "Корпус и мундштук в одном цвете",
-    "Data and photos: PurjFam. We have not tested the POD in person yet.": "Данные и фото: PurjFam. Мы ещё не тестировали POD сами."
+    "Data and photos: PurjFam. We have not tested the POD in person yet.": "Данные и фото: PurjFam. Мы ещё не тестировали POD сами.",
+    "Hookah age limit: how old do you have to be? 18 or 21": "Возраст для кальяна: со скольких лет можно курить? 18 или 21",
+    "Short answer: 18 in most of Europe, 21 in the US since 2019. The age limit for smoking hookah and buying shisha tobacco, and the rules for lounges.": "Коротко: 18 лет в большинстве стран Европы, 21 год в США с 2019 года. Возрастной предел для кальяна и покупки табака и правила для лаунжей.",
+    "Can you smoke hookah at 18?": "Можно ли курить кальян с 18 лет?",
+    "In most of Europe, yes, because the age limit there is 18. In the United States you have to be 21. Check the rules where you live.": "В большинстве стран Европы да, потому что там возрастной предел 18 лет. В США нужно, чтобы тебе был 21 год. Проверь правила там, где ты живёшь.",
+    "Holster Grape Mint (Grpe Mnt) shisha flavor: dark grape and mint | MyShishapedia": "Holster Grape Mint (Grpe Mnt) табак для кальяна: тёмный виноград и мята | MyShishapedia",
+    "Holster Grpe Mnt is Holster's grape mint: sweet dark grape with a fresh mint finish. How cold and strong it is, best mixes and similar grape mint flavors.": "Holster Grpe Mnt: сладкий тёмный виноград со свежей мятой. Насколько холодный и крепкий, лучшие миксы и похожие вкусы виноград с мятой.",
+    "Nameless Black Nana shisha flavor: dark grape and nana mint | MyShishapedia": "Nameless Black Nana табак для кальяна: тёмный виноград и мята нана | MyShishapedia",
+    "Nameless Black Nana: sweet dark grape with fresh nana mint. How cold and strong it is, best mixes and similar flavors like Al Fakher Grape Mint.": "Nameless Black Nana: сладкий тёмный виноград со свежей мятой нана. Холод, крепость, лучшие миксы и похожие вкусы, например Al Fakher Grape Mint."
   };
 })(typeof window !== 'undefined' ? window : globalThis);

@@ -76,7 +76,7 @@
       "glossaryTitle": "Shisha-Glossar - Begriffe erklärt | MyShishapedia",
       "glossaryDescription": "HMD, Phunnel, Vortex, Melasse, Ausblasventil und weitere Shisha-Begriffe, einfach und klar erklärt.",
       "glossaryTermTitle": "{term}: was ist das? Shisha-Glossar | MyShishapedia",
-      "gearTitle": "Shisha-Köpfe und Kohlen - Unterschiede und Tipps | MyShishapedia",
+      "gearTitle": "Shisha Kopf und Kohle: Phunnel, Vortex, HMD und Naturkohle im Vergleich | MyShishapedia",
       "gearDescription": "Klassischer Kopf, Phunnel oder Vortex, Naturkohle aus Kokos oder Schnellzünder, Alufolie oder HMD: die Unterschiede und was du nehmen solltest.",
       "aboutTitle": "Über uns - MyShishapedia",
       "aboutDescription": "Wer hinter MyShishapedia steht und warum es diese Enzyklopädie der Shisha-Geschmäcker gibt. Kontakt und ein Hinweis zu den Marken.",

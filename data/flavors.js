@@ -10324,6 +10324,16 @@ window.FLAVORS = [
         'Grpe Mnt with Twenty Five for grape and apple.'
       ]
     },
+    seo: {
+      title: {
+        bs: 'Holster Grape Mint (Grpe Mnt) okus za nargilu: tamno grožđe i menta | MyShishapedia',
+        en: 'Holster Grape Mint (Grpe Mnt) shisha flavor: dark grape and mint | MyShishapedia'
+      },
+      description: {
+        bs: 'Holster Grpe Mnt je Holsterov grape mint: slatko tamno grožđe sa svježom mentom. Koliko je leden i jak, najbolji miksevi i slični grape mint okusi.',
+        en: 'Holster Grpe Mnt is Holster\'s grape mint: sweet dark grape with a fresh mint finish. How cold and strong it is, best mixes and similar grape mint flavors.'
+      }
+    },
     similar: ['adalya-grape-mint', '187-quelle', 'al-waha-grape-mint', 'social-smoke-grape-chill']
   },
   {
@@ -10672,6 +10682,16 @@ window.FLAVORS = [
         'Black Nana with Serbetli Ice Blueberry for dark icy berries.',
         'Black Nana with Al Fakher Double Apple for a classic mix.'
       ]
+    },
+    seo: {
+      title: {
+        bs: 'Nameless Black Nana okus za nargilu: tamno grožđe i nana | MyShishapedia',
+        en: 'Nameless Black Nana shisha flavor: dark grape and nana mint | MyShishapedia'
+      },
+      description: {
+        bs: 'Nameless Black Nana: slatko tamno grožđe i svježa nana. Koliko je ledena i jaka, najbolji miksevi i slični okusi poput Al Fakher Grape Mint.',
+        en: 'Nameless Black Nana: sweet dark grape with fresh nana mint. How cold and strong it is, best mixes and similar flavors like Al Fakher Grape Mint.'
+      }
     },
     similar: ['al-fakher-grape-mint', 'al-waha-grape-mint', 'haze-purple-krush', 'adalya-grape-mint']
   },
