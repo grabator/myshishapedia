@@ -9196,3 +9196,30 @@ a.crt-video__play { text-decoration: none; }
 .menu-overlay__foot .langgrid .langdd__opt { padding: 5px 4px; gap: 3px; }
 .menu-overlay__foot .langgrid .langdd__code { height: 24px; }
 .mpair .mshelf__name .nav-new { display: none; }
+
+/* ------------------------------------------------------------------ */
+/* Mapa okusa: pločica na početnoj i link sa stranice okusa            */
+/* ------------------------------------------------------------------ */
+.fmpromo { padding-top: 0; }
+.fmpromo__card {
+  background:
+    radial-gradient(60% 90% at 18% 50%, rgba(159, 220, 255, 0.14), transparent 70%),
+    radial-gradient(50% 80% at 30% 70%, rgba(255, 106, 74, 0.16), transparent 70%),
+    linear-gradient(135deg, #160f0b, #0d0907);
+}
+.fmpromo__art { position: relative; width: 100%; max-width: 220px; aspect-ratio: 1.15; justify-self: center; border-radius: 22px; background: radial-gradient(circle at 50% 50%, rgba(242, 163, 60, 0.12), transparent 70%); }
+.fmpromo__lines { position: absolute; inset: 0; width: 100%; height: 100%; fill: none; stroke: rgba(255, 226, 190, 0.45); stroke-width: 0.6; stroke-linecap: round; }
+.fmp-c {
+  position: absolute; left: var(--x); top: var(--y); width: var(--s); height: var(--s); margin: calc(var(--s) / -2) 0 0 calc(var(--s) / -2);
+  border-radius: 50%; background: radial-gradient(circle at 35% 30%, #fff4e0, var(--c) 55%, color-mix(in srgb, var(--c) 55%, #1a0a04));
+  box-shadow: 0 0 calc(var(--s) * 1.6) var(--c);
+  animation: fmp-bob 3.2s ease-in-out infinite; animation-delay: calc(var(--i) * -0.37s);
+}
+@keyframes fmp-bob { 50% { transform: translateY(-4px); box-shadow: 0 0 calc(var(--s) * 2.4) var(--c); } }
+@media (prefers-reduced-motion: reduce) { .fmp-c { animation: none; } }
+.fm-flink { margin: 14px 0 0; }
+.fm-flink .btn { gap: 10px; }
+.fm-flink__dots { display: inline-flex; gap: 3px; }
+.fm-flink__dots i { width: 6px; height: 6px; border-radius: 50%; background: #ff6a4a; box-shadow: 0 0 6px #ff6a4a; }
+.fm-flink__dots i:nth-child(2) { background: #9fdcff; box-shadow: 0 0 6px #9fdcff; }
+.fm-flink__dots i:nth-child(3) { background: #f2a33c; box-shadow: 0 0 6px #f2a33c; }

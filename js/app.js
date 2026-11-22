@@ -1223,7 +1223,8 @@
 
   var fieldStarted = false;
   function startField() {
-    if (fieldStarted) return;
+    // mapa okusa crta svoj dim na canvasu, pa globalni dim ne treba (manje posla za telefon)
+    if (fieldStarted || page === 'fmap') return;
     fieldStarted = true;
     Field.init();
     Field.setTrail(true);

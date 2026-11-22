@@ -221,6 +221,8 @@
       "journal": "Session-Tagebuch",
       "offline": "Offline",
       "loungeInfo": "Für Lounges",
+      "fmap": "Geschmackskarte",
+      "fmapSub": "Alle Sorten auf einer Karte",
       "bars": "Shisha-Bars",
       "barsSub": "Karte nach Stadt und die nächste Bar",
       "tips": "Tipps",
