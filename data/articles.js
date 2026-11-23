@@ -29,6 +29,156 @@
  */
 window.ARTICLES = [
   {
+    id: 'phunnel-punjenje',
+    slug: { bs: 'kako-napuniti-phunnel-glavu', en: 'how-to-pack-a-phunnel-bowl', de: 'phunnel-kopf-bauen', ru: 'kak-zabit-fannel' },
+    published: '2026-11-23',
+    eyebrow: { bs: 'Vodič', en: 'Guide' },
+    title: { bs: 'Kako napuniti phunnel glavu, korak po korak', en: 'How to pack a phunnel bowl, step by step' },
+    metaTitle: { bs: 'Kako napuniti phunnel glavu: korak po korak za dobar dim', en: 'How to pack a phunnel bowl: step by step for thick clouds' },
+    metaDescription: {
+      bs: 'Kako napuniti phunnel glavu: koliko duhana, kako ga rastresti oko srednjeg dijela, folija ili HMD, ugljevi i zagrijavanje. Kratko i korak po korak.',
+      en: 'How to pack a phunnel bowl: how much tobacco, how to fluff it around the center spire, foil or HMD, coals and warm-up. Short and step by step.'
+    },
+    lead: {
+      bs: 'Phunnel glava ima jednu rupu na uzdignutom srednjem dijelu, pa sok ostaje u glavi umjesto da curi u stub. Zato okus duže traje, ali punjenje traži malo pažnje. Ovako se radi.',
+      en: 'A phunnel bowl has a single hole on a raised center spire, so the juice stays in the bowl instead of dripping into the stem. That makes the flavor last longer, but packing it takes a little care. Here is how.'
+    },
+    sections: [
+      {
+        h: { bs: 'Šta ti treba', en: 'What you need' },
+        p: {
+          bs: [
+            '[[phunnel|Phunnel glava]], duhan, [[folija|folija]] ili [[hmd|HMD]], prirodni [[kokosovi-ugljevi|kokosovi ugljevi]] i nešto za paljenje ugljeva, npr. električni grijač.',
+            'Koliko duhana stane zavisi od veličine glave. Najsigurnije je puniti po zapremini, kako je opisano ispod, a ne po gramima.'
+          ],
+          en: [
+            'A [[phunnel|phunnel bowl]], tobacco, [[folija|foil]] or an [[hmd|HMD]], natural [[kokosovi-ugljevi|coconut coals]] and something to light the coals with, such as an electric coal burner.',
+            'How much tobacco fits depends on the size of the bowl. It is safest to pack by volume, as described below, rather than by grams.'
+          ]
+        }
+      },
+      {
+        h: { bs: 'Punjenje korak po korak', en: 'Packing step by step' },
+        p: {
+          bs: [
+            '1. Pripremi duhan. Izvadi ga iz pakovanja, rastresi prstima i izvadi tvrde stabljike. Ako je jako mokar, ostavi ga par minuta na papirnom ubrusu.',
+            '2. Puni rastresito. Stavljaj duhan oko srednjeg dijela glave, malo po malo, i ne pritiskaj ga. Ovo je [[rastresito-punjenje|rastresito punjenje]] i najčešći je izbor za phunnel.',
+            '3. Pazi na srednji dio. Rupa na vrhu srednjeg dijela mora ostati otvorena, bez duhana, jer kroz nju ide dim.',
+            '4. Ostavi malo mjesta. Duhan neka bude malo ispod ruba glave, da ne dodiruje foliju ili HMD i ne zagori.',
+            '5. Prekrij. Zategni foliju preko glave i napravi sitne rupe, uglavnom iznad duhana, ili stavi HMD.',
+            '6. Ugljevi i zagrijavanje. Stavi užarene ugljeve uz rub glave, ne na sredinu, i sačekaj nekoliko minuta da se glava zagrije prije prvih dubljih povlačenja.'
+          ],
+          en: [
+            '1. Prepare the tobacco. Take it out of the pack, fluff it with your fingers and pick out any hard stems. If it is very wet, let it rest on a paper towel for a few minutes.',
+            '2. Pack it loosely. Sprinkle the tobacco around the center spire, a little at a time, and do not press it down. This is [[rastresito-punjenje|fluff packing]] and the most common choice for a phunnel.',
+            '3. Watch the center. The hole on top of the spire must stay open and free of tobacco, because the smoke goes through it.',
+            '4. Leave a little room. Keep the tobacco a little below the rim of the bowl so it does not touch the foil or HMD and burn.',
+            '5. Cover it. Stretch foil tightly over the bowl and poke small holes, mostly above the tobacco, or put an HMD on top.',
+            '6. Coals and warm-up. Place the glowing coals along the edge of the bowl, not in the middle, and wait a few minutes for the bowl to warm up before the first deep pulls.'
+          ]
+        }
+      },
+      {
+        h: { bs: 'Ako nešto ne valja', en: 'If something is off' },
+        p: {
+          bs: [
+            'Grub, zagorio okus: previše toplote. Skini jedan ugalj ili ih pomakni bliže rubu. Provjeri i da duhan ne dodiruje foliju.',
+            'Malo dima: glava još nije zagrijana ili je premalo toplote. Sačekaj par minuta ili dodaj ugalj.',
+            'Teško se povlači: duhan je prezbijen ili je zatvorena rupa na srednjem dijelu. Napuni glavu ponovo, rastresitije.',
+            'Sok curi preko ruba: duhan je bio previše mokar. Sljedeći put ga kratko ocijedi na ubrusu.'
+          ],
+          en: [
+            'Harsh, burnt taste: too much heat. Remove a coal or move them closer to the edge. Also check that the tobacco is not touching the foil.',
+            'Not much smoke: the bowl has not warmed up yet or there is too little heat. Wait a few minutes or add a coal.',
+            'Hard to pull: the tobacco is packed too tightly or the hole on the spire is blocked. Repack the bowl more loosely.',
+            'Juice running over the rim: the tobacco was too wet. Next time, let it drain on a paper towel for a moment.'
+          ]
+        },
+        links: [{ page: 'guide' }, { page: 'gear' }]
+      }
+    ],
+    faq: [
+      { q: { bs: 'Koliko duhana ide u phunnel glavu?', en: 'How much tobacco goes in a phunnel bowl?' }, a: { bs: 'Zavisi od veličine glave. Puni rastresito oko srednjeg dijela do malo ispod ruba, i to je prava količina za tu glavu.', en: 'It depends on the size of the bowl. Pack it loosely around the spire to a little below the rim, and that is the right amount for that bowl.' } },
+      { q: { bs: 'Smije li se duhan u phunnel glavi pritisnuti?', en: 'Should you press the tobacco down in a phunnel?' }, a: { bs: 'Obično ne. Rastresito punjenje pušta zrak i toplotu kroz duhan. Pritisnut duhan se teže povlači i brže zagori.', en: 'Usually not. Fluff packing lets air and heat move through the tobacco. Pressed tobacco is harder to pull and burns faster.' } },
+      { q: { bs: 'Folija ili HMD na phunnel glavi?', en: 'Foil or HMD on a phunnel bowl?' }, a: { bs: 'Oboje radi. HMD je jednostavniji za početnike jer se toplota lako podešava, a folija je jeftinija i daje više kontrole gdje su ugljevi.', en: 'Both work. An HMD is easier for beginners because the heat is simple to adjust, and foil is cheaper and gives more control over where the coals sit.' } },
+      { q: { bs: 'Zašto se rupa na srednjem dijelu ne smije prekriti?', en: 'Why must the hole on the spire stay uncovered?' }, a: { bs: 'Kroz nju dim ide iz glave u stub. Ako je prekrivena duhanom, povlačenje je teško, a duhan može upasti u stub.', en: 'It is where the smoke travels from the bowl into the stem. If tobacco covers it, pulling is hard and tobacco can fall into the stem.' } }
+    ]
+  },
+  {
+    id: 'cuvanje-duhana',
+    slug: { bs: 'kako-cuvati-duhan-za-nargilu', en: 'how-to-store-hookah-tobacco', de: 'shisha-tabak-lagern', ru: 'kak-hranit-tabak-dlya-kalyana' },
+    published: '2026-11-23',
+    eyebrow: { bs: 'Vodič', en: 'Guide' },
+    title: { bs: 'Kako čuvati duhan za nargilu i koliko traje', en: 'How to store hookah tobacco and how long it lasts' },
+    metaTitle: { bs: 'Kako čuvati duhan za nargilu: koliko traje i kako ostaje svjež', en: 'How to store hookah tobacco: how long it lasts and how to keep it fresh' },
+    metaDescription: {
+      bs: 'Kako čuvati duhan za nargilu da ostane sočan: zatvoreno, na hladnom i tamnom. Koliko traje otvoren i neotvoren duhan i kako prepoznati pokvaren.',
+      en: 'How to store hookah tobacco so it stays juicy: sealed, cool and dark. How long opened and unopened packs last, and how to tell when tobacco has gone bad.'
+    },
+    lead: {
+      bs: 'Duhan za nargilu je pun melase i glicerina, pa se na zraku polako suši i gubi okus. Uz par jednostavnih pravila ostaje svjež mnogo duže.',
+      en: 'Hookah tobacco is full of molasses and glycerin, so in open air it slowly dries out and loses flavor. With a few simple rules it stays fresh much longer.'
+    },
+    sections: [
+      {
+        h: { bs: 'Kako čuvati duhan', en: 'How to store tobacco' },
+        p: {
+          bs: [
+            'Dobro zatvoreno. Zrak je glavni neprijatelj. Nakon otvaranja duhan prebaci u staklenu teglu ili posudu koja dobro dihtuje, ili originalno pakovanje čvrsto zatvori.',
+            'Na hladnom i tamnom. Drži ga dalje od sunca, radijatora i šporeta. Toplota i svjetlo brže isušuju duhan i mijenjaju okus.',
+            'Okusi odvojeno. Jaki okusi, posebno menta i led, lako prenesu miris na druge. Svaki okus drži u svojoj posudi.',
+            'Bez naglih promjena temperature. Ako duhan čuvaš na hladnom, pusti da se ugrije u zatvorenoj posudi prije otvaranja, da se ne skupi vlaga.'
+          ],
+          en: [
+            'Sealed tight. Air is the main enemy. After opening, move the tobacco into a glass jar or an airtight container, or seal the original pack tightly.',
+            'Cool and dark. Keep it away from sunlight, radiators and the stove. Heat and light dry the tobacco faster and change the flavor.',
+            'Keep flavors apart. Strong flavors, especially mint and ice, easily pass their smell to others. Store each flavor in its own container.',
+            'No sudden temperature changes. If you keep tobacco somewhere cold, let it warm up in the closed container before opening it so moisture does not collect.'
+          ]
+        }
+      },
+      {
+        h: { bs: 'Koliko traje duhan za nargilu', en: 'How long hookah tobacco lasts' },
+        p: {
+          bs: [
+            'Neotvoreno pakovanje, dobro čuvano, obično traje dugo. Na mnogim pakovanjima piše datum proizvodnje ili rok, pa ga prvo pogledaj.',
+            'Otvoren duhan je najbolji u prvim sedmicama. Što je posuda bolje zatvorena, to duže ostaje sočan i pun okusa.',
+            'Tačno vrijeme zavisi od brenda, količine melase i načina čuvanja, pa ga uzmi kao okvirno, a ne kao pravilo.'
+          ],
+          en: [
+            'An unopened pack that is stored well usually lasts a long time. Many packs show a production date or a best-before date, so check that first.',
+            'Opened tobacco is at its best in the first few weeks. The better the container seals, the longer it stays juicy and full of flavor.',
+            'The exact time depends on the brand, the amount of molasses and how it is stored, so treat it as a rough guide rather than a rule.'
+          ]
+        }
+      },
+      {
+        h: { bs: 'Kako prepoznati pokvaren duhan', en: 'How to tell tobacco has gone bad' },
+        p: {
+          bs: [
+            'Buđ: bijele ili zelenkaste dlakave mrlje. Takav duhan baci, ne puši ga.',
+            'Čudan, kiselkast ili ustajao miris umjesto mirisa okusa.',
+            'Potpuno suh i tvrd duhan bez sjaja melase. Nije opasan, ali daje malo dima i slab okus.',
+            'Neki ljudi suhom duhanu dodaju malo [[glicerin|glicerina]] da ga osvježe, ali okus se time ne vraća u potpunosti.'
+          ],
+          en: [
+            'Mold: white or greenish fuzzy spots. Throw that tobacco away and do not smoke it.',
+            'A strange, sour or stale smell instead of the smell of the flavor.',
+            'Completely dry, hard tobacco with no shine of molasses. It is not dangerous, but it gives little smoke and a weak flavor.',
+            'Some people add a little [[glicerin|glycerin]] to dry tobacco to refresh it, but that does not fully bring back the flavor.'
+          ]
+        },
+        links: [{ page: 'guide' }, { page: 'tips' }]
+      }
+    ],
+    faq: [
+      { q: { bs: 'Gdje je najbolje čuvati duhan za nargilu?', en: 'Where is the best place to store hookah tobacco?' }, a: { bs: 'U dobro zatvorenoj staklenoj posudi, na hladnom i tamnom mjestu, dalje od sunca i izvora toplote.', en: 'In a well-sealed glass container, in a cool and dark place, away from sunlight and heat sources.' } },
+      { q: { bs: 'Koliko traje otvoren duhan za nargilu?', en: 'How long does opened hookah tobacco last?' }, a: { bs: 'Najbolji je u prvim sedmicama nakon otvaranja. U dobro zatvorenoj posudi ostaje dobar duže, ali polako gubi sok i okus.', en: 'It is at its best in the first few weeks after opening. In a well-sealed container it stays good for longer, but it slowly loses juice and flavor.' } },
+      { q: { bs: 'Može li duhan za nargilu u frižider?', en: 'Can hookah tobacco go in the fridge?' }, a: { bs: 'Nije potrebno. Ako ga ipak čuvaš na hladnom, posuda mora dobro dihtovati, a prije otvaranja pusti da se ugrije, da se ne skupi vlaga.', en: 'It is not necessary. If you do keep it cold, the container must seal well, and let it warm up before opening so moisture does not collect.' } },
+      { q: { bs: 'Šta ako se na duhanu pojavi buđ?', en: 'What if mold appears on the tobacco?' }, a: { bs: 'Baci ga. Buđav duhan se ne puši, čak ni ako je buđ samo na jednom dijelu.', en: 'Throw it away. Moldy tobacco should not be smoked, even if the mold is only on one part.' } }
+    ]
+  },
+  {
     id: 'ciscenje',
     slug: { bs: 'kako-ocistiti-nargilu', en: 'how-to-clean-a-hookah', de: 'shisha-reinigen', ru: 'kak-chistit-kalyan' },
     published: '2026-11-23',
