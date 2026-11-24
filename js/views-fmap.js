@@ -382,6 +382,7 @@
             '<span class="gpromo__text">' + esc(tx('promoText', { n: n })) + '</span>' +
             '<span class="btn btn--primary gpromo__cta">' + esc(tx('promoCta')) + icon('arrowRight') + '</span>' +
           '</span>' +
+          '<span class="gpromo__go" aria-hidden="true">' + icon('arrowRight') + '</span>' +
         '</a>' +
       '</div></section>'
     );
