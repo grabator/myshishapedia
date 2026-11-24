@@ -8,6 +8,7 @@
  * Polja:
  *   slug     dio adrese: /bs/brendovi/<slug>/ i /en/brands/<slug>/ (isti na oba jezika)
  *   name     ime brenda kako se piše
+ *   logo     (nije obavezno) logo brenda u static/brands/, svijetla verzija za tamnu pozadinu
  *   country  { bs, en } zemlja porijekla
  *   leaf     tipična vrsta lista: 'light' (svijetli), 'dark' (tamni) ili 'both' (oba)
  *   short    { bs, en } jedna rečenica za kartice i meta opis
@@ -18,6 +19,7 @@
 window.BRANDS = [
   {
     slug: 'adalya',
+    logo: '/brands/adalya.webp',
     name: 'Adalya',
     country: { bs: 'Turska', en: 'Turkey' },
     leaf: 'light',
@@ -60,6 +62,7 @@ window.BRANDS = [
   },
   {
     slug: 'starbuzz',
+    logo: '/brands/starbuzz.webp',
     name: 'Starbuzz',
     country: { bs: 'SAD', en: 'United States' },
     leaf: 'light',
@@ -81,6 +84,7 @@ window.BRANDS = [
   },
   {
     slug: 'tangiers',
+    logo: '/brands/tangiers.webp',
     name: 'Tangiers',
     country: { bs: 'SAD', en: 'United States' },
     leaf: 'dark',
@@ -102,6 +106,7 @@ window.BRANDS = [
   },
   {
     slug: 'fumari',
+    logo: '/brands/fumari.webp',
     name: 'Fumari',
     country: { bs: 'SAD', en: 'United States' },
     leaf: 'light',
@@ -123,6 +128,7 @@ window.BRANDS = [
   },
   {
     slug: 'darkside',
+    logo: '/brands/darkside.webp',
     name: 'Darkside',
     country: { bs: 'Rusija', en: 'Russia' },
     leaf: 'dark',
@@ -144,6 +150,7 @@ window.BRANDS = [
   },
   {
     slug: 'musthave',
+    logo: '/brands/musthave.webp',
     name: 'MUSTHAVE',
     country: { bs: 'Rusija', en: 'Russia' },
     leaf: 'dark',
@@ -165,6 +172,7 @@ window.BRANDS = [
   },
   {
     slug: 'sebero',
+    logo: '/brands/sebero.webp',
     name: 'Sebero',
     country: { bs: 'Rusija', en: 'Russia' },
     leaf: 'dark',
@@ -186,6 +194,7 @@ window.BRANDS = [
   },
   {
     slug: 'haze',
+    logo: '/brands/haze.webp',
     name: 'Haze',
     country: { bs: 'SAD', en: 'United States' },
     leaf: 'light',
@@ -207,6 +216,7 @@ window.BRANDS = [
   },
   {
     slug: 'trifecta',
+    logo: '/brands/trifecta.webp',
     name: 'Trifecta',
     country: { bs: 'SAD', en: 'United States' },
     leaf: 'both',
@@ -249,6 +259,7 @@ window.BRANDS = [
   },
   {
     slug: 'mazaya',
+    logo: '/brands/mazaya.webp',
     name: 'Mazaya',
     country: { bs: 'Jordan', en: 'Jordan' },
     leaf: 'light',
@@ -333,6 +344,7 @@ window.BRANDS = [
   },
   {
     slug: 'revoshi',
+    logo: '/brands/revoshi.webp',
     name: 'Revoshi',
     country: { bs: 'Njemačka (proizvodnja u Turskoj)', en: 'Germany (made in Turkey)' },
     leaf: 'light',
@@ -459,6 +471,7 @@ window.BRANDS = [
   },
   {
     slug: 'social-smoke',
+    logo: '/brands/social-smoke.webp',
     name: 'Social Smoke',
     country: { bs: 'SAD', en: 'United States' },
     leaf: 'light',

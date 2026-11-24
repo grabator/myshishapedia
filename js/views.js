@@ -1230,36 +1230,38 @@
       '<span class="hx-badge__n"><b>' + n + '</b><small>' + esc(t('home.flavorsWord')) + '</small></span></span>';
   }
 
-  /** Monogram brenda (prvo slovo ili broj) u boji brenda. */
+  /** Logo brenda (ako je dodat u podatke kao b.logo) ili monogram u boji brenda. */
   function brandMark(b) {
     var pal = b.palette || {};
     var c1 = pal.primary || '#f2a33c', c2 = pal.secondary || pal.primary || '#d9643f';
+    if (b.logo) return '<span class="hxb-mark hxb-mark--img" style="--b1:' + c1 + ';--b2:' + c2 + '" aria-hidden="true"><img src="' + esc(b.logo) + '" alt="" loading="lazy" decoding="async"></span>';
     var ch = String(b.name).replace(/[^A-Za-z0-9]/g, '').slice(0, /^\d/.test(b.name) ? 3 : 1).toUpperCase();
     return '<span class="hxb-mark" style="--b1:' + c1 + ';--b2:' + c2 + '" aria-hidden="true">' + esc(ch) + '</span>';
   }
 
-  /** Rang lista brendova: prva tri kao velike kartice, ostali u listi. */
+  /** Brendovi: udio u bazi (traka u bojama brendova) i vodoravna traka kartica s logom. */
   function homeBrands() {
     var list = V.brandStats();
     if (list.length < 4) return '';
-    var max = list[0].n;
-    var top = list.slice(0, 3).map(function (x, i) {
-      return '<a class="hxb-top hxb-top--' + (i + 1) + '" href="' + V.brandUrl(x.b) + '" style="--b1:' + ((x.b.palette || {}).primary || '#f2a33c') + '">' +
-        '<span class="hxb-top__rank">#' + (i + 1) + '</span>' + brandMark(x.b) +
-        '<b class="hxb-top__name">' + esc(x.b.name) + '</b><span class="hxb-top__land">' + esc(L(x.b.country) || '') + '</span>' +
-        '<span class="hxb-top__n"><em>' + x.n + '</em> ' + esc(t('home.flavorsWord')) + '</span>' +
-        '<span class="hxb-top__bar"><i style="width:' + Math.round(x.n / max * 100) + '%"></i></span></a>';
-    }).join('');
-    var rows = list.slice(3, 8).map(function (x, i) {
-      return '<a class="hxb-row" href="' + V.brandUrl(x.b) + '"><span class="hxb-row__r">' + (i + 4) + '</span>' + brandMark(x.b) +
-        '<span class="hxb-row__t"><b>' + esc(x.b.name) + '</b><small>' + esc(L(x.b.country) || '') + '</small></span>' +
-        '<span class="hxb-row__n">' + x.n + '</span>' + icon('arrowRight') + '</a>';
+    var total = V.flavors().length;
+    var top = list.slice(0, 6), restN = total - top.reduce(function (s, x) { return s + x.n; }, 0);
+    var col = function (x) { return (x.b.palette || {}).primary || '#f2a33c'; };
+    var bar = top.map(function (x, i) { return '<i style="--w:' + (x.n / total * 100).toFixed(2) + '%;--c:' + col(x) + ';--i:' + i + '" title="' + esc(x.b.name) + '"></i>'; }).join('') +
+      (restN > 0 ? '<i class="is-rest" style="--w:' + (restN / total * 100).toFixed(2) + '%;--i:6"></i>' : '');
+    var legend = top.slice(0, 3).map(function (x) { return '<span><i style="--c:' + col(x) + '"></i>' + esc(x.b.name) + ' <b>' + Math.round(x.n / total * 100) + '%</b></span>'; }).join('');
+    var cards = list.slice(0, 10).map(function (x, i) {
+      return '<a class="hxb-card" href="' + V.brandUrl(x.b) + '" style="--b1:' + col(x) + '">' +
+        '<span class="hxb-card__rank">' + (i + 1) + '</span>' +
+        '<span class="hxb-card__plate">' + brandMark(x.b) + '</span>' +
+        '<b class="hxb-card__name">' + esc(x.b.name) + '</b>' +
+        '<span class="hxb-card__land">' + esc(L(x.b.country) || '') + '</span>' +
+        '<span class="hxb-card__foot"><span class="hxb-card__n">' + esc(MSP.plural('brands.flavorsCount', x.n)) + '</span>' + icon('arrowRight') + '</span></a>';
     }).join('');
     return '<section class="hxbrands" aria-labelledby="hxbrands-title"><div class="container">' +
       '<header class="explore__head"><p class="eyebrow"><span class="eyebrow__dot" aria-hidden="true"></span>' + esc(t('home.brandsEyebrow')) + '</p>' +
       '<h2 class="catalog__title" id="hxbrands-title">' + esc(MSP.plural('home.brandsTitle', list.length)) + '</h2></header>' +
-      '<div class="hxb-tops">' + top + '</div><div class="hxb-list">' + rows + '</div>' +
-      '<p class="hxb-more"><a class="btn btn--ghost" href="' + V.url('brands') + '">' + esc(t('home.allBrands')) + icon('arrowRight') + '</a></p>' +
+      '<div class="hxb-share"><div class="hxb-bar" aria-hidden="true">' + bar + '</div><p class="hxb-legend">' + legend + '</p></div>' +
+      '<div class="hxb-rail">' + cards + '<a class="hxb-card hxb-card--all" href="' + V.url('brands') + '"><span class="hxb-card__plate">' + icon('arrowRight') + '</span><b class="hxb-card__name">' + esc(t('home.allBrands')) + '</b><span class="hxb-card__land">' + esc(MSP.plural('home.brandsShort', list.length)) + '</span></a></div>' +
     '</div></section>';
   }
 
