@@ -9604,3 +9604,4 @@ a.crt-video__play { text-decoration: none; }
 @media (max-height: 700px) { .mtrio .mshelf__name { font-size: 0.72rem; } }
 @media (max-width: 379px) { .mtrio .mshelf__name { font-size: 0.76rem; } .mtrio .mgame { padding-inline: 8px; } }
 @media (max-width: 399px) and (max-height: 700px) { .mtrio .mfmap__art, .mtrio .mgame__art, .mtrio .mbars__art { display: none; } .mtrio .mgame { justify-content: center; } }
+.mtrio .mgame { margin: 0; }
