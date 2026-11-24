@@ -178,7 +178,20 @@
     info: '<circle cx="12" cy="12" r="8.5"/><path d="M12 11v5.5M12 7.6v.1"/>',
     clock: '<circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/>',
     star: '<path d="m12 3.2 2.7 5.5 6 .9-4.35 4.25 1.03 6L12 17l-5.38 2.85 1.03-6L3.3 9.6l6-.9z"/>',
-    link: '<path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/>'
+    link: '<path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/>',
+    chevronRight: '<path d="m9 6 6 6-6 6"/>',
+    compare: '<path d="M12 3v18M5 7h14M5 7l-3 7a3 3 0 0 0 6 0zM19 7l-3 7a3 3 0 0 0 6 0z"/>',
+    flask: '<path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 1.8 3h10.4a2 2 0 0 0 1.8-3l-5-9V3"/><path d="M7.5 14h9"/>',
+    bookmark: '<path d="M6 3h12v18l-6-4-6 4z"/>',
+    compass: '<circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2 5-5 2 2-5z"/>',
+    bulb: '<path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0 0 12 3z"/>',
+    wrench: '<path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2.5-.5-.5-2.5z"/>',
+    glossary: '<path d="M4 19 9 5l5 14M6 14h6M15 13.5a3 3 0 1 1 6 0V19M21 16.5a3 3 0 1 1-6 0"/>',
+    news: '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 8h10M7 12h10M7 16h6"/>',
+    hourglass: '<path d="M6 3h12M6 21h12M7 3c0 5 10 5 10 9s-10 4-10 9M17 3c0 5-10 5-10 9s10 4 10 9"/>',
+    lounge: '<path d="M3 21V9l9-6 9 6v12"/><path d="M9 21v-6h6v6"/>',
+    sparkle: '<path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5 18 18M6 18l2.5-2.5M15.5 8.5 18 6"/>',
+    hookah: '<path d="M12 2v3M9 5h6l-1 3h-4zM12 8v5M8 13h8l1 3a5 5 0 0 1-10 0z"/>'
   };
 
   function icon(name, cls) {
@@ -734,17 +747,17 @@
     { n: NAV[2], fx: 'quiz', color: '#9b6cf0' }
   ];
   var MENU_LISTS = [
-    { key: 'groupDiscover', items: [
-      { n: navItem('collections'), color: '#ffb547' }, { n: navItem('compare'), color: '#e8457a' },
-      { n: navItem('mixes'), color: '#9b6cf0' }, { n: navItem('creators'), color: '#f2c230' },
-      { n: navItem('shelf'), color: '#ff6fae' }, { n: navItem('session'), color: '#7bd389' },
-      { n: navItem('journal'), color: '#8fc6ff' }
+    { key: 'groupDiscover', ic: 'sparkle', color: '#ffb547', items: [
+      { n: navItem('collections'), color: '#ffb547', ic: 'layers' }, { n: navItem('compare'), color: '#e8457a', ic: 'compare' },
+      { n: navItem('mixes'), color: '#9b6cf0', ic: 'flask' }, { n: navItem('creators'), color: '#f2c230', ic: 'star' },
+      { n: navItem('shelf'), color: '#ff6fae', ic: 'bookmark' }, { n: navItem('session'), color: '#7bd389', ic: 'camera' },
+      { n: navItem('journal'), color: '#8fc6ff', ic: 'book' }
     ] },
-    { key: 'groupHookah', items: [
-      { n: NAV_HOOKAH.items[0], color: '#3fc1c9' }, { n: NAV_HOOKAH.items[3], color: '#2fae78' },
-      { n: NAV_HOOKAH.items[2], color: '#c58a52' }, { n: NAV_HOOKAH.items[1], color: '#a99a8a' },
-      { n: NAV_HOOKAH.items[4], color: '#e2541b' }, { n: NAV_HOOKAH.items[5], color: '#e0b25e' },
-      { n: NAV_HOOKAH.items.filter(function (x) { return x.page === 'loungeInfo'; })[0], color: '#f2a33c' }
+    { key: 'groupHookah', ic: 'hookah', color: '#3fc1c9', items: [
+      { n: NAV_HOOKAH.items[0], color: '#3fc1c9', ic: 'compass' }, { n: NAV_HOOKAH.items[3], color: '#2fae78', ic: 'bulb' },
+      { n: NAV_HOOKAH.items[2], color: '#c58a52', ic: 'wrench' }, { n: NAV_HOOKAH.items[1], color: '#a99a8a', ic: 'glossary' },
+      { n: NAV_HOOKAH.items[4], color: '#e2541b', ic: 'news' }, { n: NAV_HOOKAH.items[5], color: '#e0b25e', ic: 'hourglass' },
+      { n: NAV_HOOKAH.items.filter(function (x) { return x.page === 'loungeInfo'; })[0], color: '#f2a33c', ic: 'lounge' }
     ] }
   ];
 
@@ -784,11 +797,11 @@
     var lists = MENU_LISTS.map(function (g, gi) {
       var id = 'mgroup-' + gi;
       return (
-        '<div class="mlist" style="--i:' + (k + 3) + '">' +
-          '<p class="mlist__title" id="' + id + '">' + esc(t('nav.' + g.key)) + '</p>' +
+        '<div class="mlist" style="--i:' + (k + 3) + ';--gc:' + g.color + '">' +
+          '<p class="mlist__title" id="' + id + '">' + icon(g.ic) + '<span>' + esc(t('nav.' + g.key)) + '</span><em aria-hidden="true">' + g.items.length + '</em></p>' +
           '<ul role="list" aria-labelledby="' + id + '">' +
             g.items.map(function (it) {
-              return '<li><a class="menu-link mlist__link" href="' + navHref(it.n, desc) + '"' + curAttr(it.n, desc) + ' style="--dc:' + it.color + '">' + esc(t('nav.' + it.n.key)) + '</a></li>';
+              return '<li><a class="menu-link mlist__link" href="' + navHref(it.n, desc) + '"' + curAttr(it.n, desc) + ' style="--dc:' + it.color + '">' + icon(it.ic, 'mlist__ic') + '<span>' + esc(t('nav.' + it.n.key)) + '</span>' + icon('chevronRight', 'mlist__go') + '</a></li>';
             }).join('') +
           '</ul>' +
         '</div>'
@@ -805,12 +818,12 @@
         '<span class="msurprise__sub" aria-live="polite">' + esc(t('nav.surpriseSub')) + '</span>' +
         icon('arrowRight') +
       '</button>' +
+      '<div class="mpair mtrio">' +
       '<a class="menu-link mgame mfmap" href="' + V.url('fmap') + '"' + curAttr(NAV_FMAP, desc) + ' style="--i:' + (k++) + '">' +
         '<span class="mfmap__art" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>' +
-        '<span class="mshelf__text"><span class="mshelf__name">' + esc(t('nav.fmap')) + ' <span class="nav-new">' + esc(t('nav.newBadge')) + '</span></span><span class="mshelf__sub">' + esc(t('nav.fmapSub')) + '</span></span>' +
+        '<span class="mshelf__text"><span class="mshelf__name">' + esc(t('nav.fmap')).replace('Geschmackskarte', 'Geschmacks&shy;karte') + ' <span class="nav-new">' + esc(t('nav.newBadge')) + '</span></span><span class="mshelf__sub">' + esc(t('nav.fmapSub')) + '</span></span>' +
         icon('arrowRight') +
       '</a>' +
-      '<div class="mpair">' +
       '<a class="menu-link mgame" href="' + navHref(NAV_GAME, desc) + '"' + curAttr(NAV_GAME, desc) + ' style="--i:' + (k++) + '">' +
         '<span class="mgame__art" aria-hidden="true"><i></i><i></i><i></i><i></i></span>' +
         '<span class="mshelf__text"><span class="mshelf__name">Shisha Drop <span class="nav-new">' + esc(t('nav.newBadge')) + '</span></span><span class="mshelf__sub">' + esc(t('nav.gameSub')) + '</span></span>' +
@@ -888,10 +901,11 @@
         '<div class="menu-overlay__inner">' +
           '<div class="menu-overlay__top">' +
             logo('logo--menu') +
+            langSwitch(desc, 'lang--mtop') +
             '<button type="button" class="menu-close" aria-label="' + esc(t('a11y.closeMenu')) + '">' + icon('close') + '</button>' +
           '</div>' +
           '<nav class="menu-overlay__nav" aria-label="' + esc(t('a11y.mainNav')) + '">' + menuBody(desc) + '</nav>' +
-          '<div class="menu-overlay__foot">' + langSwitch(desc, 'lang--menu') +
+          '<div class="menu-overlay__foot">' +
             '<a class="menu-link mabout" href="' + navHref(about, desc) + '"' + curAttr(about, desc) + '>' + esc(t('nav.about')) + icon('arrowRight') + '</a>' +
           '</div>' +
         '</div>' +
