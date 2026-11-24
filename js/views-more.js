@@ -177,6 +177,14 @@
   };
 
   /** Velika kartica kolekcije (pregled kolekcija i početna). */
+  /** Tri najčešća glavna sastojka u kolekciji, kao velike ilustracije (kartica na početnoj, mobitel). */
+  function collectionHero(members) {
+    var c = {}, col = {};
+    members.forEach(function (f) { var i = topIng(f); if (!i || i.illustration === 'fallback') return; c[i.illustration] = (c[i.illustration] || 0) + 1; col[i.illustration] = col[i.illustration] || i.color; });
+    var top = Object.keys(c).sort(function (a, b) { return c[b] - c[a]; }).slice(0, 3);
+    return '<span class="ccard__hero" aria-hidden="true">' + top.map(function (n, k) { return '<span class="ccard__hi ccard__hi--' + k + '">' + MSP.illustrate(n, { color: col[n] }) + '</span>'; }).join('') + '</span>';
+  }
+
   V.collectionCard = function (c, headingTag, i) {
     var h = headingTag || 'h3';
     var th = V.collectionTheme(c);
@@ -190,6 +198,7 @@
       '<a class="ccard ccard--' + c.mood + '" href="' + V.collectionUrl(c) + '" data-veil="' + th.veil + '" data-reveal style="--i:' + (i || 0) + ';' +
         '--cc-bg:' + th.bg + ';--cc-text:' + th.text + ';--cc-muted:' + th.muted + ';--cc-accent:' + th.accentInk + ';--cc-glow:' + th.surface2 + '">' +
         V.collectionMood(c, 'card') +
+        collectionHero(members) +
         '<span class="ccard__body">' +
           '<span class="ccard__icon" aria-hidden="true">' + moodIcon(c.mood) + '</span>' +
           '<' + h + ' class="ccard__title">' + esc(L(c.title)) + '</' + h + '>' +
