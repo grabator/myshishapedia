@@ -9260,7 +9260,7 @@ a.crt-video__play { text-decoration: none; }
 /* tačno do dna, špil okusa dana, kartice igre i mape, brendovi        */
 /* ================================================================== */
 .hero__head { display: contents; }
-.hx-badge, .hx-float, .fotd__ghost, .hx-ingwrap, .hxduo, .ccard__hero { display: none; }
+.hx-badge, .hx-float, .fotd__ghost, .hx-ingwrap, .hxduo, .ccard__hero, .xfx { display: none; }
 
 /* tačkice okusa dana (i na desktopu) */
 .fotd__deck { position: relative; }
@@ -9282,12 +9282,13 @@ a.crt-video__play { text-decoration: none; }
 .hxb-legend span { display: inline-flex; align-items: center; gap: 6px; }
 .hxb-legend i { width: 8px; height: 8px; border-radius: 3px; background: var(--c); }
 .hxb-legend b { color: var(--c-text); font-weight: 800; }
-.hxb-rail { display: flex; gap: 12px; margin-top: 20px; overflow-x: auto; overflow-y: hidden; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scrollbar-width: none; padding: 6px 2px 18px; }
+.hxb-rail { display: flex; gap: 12px; margin-top: 8px; margin-bottom: -30px; overflow-x: auto; overflow-y: hidden; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scrollbar-width: none; padding: 14px 2px 46px; }
+.hxb-all { margin-top: 16px; align-self: flex-start; justify-self: start; width: auto !important; }
 .hxb-rail::-webkit-scrollbar { display: none; }
 .hxb-card { position: relative; isolation: isolate; flex: none; width: 172px; display: flex; flex-direction: column; align-items: flex-start; padding: 14px 14px 12px; border-radius: 26px; scroll-snap-align: start; color: var(--c-text); text-decoration: none; overflow: hidden;
   border: 1px solid color-mix(in srgb, var(--b1, var(--c-accent)) 26%, var(--c-line));
   background: radial-gradient(120% 70% at 50% 0%, color-mix(in srgb, var(--b1, var(--c-accent)) 26%, transparent), transparent 62%), linear-gradient(180deg, color-mix(in srgb, var(--c-surface) 95%, transparent), color-mix(in srgb, var(--c-bg) 85%, transparent));
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 18px 34px -24px color-mix(in srgb, var(--b1, #000) 70%, #000); transition: transform 0.3s var(--ease-out); }
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 16px 26px -20px color-mix(in srgb, var(--b1, #000) 60%, #000); transition: transform 0.3s var(--ease-out); }
 .hxb-card:active { transform: scale(0.96); }
 .hxb-card::after { content: ''; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; background: linear-gradient(115deg, rgba(255, 255, 255, 0.09), transparent 32%); }
 .hxb-card__rank { position: absolute; right: 22px; top: 22px; z-index: 2; min-width: 24px; height: 24px; padding: 0 7px; border-radius: 999px; display: grid; place-items: center; font: 800 11px/1 var(--font-display); color: var(--c-text); background: color-mix(in srgb, var(--c-bg) 70%, transparent); border: 1px solid color-mix(in srgb, var(--c-text) 14%, transparent); }
@@ -9412,12 +9413,12 @@ a.crt-video__play { text-decoration: none; }
     animation: glow-breathe 3s ease-in-out infinite; animation-delay: calc(var(--i) * -0.4s); }
 
   /* ---------- kolekcije: traka velikih kartica ---------- */
-  .hcols .ccards { display: flex !important; gap: 12px; overflow-x: auto; overflow-y: hidden; overscroll-behavior-x: contain; touch-action: pan-x pan-y; scroll-snap-type: x mandatory; scrollbar-width: none; margin: 0 -16px; padding: 6px 16px 26px; }
+  .hcols .ccards { display: flex !important; gap: 12px; overflow-x: auto; overflow-y: hidden; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scrollbar-width: none; margin: -10px -16px -34px; padding: 16px 16px 56px; }
   .hcols .ccards::-webkit-scrollbar { display: none; }
   .hcols .ccards > li { flex: none; width: 74%; max-width: 300px; scroll-snap-align: start; }
   .hcols .ccard { min-height: 340px !important; height: 340px; border-radius: 30px !important; border: 1px solid color-mix(in srgb, var(--cc-accent) 30%, transparent);
     background: radial-gradient(90% 55% at 50% 28%, color-mix(in srgb, var(--cc-accent) 40%, transparent), transparent 70%), linear-gradient(180deg, var(--cc-glow), var(--cc-bg) 62%) !important;
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12), 0 30px 50px -30px color-mix(in srgb, var(--cc-bg) 80%, #000) !important; }
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12), 0 22px 34px -24px color-mix(in srgb, var(--cc-bg) 80%, #000) !important; }
   .hcols .ccard .cmood { opacity: 0.35; }
   .hcols .ccard::before { content: ''; position: absolute; left: 50%; top: 34px; width: 170px; height: 170px; margin-left: -85px; border-radius: 50%; z-index: 0; pointer-events: none;
     background: radial-gradient(circle, color-mix(in srgb, var(--cc-accent) 45%, transparent), transparent 68%); animation: glow-breathe 4s ease-in-out infinite; }
@@ -9478,21 +9479,53 @@ a.crt-video__play { text-decoration: none; }
   .hx-ings__more[open] { display: flex; flex-direction: column-reverse; gap: 18px; }
   .hx-ings__more .hx-ings { animation: fade-up 0.45s var(--ease-out); }
 
-  /* ---------- više od okusa: mreža ---------- */
-  .explore__grid { display: grid !important; grid-template-columns: 1fr 1fr; gap: 12px !important; }
-  .explore__grid > li { min-width: 0; }
-  .explore__grid .xcard { height: 100%; min-height: 0 !important; padding: 14px !important; gap: 10px; }
-  .explore__grid .xcard__art { height: 92px !important; max-height: 92px; }
-  .explore__grid .xcard__text { display: none; }
-  .explore__grid .xcard__title { font-size: 15.5px !important; line-height: 1.1 !important; }
-  .explore__grid > .explore__wide { grid-column: span 2; }
+  /* ---------- više od okusa: kartice u boji s animiranim sličicama ---------- */
+  .explore__grid { display: grid !important; grid-template-columns: 1fr !important; gap: 12px !important; }
+  .explore__grid > li { min-width: 0; grid-column: auto !important; }
+  .explore__grid .xcard:not(.xcard--history) { position: relative; isolation: isolate; overflow: hidden; display: grid !important; grid-template-columns: minmax(0, 1fr) 118px; grid-template-rows: auto auto; align-items: center; column-gap: 12px;
+    min-height: 150px !important; padding: 18px 16px 16px 18px !important; border-radius: 28px !important; border: 1px solid color-mix(in srgb, var(--xc) 34%, var(--c-line)) !important;
+    background: radial-gradient(80% 90% at 100% 50%, color-mix(in srgb, var(--xc) 30%, transparent), transparent 65%), linear-gradient(160deg, color-mix(in srgb, var(--xc) 14%, var(--c-surface)), color-mix(in srgb, var(--c-bg) 85%, transparent)) !important;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 20px 34px -26px color-mix(in srgb, var(--xc) 70%, #000) !important; }
+  .explore__grid .xcard--mixer { --xc: #ff6a7a; }
+  .explore__grid .xcard--quiz { --xc: #8f7bff; }
+  .explore__grid .xcard--guide { --xc: #f2a33c; }
+  .explore__grid .xcard:not(.xcard--history) .xcard__art { display: none !important; }
+  .explore__grid .xcard:not(.xcard--history) .xcard__body { grid-column: 1; grid-row: 1; }
+  .explore__grid .xcard:not(.xcard--history) .xcard__title { font-size: 19px !important; line-height: 1.05 !important; }
+  .explore__grid .xcard:not(.xcard--history) .xcard__text { display: -webkit-box !important; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; margin-top: 6px; font-size: 12.5px; line-height: 1.45; color: var(--c-muted); }
+  .explore__grid .xcard:not(.xcard--history) .xcard__cta { grid-column: 1; grid-row: 2; margin-top: 12px; display: inline-flex; align-items: center; gap: 6px; justify-self: start; height: 34px; padding: 0 14px; border-radius: 999px; background: var(--xc); color: #16100a !important; font-weight: 800; font-size: 13px; }
+  .explore__grid .xcard:not(.xcard--history) .xcard__cta .icon { width: 15px; height: 15px; }
+  .xfx { display: block; grid-column: 2; grid-row: 1 / span 2; position: relative; width: 118px; height: 118px; }
+  .xfx svg { display: block; width: 100%; height: auto; }
+  /* mikser: dva okusa se spajaju */
+  .xfx__b { position: absolute; top: 30px; width: 54px; filter: drop-shadow(0 8px 12px rgba(0, 0, 0, 0.4)); }
+  .xfx__b--1 { left: 8px; animation: xfx-l 3.2s var(--ease-in-out) infinite; }
+  .xfx__b--2 { right: 8px; animation: xfx-r 3.2s var(--ease-in-out) infinite; }
+  .xfx__spark { position: absolute; left: 50%; top: 56px; width: 70px; height: 70px; margin: -35px; border-radius: 50%; background: radial-gradient(circle, rgba(255, 220, 160, 0.9), rgba(255, 106, 122, 0.4) 40%, transparent 70%); opacity: 0; animation: xfx-spark 3.2s ease-in-out infinite; }
+  @keyframes xfx-l { 0%, 100% { transform: translateX(0) rotate(-10deg); } 45%, 55% { transform: translateX(22px) rotate(4deg); } }
+  @keyframes xfx-r { 0%, 100% { transform: translateX(0) rotate(10deg); } 45%, 55% { transform: translateX(-22px) rotate(-4deg); } }
+  @keyframes xfx-spark { 0%, 35%, 70%, 100% { opacity: 0; transform: scale(0.5); } 50% { opacity: 1; transform: scale(1); } }
+  /* kviz: upitnik i odgovori koji se pale */
+  .xfx__q { position: absolute; left: 50%; top: 2px; width: 46px; height: 46px; margin-left: -23px; border-radius: 16px; display: grid; place-items: center; font: 800 26px/1 var(--font-display); color: #16100a;
+    background: linear-gradient(135deg, #b9a8ff, #8f7bff); box-shadow: 0 10px 20px -8px #8f7bff; animation: bob 3s var(--ease-in-out) infinite alternate; }
+  .xfx__o { position: absolute; bottom: 6px; width: 34px; height: 34px; padding: 6px; border-radius: 12px; background: color-mix(in srgb, var(--c-text) 8%, transparent); border: 1px solid color-mix(in srgb, var(--c-text) 14%, transparent); animation: xfx-pick 3.6s ease-in-out infinite; }
+  .xfx__o--0 { left: 2px; } .xfx__o--1 { left: 42px; animation-delay: 1.2s; } .xfx__o--2 { left: 82px; animation-delay: 2.4s; }
+  .xfx__o svg { width: 100%; height: 100%; }
+  @keyframes xfx-pick { 0%, 30%, 100% { transform: none; border-color: color-mix(in srgb, var(--c-text) 14%, transparent); box-shadow: none; } 10%, 20% { transform: translateY(-6px); border-color: #8f7bff; box-shadow: 0 0 0 3px rgba(143, 123, 255, 0.3); } }
+  /* vodič: tri koraka i lulica */
+  .xfx__line { position: absolute; left: 14px; right: 14px; top: 24px; height: 3px; border-radius: 3px; background: color-mix(in srgb, var(--c-text) 12%, transparent); overflow: hidden; }
+  .xfx__line i { display: block; height: 100%; width: 100%; background: linear-gradient(90deg, #f2a33c, #ffd59a); transform-origin: left; animation: xfx-prog 3.6s ease-in-out infinite; }
+  .xfx__s { position: absolute; top: 12px; width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; font: 800 12px/1 var(--font-display); background: #2a1f18; border: 2px solid #f2a33c; color: #f2a33c; animation: xfx-step 3.6s ease-in-out infinite; }
+  .xfx__s--1 { left: 4px; } .xfx__s--2 { left: 46px; animation-delay: 0.9s; } .xfx__s--3 { left: 88px; animation-delay: 1.8s; }
+  .xfx__bowl { position: absolute; left: 50%; bottom: 0; width: 84px; margin-left: -42px; filter: drop-shadow(0 8px 12px rgba(0, 0, 0, 0.45)); }
+  @keyframes xfx-prog { 0% { transform: scaleX(0); } 60%, 100% { transform: scaleX(1); } }
+  @keyframes xfx-step { 0%, 10% { background: #2a1f18; color: #f2a33c; } 25%, 100% { background: #f2a33c; color: #16100a; } }
+  /* historija ostaje široka kartica sa slikama */
+  .explore__grid .xcard--history { border-radius: 28px !important; }
   .explore__grid .explore__wide .xcard__text { display: block; }
-  .explore__grid > li:nth-child(3):not(.explore__wide) { grid-column: span 2; }
-  .explore__grid > li:nth-child(3):not(.explore__wide) .xcard { flex-direction: row !important; align-items: center; }
-  .explore__grid > li:nth-child(3):not(.explore__wide) .xcard__art { width: 92px !important; flex: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .hx-badge svg, .hx-float i, .hxd-fruit, .hxd-sky i, .ccard__hi, .hcols .ccard::before, .hcols::after, .catalog::after, .hxbrands::after, .explore::after, .hxb-bar i { animation: none !important; }
+  .hx-badge svg, .hx-float i, .hxd-fruit, .hxd-sky i, .ccard__hi, .xfx *, .hcols .ccard::before, .hcols::after, .catalog::after, .hxbrands::after, .explore::after, .hxb-bar i { animation: none !important; }
   .fotd__card.is-swapping { animation: none; }
 }

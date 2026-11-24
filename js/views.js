@@ -1074,6 +1074,22 @@
     return btn(null, t('home.filterAll')) + tagCounts().map(function (tag) { return btn(tag, MSP.tagLabel(tag)); }).join('');
   };
 
+  /** Nove animirane sličice za kartice "Više od okusa" (mobitel). */
+  function exploreFx(kind) {
+    var ill = function (n, c) { return MSP.illustrate(n, { color: c }); };
+    if (kind === 'mixer') {
+      return '<span class="xfx xfx--mix" aria-hidden="true"><span class="xfx__b xfx__b--1">' + ill('lubenica', '#e9364f') + '</span>' +
+        '<span class="xfx__b xfx__b--2">' + ill('menta', '#3fc08a') + '</span><span class="xfx__spark"></span></span>';
+    }
+    if (kind === 'quiz') {
+      return '<span class="xfx xfx--quiz" aria-hidden="true"><span class="xfx__q">?</span>' +
+        ['jagoda', 'limun', 'kristal'].map(function (n, i) { return '<span class="xfx__o xfx__o--' + i + '">' + ill(n, ['#ff3b5c', '#f5d842', '#9fdcff'][i]) + '<i></i></span>'; }).join('') + '</span>';
+    }
+    return '<span class="xfx xfx--guide" aria-hidden="true"><span class="xfx__line"><i></i></span>' +
+      [1, 2, 3].map(function (n) { return '<span class="xfx__s xfx__s--' + n + '">' + n + '</span>'; }).join('') +
+      '<span class="xfx__bowl">' + MSP.hookahBowl() + '</span></span>';
+  }
+
   function explore() {
     var items = [
       { page: 'mixer', kind: 'mixer', title: 'explore.mixerTitle', text: 'explore.mixerText' },
@@ -1092,7 +1108,7 @@
               return (
                 '<li data-reveal style="--i:' + i + '">' +
                   '<a class="xcard xcard--' + it.kind + '" href="' + V.url(it.page) + '">' +
-                    '<span class="xcard__art" aria-hidden="true">' + exploreArt(it.kind) + '</span>' +
+                    '<span class="xcard__art" aria-hidden="true">' + exploreArt(it.kind) + '</span>' + exploreFx(it.kind) +
                     '<span class="xcard__body"><span class="xcard__title">' + esc(t(it.title)) + '</span><span class="xcard__text">' + esc(t(it.text)) + '</span></span>' +
                     '<span class="xcard__cta" aria-hidden="true">' + esc(t('explore.cta')) + icon('arrowRight') + '</span>' +
                   '</a>' +
@@ -1259,9 +1275,10 @@
     }).join('');
     return '<section class="hxbrands" aria-labelledby="hxbrands-title"><div class="container">' +
       '<header class="explore__head"><p class="eyebrow"><span class="eyebrow__dot" aria-hidden="true"></span>' + esc(t('home.brandsEyebrow')) + '</p>' +
-      '<h2 class="catalog__title" id="hxbrands-title">' + esc(MSP.plural('home.brandsTitle', list.length)) + '</h2></header>' +
+      '<h2 class="catalog__title" id="hxbrands-title">' + esc(MSP.plural('home.brandsTitle', list.length)) + '</h2>' +
+      '<a class="btn btn--ghost hxb-all" href="' + V.url('brands') + '">' + esc(t('home.allBrands')) + icon('arrowRight') + '</a></header>' +
       '<div class="hxb-share"><div class="hxb-bar" aria-hidden="true">' + bar + '</div><p class="hxb-legend">' + legend + '</p></div>' +
-      '<div class="hxb-rail">' + cards + '<a class="hxb-card hxb-card--all" href="' + V.url('brands') + '"><span class="hxb-card__plate">' + icon('arrowRight') + '</span><b class="hxb-card__name">' + esc(t('home.allBrands')) + '</b><span class="hxb-card__land">' + esc(MSP.plural('home.brandsShort', list.length)) + '</span></a></div>' +
+      '<div class="hxb-rail">' + cards + '</div>' +
     '</div></section>';
   }
 
