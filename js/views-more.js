@@ -983,7 +983,12 @@
     return (
       '<section class="fotd" aria-labelledby="fotd-title">' +
         '<div class="container">' +
+          '<div class="fotd__deck">' +
           '<div class="fotd__card" id="fotd-card" data-id="' + f.id + '" data-smoke="' + V.themeFor(f).smoke.join(',') + '" style="' + V.fotdStyle(f) + '">' + V.fotdCard(f) + '</div>' +
+          '<span class="fotd__ghost" aria-hidden="true"></span><span class="fotd__ghost fotd__ghost--2" aria-hidden="true"></span></div>' +
+          '<div class="fotd__dots" role="group" aria-label="' + esc(t('fotd.eyebrow')) + '">' + [0, 1, 2].map(function (k) {
+            return '<button type="button" class="fotd__dot' + (k ? '' : ' is-on') + '" data-fotd-day="' + k + '" aria-pressed="' + (k ? 'false' : 'true') + '" aria-label="' + esc(t('home.fotdPrev', { day: t('home.fotdDays.' + k) })) + '"></button>';
+          }).join('') + '</div>' +
         '</div>' +
       '</section>'
     );

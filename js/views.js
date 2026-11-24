@@ -1208,9 +1208,45 @@
             '<span class="gpromo__text">' + esc(t('explore.gameText')) + '</span>' +
             '<span class="btn btn--primary gpromo__cta">' + esc(t('explore.gameCta')) + icon('arrowRight') + '</span>' +
           '</span>' +
+          '<span class="gpromo__go" aria-hidden="true">' + icon('arrowRight') + '</span>' +
         '</a>' +
       '</div></section>'
     );
+  }
+
+  /** Brendovi po broju okusa (za krug u hero dijelu i rang listu na početnoj). */
+  V.brandStats = function () {
+    var m = {};
+    V.flavors().forEach(function (f) { var b = V.brandOf(f); if (!b) return; (m[b.slug] = m[b.slug] || { b: b, n: 0 }).n++; });
+    return Object.keys(m).map(function (k) { return m[k]; }).sort(function (a, b) { return b.n - a.n || a.b.name.localeCompare(b.b.name); });
+  };
+
+  /** Krug "313 okusa" s tekstom u krug (vidi se na mobitelu). */
+  function heroBadge() {
+    var n = V.flavors().length;
+    var ring = t('home.ring', { f: n, b: V.brandStats().length });
+    return '<span class="hx-badge" aria-hidden="true"><svg viewBox="0 0 76 76"><defs><path id="hx-ring" d="M38,38 m-30,0 a30,30 0 1,1 60,0 a30,30 0 1,1 -60,0"/></defs>' +
+      '<circle cx="38" cy="38" r="37" class="hx-badge__c"/><text class="hx-badge__t"><textPath href="#hx-ring">' + esc(ring) + '</textPath></text></svg>' +
+      '<span class="hx-badge__n"><b>' + n + '</b><small>' + esc(t('home.flavorsWord')) + '</small></span></span>';
+  }
+
+  /** Rang lista brendova: prva tri na podijumu, ostali u listi. */
+  function homeBrands() {
+    var list = V.brandStats();
+    if (list.length < 4) return '';
+    var max = list[0].n;
+    var pod = [[list[1], 2], [list[0], 1], [list[2], 3]].map(function (x) {
+      return '<a class="hxb-pod__i hxb-pod__i--' + x[1] + '" href="' + V.brandUrl(x[0].b) + '"><span class="hxb-pod__p">0' + x[1] + '</span><b>' + esc(x[0].b.name) + '</b><em>' + x[0].n + '</em><small>' + esc(t('home.flavorsWord')) + '</small></a>';
+    }).join('');
+    var rows = list.slice(3, 7).map(function (x, i) {
+      return '<a class="hxb-row" href="' + V.brandUrl(x.b) + '"><span class="hxb-row__r">0' + (i + 4) + '</span><b>' + esc(x.b.name) + '</b><i><span style="width:' + Math.max(4, Math.round(x.n / max * 100)) + '%"></span></i><em>' + x.n + '</em></a>';
+    }).join('');
+    return '<section class="hxbrands" aria-labelledby="hxbrands-title"><div class="container">' +
+      '<header class="explore__head"><p class="eyebrow"><span class="eyebrow__dot" aria-hidden="true"></span>' + esc(t('home.brandsEyebrow')) + '</p>' +
+      '<h2 class="catalog__title" id="hxbrands-title">' + esc(MSP.plural('home.brandsTitle', list.length)) + '</h2></header>' +
+      '<div class="hxb-pod">' + pod + '</div><div class="hxb-list">' + rows + '</div>' +
+      '<p class="hxb-more"><a class="btn btn--ghost" href="' + V.url('brands') + '">' + esc(t('home.allBrands')) + icon('arrowRight') + '</a></p>' +
+    '</div></section>';
   }
 
   function pageHome() {
@@ -1222,16 +1258,18 @@
         '<div class="container hero__inner">' +
           '<div class="hero__copy">' +
             '<p class="eyebrow anim-in" style="--i:0"><span class="eyebrow__dot" aria-hidden="true"></span>' + esc(t('home.eyebrow')) + '</p>' +
+            '<div class="hero__head">' +
             '<h1 class="hero__title" id="home-title" tabindex="-1">' +
               '<span class="line"><span class="line__in" style="--i:1">' + esc(t('home.titleA')) + '</span></span> ' +
               '<span class="line"><span class="line__in" style="--i:2"><em>' + esc(t('home.titleEm')) + '</em></span></span> ' +
               '<span class="line"><span class="line__in" style="--i:3">' + esc(t('home.titleB')) + '</span></span>' +
-            '</h1>' +
+            '</h1>' + heroBadge() +
+            '</div>' +
             '<p class="hero__lead anim-in" style="--i:4">' + esc(t('home.lead')) + '</p>' +
             searchForm('search-input', 'home.searchLabel', 'home.searchPlaceholder') +
             nowChip(now) +
           '</div>' +
-          '<div class="hero__stage">' + V.hookahStage(Object.assign({}, th, { hk: Object.assign({}, th.hk, { water: V.themeFor(now).hk.water }) })) + '</div>' +
+          '<div class="hero__stage"><span class="hx-float hx-float--l" aria-hidden="true"><i></i>' + esc(t('home.live')) + '</span><span class="hx-float hx-float--r" aria-hidden="true">' + esc(MSP.plural('home.brandsShort', V.brandStats().length)) + '</span>' + V.hookahStage(Object.assign({}, th, { hk: Object.assign({}, th.hk, { water: V.themeFor(now).hk.water }) })) + '</div>' +
         '</div>' +
       '</section>' +
       V.recentStrip() +
@@ -1242,6 +1280,7 @@
       V.homeCollections() +
       (V.ingredientIndexSection ? V.ingredientIndexSection() : '') +
       catalog('catalog-title') +
+      homeBrands() +
       V.homeMixes() +
       explore() +
       V.faqSection(HOME_FAQ, 'home-faq')

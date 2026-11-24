@@ -381,11 +381,26 @@
       '<header class="faq__head"><p class="eyebrow"><span class="eyebrow__dot" aria-hidden="true"></span>' + esc(tx('eyebrow')) + '</p>' +
         '<h2 class="faq__title" id="ingidx-h">' + esc(tx('indexTitle')) + '</h2></header>' +
       '<p class="ingp__p">' + esc(tx('indexText')) + '</p>' +
+      '<div class="hx-ings">' + circles(list) + '</div>' +
       '<div class="ingp__chips ingp__chips--home">' + shortChips(list.slice(0, 12)) +
         (list.length > 12 ? '<details class="ingp__more"><summary class="chip">' + esc(tx('showAll')) + ' <span class="ingp__n">+' + (list.length - 12) + '</span></summary>' + shortChips(list.slice(12)) + '</details>' : '') +
       '</div>' +
     '</div></section>';
   };
+
+  function shortName(p) {
+    var n = MSP.lang === 'ru' ? L(p.h1) : String(L(p.noun) || L(p.h1));
+    return n.charAt(0).toUpperCase() + n.slice(1);
+  }
+
+  /** Okrugle ikonice sastojaka s brojem okusa (početna, mobitel). Samo pojedinačni sastojci. */
+  function circles(list) {
+    return list.filter(function (p) { return Array.isArray(p.match) && p.match.length === 1 && MSP.hasIllustration && MSP.hasIllustration(p.match[0][0]); }).slice(0, 8).map(function (p) {
+      var ill = p.match[0][0], col = '';
+      V.flavors().some(function (f) { return (f.ingredients || []).some(function (i) { if (i.illustration === ill) { col = i.color; return true; } return false; }); });
+      return '<a class="hx-ing" href="' + V.ingredientUrl(p) + '" title="' + esc(L(p.h1)) + '"><span class="hx-ing__b" aria-hidden="true">' + MSP.illustrate(ill, { color: col }) + '<em>' + p.flavors.length + '</em></span><b>' + esc(MSP.lang === 'ru' ? String(L(p.noun) || '').replace(/^./, function (c) { return c.toUpperCase(); }) : shortName(p)) + '</b></a>';
+    }).join('');
+  }
 
   /** Kratki čipovi za početnu: samo sastojak ("Lubenica 23"), pun naslov je u title. */
   function shortChips(list) {

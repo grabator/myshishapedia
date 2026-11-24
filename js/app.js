@@ -509,6 +509,7 @@
     var hero = els.main.querySelector('.hero');
     bindCatalog();
     mountFotd();
+    fitHeroStage();
     startHookah(hero, th, { introDelay: 1.7, bowlSmoke: { rate: 8, alpha: 0.26 } });
     cleanup(whenAgeOk(function () { hero._explode = heroExplode(hero); heroCycle(hero); }));
     cleanup(FX.parallax(hero));
@@ -586,10 +587,33 @@
       var h = Math.floor(mins / 60);
       var m = mins % 60;
       if (el) el.textContent = h > 0 ? t('fotd.next', { h: h, m: m }) : t('fotd.nextMin', { m: Math.max(1, m) });
-      // novi dan: novi okus
+      // novi dan: novi okus (samo dok je izabran "danas")
+      if (offset) return;
       var f = V.fotdPick(now);
       if (f && f.id !== card.getAttribute('data-id')) show(f, true);
     }
+
+    // tačkice: danas, jučer, prekjučer (i prevlačenje prstom po kartici)
+    var offset = 0;
+    var dots = [].slice.call(document.querySelectorAll('[data-fotd-day]'));
+    function setDay(k) {
+      k = Math.max(0, Math.min(dots.length - 1, k));
+      offset = k;
+      dots.forEach(function (d, i) { d.classList.toggle('is-on', i === k); d.setAttribute('aria-pressed', String(i === k)); });
+      var d0 = new Date(); d0.setDate(d0.getDate() - k);
+      var f = V.fotdPick(d0);
+      if (f) show(f, true);
+      var tm = document.getElementById('fotd-timer');
+      if (tm && k) tm.textContent = t('home.fotdDays.' + k);
+    }
+    dots.forEach(function (d, i) { d.addEventListener('click', function () { setDay(i); }); });
+    var sx = null;
+    card.addEventListener('touchstart', function (e) { sx = e.touches[0].clientX; }, { passive: true });
+    card.addEventListener('touchend', function (e) {
+      if (sx == null) return;
+      var dx = e.changedTouches[0].clientX - sx; sx = null;
+      if (Math.abs(dx) > 50 && dots.length) setDay(offset + (dx < 0 ? 1 : -1));
+    }, { passive: true });
 
     var today = V.fotdPick(new Date());
     if (today) show(today, false);
@@ -598,6 +622,30 @@
       clearInterval(timer);
       if (emitter) Field.removeEmitter(emitter);
     });
+  }
+
+  /**
+   * Mobitel: prvi ekran početne je tačno visok kao ekran, a nargila se smanji da stane u panel
+   * (CSS daje visine, ovdje se samo izračuna razmjer).
+   */
+  function fitHeroStage() {
+    var hero = document.querySelector('.hero--home');
+    var stage = hero && hero.querySelector('.hero__stage');
+    var wrap = stage && stage.querySelector('.hookah-wrap');
+    if (!wrap) return;
+    var mq = window.matchMedia('(max-width: 759px)');
+    function fit() {
+      wrap.style.transform = '';
+      if (!mq.matches) return;
+      var avail = stage.clientHeight - 44, need = wrap.offsetHeight;
+      var k = Math.min(1, avail / need, stage.clientWidth / wrap.offsetWidth);
+      if (k < 1) wrap.style.transform = 'scale(' + k.toFixed(3) + ')';
+    }
+    fit();
+    var raf = 0;
+    function onResize() { cancelAnimationFrame(raf); raf = requestAnimationFrame(fit); }
+    window.addEventListener('resize', onResize);
+    cleanup(function () { window.removeEventListener('resize', onResize); wrap.style.transform = ''; });
   }
 
   /* ------------------------------------------------------------------ */
