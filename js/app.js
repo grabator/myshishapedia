@@ -1135,17 +1135,15 @@
   /* Loader (samo pri prvoj posjeti u sesiji)                            */
   /* ------------------------------------------------------------------ */
 
-  var LOADER_MIN_MS = 600;
+  // Uvod se odvija sam u CSS-u (oko 1,7 s); ovdje ga samo uklonimo kad završi.
+  var INTRO_MS = 1750;
 
   function hideLoader() {
     var l = els.loader;
     if (!l) return;
-    if (!root.classList.contains('first-visit')) { l.remove(); return; }
-    var wait = FX.reducedMotion() ? 0 : Math.max(0, LOADER_MIN_MS - performance.now());
-    window.setTimeout(function () {
-      l.classList.add('is-done');
-      window.setTimeout(function () { l.remove(); }, 500);
-    }, wait);
+    if (!root.classList.contains('first-visit') || FX.reducedMotion()) { l.remove(); return; }
+    window.setTimeout(function () { if (l.parentNode) l.remove(); }, Math.max(0, INTRO_MS - performance.now()));
+    l.addEventListener('animationend', function (e) { if (e.target === l && l.classList.contains('is-done') && l.parentNode) l.remove(); });
   }
 
   /* ------------------------------------------------------------------ */

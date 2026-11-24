@@ -232,9 +232,12 @@ if(!g('sessionStorage','msp-seen')){c+=' first-visit';s('sessionStorage','msp-se
 var v=g('sessionStorage','msp-veil');if(v){c+=' arrive';d.style.setProperty('--arrive-veil',v);try{sessionStorage.removeItem('msp-veil')}catch(e){}}
 var dv=+g('sessionStorage','msp-dive');if(dv){if(Date.now()-dv<9000)c+=' dive-in';try{sessionStorage.removeItem('msp-dive')}catch(e){}}
 d.className+=c;s('localStorage','msp-lang',d.lang);
-document.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('#age-gate [data-age="yes"]');if(b){s('localStorage','msp-age-ok','1');d.classList.add('age-ok')}})})();`;
+document.addEventListener('pointerdown',function(e){var l=e.target.closest&&e.target.closest('#loader');if(l)l.classList.add('is-done')});document.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('#age-gate [data-age="yes"]');if(b){s('localStorage','msp-age-ok','1');d.classList.add('age-ok')}})})();`;
 
-const LOADER = `<div class="loader" id="loader" aria-hidden="true"><svg class="loader__coal" viewBox="0 0 120 90"><defs><radialGradient id="ld-glow" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="#ff8a2a" stop-opacity="0.7"/><stop offset="0.5" stop-color="#ff5a1a" stop-opacity="0.2"/><stop offset="1" stop-color="#ff5a1a" stop-opacity="0"/></radialGradient><linearGradient id="ld-cold" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#77706a"/><stop offset="1" stop-color="#3a3431"/></linearGradient><radialGradient id="ld-hot" cx="0.5" cy="0.35" r="0.75"><stop offset="0" stop-color="#fff1b8"/><stop offset="0.35" stop-color="#ffb13b"/><stop offset="0.75" stop-color="#e2541b"/><stop offset="1" stop-color="#7a1d0a"/></radialGradient></defs><ellipse class="loader__glow" cx="60" cy="48" rx="60" ry="42" fill="url(#ld-glow)"/><rect x="22" y="24" width="76" height="46" rx="10" fill="url(#ld-cold)"/><rect class="loader__hot" x="22" y="24" width="76" height="46" rx="10" fill="url(#ld-hot)"/><path d="M34 44h28M64 56h22" stroke="#1a1411" stroke-width="2.4" stroke-linecap="round" opacity="0.45"/></svg></div>`;
+// Uvod pri prvoj posjeti u sesiji: žar, tri pramena dima (znak), naziv, pa se dim otvori u stranicu.
+// Sve je CSS i SVG, ide i bez JavaScripta; dodir ga preskače (HEAD_SCRIPT), uz "smanji animacije" se ne prikazuje.
+const LOADER_TAG = { bs: 'Enciklopedija okusa', en: 'Flavor encyclopedia', de: 'Aromen-Enzyklopädie', ru: 'Энциклопедия вкусов' };
+const loaderHtml = (lang) => `<div class="loader" id="loader" aria-hidden="true"><div class="intro"><span class="intro__halo"></span><svg class="intro__mark" viewBox="0 0 64 64"><path class="intro__wisp intro__wisp--1" pathLength="1" d="M22 50c-6-8 6-12 0-20s4-13 4-13"/><path class="intro__wisp intro__wisp--2" pathLength="1" d="M34 52c-6-9 7-13 1-22s4-15 4-15"/><path class="intro__wisp intro__wisp--3" pathLength="1" d="M45 48c-5-7 5-10 0-17s3-11 3-11"/><circle class="intro__ember" cx="33" cy="56" r="3.2"/></svg><span class="intro__sparks"><i></i><i></i><i></i><i></i><i></i></span><p class="intro__word"><span class="intro__my">my</span><span class="intro__shisha">shisha</span><span class="intro__pedia">pedia</span></p><p class="intro__tag">${LOADER_TAG[lang] || LOADER_TAG.en}</p></div></div>`;
 
 /** hreflang oznake za jednu verziju sajta (bs je i hr i sr-Latn, vidi site.config.js HREFLANG). */
 const hreflangsOf = (l) => (CFG.HREFLANG && CFG.HREFLANG[l]) || [l];
@@ -532,7 +535,7 @@ ${head(desc, lang, info)}
 <!-- provjera godina je prva u <body>: telefon je može nacrtati prije nego što pročita ostatak stranice (LCP) -->
 <div class="age-gate" id="age-gate">${V.ageGate()}</div>
 <a class="skip-link" id="skip-link" href="#main">${esc(t('a11y.skipToContent'))}</a>
-${LOADER}
+${loaderHtml(lang)}
 <div class="veil-arrive" aria-hidden="true"></div>
 <div class="lounge" aria-hidden="true"><span class="lounge__glow lounge__glow--a"></span><span class="lounge__glow lounge__glow--b"></span></div>
 <div class="app" id="app">
