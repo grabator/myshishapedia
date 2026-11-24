@@ -268,6 +268,7 @@
     qNoMint: { bs: 'Ima li ovih okusa bez mente?', en: 'Are there {noun} flavors without mint?', de: 'Gibt es Sorten mit {noun} ohne Minze?', ru: 'Есть ли табак со вкусом {noun} без мяты?' },
     aNoMint: { bs: 'Da, bez mente i leda: {N}, na primjer {list}.', en: 'Yes, {n} have no mint or ice, for example {list}.', de: 'Ja, {n} Sorten haben weder Minze noch Ice, zum Beispiel {list}.', ru: 'Да, без мяты и льда: {N}, например {list}.' },
     showAll: { bs: 'Prikaži sve', en: 'Show all', de: 'Alle zeigen', ru: 'Показать все' },
+    showLess: { bs: 'Prikaži manje', en: 'Show less', de: 'Weniger zeigen', ru: 'Свернуть' },
     indexTitle: { bs: 'Okusi po sastojku', en: 'Hookah flavors by ingredient', de: 'Shisha Tabak nach Zutat', ru: 'Вкусы для кальяна по ингредиенту' },
     indexText: { bs: 'Lubenica, limun i menta, grožđe, jabuka i drugo: svi okusi sa jednim sastojkom na jednoj stranici.',
       en: 'Watermelon, lemon mint, grape, apple and more: every flavor with one ingredient on a single page.',
@@ -381,7 +382,7 @@
       '<header class="faq__head"><p class="eyebrow"><span class="eyebrow__dot" aria-hidden="true"></span>' + esc(tx('eyebrow')) + '</p>' +
         '<h2 class="faq__title" id="ingidx-h">' + esc(tx('indexTitle')) + '</h2></header>' +
       '<p class="ingp__p">' + esc(tx('indexText')) + '</p>' +
-      '<div class="hx-ings">' + circles(list) + '</div>' +
+      circlesBlock(list) +
       '<div class="ingp__chips ingp__chips--home">' + shortChips(list.slice(0, 12)) +
         (list.length > 12 ? '<details class="ingp__more"><summary class="chip">' + esc(tx('showAll')) + ' <span class="ingp__n">+' + (list.length - 12) + '</span></summary>' + shortChips(list.slice(12)) + '</details>' : '') +
       '</div>' +
@@ -393,13 +394,38 @@
     return n.charAt(0).toUpperCase() + n.slice(1);
   }
 
-  /** Okrugle ikonice sastojaka s brojem okusa (početna, mobitel). Samo pojedinačni sastojci. */
+  /** Ikonice za stranicu sastojka: njen sastojak (ili dva za kombinaciju), inače najčešći glavni sastojak njenih okusa. */
+  function pageIcons(p) {
+    var ok = function (n) { return MSP.hasIllustration && MSP.hasIllustration(n); };
+    var out = [];
+    if (Array.isArray(p.match)) p.match.forEach(function (m) { var n = Array.isArray(m) ? m[0] : m; if (ok(n) && out.indexOf(n) < 0) out.push(n); });
+    if (!out.length) {
+      var c = {};
+      p.flavors.forEach(function (f) { var i = V.byIntensity(f)[0]; if (i && ok(i.illustration)) c[i.illustration] = (c[i.illustration] || 0) + 1; });
+      var best = Object.keys(c).sort(function (a, b) { return c[b] - c[a]; })[0];
+      if (best) out.push(best);
+    }
+    return out.slice(0, 2);
+  }
+  function ingColor(n) {
+    var col = '';
+    V.flavors().some(function (f) { return (f.ingredients || []).some(function (i) { if (i.illustration === n) { col = i.color; return true; } return false; }); });
+    return col;
+  }
+
+  /** Okrugle ikonice sastojaka s brojem okusa (početna, mobitel). */
   function circles(list) {
-    return list.filter(function (p) { return Array.isArray(p.match) && p.match.length === 1 && MSP.hasIllustration && MSP.hasIllustration(p.match[0][0]); }).slice(0, 8).map(function (p) {
-      var ill = p.match[0][0], col = '';
-      V.flavors().some(function (f) { return (f.ingredients || []).some(function (i) { if (i.illustration === ill) { col = i.color; return true; } return false; }); });
-      return '<a class="hx-ing" href="' + V.ingredientUrl(p) + '" title="' + esc(L(p.h1)) + '"><span class="hx-ing__b" aria-hidden="true">' + MSP.illustrate(ill, { color: col }) + '<em>' + p.flavors.length + '</em></span><b>' + esc(MSP.lang === 'ru' ? String(L(p.noun) || '').replace(/^./, function (c) { return c.toUpperCase(); }) : shortName(p)) + '</b></a>';
+    return list.map(function (p) {
+      var ic = pageIcons(p);
+      var art = ic.map(function (n, k) { return '<span class="hx-ing__i hx-ing__i--' + k + (ic.length > 1 ? ' is-pair' : '') + '">' + MSP.illustrate(n, { color: ingColor(n) }) + '</span>'; }).join('');
+      return '<a class="hx-ing" href="' + V.ingredientUrl(p) + '" title="' + esc(L(p.h1)) + '"><span class="hx-ing__b" aria-hidden="true">' + art + '<em>' + p.flavors.length + '</em></span><b>' + esc(shortName(p)) + '</b></a>';
     }).join('');
+  }
+  function circlesBlock(list) {
+    var first = list.slice(0, 8), rest = list.slice(8);
+    return '<div class="hx-ingwrap"><div class="hx-ings">' + circles(first) + '</div>' +
+      (rest.length ? '<details class="hx-ings__more"><summary><span class="hx-ings__open">' + esc(tx('showAll')) + ' <b>+' + rest.length + '</b></span><span class="hx-ings__close">' + esc(tx('showLess')) + '</span></summary><div class="hx-ings">' + circles(rest) + '</div></details>' : '') +
+      '</div>';
   }
 
   /** Kratki čipovi za početnu: samo sastojak ("Lubenica 23"), pun naslov je u title. */

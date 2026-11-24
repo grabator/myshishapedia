@@ -1230,22 +1230,56 @@
       '<span class="hx-badge__n"><b>' + n + '</b><small>' + esc(t('home.flavorsWord')) + '</small></span></span>';
   }
 
-  /** Rang lista brendova: prva tri na podijumu, ostali u listi. */
+  /** Monogram brenda (prvo slovo ili broj) u boji brenda. */
+  function brandMark(b) {
+    var pal = b.palette || {};
+    var c1 = pal.primary || '#f2a33c', c2 = pal.secondary || pal.primary || '#d9643f';
+    var ch = String(b.name).replace(/[^A-Za-z0-9]/g, '').slice(0, /^\d/.test(b.name) ? 3 : 1).toUpperCase();
+    return '<span class="hxb-mark" style="--b1:' + c1 + ';--b2:' + c2 + '" aria-hidden="true">' + esc(ch) + '</span>';
+  }
+
+  /** Rang lista brendova: prva tri kao velike kartice, ostali u listi. */
   function homeBrands() {
     var list = V.brandStats();
     if (list.length < 4) return '';
     var max = list[0].n;
-    var pod = [[list[1], 2], [list[0], 1], [list[2], 3]].map(function (x) {
-      return '<a class="hxb-pod__i hxb-pod__i--' + x[1] + '" href="' + V.brandUrl(x[0].b) + '"><span class="hxb-pod__p">0' + x[1] + '</span><b>' + esc(x[0].b.name) + '</b><em>' + x[0].n + '</em><small>' + esc(t('home.flavorsWord')) + '</small></a>';
+    var top = list.slice(0, 3).map(function (x, i) {
+      return '<a class="hxb-top hxb-top--' + (i + 1) + '" href="' + V.brandUrl(x.b) + '" style="--b1:' + ((x.b.palette || {}).primary || '#f2a33c') + '">' +
+        '<span class="hxb-top__rank">#' + (i + 1) + '</span>' + brandMark(x.b) +
+        '<b class="hxb-top__name">' + esc(x.b.name) + '</b><span class="hxb-top__land">' + esc(L(x.b.country) || '') + '</span>' +
+        '<span class="hxb-top__n"><em>' + x.n + '</em> ' + esc(t('home.flavorsWord')) + '</span>' +
+        '<span class="hxb-top__bar"><i style="width:' + Math.round(x.n / max * 100) + '%"></i></span></a>';
     }).join('');
-    var rows = list.slice(3, 7).map(function (x, i) {
-      return '<a class="hxb-row" href="' + V.brandUrl(x.b) + '"><span class="hxb-row__r">0' + (i + 4) + '</span><b>' + esc(x.b.name) + '</b><i><span style="width:' + Math.max(4, Math.round(x.n / max * 100)) + '%"></span></i><em>' + x.n + '</em></a>';
+    var rows = list.slice(3, 8).map(function (x, i) {
+      return '<a class="hxb-row" href="' + V.brandUrl(x.b) + '"><span class="hxb-row__r">' + (i + 4) + '</span>' + brandMark(x.b) +
+        '<span class="hxb-row__t"><b>' + esc(x.b.name) + '</b><small>' + esc(L(x.b.country) || '') + '</small></span>' +
+        '<span class="hxb-row__n">' + x.n + '</span>' + icon('arrowRight') + '</a>';
     }).join('');
     return '<section class="hxbrands" aria-labelledby="hxbrands-title"><div class="container">' +
       '<header class="explore__head"><p class="eyebrow"><span class="eyebrow__dot" aria-hidden="true"></span>' + esc(t('home.brandsEyebrow')) + '</p>' +
       '<h2 class="catalog__title" id="hxbrands-title">' + esc(MSP.plural('home.brandsTitle', list.length)) + '</h2></header>' +
-      '<div class="hxb-pod">' + pod + '</div><div class="hxb-list">' + rows + '</div>' +
+      '<div class="hxb-tops">' + top + '</div><div class="hxb-list">' + rows + '</div>' +
       '<p class="hxb-more"><a class="btn btn--ghost" href="' + V.url('brands') + '">' + esc(t('home.allBrands')) + icon('arrowRight') + '</a></p>' +
+    '</div></section>';
+  }
+
+  /** Igra i mapa okusa kao dvije kartice jedna pored druge (mobitel; desktop ima stare velike kartice). */
+  function homeDuo() {
+    var fruits = [['jagoda', '#ff3b5c', 18, 62, 34, -14], ['narandza', '#ff9a2e', 52, 66, 36, 8], ['limeta', '#9ad14b', 34, 44, 28, 0], ['lubenica', '#e9364f', 62, 40, 30, 16], ['grozdje', '#8a5cc0', 40, 6, 26, 12]];
+    var fr = fruits.map(function (f) { return '<span class="hxd-fruit" style="--x:' + f[2] + '%;--y:' + f[3] + '%;--s:' + f[4] + '%;--r:' + f[5] + 'deg">' + MSP.illustrate(f[0], { color: f[1] }) + '</span>'; }).join('');
+    var stars = [[14, 30, '#ff6a4a'], [30, 58, '#f0b36a'], [50, 20, '#9fdcff'], [66, 44, '#d9ec5c'], [80, 70, '#c7a6ff'], [42, 78, '#ff7fae'], [86, 24, '#9fdcff'], [22, 82, '#c9824e'], [60, 64, '#ff6a4a'], [8, 56, '#f0b36a']]
+      .map(function (d, i) { return '<i style="--x:' + d[0] + '%;--y:' + d[1] + '%;--c:' + d[2] + ';--i:' + i + '"></i>'; }).join('');
+    var card = function (cls, href, art, eyebrow, title, text) {
+      return '<a class="hxd ' + cls + '" href="' + href + '"><span class="hxd__art" aria-hidden="true">' + art + '</span>' +
+        '<span class="hxd__body"><span class="hxd__k">' + esc(eyebrow) + ' <span class="nav-new">' + esc(t('nav.newBadge')) + '</span></span>' +
+        '<span class="hxd__t">' + esc(title) + '</span><span class="hxd__x">' + esc(text) + '</span></span>' +
+        '<span class="hxd__go" aria-hidden="true">' + icon('arrowRight') + '</span></a>';
+    };
+    var fm = V.fmapTx ? V.fmapTx() : null;
+    return '<section class="hxduo"><div class="container hxduo__grid">' +
+      card('hxd--game', V.url('game'), '<span class="hxd-vase"><span class="hxd-water"></span>' + fr + '</span>', t('explore.gameEyebrow'), 'Shisha Drop', t('explore.gameText')) +
+      (fm ? card('hxd--map', V.url('fmap'), '<span class="hxd-sky"><svg viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M50 20Q58 32 66 44M50 20Q38 30 30 58M66 44Q74 56 80 70M30 58Q36 70 42 78"/></svg>' + stars + '</span>',
+        fm.promoEyebrow, fm.promoTitle, String(fm.promoText).replace('{n}', V.flavors().length)) : '') +
     '</div></section>';
   }
 
@@ -1275,6 +1309,7 @@
       V.recentStrip() +
       V.recoSection() +
       V.fotdSection(V.fotdPick(new Date())) +
+      homeDuo() +
       gamePromo() +
       (V.fmapPromo ? V.fmapPromo() : '') +
       V.homeCollections() +
