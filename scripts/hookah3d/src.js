@@ -13,7 +13,7 @@
 import {
   WebGLRenderer, Scene, PerspectiveCamera, Group, Color, Vector3, PMREMGenerator,
   MeshStandardMaterial, MeshPhysicalMaterial, Mesh, LatheGeometry, Vector2, TubeGeometry,
-  CatmullRomCurve3, BoxGeometry, TorusGeometry, SphereGeometry, CircleGeometry, DirectionalLight, AmbientLight,
+  CatmullRomCurve3, BoxGeometry, TorusGeometry, Float32BufferAttribute, SphereGeometry, CircleGeometry, DirectionalLight, AmbientLight,
   PointLight, ACESFilmicToneMapping, SRGBColorSpace, DoubleSide, InstancedMesh, Object3D, Quaternion
 } from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
@@ -61,24 +61,40 @@ export function mount(wrap, opts) {
   model.position.y = -H / 2;
 
   const brass = new MeshStandardMaterial({ color: 0xd9a35a, metalness: 1, roughness: 0.24 });
-  const glass = new MeshPhysicalMaterial({ color: 0xfff1de, metalness: 0, roughness: 0.04, transparent: true, opacity: 0.13, envMapIntensity: 2, clearcoat: 1, clearcoatRoughness: 0.05, depthWrite: false, side: DoubleSide });
+  // staklo: pravo providno staklo (transmisija) koje lomi i blago boji ono što je iza i u njemu
+  const glass = new MeshPhysicalMaterial({ color: 0xffffff, metalness: 0, roughness: 0.02, transmission: 1, thickness: 1.2, ior: 1.45, envMapIntensity: 2.2, attenuationColor: new Color(0xfff6ec), attenuationDistance: 400, clearcoat: 1, clearcoatRoughness: 0.04, specularIntensity: 1, side: DoubleSide });
+  const glassLite = new MeshPhysicalMaterial({ color: 0xfff1de, metalness: 0, roughness: 0.04, transparent: true, opacity: 0.16, envMapIntensity: 2, clearcoat: 1, depthWrite: false, side: DoubleSide });
   const hoseMat = new MeshStandardMaterial({ color: 0x1b1310, metalness: 0.15, roughness: 0.5 });
   const wc = new Color(opts.water || '#e8b04a');
-  const water = new MeshPhysicalMaterial({ color: wc, emissive: wc.clone().multiplyScalar(0.12), metalness: 0, roughness: 0.2, transparent: true, opacity: 0.9, envMapIntensity: 0.35, depthWrite: false });
+  // voda: puna tečnost (vidi se kroz staklo), tamnija pri dnu, svjetlija i sjajna pri površini
+  const water = new MeshPhysicalMaterial({ vertexColors: true, metalness: 0, roughness: 0.14, clearcoat: 0.5, envMapIntensity: 0.45, emissive: wc.clone().multiplyScalar(0.06) });
   const coalMat = new MeshStandardMaterial({ color: 0x2a1408, emissive: 0xff6a1a, emissiveIntensity: 0.8, roughness: 0.9 });
 
-  // voda: kopija dna vaze, malo uža
-  const wpts = VASE.map(([y, r]) => new Vector2(r * 0.9, y + 0.6));
-  wpts.unshift(new Vector2(0, 0.6));
-  const wmesh = new Mesh(new LatheGeometry(wpts, 48), water);
-  wmesh.renderOrder = 1;
-  const surf = new Mesh(new CircleGeometry(VASE[VASE.length - 1][1] * 0.9, 48), water);
-  surf.rotation.x = -Math.PI / 2; surf.position.y = 16.6;
-  model.add(wmesh, surf);
+  const LEVEL = 15.2;
+  const wpts = VASE.filter(([y]) => y <= LEVEL).map(([y, r]) => new Vector2(r * 0.93, y + 0.5));
+  wpts.unshift(new Vector2(0, 0.5));
+  wpts.push(new Vector2(10.1 * 0.93, LEVEL));
+  const wgeo = new LatheGeometry(wpts, 64);
+  {
+    const pos = wgeo.attributes.position, cols = [];
+    const lo = wc.clone().multiplyScalar(0.3), hi = wc.clone().multiplyScalar(0.95);
+    for (let i = 0; i < pos.count; i++) { const k = Math.min(1, Math.max(0, pos.getY(i) / LEVEL)); const c = lo.clone().lerp(hi, Math.pow(k, 1.4)); cols.push(c.r, c.g, c.b); }
+    wgeo.setAttribute('color', new Float32BufferAttribute(cols, 3));
+  }
+  const wmesh = new Mesh(wgeo, water);
+  // površina vode: malo se nagne kad se nargila okreće, sa svijetlim rubom (meniskus)
+  const surfGroup = new Group(); surfGroup.position.y = LEVEL;
+  const surfMat = new MeshPhysicalMaterial({ color: wc.clone().multiplyScalar(0.9), emissive: wc.clone().multiplyScalar(0.12), metalness: 0, roughness: 0.04, clearcoat: 1, envMapIntensity: 1.4 });
+  const surf = new Mesh(new CircleGeometry(10.1 * 0.93, 64), surfMat);
+  surf.rotation.x = -Math.PI / 2;
+  const meniscus = new Mesh(new TorusGeometry(10.1 * 0.93, 0.28, 8, 64), new MeshStandardMaterial({ color: 0xfff3dc, emissive: 0xffd9a0, emissiveIntensity: 0.25, roughness: 0.2 }));
+  meniscus.rotation.x = Math.PI / 2;
+  surfGroup.add(surf, meniscus);
+  model.add(wmesh, surfGroup);
 
   // mjehurići u vodi
   const BUB = 18;
-  const bubbles = new InstancedMesh(new SphereGeometry(0.45, 8, 6), new MeshStandardMaterial({ color: 0xfff4e0, transparent: true, opacity: 0.75, roughness: 0.1, metalness: 0 }), BUB);
+  const bubbles = new InstancedMesh(new SphereGeometry(0.45, 8, 6), new MeshPhysicalMaterial({ color: 0xfff6e6, roughness: 0.05, metalness: 0, clearcoat: 1, emissive: 0x3a2410 }), BUB);
   const bub = Array.from({ length: BUB }, (_, i) => ({ a: i * 2.4, r: 1 + (i % 5) * 1.2, y: (i * 1.7) % 15, s: 6 + (i % 4) * 2 }));
   const tmp = new Object3D();
   bubbles.visible = false;
@@ -111,9 +127,11 @@ export function mount(wrap, opts) {
   [3, 18].forEach((y) => { const ring = new Mesh(new LatheGeometry([new Vector2(2.05, y - 0.8), new Vector2(2.1, y), new Vector2(2.05, y + 0.8)], 24), brass); handle.add(ring); });
   const end = path.getPoint(1), dir = path.getTangent(1).normalize();
   handle.position.copy(end);
+  const handleTip = end.clone().add(dir.clone().multiplyScalar(30));
   handle.quaternion.copy(new Quaternion().setFromUnitVectors(new Vector3(0, 1, 0), dir));
   model.add(handle);
 
+  let glassMesh = null;
   let alive = true, visible = true, raf = 0, last = 0, ready = false;
   let angle = 0.5, vel = 0, dragging = false, lastX = 0, heat = 0, heatTarget = 0, slow = 0, lowered = false;
   const ptrs = new Map(); let pinch0 = 0, zoom0 = 1, lastTap = 0;
@@ -126,7 +144,7 @@ export function mount(wrap, opts) {
       if (!o.isMesh) return;
       const n = (o.name || o.parent && o.parent.name || '').replace(/_\d+$/, '');
       if (DROP.some((d) => n.indexOf(d) === 0)) { remove.push(o); return; }
-      if (n.indexOf('Rectangle001') === 0) { o.material = glass; o.renderOrder = 2; }
+      if (n.indexOf('Rectangle001') === 0) { o.material = glass; glassMesh = o; }
       else o.material = BRASS.some((b) => n.indexOf(b) === 0) ? brass : brass;
     });
     remove.forEach((o) => o.parent.remove(o));
@@ -156,12 +174,25 @@ export function mount(wrap, opts) {
     camera.position.set(0, ty + H * 0.08 * (1 - k * 0.6), baseDist / zoom);
     camera.lookAt(0, ty, 0);
   }
+  // tačke na ekranu za dim (effects.js): vrh glave i kraj usnika, prate okretanje i približavanje
+  const headW = new Vector3(0, 125.5, 0), mouthW = new Vector3(), vtmp = new Vector3();
+  const pts = { bowl: null, mouth: null };
+  function project(v) {
+    vtmp.copy(v); model.localToWorld(vtmp); vtmp.project(camera);
+    const r = canvas.getBoundingClientRect();
+    return [r.left + (vtmp.x + 1) / 2 * r.width, r.top + (1 - vtmp.y) / 2 * r.height];
+  }
+  hk._hk3d = { point: (name) => (ready ? pts[name] : null) };
   function renderOnce() {
     spin.rotation.y = angle;
     coalMat.emissiveIntensity = 0.8 + heat * 2.6;
     glowMat.emissiveIntensity = 0.55 + heat * 2.4;
     ember.intensity = 6 + heat * 50;
     renderer.render(scene, camera);
+    spin.updateMatrixWorld(true);
+    pts.bowl = project(headW);
+    mouthW.copy(handleTip); pts.mouth = project(mouthW);
+    wrap.style.setProperty('--hk3d-z', ((zoom - 1) / 2).toFixed(3));
   }
   function frame(t) {
     raf = 0;
@@ -171,19 +202,22 @@ export function mount(wrap, opts) {
     heat += (heatTarget - heat) * Math.min(1, dt * 4);
     if (Math.abs(zoomTarget - zoom) > 0.001) { zoom += (zoomTarget - zoom) * Math.min(1, dt * 6); placeCam(); }
     // slabiji telefon: manja rezolucija ako crtanje kasni
-    if (dt > 0) { slow = slow * 0.95 + (dt > 0.03 ? 0.05 : 0); if (slow > 0.6 && !lowered) { lowered = true; renderer.setPixelRatio(1); resize(); } }
+    if (dt > 0) { slow = slow * 0.95 + (dt > 0.03 ? 0.05 : 0); if (slow > 0.6 && !lowered) { lowered = true; renderer.setPixelRatio(1); if (glassMesh) glassMesh.material = glassLite; resize(); } }
     bubbles.visible = heat > 0.05;
     if (bubbles.visible) {
       bub.forEach((b, i) => {
         b.y += dt * b.s * (0.4 + heat);
-        if (b.y > 15.5) b.y = 0.5;
-        const k = b.y / 16, rr = b.r * (1 - k * 0.3);
+        if (b.y > LEVEL - 0.6) b.y = 0.5;
+        const k = b.y / LEVEL, rr = b.r * (1 - k * 0.3);
         tmp.position.set(Math.cos(b.a + b.y * 0.3) * rr, 1 + b.y, Math.sin(b.a + b.y * 0.3) * rr);
         tmp.scale.setScalar(0.6 + k * 0.8);
         tmp.updateMatrix(); bubbles.setMatrixAt(i, tmp.matrix);
       });
       bubbles.instanceMatrix.needsUpdate = true;
     }
+    const tilt = Math.max(-0.12, Math.min(0.12, -(vel + (dragging ? 0 : AUTO)) * 0.05));
+    surfGroup.rotation.z += (tilt - surfGroup.rotation.z) * Math.min(1, dt * 3);
+    surfGroup.position.y = LEVEL + Math.sin(t / 900) * 0.08 * (1 + heat * 3);
     renderOnce();
     loop();
   }
@@ -232,6 +266,8 @@ export function mount(wrap, opts) {
     mo.disconnect(); if (io) io.disconnect(); if (ro) ro.disconnect();
     document.removeEventListener('visibilitychange', onVis);
     wrap.classList.remove('is-3d');
+    delete hk._hk3d;
+    wrap.style.removeProperty('--hk3d-z');
     renderer.dispose();
     canvas.remove();
   }

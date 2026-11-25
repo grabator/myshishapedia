@@ -9736,3 +9736,5 @@ a.crt-video__play { text-decoration: none; }
 .hero--home .hookah-wrap.is-3d .hx3d { opacity: 1; }
 .hero--home .hookah-wrap.is-3d > .hookah { opacity: 0; transition: opacity 0.6s ease; }
 .hero--home .hookah-wrap.is-3d .pull-ui { position: relative; z-index: 2; }
+/* 3D: krug sa ugljevima i znak se sklone dok je nargila približena */
+.hero--home .hookah-wrap.is-3d .hx2-scene { opacity: calc(1 - var(--hk3d-z, 0) * 1.8); transition: opacity 0.2s linear; }

@@ -471,6 +471,8 @@
       activeEmitters++;
       var ex = r.left + r.width * o.point[0];
       var ey = r.top + r.height * o.point[1];
+      var at = o.at && o.at();
+      if (at) { ex = at[0]; ey = at[1]; }
       em.acc += (o.rate || 5) * em.rateMul * dt;
       while (em.acc >= 1) {
         em.acc -= 1;
@@ -600,6 +602,11 @@
     }
 
     function pointAt(fx, fy) {
+      // 3D nargila (js/hookah3d.js) daje prave tačke glave i usnika na ekranu
+      if (stage._hk3d) {
+        var p3 = stage._hk3d.point(fx === P.mouth[0] && fy === P.mouth[1] ? 'mouth' : (fx === P.bowl[0] && fy === P.bowl[1] ? 'bowl' : ''));
+        if (p3) return p3;
+      }
       var r = svg.getBoundingClientRect();
       return [r.left + r.width * (fx / P.width), r.top + r.height * (fy / P.height)];
     }
@@ -611,6 +618,7 @@
         emitterId = Field.addEmitter({
           anchor: svg,
           point: [P.bowl[0] / P.width, P.bowl[1] / P.height],
+          at: function () { return stage._hk3d ? stage._hk3d.point('bowl') : null; },
           rate: (opts.bowlSmoke && opts.bowlSmoke.rate) || 6,
           colors: opts.colors,
           r1: [50, 120], life: [3, 5.2], speed: [28, 55],
