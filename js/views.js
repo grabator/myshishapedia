@@ -1252,14 +1252,6 @@
   };
 
   /** Krug "313 okusa" s tekstom u krug (vidi se na mobitelu). */
-  function heroBadge() {
-    var n = V.flavors().length;
-    var ring = t('home.ring', { f: n, b: V.brandStats().length });
-    return '<span class="hx-badge" aria-hidden="true"><svg viewBox="0 0 76 76"><defs><path id="hx-ring" d="M38,38 m-30,0 a30,30 0 1,1 60,0 a30,30 0 1,1 -60,0"/></defs>' +
-      '<circle cx="38" cy="38" r="37" class="hx-badge__c"/><text class="hx-badge__t"><textPath href="#hx-ring">' + esc(ring) + '</textPath></text></svg>' +
-      '<span class="hx-badge__n"><b>' + n + '</b><small>' + esc(t('home.flavorsWord')) + '</small></span></span>';
-  }
-
   /** Logo brenda (ako je dodat u podatke kao b.logo) ili monogram u boji brenda. */
   function brandMark(b) {
     var pal = b.palette || {};
@@ -1316,27 +1308,81 @@
     '</div></section>';
   }
 
+  /** Znak MyShishapedije (tri pramena dima) kao SVG; id mora biti jedinstven na stranici. */
+  function hx2Mark(id) {
+    var P = ['M22 50c-6-8 6-12 0-20s4-13 4-13', 'M34 52c-6-9 7-13 1-22s4-15 4-15', 'M45 48c-5-7 5-10 0-17s3-11 3-11'];
+    return '<svg class="hx2-mark" viewBox="12 10 42 46" aria-hidden="true" focusable="false"><defs>' +
+      '<linearGradient id="' + id + '-g" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#ffcf7a"/><stop offset=".45" stop-color="#f2a33c"/><stop offset="1" stop-color="#f6c67a" stop-opacity=".25"/></linearGradient></defs>' +
+      '<g fill="none" stroke-linecap="round" stroke="url(#' + id + '-g)">' +
+      P.map(function (d, i) { return '<path class="hx2-w hx2-w--' + (i + 1) + '" d="' + d + '"/>'; }).join('') + '</g></svg>';
+  }
+  /** Scena iza nargile na početnoj: krug sa tri užarena uglja koji kruže, iskre i veliki znak. */
+  function hx2Scene() {
+    var c = 200, r = 182, coals = '', sparks = '';
+    [0, 120, 240].forEach(function (deg) {
+      var a = (deg - 90) * Math.PI / 180, x = c + r * Math.cos(a), y = c + r * Math.sin(a);
+      var a1 = (deg - 90 - 34) * Math.PI / 180, x1 = c + r * Math.cos(a1), y1 = c + r * Math.sin(a1);
+      coals += '<path class="hx2-tail" d="M' + x1.toFixed(1) + ' ' + y1.toFixed(1) + 'A' + r + ' ' + r + ' 0 0 1 ' + x.toFixed(1) + ' ' + y.toFixed(1) + '"/>' +
+        '<g transform="translate(' + x.toFixed(1) + ' ' + y.toFixed(1) + ') rotate(' + deg + ')"><rect class="hx2-coal" x="-9" y="-7" width="18" height="14" rx="3.5"/><rect class="hx2-coal__hot" x="-5.5" y="-3.5" width="11" height="7" rx="2"/></g>';
+    });
+    for (var i = 0; i < 18; i++) {
+      var aa = (i * 137.5) * Math.PI / 180, rr = r + ((i * 53) % 30 - 15);
+      sparks += '<circle class="hx2-spark" style="--d:' + ((i * 0.37) % 3).toFixed(2) + 's" cx="' + (c + rr * Math.cos(aa)).toFixed(1) + '" cy="' + (c + rr * Math.sin(aa)).toFixed(1) + '" r="' + (0.9 + (i % 3) * 0.5).toFixed(1) + '"/>';
+    }
+    return '<div class="hx2-scene" aria-hidden="true">' +
+      '<svg class="hx2-ring" viewBox="0 0 400 400" focusable="false">' +
+        '<circle class="hx2-ring__halo" cx="200" cy="200" r="' + r + '"/><circle class="hx2-ring__line" cx="200" cy="200" r="' + r + '"/>' +
+        '<g class="hx2-sparks">' + sparks + '</g>' +
+        '<g class="hx2-orbit"><g class="hx2-orbit__boost">' + coals + '</g></g>' +
+      '</svg>' + hx2Mark('hx2-big') + '</div>';
+  }
+  /** Pozadina vrha početne: dim (SVG šum), zvijezde i vinjeta. Statični sloj koji se samo polako pomjera (jeftino za telefon). */
+  function hx2Bg() {
+    var stars = '';
+    for (var i = 0; i < 44; i++) {
+      var x = (i * 61.8) % 100, y = (i * 37.3) % 48, z = 0.8 + (i % 4) * 0.45;
+      stars += '<i style="left:' + x.toFixed(1) + '%;top:' + y.toFixed(1) + '%;width:' + z + 'px;height:' + z + 'px;--d:' + ((i * 0.53) % 4).toFixed(2) + 's"></i>';
+    }
+    return '<div class="hx2-bg" aria-hidden="true">' +
+      '<svg class="hx2-smoke" viewBox="0 0 400 800" preserveAspectRatio="xMidYMid slice" focusable="false"><defs>' +
+        '<filter id="hx2-s1" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency=".005 .01" numOctaves="4" seed="11"/><feColorMatrix values="0 0 0 0 1  0 0 0 0 .62  0 0 0 0 .3  0 0 0 2.4 -.9"/></filter>' +
+        '<filter id="hx2-s2" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency=".009 .016" numOctaves="3" seed="14"/><feColorMatrix values="0 0 0 0 .62  0 0 0 0 .38  0 0 0 0 .9  0 0 0 2.2 -.95"/></filter>' +
+      '</defs><rect class="hx2-smoke__a" x="-80" y="-120" width="560" height="1040" filter="url(#hx2-s1)"/><rect class="hx2-smoke__b" x="-80" y="-120" width="560" height="1040" filter="url(#hx2-s2)"/></svg>' +
+      '<div class="hx2-stars">' + stars + '</div><div class="hx2-vig"></div></div>';
+  }
+  /** Brze pretrage ispod polja: pravi linkovi na stranice okusa, kolekciju i sastojak. */
+  function hx2Chips() {
+    var items = [];
+    ['al-fakher-double-apple', 'adalya-love-66'].forEach(function (id) { var f = V.flavorById(id); if (f) items.push('<a href="' + V.flavorUrl(f) + '">' + esc(f.name) + '</a>'); });
+    var icy = V.collections().filter(function (c) { return c.id === 'icy'; })[0];
+    if (icy) items.push('<a href="' + V.collectionUrl(icy) + '">' + esc(t('home.chipIcy')) + '</a>');
+    var gm = V.ingredientPage && V.ingredientPage('grape-mint');
+    if (gm) items.push('<a href="' + V.ingredientUrl(gm) + '">' + esc(t('home.chipGrapeMint')) + '</a>');
+    return '<nav class="hx2-chips anim-in" style="--i:6" aria-label="' + esc(t('home.chipsLabel')) + '">' + items.join('') + '</nav>';
+  }
+
   function pageHome() {
     var th = V.themeFor(null);
     var now = V.heroCycle()[0];
     return (
       '<section class="hero hero--home" aria-labelledby="home-title" style="' + V.heroAura(now) + '">' +
-        '<div class="hero-aura" aria-hidden="true"><span></span><span></span><span></span></div>' +
+        '<div class="hero-aura" aria-hidden="true"><span></span><span></span><span></span></div>' + hx2Bg() +
         '<div class="container hero__inner">' +
           '<div class="hero__copy">' +
-            '<p class="eyebrow anim-in" style="--i:0"><span class="eyebrow__dot" aria-hidden="true"></span>' + esc(t('home.eyebrow')) + '</p>' +
+            '<p class="eyebrow hx2-eb anim-in" style="--i:0">' + hx2Mark('hx2-eb') + esc(t('home.eyebrow')) + '</p>' +
             '<div class="hero__head">' +
             '<h1 class="hero__title" id="home-title" tabindex="-1">' +
               '<span class="line"><span class="line__in" style="--i:1">' + esc(t('home.titleA')) + '</span></span> ' +
               '<span class="line"><span class="line__in" style="--i:2"><em>' + esc(t('home.titleEm')) + '</em></span></span> ' +
               '<span class="line"><span class="line__in" style="--i:3">' + esc(t('home.titleB')) + '</span></span>' +
-            '</h1>' + heroBadge() +
+            '</h1>' +
             '</div>' +
             '<p class="hero__lead anim-in" style="--i:4">' + esc(t('home.lead')) + '</p>' +
             searchForm('search-input', 'home.searchLabel', 'home.searchPlaceholder') +
+            hx2Chips() +
             nowChip(now) +
           '</div>' +
-          '<div class="hero__stage"><span class="hx-float hx-float--l" aria-hidden="true"><i></i>' + esc(t('home.live')) + '</span><span class="hx-float hx-float--r" aria-hidden="true">' + esc(MSP.plural('home.brandsShort', V.brandStats().length)) + '</span>' + V.hookahStage(Object.assign({}, th, { hk: Object.assign({}, th.hk, { water: V.themeFor(now).hk.water }) })) + '</div>' +
+          '<div class="hero__stage">' + V.hookahStage(Object.assign({}, th, { hk: Object.assign({}, th.hk, { water: V.themeFor(now).hk.water }) })).replace('<div class="hookah" data-hookah>', hx2Scene() + '<div class="hookah" data-hookah>') + '</div>' +
         '</div>' +
       '</section>' +
       V.recentStrip() +

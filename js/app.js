@@ -511,6 +511,7 @@
     mountFotd();
     fitHeroStage();
     startHookah(hero, th, { introDelay: 1.7, bowlSmoke: { rate: 8, alpha: 0.26 } });
+    cleanup(hx2Puff(hero));
     cleanup(whenAgeOk(function () { hero._explode = heroExplode(hero); heroCycle(hero); }));
     cleanup(FX.parallax(hero));
     var grid = document.getElementById('flavor-grid');
@@ -628,6 +629,24 @@
    * Mobitel: prvi ekran početne je tačno visok kao ekran, a nargila se smanji da stane u panel
    * (CSS daje visine, ovdje se samo izračuna razmjer).
    */
+  /** Početna: kad pustiš dim, znak iza nargile se kratko podigne i zasvijetli. */
+  function hx2Puff(hero) {
+    var hk = hero && hero.querySelector('[data-hookah]');
+    var scene = hero && hero.querySelector('.hx2-scene');
+    if (!hk || !scene || !('MutationObserver' in window)) return function () {};
+    var was = false, tm = 0;
+    var mo = new MutationObserver(function () {
+      var on = hk.classList.contains('is-pulling');
+      if (was && !on) {
+        scene.classList.remove('is-puff'); void scene.offsetWidth; scene.classList.add('is-puff');
+        clearTimeout(tm); tm = setTimeout(function () { scene.classList.remove('is-puff'); }, 1400);
+      }
+      was = on;
+    });
+    mo.observe(hk, { attributes: true, attributeFilter: ['class'] });
+    return function () { mo.disconnect(); clearTimeout(tm); };
+  }
+
   function fitHeroStage() {
     var hero = document.querySelector('.hero--home');
     var stage = hero && hero.querySelector('.hero__stage');
