@@ -82,7 +82,7 @@ window.CREATOR_MIXES = [
     slug: 'four-flavour-mix',
     name: 'Four Flavour Mix',
     parts: [
-      { brand: 'Adalya Aqua Menta', flavor: 'Golden Anna', pct: 50, color: '#4fb39b' },
+      { brand: 'Adalya Aqua Menta', flavor: 'Golden Anna', pct: 50, color: '#4fb39b', note: { bs: 'ananas', en: 'pineapple', de: 'Ananas', ru: 'ананас' } },
       { brand: 'Blackburn', flavor: 'Red Kiwi', pct: 25, color: '#c23b4a', note: { bs: 'kivi', en: 'kiwi', de: 'Kiwi', ru: 'киви' } },
       { brand: 'Darkside', flavor: 'Virgin Peach 2.0', pct: 12.5, color: '#f08a4b', note: { bs: 'breskva', en: 'peach', de: 'Pfirsich', ru: 'персик' } },
       { brand: 'Blackburn', flavor: 'Etalon MLN', pct: 12.5, color: '#e3b23c', note: { bs: 'dinja', en: 'melon', de: 'Melone', ru: 'дыня' } }
