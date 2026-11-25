@@ -1350,17 +1350,6 @@
       '</defs><rect class="hx2-smoke__a" x="-80" y="-120" width="560" height="1040" filter="url(#hx2-s1)"/><rect class="hx2-smoke__b" x="-80" y="-120" width="560" height="1040" filter="url(#hx2-s2)"/></svg>' +
       '<div class="hx2-stars">' + stars + '</div><div class="hx2-vig"></div></div>';
   }
-  /** Brze pretrage ispod polja: pravi linkovi na stranice okusa, kolekciju i sastojak. */
-  function hx2Chips() {
-    var items = [];
-    ['al-fakher-double-apple', 'adalya-love-66'].forEach(function (id) { var f = V.flavorById(id); if (f) items.push('<a href="' + V.flavorUrl(f) + '">' + esc(f.name) + '</a>'); });
-    var icy = V.collections().filter(function (c) { return c.id === 'icy'; })[0];
-    if (icy) items.push('<a href="' + V.collectionUrl(icy) + '">' + esc(t('home.chipIcy')) + '</a>');
-    var gm = V.ingredientPage && V.ingredientPage('grape-mint');
-    if (gm) items.push('<a href="' + V.ingredientUrl(gm) + '">' + esc(t('home.chipGrapeMint')) + '</a>');
-    return '<nav class="hx2-chips anim-in" style="--i:6" aria-label="' + esc(t('home.chipsLabel')) + '">' + items.join('') + '</nav>';
-  }
-
   function pageHome() {
     var th = V.themeFor(null);
     var now = V.heroCycle()[0];
@@ -1379,7 +1368,6 @@
             '</div>' +
             '<p class="hero__lead anim-in" style="--i:4">' + esc(t('home.lead')) + '</p>' +
             searchForm('search-input', 'home.searchLabel', 'home.searchPlaceholder') +
-            hx2Chips() +
             nowChip(now) +
           '</div>' +
           '<div class="hero__stage">' + V.hookahStage(Object.assign({}, th, { hk: Object.assign({}, th.hk, { water: V.themeFor(now).hk.water }) })).replace('<div class="hookah" data-hookah>', hx2Scene() + '<div class="hookah" data-hookah>') + '</div>' +
