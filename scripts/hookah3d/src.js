@@ -61,8 +61,8 @@ export function mount(wrap, opts) {
   model.position.y = -H / 2;
 
   const brass = new MeshStandardMaterial({ color: 0xd9a35a, metalness: 1, roughness: 0.24 });
-  // staklo: pravo providno staklo (transmisija) koje lomi i blago boji ono što je iza i u njemu
-  const glass = new MeshPhysicalMaterial({ color: 0xffffff, metalness: 0, roughness: 0.02, transmission: 1, thickness: 1.2, ior: 1.45, envMapIntensity: 2.2, attenuationColor: new Color(0xfff6ec), attenuationDistance: 400, clearcoat: 1, clearcoatRoughness: 0.04, specularIntensity: 1, side: DoubleSide });
+  // staklo: blago, sjajno staklo (kao u prvoj verziji)
+  const glass = new MeshPhysicalMaterial({ color: 0xfff1de, metalness: 0, roughness: 0.04, transparent: true, opacity: 0.13, envMapIntensity: 2, clearcoat: 1, clearcoatRoughness: 0.05, depthWrite: false, side: DoubleSide });
   const glassLite = new MeshPhysicalMaterial({ color: 0xfff1de, metalness: 0, roughness: 0.04, transparent: true, opacity: 0.16, envMapIntensity: 2, clearcoat: 1, depthWrite: false, side: DoubleSide });
   const hoseMat = new MeshStandardMaterial({ color: 0x1b1310, metalness: 0.15, roughness: 0.5 });
   const wc = new Color(opts.water || '#e8b04a');
@@ -144,7 +144,7 @@ export function mount(wrap, opts) {
       if (!o.isMesh) return;
       const n = (o.name || o.parent && o.parent.name || '').replace(/_\d+$/, '');
       if (DROP.some((d) => n.indexOf(d) === 0)) { remove.push(o); return; }
-      if (n.indexOf('Rectangle001') === 0) { o.material = glass; glassMesh = o; }
+      if (n.indexOf('Rectangle001') === 0) { o.material = glass; o.renderOrder = 2; glassMesh = o; }
       else o.material = BRASS.some((b) => n.indexOf(b) === 0) ? brass : brass;
     });
     remove.forEach((o) => o.parent.remove(o));
