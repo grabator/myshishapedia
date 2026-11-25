@@ -234,6 +234,15 @@ var dv=+g('sessionStorage','msp-dive');if(dv){if(Date.now()-dv<9000)c+=' dive-in
 d.className+=c;s('localStorage','msp-lang',d.lang);
 document.addEventListener('pointerdown',function(e){var l=e.target.closest&&e.target.closest('#loader');if(l)l.classList.add('is-done')});document.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('#age-gate [data-age="yes"]');if(b){s('localStorage','msp-age-ok','1');d.classList.add('age-ok')}})})();`;
 
+// Početna: 3D nargila se preuzima odmah uz stranicu (modul i model paralelno). Klasa hk3d sakrije
+// crtanu nargilu dok 3D ne stigne; slab telefon, ušteda podataka ili bez WebGL-a ostaju na crtanoj.
+// Ako 3D ne stigne za 8 s, crtana se vrati sama.
+const HK3D_HEAD = [
+  `<link rel="modulepreload" href="${asset('js/hookah3d.js')}">`,
+  `<link rel="preload" as="fetch" crossorigin href="${asset('static/models/nargila.glb')}">`,
+  `<script>(function(){var d=document.documentElement,n=navigator,c=n.connection;try{if(c&&c.saveData)return;if(n.deviceMemory&&n.deviceMemory<2)return;if(n.hardwareConcurrency&&n.hardwareConcurrency<3)return;var x=document.createElement('canvas');if(!(x.getContext('webgl2')||x.getContext('webgl')))return}catch(e){return}d.classList.add('hk3d');setTimeout(function(){if(!document.querySelector('.hookah-wrap.is-3d'))d.classList.remove('hk3d')},8000)})();</script>`
+].join('');
+
 // Uvod pri prvoj posjeti u sesiji: žar, tri pramena dima (znak), naziv, pa se dim otvori u stranicu.
 // Sve je CSS i SVG, ide i bez JavaScripta; dodir ga preskače (HEAD_SCRIPT), uz "smanji animacije" se ne prikazuje.
 const LOADER_TAG = { bs: 'Enciklopedija okusa', en: 'Flavor encyclopedia', de: 'Aromen-Enzyklopädie', ru: 'Энциклопедия вкусов' };
@@ -471,6 +480,7 @@ function head(desc, lang, info) {
     `<link rel="stylesheet" href="${asset('css/style.css')}">`,
     (PAGE_STYLES[desc.page] || []).concat((art && art.styles) || []).map((f) => `<link rel="stylesheet" href="${asset(f)}">`).join(''),
     `<script>${HEAD_SCRIPT}</script>`,
+    desc.page === 'home' ? HK3D_HEAD : '',
     // skripte se preuzimaju i pokreću tek kad se stranica prvi put iscrta (brži LCP na slabim telefonima)
     `<script>${scriptLoader(scripts.map(asset))}</script>`,
     structuredData(desc, lang, info)
@@ -1064,7 +1074,7 @@ function writeCloudflareFiles(rendered) {
   const csp = [
     "default-src 'self'",
     // Turnstile (zaštita ocjena od robota): skripta i iframe sa challenges.cloudflare.com
-    ["script-src 'self'", ...inlineScriptHashes(), analytics ? 'https://static.cloudflareinsights.com' : '', TURNSTILE].filter(Boolean).join(' '),
+    ["script-src 'self' 'wasm-unsafe-eval'", ...inlineScriptHashes(), analytics ? 'https://static.cloudflareinsights.com' : '', TURNSTILE].filter(Boolean).join(' '),
     // inline style atributi nose boje okusa (style="--c-bg:..."), pa su potrebni
     "style-src 'self' 'unsafe-inline'",
     "font-src 'self'",

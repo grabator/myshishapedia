@@ -9738,3 +9738,23 @@ a.crt-video__play { text-decoration: none; }
 .hero--home .hookah-wrap.is-3d .pull-ui { position: relative; z-index: 2; }
 /* 3D: krug sa ugljevima i znak se sklone dok je nargila približena */
 .hero--home .hookah-wrap.is-3d .hx2-scene { opacity: calc(1 - var(--hk3d-z, 0) * 1.8); transition: opacity 0.2s linear; }
+/* 3D se učitava odmah: crtana nargila se ne prikazuje dok 3D ne stigne (html.hk3d postavlja <head> početne) */
+.hk3d .hero--home .hookah-wrap:not(.is-3d) > .hookah { opacity: 0; }
+.hero--home .hookah-wrap.is-3d .hx3d { transition-duration: 0.45s; }
+/* dugme 360°: slobodan pogled na 3D nargilu */
+.hx3d-360 { position: absolute; z-index: 3; top: 0; left: 4px; display: inline-flex; align-items: center; gap: 7px; min-height: 36px; padding: 0 13px 0 6px; border-radius: 999px; font: 600 0.78rem/1 var(--font-ui, inherit); color: #f7e7cf; background: linear-gradient(180deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.02)), rgba(20, 14, 11, 0.66); border: 1px solid rgba(242, 163, 60, 0.32); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); cursor: pointer; opacity: 0; pointer-events: none; transition: opacity 0.5s ease, border-color 0.2s, box-shadow 0.2s; }
+.hx3d-360[aria-pressed='true'] span { font-size: 0.9rem; }
+.hx3d-360 span { display: grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; font-size: 0.6rem; letter-spacing: -0.02em; color: #1b120c; background: linear-gradient(180deg, #ffc66d, #e58a24); }
+.hx3d-360 b { font-weight: 600; }
+.hookah-wrap.is-3d .hx3d-360 { opacity: 1; pointer-events: auto; }
+.hx3d-360:hover, .hx3d-360:focus-visible { border-color: rgba(242, 163, 60, 0.8); }
+.hx3d-360[aria-pressed='true'] { border-color: rgba(242, 163, 60, 0.85); box-shadow: 0 0 0 5px rgba(242, 163, 60, 0.14), 0 0 26px rgba(242, 163, 60, 0.4); }
+.hookah-wrap.is-free .hx3d { touch-action: none; }
+/* telefon: samo okrugla ikona 360° desno od "Drži za dim" (uključeno: ikona X za izlaz) */
+@media (max-width: 759px) {
+  .hero--home .hx3d-360 { left: auto; right: 14px; height: 52px; min-width: 52px; padding: 0 5px; gap: 0; justify-content: center; }
+  .hx3d-360 span { width: 40px; height: 40px; font-size: 0.74rem; }
+  .hx3d-360 b { display: none; }
+}
+/* 3D platno: mekane ivice gore i dolje (kad se približi, nema oštrog reza) */
+.hero--home .hx3d { -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 7%, #000 93%, transparent 100%); mask-image: linear-gradient(180deg, transparent 0, #000 7%, #000 93%, transparent 100%); }

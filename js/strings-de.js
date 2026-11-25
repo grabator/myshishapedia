@@ -166,6 +166,8 @@
     },
     "hookah": {
       "label": "Shisha. Gedrückt halten, um einen Zug zu nehmen.",
+      "view360": "360°-Ansicht",
+      "view360Off": "Fertig",
       "pull": "Halten zum Ziehen",
       "strength": "Zugstärke",
       "hint": "Halte die Shisha oder den Button gedrückt und lass dann los.",

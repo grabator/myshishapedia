@@ -165,6 +165,7 @@
 
       hookah: {
         label: 'Nargila. Pritisni i drži da povučeš dim.',
+        view360: '360° pogled', view360Off: 'Gotovo',
         pull: 'Drži za dim',
         strength: 'Jačina povlačenja',
         hint: 'Pritisni i drži nargilu ili dugme, pa pusti.',
@@ -1480,6 +1481,7 @@
 
       hookah: {
         label: 'Hookah. Press and hold to take a pull.',
+        view360: '360° view', view360Off: 'Done',
         pull: 'Hold to pull',
         strength: 'Pull strength',
         hint: 'Press and hold the hookah or the button, then let go.',
