@@ -13,7 +13,7 @@
 import {
   WebGLRenderer, Scene, PerspectiveCamera, Group, Color, Vector3, PMREMGenerator,
   MeshStandardMaterial, MeshPhysicalMaterial, Mesh, LatheGeometry, Vector2, TubeGeometry,
-  CatmullRomCurve3, BoxGeometry, SphereGeometry, CircleGeometry, DirectionalLight, AmbientLight,
+  CatmullRomCurve3, BoxGeometry, TorusGeometry, SphereGeometry, CircleGeometry, DirectionalLight, AmbientLight,
   PointLight, ACESFilmicToneMapping, SRGBColorSpace, DoubleSide, InstancedMesh, Object3D, Quaternion
 } from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
@@ -52,11 +52,12 @@ export function mount(wrap, opts) {
   scene.add(new AmbientLight(0xffe2c0, 0.25));
   const key = new DirectionalLight(0xffd2a0, 2.1); key.position.set(80, 160, 120); scene.add(key);
   const rim = new DirectionalLight(0xff8a3c, 2.6); rim.position.set(-120, 60, -100); scene.add(rim);
-  const ember = new PointLight(0xff8a3c, 0, 90, 1.6); ember.position.set(0, H + 4, 0); scene.add(ember);
 
   const camera = new PerspectiveCamera(26, 1, 1, 2000);
   const spin = new Group(); scene.add(spin);
   const model = new Group(); spin.add(model);
+  // svjetlo žara ispod poklopca
+  const ember = new PointLight(0xff8a3c, 0, 70, 1.6); ember.position.set(0, 119, 0); model.add(ember);
   model.position.y = -H / 2;
 
   const brass = new MeshStandardMaterial({ color: 0xd9a35a, metalness: 1, roughness: 0.24 });
@@ -84,14 +85,19 @@ export function mount(wrap, opts) {
   model.add(bubbles);
 
   // ugljevi na glavi
+  // ugljevi stoje ISPOD zlatnog poklopca (HMD); vidi se samo žar na rubu i svjetlo ispod njega
   const coals = [];
   for (let i = 0; i < 3; i++) {
-    const c = new Mesh(new BoxGeometry(3.4, 2.4, 3.4), coalMat);
+    const c = new Mesh(new BoxGeometry(2.4, 1.6, 2.4), coalMat);
     const a = i * Math.PI * 2 / 3 + 0.4;
-    c.position.set(Math.cos(a) * 3.6, H + 1.2, Math.sin(a) * 3.6);
+    c.position.set(Math.cos(a) * 2.6, 117.6, Math.sin(a) * 2.6);
     c.rotation.y = a;
     coals.push(c); model.add(c);
   }
+  const glowMat = new MeshStandardMaterial({ color: 0x1a0a04, emissive: 0xff7a24, emissiveIntensity: 0.6, roughness: 1 });
+  const seam = new Mesh(new TorusGeometry(6.3, 0.45, 8, 48), glowMat);
+  seam.rotation.x = Math.PI / 2; seam.position.y = 117.1;
+  model.add(seam);
 
   // kraće crijevo: od spirale na priključku, niz desnu stranu do drške na podu
   const path = new CatmullRomCurve3([
@@ -109,7 +115,8 @@ export function mount(wrap, opts) {
   model.add(handle);
 
   let alive = true, visible = true, raf = 0, last = 0, ready = false;
-  let angle = 0.5, vel = 0, dragging = false, lastX = 0, heat = 0, heatTarget = 0;
+  let angle = 0.5, vel = 0, dragging = false, lastX = 0, heat = 0, heatTarget = 0, slow = 0, lowered = false;
+  const ptrs = new Map(); let pinch0 = 0, zoom0 = 1, lastTap = 0;
   const AUTO = opts.reduced ? 0 : 0.22;
 
   new GLTFLoader().load(opts.url || '/models/nargila.glb', (g) => {
@@ -137,15 +144,23 @@ export function mount(wrap, opts) {
     renderer.setSize(w, h, false);
     camera.aspect = w / h;
     // visina modela (sa malo prostora) stane u platno
-    const dist = (H * 0.56) / Math.tan((camera.fov * Math.PI / 180) / 2);
-    camera.position.set(0, H * 0.06, dist);
-    camera.lookAt(0, -H * 0.02, 0);
+    baseDist = (H * 0.56) / Math.tan((camera.fov * Math.PI / 180) / 2);
+    placeCam();
     camera.updateProjectionMatrix();
+  }
+  // približavanje: zoom 1 = cijela nargila, do 3 = glava izbliza (cilj klizi prema glavi)
+  let baseDist = 300, zoom = 1, zoomTarget = 1;
+  function placeCam() {
+    const k = (zoom - 1) / 2;
+    const ty = -H * 0.02 + k * (H * 0.5 - 6);
+    camera.position.set(0, ty + H * 0.08 * (1 - k * 0.6), baseDist / zoom);
+    camera.lookAt(0, ty, 0);
   }
   function renderOnce() {
     spin.rotation.y = angle;
     coalMat.emissiveIntensity = 0.8 + heat * 2.6;
-    ember.intensity = heat * 60;
+    glowMat.emissiveIntensity = 0.55 + heat * 2.4;
+    ember.intensity = 6 + heat * 50;
     renderer.render(scene, camera);
   }
   function frame(t) {
@@ -154,6 +169,9 @@ export function mount(wrap, opts) {
     const dt = Math.min(0.05, (t - (last || t)) / 1000); last = t;
     if (!dragging) { vel *= Math.pow(0.04, dt); angle += (AUTO + vel) * dt; }
     heat += (heatTarget - heat) * Math.min(1, dt * 4);
+    if (Math.abs(zoomTarget - zoom) > 0.001) { zoom += (zoomTarget - zoom) * Math.min(1, dt * 6); placeCam(); }
+    // slabiji telefon: manja rezolucija ako crtanje kasni
+    if (dt > 0) { slow = slow * 0.95 + (dt > 0.03 ? 0.05 : 0); if (slow > 0.6 && !lowered) { lowered = true; renderer.setPixelRatio(1); resize(); } }
     bubbles.visible = heat > 0.05;
     if (bubbles.visible) {
       bub.forEach((b, i) => {
@@ -172,14 +190,28 @@ export function mount(wrap, opts) {
   function loop() { if (!raf && alive && visible && ready) raf = requestAnimationFrame(frame); }
 
   // okretanje prevlačenjem (vodoravno); vertikalno listanje ostaje pregledniku
-  function down(e) { dragging = true; lastX = e.clientX; vel = 0; try { canvas.setPointerCapture(e.pointerId); } catch (err) { /* nije kritično */ } }
+  function pdist() { const a = [...ptrs.values()]; return Math.hypot(a[0].x - a[1].x, a[0].y - a[1].y); }
+  function setZoom(z) { zoomTarget = Math.max(1, Math.min(3, z)); loop(); }
+  function down(e) {
+    ptrs.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    try { canvas.setPointerCapture(e.pointerId); } catch (err) { /* nije kritično */ }
+    if (ptrs.size === 2) { dragging = false; pinch0 = pdist(); zoom0 = zoomTarget; return; }
+    const now = performance.now();
+    if (now - lastTap < 300) { setZoom(zoomTarget > 1.4 ? 1 : 2.4); lastTap = 0; } else lastTap = now;
+    dragging = true; lastX = e.clientX; vel = 0;
+  }
   function move(e) {
+    if (!ptrs.has(e.pointerId)) return;
+    ptrs.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    if (ptrs.size === 2 && pinch0) { setZoom(zoom0 * pdist() / pinch0); return; }
     if (!dragging) return;
     const dx = e.clientX - lastX; lastX = e.clientX;
     const d = dx * 0.012; angle += d; vel = d * 40;
     if (!raf) renderOnce();
   }
-  function up() { dragging = false; last = 0; loop(); }
+  function up(e) { ptrs.delete(e.pointerId); if (ptrs.size < 2) pinch0 = 0; dragging = false; last = 0; loop(); }
+  // računar: Ctrl + kotačić približava (običan kotačić i dalje lista stranicu)
+  canvas.addEventListener('wheel', (e) => { if (!e.ctrlKey) return; e.preventDefault(); setZoom(zoomTarget * (e.deltaY < 0 ? 1.12 : 0.89)); }, { passive: false });
   canvas.addEventListener('pointerdown', down);
   canvas.addEventListener('pointermove', move);
   canvas.addEventListener('pointerup', up);
