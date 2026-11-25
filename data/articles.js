@@ -29,6 +29,87 @@
  */
 window.ARTICLES = [
   {
+    id: 'vise-dima',
+    slug: { bs: 'kako-dobiti-vise-dima-iz-nargile', en: 'how-to-get-more-smoke-from-a-hookah', de: 'mehr-rauch-bei-der-shisha', ru: 'kak-sdelat-bolshe-dyma-v-kalyane' },
+    published: '2026-11-25',
+    eyebrow: { bs: "Savjeti", en: "Tips" },
+    title: { bs: "Kako dobiti više dima iz nargile: 10 savjeta", en: "How to get more smoke from a hookah: 10 tips" },
+    metaTitle: { bs: "Više dima iz nargile: 10 savjeta za guste oblake", en: "More hookah smoke: 10 tips and tricks for thick clouds" },
+    metaDescription: {
+      bs: "Malo dima iz nargile? Kako napuniti glavu, koliko zagrijati, koliko vode staviti i kako zatvoriti nargilu da dim bude gust i ukusan.",
+      en: "Weak hookah smoke? How to pack the bowl, how long to heat it, how much water to use and how to seal the hookah for thick, tasty clouds."
+    },
+    lead: {
+      bs: "Gust dim ne dolazi od jednog trika nego od više sitnica: svjež duhan, dobro napunjena glava, dovoljno toplote i nargila koja dobro dihtuje. Evo 10 stvari koje najviše pomažu.",
+      en: "Thick smoke does not come from one trick but from several small things: fresh tobacco, a well-packed bowl, enough heat and a hookah that seals well. Here are the 10 things that help the most."
+    },
+    sections: [
+      {
+        h: { bs: "Duhan i glava", en: "Tobacco and bowl" },
+        p: {
+          bs: [
+            "1. Svjež, sočan duhan. Dim nastaje iz [[melasa|melase]] i [[glicerin|glicerina]] u duhanu. Suh duhan daje malo dima i slab okus, pa ga čuvaj dobro zatvorenog.",
+            "2. Rahlo punjenje. Duhan sitno istresi u glavu, ne nabijaj ga. Zrak mora prolaziti kroz duhan, inače se dim guši i okus postaje gorak.",
+            "3. Pravi razmak do toplote. Ostavi 1 do 2 mm između duhana i folije ili HMD-a. Ako duhan dodiruje toplotu, brzo zagori; ako je predaleko, dima je malo. Kod [[phunnel]] glave ovo je još važnije."
+          ],
+          en: [
+            "1. Fresh, juicy tobacco. The smoke comes from the [[melasa|molasses]] and [[glicerin|glycerin]] in the tobacco. Dry tobacco gives little smoke and a weak flavor, so keep it sealed.",
+            "2. Pack it loose. Sprinkle the tobacco into the bowl and do not press it down. Air has to pass through the tobacco, otherwise the draw gets tight and the flavor turns harsh.",
+            "3. The right gap to the heat. Leave 1 to 2 mm between the tobacco and the foil or HMD. If the tobacco touches the heat it burns quickly; if it is too far away you get little smoke. With a [[phunnel]] bowl this matters even more."
+          ]
+        }
+      },
+      {
+        h: { bs: "Toplota", en: "Heat" },
+        p: {
+          bs: [
+            "4. Dobro užareni ugljevi. Kokosov ugalj mora biti užaren skroz, bez crnih dijelova, prije nego što ga staviš na glavu. Polu-užaren ugalj daje malo toplote i čudan okus.",
+            "5. Zagrijavanje prije prvog dima. Pusti glavu da se grije nekoliko minuta prije nego što počneš vući. Prvi dimovi su tada odmah gusti, a ne tanki i opori.",
+            "6. Pomjeraj ugljeve. Svakih nekoliko minuta pomjeri ugljeve po rubu glave i otresi pepeo. Toplota se tako ravnomjerno širi, a pepeo ne guši žar."
+          ],
+          en: [
+            "4. Fully lit coals. Coconut coals should glow all the way through, with no black spots, before they go on the bowl. Half-lit coals give little heat and an odd taste.",
+            "5. Heat it up before the first pull. Let the bowl warm up for a few minutes before you start smoking. The first pulls are then thick right away instead of thin and harsh.",
+            "6. Move the coals around. Every few minutes move the coals along the edge of the bowl and knock off the ash. That spreads the heat evenly, and the ash does not smother the glow."
+          ]
+        }
+      },
+      {
+        h: { bs: "Voda, gumice i crijevo", en: "Water, seals and hose" },
+        p: {
+          bs: [
+            "7. Ni previše ni premalo vode. Stub treba biti uronjen oko 2 do 3 cm. Previše vode otežava povlačenje, a premalo daje vruć i grub dim. Hladna voda, pa i led u vazi, čini dim punijim i ugodnijim.",
+            "8. Nargila mora dihtovati. Provjeri gumice između glave i stuba, stuba i vaze i na crijevu. Ako negdje propušta zrak, dim je tanak bez obzira na duhan i ugalj. Probaj: zatvori glavu dlanom i povuci, ne smije ulaziti zrak.",
+            "9. Čista nargila i crijevo. Stari ostaci u stubu i crijevu smanjuju protok i kvare okus. Redovno ih isperi, a crijevo koje se ne smije prati zamijeni kad počne mirisati na stare okuse."
+          ],
+          en: [
+            "7. Not too much water, not too little. The downstem should sit about 2 to 3 cm under the water. Too much water makes the draw heavy, too little makes the smoke hot and harsh. Cold water, even ice in the base, makes the smoke fuller and smoother.",
+            "8. The hookah has to be airtight. Check the grommets between the bowl and stem, the stem and base, and on the hose. If air leaks anywhere, the smoke stays thin no matter the tobacco and coals. Test it: cover the bowl with your palm and pull, no air should get in.",
+            "9. A clean hookah and hose. Old residue in the stem and hose restricts the airflow and spoils the flavor. Rinse them regularly, and replace a hose that cannot be washed once it starts smelling of old flavors."
+          ]
+        }
+      },
+      {
+        h: { bs: "Kako vući", en: "How to pull" },
+        p: {
+          bs: [
+            "10. Dugi, mirni dimovi. Vuci polako i dugo, a ne kratko i jako. Jaki, brzi dimovi pregriju duhan, a spori i ravnomjerni daju najviše dima i okusa. Kad dim postane gorak, pusti nargilu minut da se ohladi."
+          ],
+          en: [
+            "10. Long, calm pulls. Pull slowly and steadily rather than short and hard. Hard, fast pulls overheat the tobacco, while slow, even ones give the most smoke and flavor. If the smoke turns harsh, give the hookah a minute to cool down."
+          ]
+        },
+        links: [{ page: 'guide' }, { page: 'gear' }, { page: 'tips' }]
+      }
+    ],
+    faq: [
+      { q: { bs: "Zašto moja nargila daje malo dima?", en: "Why is my hookah not smoking much?" }, a: { bs: "Najčešći razlozi su suh duhan, premalo toplote, previše nabijena glava ili nargila koja negdje propušta zrak. Provjeri jedno po jedno, od duhana do gumica.", en: "The most common reasons are dry tobacco, too little heat, a bowl packed too tight or a hookah that leaks air somewhere. Check them one by one, from the tobacco to the seals." } },
+      { q: { bs: "Koliko vode staviti u nargilu?", en: "How much water should go in a hookah?" }, a: { bs: "Toliko da stub bude uronjen oko 2 do 3 cm. Tako je povlačenje lagano, a dim se dovoljno ohladi.", en: "Enough for the downstem to sit about 2 to 3 cm under the water. That keeps the draw light and cools the smoke enough." } },
+      { q: { bs: "Da li led u vazi daje više dima?", en: "Does ice in the base make more smoke?" }, a: { bs: "Led ne pravi više dima, ali hladi dim pa je puniji i ugodniji, a oblaci izgledaju gušće.", en: "Ice does not create more smoke, but it cools the smoke so it feels fuller and smoother, and the clouds look thicker." } },
+      { q: { bs: "Koliko dugo zagrijavati glavu prije pušenja?", en: "How long should you heat the bowl before smoking?" }, a: { bs: "Obično nekoliko minuta, dok prvi dimovi ne postanu gusti. Tačno vrijeme zavisi od glave, duhana i ugljeva.", en: "Usually a few minutes, until the first pulls turn thick. The exact time depends on the bowl, the tobacco and the coals." } }
+    ]
+  },
+  {
     id: 'phunnel-punjenje',
     slug: { bs: 'kako-napuniti-phunnel-glavu', en: 'how-to-pack-a-phunnel-bowl', de: 'phunnel-kopf-bauen', ru: 'kak-zabit-fannel' },
     published: '2026-11-23',
