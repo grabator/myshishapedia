@@ -75,5 +75,24 @@ window.CREATOR_MIXES = [
     photo: 'perfekt-mix.jpg',
     card: 'perfekt-mix-card.jpg',
     added: '2026-11-16'
+  },
+  {
+    id: 'shishalicious-four-flavour',
+    creator: 'shishalicious',
+    slug: 'four-flavour-mix',
+    name: 'Four Flavour Mix',
+    parts: [
+      { brand: 'Adalya Aqua Menta', flavor: 'Golden Anna', pct: 50, color: '#4fb39b' },
+      { brand: 'Blackburn', flavor: 'Red Kiwi', pct: 25, color: '#c23b4a', note: { bs: 'kivi', en: 'kiwi', de: 'Kiwi', ru: 'киви' } },
+      { brand: 'Darkside', flavor: 'Virgin Peach 2.0', pct: 12.5, color: '#f08a4b', note: { bs: 'breskva', en: 'peach', de: 'Pfirsich', ru: 'персик' } },
+      { brand: 'Blackburn', flavor: 'Etalon MLN', pct: 12.5, color: '#e3b23c', note: { bs: 'dinja', en: 'melon', de: 'Melone', ru: 'дыня' } }
+    ],
+    bowl: 'Kaloud Samsaris Vitria II',
+    packing: { en: 'I take all flavours and mix them together in a bowl before packing. It gives a more consistent flavour. I pack it with a Kaloud Sitra to get more use out of the tobacco, and I save around 30-40% tobacco using it.' },
+    description: { en: 'Four flavour mix.' },
+    video: 'https://www.instagram.com/reel/DgLZV97xY1U/',
+    photo: 'four-flavour-mix.jpg',
+    card: 'four-flavour-mix-card.jpg',
+    added: '2026-11-25'
   }
 ];
