@@ -1008,8 +1008,8 @@
 
       home: {
         eyebrow: 'Enciklopedija okusa za nargilu',
-        titleA: 'Okus,',
-        titleEm: 'rastavljen',
+        titleA: 'Okusi za nargilu,',
+        titleEm: 'rastavljeni',
         nowLabel: 'U nargili sada:',
         live: 'Uživo u lulici',
         ring: '{f} okusa · {b} brenda · 4 jezika ·',
@@ -1021,6 +1021,9 @@
         fotdDays: ['Danas', 'Jučer', 'Prekjučer'],
         fotdPrev: 'Okus dana: {day}',
         titleB: 'na sastojke.',
+        chipIcy: 'Ledeni',
+        chipGrapeMint: 'Grožđe i menta',
+        chipsLabel: 'Popularne pretrage',
         lead: 'Otkrij od čega je napravljen okus koji upravo pušiš.',
         searchLabel: 'Pretraži okuse',
         searchPlaceholder: 'Upiši okus, brend ili sastojak',
@@ -2320,7 +2323,7 @@
 
       home: {
         eyebrow: 'The hookah flavor encyclopedia',
-        titleA: 'Flavor,',
+        titleA: 'Hookah flavors,',
         titleEm: 'broken down',
         nowLabel: 'In the bowl now:',
         live: 'Live in the bowl',
@@ -2332,7 +2335,10 @@
         allBrands: 'All brands',
         fotdDays: ['Today', 'Yesterday', 'Two days ago'],
         fotdPrev: 'Flavor of the day: {day}',
-        titleB: 'to its parts.',
+        titleB: 'to their parts.',
+        chipIcy: 'Icy',
+        chipGrapeMint: 'Grape mint',
+        chipsLabel: 'Popular searches',
         lead: 'Find out what the flavor in your bowl is actually made of.',
         searchLabel: 'Search flavors',
         searchPlaceholder: 'Type a flavor, brand or ingredient',

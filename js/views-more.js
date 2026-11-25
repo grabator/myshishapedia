@@ -748,7 +748,7 @@
           '<p class="cside__brand">' + esc(f.brand) + '</p>' +
           '<h2 class="cside__name">' + esc(f.name) + '</h2>' +
           '<p class="cside__desc">' + esc(L(f.shortDescription)) + '</p>' +
-          '<a class="cside__open" href="' + V.flavorUrl(f) + '" data-veil="' + th.veil + '">' + esc(t('compare.openFlavor', { name: f.name })) + icon('arrowRight') + '</a>' +
+          '<a class="cside__open" href="' + V.flavorUrl(f) + '" data-veil="' + th.veil + '">' + esc(t('compare.openFlavor', { name: ((V.brandBySlug(f.brand) || {}).name || f.brand) + ' ' + f.name })) + icon('arrowRight') + '</a>' +
         '</div>' +
       '</div>'
     );

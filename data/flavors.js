@@ -58,6 +58,16 @@ window.FLAVORS = [
     brand: 'adalya',
     leaf: 'light',
     name: 'Love 66',
+    seo: {
+      title: {
+        bs: 'Adalya Love 66 okus za nargilu: kakav je, sastojci i najbolji miksevi | MyShishapedia',
+        en: 'Adalya Love 66 shisha flavor: taste, ingredients and best mixes | MyShishapedia'
+      },
+      description: {
+        bs: 'Adalya Love 66 je lubenica, medena dinja i marakuja sa mentom na kraju. Koliko je jak i leden, sa čim ga miksati i slični okusi.',
+        en: 'Adalya Love 66 tastes like watermelon, honeydew and passion fruit with a mint finish. How strong and cold it is, what to mix it with and similar flavors.'
+      }
+    },
     shortDescription: {
       bs: 'Ljetni voćni miks lubenice, medene dinje i marakuje, sa mentom koja sve drži svježim.',
       en: 'A summery mix of watermelon, honeydew and passion fruit, kept fresh by a hit of mint.'
@@ -1565,7 +1575,7 @@ window.FLAVORS = [
     seo: {
       title: {
         bs: 'Al Fakher Double Apple (Two Apples) okus za nargilu | MyShishapedia',
-        en: 'Al Fakher Double Apple (Two Apples) shisha flavor | MyShishapedia'
+        en: 'Al Fakher Double Apple (Two Apples) shisha flavor: taste, anise and mixes | MyShishapedia'
       },
       description: {
         bs: 'Al Fakher Two Apples: slatka crvena i kiselkasta zelena jabuka sa anisom. Okus, jačina, najbolji miksevi i razlika u odnosu na Nakhla Double Apple.',

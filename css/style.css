@@ -9621,3 +9621,111 @@ a.crt-video__play { text-decoration: none; }
 @media (max-width: 379px) { .mtrio .mshelf__name { font-size: 0.76rem; } .mtrio .mgame { padding-inline: 8px; } }
 @media (max-width: 399px) and (max-height: 700px) { .mtrio .mfmap__art, .mtrio .mgame__art, .mtrio .mbars__art { display: none; } .mtrio .mgame { justify-content: center; } }
 .mtrio .mgame { margin: 0; }
+
+/* ------------------------------------------------------------------ */
+/* Početna, vrh (dizajn "Orbita ugljeva"): živi dim i zvijezde u        */
+/* pozadini, znak (tri pramena) i tri užarena uglja koji kruže oko      */
+/* nargile. Sve je SVG i CSS; animacije staju van ekrana (is-off) i uz  */
+/* "smanji animacije".                                                  */
+/* ------------------------------------------------------------------ */
+.hero--home { position: relative; isolation: isolate; overflow: hidden; background: #080506; --hx2-cx: 76%; --hx2-cy: 52%; }
+.hero--home .hero-aura, .hero--home .orbit, .hero--home .hk-labels { display: none !important; }
+.hx2-bg { position: absolute; inset: 0; z-index: -1; pointer-events: none; overflow: hidden; }
+.hx2-smoke { position: absolute; left: -15%; top: -10%; width: 130%; max-width: none; height: 120%;
+  -webkit-mask-image: radial-gradient(60% 55% at var(--hx2-cx) var(--hx2-cy), #000 15%, transparent 75%); mask-image: radial-gradient(60% 55% at var(--hx2-cx) var(--hx2-cy), #000 15%, transparent 75%);
+  opacity: 0.82; transition: opacity 0.8s ease; }
+.hx2-smoke__a { animation: hx2-drift 38s ease-in-out infinite alternate; transform-origin: center; }
+.hx2-smoke__b { opacity: 0.55; animation: hx2-drift2 26s ease-in-out infinite alternate; transform-origin: center; }
+@keyframes hx2-drift { from { transform: translate3d(-3%, 2%, 0) scale(1.05); } to { transform: translate3d(3%, -3%, 0) scale(1.12); } }
+@keyframes hx2-drift2 { from { transform: translate3d(3%, -1%, 0) scale(1.1); } to { transform: translate3d(-4%, 3%, 0) scale(1.02); } }
+.hx2-stars i { position: absolute; border-radius: 50%; background: #fff; opacity: 0.35; animation: hx2-tw 4s ease-in-out var(--d) infinite alternate; }
+@keyframes hx2-tw { from { opacity: 0.12; } to { opacity: 0.6; } }
+.hx2-vig { position: absolute; inset: 0; background: radial-gradient(90% 65% at var(--hx2-cx) var(--hx2-cy), transparent 35%, rgba(5, 3, 3, 0.88)), linear-gradient(180deg, rgba(5, 3, 3, 0.7), transparent 30%); }
+.hero--home:has(.hookah.is-pulling) .hx2-smoke { opacity: 1; }
+
+/* oznaka iznad naslova sa znakom */
+.hero--home .hx2-eb { display: inline-flex; align-items: center; gap: 8px; width: max-content; max-width: 100%; padding: 6px 13px 6px 9px; border-radius: 999px; border: 1px solid rgba(242, 163, 60, 0.3); background: rgba(242, 163, 60, 0.08); color: #ffcf8a; }
+.hx2-eb .hx2-mark { width: 16px; height: 18px; flex: none; }
+.hx2-eb .hx2-w { stroke-width: 6; }
+.hx2-eb .hx2-w--3 { stroke-width: 5.4; opacity: 0.7; }
+
+/* naslov: "rastavljeni" u zlatnom prelivu */
+.hero--home .hero__title em { background: linear-gradient(90deg, #ffd59a, #f2a33c 50%, #e2541b); -webkit-background-clip: text; background-clip: text; color: transparent; font-style: normal; }
+
+/* pretraga: tamna sa narandžastom linijom, ispod brze pretrage */
+.hero--home .search { background: rgba(10, 6, 5, 0.55); border: 1px solid rgba(255, 255, 255, 0.08); border-bottom: 2px solid #f2a33c; box-shadow: 0 12px 30px -12px rgba(242, 163, 60, 0.35); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); }
+.hero--home .search__icon { color: #f2a33c; }
+.hx2-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+.hx2-chips a { font-size: 12px; font-weight: 700; padding: 6px 11px; border-radius: 999px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.08); color: rgba(244, 235, 223, 0.88); text-decoration: none; transition: border-color 0.25s, background-color 0.25s; }
+.hx2-chips a:hover { border-color: rgba(242, 163, 60, 0.5); background: rgba(242, 163, 60, 0.1); }
+
+/* nargila: odsjaj i toplo svjetlo ispod */
+.hero--home .hookah-wrap { position: relative; }
+.hero--home .hookah { -webkit-box-reflect: below -4px linear-gradient(transparent 64%, rgba(0, 0, 0, 0.26)); filter: drop-shadow(0 0 1px rgba(255, 220, 170, 0.35)) drop-shadow(0 18px 30px rgba(0, 0, 0, 0.6)); }
+.hero--home .hookah-wrap::after { content: ''; position: absolute; z-index: -1; left: 50%; top: calc(var(--hx2-floor, 76%) - 40px); width: 108%; height: 90px; transform: translateX(-50%); border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(242, 163, 60, 0.3), transparent); transition: opacity 0.6s; pointer-events: none; }
+
+/* scena iza nargile: krug, ugljevi, iskre i znak */
+.hx2-scene { position: absolute; z-index: -1; left: -9%; top: 0; width: 118%; aspect-ratio: 1; margin-top: -1.5%; pointer-events: none; }
+.hx2-ring { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; filter: drop-shadow(0 0 8px rgba(242, 140, 50, 0.45)); transition: filter 0.6s; }
+.hx2-ring__halo { fill: none; stroke: rgba(255, 190, 120, 0.1); stroke-width: 10; }
+.hx2-ring__line { fill: none; stroke: rgba(255, 210, 150, 0.16); stroke-width: 1; }
+.hx2-tail { fill: none; stroke: #ffb35c; stroke-opacity: 0.55; stroke-width: 3; stroke-linecap: round; transition: stroke-opacity 0.5s, stroke-width 0.5s; }
+.hx2-coal { fill: #3a1d10; stroke: #ff9d4a; stroke-width: 1.5; }
+.hx2-coal__hot { fill: #ffb35c; opacity: 0.75; transition: opacity 0.4s; animation: hx2-hot 2.6s ease-in-out infinite alternate; }
+@keyframes hx2-hot { from { opacity: 0.55; } to { opacity: 0.95; } }
+.hx2-orbit, .hx2-orbit__boost { transform-box: view-box; transform-origin: 200px 200px; }
+.hx2-orbit { animation: hx2-spin 40s linear infinite; }
+.hx2-orbit__boost { animation: hx2-spin 6s linear infinite paused; }
+@keyframes hx2-spin { to { transform: rotate(360deg); } }
+.hx2-spark { fill: #ffcf8a; animation: hx2-tw 3s ease-in-out var(--d) infinite alternate; }
+.hx2-scene .hx2-mark { position: absolute; left: 50%; top: 50%; width: 62%; height: 68%; transform: translate(-50%, -54%); overflow: visible; opacity: 0.72; filter: drop-shadow(0 0 18px rgba(242, 140, 50, 0.6)); transition: opacity 0.6s, filter 0.6s; }
+.hx2-scene .hx2-w { stroke-width: 3.6; transform-box: fill-box; transform-origin: 50% 100%; animation: hx2-wave 5.5s ease-in-out infinite alternate; }
+.hx2-scene .hx2-w--2 { animation-duration: 6.4s; animation-delay: -2s; opacity: 0.9; }
+.hx2-scene .hx2-w--3 { stroke-width: 3; animation-duration: 4.8s; animation-delay: -3.5s; opacity: 0.7; }
+@keyframes hx2-wave { from { transform: skewX(-4deg) scaleY(0.97); } to { transform: skewX(5deg) scaleY(1.04); } }
+
+/* dok držiš za dim */
+.hookah-wrap:has(> .hookah.is-pulling) .hx2-orbit__boost { animation-play-state: running; }
+.hookah-wrap:has(> .hookah.is-pulling) .hx2-tail { stroke-opacity: 0.95; stroke-width: 4.5; }
+.hookah-wrap:has(> .hookah.is-pulling) .hx2-coal__hot { opacity: 1; animation: none; }
+.hookah-wrap:has(> .hookah.is-pulling) .hx2-ring { filter: drop-shadow(0 0 16px rgba(242, 140, 50, 0.7)); }
+.hookah-wrap:has(> .hookah.is-pulling) .hx2-scene .hx2-mark { opacity: 0.95; filter: drop-shadow(0 0 26px rgba(242, 140, 50, 0.85)); }
+.hookah-wrap:has(> .hookah.is-pulling)::after { background: radial-gradient(closest-side, rgba(242, 163, 60, 0.48), transparent); }
+/* kad pustiš: znak se kratko podigne i zasvijetli (klasu dodaje app.js) */
+.hx2-scene.is-puff .hx2-mark { animation: hx2-puff 1.3s cubic-bezier(0.2, 0.7, 0.2, 1); }
+@keyframes hx2-puff { 0% { transform: translate(-50%, -54%) scale(1); } 35% { transform: translate(-50%, -62%) scale(1.12); opacity: 1; filter: drop-shadow(0 0 34px rgba(255, 170, 80, 0.95)); } 100% { transform: translate(-50%, -54%) scale(1); } }
+
+/* van ekrana sve stoji */
+.hero--home.is-off .hx2-bg *, .hero--home.is-off .hx2-scene * { animation-play-state: paused !important; }
+@media (prefers-reduced-motion: reduce) {
+  .hx2-bg *, .hx2-scene *, .hx2-scene.is-puff .hx2-mark { animation: none !important; }
+}
+
+/* računar: nargila desno, dim oko nje */
+@media (min-width: 760px) {
+  .hero--home .hx2-chips { max-width: 680px; }
+  .hero--home .hero-now { margin-top: 14px; }
+}
+
+/* mobitel: sve centrirano, pretraga ispod naslova */
+@media (max-width: 759px) {
+  .hero--home { --hx2-cx: 50%; --hx2-cy: 66%; }
+  .hx-badge, .hx-float { display: none !important; }
+  .hero--home .hero__copy { text-align: center; }
+  .hero--home .hero__copy > .hx2-eb { display: inline-flex; order: 0; align-self: center; margin: 2px 0 0; font-size: 10px; letter-spacing: 0.16em; }
+  .hero--home .hero__head { order: 1; justify-content: center; margin-top: 12px; }
+  .hero--home .hero__title { text-align: center; font-size: clamp(28px, 8.4vw, 34px); line-height: 1; letter-spacing: -0.03em; }
+  html[lang='en'] .hero--home .hero__title, html[lang='de'] .hero--home .hero__title, html[lang='ru'] .hero--home .hero__title { font-size: clamp(25px, 7.4vw, 31px); }
+  html[lang='en'] .hero--home .hero__title .line, html[lang='de'] .hero--home .hero__title .line { display: block; }
+  .hero--home .search { order: 2; margin-top: 16px; border-radius: 20px; }
+  .hero--home .search__kbd { display: none; }
+  .hx2-chips { order: 3; justify-content: safe center; flex-wrap: nowrap; overflow: hidden; margin-top: 10px; }
+  .hx2-chips a { flex: none; font-size: 11.5px; padding: 6px 10px; }
+  .hero--home .hero-now { display: none; }
+  .hero--home .hero__stage { background: none; border: 0; box-shadow: none; overflow: visible; border-radius: 0; margin-left: -16px; margin-right: -16px; padding-top: 34px; }
+  /* dugme "Drži za dim" kao staklena pilula */
+  .hero--home .pull { background: linear-gradient(180deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.02)), rgba(20, 14, 11, 0.7); border: 1px solid rgba(242, 163, 60, 0.28); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); }
+  .hero--home .pull[aria-pressed='true'] { border-color: rgba(242, 163, 60, 0.75); box-shadow: 0 0 0 6px rgba(242, 163, 60, 0.12), 0 0 34px rgba(242, 163, 60, 0.5); }
+}
+@media (max-width: 759px) { .hero--home .pull__meter-wrap, .hero--home .pull__hint { display: none; } }
