@@ -6,7 +6,9 @@
  * kad je model spreman doda wrap-u klasu is-3d (CSS sakrije SVG nargilu). Vraća funkciju za gašenje.
  *   opts.water   boja vode (boja okusa)
  *   opts.reduced bez samostalnog okretanja (smanji animacije)
- * Okretanje: prevlačenje lijevo-desno (vertikalno listanje stranice i dalje radi), sama se polako okreće.
+ * Kamera (OrbitControls): na računaru se nargila vrti mišem u svim pravcima, Ctrl + kotačić približava.
+ * Na telefonu prst lijevo-desno okreće (listanje stranice i dalje radi), dva prsta približavaju;
+ * dugme 360° uključi slobodan pogled (kamera gore-dolje, približavanje), dvoklik približi glavu.
  * "Drži za dim": kad .hookah dobije klasu is-pulling, ugljevi se užare i u vodi krenu mjehurići.
  * Renderuje samo dok je na ekranu i dok je kartica vidljiva.
  */
@@ -17,6 +19,8 @@ import {
   PointLight, ACESFilmicToneMapping, SRGBColorSpace, DoubleSide, InstancedMesh, Object3D, Quaternion
 } from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
+import { MeshoptDecoder } from 'three/examples/jsm/libs/meshopt_decoder.module.js';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js';
 
 const BRASS = ['Line001', 'Object001', 'Cylinder009', 'Object002', 'Object003', 'Helix001'];
@@ -33,7 +37,19 @@ export function mount(wrap, opts) {
   canvas.className = 'hx3d';
   canvas.setAttribute('aria-hidden', 'true');
   wrap.insertBefore(canvas, hk.nextSibling);
-  function place() { canvas.style.top = (hk.offsetTop - hk.offsetHeight * 0.03) + 'px'; canvas.style.height = (hk.offsetHeight * 1.06) + 'px'; }
+  let btn = null;
+  function place() {
+    canvas.style.top = (hk.offsetTop - hk.offsetHeight * 0.03) + 'px'; canvas.style.height = (hk.offsetHeight * 1.06) + 'px';
+    if (!btn) return;
+    // telefon: dugme 360° u redu sa "Drži za dim", desno; veći ekran: dolje lijevo uz nargilu (desno je crijevo)
+    const pull = wrap.querySelector('.pull');
+    if (pull && window.matchMedia('(max-width: 759px)').matches) {
+      const wr = wrap.getBoundingClientRect(), pr = pull.getBoundingClientRect();
+      const k = wrap.offsetHeight ? wr.height / wrap.offsetHeight : 1; // wrap je na telefonu umanjen (scale)
+      btn.style.top = ((pr.top - wr.top + pr.height / 2) / k - btn.offsetHeight / 2) + 'px';
+      btn.style.left = ((pr.right - wr.left) / k + 12) + 'px';
+    } else { btn.style.top = (hk.offsetTop + hk.offsetHeight * 0.9 - 36) + 'px'; btn.style.left = ''; }
+  }
   place();
 
   let renderer;
@@ -115,12 +131,13 @@ export function mount(wrap, opts) {
   seam.rotation.x = Math.PI / 2; seam.position.y = 117.1;
   model.add(seam);
 
-  // kraće crijevo: od spirale na priključku, niz desnu stranu do drške na podu
+  // crijevo: kreće iz priključka kroz zlatnu spiralu (kao u modelu), pa se spusti uz desnu stranu
   const path = new CatmullRomCurve3([
-    new Vector3(43.5, 70.7, -35), new Vector3(52, 66, -33), new Vector3(56, 54, -26),
-    new Vector3(53, 42, -16), new Vector3(46, 34, -8)
-  ]);
-  model.add(new Mesh(new TubeGeometry(path, 80, 1.35, 12, false), hoseMat));
+    [12.4, 66.5, -10.6], [15.1, 68.1, -13.6], [20.1, 71.6, -17.9], [25.5, 73.6, -22.5], [31.1, 74, -27],
+    [36.1, 72.4, -30.4], [41.9, 69.5, -33.9], [46.7, 65.6, -36], [51.8, 61.4, -37.8], [56.5, 55, -37],
+    [59, 45, -31], [57.5, 35, -21], [52, 27, -11]
+  ].map(([x, y, z]) => new Vector3(x, y, z)), false, 'catmullrom', 0.4);
+  model.add(new Mesh(new TubeGeometry(path, 160, 1.6, 14, false), hoseMat));
   const handle = new Group();
   const hp = [[0, 0], [1.6, 0], [1.9, 3], [1.5, 6], [1.8, 18], [1.3, 26], [0.9, 30], [0, 30]].map(([r, y]) => new Vector2(r, y));
   handle.add(new Mesh(new LatheGeometry(hp, 24), hoseMat));
@@ -133,11 +150,10 @@ export function mount(wrap, opts) {
 
   let glassMesh = null;
   let alive = true, visible = true, raf = 0, last = 0, ready = false;
-  let angle = 0.5, vel = 0, dragging = false, lastX = 0, heat = 0, heatTarget = 0, slow = 0, lowered = false;
-  const ptrs = new Map(); let pinch0 = 0, zoom0 = 1, lastTap = 0;
-  const AUTO = opts.reduced ? 0 : 0.22;
+  let heat = 0, heatTarget = 0, slow = 0, lowered = false, lastAz = 0, azVel = 0, lastTap = 0, free = false, idleTimer = 0;
+  const touchy = window.matchMedia && window.matchMedia('(pointer: coarse)').matches;
 
-  new GLTFLoader().load(opts.url || '/models/nargila.glb', (g) => {
+  new GLTFLoader().setMeshoptDecoder(MeshoptDecoder).load(opts.url || '/models/nargila.glb', (g) => {
     if (!alive) return;
     const remove = [];
     g.scene.traverse((o) => {
@@ -154,26 +170,41 @@ export function mount(wrap, opts) {
     renderOnce();
     wrap.classList.add('is-3d');
     loop();
-  }, undefined, () => { teardown(); });
+  }, undefined, () => { document.documentElement.classList.remove('hk3d'); teardown(); });
 
+  const controls = new OrbitControls(camera, canvas);
+  controls.enableDamping = true; controls.dampingFactor = 0.08;
+  controls.rotateSpeed = 0.75; controls.zoomSpeed = 0.9;
+  controls.enablePan = false; controls.zoomToCursor = true;
+  controls.autoRotate = !opts.reduced; controls.autoRotateSpeed = 1.1;
+  const HOME_T = new Vector3(0, -H * 0.02, 0), HEAD_T = new Vector3(0, H * 0.42, 0);
+  let baseDist = 300, fly = null, placed = false;
+  function lockPolar(on) {
+    // telefon bez 360: kamera ostaje na istoj visini, prst gore-dolje lista stranicu
+    if (on) { const p = controls.getPolarAngle(); controls.minPolarAngle = p; controls.maxPolarAngle = p; canvas.style.touchAction = 'pan-y'; }
+    else { controls.minPolarAngle = 0.12; controls.maxPolarAngle = Math.PI * 0.62; canvas.style.touchAction = 'none'; }
+  }
   function resize() {
     const w = canvas.clientWidth, h = canvas.clientHeight;
     if (!w || !h) return;
     renderer.setSize(w, h, false);
     camera.aspect = w / h;
-    // visina modela (sa malo prostora) stane u platno
-    baseDist = (H * 0.56) / Math.tan((camera.fov * Math.PI / 180) / 2);
-    placeCam();
+    const nd = (H * 0.56) / Math.tan((camera.fov * Math.PI / 180) / 2);
+    if (!ready || Math.abs(nd - baseDist) > 1) {
+      baseDist = nd;
+      controls.minDistance = baseDist * 0.28; controls.maxDistance = baseDist * 1.3;
+      if (!placed) { placed = true; controls.target.copy(HOME_T); camera.position.set(0, H * 0.06 + HOME_T.y, baseDist); controls.update(); lockPolar(touchy && !free); }
+    }
     camera.updateProjectionMatrix();
   }
-  // približavanje: zoom 1 = cijela nargila, do 3 = glava izbliza (cilj klizi prema glavi)
-  let baseDist = 300, zoom = 1, zoomTarget = 1;
-  function placeCam() {
-    const k = (zoom - 1) / 2;
-    const ty = -H * 0.02 + k * (H * 0.5 - 6);
-    camera.position.set(0, ty + H * 0.08 * (1 - k * 0.6), baseDist / zoom);
-    camera.lookAt(0, ty, 0);
+  // glatko preletanje kamere (dvoklik: glava izbliza / nazad na cijelu nargilu)
+  function flyTo(target, dist) {
+    if (!ready) return;
+    const dir = camera.position.clone().sub(controls.target).normalize();
+    fly = { t0: performance.now(), from: { tg: controls.target.clone(), pos: camera.position.clone() }, to: { tg: target.clone(), pos: target.clone().add(dir.multiplyScalar(dist)) } };
+    loop();
   }
+  function zoomK() { return Math.max(0, Math.min(1, 1 - (camera.position.distanceTo(controls.target) - baseDist * 0.35) / (baseDist * 0.65))); }
   // tačke na ekranu za dim (effects.js): vrh glave i kraj usnika, prate okretanje i približavanje
   const headW = new Vector3(0, 125.5, 0), mouthW = new Vector3(), vtmp = new Vector3();
   const pts = { bowl: null, mouth: null };
@@ -184,7 +215,6 @@ export function mount(wrap, opts) {
   }
   hk._hk3d = { point: (name) => (ready ? pts[name] : null) };
   function renderOnce() {
-    spin.rotation.y = angle;
     coalMat.emissiveIntensity = 0.8 + heat * 2.6;
     glowMat.emissiveIntensity = 0.55 + heat * 2.4;
     ember.intensity = 6 + heat * 50;
@@ -192,15 +222,21 @@ export function mount(wrap, opts) {
     spin.updateMatrixWorld(true);
     pts.bowl = project(headW);
     mouthW.copy(handleTip); pts.mouth = project(mouthW);
-    wrap.style.setProperty('--hk3d-z', ((zoom - 1) / 2).toFixed(3));
+    wrap.style.setProperty('--hk3d-z', (free ? 1 : zoomK()).toFixed(3));
   }
   function frame(t) {
     raf = 0;
     if (!alive || !visible) return;
     const dt = Math.min(0.05, (t - (last || t)) / 1000); last = t;
-    if (!dragging) { vel *= Math.pow(0.04, dt); angle += (AUTO + vel) * dt; }
     heat += (heatTarget - heat) * Math.min(1, dt * 4);
-    if (Math.abs(zoomTarget - zoom) > 0.001) { zoom += (zoomTarget - zoom) * Math.min(1, dt * 6); placeCam(); }
+    if (fly) {
+      const k = Math.min(1, (t - fly.t0) / 700), e = k < 0.5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2;
+      controls.target.lerpVectors(fly.from.tg, fly.to.tg, e); camera.position.lerpVectors(fly.from.pos, fly.to.pos, e);
+      if (k >= 1) fly = null;
+    }
+    controls.update();
+    const az = controls.getAzimuthalAngle(); let d = az - lastAz; if (d > Math.PI) d -= 2 * Math.PI; if (d < -Math.PI) d += 2 * Math.PI; lastAz = az;
+    if (dt > 0) azVel += (d / dt - azVel) * Math.min(1, dt * 5);
     // slabiji telefon: manja rezolucija ako crtanje kasni
     if (dt > 0) { slow = slow * 0.95 + (dt > 0.03 ? 0.05 : 0); if (slow > 0.6 && !lowered) { lowered = true; renderer.setPixelRatio(1); if (glassMesh) glassMesh.material = glassLite; resize(); } }
     bubbles.visible = heat > 0.05;
@@ -215,7 +251,7 @@ export function mount(wrap, opts) {
       });
       bubbles.instanceMatrix.needsUpdate = true;
     }
-    const tilt = Math.max(-0.12, Math.min(0.12, -(vel + (dragging ? 0 : AUTO)) * 0.05));
+    const tilt = Math.max(-0.12, Math.min(0.12, azVel * 0.06));
     surfGroup.rotation.z += (tilt - surfGroup.rotation.z) * Math.min(1, dt * 3);
     surfGroup.position.y = LEVEL + Math.sin(t / 900) * 0.08 * (1 + heat * 3);
     renderOnce();
@@ -223,33 +259,38 @@ export function mount(wrap, opts) {
   }
   function loop() { if (!raf && alive && visible && ready) raf = requestAnimationFrame(frame); }
 
-  // okretanje prevlačenjem (vodoravno); vertikalno listanje ostaje pregledniku
-  function pdist() { const a = [...ptrs.values()]; return Math.hypot(a[0].x - a[1].x, a[0].y - a[1].y); }
-  function setZoom(z) { zoomTarget = Math.max(1, Math.min(3, z)); loop(); }
-  function down(e) {
-    ptrs.set(e.pointerId, { x: e.clientX, y: e.clientY });
-    try { canvas.setPointerCapture(e.pointerId); } catch (err) { /* nije kritično */ }
-    if (ptrs.size === 2) { dragging = false; pinch0 = pdist(); zoom0 = zoomTarget; return; }
+  // računar: običan kotačić lista stranicu, Ctrl + kotačić (ili 360 način) približava
+  canvas.addEventListener('wheel', (e) => { if (!e.ctrlKey && !free) e.stopImmediatePropagation(); }, { capture: true });
+  // dvoklik / dupli dodir: glava izbliza ili nazad na cijelu nargilu
+  canvas.addEventListener('pointerdown', (e) => {
     const now = performance.now();
-    if (now - lastTap < 300) { setZoom(zoomTarget > 1.4 ? 1 : 2.4); lastTap = 0; } else lastTap = now;
-    dragging = true; lastX = e.clientX; vel = 0;
+    if (now - lastTap < 300 && e.isPrimary) { lastTap = 0; if (zoomK() > 0.45) flyTo(HOME_T, baseDist); else flyTo(HEAD_T, baseDist * 0.42); } else lastTap = now;
+  });
+  // dok korisnik okreće, nargila se ne vrti sama; nastavi par sekundi poslije
+  controls.addEventListener('start', () => { controls.autoRotate = false; clearTimeout(idleTimer); fly = null; loop(); });
+  controls.addEventListener('end', () => { clearTimeout(idleTimer); if (!opts.reduced) idleTimer = setTimeout(() => { controls.autoRotate = !free; loop(); }, 4000); });
+  // dugme 360°: slobodan pogled (kamera gore-dolje, približavanje, bez listanja stranice preko nargile)
+  const L = opts.labels || {};
+  btn = document.createElement('button');
+  btn.type = 'button'; btn.className = 'hx3d-360';
+  btn.setAttribute('aria-label', L.on || '360° view');
+  btn.innerHTML = '<span aria-hidden="true">360°</span><b></b>';
+  function setFree(on) {
+    free = on;
+    btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+    btn.querySelector('span').textContent = on ? '\u2715' : '360\u00b0';
+    btn.querySelector('b').textContent = on ? (L.off || 'Done') : (L.on || '360° view');
+    btn.setAttribute('aria-label', on ? (L.off || 'Done') : (L.on || '360° view'));
+    wrap.classList.toggle('is-free', on);
+    if (placed) lockPolar(touchy && !on);
+    controls.autoRotate = !on && !opts.reduced;
+    if (!on) flyTo(HOME_T, baseDist);
+    loop();
   }
-  function move(e) {
-    if (!ptrs.has(e.pointerId)) return;
-    ptrs.set(e.pointerId, { x: e.clientX, y: e.clientY });
-    if (ptrs.size === 2 && pinch0) { setZoom(zoom0 * pdist() / pinch0); return; }
-    if (!dragging) return;
-    const dx = e.clientX - lastX; lastX = e.clientX;
-    const d = dx * 0.012; angle += d; vel = d * 40;
-    if (!raf) renderOnce();
-  }
-  function up(e) { ptrs.delete(e.pointerId); if (ptrs.size < 2) pinch0 = 0; dragging = false; last = 0; loop(); }
-  // računar: Ctrl + kotačić približava (običan kotačić i dalje lista stranicu)
-  canvas.addEventListener('wheel', (e) => { if (!e.ctrlKey) return; e.preventDefault(); setZoom(zoomTarget * (e.deltaY < 0 ? 1.12 : 0.89)); }, { passive: false });
-  canvas.addEventListener('pointerdown', down);
-  canvas.addEventListener('pointermove', move);
-  canvas.addEventListener('pointerup', up);
-  canvas.addEventListener('pointercancel', up);
+  btn.addEventListener('click', () => setFree(!free));
+  setFree(false);
+  wrap.appendChild(btn);
+  place();
 
   const mo = new MutationObserver(() => { heatTarget = hk.classList.contains('is-pulling') ? 1 : 0; loop(); });
   mo.observe(hk, { attributes: true, attributeFilter: ['class'] });
@@ -269,6 +310,7 @@ export function mount(wrap, opts) {
     delete hk._hk3d;
     wrap.style.removeProperty('--hk3d-z');
     renderer.dispose();
+    controls.dispose(); clearTimeout(idleTimer); btn.remove(); wrap.classList.remove('is-free');
     canvas.remove();
   }
   return teardown;

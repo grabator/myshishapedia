@@ -638,9 +638,8 @@
     var wrap = hero && hero.querySelector('.hookah-wrap');
     var src = document.body.getAttribute('data-hk3d');
     if (!wrap || !src) return function () {};
-    var conn = navigator.connection;
-    if (conn && conn.saveData) return function () {};
-    try { var tc = document.createElement('canvas'); if (!(tc.getContext('webgl2') || tc.getContext('webgl'))) return function () {}; } catch (e) { return function () {}; }
+    // odluku (WebGL, ušteda podataka, slab telefon) donosi skripta u <head> početne: klasa hk3d
+    if (!document.documentElement.classList.contains('hk3d')) return function () {};
     var stop = null, dead = false;
     var hk = wrap.querySelector('[data-hookah]');
     var water = getComputedStyle(wrap).getPropertyValue('--hk-water').trim() || '#e8b04a';
@@ -648,11 +647,13 @@
       if (dead) return;
       import(src).then(function (m) {
         if (dead) return;
-        stop = m.mount(wrap, { water: water, reduced: FX.reducedMotion(), url: document.body.getAttribute('data-hk3d-model') });
-      }).catch(function () { /* ostaje SVG */ });
+        stop = m.mount(wrap, { water: water, reduced: FX.reducedMotion(), url: document.body.getAttribute('data-hk3d-model'), labels: { on: t('hookah.view360'), off: t('hookah.view360Off') } });
+      }).catch(fail);
     };
-    var t = setTimeout(function () { if ('requestIdleCallback' in window) requestIdleCallback(go, { timeout: 2500 }); else go(); }, 900);
-    return function () { dead = true; clearTimeout(t); if (stop) stop(); };
+    // 3D nije uspio: vrati crtanu nargilu
+    function fail() { document.documentElement.classList.remove('hk3d'); }
+    go();
+    return function () { dead = true; if (stop) stop(); };
   }
 
   /** Početna: kad pustiš dim, znak iza nargile se kratko podigne i zasvijetli. */
