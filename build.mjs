@@ -121,10 +121,10 @@ const ASSETS = ['css/style.css', 'js/strings.js', 'js/strings-de.js', 'data/de.j
   'data/mixes.js', 'js/illustrations.js', 'js/effects.js', 'js/views.js', 'js/views-more.js', 'js/views-extra.js', 'js/pages.js', 'js/app.js',
   'js/search.js', 'js/forms.js', 'js/share.js', 'js/ratings.js', 'js/shelf.js', 'js/qr.js', 'js/journal.js', 'js/session.js', 'js/pwa.js', 'data/lounges.js', 'js/lounge.js', 'data/history.js', 'js/history.js', 'favicon.svg',
   'css/game.css', 'js/strings-game.js', 'js/game-core.js', 'js/game-art.js', 'js/game.js', 'js/creators.js', 'js/bars.js', 'css/bars.css', 'js/vendor/leaflet.js', 'css/vendor/leaflet.css',
-  'css/stemless.css', 'js/stemless.js', 'js/views-fmap.js', 'js/fmap.js', 'css/fmap.css', 'css/clean.css', 'js/clean.js'];
+  'css/stemless.css', 'js/stemless.js', 'js/views-fmap.js', 'js/fmap.js', 'css/fmap.css', 'css/clean.css', 'js/clean.js', 'js/hookah3d.js', 'static/models/nargila.glb'];
 const VERSION = {};
 for (const a of ASSETS) VERSION[a] = hashOf(a);
-const asset = (p) => '/' + p + '?v=' + VERSION[p];
+const asset = (p) => '/' + p.replace(/^static\//, '') + '?v=' + VERSION[p];
 
 // Podaci koje stranica treba u browseru (ostalo je već ispisano u HTML-u).
 const PAGE_DATA = {
@@ -522,7 +522,7 @@ function renderPage(desc) {
     `style="${V.themeStyle(info.theme)}"`
   ].filter(Boolean).join(' ');
   const bodyAttrs = `data-page="${desc.page}"` + (desc.id ? ` data-id="${esc(desc.id)}"` : '') +
-    ` data-smoke="${esc(info.theme.smoke.join(','))}" data-search="${asset('js/search.js')}"` +
+    ` data-smoke="${esc(info.theme.smoke.join(','))}" data-search="${asset('js/search.js')}" data-hk3d="${asset('js/hookah3d.js')}" data-hk3d-model="${asset('static/models/nargila.glb')}"` +
     // mapa lokala: Leaflet se preuzima tek kad posjetilac otvori mapu
     (desc.page === 'barCity' ? ` data-leaflet="${asset('js/vendor/leaflet.js')}" data-leaflet-css="${asset('css/vendor/leaflet.css')}"` : '');
 

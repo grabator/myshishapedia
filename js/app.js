@@ -512,7 +512,8 @@
     fitHeroStage();
     startHookah(hero, th, { introDelay: 1.7, bowlSmoke: { rate: 8, alpha: 0.26 } });
     cleanup(hx2Puff(hero));
-    cleanup(whenAgeOk(function () { hero._explode = heroExplode(hero); heroCycle(hero); }));
+    cleanup(whenAgeOk(function () { hero._explode = heroExplode(hero); }));
+    cleanup(mountHookah3d(hero));
     cleanup(FX.parallax(hero));
     var grid = document.getElementById('flavor-grid');
     cleanup(FX.tilt(grid));
@@ -629,6 +630,31 @@
    * Mobitel: prvi ekran početne je tačno visok kao ekran, a nargila se smanji da stane u panel
    * (CSS daje visine, ovdje se samo izračuna razmjer).
    */
+  /**
+   * Početna: prava 3D nargila (js/hookah3d.js, Three.js) umjesto crteža. Učitava se tek kad je stranica
+   * gotova i ništa ne čeka; ako nema WebGL-a, štednje podataka ili učitavanje ne uspije, ostaje SVG nargila.
+   */
+  function mountHookah3d(hero) {
+    var wrap = hero && hero.querySelector('.hookah-wrap');
+    var src = document.body.getAttribute('data-hk3d');
+    if (!wrap || !src) return function () {};
+    var conn = navigator.connection;
+    if (conn && conn.saveData) return function () {};
+    try { var tc = document.createElement('canvas'); if (!(tc.getContext('webgl2') || tc.getContext('webgl'))) return function () {}; } catch (e) { return function () {}; }
+    var stop = null, dead = false;
+    var hk = wrap.querySelector('[data-hookah]');
+    var water = getComputedStyle(wrap).getPropertyValue('--hk-water').trim() || '#e8b04a';
+    var go = function () {
+      if (dead) return;
+      import(src).then(function (m) {
+        if (dead) return;
+        stop = m.mount(wrap, { water: water, reduced: FX.reducedMotion(), url: document.body.getAttribute('data-hk3d-model') });
+      }).catch(function () { /* ostaje SVG */ });
+    };
+    var t = setTimeout(function () { if ('requestIdleCallback' in window) requestIdleCallback(go, { timeout: 2500 }); else go(); }, 900);
+    return function () { dead = true; clearTimeout(t); if (stop) stop(); };
+  }
+
   /** Početna: kad pustiš dim, znak iza nargile se kratko podigne i zasvijetli. */
   function hx2Puff(hero) {
     var hk = hero && hero.querySelector('[data-hookah]');
