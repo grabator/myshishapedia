@@ -923,6 +923,7 @@
         });
         Object.keys(items).forEach(function (id) { if (!shown[id]) items[id].hidden = true; });
         countEl.textContent = MSP.plural('home.count', list.length);
+        res.update(list.length);
         renderPager(pagerEl, state.page, pages);
         empty.hidden = list.length > 0;
         suggest.setAttribute('href', suggestBase + (state.q ? '?q=' + encodeURIComponent(state.q) : ''));
@@ -936,6 +937,85 @@
         if (state.page > 1) qs.push('page=' + state.page);
         ctx.replaceUrl(qs.length ? '?' + qs.join('&') : '');
       }
+
+      // Pretraga sa početne (?q=): traka "58 okusa za „menta”" iznad polja, stranica se sama spusti do
+      // pretrage, dugme "Pogledaj 58 okusa" dole vodi na rezultate, a dok se skroluje kroz okuse gore
+      // ostaje mala traka sa pretragom (filteri i brisanje).
+      var res = (function () {
+        var esc = V.esc;
+        var tools = main.querySelector('.fl-tools');
+        var hh = function () { return (parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--header-h')) || 68); };
+        var bar = document.createElement('div');
+        bar.className = 'fl-res'; bar.hidden = true;
+        bar.innerHTML = '<p class="fl-res__txt" aria-live="polite"></p><button type="button" class="fl-res__clear">' + esc(t('flavorsPage.resClear')) + V.icon('close') + '</button>';
+        tools.parentNode.insertBefore(bar, tools);
+        var stick = document.createElement('div');
+        stick.className = 'fl-stick';
+        stick.innerHTML = '<button type="button" class="fl-stick__q">' + V.icon('search') + '<span class="fl-stick__t"></span><b class="fl-stick__n"></b></button>' +
+          '<button type="button" class="fl-stick__btn fl-stick__f" aria-label="' + esc(t('flavorsPage.resFilters')) + '">' + V.icon('filter') + '</button>' +
+          '<button type="button" class="fl-stick__btn fl-stick__x" aria-label="' + esc(t('flavorsPage.resClear')) + '">' + V.icon('close') + '</button>';
+        document.body.appendChild(stick);
+        var pill = null, n = 0, raf = 0;
+        function toTools(focus) {
+          window.scrollTo({ top: bar.getBoundingClientRect().top + window.scrollY - hh() - 14, behavior: smooth() });
+          if (focus) setTimeout(function () { input.focus({ preventScroll: true }); }, 350);
+        }
+        function clearQ() { state.q = ''; state.page = 1; syncControls(); apply(true); }
+        bar.querySelector('.fl-res__clear').addEventListener('click', function () { clearQ(); input.focus(); });
+        stick.querySelector('.fl-stick__q').addEventListener('click', function () { toTools(true); });
+        stick.querySelector('.fl-stick__f').addEventListener('click', function () { toTools(false); });
+        stick.querySelector('.fl-stick__x').addEventListener('click', function () { clearQ(); toTools(false); });
+        function check() {
+          raf = 0;
+          var on = !!state.q.trim() && tools.getBoundingClientRect().bottom < hh();
+          stick.classList.toggle('is-on', on);
+          if (pill && grid.getBoundingClientRect().top < window.innerHeight * 0.55) hidePill();
+        }
+        function onScroll() { if (!raf) raf = requestAnimationFrame(check); }
+        function hidePill() {
+          if (!pill) return;
+          var p = pill; pill = null;
+          p.classList.remove('is-on');
+          setTimeout(function () { p.remove(); }, 400);
+          ['wheel', 'touchmove', 'keydown'].forEach(function (ev) { window.removeEventListener(ev, hidePill); });
+        }
+        function showPill() {
+          if (!n || grid.getBoundingClientRect().top < window.innerHeight * 0.75) return;
+          pill = document.createElement('button');
+          pill.type = 'button'; pill.className = 'fl-pill';
+          pill.innerHTML = '<span class="fl-pill__ar" aria-hidden="true">' + V.icon('arrowDown') + '</span>' + esc(MSP.plural('flavorsPage.seeResults', n));
+          pill.addEventListener('click', function () {
+            window.scrollTo({ top: countEl.getBoundingClientRect().top + window.scrollY - hh() - 12, behavior: smooth() });
+            hidePill();
+          });
+          document.body.appendChild(pill);
+          requestAnimationFrame(function () { if (pill) pill.classList.add('is-on'); });
+          // korisnik sam krene skrolati: dugme se skloni
+          ['wheel', 'touchmove', 'keydown'].forEach(function (ev) { window.addEventListener(ev, hidePill, { passive: true }); });
+        }
+        window.addEventListener('scroll', onScroll, { passive: true });
+        ctx.cleanup(function () { window.removeEventListener('scroll', onScroll); if (raf) cancelAnimationFrame(raf); hidePill(); stick.remove(); });
+        return {
+          update: function (count) {
+            n = count;
+            var q = state.q.trim();
+            bar.hidden = !q;
+            if (q) {
+              bar.querySelector('.fl-res__txt').innerHTML = count
+                ? esc(t('home.searchFor', { count: '\u0001', q: q })).replace('\u0001', '<b>' + esc(MSP.plural('home.count', count)) + '</b>')
+                : esc(t('home.searchNone', { q: q }));
+              stick.querySelector('.fl-stick__t').textContent = q;
+              stick.querySelector('.fl-stick__n').textContent = String(count);
+            }
+            if (pill && (!q || !count)) hidePill();
+            onScroll();
+          },
+          arrive: function () {
+            if (!state.q.trim()) return;
+            setTimeout(function () { toTools(false); setTimeout(showPill, FX.reducedMotion() ? 50 : 650); }, 120);
+          }
+        };
+      })();
 
       input.addEventListener('input', function () { state.page = 1; state.q = input.value; apply(false); });
       document.getElementById('fl-form').addEventListener('submit', function (e) { e.preventDefault(); input.blur(); });
@@ -1001,6 +1081,7 @@
 
       syncControls();
       apply(false);
+      res.arrive();
       ctx.cleanup(FX.tilt(grid));
       ctx.cleanup(FX.cardWisps(grid));
       ctx.heroSmoke();
