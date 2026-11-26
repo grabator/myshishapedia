@@ -220,12 +220,25 @@
     var catInput = document.getElementById('catalog-q');
     if (!input || !filters) return;
 
+    var live = document.getElementById('search-input-live');
+    // u polju, lijevo od dugmeta: koliko okusa nađe ("58 okusa"), od 2 slova
+    function updateLive(q) {
+      if (!live) return;
+      var qq = q.trim();
+      if (V.normalize(qq).replace(/ /g, '').length < 2) { live.textContent = ''; form.classList.remove('has-live'); return; }
+      var n = V.flavors().filter(function (f) { return V.matchesQuery(f, qq); }).length;
+      live.textContent = MSP.plural('home.count', n);
+      live.classList.toggle('is-none', !n);
+      form.classList.add('has-live');
+    }
+
     // gornja pretraga i pretraga iznad okusa su ista pretraga
     function setQuery(q) {
       catalog.query = q;
       clear.hidden = !q;
       if (input.value !== q) input.value = q;
       if (catInput && catInput.value !== q) catInput.value = q;
+      updateLive(q);
       updateGrid();
     }
 
@@ -242,10 +255,13 @@
       setQuery('');
       input.focus();
     });
+    // Enter, "Idi" na tastaturi ili dugme sa lupom: stranica svih okusa sa tom pretragom (tamo su i filteri)
     form.addEventListener('submit', function (e) {
       e.preventDefault();
-      if (FX.isMobile()) input.blur();
-      scrollToCatalog();
+      var q = input.value.trim();
+      if (!q) { input.focus(); return; }
+      input.blur();
+      location.href = V.url('flavors') + '?q=' + encodeURIComponent(q);
     });
     filters.addEventListener('click', function (e) {
       var btn = e.target.closest('.chip');
@@ -508,6 +524,7 @@
     var th = V.themeFor(null);
     var hero = els.main.querySelector('.hero');
     bindCatalog();
+    cleanup(scrollCue(document.getElementById('smoke-cue'), hero));
     mountFotd();
     fitHeroStage();
     startHookah(hero, th, { introDelay: 1.7, bowlSmoke: { rate: 8, alpha: 0.26 } });
@@ -522,6 +539,29 @@
     if (xgrid) cleanup(FX.hoverWisps(xgrid, '.xcard', '.xcard__art', th.smoke));
     cleanup(FX.reveal(els.main, th.smoke));
     cleanup(pauseOffscreen(els.main));
+  }
+
+  /**
+   * Početna: tri pramena dima i kvačica dole desno pokazuju da ima još ispod. Vide se samo na vrhu
+   * stranice; čim se skroluje nestanu. Klik spusti stranicu do prve sekcije ispod heroja.
+   */
+  function scrollCue(btn, hero) {
+    if (!btn || !hero) return function () {};
+    // heroj se pomjera (parallax, transform), pa bi position: fixed unutar njega klizio; zato ide u body
+    document.body.appendChild(btn);
+    function onScroll() { btn.classList.toggle('is-gone', window.scrollY > 40); }
+    function onClick() {
+      var next = hero.nextElementSibling;
+      while (next && !next.offsetHeight) next = next.nextElementSibling;
+      var y = next ? next.getBoundingClientRect().top + window.scrollY - (parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--header-h')) || 68) : window.innerHeight * 0.85;
+      window.scrollTo({ top: y, behavior: smooth() });
+    }
+    // pojavi se kad se uvod smiri, da ne smeta prvom utisku
+    var tm = setTimeout(function () { btn.classList.add('is-on'); }, 2200);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    btn.addEventListener('click', onClick);
+    return function () { clearTimeout(tm); window.removeEventListener('scroll', onScroll); btn.removeEventListener('click', onClick); btn.remove(); };
   }
 
   /**

@@ -129,14 +129,14 @@
   }
   V.clamp = clamp;
 
-  /** Mala slova, bez dijakritika (č ć š ž -> c c s z, đ -> dj), bez interpunkcije. */
+  /** Mala slova, bez dijakritika (č ć š ž -> c c s z, đ -> dj, й -> и, ё -> е), bez interpunkcije; ćirilica ostaje (ruska pretraga). */
   function normalize(s) {
     return String(s || '')
       .toLowerCase()
       .replace(/đ/g, 'dj')
       .normalize('NFD')
       .replace(/[̀-ͯ]/g, '')
-      .replace(/[^a-z0-9]+/g, ' ')
+      .replace(/[^a-z0-9а-я]+/g, ' ')
       .trim();
   }
   V.normalize = normalize;
@@ -151,6 +151,8 @@
     close: '<path d="M6 6l12 12M18 6 6 18"/>',
     arrowLeft: '<path d="M19 12H5M11 6l-6 6 6 6"/>',
     arrowRight: '<path d="M5 12h14M13 6l6 6-6 6"/>',
+    arrowDown: '<path d="M12 5v14M6 13l6 6 6-6"/>',
+    filter: '<path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/>',
     arrowUpRight: '<path d="M7 17 17 7M8.5 7H17v8.5"/>',
     alert: '<path d="M10.3 4.2 2.6 17.5A2 2 0 0 0 4.3 20.5h15.4a2 2 0 0 0 1.7-3L13.7 4.2a2 2 0 0 0-3.4 0z"/><path d="M12 9.5v4M12 17h.01"/>',
     leaf: '<path d="M5 19c0-8.3 5.6-14 14-14 0 8.4-5.7 14-14 14z"/><path d="M5 19l8-8"/>',
@@ -1155,6 +1157,9 @@
         '<input class="search__input" id="' + id + '" name="q" type="search" autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="search" placeholder="' + esc(t(placeholderKey)) + '">' +
         '<button type="button" class="search__clear" id="' + id + '-clear" aria-label="' + esc(t('home.searchClear')) + '" hidden>' + icon('close') + '</button>' +
         '<kbd class="search__kbd" title="' + esc(t('home.searchHint', { key: '/' })) + '" aria-hidden="true">/</kbd>' +
+        '<button type="submit" class="search__go" aria-label="' + esc(t('home.searchGo')) + '">' + icon('search') + '</button>' +
+        // koliko okusa nađe dok se kuca; Enter ili dugme vode na stranicu svih okusa sa tom pretragom
+        '<span class="search__live" id="' + id + '-live" aria-live="polite"></span>' +
       '</form>'
     );
   }
@@ -1370,6 +1375,8 @@
             searchForm('search-input', 'home.searchLabel', 'home.searchPlaceholder') +
             nowChip(now) +
           '</div>' +
+          // tri pramena dima i kvačica dole desno (smoke-cue): ima još ispod (nestane čim se skroluje)
+          '<button type="button" class="smoke-cue" id="smoke-cue" aria-label="' + esc(t('home.scrollCue')) + '"><svg viewBox="0 0 32 48" aria-hidden="true"><path class="smoke-cue__b" d="M8 3c-4 5 3 8 0 13s3 8 3 8"/><path class="smoke-cue__b" d="M16 1c-5 6 4 9 0 15s3 10 3 10"/><path class="smoke-cue__b" d="M24 4c-4 5 3 7 0 12s2 7 2 7"/><path class="smoke-cue__w smoke-cue__w--1" pathLength="40" d="M8 3c-4 5 3 8 0 13s3 8 3 8"/><path class="smoke-cue__w smoke-cue__w--2" pathLength="40" d="M16 1c-5 6 4 9 0 15s3 10 3 10"/><path class="smoke-cue__w smoke-cue__w--3" pathLength="40" d="M24 4c-4 5 3 7 0 12s2 7 2 7"/><path class="smoke-cue__v" d="M10 36l6 6 6-6"/></svg></button>' +
           '<div class="hero__stage">' + V.hookahStage(Object.assign({}, th, { hk: Object.assign({}, th.hk, { water: V.themeFor(now).hk.water }) })).replace('<div class="hookah" data-hookah>', hx2Scene() + '<div class="hookah" data-hookah>') + '</div>' +
         '</div>' +
       '</section>' +
