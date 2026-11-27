@@ -2666,7 +2666,11 @@
   // ime jezika na samom tom jeziku (izbornik jezika) i kratak opis ispod
   MSP.LANG_NAME = { bs: 'Bosanski', en: 'English', de: 'Deutsch', ru: 'Русский' };
   MSP.LANG_SUB = { bs: 'Hrvatski · Srpski', en: 'International', de: 'Deutschland · Österreich', ru: 'Россия · СНГ' };
-  if (!MSP.lang) MSP.lang = 'bs';
+  // jezik stranice odmah (ne tek u app.js): shelf.js i drugi koji se učitaju prije app.js crtaju tekst odmah
+  if (!MSP.lang) {
+    var docLang = typeof document !== 'undefined' && document.documentElement ? document.documentElement.lang : '';
+    MSP.lang = MSP.LANGS.indexOf(docLang) !== -1 ? docLang : 'bs';
+  }
 
   function lookup(path, lang) {
     var parts = String(path).split('.');
