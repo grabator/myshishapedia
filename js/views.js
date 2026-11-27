@@ -2671,6 +2671,13 @@
         out.title = t('meta.loungeTitle', V.loungeNames(desc.lounge));
         out.description = t('meta.loungeDescription', V.loungeNames(desc.lounge));
         break;
+      case 'studio':
+        out.main = V.pageStudio(desc, crumbs);
+        var stm = V.studioMeta();
+        out.title = stm.title;
+        out.description = stm.description;
+        out.ogImage = '/studio/og.jpg';
+        break;
       case 'fmap':
         out.main = V.pageFlavorMap(desc, crumbs);
         var fmm = V.fmapMeta();
