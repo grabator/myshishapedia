@@ -1335,25 +1335,28 @@
       var aa = (i * 137.5) * Math.PI / 180, rr = r + ((i * 53) % 30 - 15);
       sparks += '<circle class="hx2-spark" style="--d:' + ((i * 0.37) % 3).toFixed(2) + 's" cx="' + (c + rr * Math.cos(aa)).toFixed(1) + '" cy="' + (c + rr * Math.sin(aa)).toFixed(1) + '" r="' + (0.9 + (i % 3) * 0.5).toFixed(1) + '"/>';
     }
+    // krug i iskre su mirni (sjena se iscrta jednom); ugljevi se okreću kao cijeli sloj (GPU), bez ponovnog crtanja
     return '<div class="hx2-scene" aria-hidden="true">' +
       '<svg class="hx2-ring" viewBox="0 0 400 400" focusable="false">' +
         '<circle class="hx2-ring__halo" cx="200" cy="200" r="' + r + '"/><circle class="hx2-ring__line" cx="200" cy="200" r="' + r + '"/>' +
-        '<g class="hx2-sparks">' + sparks + '</g>' +
-        '<g class="hx2-orbit"><g class="hx2-orbit__boost">' + coals + '</g></g>' +
-      '</svg>' + hx2Mark('hx2-big') + '</div>';
+      '</svg>' +
+      '<svg class="hx2-sparks" viewBox="0 0 400 400" focusable="false">' + sparks + '</svg>' +
+      '<div class="hx2-orbit"><div class="hx2-orbit__boost"><svg class="hx2-coals" viewBox="0 0 400 400" focusable="false">' + coals + '</svg></div></div>' +
+      hx2Mark('hx2-big') + '</div>';
   }
-  /** Pozadina vrha početne: dim (SVG šum), zvijezde i vinjeta. Statični sloj koji se samo polako pomjera (jeftino za telefon). */
+  // Pozadina vrha početne: dim, zvijezde i vinjeta.
+  // dim: šum se iscrta jednom kao slika (img), a pomjera se samo gotova slika. SVG filter koji se
+  // pomjera u svakom kadru je na iPhoneu (Safari ga crta procesorom) kočio cijelu stranicu.
+  var HX2_SMOKE_A = "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='560' height='1040' viewBox='0 0 560 1040'><filter id='f' x='0' y='0' width='100%25' height='100%25'><feTurbulence type='fractalNoise' baseFrequency='.005 .01' numOctaves='4' seed='11'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 .62  0 0 0 0 .3  0 0 0 2.4 -.9'/></filter><rect width='560' height='1040' filter='url(%23f)'/></svg>";
+  var HX2_SMOKE_B = "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='560' height='1040' viewBox='0 0 560 1040'><filter id='f' x='0' y='0' width='100%25' height='100%25'><feTurbulence type='fractalNoise' baseFrequency='.009 .016' numOctaves='3' seed='14'/><feColorMatrix values='0 0 0 0 .62  0 0 0 0 .38  0 0 0 0 .9  0 0 0 2.2 -.95'/></filter><rect width='560' height='1040' filter='url(%23f)'/></svg>";
   function hx2Bg() {
     var stars = '';
-    for (var i = 0; i < 44; i++) {
+    for (var i = 0; i < 24; i++) {
       var x = (i * 61.8) % 100, y = (i * 37.3) % 48, z = 0.8 + (i % 4) * 0.45;
       stars += '<i style="left:' + x.toFixed(1) + '%;top:' + y.toFixed(1) + '%;width:' + z + 'px;height:' + z + 'px;--d:' + ((i * 0.53) % 4).toFixed(2) + 's"></i>';
     }
     return '<div class="hx2-bg" aria-hidden="true">' +
-      '<svg class="hx2-smoke" viewBox="0 0 400 800" preserveAspectRatio="xMidYMid slice" focusable="false"><defs>' +
-        '<filter id="hx2-s1" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency=".005 .01" numOctaves="4" seed="11"/><feColorMatrix values="0 0 0 0 1  0 0 0 0 .62  0 0 0 0 .3  0 0 0 2.4 -.9"/></filter>' +
-        '<filter id="hx2-s2" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency=".009 .016" numOctaves="3" seed="14"/><feColorMatrix values="0 0 0 0 .62  0 0 0 0 .38  0 0 0 0 .9  0 0 0 2.2 -.95"/></filter>' +
-      '</defs><rect class="hx2-smoke__a" x="-80" y="-120" width="560" height="1040" filter="url(#hx2-s1)"/><rect class="hx2-smoke__b" x="-80" y="-120" width="560" height="1040" filter="url(#hx2-s2)"/></svg>' +
+      '<div class="hx2-smoke"><img class="hx2-smoke__a" src="' + HX2_SMOKE_A + '" alt="" decoding="async"><img class="hx2-smoke__b" src="' + HX2_SMOKE_B + '" alt="" decoding="async"></div>' +
       '<div class="hx2-stars">' + stars + '</div><div class="hx2-vig"></div></div>';
   }
   function pageHome() {
