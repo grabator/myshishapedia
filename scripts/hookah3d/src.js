@@ -56,7 +56,9 @@ export function mount(wrap, opts) {
   try {
     renderer = new WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'low-power' });
   } catch (e) { canvas.remove(); return () => {}; }
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.75));
+  // telefon: manja rezolucija platna (oštrina skoro ista, GPU radi upola manje)
+  const touchDev = !!(window.matchMedia && window.matchMedia('(pointer: coarse)').matches);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, touchDev ? 1.5 : 1.75));
   renderer.toneMapping = ACESFilmicToneMapping;
   renderer.toneMappingExposure = 1.05;
   renderer.outputColorSpace = SRGBColorSpace;
@@ -79,7 +81,7 @@ export function mount(wrap, opts) {
   const brass = new MeshStandardMaterial({ color: 0xd9a35a, metalness: 1, roughness: 0.24 });
   // staklo: blago, sjajno staklo (kao u prvoj verziji)
   const glass = new MeshPhysicalMaterial({ color: 0xfff1de, metalness: 0, roughness: 0.04, transparent: true, opacity: 0.13, envMapIntensity: 2, clearcoat: 1, clearcoatRoughness: 0.05, depthWrite: false, side: DoubleSide });
-  const glassLite = new MeshPhysicalMaterial({ color: 0xfff1de, metalness: 0, roughness: 0.04, transparent: true, opacity: 0.16, envMapIntensity: 2, clearcoat: 1, depthWrite: false, side: DoubleSide });
+  const glassLite = new MeshPhysicalMaterial({ color: 0xfff1de, metalness: 0, roughness: 0.04, transparent: true, opacity: 0.16, envMapIntensity: 2.2, depthWrite: false, side: DoubleSide });
   const hoseMat = new MeshStandardMaterial({ color: 0x1b1310, metalness: 0.15, roughness: 0.5 });
   const wc = new Color(opts.water || '#e8b04a');
   // voda: puna tečnost (vidi se kroz staklo), tamnija pri dnu, svjetlija i sjajna pri površini
@@ -151,7 +153,8 @@ export function mount(wrap, opts) {
   let glassMesh = null;
   let alive = true, visible = true, raf = 0, last = 0, ready = false;
   let heat = 0, heatTarget = 0, slow = 0, lowered = false, lastAz = 0, azVel = 0, lastTap = 0, free = false, idleTimer = 0;
-  const touchy = window.matchMedia && window.matchMedia('(pointer: coarse)').matches;
+  const touchy = touchDev;
+  let busy = false;
 
   new GLTFLoader().setMeshoptDecoder(MeshoptDecoder).load(opts.url || '/models/nargila.glb', (g) => {
     if (!alive) return;
@@ -160,7 +163,7 @@ export function mount(wrap, opts) {
       if (!o.isMesh) return;
       const n = (o.name || o.parent && o.parent.name || '').replace(/_\d+$/, '');
       if (DROP.some((d) => n.indexOf(d) === 0)) { remove.push(o); return; }
-      if (n.indexOf('Rectangle001') === 0) { o.material = glass; o.renderOrder = 2; glassMesh = o; }
+      if (n.indexOf('Rectangle001') === 0) { o.material = touchDev ? glassLite : glass; o.renderOrder = 2; glassMesh = o; }
       else o.material = BRASS.some((b) => n.indexOf(b) === 0) ? brass : brass;
     });
     remove.forEach((o) => o.parent.remove(o));
@@ -227,6 +230,8 @@ export function mount(wrap, opts) {
   function frame(t) {
     raf = 0;
     if (!alive || !visible) return;
+    // telefon, nargila se samo sama vrti: 30 kadrova u sekundi je dovoljno (manje grije i ne koči stranicu)
+    if (touchy && !busy && !fly && !heatTarget && heat < 0.02 && last && t - last < 30) { loop(); return; }
     const dt = Math.min(0.05, (t - (last || t)) / 1000); last = t;
     heat += (heatTarget - heat) * Math.min(1, dt * 4);
     if (fly) {
@@ -234,7 +239,7 @@ export function mount(wrap, opts) {
       controls.target.lerpVectors(fly.from.tg, fly.to.tg, e); camera.position.lerpVectors(fly.from.pos, fly.to.pos, e);
       if (k >= 1) fly = null;
     }
-    controls.update();
+    controls.update(dt || null);
     const az = controls.getAzimuthalAngle(); let d = az - lastAz; if (d > Math.PI) d -= 2 * Math.PI; if (d < -Math.PI) d += 2 * Math.PI; lastAz = az;
     if (dt > 0) azVel += (d / dt - azVel) * Math.min(1, dt * 5);
     // slabiji telefon: manja rezolucija ako crtanje kasni
@@ -267,8 +272,8 @@ export function mount(wrap, opts) {
     if (now - lastTap < 300 && e.isPrimary) { lastTap = 0; if (zoomK() > 0.45) flyTo(HOME_T, baseDist); else flyTo(HEAD_T, baseDist * 0.42); } else lastTap = now;
   });
   // dok korisnik okreće, nargila se ne vrti sama; nastavi par sekundi poslije
-  controls.addEventListener('start', () => { controls.autoRotate = false; clearTimeout(idleTimer); fly = null; loop(); });
-  controls.addEventListener('end', () => { clearTimeout(idleTimer); if (!opts.reduced) idleTimer = setTimeout(() => { controls.autoRotate = !free; loop(); }, 4000); });
+  controls.addEventListener('start', () => { busy = true; controls.autoRotate = false; clearTimeout(idleTimer); fly = null; loop(); });
+  controls.addEventListener('end', () => { busy = false; clearTimeout(idleTimer); if (!opts.reduced) idleTimer = setTimeout(() => { controls.autoRotate = !free; loop(); }, 4000); });
   // dugme 360°: slobodan pogled (kamera gore-dolje, približavanje, bez listanja stranice preko nargile)
   const L = opts.labels || {};
   btn = document.createElement('button');
