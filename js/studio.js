@@ -76,7 +76,7 @@
     step: 0,
     bowl: 'egypt',
     flavors: [flavorInfo(BY_ID[POPULAR[0]] || ALL[0])],
-    prep: 'classic', ratio: 0.5, mixP: 0, amount: 0, density: 0, holes: false,
+    prep: 'mix', shares: [100], shareSel: 0, pick: 0, mixP: 0, fill: { A: 0, d: 0, uneven: 0, touch: 0, spire: false }, holes: false,
     cover: 'foil', pattern: 'rings', foilHoles: [], vents: 0.5, coals: [], coalN: 3
   };
 
@@ -104,39 +104,33 @@
     var a = A.bowl, it = a.items[state.bowl];
     return {
       title: a.title, hint: hintSeen ? '' : a.hint,
-      panel:
-        '<div class="bs-note" aria-live="polite">' + ic('info') + '<p><b>' + esc(it.name) + '.</b> ' + esc(it.info) + '</p></div>' +
-        '<div class="bs-choices" role="radiogroup" aria-label="' + esc(a.title) + '">' + BOWLS.map(function (id) {
+      cap: '<b>' + esc(it.name) + '.</b> ' + esc(it.info),
+      panel: tb('<div class="bs-choices" role="radiogroup" aria-label="' + esc(a.title) + '">' + BOWLS.map(function (id) {
           var x = a.items[id], on = id === state.bowl;
           return '<button type="button" class="bs-choice' + (on ? ' is-on' : '') + '" role="radio" aria-checked="' + on + '" data-act="bowl" data-id="' + id + '">' +
-            ic(id, 'bs-choice__ic') + '<span class="bs-choice__name">' + esc(x.name) + '</span><span class="bs-choice__sub">' + esc(x.short) + '</span></button>';
-        }).join('') + '</div>' +
-        btn(a.cta, 'next', 'next', 'bs-btn--primary')
+            ic(id, 'bs-choice__ic') + '<span class="bs-choice__name">' + esc(x.name) + '</span></button>';
+        }).join('') + '</div>', a.cta)
     };
   }
 
-  function flavorRow(f, i) {
-    var a = A.flavor;
-    return '<div class="bs-flav">' + swatch(f) +
-      '<div class="bs-flav__txt"><b class="bs-flav__name">' + esc(f.name) + '</b>' +
-        '<span class="bs-flav__meta">' + esc(f.brand) + '<span class="bs-dot" aria-hidden="true"></span><span class="bs-leaf bs-leaf--' + f.leaf + '">' + ic('leaf') + esc(a.leaf[f.leaf]) + '</span></span></div>' +
-      '<button type="button" class="bs-link" data-act="pick" data-slot="' + i + '" aria-label="' + esc(a.change + ': ' + f.name) + '">' + ic('swap') + '<span>' + esc(a.change) + '</span></button>' +
-      (i > 0 ? '<button type="button" class="bs-ibtn bs-ibtn--sm" data-act="remove" data-slot="' + i + '" aria-label="' + esc(a.remove) + '">' + ic('x') + '</button>' : '') +
+  function flavorChip(f, i) {
+    var a = A.flavor, n = state.flavors.length;
+    return '<div class="bs-fchip">' +
+      '<button type="button" class="bs-fchip__b" data-act="pick" data-slot="' + i + '" aria-label="' + esc(a.change + ': ' + f.name) + '">' + swatch(f) +
+        '<span class="bs-fchip__t"><b>' + esc(f.name) + '</b><small>' + esc(f.brand) + ' · ' + esc(a.leaf[f.leaf]) + '</small></span></button>' +
+      (n > 1 ? '<button type="button" class="bs-fchip__x" data-act="remove" data-slot="' + i + '" aria-label="' + esc(a.remove) + '">' + ic('x') + '</button>' : '') +
     '</div>';
   }
 
   function viewFlavor() {
-    var a = A.flavor, fl = state.flavors, two = fl.length > 1;
-    var note = '';
-    if (two) {
-      var same = fl[0].leaf === fl[1].leaf;
-      note = '<div class="bs-note' + (same ? '' : ' bs-note--warn') + '">' + ic(same ? 'tip' : 'warn') + '<p>' + esc(same ? a.sameLeaf : a.mixedLeaf) + ' ' + esc(a.mixNote) + '</p></div>';
-    }
+    var a = A.flavor, fl = state.flavors, n = fl.length;
+    var leaves = fl.map(function (f) { return f.leaf; }), mixedLeaf = leaves.indexOf('dark') !== -1 && leaves.indexOf('light') !== -1;
     return {
-      title: two ? a.titleMix : a.title,
-      panel: '<div class="bs-flavs' + (two ? ' bs-flavs--two' : '') + '">' + fl.map(flavorRow).join('') + '</div>' + note +
-        (two ? '' : '<button type="button" class="bs-add" data-act="pick" data-slot="1">' + ic('plus') + '<span>' + esc(a.add) + '</span></button>') +
-        btn(a.cta, 'next', 'next', 'bs-btn--primary')
+      title: n > 1 ? a.titleMix : a.title,
+      cap: n > 1 ? (mixedLeaf ? '<span class="bs-warn">' + esc(a.mixedLeaf) + '</span>' : esc(a.sameLeaf)) : esc(a.max),
+      panel: '<div class="bs-fchips">' + fl.map(flavorChip).join('') +
+        (n < 4 ? '<button type="button" class="bs-fadd" data-act="pick" data-slot="' + n + '" aria-label="' + esc(a.add) + '">' + ic('plus') + '<span>' + esc(a.addShort) + '</span></button>' : '') + '</div>' +
+        tb('', a.cta)
     };
   }
 
@@ -153,11 +147,12 @@
     return dark === 0 ? 'light' : dark === state.flavors.length ? 'dark' : 'mixed';
   }
   function packInfo() {
-    var I = INNER[state.bowl], A = state.amount, d = state.density;
-    var top = I.floor + A * (I.rim - I.floor) * (1 - 0.36 * d);
+    var I = INNER[state.bowl], F = state.fill, A2 = F.A, d = F.d;
+    var top = I.floor + A2 * (I.rim - I.floor) * (1 - 0.36 * d);
     var mm = Math.round((top - I.rim) * 10);
-    var type = mm > 1 ? 'over' : d < 0.25 ? 'fluff' : d < 0.6 ? 'semi' : 'dense';
-    return { top: top, mm: mm, type: type, grams: Math.round(A * I.g * (1 + d * 0.55)), spire: !!I.spire && top > I.spire + 0.05 };
+    var over = mm > 1 || F.touch > 0.15;
+    var type = over ? 'over' : d < 0.25 ? 'fluff' : d < 0.6 ? 'semi' : 'dense';
+    return { top: top, mm: mm, type: type, grams: Math.round(A2 * I.g * (1 + d * 0.55)), spire: F.spire || (!!I.spire && top > I.spire + 0.05), uneven: F.uneven > 0.22 && A2 > 0.25 };
   }
   function holeFactor() {
     var n = state.foilHoles.length;
@@ -189,8 +184,19 @@
     }).join('') + '</div>';
   }
   function note(icon, html, warn) { return '<div class="bs-note' + (warn ? ' bs-note--warn' : '') + '">' + ic(icon) + '<p>' + html + '</p></div>'; }
-  function hold(act, label, icon, cls) {
-    return '<button type="button" class="bs-btn bs-hold' + (cls ? ' ' + cls : '') + '" data-hold="' + act + '">' + ic(icon) + '<span>' + esc(label) + '</span><i class="bs-hold__fill" aria-hidden="true"></i></button>';
+  function hold(act, label, icon, cls, prog) {
+    return '<button type="button" class="bs-btn bs-hold' + (cls ? ' ' + cls : '') + '" data-hold="' + act + '">' + ic(icon) + '<span>' + esc(label) + '</span>' +
+      (prog != null ? '<small class="bs-hold__pct">' + Math.round(prog * 100) + '%</small>' : '') +
+      '<i class="bs-hold__fill" aria-hidden="true"' + (prog != null ? ' style="transform:scaleX(' + prog + ');transition:none"' : '') + '></i></button>';
+  }
+  // donja traka: kontrole lijevo, dugme dalje desno
+  function tb(controls, label, enabled) {
+    return '<div class="bs-tb"><div class="bs-tb__c">' + controls + '</div>' +
+      '<button type="button" class="bs-next" data-act="next"' + (enabled === false ? ' disabled' : '') + ' aria-label="' + esc(label) + '"><span>' + esc(A.next) + '</span>' + ic('next') + '</button></div>';
+  }
+  function setCap(html) {
+    var c = $('bs-cap');
+    if (c && c.innerHTML !== html) c.innerHTML = html;
   }
   function primary(label, enabled, act) {
     return '<button type="button" class="bs-btn bs-btn--primary" data-act="' + (act || 'next') + '"' + (enabled === false ? ' disabled' : '') + '><span>' + esc(label) + '</span>' + ic('next') + '</button>';
@@ -200,48 +206,48 @@
   /* Korak 3: miješanje                                                  */
   /* ------------------------------------------------------------------ */
 
-  function layerDiagram() {
-    var a = state.flavors[0], b = state.flavors[1], r = state.ratio;
-    var h = 46, y0 = 70, hb = Math.round(h * r), ht = h - hb;
-    return '<svg class="bs-layers" viewBox="0 0 120 92" aria-hidden="true">' +
-      '<defs><clipPath id="bs-clip"><path d="M22 ' + (y0 - h) + 'h76l-10 ' + h + 'H32z"/></clipPath></defs>' +
-      '<g clip-path="url(#bs-clip)"><rect x="0" y="' + (y0 - hb) + '" width="120" height="' + hb + '" fill="' + esc(a.accent) + '" opacity=".85"/>' +
-      '<rect x="0" y="' + (y0 - h) + '" width="120" height="' + ht + '" fill="' + esc(b.accent) + '" opacity=".85"/></g>' +
-      '<path d="M14 ' + (y0 - h - 2) + 'h92M22 ' + (y0 - h) + 'l10 ' + h + 'h56l10-' + h + 'M50 ' + y0 + 'v8h20v-8M44 86h32" fill="none" stroke="#e9dccb" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  function sharesBar() {
+    var fl = state.flavors, a = A.mix;
+    return '<div class="bs-shares" role="group" aria-label="' + esc(a.ratio) + '">' +
+      '<div class="bs-shares__bar">' + fl.map(function (f, i) {
+        return '<button type="button" class="bs-shares__seg' + (i === state.shareSel ? ' is-on' : '') + '" data-act="sharesel" data-i="' + i + '" style="flex:' + state.shares[i] + ';--c:' + esc(f.accent) + '" aria-label="' + esc(f.name + ' ' + state.shares[i] + '%') + '"><span>' + state.shares[i] + '%</span></button>';
+      }).join('') + '</div>' +
+      '<div class="bs-shares__ctl"><span class="bs-shares__name"><i style="background:' + esc(fl[state.shareSel].accent) + '"></i>' + esc(fl[state.shareSel].name) + '</span>' +
+        '<button type="button" class="bs-ibtn bs-ibtn--sm bs-ibtn--line2" data-act="shareminus" aria-label="-5%">' + ic('minus') + '</button>' +
+        '<button type="button" class="bs-ibtn bs-ibtn--sm bs-ibtn--line2" data-act="shareplus" aria-label="+5%">' + ic('plus') + '</button></div>' +
+    '</div>';
+  }
+  function setShare(i, delta) {
+    var sh = state.shares.slice(), n = sh.length;
+    if (delta > 0) {
+      var j = -1; sh.forEach(function (v, k) { if (k !== i && v > 10 && (j === -1 || v > sh[j])) j = k; });
+      if (j === -1) return; sh[i] += 5; sh[j] -= 5;
+    } else {
+      if (sh[i] <= 10) return;
+      var m = -1; sh.forEach(function (v, k) { if (k !== i && (m === -1 || v < sh[m])) m = k; });
+      sh[i] -= 5; sh[m] += 5;
+    }
+    if (n) state.shares = sh;
   }
   function viewMix() {
     var a = A.mix, prep = prepOf();
+    var stir = hold('stir', a.stir, 'fork', 'bs-btn--ghost bs-btn--sm', state.mixP);
     if (prep === 'single') {
-      return {
-        title: a.titleSingle, hint: state.mixP < 1 ? a.hintTin : '',
-        panel: note('info', esc(a.single)) + mixMeter() +
-          '<div class="bs-row">' + hold('stir', a.stir, 'redo', 'bs-btn--ghost') + '</div>' +
-          primary(a.cta) + (state.mixP < 1 ? '<button type="button" class="bs-skip" data-act="next">' + esc(a.skip) + '</button>' : '')
-      };
+      return { title: a.titleSingle, hint: state.mixP < 1 ? a.hintTin : '', cap: esc(a.single), panel: tb(stir, a.cta) };
     }
-    var fl = state.flavors, pct = Math.round(state.ratio * 100);
-    var ratio = '<div class="bs-ratio"><div class="bs-ratio__top"><span><i style="background:' + esc(fl[0].accent) + '"></i>' + esc(fl[0].name) + ' <b id="bs-ra">' + pct + '%</b></span><span><b id="bs-rb">' + (100 - pct) + '%</b> ' + esc(fl[1].name) + '<i style="background:' + esc(fl[1].accent) + '"></i></span></div>' +
-      '<input type="range" class="bs-range" id="bs-ratio" min="30" max="70" step="10" value="' + pct + '" aria-label="' + esc(a.ratio) + '" style="--p:' + ((pct - 30) / 40 * 100) + '%;--a:' + esc(fl[0].accent) + ';--b:' + esc(fl[1].accent) + '"></div>';
-    var it = a[prep];
-    var body = prep === 'classic'
-      ? mixMeter() + '<div class="bs-row">' + hold('stir', a.stir, 'redo', 'bs-btn--ghost') + '</div>'
-      : '<div class="bs-layer">' + layerDiagram() + '<p>' + esc(a.layerNote) + '<br><span class="bs-layer__k"><i style="background:' + esc(fl[1].accent) + '"></i>' + esc(a.top) + ': ' + esc(fl[1].name) + '</span><span class="bs-layer__k"><i style="background:' + esc(fl[0].accent) + '"></i>' + esc(a.bottom) + ': ' + esc(fl[0].name) + '</span></p></div>';
+    var it = prep === 'mix' ? a.mixInfo : a.noneInfo;
     return {
-      title: a.titleTwo, hint: prep === 'classic' && state.mixP < 1 ? a.hint : '',
-      panel: seg('prep', [['classic', a.classic.name, 'blend'], ['layer', a.layer.name, 'layers']], prep) +
-        note('info', '<b>' + esc(it.name) + '.</b> ' + esc(it.info)) + ratio + body + primary(a.cta)
+      title: a.titleTwo, hint: prep === 'mix' && state.mixP < 1 ? a.hint : '',
+      cap: esc(it),
+      panel: seg('prep', [['mix', a.modeMix, 'fork'], ['none', a.modeNone, 'layers']], prep) + sharesBar() +
+        tb(prep === 'mix' ? stir : '', a.cta)
     };
   }
-  function mixMeter() {
-    var p = Math.round(Math.min(1, state.mixP) * 100);
-    return '<div class="bs-prog"><div class="bs-prog__top"><span>' + esc(A.mix.mixed) + '</span><b id="bs-mixp">' + (p >= 100 ? esc(A.mix.done) : p + '%') + '</b></div><div class="bs-prog__bar"><span id="bs-mixbar" style="transform:scaleX(' + (p / 100) + ')"></span></div></div>';
-  }
+  function mixMeter() { return ''; }
   function setMix(p) {
     state.mixP = Math.min(1, Math.max(0, p));
-    if (api) api.mixProgress(state.mixP, prepOf() === 'single');
-    var t = $('bs-mixp'), b = $('bs-mixbar'), pc = Math.round(state.mixP * 100);
-    if (t) t.textContent = pc >= 100 ? A.mix.done : pc + '%';
-    if (b) b.style.transform = 'scaleX(' + state.mixP + ')';
+    var b = el.panelIn.querySelector('[data-hold=stir] .bs-hold__fill'); if (b) b.style.transform = 'scaleX(' + state.mixP + ')';
+    var t = el.panelIn.querySelector('[data-hold=stir] .bs-hold__pct'); if (t) t.textContent = Math.round(state.mixP * 100) + '%';
     if (state.mixP >= 1) setHint('');
   }
 
@@ -249,68 +255,57 @@
   /* Korak 4: punjenje                                                   */
   /* ------------------------------------------------------------------ */
 
-  function currentFlavor() {
-    var fl = state.flavors;
-    if (fl.length < 2) return fl[0];
-    if (state.prep === 'layer') return state.amount < state.ratio ? fl[0] : fl[1];
-    return fl[Math.random() < state.ratio ? 0 : 1];
-  }
+  function currentFlavor() { return state.flavors[Math.min(state.pick, state.flavors.length - 1)]; }
   function viewFill() {
-    var a = A.fill, pk = packInfo(), leaf = leafOf();
-    var marks = ['fluff', 'semi', 'dense', 'over'];
-    var pos = pk.type === 'over' ? 92 : Math.min(72, state.density * 75);
+    var a = A.fill, fl = state.flavors, mixing = prepOf() === 'mix';
+    var chipsRow = fl.length > 1 ? '<div class="bs-pick" role="radiogroup" aria-label="' + esc(a.pickLabel) + '">' + (mixing
+      ? '<span class="bs-pick__c is-on is-mix">' + fl.map(function (f) { return '<i style="background:' + esc(f.accent) + '"></i>'; }).join('') + '<b>' + esc(a.mixChip) + '</b></span>'
+      : fl.map(function (f, i) { var on = i === state.pick; return '<button type="button" class="bs-pick__c' + (on ? ' is-on' : '') + '" role="radio" aria-checked="' + on + '" data-act="pickfl" data-i="' + i + '"><i style="background:' + esc(f.accent) + '"></i><b>' + esc(f.name) + '</b></button>'; }).join('')) + '</div>' : '';
+    var tools = '<div class="bs-tools">' + hold('pour', a.add, 'plus', 'bs-tool') + hold('press', a.press, 'tap', 'bs-tool') +
+      '<button type="button" class="bs-btn bs-tool" data-act="level">' + ic('level') + '<span>' + esc(a.levelBtn) + '</span></button>' +
+      '<button type="button" class="bs-ibtn bs-tool-i' + (state.holes ? ' is-on' : '') + '" role="switch" aria-checked="' + state.holes + '" data-act="holes" aria-label="' + esc(a.holes) + '">' + ic('pick') + '</button>' +
+      '<button type="button" class="bs-ibtn bs-tool-i" data-act="empty" aria-label="' + esc(a.reset) + '">' + ic('redo') + '</button></div>';
     return {
-      title: a.title, hint: state.amount < 0.3 ? a.hint : '',
-      panel:
-        '<div class="bs-stats">' + stat(a.type, a.types[pk.type], 'bs-ft') + stat(a.height, heightText(pk), 'bs-fh') + stat(a.grams, pk.grams + ' ' + A.fill.g, 'bs-fg') + '</div>' +
-        '<div class="bs-meter"><div class="bs-meter__bar"><span id="bs-fm" style="left:' + pos + '%"></span></div><div class="bs-meter__lab">' + marks.map(function (m) { return '<span' + (m === pk.type ? ' class="is-on"' : '') + ' data-m="' + m + '">' + esc(a.types[m]) + '</span>'; }).join('') + '</div></div>' +
-        '<div id="bs-fnote">' + fillNote(pk, leaf) + '</div>' +
-        '<div class="bs-row">' + hold('pour', a.add, 'plus', 'bs-btn--ghost') + hold('press', a.press, 'tap', 'bs-btn--ghost') +
-          '<button type="button" class="bs-ibtn bs-ibtn--line" data-act="empty" aria-label="' + esc(a.reset) + '">' + ic('redo') + '</button></div>' +
-        '<button type="button" class="bs-switch" role="switch" aria-checked="' + state.holes + '" data-act="holes"><span class="bs-switch__t" aria-hidden="true"></span><span>' + esc(a.holes) + '</span><small>' + esc(a.holesSub) + '</small></button>' +
-        primary(a.cta, state.amount >= 0.5)
+      title: a.title, hint: state.fill.A < 0.08 ? a.tapHint : '',
+      cap: fillCap(),
+      panel: chipsRow + tools + tb('<p class="bs-stat1" id="bs-fst">' + fillStatText() + '</p>', a.cta, state.fill.A >= 0.45)
     };
   }
   function heightText(pk) {
     var a = A.fill;
     return pk.mm < 0 ? fmt(a.below, { n: -pk.mm }) : pk.mm > 0 ? fmt(a.above, { n: pk.mm }) : a.level;
   }
-  function fillNote(pk, leaf) {
-    var a = A.fill;
-    if (state.amount < 0.05) return note('tip', esc(leaf === 'dark' ? a.tipDark : a.tipLight));
-    if (pk.spire) return note('warn', esc(a.spire), true);
-    if (pk.type === 'over') return note('warn', esc(a.over), true);
-    if (state.flavors.length > 1 && state.prep === 'layer') return note('layers', esc(fmt(a.layerNow, { name: currentFlavor().name })));
-    return note('tip', esc(leaf === 'dark' ? a.tipDark : a.tipLight));
+  function fillStatText() { var pk = packInfo(); return '<b>' + pk.grams + ' ' + esc(A.fill.g) + '</b> · ' + esc(heightText(pk)) + ' · ' + esc(A.fill.types[pk.type]); }
+  function fillCap() {
+    var a = A.fill, pk = packInfo(), leaf = leafOf();
+    if (state.fill.A < 0.05) return esc(leaf === 'dark' ? a.tipDark : a.tipLight);
+    if (pk.spire) return '<span class="bs-warn">' + esc(a.spire) + '</span>';
+    if (pk.type === 'over') return '<span class="bs-warn">' + esc(a.over) + '</span>';
+    if (pk.uneven) return '<span class="bs-warn">' + esc(a.uneven) + '</span>';
+    return esc(leaf === 'dark' ? a.tipDark : a.tipLight);
   }
   var fillRaf = 0;
-  function fillChanged() {
-    if (api) api.fill(state.amount, state.density, state.holes);
+  function fillChanged(st) {
+    if (st) state.fill = { A: st.A, d: st.d, uneven: st.uneven, touch: st.touch, spire: st.spire };
     if (fillRaf) return;
     fillRaf = requestAnimationFrame(function () {
       fillRaf = 0;
       if (state.step !== 4) return;
-      var pk = packInfo(), a = A.fill;
-      var set = function (id, v) { var e = $(id); if (e && e.textContent !== v) e.textContent = v; };
-      set('bs-ft', a.types[pk.type]); set('bs-fh', heightText(pk)); set('bs-fg', pk.grams + ' ' + A.fill.g);
-      var m = $('bs-fm'); if (m) m.style.left = (pk.type === 'over' ? 92 : Math.min(72, state.density * 75)) + '%';
-      Array.prototype.forEach.call(el.panelIn.querySelectorAll('.bs-meter__lab span'), function (s) { s.classList.toggle('is-on', s.getAttribute('data-m') === pk.type); });
-      var n = $('bs-fnote'), html = fillNote(pk, leafOf());
-      if (n && n.innerHTML !== html) n.innerHTML = html;
-      var next = el.panelIn.querySelector('[data-act=next]'); if (next) next.disabled = state.amount < 0.5;
-      if (state.amount >= 0.3) setHint('');
+      var e = $('bs-fst'), html = fillStatText(); if (e && e.innerHTML !== html) e.innerHTML = html;
+      setCap(fillCap());
+      var next = el.panelIn.querySelector('[data-act=next]'); if (next) next.disabled = state.fill.A < 0.45;
+      if (state.fill.A >= 0.08) setHint('');
     });
   }
   function pour(dt) {
-    if (state.amount >= 1.25) { if (api) api.dropping(false); return; }
-    state.amount = Math.min(1.25, state.amount + dt * 0.3);
-    if (api) api.dropping(true, currentFlavor());
-    fillChanged();
+    if (api && api.fillEven) { fillChanged(api.fillEven(dt)); return; }
+    // bez 3D-a: ravnomjerno punjenje
+    var F = state.fill; F.A = Math.min(1.25, F.A + dt * 0.3); fillChanged();
   }
   function press(dt) {
-    if (state.amount < 0.15) return;
-    state.density = Math.min(1, state.density + dt * 0.42);
-    fillChanged();
+    if (state.fill.A < 0.15) return;
+    if (api && api.fillPress) { fillChanged(api.fillPress(dt)); return; }
+    state.fill.d = Math.min(1, state.fill.d + dt * 0.42); fillChanged();
   }
 
   /* ------------------------------------------------------------------ */
@@ -324,30 +319,33 @@
     return out;
   }
   function viewCover() {
-    var a = A.cover, c = state.cover || 'foil';
-    var body;
+    var a = A.cover, c = state.cover || 'foil', body;
     if (c === 'foil') {
-      var n = state.foilHoles.length, warn = n && n < 15 ? note('warn', esc(a.fewHoles), true) : n > 70 ? note('warn', esc(a.manyHoles), true) : note('info', esc(a.foilInfo));
-      body = chips('pattern', [['rings', a.patterns.rings, '48'], ['spiral', a.patterns.spiral, '40'], ['own', a.patterns.own, a.tap]], state.pattern) +
-        '<div class="bs-holes"><span>' + esc(a.holes) + ': <b id="bs-hn">' + n + '</b></span><button type="button" class="bs-link" data-act="clearholes"><span>' + esc(a.clear) + '</span></button></div>' + '<div id="bs-cnote">' + warn + '</div>';
+      body = '<div class="bs-row bs-row--chips">' + [['rings', a.patterns.rings], ['spiral', a.patterns.spiral]].map(function (x) {
+          return '<button type="button" class="bs-chip' + (state.pattern === x[0] ? ' is-on' : '') + '" data-act="pattern" data-id="' + x[0] + '">' + esc(x[1]) + '</button>';
+        }).join('') + '<button type="button" class="bs-chip" data-act="clearholes">' + esc(a.clear) + '</button></div>';
     } else {
       var v = Math.round(state.vents * 100);
-      body = note('info', esc(a.hmdInfo)) +
-        '<div class="bs-ratio"><div class="bs-ratio__top"><span>' + esc(a.vents) + '</span><b id="bs-vv">' + v + '%</b></div>' +
-        '<input type="range" class="bs-range bs-range--heat" id="bs-vents" min="0" max="100" step="5" value="' + v + '" aria-label="' + esc(a.vents) + '" style="--p:' + v + '%">' +
-        '<div class="bs-ratio__ends"><span>' + esc(a.less) + '</span><span>' + esc(a.more) + '</span></div></div>';
+      body = '<div class="bs-vents"><span>' + esc(a.vents) + '</span><input type="range" class="bs-range bs-range--heat" id="bs-vents" min="0" max="100" step="5" value="' + v + '" aria-label="' + esc(a.vents) + '" style="--p:' + v + '%"><b id="bs-vv">' + v + '%</b></div>';
     }
     return {
-      title: a.title, hint: c === 'foil' ? a.hint : '',
-      panel: seg('cover', [['foil', a.foil, 'foil'], ['hmd', a.hmd, 'flame']], c) + body + primary(a.cta, c === 'hmd' || state.foilHoles.length > 0)
+      title: a.title, hint: c === 'foil' && state.pattern === 'own' && !state.foilHoles.length ? a.hint : '',
+      cap: coverCap(),
+      panel: seg('cover', [['foil', a.foil, 'foil'], ['hmd', a.hmd, 'flame']], c) + body + tb(c === 'foil' ? '<p class="bs-stat1"><b id="bs-hn">' + state.foilHoles.length + '</b> / 48 · ' + esc(a.holes) + '</p>' : '', a.cta, c === 'hmd' || state.foilHoles.length > 0)
     };
+  }
+  function coverCap() {
+    var a = A.cover, k = state.foilHoles.length;
+    if (state.cover === 'hmd') return esc(a.hmdInfo);
+    if (k && k < 15) return '<span class="bs-warn">' + esc(a.fewHoles) + '</span>';
+    if (k > 70) return '<span class="bs-warn">' + esc(a.manyHoles) + '</span>';
+    return esc(a.foilTap);
   }
   function holesChanged() {
     if (api) api.foilHoles(state.foilHoles);
     var n = $('bs-hn'); if (n) n.textContent = state.foilHoles.length;
-    var c = $('bs-cnote'), a = A.cover, k = state.foilHoles.length;
-    if (c) c.innerHTML = k && k < 15 ? note('warn', esc(a.fewHoles), true) : k > 70 ? note('warn', esc(a.manyHoles), true) : note('info', esc(a.foilInfo));
-    var next = el.panelIn.querySelector('[data-act=next]'); if (next) next.disabled = !k;
+    setCap(coverCap());
+    var next = el.panelIn.querySelector('[data-act=next]'); if (next) next.disabled = !state.foilHoles.length;
   }
 
   /* ------------------------------------------------------------------ */
@@ -362,22 +360,30 @@
   }
   function viewCoals() {
     var a = A.coals, hmdC = state.cover === 'hmd';
-    var counts = hmdC ? [[2, '2', a.soft], [3, '3', a.normal]] : [[2, '2', a.soft], [3, '3', a.normal], [4, '4', a.strong]];
+    var counts = hmdC ? [2, 3] : [2, 3, 4];
     var left = state.coalN - state.coals.length;
-    var msg = centerCoal() ? note('warn', esc(a.center), true) : left > 0 ? note('info', esc(fmt(a.left, { n: left }))) : note('check', esc(a.ready));
     return {
       title: a.title, hint: left > 0 ? (hmdC ? a.hintHmd : a.hint) : '',
-      panel: '<p class="bs-label">' + esc(a.count) + '</p>' + chips('coaln', counts, state.coalN) + '<div id="bs-knote">' + msg + '</div>' +
-        '<div class="bs-row"><button type="button" class="bs-btn bs-btn--ghost" data-act="autocoals">' + ic('flame') + '<span>' + esc(a.place) + '</span></button>' +
-        '<button type="button" class="bs-ibtn bs-ibtn--line" data-act="clearcoals" aria-label="' + esc(a.clear) + '">' + ic('redo') + '</button></div>' +
-        primary(a.cta, state.coals.length === state.coalN)
+      cap: coalsCap(),
+      panel: '<div class="bs-row bs-row--chips">' + counts.map(function (n) {
+          return '<button type="button" class="bs-chip bs-chip--num' + (n === state.coalN ? ' is-on' : '') + '" data-act="coaln" data-id="' + n + '" aria-label="' + esc(a.count + ': ' + n) + '">' + n + '</button>';
+        }).join('') +
+        '<button type="button" class="bs-chip" data-act="autocoals">' + ic('flame') + esc(a.place) + '</button>' +
+        '<button type="button" class="bs-ibtn bs-tool-i" data-act="clearcoals" aria-label="' + esc(a.clear) + '">' + ic('redo') + '</button></div>' +
+        tb('<p class="bs-stat1"><b id="bs-kn">' + state.coals.length + '</b> / ' + state.coalN + ' · ' + esc(a.count) + '</p>', a.cta, state.coals.length === state.coalN)
     };
+  }
+  function coalsCap() {
+    var a = A.coals, left = state.coalN - state.coals.length;
+    if (centerCoal()) return '<span class="bs-warn">' + esc(a.center) + '</span>';
+    return esc(left > 0 ? fmt(a.left, { n: left }) : a.ready);
   }
   function coalsChanged() {
     if (api) api.coals(snapshotState());
     if (state.step !== 6) return;
-    var a = A.coals, left = state.coalN - state.coals.length, k = $('bs-knote');
-    if (k) k.innerHTML = centerCoal() ? note('warn', esc(a.center), true) : left > 0 ? note('info', esc(fmt(a.left, { n: left }))) : note('check', esc(a.ready));
+    var left = state.coalN - state.coals.length, k = $('bs-kn');
+    if (k) k.textContent = state.coals.length;
+    setCap(coalsCap());
     var next = el.panelIn.querySelector('[data-act=next]'); if (next) next.disabled = state.coals.length !== state.coalN;
     if (!left) setHint('');
   }
@@ -403,7 +409,7 @@
   function startSim() {
     stopSim();
     var pk = packInfo(), T = heatTarget();
-    var minutes = Math.round((pk.grams / 14) * 46 * (1 + state.density * 0.25));
+    var minutes = Math.round((pk.grams / 14) * 46 * (1 + state.fill.d * 0.25));
     sim = { t: 0, end: Math.max(25, Math.min(95, minutes)), lastRot: 0, rotates: 0, removed: 0, burn: 0, sumHeat: 0, sumSmoke: 0, n: 0, prompt: false, done: false, T: T, hot: 0, cold: 0, pk: pk };
     var last = performance.now();
     simTimer = setInterval(function () {
@@ -427,7 +433,7 @@
     s.t = Math.min(s.end, s.t + dm);
     var h = simHeat(), rel = h / s.T;
     var air = state.cover === 'foil' ? (state.foilHoles.length < 15 ? 0.75 : 1) : 0.85 + state.vents * 0.25;
-    var smoke = Math.max(0, Math.min(1.25, (rel - 0.45) / 0.55 * (0.85 + state.density * 0.25) * air));
+    var smoke = Math.max(0, Math.min(1.25, (rel - 0.45) / 0.55 * (0.85 + state.fill.d * 0.25) * air));
     var burnRate = Math.max(0, rel - 1.12) * 0.07 + (s.pk.type === 'over' ? 0.006 : 0) + (centerCoal() ? 0.004 : 0);
     s.burn = Math.min(1, s.burn + burnRate * dm);
     if (rel > 1.12) s.hot += dm; if (rel < 0.8 && s.t > 6) s.cold += dm;
@@ -439,35 +445,29 @@
   }
   function updateSim(rel, smoke) {
     if (state.step !== 7) return;
-    var s = sim, a = A.smoke;
-    var set = function (id, v) { var e = $(id); if (e && e.textContent !== v) e.textContent = v; };
-    set('bs-st', Math.round(s.t) + ' / ' + s.end + ' min');
-    set('bs-sh', rel < 0.8 ? a.levels.low : rel > 1.12 ? a.levels.high : a.levels.ok);
-    set('bs-ss', smoke < 0.35 ? a.smokeL.thin : smoke < 0.75 ? a.smokeL.ok : a.smokeL.thick);
-    var g = $('bs-heat'); if (g) g.style.left = Math.max(2, Math.min(98, rel / 1.6 * 100)) + '%';
-    var p = $('bs-sp'); if (p) p.style.transform = 'scaleX(' + (s.t / s.end) + ')';
-    var st = $('bs-snote');
-    if (st) {
-      var html = s.done ? note('check', esc(a.end)) : s.burn > 0.35 ? note('warn', esc(a.burning), true) : rel > 1.12 ? note('warn', esc(a.hot), true) : rel < 0.8 && s.t > 6 ? note('info', esc(a.cold)) : s.prompt ? note('redo', '<b>' + esc(a.rotateNow) + '.</b> ' + esc(a.rotateText)) : note('smoke', esc(s.t < 6 ? a.warming : a.good));
-      if (st.innerHTML !== html) st.innerHTML = html;
+    var s2 = sim, a = A.smoke;
+    var line = $('bs-sline');
+    if (line) {
+      var html = '<b>' + Math.round(s2.t) + ' / ' + s2.end + ' min</b> · ' + esc(a.heat) + ': ' + esc(rel < 0.8 ? a.levels.low : rel > 1.12 ? a.levels.high : a.levels.ok) + ' · ' + esc(a.smoke) + ': ' + esc(smoke < 0.35 ? a.smokeL.thin : smoke < 0.75 ? a.smokeL.ok : a.smokeL.thick);
+      if (line.innerHTML !== html) line.innerHTML = html;
     }
-    var rot = el.panelIn.querySelector('[data-act=rotate]'); if (rot) { rot.classList.toggle('is-pulse', s.prompt && !s.done); rot.disabled = s.done; }
-    var rem = el.panelIn.querySelector('[data-act=removecoal]'); if (rem) rem.disabled = s.done || state.coals.length - s.removed <= 1;
-    var nx = el.panelIn.querySelector('[data-act=next]'); if (nx) nx.hidden = !s.done;
-    var fin = el.panelIn.querySelector('[data-act=finish]'); if (fin) fin.hidden = s.done;
+    var g = $('bs-heat'); if (g) g.style.left = Math.max(2, Math.min(98, rel / 1.6 * 100)) + '%';
+    setCap(s2.done ? esc(a.end) : s2.burn > 0.35 ? '<span class="bs-warn">' + esc(a.burning) + '</span>' : rel > 1.12 ? '<span class="bs-warn">' + esc(a.hot) + '</span>' : rel < 0.8 && s2.t > 6 ? esc(a.cold) : s2.prompt ? '<b>' + esc(a.rotateNow) + '.</b> ' + esc(a.rotateText) : esc(s2.t < 6 ? a.warming : a.good));
+    var rot = el.panelIn.querySelector('[data-act=rotate]'); if (rot) { rot.classList.toggle('is-pulse', s2.prompt && !s2.done); rot.disabled = s2.done; }
+    var rem = el.panelIn.querySelector('[data-act=removecoal]'); if (rem) rem.disabled = s2.done || state.coals.length - s2.removed <= 1;
+    var nx = el.panelIn.querySelector('[data-act=next]'); if (nx) nx.hidden = !s2.done;
+    var row = rot && rot.parentNode; if (row) row.hidden = s2.done;
   }
   function viewSmoke() {
     var a = A.smoke;
     return {
-      title: a.title,
-      panel: '<div class="bs-stats">' + stat(a.time, '0 min', 'bs-st') + stat(a.heat, '-', 'bs-sh') + stat(a.smoke, '-', 'bs-ss') + '</div>' +
-        '<div class="bs-prog__bar bs-prog__bar--time"><span id="bs-sp"></span></div>' +
-        '<div class="bs-meter bs-meter--heat"><div class="bs-meter__bar"><span id="bs-heat" style="left:2%"></span></div><div class="bs-meter__lab"><span>' + esc(a.levels.low) + '</span><span>' + esc(a.levels.ok) + '</span><span>' + esc(a.levels.high) + '</span></div></div>' +
-        '<div id="bs-snote">' + note('smoke', esc(a.warming)) + '</div>' +
-        '<div class="bs-row"><button type="button" class="bs-btn bs-btn--ghost" data-act="rotate">' + ic('redo') + '<span>' + esc(a.rotate) + '</span></button>' +
-        '<button type="button" class="bs-btn bs-btn--ghost" data-act="removecoal">' + ic('x') + '<span>' + esc(a.remove) + '</span></button></div>' +
-        '<button type="button" class="bs-btn bs-btn--primary" data-act="next" hidden><span>' + esc(a.result) + '</span>' + ic('next') + '</button>' +
-        '<button type="button" class="bs-skip" data-act="finish">' + esc(a.finish) + '</button>'
+      title: a.title, cap: esc(a.warming),
+      panel: '<p class="bs-stat1 bs-stat1--sm" id="bs-sline"></p>' +
+        '<div class="bs-meter bs-meter--heat bs-meter--thin"><div class="bs-meter__bar"><span id="bs-heat" style="left:2%"></span></div></div>' +
+        '<div class="bs-row"><button type="button" class="bs-btn bs-btn--ghost bs-btn--sm" data-act="rotate">' + ic('redo') + '<span>' + esc(a.rotate) + '</span></button>' +
+        '<button type="button" class="bs-btn bs-btn--ghost bs-btn--sm" data-act="removecoal">' + ic('x') + '<span>' + esc(a.remove) + '</span></button>' +
+        '<button type="button" class="bs-ibtn bs-tool-i" data-act="finish" aria-label="' + esc(a.finish) + '">' + ic('skip') + '</button></div>' +
+        '<button type="button" class="bs-btn bs-btn--primary" data-act="next" hidden><span>' + esc(a.result) + '</span>' + ic('next') + '</button>'
     };
   }
 
@@ -480,7 +480,7 @@
     var s = sim || { sumHeat: 0, sumSmoke: 0, n: 1, burn: 0, end: 0, hot: 0, cold: 0, rotates: 0, t: 0 }, pk = packInfo(), leaf = leafOf();
     var n = Math.max(1, s.n), avgHeat = s.sumHeat / n, avgSmoke = s.sumSmoke / n;
     var mismatch = (leaf === 'light' && pk.type === 'dense') || (leaf === 'dark' && pk.type === 'fluff');
-    var unmixed = prepOf() !== 'layer' && state.mixP < 0.8 && prepOf() === 'classic';
+    var unmixed = prepOf() === 'mix' && state.mixP < 0.8;
     var r = {
       smoke: clamp10(avgSmoke * 10.5 - s.burn * 2),
       flavor: clamp10(10 - s.burn * 7 - (avgHeat < 0.8 ? 2.5 : 0) - (unmixed ? 1.5 : 0) - (pk.spire ? 1.5 : 0) - (mismatch ? 1 : 0)),
@@ -499,6 +499,7 @@
     if (mismatch) tips.push(leaf === 'dark' ? 'darkFluff' : 'lightDense');
     if (state.cover === 'foil' && state.foilHoles.length < 15) tips.push('holes');
     if (unmixed) tips.push('unmixed');
+    if (pk.uneven) tips.push('uneven');
     if (s.end < 35) tips.push('short');
     if (!tips.length) tips.push('great');
     return { r: r, total: total, tips: tips.slice(0, 2), minutes: Math.round(s.t || s.end), pk: pk };
@@ -581,16 +582,22 @@
 
   function snapshotState() {
     return {
-      bowl: state.bowl, flavors: state.flavors, prep: prepOf(), ratio: state.flavors.length > 1 ? state.ratio : 1, mixP: state.mixP,
-      amount: state.amount, density: state.density, holes: state.holes, cover: state.cover, foilHoles: state.foilHoles, vents: state.vents, coals: state.coals
+      bowl: state.bowl, flavors: state.flavors, prep: prepOf(), shares: state.shares, pick: state.pick, mixP: state.mixP,
+      holes: state.holes, cover: state.cover, foilHoles: state.foilHoles, vents: state.vents, coals: state.coals
     };
   }
   function resetFrom(n) {
     if (n <= 3) state.mixP = 0;
-    if (n <= 4) { state.amount = 0; state.density = 0; state.holes = false; }
+    if (n <= 4) { state.fill = { A: 0, d: 0, uneven: 0, touch: 0, spire: false }; state.holes = false; state.pick = 0; if (api && api.fillReset) api.fillReset(); }
     if (n <= 5) { state.cover = 'foil'; state.pattern = 'rings'; state.foilHoles = pattern('rings'); state.vents = 0.5; }
     if (n <= 6) { state.coals = []; state.coalN = 3; }
     sim = null; shot = '';
+  }
+  function equalShares(n) {
+    var base = Math.floor(100 / n / 5) * 5, out = [];
+    for (var i = 0; i < n; i++) out.push(base);
+    out[0] += 100 - base * n;
+    state.shares = out; state.shareSel = 0;
   }
 
   resetFrom(3);
@@ -622,7 +629,7 @@
       el.title.textContent = v.title;
       el.lead.textContent = v.lead || '';
       el.lead.hidden = !v.lead;
-      el.panelIn.innerHTML = v.panel;
+      el.panelIn.innerHTML = (v.cap != null ? '<p class="bs-cap" id="bs-cap" aria-live="polite">' + v.cap + '</p>' : '') + v.panel;
       setHint(v.hint);
       root.classList.remove('is-swapping');
       measure();
@@ -732,10 +739,14 @@
     else if (act === 'back') back();
     else if (act === 'bowl') pickBowl(b.getAttribute('data-id'));
     else if (act === 'pick') openSheet(+b.getAttribute('data-slot'));
-    else if (act === 'remove') { state.flavors = state.flavors.slice(0, 1); resetFrom(3); render(true); sync(); }
+    else if (act === 'remove') { var ri = +b.getAttribute('data-slot'); state.flavors = state.flavors.filter(function (x, k) { return k !== ri; }); equalShares(state.flavors.length); resetFrom(3); render(true); sync(); }
     else if (act === 'prep') { if (state.prep !== b.getAttribute('data-id')) { state.prep = b.getAttribute('data-id'); resetFrom(3); refresh(); } }
-    else if (act === 'empty') { state.amount = 0; state.density = 0; fillChanged(); refresh(); }
-    else if (act === 'holes') { state.holes = !state.holes; b.setAttribute('aria-checked', String(state.holes)); fillChanged(); }
+    else if (act === 'sharesel') { state.shareSel = +b.getAttribute('data-i'); refresh(true); }
+    else if (act === 'shareplus' || act === 'shareminus') { setShare(state.shareSel, act === 'shareplus' ? 5 : -5); resetFrom(3); refresh(true); }
+    else if (act === 'pickfl') { state.pick = +b.getAttribute('data-i'); if (api && api.fillPick) api.fillPick(state.pick); refresh(true); }
+    else if (act === 'level') { if (api && api.fillLevel) { api.fillLevel(); setTimeout(function () { if (api) fillChanged(api.fillStats()); }, 460); } else { state.fill.uneven = 0; fillChanged(); } }
+    else if (act === 'empty') { state.fill = { A: 0, d: 0, uneven: 0, touch: 0, spire: false }; if (api && api.fillReset) api.fillReset(); fillChanged(); refresh(true); }
+    else if (act === 'holes') { state.holes = !state.holes; b.setAttribute('aria-checked', String(state.holes)); b.classList.toggle('is-on', state.holes); if (api && api.fillHoles) api.fillHoles(state.holes); }
     else if (act === 'cover') { state.cover = b.getAttribute('data-id'); state.coals = []; state.coalN = Math.min(state.coalN, maxCoals()); refresh(); }
     else if (act === 'pattern') { state.pattern = b.getAttribute('data-id'); state.foilHoles = pattern(state.pattern); holesChanged(); refresh(true); }
     else if (act === 'clearholes') { state.pattern = 'own'; state.foilHoles = []; holesChanged(); refresh(true); }
@@ -751,14 +762,7 @@
   // klizači (omjer, otvori na HMD-u)
   el.panelIn.addEventListener('input', function (e) {
     var t = e.target;
-    if (t.id === 'bs-ratio') {
-      state.ratio = +t.value / 100; resetFrom(3);
-      t.style.setProperty('--p', ((+t.value - 30) / 40 * 100) + '%');
-      var ra = $('bs-ra'), rb = $('bs-rb'); if (ra) ra.textContent = t.value + '%'; if (rb) rb.textContent = (100 - t.value) + '%';
-      var lay = el.panelIn.querySelector('.bs-layers'); if (lay) lay.outerHTML = layerDiagram();
-      setMix(0);
-      if (api) api.step('mix', snapshotState());
-    } else if (t.id === 'bs-vents') {
+    if (t.id === 'bs-vents') {
       state.vents = +t.value / 100; t.style.setProperty('--p', t.value + '%');
       var vv = $('bs-vv'); if (vv) vv.textContent = t.value + '%';
       if (api) api.vents(state.vents);
@@ -767,7 +771,7 @@
   // osvježi panel istog koraka (bez prelaza)
   function refresh(keepScroll) {
     var y = el.panelIn.scrollTop, v = VIEWS[state.step]();
-    el.panelIn.innerHTML = v.panel;
+    el.panelIn.innerHTML = (v.cap != null ? '<p class="bs-cap" id="bs-cap" aria-live="polite">' + v.cap + '</p>' : '') + v.panel;
     if (keepScroll) el.panelIn.scrollTop = y;
     setHint(v.hint);
     measure();
@@ -786,7 +790,7 @@
     var dt = holdLast ? Math.min(2, (t - holdLast) / 1000) : 0.016; holdLast = t;
     if (holdAct === 'pour') pour(dt);
     else if (holdAct === 'press') press(dt);
-    else if (holdAct === 'stir') setMix(state.mixP + dt * 0.45);
+    else if (holdAct === 'stir') setMix(api && api.mixAuto ? api.mixAuto(dt) : state.mixP + dt * 0.45);
     holdRaf = requestAnimationFrame(holdStep);
   }
   function holdStart(act, b) {
@@ -798,6 +802,7 @@
   function holdEnd() {
     if (!holdAct) return;
     if (holdAct === 'pour' && api) api.dropping(false);
+    if (holdAct === 'stir' && api && api.mixRelease) api.mixRelease();
     holdAct = null;
     cancelAnimationFrame(holdRaf);
     if (holdBtn) holdBtn.classList.remove('is-held');
@@ -819,26 +824,34 @@
   el.panelIn.addEventListener('keyup', function (e) { if (e.target.closest('[data-hold]') && (e.key === ' ' || e.key === 'Enter')) holdEnd(); });
 
   /* dodir na 3D stolu: miješanje (kruženje), sipanje preko glave, rupice u foliji, ugljevi */
-  var drag = null;
+  var drag = null, pourRaf = 0, pourLast = 0;
+  function pourLoop(t) {
+    pourRaf = 0;
+    if (!drag || !drag.fill || !api) return;
+    var dt = pourLast ? Math.min(0.1, (t - pourLast) / 1000) : 0.016; pourLast = t;
+    var st = api.fillAt(drag.x, drag.y, dt);
+    if (st) fillChanged(st);
+    pourRaf = requestAnimationFrame(pourLoop);
+  }
   el.stage.addEventListener('pointerdown', function (e) {
     drag = { x: e.clientX, y: e.clientY, moved: 0, id: e.pointerId };
-    if (state.step === 4 && api) { var h = api.hit(e.clientX, e.clientY); if (h && h.kind === 'bowl') { drag.pour = true; holdStart('pour', null); } }
+    try { el.stage.setPointerCapture(e.pointerId); } catch (err) { /* stari preglednici */ }
+    if (!api) return;
+    if (state.step === 3 && prepOf() !== 'none' && api.mixDrag) { drag.mix = true; setMix(api.mixDrag(e.clientX, e.clientY, 'start')); }
+    if (state.step === 4 && api.fillAt) { drag.fill = true; pourLast = 0; if (!pourRaf) pourRaf = requestAnimationFrame(pourLoop); }
   });
   el.stage.addEventListener('pointermove', function (e) {
     if (!drag || drag.id !== e.pointerId) return;
     var d = Math.hypot(e.clientX - drag.x, e.clientY - drag.y);
     drag.moved += d; drag.x = e.clientX; drag.y = e.clientY;
-    if (state.step === 3 && prepOf() !== 'layer' && d > 0) setMix(state.mixP + d / (Math.min(root.clientWidth, root.clientHeight) * 3.2));
-    if (state.step === 4 && api && drag.moved > 4) {
-      var h = api.hit(e.clientX, e.clientY), on = !!(h && h.kind === 'bowl');
-      if (on && !drag.pour) { drag.pour = true; holdStart('pour', null); } else if (!on && drag.pour) { drag.pour = false; holdEnd(); }
-    }
+    if (drag.mix && d > 0) setMix(api.mixDrag(e.clientX, e.clientY, 'move'));
   });
   function stageUp(e) {
     if (!drag) return;
     var tap = drag.moved < 10, dr = drag;
     drag = null;
-    if (dr.pour) holdEnd();
+    if (dr.mix && api) api.mixDrag(0, 0, 'end');
+    if (dr.fill && api) { api.dropping(false); fillChanged(api.fillStats()); }
     if (!tap || !api || e.type !== 'pointerup') return;
     var h = api.hit(e.clientX, e.clientY);
     if (!h) return;
@@ -872,7 +885,7 @@
     }
     // samo osvježi panel, bez prelaza (dugmad ostaju pod prstom)
     var v = viewBowl();
-    el.panelIn.innerHTML = v.panel;
+    el.panelIn.innerHTML = '<p class="bs-cap" id="bs-cap">' + v.cap + '</p>' + v.panel;
     setHint('');
     if (focus) { var on = el.panelIn.querySelector('.bs-choice.is-on'); if (on) on.focus(); }
     measure();
@@ -945,7 +958,9 @@
     if (!f) return;
     var next = state.flavors.slice();
     next[sheetSlot] = flavorInfo(f);
-    state.flavors = next.filter(Boolean).slice(0, 2);
+    var before = state.flavors.length;
+    state.flavors = next.filter(Boolean).slice(0, 4);
+    if (state.flavors.length !== before) equalShares(state.flavors.length);
     resetFrom(3);
     dismissSheet();
     render(true);

@@ -43,6 +43,11 @@
     foil: '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="9" r=".6"/><circle cx="9" cy="13" r=".6"/><circle cx="15" cy="13" r=".6"/><circle cx="12" cy="16" r=".6"/>',
     smoke: '<path d="M7 20.5c-2.2-3 2.2-4.5 0-7.5s1.5-5 1.5-5"/><path d="M12 21.5c-2.3-3.4 2.6-4.9.4-8.3s1.5-5.6 1.5-5.6"/><path d="M17 20c-1.9-2.6 1.9-3.8 0-6.4s1.1-4.1 1.1-4.1"/>',
     star: '<path d="M12 3v3"/><path d="M12 18v3"/><path d="M3 12h3"/><path d="M18 12h3"/><circle cx="12" cy="12" r="4"/>',
+    fork: '<path d="M10 2v6"/><path d="M14 2v6"/><path d="M10 8c0 1.7 4 1.7 4 0"/><path d="M12 9.3V14"/><path d="M10.6 14h2.8l.6 7.2a1 1 0 0 1-1 .8h-2a1 1 0 0 1-1-.8z"/>',
+    minus: '<path d="M5 12h14"/>',
+    level: '<path d="M3 17h18"/><path d="M5 13c2-2 4-2 7-2s5 0 7 2"/><path d="M8 7h8"/>',
+    pick: '<path d="M4 20 18 6"/><path d="m18 6 2-2"/><circle cx="7" cy="17" r=".5"/>',
+    skip: '<path d="m5 4 10 8-10 8z"/><path d="M19 5v14"/>',
     swap: '<path d="m16 3 4 4-4 4"/><path d="M20 7H4"/><path d="m8 21-4-4 4-4"/><path d="M4 17h16"/>',
     device: '<rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/>',
     // glave: obris sa strane (isti potez kao ostale ikone)
@@ -94,7 +99,7 @@
       metaTitle: 'Bowl Studio: napuni glavu nargile u 3D, korak po korak | MyShishapedia',
       metaDesc: 'Interaktivni 3D vodič za punjenje glave nargile: izaberi glavu i okus, miješaj ili slaži slojeve, folija ili HMD, ugljevi. Ocjena i savjet na kraju.',
       app: {
-        brand: 'Bowl Studio', close: 'Zatvori studio', back: 'Nazad', stepOf: 'Korak {n} od {t}',
+        brand: 'Bowl Studio', next: 'Dalje', close: 'Zatvori studio', back: 'Nazad', stepOf: 'Korak {n} od {t}',
         names: ['Glava', 'Okus', 'Miješanje', 'Punjenje', 'Folija ili HMD', 'Ugljevi', 'Dim', 'Rezultat'],
         loading: 'Postavljam sto…', err: 'Tvoj preglednik ne može prikazati 3D sto, ali sve korake možeš proći i ovako.', errLost: '3D prikaz je stao. Zatvori i ponovo otvori studio.',
         intro: {
@@ -110,14 +115,14 @@
           }
         },
         flavor: {
-          title: 'Izaberi okus', titleMix: 'Tvoj miks', change: 'Promijeni', remove: 'Ukloni okus', add: 'Dodaj drugi okus za miks',
+          title: 'Izaberi okus', titleMix: 'Tvoj miks', change: 'Promijeni', remove: 'Ukloni okus', add: 'Dodaj drugi okus za miks', addShort: 'Dodaj', max: 'Možeš dodati do 4 okusa za miks.',
           leaf: { light: 'Svijetli list', dark: 'Tamni list' }, mixNote: 'Kako ćeš ih spojiti, biraš u sljedećem koraku.',
-          pick: 'Izaberi okus', pickSecond: 'Izaberi drugi okus', search: 'Traži okus ili brend', popular: 'Popularno', results: 'Rezultati', none: 'Nema takvog okusa. Probaj drugi naziv ili brend.',
+          pick: 'Izaberi okus', pickSecond: 'Dodaj okus u miks', search: 'Traži okus ili brend', popular: 'Popularno', results: 'Rezultati', none: 'Nema takvog okusa. Probaj drugi naziv ili brend.',
           sameLeaf: 'Oba okusa su isti list, pa se lijepo slažu.', mixedLeaf: 'Jedan je svijetli, a drugi tamni list. Tamni treba više toplote, pa ga stavi manje.',
           cta: 'Dalje', ctaOne: 'Otvori limenku'
         },
         mix: {
-          titleSingle: 'Rastresi duhan', titleTwo: 'Kako spajaš okuse?',
+          titleSingle: 'Rastresi duhan', titleTwo: 'Kako spajaš okuse?', modeMix: 'Miješam', modeNone: 'Bez miješanja', mixInfo: 'Vilicom izmiješaj okuse u zdjelici. Prevuci prstom kroz duhan.', noneInfo: 'Okuse ne miješaš. Pri punjenju sam biraš gdje ide koji okus.',
           single: 'Melasa se slegne na dno limenke. Kratko promiješaj duhan, da svako vlakno bude jednako vlažno.',
           classic: { name: 'Klasično', info: 'Oba okusa se izmiješaju u zdjelici prije punjenja. Okus je isti od prvog do zadnjeg dima.' },
           layer: { name: 'Slojevito', info: 'Prvi okus ide na dno glave, drugi preko njega, bez miješanja. Okus se mijenja tokom sesije.' },
@@ -127,7 +132,7 @@
         },
         fill: {
           title: 'Napuni glavu', hint: 'Prevuci prstom preko glave da sipaš duhan', add: 'Sipaj', press: 'Sabij', reset: 'Isprazni glavu',
-          type: 'Punjenje', height: 'Visina', grams: 'Duhan', g: 'g',
+          type: 'Punjenje', height: 'Visina', grams: 'Duhan', g: 'g', tapHint: 'Dodirni i drži unutar glave', levelBtn: 'Poravnaj', pickLabel: 'Okus koji sipaš', mixChip: 'Miks', uneven: 'Duhan je neravnomjeran. Poravnaj ga da se grije ujednačeno.',
           types: { fluff: 'Rastresito', semi: 'Srednje', dense: 'Gusto', over: 'Preko ivice' },
           below: '{n} mm ispod ivice', above: '{n} mm iznad ivice', level: 'u ravni ivice',
           tipLight: 'Svijetli list voli rastresito punjenje, 2 do 3 mm ispod ivice.', tipDark: 'Tamni list voli gušće punjenje, skoro do ivice.',
@@ -139,7 +144,7 @@
           foilInfo: 'Ti biraš broj i raspored rupica, pa imaš punu kontrolu nad toplotom.',
           hmdInfo: 'Metalni poklopac na koji idu ugljevi. Lakši za početnike: toplota je ravnomjernija, a podešavaš je otvorima.',
           hint: 'Dodirni foliju da probušiš rupicu', patterns: { rings: 'Tri kruga', spiral: 'Spirala', own: 'Ručno' }, tap: 'dodirom',
-          holes: 'Rupice', clear: 'Očisti', fewHoles: 'Premalo rupica: dim će biti slab.', manyHoles: 'Mnogo rupica: duhan će se brže grijati.',
+          holes: 'Rupice', clear: 'Očisti', fewHoles: 'Premalo rupica: dim će biti slab.', manyHoles: 'Mnogo rupica: duhan će se brže grijati.', foilTap: 'Dodirni foliju da probušiš rupicu ili izaberi raspored.',
           vents: 'Otvori na HMD-u', less: 'Manje toplote', more: 'Više toplote', cta: 'Dalje: ugljevi'
         },
         coals: {
@@ -161,6 +166,7 @@
           holesN: '{n} rupica', coalsN: '{n} uglja', minutes: '{n} min',
           tips: {
             great: 'Odlično. Ovako napunjena glava daje gust dim i čist okus.',
+            uneven: 'Duhan je bio neravnomjeran, pa se grijao na mjestima. Poravnaj ga prije folije.',
             hot: 'Bilo je prevruće. Probaj ugalj manje ili ih drži bliže ivici.',
             cold: 'Toplote je bilo malo. Dodaj ugalj ili još rupica u foliji.',
             rotate: 'Pomjeraj ugljeve tokom sesije, toplota je onda ravnomjernija.',
@@ -204,7 +210,7 @@
       metaTitle: 'Bowl Studio: pack a hookah bowl in 3D, step by step | MyShishapedia',
       metaDesc: 'An interactive 3D guide to packing a hookah bowl: pick a bowl and a flavor, mix or layer, foil or HMD, coals. A score and a tip at the end.',
       app: {
-        brand: 'Bowl Studio', close: 'Close studio', back: 'Back', stepOf: 'Step {n} of {t}',
+        brand: 'Bowl Studio', next: 'Next', close: 'Close studio', back: 'Back', stepOf: 'Step {n} of {t}',
         names: ['Bowl', 'Flavor', 'Mixing', 'Packing', 'Foil or HMD', 'Coals', 'Smoke', 'Result'],
         loading: 'Setting the table…', err: 'Your browser cannot show the 3D table, but you can still go through every step.', errLost: 'The 3D view stopped. Close and reopen the studio.',
         intro: {
@@ -220,14 +226,14 @@
           }
         },
         flavor: {
-          title: 'Pick a flavor', titleMix: 'Your mix', change: 'Change', remove: 'Remove flavor', add: 'Add a second flavor for a mix',
+          title: 'Pick a flavor', titleMix: 'Your mix', change: 'Change', remove: 'Remove flavor', add: 'Add a second flavor for a mix', addShort: 'Add', max: 'You can add up to 4 flavors for a mix.',
           leaf: { light: 'Blonde leaf', dark: 'Dark leaf' }, mixNote: 'You choose how to combine them in the next step.',
-          pick: 'Pick a flavor', pickSecond: 'Pick a second flavor', search: 'Search a flavor or brand', popular: 'Popular', results: 'Results', none: 'No such flavor. Try another name or brand.',
+          pick: 'Pick a flavor', pickSecond: 'Add a flavor to the mix', search: 'Search a flavor or brand', popular: 'Popular', results: 'Results', none: 'No such flavor. Try another name or brand.',
           sameLeaf: 'Both flavors are the same leaf, so they work well together.', mixedLeaf: 'One is blonde and the other dark leaf. Dark leaf needs more heat, so use less of it.',
           cta: 'Next', ctaOne: 'Open the tin'
         },
         mix: {
-          titleSingle: 'Loosen the tobacco', titleTwo: 'How do you combine them?',
+          titleSingle: 'Loosen the tobacco', titleTwo: 'How do you combine them?', modeMix: 'Mix', modeNone: 'No mixing', mixInfo: 'Mix the flavors in the bowl with the fork. Drag your finger through the tobacco.', noneInfo: 'You do not mix the flavors. When packing you choose where each flavor goes.',
           single: 'Molasses settles at the bottom of the tin. Give the tobacco a quick stir so every strand is equally moist.',
           classic: { name: 'Classic', info: 'Both flavors are mixed in a bowl before packing. The taste is the same from the first to the last puff.' },
           layer: { name: 'Layered', info: 'The first flavor goes at the bottom of the bowl, the second on top, without mixing. The taste changes during the session.' },
@@ -237,7 +243,7 @@
         },
         fill: {
           title: 'Pack the bowl', hint: 'Swipe over the bowl to sprinkle tobacco', add: 'Sprinkle', press: 'Press', reset: 'Empty the bowl',
-          type: 'Pack', height: 'Height', grams: 'Tobacco', g: 'g',
+          type: 'Pack', height: 'Height', grams: 'Tobacco', g: 'g', tapHint: 'Touch and hold inside the bowl', levelBtn: 'Level', pickLabel: 'Flavor you sprinkle', mixChip: 'Mix', uneven: 'The tobacco is uneven. Level it so it heats evenly.',
           types: { fluff: 'Fluffy', semi: 'Semi-dense', dense: 'Dense', over: 'Overpacked' },
           below: '{n} mm below the rim', above: '{n} mm above the rim', level: 'level with the rim',
           tipLight: 'Blonde leaf likes a fluffy pack, 2 to 3 mm below the rim.', tipDark: 'Dark leaf likes a denser pack, almost to the rim.',
@@ -249,7 +255,7 @@
           foilInfo: 'You choose the number and pattern of holes, so you have full control over the heat.',
           hmdInfo: 'A metal cap that holds the coals. Easier for beginners: the heat is more even and you set it with the vents.',
           hint: 'Tap the foil to poke a hole', patterns: { rings: 'Three rings', spiral: 'Spiral', own: 'By hand' }, tap: 'by tapping',
-          holes: 'Holes', clear: 'Clear', fewHoles: 'Too few holes: the smoke will be thin.', manyHoles: 'Lots of holes: the tobacco will heat up faster.',
+          holes: 'Holes', clear: 'Clear', fewHoles: 'Too few holes: the smoke will be thin.', manyHoles: 'Lots of holes: the tobacco will heat up faster.', foilTap: 'Tap the foil to poke a hole or pick a pattern.',
           vents: 'HMD vents', less: 'Less heat', more: 'More heat', cta: 'Next: coals'
         },
         coals: {
@@ -271,6 +277,7 @@
           holesN: '{n} holes', coalsN: '{n} coals', minutes: '{n} min',
           tips: {
             great: 'Excellent. A bowl packed like this gives thick smoke and a clean taste.',
+            uneven: 'The tobacco was uneven, so it heated in spots. Level it before the foil.',
             hot: 'It was too hot. Try one coal less or keep them closer to the edge.',
             cold: 'There was little heat. Add a coal or more holes in the foil.',
             rotate: 'Move the coals during the session and the heat stays more even.',
@@ -314,7 +321,7 @@
       metaTitle: 'Bowl Studio: Shisha-Kopf in 3D befüllen, Schritt für Schritt | MyShishapedia',
       metaDesc: 'Interaktive 3D-Anleitung zum Kopfbau: Kopf und Tabak wählen, mischen oder schichten, Folie oder HMD, Kohlen. Am Ende Bewertung und Tipp.',
       app: {
-        brand: 'Bowl Studio', close: 'Studio schließen', back: 'Zurück', stepOf: 'Schritt {n} von {t}',
+        brand: 'Bowl Studio', next: 'Weiter', close: 'Studio schließen', back: 'Zurück', stepOf: 'Schritt {n} von {t}',
         names: ['Kopf', 'Tabak', 'Mischen', 'Befüllen', 'Folie oder HMD', 'Kohlen', 'Rauch', 'Ergebnis'],
         loading: 'Der Tisch wird gedeckt…', err: 'Dein Browser kann den 3D-Tisch nicht zeigen, aber du kannst trotzdem alle Schritte machen.', errLost: 'Die 3D-Ansicht ist stehen geblieben. Schließ das Studio und öffne es neu.',
         intro: {
@@ -330,14 +337,14 @@
           }
         },
         flavor: {
-          title: 'Wähle einen Tabak', titleMix: 'Dein Mix', change: 'Ändern', remove: 'Tabak entfernen', add: 'Zweite Sorte für einen Mix hinzufügen',
+          title: 'Wähle einen Tabak', titleMix: 'Dein Mix', change: 'Ändern', remove: 'Tabak entfernen', add: 'Zweite Sorte für einen Mix hinzufügen', addShort: 'Hinzu', max: 'Du kannst bis zu 4 Sorten für einen Mix wählen.',
           leaf: { light: 'Heller Tabak', dark: 'Dunkler Tabak' }, mixNote: 'Wie du sie kombinierst, wählst du im nächsten Schritt.',
-          pick: 'Wähle einen Tabak', pickSecond: 'Wähle eine zweite Sorte', search: 'Tabak oder Marke suchen', popular: 'Beliebt', results: 'Ergebnisse', none: 'Keine solche Sorte. Versuch einen anderen Namen oder eine Marke.',
+          pick: 'Wähle einen Tabak', pickSecond: 'Sorte zum Mix hinzufügen', search: 'Tabak oder Marke suchen', popular: 'Beliebt', results: 'Ergebnisse', none: 'Keine solche Sorte. Versuch einen anderen Namen oder eine Marke.',
           sameLeaf: 'Beide Sorten sind dasselbe Blatt, sie passen gut zusammen.', mixedLeaf: 'Eine ist heller, die andere dunkler Tabak. Dunkler braucht mehr Hitze, nimm also weniger davon.',
           cta: 'Weiter', ctaOne: 'Dose öffnen'
         },
         mix: {
-          titleSingle: 'Tabak auflockern', titleTwo: 'Wie kombinierst du sie?',
+          titleSingle: 'Tabak auflockern', titleTwo: 'Wie kombinierst du sie?', modeMix: 'Mischen', modeNone: 'Ohne Mischen', mixInfo: 'Misch die Sorten mit der Gabel in der Schale. Zieh den Finger durch den Tabak.', noneInfo: 'Du mischst die Sorten nicht. Beim Befüllen wählst du, wohin welche Sorte kommt.',
           single: 'Melasse setzt sich am Boden der Dose ab. Rühr den Tabak kurz um, damit jede Faser gleich feucht ist.',
           classic: { name: 'Klassisch', info: 'Beide Sorten werden vor dem Befüllen in einer Schale vermischt. Der Geschmack bleibt vom ersten bis zum letzten Zug gleich.' },
           layer: { name: 'In Schichten', info: 'Die erste Sorte kommt nach unten in den Kopf, die zweite darüber, ohne Mischen. Der Geschmack ändert sich während der Session.' },
@@ -347,7 +354,7 @@
         },
         fill: {
           title: 'Kopf befüllen', hint: 'Wisch über den Kopf, um Tabak einzustreuen', add: 'Einstreuen', press: 'Andrücken', reset: 'Kopf leeren',
-          type: 'Befüllung', height: 'Höhe', grams: 'Tabak', g: 'g',
+          type: 'Befüllung', height: 'Höhe', grams: 'Tabak', g: 'g', tapHint: 'Tippe und halte im Kopf', levelBtn: 'Glätten', pickLabel: 'Sorte zum Einstreuen', mixChip: 'Mix', uneven: 'Der Tabak ist ungleichmäßig. Glätte ihn, damit er gleichmäßig heiß wird.',
           types: { fluff: 'Locker', semi: 'Halbdicht', dense: 'Dicht', over: 'Überfüllt' },
           below: '{n} mm unter dem Rand', above: '{n} mm über dem Rand', level: 'auf Randhöhe',
           tipLight: 'Heller Tabak mag es locker, 2 bis 3 mm unter dem Rand.', tipDark: 'Dunkler Tabak mag es dichter, fast bis zum Rand.',
@@ -359,7 +366,7 @@
           foilInfo: 'Du wählst Anzahl und Muster der Löcher und hast die volle Kontrolle über die Hitze.',
           hmdInfo: 'Ein Metallaufsatz für die Kohlen. Einfacher für Anfänger: die Hitze ist gleichmäßiger und du stellst sie mit den Öffnungen ein.',
           hint: 'Tippe auf die Folie, um ein Loch zu stechen', patterns: { rings: 'Drei Ringe', spiral: 'Spirale', own: 'Von Hand' }, tap: 'per Tippen',
-          holes: 'Löcher', clear: 'Leeren', fewHoles: 'Zu wenige Löcher: der Rauch wird dünn.', manyHoles: 'Viele Löcher: der Tabak wird schneller heiß.',
+          holes: 'Löcher', clear: 'Leeren', fewHoles: 'Zu wenige Löcher: der Rauch wird dünn.', manyHoles: 'Viele Löcher: der Tabak wird schneller heiß.', foilTap: 'Tippe auf die Folie für ein Loch oder wähle ein Muster.',
           vents: 'Öffnungen am HMD', less: 'Weniger Hitze', more: 'Mehr Hitze', cta: 'Weiter: Kohlen'
         },
         coals: {
@@ -381,6 +388,7 @@
           holesN: '{n} Löcher', coalsN: '{n} Kohlen', minutes: '{n} Min.',
           tips: {
             great: 'Ausgezeichnet. So befüllt gibt der Kopf dichten Rauch und sauberen Geschmack.',
+            uneven: 'Der Tabak war ungleichmäßig und wurde stellenweise heiß. Glätte ihn vor der Folie.',
             hot: 'Es war zu heiß. Versuch eine Kohle weniger oder leg sie näher an den Rand.',
             cold: 'Es war zu wenig Hitze. Leg eine Kohle mehr auf oder stich mehr Löcher.',
             rotate: 'Setz die Kohlen während der Session um, dann bleibt die Hitze gleichmäßiger.',
@@ -424,7 +432,7 @@
       metaTitle: 'Bowl Studio: забей чашу кальяна в 3D, шаг за шагом | MyShishapedia',
       metaDesc: 'Интерактивное 3D-руководство по забивке чаши: выбери чашу и вкус, смешай или слоями, фольга или калауд, угли. В конце оценка и совет.',
       app: {
-        brand: 'Bowl Studio', close: 'Закрыть студию', back: 'Назад', stepOf: 'Шаг {n} из {t}',
+        brand: 'Bowl Studio', next: 'Дальше', close: 'Закрыть студию', back: 'Назад', stepOf: 'Шаг {n} из {t}',
         names: ['Чаша', 'Вкус', 'Смешивание', 'Забивка', 'Фольга или калауд', 'Угли', 'Дым', 'Итог'],
         loading: 'Накрываю стол…', err: 'Твой браузер не может показать 3D-стол, но все шаги можно пройти и так.', errLost: '3D-вид остановился. Закрой и снова открой студию.',
         intro: {
@@ -440,14 +448,14 @@
           }
         },
         flavor: {
-          title: 'Выбери вкус', titleMix: 'Твой микс', change: 'Изменить', remove: 'Убрать вкус', add: 'Добавить второй вкус для микса',
+          title: 'Выбери вкус', titleMix: 'Твой микс', change: 'Изменить', remove: 'Убрать вкус', add: 'Добавить второй вкус для микса', addShort: 'Добавить', max: 'Можно добавить до 4 вкусов для микса.',
           leaf: { light: 'Светлый лист', dark: 'Тёмный лист' }, mixNote: 'Как их соединить, выберешь на следующем шаге.',
-          pick: 'Выбери вкус', pickSecond: 'Выбери второй вкус', search: 'Найти вкус или бренд', popular: 'Популярное', results: 'Результаты', none: 'Такого вкуса нет. Попробуй другое название или бренд.',
+          pick: 'Выбери вкус', pickSecond: 'Добавить вкус в микс', search: 'Найти вкус или бренд', popular: 'Популярное', results: 'Результаты', none: 'Такого вкуса нет. Попробуй другое название или бренд.',
           sameLeaf: 'Оба вкуса на одном листе, поэтому хорошо сочетаются.', mixedLeaf: 'Один светлый, другой тёмный лист. Тёмному нужно больше жара, поэтому клади его меньше.',
           cta: 'Дальше', ctaOne: 'Открыть банку'
         },
         mix: {
-          titleSingle: 'Разрыхли табак', titleTwo: 'Как соединить вкусы?',
+          titleSingle: 'Разрыхли табак', titleTwo: 'Как соединить вкусы?', modeMix: 'Смешать', modeNone: 'Без смешивания', mixInfo: 'Перемешай вкусы вилкой в миске. Проведи пальцем по табаку.', noneInfo: 'Вкусы не смешиваются. При забивке ты сам выбираешь, куда положить каждый.',
           single: 'Меласса оседает на дне банки. Быстро перемешай табак, чтобы каждое волокно было одинаково влажным.',
           classic: { name: 'Классически', info: 'Оба вкуса смешивают в миске до забивки. Вкус одинаковый от первой до последней затяжки.' },
           layer: { name: 'Слоями', info: 'Первый вкус кладут на дно чаши, второй сверху, без смешивания. Вкус меняется по ходу сессии.' },
@@ -457,7 +465,7 @@
         },
         fill: {
           title: 'Забей чашу', hint: 'Проведи пальцем над чашей, чтобы насыпать табак', add: 'Насыпать', press: 'Прижать', reset: 'Высыпать',
-          type: 'Забивка', height: 'Высота', grams: 'Табак', g: 'г',
+          type: 'Забивка', height: 'Высота', grams: 'Табак', g: 'г', tapHint: 'Нажми и держи внутри чаши', levelBtn: 'Выровнять', pickLabel: 'Вкус, который насыпаешь', mixChip: 'Микс', uneven: 'Табак лежит неровно. Выровняй его, чтобы он грелся равномерно.',
           types: { fluff: 'Воздушная', semi: 'Средняя', dense: 'Плотная', over: 'С горкой' },
           below: '{n} мм ниже края', above: '{n} мм выше края', level: 'вровень с краем',
           tipLight: 'Светлый лист любит воздушную забивку, на 2–3 мм ниже края.', tipDark: 'Тёмный лист любит плотную забивку, почти до края.',
@@ -469,7 +477,7 @@
           foilInfo: 'Ты выбираешь число и схему отверстий, поэтому полностью контролируешь жар.',
           hmdInfo: 'Металлическая крышка для углей. Проще для новичка: жар ровнее, а регулируется он отверстиями.',
           hint: 'Нажми на фольгу, чтобы сделать отверстие', patterns: { rings: 'Три круга', spiral: 'Спираль', own: 'Вручную' }, tap: 'нажатием',
-          holes: 'Отверстия', clear: 'Очистить', fewHoles: 'Слишком мало отверстий: дым будет слабым.', manyHoles: 'Много отверстий: табак будет быстрее нагреваться.',
+          holes: 'Отверстия', clear: 'Очистить', fewHoles: 'Слишком мало отверстий: дым будет слабым.', manyHoles: 'Много отверстий: табак будет быстрее нагреваться.', foilTap: 'Нажми на фольгу, чтобы сделать отверстие, или выбери схему.',
           vents: 'Отверстия калауда', less: 'Меньше жара', more: 'Больше жара', cta: 'Дальше: угли'
         },
         coals: {
@@ -491,6 +499,7 @@
           holesN: 'отверстий: {n}', coalsN: 'углей: {n}', minutes: '{n} мин',
           tips: {
             great: 'Отлично. Так забитая чаша даёт густой дым и чистый вкус.',
+            uneven: 'Табак лежал неровно и грелся участками. Выровняй его перед фольгой.',
             hot: 'Было слишком жарко. Попробуй на один уголь меньше или держи их ближе к краю.',
             cold: 'Жара было мало. Добавь уголь или больше отверстий в фольге.',
             rotate: 'Переставляй угли во время сессии, тогда жар ровнее.',
