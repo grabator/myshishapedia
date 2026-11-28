@@ -439,7 +439,7 @@
     if (rel > 1.12) s.hot += dm; if (rel < 0.8 && s.t > 6) s.cold += dm;
     s.sumHeat += rel * dm; s.sumSmoke += Math.min(1, smoke) * dm; s.n += dm;
     if (api) api.session({ on: true, heat: rel, smoke: Math.min(1, smoke), burn: s.burn });
-    if (!s.prompt && s.t - s.lastRot > 15) { s.prompt = true; toast(A.smoke.rotateNow + ' ' + A.smoke.rotateText); }
+    if (!s.prompt && s.t - s.lastRot > 15) s.prompt = true;
     if (s.t >= s.end) { s.done = true; stopSim(); if (api) api.session({ on: false }); }
     updateSim(rel, smoke);
   }
@@ -464,8 +464,8 @@
       title: a.title, cap: esc(a.warming),
       panel: '<p class="bs-stat1 bs-stat1--sm" id="bs-sline"></p>' +
         '<div class="bs-meter bs-meter--heat bs-meter--thin"><div class="bs-meter__bar"><span id="bs-heat" style="left:2%"></span></div></div>' +
-        '<div class="bs-row"><button type="button" class="bs-btn bs-btn--ghost bs-btn--sm" data-act="rotate">' + ic('redo') + '<span>' + esc(a.rotate) + '</span></button>' +
-        '<button type="button" class="bs-btn bs-btn--ghost bs-btn--sm" data-act="removecoal">' + ic('x') + '<span>' + esc(a.remove) + '</span></button>' +
+        '<div class="bs-tools"><button type="button" class="bs-btn bs-tool" data-act="rotate">' + ic('redo') + '<span>' + esc(a.rotate) + '</span></button>' +
+        '<button type="button" class="bs-btn bs-tool" data-act="removecoal">' + ic('x') + '<span>' + esc(a.remove) + '</span></button>' +
         '<button type="button" class="bs-ibtn bs-tool-i" data-act="finish" aria-label="' + esc(a.finish) + '">' + ic('skip') + '</button></div>' +
         '<button type="button" class="bs-btn bs-btn--primary" data-act="next" hidden><span>' + esc(a.result) + '</span>' + ic('next') + '</button>'
     };
@@ -829,7 +829,13 @@
     pourRaf = 0;
     if (!drag || !drag.fill || !api) return;
     var dt = pourLast ? Math.min(0.1, (t - pourLast) / 1000) : 0.016; pourLast = t;
-    var st = api.fillAt(drag.x, drag.y, dt);
+    var fx = drag.px == null ? drag.x : drag.px, fy = drag.py == null ? drag.y : drag.py;
+    var dist = Math.hypot(drag.x - fx, drag.y - fy), steps = Math.max(1, Math.min(12, Math.ceil(dist / 9))), st = null;
+    for (var i = 1; i <= steps; i++) {
+      var k = i / steps, r2 = api.fillAt(fx + (drag.x - fx) * k, fy + (drag.y - fy) * k, dt / steps);
+      if (r2) st = r2;
+    }
+    drag.px = drag.x; drag.py = drag.y;
     if (st) fillChanged(st);
     pourRaf = requestAnimationFrame(pourLoop);
   }
@@ -992,6 +998,7 @@
       if (!isOpen) return;
       api = m.mount(el.stage, {
         modelUrl: doc.body.getAttribute('data-bs-model'),
+        hookahUrl: doc.body.getAttribute('data-bs-hookah'),
         reduced: reduce,
         onReady: function () { root.classList.remove('is-loading'); root.classList.add('is-3d'); measure(); sync(firstIntro); firstIntro = false; },
         onPick: function (id) { if (state.step === 1) pickBowl(id); },

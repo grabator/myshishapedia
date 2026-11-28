@@ -538,7 +538,7 @@ function renderPage(desc) {
   const bodyAttrs = `data-page="${desc.page}"` + (desc.id ? ` data-id="${esc(desc.id)}"` : '') +
     ` data-smoke="${esc(info.theme.smoke.join(','))}" data-search="${asset('js/search.js')}" data-hk3d="${asset('js/hookah3d.js')}" data-hk3d-model="${asset('static/models/nargila.glb')}"` +
     // mapa lokala: Leaflet se preuzima tek kad posjetilac otvori mapu
-    (desc.page === 'studio' ? ` data-bs3d="${asset('js/studio3d.js')}" data-bs-model="${asset('static/models/bowl-egypt.glb')}"` : '') +
+    (desc.page === 'studio' ? ` data-bs3d="${asset('js/studio3d.js')}" data-bs-model="${asset('static/models/bowl-egypt.glb')}" data-bs-hookah="${asset('static/models/nargila.glb')}"` : '') +
     (desc.page === 'barCity' ? ` data-leaflet="${asset('js/vendor/leaflet.js')}" data-leaflet-css="${asset('css/vendor/leaflet.css')}"` : '');
 
   const html = `<!doctype html>
