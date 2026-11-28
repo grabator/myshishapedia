@@ -469,23 +469,23 @@ export function mount(host, opts) {
   const tinFloorMat = own(new THREE.MeshStandardMaterial({ color: 0x2a1408, roughness: 1 }));
   const tinSideMat = own(new THREE.MeshStandardMaterial({ color: 0x1c140f, metalness: 0.6, roughness: 0.35 }));
   function makeTin(f) {
-    const G = new THREE.Group(), big = tier > 0;
+    const G = new THREE.Group(), can = new THREE.Group(), big = tier > 0;
     const body = new THREE.Mesh(tinBodyGeo, new THREE.MeshStandardMaterial({ map: labelTexture(f, big), metalness: 0.35, roughness: 0.45 }));
     body.userData.ownMat = true; body.position.y = 1.5;
     const rimM = new THREE.Mesh(tinRimGeo, tinMetal); rimM.rotation.x = Math.PI / 2; rimM.position.y = 3;
     const bot = new THREE.Mesh(tinBotGeo, tinMetal); bot.rotation.x = -Math.PI / 2; bot.position.y = 0.02;
     const inner = new THREE.Mesh(tinInGeo, tinInMat); inner.position.y = 1.5;
     const floor = new THREE.Mesh(tinFloorGeo, tinFloorMat); floor.rotation.x = -Math.PI / 2; floor.position.y = 1.6;
-    G.add(body, rimM, bot, inner, floor);
     const tob = tobacco({ radius: 4.1, yBot: 1.7, yTop: 2.55, count: 2600, seed: hash(f.id), dome: 0.3, leaf: f.leaf });
-    G.add(tob);
+    can.add(body, rimM, bot, inner, floor, tob);
+    G.add(can);
     const lid = new THREE.Mesh(tinLidGeo, [tinSideMat, new THREE.MeshStandardMaterial({ map: lidTexture(f, big), metalness: 0.15, roughness: 0.55 }), tinMetal]);
     lid.userData.ownMat = false; lid.userData.capMat = lid.material[1];
     lid.position.y = 3.2;
     G.add(lid);
     blob(G, 5.2);
     shadowy(G);
-    G.userData = { lid, id: f.id, f, body };
+    G.userData = { lid, id: f.id, f, body, can, tob };
     return G;
   }
   // natpisi na limenci trebaju fontove sajta; ako još nisu stigli, nacrtaj ponovo kad stignu
@@ -504,6 +504,7 @@ export function mount(host, opts) {
   function dropTin(t) {
     if (!t) return;
     scene.remove(t);
+    const lid0 = t.userData.lid; if (lid0 && lid0.parent && lid0.parent !== t) lid0.parent.remove(lid0);
     const cm = t.userData.lid.userData.capMat; if (cm) { cm.map.dispose(); cm.dispose(); }
     disposeTree(t);
   }
@@ -518,9 +519,10 @@ export function mount(host, opts) {
     kick();
     return tw;
   }
-  function moveTo(o, x, y, z, ry, dur, delay) {
+  function moveTo(o, x, y, z, ry, dur, delay, lift) {
     const a = o.position.clone(), b = new THREE.Vector3(x, y, z), r0 = o.rotation.y, r1 = ry == null ? r0 : ry;
-    const run = () => tween(dur || 900, (k) => { o.position.lerpVectors(a, b, k); o.rotation.y = lerp(r0, r1, k); });
+    const h = lift == null ? (a.distanceTo(b) > 3 ? 2.2 : 0) : lift;
+    const run = () => tween(dur || 900, (k) => { o.position.lerpVectors(a, b, k); o.position.y += Math.sin(k * Math.PI) * h; o.rotation.y = lerp(r0, r1, k); });
     if (delay && !reduced) setTimeout(run, delay); else run();
   }
 
@@ -633,7 +635,7 @@ export function mount(host, opts) {
 
   /* ---------------- koraci ---------------- */
 
-  const SPOTS = { front: [0, 0, 5], left: [-7.5, 0, -10], right: [7.8, 0, -10], back: [-11, 0, -11], center: [0, 0, 0] };
+  const SPOTS = { front: [0, 0, 5], left: [-7.5, 0, -10], right: [7.8, 0, -10], back: [-15.5, 0, -15], center: [0, 0, 0] };
   const ORDER = ['egypt', 'phunnel', 'silicone'];
   let chosen = 'egypt';
   const ring = new THREE.Mesh(own(new THREE.RingGeometry(6.2, 6.5, 72)), own(new THREE.MeshBasicMaterial({ color: 0xf2a33c, transparent: true, opacity: 0, depthWrite: false })));
@@ -651,8 +653,8 @@ export function mount(host, opts) {
     ORDER.forEach((id) => {
       const b = bowls[id]; if (!b) return;
       b.visible = true;
-      const p = pos[id];
-      if (anim) moveTo(b, p[0], p[1], p[2], 0, 820); else b.position.set(p[0], p[1], p[2]);
+      const p = pos[id], far = b.position.distanceTo(new THREE.Vector3(p[0], p[1], p[2])) > 1;
+      if (anim) moveTo(b, p[0], p[1], p[2], 0, 900, 0, id === chosen ? 1.2 : far ? 11 : 0); else b.position.set(p[0], p[1], p[2]);
     });
   }
   function hideOtherBowls(anim) {
@@ -680,21 +682,23 @@ export function mount(host, opts) {
     tinKey = k;
     const old = tins.slice();
     tins = list.map((f) => makeTin(f));
-    // stare limenke odu sa stola
-    old.forEach((t) => { moveTo(t, t.position.x + 24, 0, t.position.z + 4, 0, 520); setTimeout(() => dropTin(t), 560); });
+    // stare limenke se podignu i odu sa stola
+    old.forEach((t) => { moveTo(t, t.position.x + (t.position.x < 0 ? -26 : 26), 0, t.position.z, 0, 560, 0, 4); setTimeout(() => dropTin(t), 600); });
     return true;
   }
   const TIN_SPOTS = [[[1.2, 0, 1.5]], [[-4.4, 0, 0.6], [5.2, 0, -0.8]], [[-5.1, 0, 3], [5.1, 0, 3], [0, 0, -6.6]], [[-5.1, 0, 3.6], [5.1, 0, 3.6], [-5.1, 0, -6.4], [5.1, 0, -6.4]]];
   const TIN_REST = [10, 0, 2.5];
   function closeTin(t) {
     const lid = t.userData.lid;
+    if (lid.parent !== t) t.add(lid);
     lid.position.set(0, 3.2, 0); lid.rotation.set(0, 0, 0);
+    t.userData.can.position.y = 0;
     t.userData.opened = false;
   }
   // limenka stoji zatvorena na stolu (uvod)
   function restTins() {
     tins.forEach((t, i) => {
-      if (i > 0) { if (t.parent) moveTo(t, t.position.x + 24, 0, t.position.z, 0, 500); return; }
+      if (i > 0) { if (t.parent) moveTo(t, FAR[i][0], 0, FAR[i][2], 0, 700); return; }
       if (!t.parent) { closeTin(t); t.position.set(TIN_REST[0] + 20, 0, TIN_REST[2]); scene.add(t); }
       if (t.userData.opened) closeTin(t);
       moveTo(t, TIN_REST[0], 0, TIN_REST[2], -0.4, 800);
@@ -703,36 +707,40 @@ export function mount(host, opts) {
   function openTins() {
     const n = tins.length, spots = TIN_SPOTS[n - 1] || TIN_SPOTS[0];
     tins.forEach((t, i) => {
-      const s2 = spots[i], lid = t.userData.lid;
-      if (!t.parent) { closeTin(t); t.position.set(s2[0] + 18, 0, s2[2] - 8); t.rotation.y = -0.6; scene.add(t); }
-      moveTo(t, s2[0], 0, s2[2], -0.35, 900, i * 110);
+      const s2 = spots[i], lid = t.userData.lid, can = t.userData.can;
+      if (!t.parent) { closeTin(t); t.position.set(s2[0] + (s2[0] < 0 ? -18 : 18), 0, s2[2]); t.rotation.y = -0.6; scene.add(t); }
+      moveTo(t, s2[0], 0, s2[2], -0.35, 900, i * 110, 3);
       if (t.userData.opened) return;
       t.userData.opened = true;
-      // poklopac se odvrne (okrene i podigne), pa legne: iza limenke (1-2 limenke) ili u stranu (3-4)
+      // poklopac se odvrne i podigne, limenka se podigne, poklopac ode ispod nje i limenka sjedne na njega
       const side = s2[0] < 0 ? -1 : 1;
-      const tx = n <= 2 ? -side * 1.2 - 2.0 : side * 9.4, tz = n <= 2 ? -7.6 : 0;
-      const run = () => tween(1100, (k) => {
-        const a = Math.min(1, k / 0.45), b = Math.max(0, (k - 0.45) / 0.55);
-        lid.rotation.y = -a * Math.PI * 1.2 - b * 0.4;
-        lid.position.set(lerp(0, tx, eio(b)), 3.2 + Math.sin(a * Math.PI / 2) * 1.6 * (1 - b) + lerp(0, -2.88, eio(b)) + Math.sin(b * Math.PI) * 1.2, lerp(0, tz, eio(b)));
-      }, (x) => x);
-      if (reduced) run(); else setTimeout(run, 650 + i * 110);
+      // poklopac se odvrne, pa ga "ruka" odnese visoko i spusti na sto van kadra (ne dodiruje druge predmete)
+      const run = () => {
+        const w0 = new THREE.Vector3();
+        tween(520, (k) => { lid.rotation.y = -k * Math.PI * 1.2; lid.position.y = 3.2 + Math.sin(k * Math.PI / 2) * 1.4; }, (x) => x, () => {
+          lid.getWorldPosition(w0);
+          scene.attach(lid);
+          const to = new THREE.Vector3(side * 27, 0.33, s2[2] + 2), from = lid.position.clone();
+          tween(700, (k) => { lid.position.lerpVectors(from, to, k); lid.position.y += Math.sin(k * Math.PI) * 7; }, eio);
+        });
+      };
+      if (reduced) { scene.attach(lid); lid.position.set(side * 27, 0.33, s2[2] + 2); } else setTimeout(run, 700 + i * 110);
     });
   }
 
   // pribor po koraku: ono što ne treba se skloni u stranu (ostaje na stolu, ali ne smeta)
   const PROP_HOME = {}, PROP_AWAY = { hmd: [18, 0, 18], roll: [-18, 0, 17], dish: [-22, 0, 4], tongs: [6, 0.2, 36], pick: [-8, 0.1, 30], burner: [0, 0, -21] };
   const AWAY_IN = {
-    bowl: ['hmd', 'roll', 'tongs', 'pick'], flavor: ['hmd', 'roll', 'dish', 'tongs', 'pick'], mix: ['hmd', 'roll', 'tongs', 'pick', 'dish'],
-    fill: ['hmd', 'roll', 'tongs', 'pick', 'dish'], cover: ['tongs', 'pick', 'dish'], coals: ['roll', 'pick', 'dish', 'hmd'], smoke: ['roll', 'pick', 'dish', 'hmd'], result: ['roll', 'pick', 'dish', 'hmd']
+    bowl: ['hmd', 'roll', 'tongs', 'pick', 'dish'], flavor: ['hmd', 'roll', 'dish', 'tongs', 'pick'], mix: ['hmd', 'roll', 'tongs', 'pick', 'dish'],
+    fill: ['hmd', 'roll', 'tongs', 'pick', 'dish'], cover: ['tongs', 'pick', 'dish'], coals: ['roll', 'pick', 'dish', 'hmd'], smoke: ['roll', 'pick', 'dish', 'hmd', 'tongs'], result: ['roll', 'pick', 'dish', 'hmd', 'tongs']
   };
   Object.keys(P).forEach((k) => { PROP_HOME[k] = P[k].position.toArray(); });
   function propsFor(name, S) {
     const away = AWAY_IN[name] || [];
     const over = {};
-    if (S && S.prep === 'mix' && S.flavors && S.flavors.length > 1) { if (name === 'mix') over.dish = [0, 0, 3]; if (name === 'fill') over.dish = [14, 0, -1]; }
+    if (S && S.prep === 'mix' && S.flavors && S.flavors.length > 1) { if (name === 'mix') over.dish = [0, 0, 3]; }
     if (name === 'cover') { over.roll = [-9.5, 0, 6.5]; over.hmd = [9.8, 0, 6]; }
-    if (name === 'coals' || name === 'smoke' || name === 'result') over.burner = [-1, 0, -15];
+    if (name === 'coals') over.burner = [-1, 0, -15];
     Object.keys(P).forEach((k) => {
       if (k === 'hmd' && hmdOn) return;
       if (k === 'tongs' && tongsBusy) return;
@@ -798,21 +806,28 @@ export function mount(host, opts) {
   }
   const fork = makeFork();
   // stanje vilice: tačka vrha (svijet), odmor na stolu ili u radu
-  const fk = { x: 0, z: 0, tx: 0, tz: 0, y: 6, ty: 6, work: 0, twork: 0, host: null, a: 0 };
+  const fk = { x: 0, z: 0, tx: 0, tz: 0, y: 6, ty: 6, yaw: 0, tyaw: 0, speed: 0, tspeed: 0, host: null };
   const REST = new THREE.Vector3(8.5, 0.45, 4.5);
   function forkAnim(t, dt) {
-    const k = 1 - Math.pow(0.0008, dt);
-    fk.x += (fk.tx - fk.x) * k; fk.z += (fk.tz - fk.z) * k; fk.y += (fk.ty - fk.y) * k; fk.work += (fk.twork - fk.work) * Math.min(1, dt * 6);
-    const w = fk.work;
-    // odmor: vilica leži na stolu pored posude; rad: koso, zupci u duhanu
-    fork.position.set(lerp(REST.x, fk.x, w), lerp(REST.y, fk.y, w), lerp(REST.z, fk.z, w));
-    fork.rotation.set(lerp(Math.PI / 2 - 0.04, 0.62, w), lerp(-0.5, 0.35 + Math.sin(t * 0.004) * 0.08 * w, w), lerp(0, -0.3, w), 'YXZ');
-    if (fk.twork === 0 && w < 0.01 && Math.abs(fk.x - fk.tx) < 0.01) live.delete(forkAnim);
+    const k = 1 - Math.pow(0.00002, dt);
+    fk.x += (fk.tx - fk.x) * k; fk.z += (fk.tz - fk.tz * 0 - fk.z) * k; fk.y += (fk.ty - fk.y) * k;
+    let dy = fk.tyaw - fk.yaw; dy = Math.atan2(Math.sin(dy), Math.cos(dy)); fk.yaw += dy * Math.min(1, dt * 9);
+    fk.speed += (fk.tspeed - fk.speed) * Math.min(1, dt * 8); fk.tspeed *= Math.pow(0.02, dt);
+    fork.position.set(fk.x, fk.y, fk.z);
+    // vrh vilice je u duhanu, drška se naginje suprotno od smjera kretanja (vuče se za prstom)
+    fork.rotation.set(0.5 + Math.min(0.35, fk.speed * 0.5), fk.yaw, 0, 'YXZ');
+    // kad se vilica smiri, prestajemo crtati (štedi bateriju)
+    const still = Math.abs(fk.tx - fk.x) + Math.abs(fk.tz - fk.z) + Math.abs(fk.ty - fk.y) < 0.002 && Math.abs(dy) < 0.002 && fk.speed < 0.003 && fk.tspeed < 0.003;
+    if (!fork.visible || still) live.delete(forkAnim);
   }
   function forkShow(on, host) {
     fork.visible = on;
     fk.host = host || null;
-    if (on && host) { const off = host === P.dish ? 8 : 5.8; REST.set(host.position.x + off, 0.45, host.position.z + 2.2); }
+    if (on && host) {
+      const surf = host === P.dish ? 0.95 : 2.6 + (host.userData.can ? host.userData.can.position.y : 0);
+      fk.tx = fk.x = host.position.x + 1.3; fk.tz = fk.z = host.position.z + 0.8; fk.ty = fk.y = host.position.y + surf - 0.3;
+      fk.tyaw = fk.yaw = 0.5;
+    }
     if (on) { live.add(forkAnim); kick(); }
   }
 
@@ -825,6 +840,15 @@ export function mount(host, opts) {
   function buildDish(S) {
     const fl = S.flavors, sh = S.shares || fl.map(() => 100 / fl.length), key = fl.map((f) => f.id).join('|') + sh.join(',');
     if (dish && dish.key === key) return;
+    // isti okusi, samo drugi omjer: prebojimo postojeća vlakna, bez novih mreža
+    const fkey = fl.map((f) => f.id).join('|');
+    if (dish && dish.fkey === fkey) {
+      const r2 = rnd(hash(key)), cols2 = fl.map(flavorCols), heaps2 = HEAPS[fl.length] || HEAPS[1];
+      dish.data.forEach((d) => { const f = pickShare(sh, r2); d.p = 0; d.sx = heaps2[f][0] + d.ox; d.sz = heaps2[f][1] + d.oz; dish.meshes[d.v].setColorAt(d.j, cols2[f][d.v]); });
+      dish.prog = 0; dishMatrices();
+      dish.meshes.forEach((m) => { m.instanceColor.needsUpdate = true; });
+      dish.key = key; kick(); return;
+    }
     if (dish) dropMeshes(dish.meshes, P.dish);
     const n = [560, 860, 1200][tier], r = rnd(hash(key)), cols = fl.map(flavorCols), heaps = HEAPS[fl.length] || HEAPS[1];
     const hr = fl.length > 2 ? 1.2 : 1.6;
@@ -832,12 +856,12 @@ export function mount(host, opts) {
     for (let i = 0; i < n; i++) {
       const f = pickShare(sh, r), v = i % 8, hp = heaps[f];
       const a0 = r() * 6.28, u0 = Math.sqrt(r()) * hr, a1 = r() * 6.28, u1 = Math.sqrt(r()) * 3.1;
-      data.push({ v, j: (i - v) / 8, sx: hp[0] + Math.cos(a0) * u0, sz: hp[1] + Math.sin(a0) * u0, ex: Math.cos(a1) * u1, ez: Math.sin(a1) * u1,
+      data.push({ v, j: (i - v) / 8, ox: Math.cos(a0) * u0, oz: Math.sin(a0) * u0, sx: hp[0] + Math.cos(a0) * u0, sz: hp[1] + Math.sin(a0) * u0, ex: Math.cos(a1) * u1, ez: Math.sin(a1) * u1,
         sy: 0.62 + r() * 0.62 * (1 - u0 / (hr + 0.5)), ey: 0.62 + r() * 0.55 * (1 - u1 / 3.6), rx: (r() - 0.5) * 1.6, ry: r() * 6.28, rz: (r() - 0.5) * 1.6, s: 0.8 + r() * 0.5, p: 0, x: 0, z: 0 });
       meshes[v].setColorAt(data[i].j, cols[f][v]);
     }
     meshes.forEach((m) => { m.instanceColor.needsUpdate = true; });
-    dish = { key, meshes, data, prog: 0 };
+    dish = { key, fkey, meshes, data, prog: 0 };
     dishMatrices();
   }
   function dishMatrices() {
@@ -878,7 +902,7 @@ export function mount(host, opts) {
     const t = tins[0];
     if (!t) return 0;
     tinStir = Math.min(1, tinStir + amount * 0.35);
-    const tob = t.children.find((c) => c.isGroup && c !== t.userData.lid);
+    const tob = t.userData.tob;
     if (tob) { tob.rotation.y += amount * 1.5; tob.position.y = Math.sin(tinStir * Math.PI * 6) * 0.05; }
     kick();
     return tinStir;
@@ -890,19 +914,20 @@ export function mount(host, opts) {
   function mixDrag(cx, cy, phase) {
     const host = mixTarget();
     if (!host) return 0;
-    if (phase === 'end') { fk.twork = 0; return host === P.dish ? (dish ? dish.prog : 0) : tinStir; }
+    if (phase === 'end') return host === P.dish ? (dish ? dish.prog : 0) : tinStir;
     const r = canvas.getBoundingClientRect();
     ndc.set(((cx - r.left) / r.width) * 2 - 1, -((cy - r.top) / r.height) * 2 + 1);
     ray.setFromCamera(ndc, camera);
-    const surf = host === P.dish ? 0.95 : 2.6;
+    const surf = host === P.dish ? 0.95 : 2.6 + (host.userData.can ? host.userData.can.position.y : 0);
     mixPlane.set(new THREE.Vector3(0, 1, 0), -(host.position.y + surf));
     if (!ray.ray.intersectPlane(mixPlane, mixPt)) return 0;
     let lx = mixPt.x - host.position.x, lz = mixPt.z - host.position.z;
-    const lim = host === P.dish ? 3.3 : 3.6, rr = Math.hypot(lx, lz);
+    const lim = host === P.dish ? 3.3 : 3.5, rr = Math.hypot(lx, lz);
     if (rr > lim) { lx *= lim / rr; lz *= lim / rr; }
-    const moved = phase === 'start' ? 0 : Math.hypot(host.position.x + lx - fk.tx, host.position.z + lz - fk.tz);
-    fk.tx = host.position.x + lx; fk.tz = host.position.z + lz; fk.ty = host.position.y + surf - 0.25; fk.twork = 1;
-    if (phase === 'start') { fk.x = fk.tx; fk.z = fk.tz; }
+    const nx = host.position.x + lx, nz = host.position.z + lz;
+    const vx = nx - fk.tx, vz = nz - fk.tz, moved = phase === 'start' ? 0 : Math.hypot(vx, vz);
+    if (moved > 0.04) { fk.tyaw = Math.atan2(-vx, -vz); fk.tspeed = Math.min(1.5, moved * 3); }
+    fk.tx = nx; fk.tz = nz; fk.ty = host.position.y + surf - 0.3;
     live.add(forkAnim); kick();
     return host === P.dish ? dishStir(lx, lz, moved * 0.16) : tinStirAt(moved * 0.08);
   }
@@ -912,13 +937,15 @@ export function mount(host, opts) {
     const host = mixTarget();
     if (!host) return 0;
     autoA += dt * 2.6;
-    const R = host === P.dish ? 1.4 + Math.sin(autoA * 0.37) * 1.3 : 2.1, lx = Math.cos(autoA) * R, lz = Math.sin(autoA) * R * 0.9;
-    const surf = host === P.dish ? 0.95 : 2.6;
-    fk.tx = host.position.x + lx; fk.tz = host.position.z + lz; fk.ty = host.position.y + surf - 0.25; fk.twork = 1;
+    const R = host === P.dish ? 1.5 + Math.sin(autoA * 0.37) * 1.2 : 2.1, lx = Math.cos(autoA) * R, lz = Math.sin(autoA) * R * 0.9;
+    const surf = host === P.dish ? 0.95 : 2.6 + (host.userData.can ? host.userData.can.position.y : 0);
+    const nx = host.position.x + lx, nz = host.position.z + lz, vx = nx - fk.tx, vz = nz - fk.tz;
+    if (Math.hypot(vx, vz) > 0.01) { fk.tyaw = Math.atan2(-vx, -vz); fk.tspeed = 0.8; }
+    fk.tx = nx; fk.tz = nz; fk.ty = host.position.y + surf - 0.3;
     live.add(forkAnim); kick();
     return host === P.dish ? dishStir(lx, lz, dt * 0.9) : tinStirAt(dt * 0.45);
   }
-  function mixRelease() { fk.twork = 0; kick(); }
+  function mixRelease() { kick(); }
 
   /* ---------------- duhan u glavi: puni se tamo gdje je prst ---------------- */
 
@@ -1008,7 +1035,7 @@ export function mount(host, opts) {
   function hfAll() { if (hf) hfUpdate(0, GRID - 1, 0, GRID - 1); }
   // nanošenje duhana kistom oko tačke (px, pz) u koordinatama otvora (-1..1)
   function hfDeposit(px, pz, dt) {
-    const rb = 0.3, rate = 2.4 * dt, h = hf.h;
+    const rb = 0.27, rate = 3.1 * dt, h = hf.h;
     const gx0 = Math.floor(((px - rb * 2) + 1) / 2 * GRID), gx1 = Math.ceil(((px + rb * 2) + 1) / 2 * GRID), gz0 = Math.floor(((pz - rb * 2) + 1) / 2 * GRID), gz1 = Math.ceil(((pz + rb * 2) + 1) / 2 * GRID);
     for (let gz = Math.max(0, gz0); gz <= Math.min(GRID - 1, gz1); gz++) for (let gx = Math.max(0, gx0); gx <= Math.min(GRID - 1, gx1); gx++) {
       const c = gx + gz * GRID;
@@ -1212,7 +1239,8 @@ export function mount(host, opts) {
   function setCoals(S, anim) {
     const list = S.coals || [], v = new THREE.Vector3();
     while (coals.length > list.length) {
-      const m = coals.pop(), p0 = m.position.clone(), to = P.burner.position.clone().add(new THREE.Vector3(0, 4, 0));
+      const m = coals.pop(); scene.attach(m);
+      const p0 = m.position.clone(), to = P.burner.position.clone().add(new THREE.Vector3(0, 4, 0));
       if (anim) tween(500, (k) => { m.position.lerpVectors(p0, to, k); m.position.y += Math.sin(k * Math.PI) * 4; }, eio, () => scene.remove(m)); else scene.remove(m);
     }
     list.forEach((c, i) => {
@@ -1248,7 +1276,7 @@ export function mount(host, opts) {
 
   const smokeT = (() => {
     const c = makeCanvas(128, 128), x = c.getContext('2d'), r = rnd(21);
-    for (let i = 0; i < 12; i++) { const cx = 64 + (r() - 0.5) * 40, cy = 64 + (r() - 0.5) * 40, rr = 22 + r() * 22, g = x.createRadialGradient(cx, cy, 0, cx, cy, rr); g.addColorStop(0, 'rgba(240,236,245,.5)'); g.addColorStop(1, 'rgba(240,236,245,0)'); x.fillStyle = g; x.fillRect(0, 0, 128, 128); }
+    for (let i = 0; i < 12; i++) { const cx = 64 + (r() - 0.5) * 40, cy = 64 + (r() - 0.5) * 40, rr = 22 + r() * 22, g = x.createRadialGradient(cx, cy, 0, cx, cy, rr); g.addColorStop(0, 'rgba(240,236,245,.38)'); g.addColorStop(1, 'rgba(240,236,245,0)'); x.fillStyle = g; x.fillRect(0, 0, 128, 128); }
     return own(canvasTex(c));
   })();
   const PUFF_N = [16, 28, 40][tier];
@@ -1285,10 +1313,12 @@ export function mount(host, opts) {
       p.sp.position.z += p.vz * dt;
       p.sp.position.y += dt * (3.6 - k * 1.2);
       p.sp.material.rotation += p.rot * dt;
-      const sc = 3.4 + k * 10;
+      const sc = 2.6 + k * 8;
       p.sp.scale.set(sc, sc, 1);
-      p.sp.material.opacity = Math.min(1, k * 4) * (1 - k) * (0.3 + sess.smoke * 0.6) * (1 - sess.burn * 0.3);
+      p.sp.material.opacity = Math.min(1, k * 4) * (1 - k) * (0.2 + sess.smoke * 0.38) * (1 - sess.burn * 0.3);
     });
+    vaseSmoke.forEach((sp, i) => { sp.material.opacity = sess.on ? (0.08 + sess.smoke * 0.16) * (0.6 + 0.4 * Math.sin(t * 0.0012 + i)) : sp.material.opacity * 0.95; });
+    if (finalOn && current === 'smoke' && !orbit && !cameraTween && performance.now() - orbitIdle > 2500) { cam.az += dt * 0.07; if (goal) goal.az = cam.az; placeCamera(); }
     if (!sess.on && puffs.every((p) => p.life >= 1)) { live.delete(smokeAnim); coalMat.emissiveIntensity = 2.2; foilTopMat.emissiveIntensity = 0; fire.intensity = 0; }
   }
   function session(o) {
@@ -1334,30 +1364,153 @@ export function mount(host, opts) {
     return null;
   }
   function snapshot(size) {
-    const b = bowls[chosen], rimY = b ? b.userData.rimY : 8.7;
-    const sc = new THREE.PerspectiveCamera(26, W / H, 0.5, 200);
+    const b = bowls[chosen], rimY = (b ? b.userData.rimY : 8.7) + topRig.position.y;
+    const sc = new THREE.PerspectiveCamera(26, W / H, 0.5, 400);
     const dist = 6.2 / Math.tan(THREE.MathUtils.degToRad(13)) / Math.min(1, W / H);
     sc.position.set(dist * 0.03, rimY + dist, dist * 0.12); sc.lookAt(0, rimY, 0);
+    const hv = hookah && hookah.visible; if (hookah) hookah.visible = false;
     const vis = smokeG.visible; smokeG.visible = false;
     renderer.render(scene, sc);
     const out = makeCanvas(size, size), x = out.getContext('2d'), m = Math.min(canvas.width, canvas.height);
     x.drawImage(canvas, (canvas.width - m) / 2, (canvas.height - m) / 2, m, m, 0, 0, size, size);
-    smokeG.visible = vis;
+    smokeG.visible = vis; if (hookah) hookah.visible = hv;
     renderer.render(scene, camera);
     try { return out.toDataURL('image/jpeg', 0.88); } catch (e) { return ''; }
   }
 
+  /* ---------------- završna scena: cijela nargila (model sa početne) ---------------- */
+
+  // model nargile je u svojim jedinicama (visina 124.4); u sceni je 1 jedinica = 10 mm, pa je nargila oko 85 cm
+  const HK_S = 0.68, HK_SEAT = 104 * HK_S, HK_CUT = 107 * HK_S;
+  const VASE = [[0, 8.3], [1, 10.5], [2, 12.7], [3, 14], [4, 15.1], [6, 16.1], [8, 16.2], [10, 15.4], [12, 13.4], [14, 11.5], [16, 9.7]];
+  const topRig = new THREE.Group();
+  scene.add(topRig);
+  let hookah = null, hookahLoading = false, finalOn = false;
+  const vaseSmoke = [];
+  renderer.localClippingEnabled = true;
+  function buildHookah(g, accent) {
+    const G = new THREE.Group(), model = new THREE.Group();
+    model.scale.setScalar(HK_S); G.add(model);
+    const brass = own(new THREE.MeshStandardMaterial({ color: 0xd9a35a, metalness: 1, roughness: 0.24 }));
+    // gornji dio stuba (glava iz modela) se odsiječe: na stub sjeda naša glava
+    const brassCut = own(brass.clone()); brassCut.clippingPlanes = [new THREE.Plane(new THREE.Vector3(0, -1, 0), HK_CUT)];
+    const glass = own(new THREE.MeshPhysicalMaterial({ color: 0xfff1de, metalness: 0, roughness: 0.04, transparent: true, opacity: tier ? 0.14 : 0.18, envMapIntensity: 2, clearcoat: 1, clearcoatRoughness: 0.05, depthWrite: false, side: THREE.DoubleSide }));
+    g.scene.traverse((o) => {
+      if (!o.isMesh) return;
+      own(o.geometry);
+      const n = ((o.name || '') + ' ' + ((o.parent && o.parent.name) || ''));
+      if (/(Rectangle002|Object004|Line005|Object002|Object003)/.test(n)) { o.visible = false; return; }
+      if (/Rectangle001/.test(n)) { o.material = glass; o.renderOrder = 3; return; }
+      o.material = /Line001/.test(n) ? brassCut : brass;
+      o.castShadow = tier > 0; o.receiveShadow = tier > 0;
+    });
+    model.add(g.scene);
+    // voda u boji okusa: tamnija pri dnu, sjajna površina
+    const wc = new THREE.Color(accent || '#e8b04a'), LEVEL = 15.2;
+    const wpts = VASE.filter((v) => v[0] <= LEVEL).map((v) => new THREE.Vector2(v[1] * 0.93, v[0] + 0.5));
+    wpts.unshift(new THREE.Vector2(0, 0.5)); wpts.push(new THREE.Vector2(10.1 * 0.93, LEVEL));
+    const wgeo = own(new THREE.LatheGeometry(wpts, 48)), cols = [], pos = wgeo.attributes.position, lo = wc.clone().multiplyScalar(0.3), hi = wc.clone().multiplyScalar(0.95);
+    for (let i = 0; i < pos.count; i++) { const k = Math.min(1, Math.max(0, pos.getY(i) / LEVEL)); const c = lo.clone().lerp(hi, Math.pow(k, 1.4)); cols.push(c.r, c.g, c.b); }
+    wgeo.setAttribute('color', new THREE.Float32BufferAttribute(cols, 3));
+    model.add(new THREE.Mesh(wgeo, own(new THREE.MeshPhysicalMaterial({ vertexColors: true, roughness: 0.14, clearcoat: 0.5, envMapIntensity: 0.45, emissive: wc.clone().multiplyScalar(0.06) }))));
+    const surf = new THREE.Mesh(own(new THREE.CircleGeometry(10.1 * 0.93, 48)), own(new THREE.MeshPhysicalMaterial({ color: wc.clone().multiplyScalar(0.9), emissive: wc.clone().multiplyScalar(0.12), roughness: 0.04, clearcoat: 1, envMapIntensity: 1.4 })));
+    surf.rotation.x = -Math.PI / 2; surf.position.y = LEVEL; model.add(surf);
+    // crijevo iz priključka kroz spiralu, pa niz desnu stranu, i usnik
+    const hoseMat = own(new THREE.MeshStandardMaterial({ color: 0x1b1310, metalness: 0.15, roughness: 0.5 }));
+    const path = new THREE.CatmullRomCurve3([[12.4, 66.5, -10.6], [15.1, 68.1, -13.6], [20.1, 71.6, -17.9], [25.5, 73.6, -22.5], [31.1, 74, -27], [36.1, 72.4, -30.4], [41.9, 69.5, -33.9], [46.7, 65.6, -36], [51.8, 61.4, -37.8], [56.5, 55, -37], [59, 45, -31], [57.5, 35, -21], [52, 27, -11]].map((p) => new THREE.Vector3(p[0], p[1], p[2])), false, 'catmullrom', 0.4);
+    model.add(new THREE.Mesh(own(new THREE.TubeGeometry(path, 120, 1.6, 12, false)), hoseMat));
+    const handle = new THREE.Group();
+    handle.add(new THREE.Mesh(own(new THREE.LatheGeometry([[0, 0], [1.6, 0], [1.9, 3], [1.5, 6], [1.8, 18], [1.3, 26], [0.9, 30], [0, 30]].map((v) => new THREE.Vector2(v[0], v[1])), 20)), hoseMat));
+    [3, 18].forEach((y) => handle.add(new THREE.Mesh(own(new THREE.LatheGeometry([new THREE.Vector2(2.05, y - 0.8), new THREE.Vector2(2.1, y), new THREE.Vector2(2.05, y + 0.8)], 20)), brass)));
+    const end = path.getPoint(1), dir = path.getTangent(1).normalize();
+    handle.position.copy(end); handle.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), dir);
+    model.add(handle);
+    // dim u staklu (puni se dok se puši)
+    for (let i = 0; i < 5; i++) { const sp = new THREE.Sprite(own(new THREE.SpriteMaterial({ map: smokeT, transparent: true, depthWrite: false, opacity: 0 }))); sp.position.set((i - 2) * 2.6, 26 + (i % 2) * 7, (i % 3 - 1) * 2.5); sp.scale.set(16, 16, 1); model.add(sp); vaseSmoke.push(sp); }
+    blob(G, 13);
+    return G;
+  }
+  function loadHookah(accent) {
+    if (hookah || hookahLoading || !opts.hookahUrl) return;
+    hookahLoading = true;
+    loader.load(opts.hookahUrl, (g) => {
+      if (!alive) return;
+      hookah = buildHookah(g, accent); hookah.visible = false; scene.add(hookah);
+      if (finalOn) { finalOn = false; showFinal(true); }
+    }, undefined, () => { hookahLoading = false; });
+  }
+  const KEY0 = key.position.clone(), KEYT0 = key.target.position.clone(), FILL0 = fillLight.position.clone();
+  function lights(final) {
+    if (final) { key.position.set(-36, 135, 70); key.target.position.set(0, 40, 0); fillLight.position.set(50, 120, -30); key.shadow.camera.far = 280; }
+    else { key.position.copy(KEY0); key.target.position.copy(KEYT0); fillLight.position.copy(FILL0); key.shadow.camera.far = 90; }
+    key.shadow.camera.updateProjectionMatrix();
+  }
+  // glava (sa duhanom, folijom ili HMD-om i ugljevima) se podigne, nargila dođe ispod nje i glava sjedne na stub
+  function showFinal(on, instant) {
+    if (on === finalOn && (!on || (hookah && hookah.visible))) return;
+    finalOn = on;
+    if (!hookah) { if (on) loadHookah(); return; }
+    if (!on && instant) {
+      hookah.visible = false; topRig.children.slice().forEach((o) => scene.attach(o)); topRig.position.y = 0;
+      tins.forEach((t) => { t.visible = true; t.userData.lid.visible = true; }); P.dish.visible = true; lights(false);
+      return;
+    }
+    if (on) {
+      [bowls[chosen], smokeG, fire].concat(coals, hmdOn ? [P.hmd] : []).forEach((o) => { if (o && o.parent !== topRig) topRig.attach(o); });
+      tins.forEach((t) => { t.visible = false; const l = t.userData.lid; if (l.parent !== t) l.visible = false; });
+      P.dish.visible = false;
+      hookah.visible = true; hookah.position.set(0, 0, -46);
+      lights(true);
+      tween(reduced ? 1 : 1900, (k) => {
+        const up = Math.min(1, k / 0.35), slide = Math.max(0, Math.min(1, (k - 0.22) / 0.5)), down = Math.max(0, (k - 0.72) / 0.28);
+        topRig.position.y = down > 0 ? lerp(HK_SEAT + 14, HK_SEAT, eio(down)) : (HK_SEAT + 14) * eio(up);
+        hookah.position.z = lerp(-46, 0, eio(slide));
+      }, (x) => x);
+    } else {
+      const y0 = topRig.position.y;
+      tween(reduced ? 1 : 1300, (k) => {
+        const up = Math.min(1, k / 0.3), slide = Math.max(0, Math.min(1, (k - 0.25) / 0.45)), down = Math.max(0, (k - 0.65) / 0.35);
+        topRig.position.y = down > 0 ? lerp(HK_SEAT + 14, 0, eio(down)) : lerp(y0, HK_SEAT + 14, eio(up));
+        hookah.position.z = lerp(0, -46, eio(slide));
+      }, (x) => x, () => {
+        hookah.visible = false;
+        topRig.children.slice().forEach((o) => scene.attach(o));
+        topRig.position.y = 0;
+        tins.forEach((t) => { t.visible = true; t.userData.lid.visible = true; });
+        P.dish.visible = true;
+        lights(false);
+      });
+    }
+  }
+  // pogled na nargilu prstom (okretanje i nagib)
+  let orbit = null, orbitIdle = 0;
+  function orbitDown(e) { if (current === 'smoke' || current === 'result') orbit = { x: e.clientX, y: e.clientY }; }
+  function orbitMove(e) {
+    if (!orbit) return;
+    const dx = e.clientX - orbit.x, dy = e.clientY - orbit.y; orbit.x = e.clientX; orbit.y = e.clientY;
+    if (cameraTween) { const i = tweens.indexOf(cameraTween); if (i !== -1) tweens.splice(i, 1); cameraTween = null; }
+    cam.az -= dx * 0.007; cam.el = Math.max(0.03, Math.min(1.25, cam.el + dy * 0.004));
+    if (goal) goal = Object.assign({}, goal, { az: cam.az, el: cam.el });
+    orbitIdle = performance.now();
+    placeCamera(); kick();
+  }
+  function orbitUp() { orbit = null; }
+  canvas.addEventListener('pointerdown', orbitDown);
+  window.addEventListener('pointermove', orbitMove);
+  window.addEventListener('pointerup', orbitUp);
+  window.addEventListener('pointercancel', orbitUp);
+
   /* ---------------- koraci ---------------- */
 
   const MORE = {
-    mixDish: { c: [0, 1.4, 3.3], rw: 6.9, rh: 6.2, el: 1.12, az: 0.28 },
+    mixDish: { c: [0, 1.4, 3.2], rw: 6.2, rh: 6.6, el: 1.2, az: 0.28 },
     tinMix: { c: [1.2, 2.6, 1.5], rw: 6, rh: 6, el: 1.08, az: 0.28 },
     fill: { c: [0.3, 7.4, 0.6], rw: 7.2, rh: 6.6, el: 1.2, az: 0.28 },
     fillClose: { c: [0, 7.6, 0.25], rw: 4.5, rh: 4.5, el: 1.36, az: 0.2 },
     cover: { c: [0, 8.4, 0.3], rw: 5.0, rh: 5.0, el: 1.4, az: 0.2 },
     coals: { c: [0, 9.4, 0], rw: 5.6, rh: 6.2, el: 1.2, az: 0.24 },
-    smoke: { c: [0, 11.5, 0], rw: 6.2, rh: 9.5, el: 0.98, az: 0.28 },
-    result: { c: [0, 10, 0], rw: 6.5, rh: 8, el: 1.0, az: 0.28 }
+    smoke: { c: [6, 47, 0], rw: 31, rh: 50, el: 0.2, az: 0.6 },
+    result: { c: [6, 50, 0], rw: 30, rh: 46, el: 0.28, az: 0.9 }
   };
   function bowlToCenter(anim) {
     ORDER.forEach((id) => { if (bowls[id] && id !== chosen) bowls[id].visible = false; });
@@ -1379,14 +1532,16 @@ export function mount(host, opts) {
     chosen = S.bowl || chosen;
     if (S.flavors && S.flavors.length) setTins(S.flavors);
     const n = S.flavors ? S.flavors.length : 1, mixing = S.prep === 'mix' && n > 1;
+    const same = prev === 'mix' && name === 'mix' && S_mode.prep === S.prep && S_mode.n === n;
     S_mode.prep = S.prep; S_mode.n = n;
+    if (same) { if (mixing) buildDish(S); return; }
     if (name === 'mix') {
       const b = bowls[chosen];
       ORDER.forEach((id) => { if (bowls[id] && id !== chosen) bowls[id].visible = false; });
       if (b) moveTo(b, SPOTS.back[0], 0, SPOTS.back[2], 0, 800);
-      if (mixing) { buildDish(S); tinsTo([[-8.6, 0, -6.6], [8.6, 0, -6.6], [-12.5, 0, 3.5], [12.5, 0, 3.5]]); forkShow(true, P.dish); frame(MORE.mixDish, 1000); }
+      if (mixing) { buildDish(S); tinsTo([[-8.6, 0, -6.6], [8.6, 0, -6.6], [-12.5, 0, 3.5], [12.5, 0, 3.5]]); forkShow(false); setTimeout(() => { if (current === 'mix') forkShow(true, P.dish); }, reduced ? 0 : 950); frame(MORE.mixDish, 1000); }
       else if (n > 1) { tinsTo(TIN_SPOTS[n - 1]); forkShow(false); frame(FRAMES['flavor' + n], 900); }
-      else { tinsTo(TIN_SPOTS[0]); forkShow(true, tins[0]); frame(MORE.tinMix, 900); }
+      else { tinsTo(TIN_SPOTS[0]); forkShow(false); setTimeout(() => { if (current === 'mix') forkShow(true, tins[0]); }, reduced ? 0 : 950); frame(MORE.tinMix, 900); }
       return;
     }
     forkShow(false);
@@ -1401,6 +1556,7 @@ export function mount(host, opts) {
       hfAll();
     }
     if (name === 'fill') {
+      showFinal(false, true);
       foilTo(false, S, true); hmdTo(false, S, true); setCoals(Object.assign({}, S, { coals: [] }), true);
       zoomed = (hf && hfStats().A > 0.05);
       frame(zoomed ? MORE.fillClose : MORE.fill, 1000);
@@ -1411,7 +1567,11 @@ export function mount(host, opts) {
       hmdTo(useHmd, S, true, name === 'coals');
       setCoals(name === 'cover' ? Object.assign({}, S, { coals: [] }) : S, true);
       if (name !== 'smoke') session({ on: false });
-      frame(MORE[name] || MORE.cover, 1000);
+      const fin = name === 'smoke' || name === 'result';
+      if (fin) { loadHookah(S.flavors && S.flavors[0] && S.flavors[0].accent); setTimeout(() => { if (current === name) showFinal(true); }, useHmd ? 800 : 200); }
+      else showFinal(false);
+      if (name === 'coals') loadHookah(S.flavors && S.flavors[0] && S.flavors[0].accent);
+      frame(MORE[name] || MORE.cover, fin ? 2200 : 1000);
     }
   }
 
@@ -1426,7 +1586,7 @@ export function mount(host, opts) {
     const topOn = later && name !== 'mix';
     if (hf) { hf.meshes.forEach((m) => { m.visible = topOn; }); if (!topOn) hf.extra.visible = false; }
     if (!later) forkShow(false);
-    if (!topOn) { foilTo(false, data, prev === 'cover' || prev === 'coals'); hmdTo(false, { bowl: chosen }, true); setCoals({ coals: [] }, true); }
+    if (!topOn) { showFinal(false, true); foilTo(false, data, prev === 'cover' || prev === 'coals'); hmdTo(false, { bowl: chosen }, true); setCoals({ coals: [] }, true); }
     propsFor(name, data);
     if (later) { laterStep(name, data, prev); return; }
     if (name === 'intro') {
@@ -1520,6 +1680,7 @@ export function mount(host, opts) {
       canvas.removeEventListener('webglcontextlost', onLost);
       canvas.removeEventListener('pointerdown', onDown);
       canvas.removeEventListener('pointerup', onUp);
+      canvas.removeEventListener('pointerdown', orbitDown); window.removeEventListener('pointermove', orbitMove); window.removeEventListener('pointerup', orbitUp); window.removeEventListener('pointercancel', orbitUp);
       tins.forEach(dropTin);
       scene.traverse((m) => { if (m.isInstancedMesh) m.dispose(); });
       disposables.forEach((d) => { try { d.dispose(); } catch (e) { /* već oslobođeno */ } });
