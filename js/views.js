@@ -686,6 +686,7 @@
       { key: 'mixes', page: 'mixes', match: ['mixes', 'recipe'] },
       { key: 'creators', page: 'creators', match: ['creators', 'creator', 'cmix'] },
       { key: 'fmap', page: 'fmap', match: ['fmap'], badge: true },
+      { key: 'studio', page: 'studio', match: ['studio'], badge: true },
       { key: 'top', page: 'top', match: ['top'] },
       { key: 'shelf', page: 'shelf', match: ['shelf'] },
       { key: 'session', page: 'session', match: ['session'] },
@@ -743,6 +744,7 @@
   /** Stavka menija po stranici (da novi unos u grupi ne pomjeri ostale). */
   function navItem(page) { return NAV[0].items.filter(function (x) { return x.page === page; })[0]; }
   var NAV_FMAP = navItem('fmap');
+  var NAV_STUDIO = navItem('studio');
   var MENU_TILES = [
     { n: NAV[0].items[0], fx: 'lava', color: '#ff8a3d' },
     { n: NAV[0].items[1], fx: 'ring', color: '#e8457a' },
@@ -821,7 +823,12 @@
         '<span class="msurprise__sub" aria-live="polite">' + esc(t('nav.surpriseSub')) + '</span>' +
         icon('arrowRight') +
       '</button>' +
-      '<div class="mpair mtrio">' +
+      '<div class="mpair mtrio mquad">' +
+      '<a class="menu-link mgame mstudio" href="' + V.url('studio') + '"' + curAttr(NAV_STUDIO, desc) + ' style="--i:' + (k++) + '">' +
+        '<span class="mstudio__art" aria-hidden="true">' + icon('spark') + '</span>' +
+        '<span class="mshelf__text"><span class="mshelf__name">Bowl Studio <span class="nav-new">' + esc(t('nav.newBadge')) + '</span></span><span class="mshelf__sub">' + esc(t('nav.studioSub')) + '</span></span>' +
+        icon('arrowRight') +
+      '</a>' +
       '<a class="menu-link mgame mfmap" href="' + V.url('fmap') + '"' + curAttr(NAV_FMAP, desc) + ' style="--i:' + (k++) + '">' +
         '<span class="mfmap__art" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>' +
         '<span class="mshelf__text"><span class="mshelf__name">' + esc(t('nav.fmap')).replace('Geschmackskarte', 'Geschmacks&shy;karte') + ' <span class="nav-new">' + esc(t('nav.newBadge')) + '</span></span><span class="mshelf__sub">' + esc(t('nav.fmapSub')) + '</span></span>' +
@@ -930,7 +937,7 @@
     var year = desc.year || new Date().getFullYear();
     var email = (cfg && cfg.AUTHOR_EMAIL) || '';
     var name = (cfg && cfg.AUTHOR_NAME) || 'Graba';
-    var links = ['flavors', 'brands', 'collections', 'compare', 'mixes', 'creators', 'top', 'shelf', 'session', 'journal', 'mixer', 'quiz', 'game', 'fmap', 'guide', 'tips', 'articles', 'history', 'glossary', 'gear', 'bars', 'loungeInfo', 'about'].map(function (p) {
+    var links = ['flavors', 'brands', 'collections', 'compare', 'mixes', 'creators', 'top', 'shelf', 'session', 'journal', 'mixer', 'quiz', 'game', 'fmap', 'studio', 'guide', 'tips', 'articles', 'history', 'glossary', 'gear', 'bars', 'loungeInfo', 'about'].map(function (p) {
       return '<li><a href="' + V.url(p) + '">' + esc(t('nav.' + (p === 'flavors' ? 'allFlavors' : p))) + '</a></li>';
     }).join('');
     return (

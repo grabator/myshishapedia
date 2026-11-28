@@ -9574,6 +9574,12 @@ a.crt-video__play { text-decoration: none; }
 .mtrio .mshelf__name .nav-new { position: absolute; top: 8px; right: 8px; font-size: 0.55rem; padding: 1px 5px; }
 .mtrio .mshelf__sub { display: block; font-size: 0.66rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .mtrio .mfmap__art, .mtrio .mgame__art, .mtrio .mbars__art { width: 30px; height: 30px; }
+/* četiri pločice (Bowl Studio, mapa okusa, igra, barovi): 2 x 2 */
+.mtrio.mquad { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.mtrio.mquad .mgame { flex-direction: row; align-items: center; justify-content: flex-start; gap: 9px; min-height: clamp(50px, calc(var(--mh) * 0.075), 66px); }
+.mstudio { border-color: rgba(242, 163, 60, 0.45) !important; background: linear-gradient(135deg, rgba(242, 163, 60, 0.16), rgba(242, 163, 60, 0.04)) !important; }
+.mstudio__art { display: grid; place-items: center; flex: none; width: 30px; height: 30px; border-radius: 10px; background: radial-gradient(circle at 50% 70%, #3a2414, #150d08); border: 1px solid rgba(242, 163, 60, 0.35); color: #f2a33c; }
+.mstudio__art .icon { width: 18px; height: 18px; }
 .mtrio .mgame__art { transform: scale(0.88); transform-origin: left top; }
 /* Otkrij i Nargila: dvije kartice, ikonica i strelica u svakom redu */
 .mlists { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin-top: 2px; }
