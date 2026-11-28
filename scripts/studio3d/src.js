@@ -838,6 +838,15 @@ export function mount(host, opts) {
   function buildDish(S) {
     const fl = S.flavors, sh = S.shares || fl.map(() => 100 / fl.length), key = fl.map((f) => f.id).join('|') + sh.join(',');
     if (dish && dish.key === key) return;
+    // isti okusi, samo drugi omjer: prebojimo postojeća vlakna, bez novih mreža
+    const fkey = fl.map((f) => f.id).join('|');
+    if (dish && dish.fkey === fkey) {
+      const r2 = rnd(hash(key)), cols2 = fl.map(flavorCols), heaps2 = HEAPS[fl.length] || HEAPS[1];
+      dish.data.forEach((d) => { const f = pickShare(sh, r2); d.p = 0; d.sx = heaps2[f][0] + d.ox; d.sz = heaps2[f][1] + d.oz; dish.meshes[d.v].setColorAt(d.j, cols2[f][d.v]); });
+      dish.prog = 0; dishMatrices();
+      dish.meshes.forEach((m) => { m.instanceColor.needsUpdate = true; });
+      dish.key = key; kick(); return;
+    }
     if (dish) dropMeshes(dish.meshes, P.dish);
     const n = [560, 860, 1200][tier], r = rnd(hash(key)), cols = fl.map(flavorCols), heaps = HEAPS[fl.length] || HEAPS[1];
     const hr = fl.length > 2 ? 1.2 : 1.6;
@@ -845,12 +854,12 @@ export function mount(host, opts) {
     for (let i = 0; i < n; i++) {
       const f = pickShare(sh, r), v = i % 8, hp = heaps[f];
       const a0 = r() * 6.28, u0 = Math.sqrt(r()) * hr, a1 = r() * 6.28, u1 = Math.sqrt(r()) * 3.1;
-      data.push({ v, j: (i - v) / 8, sx: hp[0] + Math.cos(a0) * u0, sz: hp[1] + Math.sin(a0) * u0, ex: Math.cos(a1) * u1, ez: Math.sin(a1) * u1,
+      data.push({ v, j: (i - v) / 8, ox: Math.cos(a0) * u0, oz: Math.sin(a0) * u0, sx: hp[0] + Math.cos(a0) * u0, sz: hp[1] + Math.sin(a0) * u0, ex: Math.cos(a1) * u1, ez: Math.sin(a1) * u1,
         sy: 0.62 + r() * 0.62 * (1 - u0 / (hr + 0.5)), ey: 0.62 + r() * 0.55 * (1 - u1 / 3.6), rx: (r() - 0.5) * 1.6, ry: r() * 6.28, rz: (r() - 0.5) * 1.6, s: 0.8 + r() * 0.5, p: 0, x: 0, z: 0 });
       meshes[v].setColorAt(data[i].j, cols[f][v]);
     }
     meshes.forEach((m) => { m.instanceColor.needsUpdate = true; });
-    dish = { key, meshes, data, prog: 0 };
+    dish = { key, fkey, meshes, data, prog: 0 };
     dishMatrices();
   }
   function dishMatrices() {
@@ -1492,7 +1501,7 @@ export function mount(host, opts) {
   /* ---------------- koraci ---------------- */
 
   const MORE = {
-    mixDish: { c: [0, 1.4, 3.2], rw: 6.2, rh: 5.6, el: 1.2, az: 0.28 },
+    mixDish: { c: [0, 1.4, 3.2], rw: 6.2, rh: 6.6, el: 1.2, az: 0.28 },
     tinMix: { c: [1.2, 2.6, 1.5], rw: 6, rh: 6, el: 1.08, az: 0.28 },
     fill: { c: [0.3, 7.4, 0.6], rw: 7.2, rh: 6.6, el: 1.2, az: 0.28 },
     fillClose: { c: [0, 7.6, 0.25], rw: 4.5, rh: 4.5, el: 1.36, az: 0.2 },
@@ -1521,7 +1530,9 @@ export function mount(host, opts) {
     chosen = S.bowl || chosen;
     if (S.flavors && S.flavors.length) setTins(S.flavors);
     const n = S.flavors ? S.flavors.length : 1, mixing = S.prep === 'mix' && n > 1;
+    const same = prev === 'mix' && name === 'mix' && S_mode.prep === S.prep && S_mode.n === n;
     S_mode.prep = S.prep; S_mode.n = n;
+    if (same) { if (mixing) buildDish(S); return; }
     if (name === 'mix') {
       const b = bowls[chosen];
       ORDER.forEach((id) => { if (bowls[id] && id !== chosen) bowls[id].visible = false; });
