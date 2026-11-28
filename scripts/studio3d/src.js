@@ -816,7 +816,9 @@ export function mount(host, opts) {
     fork.position.set(fk.x, fk.y, fk.z);
     // vrh vilice je u duhanu, drška se naginje suprotno od smjera kretanja (vuče se za prstom)
     fork.rotation.set(0.5 + Math.min(0.35, fk.speed * 0.5), fk.yaw, 0, 'YXZ');
-    if (!fork.visible) live.delete(forkAnim);
+    // kad se vilica smiri, prestajemo crtati (štedi bateriju)
+    const still = Math.abs(fk.tx - fk.x) + Math.abs(fk.tz - fk.z) + Math.abs(fk.ty - fk.y) < 0.002 && Math.abs(dy) < 0.002 && fk.speed < 0.003 && fk.tspeed < 0.003;
+    if (!fork.visible || still) live.delete(forkAnim);
   }
   function forkShow(on, host) {
     fork.visible = on;
