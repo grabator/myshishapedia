@@ -808,6 +808,7 @@ function writeSearchIndex() {
     }
     // mapa okusa
     add('page', MSP.t('nav.fmap'), V.fmapTx().lead, V.url('fmap'), '', LANGS.map((l) => MSP.strings[l].nav.fmap).concat(['flavor map', 'mapa okusa', 'geschmackskarte']));
+    add('page', 'Bowl Studio', V.studioTx().lead, V.url('studio'), '', ['bowl studio', 'punjenje glave', 'pack bowl', 'kopf bauen', 'забивка чаши']);
     // nargila barovi: stranica BiH i gradovi (pretraga i po imenu lokala)
     add('page', MSP.t('nav.bars'), V.barsTx('lead'), V.url('bars'), '', LANGS.map((l) => MSP.strings[l].nav.bars).concat(['nargila bar', 'shisha bar', 'hookah lounge']));
     for (const c of V.barCityPages()) {

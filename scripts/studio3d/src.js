@@ -252,9 +252,9 @@ export function mount(host, opts) {
   const key = new THREE.SpotLight(0xffd2a0, 1400, 0, 0.95, 0.7, 1.6);
   key.position.set(-16, 40, 20); key.target.position.set(0, 2, 0);
   if (tier > 0) { key.castShadow = true; key.shadow.mapSize.set(tier === 2 ? 2048 : 1024, tier === 2 ? 2048 : 1024); key.shadow.bias = -0.0004; key.shadow.radius = 5; key.shadow.camera.near = 20; key.shadow.camera.far = 90; }
-  const fill = new THREE.SpotLight(0xffe6c8, 500, 0, 0.9, 0.8, 1.6); fill.position.set(20, 36, -10);
+  const fillLight = new THREE.SpotLight(0xffe6c8, 500, 0, 0.9, 0.8, 1.6); fillLight.position.set(20, 36, -10);
   const rim = new THREE.DirectionalLight(0xc8b8ff, 0.45); rim.position.set(18, 10, -20);
-  scene.add(key, key.target, fill, rim, new THREE.AmbientLight(0x3a2a40, 0.5));
+  scene.add(key, key.target, fillLight, rim, new THREE.AmbientLight(0x3a2a40, 0.5));
 
   // sto
   const wood = own(woodTexture(tier === 0 ? 1024 : 2048));
@@ -289,23 +289,23 @@ export function mount(host, opts) {
   function phunnelBowl() {
     const mat = own(new THREE.MeshPhysicalMaterial({ map: own(clayTexture('#7a3a22', 3)), roughness: 0.32, clearcoat: 0.7, clearcoatRoughness: 0.25, side: THREE.DoubleSide }));
     const G = new THREE.Group();
-    G.add(lathe([[0.3, 0], [1.35, 0], [1.4, 1.9], [2.3, 2.5], [3.5, 4.6], [4.15, 7.6], [4.35, 8.55], [4.3, 8.7], [3.8, 8.7], [3.6, 7.8], [3.2, 6.2], [2.2, 4.7], [1.1, 4.45], [0.85, 4.6], [0.55, 7.4], [0.5, 7.55], [0.28, 7.55], [0.28, 0.5]], mat, 96));
+    G.add(lathe([[0.3, 0], [1.35, 0], [1.4, 1.9], [2.3, 2.5], [3.5, 4.6], [4.15, 7.6], [4.35, 8.55], [4.3, 8.7], [3.8, 8.7], [3.6, 7.9], [3.0, 6.6], [2.0, 6.1], [1.1, 6.0], [0.85, 6.15], [0.55, 7.9], [0.5, 8.05], [0.28, 8.05], [0.28, 0.5]], mat, 96));
     const hm = own(new THREE.MeshBasicMaterial({ color: 0x080402 })), hg = own(new THREE.CircleGeometry(0.16, 12));
-    for (let k = 0; k < 4; k++) { const a = k * Math.PI / 2 + 0.4, h = new THREE.Mesh(hg, hm); h.position.set(Math.cos(a) * 0.66, 6.3, Math.sin(a) * 0.66); h.lookAt(Math.cos(a) * 3, 6.6, Math.sin(a) * 3); G.add(h); }
-    G.userData = { rimY: 8.7, rimR: 4.3, floorY: 4.5 };
+    for (let k = 0; k < 4; k++) { const a = k * Math.PI / 2 + 0.4, h = new THREE.Mesh(hg, hm); h.position.set(Math.cos(a) * 0.7, 7.25, Math.sin(a) * 0.7); h.lookAt(Math.cos(a) * 3, 7.5, Math.sin(a) * 3); G.add(h); }
+    G.userData = { rimY: 8.7, rimR: 4.3, floorY: 6.05 };
     return G;
   }
   function siliconeBowl() {
     const G = new THREE.Group();
-    G.add(lathe([[0.3, 0], [1.6, 0], [1.6, 2.2], [2.6, 2.6], [4.0, 5.6], [4.4, 8.3], [4.25, 8.7], [3.7, 8.7], [3.55, 7.6], [3.3, 5.9], [0.4, 5.6], [0.3, 5.6]],
+    G.add(lathe([[0.3, 0], [1.6, 0], [1.6, 2.2], [2.6, 2.6], [4.0, 5.6], [4.4, 8.3], [4.25, 8.7], [3.7, 8.7], [3.55, 7.6], [3.35, 6.55], [0.4, 6.25], [0.3, 6.25]],
       own(new THREE.MeshPhysicalMaterial({ color: 0x34343c, roughness: 0.55, sheen: 0.6, sheenColor: new THREE.Color(0x553333), side: THREE.DoubleSide })), 96));
     const plate = new THREE.Mesh(own(new THREE.CylinderGeometry(3.3, 3.3, 0.12, 48)), own(new THREE.MeshStandardMaterial({ color: 0xd0d0d4, metalness: 1, roughness: 0.22 })));
-    plate.position.y = 5.7; G.add(plate);
+    plate.position.y = 6.38; G.add(plate);
     const hm = own(new THREE.MeshBasicMaterial({ color: 0x050505 })), hg = own(new THREE.CircleGeometry(0.32, 16));
-    for (let k = 0; k < 7; k++) { const a = k / 7 * Math.PI * 2, h = new THREE.Mesh(hg, hm); h.rotation.x = -Math.PI / 2; h.position.set(k ? Math.cos(a) * 1.6 : 0, 5.77, k ? Math.sin(a) * 1.6 : 0); G.add(h); }
+    for (let k = 0; k < 7; k++) { const a = k / 7 * Math.PI * 2, h = new THREE.Mesh(hg, hm); h.rotation.x = -Math.PI / 2; h.position.set(k ? Math.cos(a) * 1.6 : 0, 6.45, k ? Math.sin(a) * 1.6 : 0); G.add(h); }
     const band = new THREE.Mesh(own(new THREE.TorusGeometry(4.05, 0.09, 8, 72)), own(new THREE.MeshStandardMaterial({ color: 0xf2a33c, roughness: 0.5 })));
     band.rotation.x = Math.PI / 2; band.position.y = 7.2; G.add(band);
-    G.userData = { rimY: 8.7, rimR: 4.2, floorY: 5.8 };
+    G.userData = { rimY: 8.7, rimR: 4.2, floorY: 6.45 };
     return G;
   }
   function egyptBowl(gltf) {
@@ -559,26 +559,31 @@ export function mount(host, opts) {
     kick();
   }
 
-  let raf = 0, last = 0, slow = 0, alive = true, hidden = document.hidden;
+  let raf = 0, last = 0, lastT = 0, slow = 0, alive = true, hidden = document.hidden;
+  // stalne animacije (dim, vlakna u padu, žar): dok ih ima, crta se svaki kadar
+  const live = new Set();
   function kick() { if (!raf && alive && !hidden) raf = requestAnimationFrame(loop); }
   function loop(t) {
     raf = 0;
     if (!alive) return;
+    const dt = lastT ? Math.min(0.05, (t - lastT) / 1000) : 0.016;
+    lastT = t;
     for (let i = tweens.length - 1; i >= 0; i--) {
       const tw = tweens[i], k = Math.min(1, (t - tw.t0) / tw.dur);
       if (k < 0) continue;
       tw.fn(tw.ease(Math.max(0, k)));
       if (k >= 1) { tweens.splice(i, 1); if (tw.done) tw.done(); }
     }
+    live.forEach((f) => f(t, dt));
     renderer.render(scene, camera);
-    // kadrovi kasne dok se nešto pomjera: smanji gustinu piksela (jednom po koraku)
-    if (last && tweens.length) {
-      const dt = t - last;
-      slow = dt > 34 ? slow + 1 : Math.max(0, slow - 1);
-      if (slow > 20 && dprCap > 1) { dprCap = Math.max(1, dprCap - 0.5); renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, dprCap)); resize(); slow = 0; }
+    const busy = tweens.length || live.size;
+    // kadrovi kasne dok se nešto pomjera: smanji gustinu piksela
+    if (last && busy) {
+      slow = t - last > 34 ? slow + 1 : Math.max(0, slow - 1);
+      if (slow > 24 && dprCap > 1) { dprCap = Math.max(1, dprCap - 0.5); renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, dprCap)); resize(); slow = 0; }
     }
-    last = tweens.length ? t : 0;
-    if (tweens.length) raf = requestAnimationFrame(loop);
+    last = busy ? t : 0;
+    if (busy) raf = requestAnimationFrame(loop); else lastT = 0;
   }
 
   const ro = new ResizeObserver(() => resize());
@@ -694,23 +699,503 @@ export function mount(host, opts) {
     });
   }
 
-  // pribor koji ne treba u koraku se skloni u stranu (ostaje na stolu, ali ne smeta)
-  const PROP_HOME = {}, PROP_AWAY = { hmd: [18, 0, 18], roll: [-18, 0, 17], dish: [-22, 0, 4], tongs: [6, 0.2, 36], pick: [-8, 0.1, 30] };
-  const AWAY_IN = { bowl: ['hmd', 'roll', 'tongs', 'pick'], flavor: ['hmd', 'roll', 'dish', 'tongs', 'pick'] };
+  // pribor po koraku: ono što ne treba se skloni u stranu (ostaje na stolu, ali ne smeta)
+  const PROP_HOME = {}, PROP_AWAY = { hmd: [18, 0, 18], roll: [-18, 0, 17], dish: [-22, 0, 4], tongs: [6, 0.2, 36], pick: [-8, 0.1, 30], burner: [0, 0, -21] };
+  const AWAY_IN = {
+    bowl: ['hmd', 'roll', 'tongs', 'pick'], flavor: ['hmd', 'roll', 'dish', 'tongs', 'pick'], mix: ['hmd', 'roll', 'tongs', 'pick', 'dish'],
+    fill: ['hmd', 'roll', 'tongs', 'pick', 'dish'], cover: ['tongs', 'pick', 'dish'], coals: ['roll', 'pick', 'dish', 'hmd'], smoke: ['roll', 'pick', 'dish', 'hmd'], result: ['roll', 'pick', 'dish', 'hmd']
+  };
   Object.keys(P).forEach((k) => { PROP_HOME[k] = P[k].position.toArray(); });
-  function propsFor(name) {
+  function propsFor(name, S) {
     const away = AWAY_IN[name] || [];
-    Object.keys(PROP_AWAY).forEach((k) => {
-      const t = away.indexOf(k) !== -1 ? PROP_AWAY[k] : PROP_HOME[k], o = P[k];
+    const over = {};
+    if (S && S.prep === 'classic') { if (name === 'mix') over.dish = [0, 0, 3]; if (name === 'fill' || name === 'cover') over.dish = [10.5, 0, -2.5]; }
+    if (name === 'cover') { over.roll = [-9.5, 0, 6.5]; over.hmd = [9.8, 0, 6]; }
+    if (name === 'coals' || name === 'smoke' || name === 'result') over.burner = [-1, 0, -15];
+    Object.keys(P).forEach((k) => {
+      if (k === 'hmd' && hmdOn) return;
+      if (k === 'tongs' && tongsBusy) return;
+      const t = over[k] || (away.indexOf(k) !== -1 ? PROP_AWAY[k] : PROP_HOME[k]), o = P[k];
       if (o.position.distanceTo(new THREE.Vector3().fromArray(t)) > 0.1) moveTo(o, t[0], t[1], t[2], o.rotation.y, 800);
     });
+  }
+
+  /* ---------------- boje duhana po okusu ---------------- */
+
+  // isti list izgleda isto, pa svaki okus dobije blagi ton svoje boje (da se miks vidi), a ostaje boja duhana
+  const tobMats = [];
+  function tobMat(v) {
+    if (!tobMats[v]) tobMats[v] = own(new THREE.MeshPhysicalMaterial({ color: 0xffffff, roughness: 0.55, clearcoat: 0.4, clearcoatRoughness: 0.45, envMapIntensity: 0.25, side: THREE.DoubleSide }));
+    return tobMats[v];
+  }
+  function flavorCols(f) {
+    const acc = new THREE.Color(f.accent || '#8a5226'), leaf = f.leaf === 'dark' ? 'dark' : 'light';
+    return LEAF[leaf].map((hex) => { const c = new THREE.Color(hex).lerp(acc, 0.13); return c.multiply(c.clone()); });
+  }
+  function variantMeshes(n, parent) {
+    const list = [];
+    for (let v = 0; v < 8; v++) {
+      const cap = Math.max(1, Math.ceil((n - v) / 8));
+      const im = new THREE.InstancedMesh(ribbons[v], tobMat(v), cap);
+      im.receiveShadow = tier > 0; im.frustumCulled = false;
+      parent.add(im); list.push(im);
+    }
+    return list;
+  }
+  function dropMeshes(list, parent) { list.forEach((im) => { parent.remove(im); im.dispose(); }); }
+
+  /* ---------------- zdjelica: klasično miješanje ---------------- */
+
+  const dummy = new THREE.Object3D();
+  let dish = null; // { key, meshes, data }
+  function buildDish(S) {
+    const fl = S.flavors, key = fl.map((f) => f.id).join('|') + S.ratio;
+    if (dish && dish.key === key) return;
+    if (dish) dropMeshes(dish.meshes, P.dish);
+    const n = [520, 820, 1150][tier], r = rnd(hash(key)), ca = flavorCols(fl[0]), cb = flavorCols(fl[1] || fl[0]);
+    const meshes = variantMeshes(n, P.dish), data = [];
+    for (let i = 0; i < n; i++) {
+      const isA = r() < S.ratio, v = i % 8;
+      // početak: dvije gomilice; kraj: jedna izmiješana
+      const a0 = r() * Math.PI * 2, u0 = Math.sqrt(r()) * 1.7, a1 = r() * Math.PI * 2, u1 = Math.sqrt(r()) * 3.1;
+      const sx = (isA ? -1.45 : 1.55) + Math.cos(a0) * u0, sz = (isA ? 0.3 : -0.3) + Math.sin(a0) * u0;
+      data.push({ v, j: (i - v) / 8, sx, sz, ex: Math.cos(a1) * u1, ez: Math.sin(a1) * u1, sy: 0.62 + r() * 0.7 * (1 - u0 / 2.2), ey: 0.62 + r() * 0.6 * (1 - u1 / 3.6), rx: (r() - 0.5) * 1.6, ry: r() * 6.28, rz: (r() - 0.5) * 1.6, s: 0.8 + r() * 0.5 });
+      meshes[v].setColorAt(data[i].j, (isA ? ca : cb)[v]);
+    }
+    meshes.forEach((m) => { m.instanceColor.needsUpdate = true; });
+    dish = { key, meshes, data, p: -1 };
+    setDishMix(0);
+  }
+  function setDishMix(p) {
+    if (!dish || Math.abs(p - dish.p) < 0.004) return;
+    dish.p = p;
+    const swirl = p * (1 - p) * 5;
+    dish.data.forEach((d) => {
+      let x = lerp(d.sx, d.ex, p), z = lerp(d.sz, d.ez, p);
+      const a = swirl * (1 - Math.hypot(x, z) / 4), c = Math.cos(a), sn = Math.sin(a);
+      dummy.position.set(x * c - z * sn, lerp(d.sy, d.ey, p), x * sn + z * c);
+      dummy.rotation.set(d.rx, d.ry + swirl, d.rz); dummy.scale.setScalar(d.s); dummy.updateMatrix();
+      dish.meshes[d.v].setMatrixAt(d.j, dummy.matrix);
+    });
+    dish.meshes.forEach((m) => { m.instanceMatrix.needsUpdate = true; });
+    kick();
+  }
+
+  /* ---------------- duhan u glavi ---------------- */
+
+  // unutrašnjost glave: dno, poluprečnik na dnu i kod ivice, stub (phunnel)
+  const INNER = { egypt: { floor: 6.68, r0: 2.3, r1: 3.2, spire: 0 }, phunnel: { floor: 6.08, r0: 2.0, r1: 3.72, spire: 0.85 }, silicone: { floor: 6.47, r0: 3.3, r1: 3.55, spire: 0 } };
+  const FILL_MAX = 1.25;
+  let fill = null; // { key, meshes, data, d, vis, top }
+  function bowlInner(id) { const b = bowls[id], I = INNER[id]; return { rim: b ? b.userData.rimY : 8.7, ...I }; }
+  function innerR(I, y) {
+    if (y <= I.rim) return lerp(I.r0, I.r1, Math.max(0, (y - I.floor) / (I.rim - I.floor)));
+    return I.r1 * Math.max(0.15, 1 - (y - I.rim) / 1.6);
+  }
+  function buildFill(S) {
+    const fl = S.flavors, key = S.bowl + fl.map((f) => f.id).join('|') + S.prep + S.ratio;
+    const host = bowls[S.bowl];
+    if (!host) return;
+    if (fill && fill.key === key && fill.host === host) return;
+    if (fill) { dropMeshes(fill.meshes, fill.host); fill.host.remove(fill.extra); }
+    const I = bowlInner(S.bowl), n = [900, 1500, 2100][tier], r = rnd(hash(key) + 7);
+    const ca = flavorCols(fl[0]), cb = flavorCols(fl[1] || fl[0]);
+    const raw = [];
+    for (let i = 0; i < n; i++) raw.push({ by: I.floor + 0.12 + r() * (I.rim - I.floor) * FILL_MAX, a: r() * Math.PI * 2, u: Math.sqrt(r()), rx: (r() - 0.5) * 1.5, ry: r() * 6.28, rz: (r() - 0.5) * 1.5, s: 1.05 + r() * 0.55, k: r() });
+    raw.sort((x, y) => x.by - y.by);
+    const meshes = variantMeshes(n, host), boundary = Math.round(S.ratio * n / FILL_MAX);
+    raw.forEach((d, i) => {
+      d.v = i % 8; d.j = (i - d.v) / 8;
+      const isA = fl.length < 2 ? true : S.prep === 'layer' ? i < boundary : d.k < S.ratio;
+      d.col = (isA ? ca : cb)[d.v].clone();
+      d.isA = isA;
+      meshes[d.v].setColorAt(d.j, d.col);
+    });
+    meshes.forEach((m) => { m.instanceColor.needsUpdate = true; m.count = 0; });
+    // rupice čačkalicom (kroz duhan)
+    const extra = new THREE.Group(), hm = own(new THREE.MeshBasicMaterial({ color: 0x0a0503 })), hg = own(new THREE.CircleGeometry(0.11, 10));
+    for (let k = 0; k < 7; k++) { const a = k / 7 * 6.28 + 0.3, u = k ? 0.55 : 0.12, h = new THREE.Mesh(hg, hm); h.rotation.x = -Math.PI / 2; h.userData.p = [Math.cos(a) * u, Math.sin(a) * u]; extra.add(h); }
+    extra.visible = false;
+    host.add(extra);
+    fill = { key, host, meshes, data: raw, I, n, d: -1, vis: -1, top: I.floor, extra, burn: 0 };
+  }
+  // A: količina (1 = do ivice prije sabijanja), d: sabijenost 0..1
+  function setFill(A, d, holes) {
+    if (!fill) return;
+    const I = fill.I, squash = 1 - 0.36 * d;
+    const vis = Math.min(fill.n, Math.round(fill.n * A / FILL_MAX));
+    const topRaw = I.floor + A * (I.rim - I.floor);
+    fill.top = I.floor + (topRaw - I.floor) * squash;
+    if (Math.abs(d - fill.d) > 0.004) {
+      fill.d = d;
+      fill.data.forEach((p) => {
+        const y = I.floor + (p.by - I.floor) * squash, R = Math.max(0.2, innerR(I, y) * 0.94 - 0.12);
+        const min = I.spire ? I.spire + 0.12 : 0, u = min + p.u * (R - min);
+        dummy.position.set(Math.cos(p.a) * u, y, Math.sin(p.a) * u);
+        dummy.rotation.set(p.rx, p.ry, p.rz); dummy.scale.setScalar(p.s * (1 - d * 0.12)); dummy.updateMatrix();
+        fill.meshes[p.v].setMatrixAt(p.j, dummy.matrix);
+      });
+      fill.meshes.forEach((m) => { m.instanceMatrix.needsUpdate = true; });
+    }
+    if (vis !== fill.vis) {
+      fill.vis = vis;
+      fill.meshes.forEach((m, v) => { m.count = Math.max(0, Math.ceil((vis - v) / 8)); });
+    }
+    fill.extra.visible = !!holes && vis > 20;
+    fill.extra.children.forEach((h) => { const R = innerR(I, fill.top) * 0.8; h.position.set(h.userData.p[0] * R, fill.top + 0.04, h.userData.p[1] * R); });
+    kick();
+  }
+  // pregorjeli gornji sloj potamni
+  function setBurn(b) {
+    if (!fill || Math.abs(b - fill.burn) < 0.04) return;
+    fill.burn = b;
+    const dark = new THREE.Color(0x0e0806), band = fill.vis * 0.82, c = new THREE.Color();
+    fill.data.forEach((p, i) => {
+      if (i >= fill.vis) return;
+      const k = i < band ? 0 : Math.min(1, (i - band) / (fill.vis - band + 1)) * b * 0.9;
+      c.copy(p.col).lerp(dark, k);
+      fill.meshes[p.v].setColorAt(p.j, c);
+    });
+    fill.meshes.forEach((m) => { m.instanceColor.needsUpdate = true; });
+    kick();
+  }
+
+  // vlakna koja padaju u glavu dok korisnik puni
+  const DROP_N = [14, 22, 30][tier];
+  const dropIM = new THREE.InstancedMesh(ribbons[3], tobMat(3), DROP_N);
+  dropIM.frustumCulled = false; dropIM.count = 0;
+  scene.add(dropIM);
+  const drops = [];
+  for (let i = 0; i < DROP_N; i++) drops.push({ ph: i / DROP_N, a: Math.random() * 6.28, u: Math.sqrt(Math.random()), sp: 0.7 + Math.random() * 0.5, rx: Math.random() * 6, rz: Math.random() * 6 });
+  let dropping = false, dropFlavor = null;
+  function dropAnim(t, dt) {
+    if (!fill) return;
+    const I = fill.I, hostP = fill.host.position;
+    let on = 0;
+    drops.forEach((d, i) => {
+      d.ph += dt * d.sp * 1.6;
+      if (d.ph >= 1) { if (!dropping) { d.dead = true; return; } d.ph -= 1; d.dead = false; d.a = Math.random() * 6.28; d.u = Math.sqrt(Math.random()); }
+      if (d.dead) return;
+      const R = innerR(I, fill.top) * 0.85, y = lerp(I.rim + 6, fill.top + 0.1, d.ph * d.ph);
+      dummy.position.set(hostP.x + Math.cos(d.a) * d.u * R, y, hostP.z + Math.sin(d.a) * d.u * R);
+      dummy.rotation.set(d.rx + t * 0.004, 0, d.rz + t * 0.003); dummy.scale.setScalar(1); dummy.updateMatrix();
+      dropIM.setMatrixAt(on, dummy.matrix); on++;
+    });
+    dropIM.count = on;
+    dropIM.instanceMatrix.needsUpdate = true;
+    if (!dropping && !on) live.delete(dropAnim);
+  }
+  function setDropping(on, f) {
+    if (on && f && f !== dropFlavor) {
+      dropFlavor = f;
+      const cols = flavorCols(f);
+      for (let i = 0; i < DROP_N; i++) dropIM.setColorAt(i, cols[i % 8]);
+      dropIM.instanceColor.needsUpdate = true;
+    }
+    dropping = on;
+    if (on) { drops.forEach((d) => { if (d.dead) { d.dead = false; d.ph = Math.random(); } }); live.add(dropAnim); kick(); }
+  }
+
+  /* ---------------- folija ---------------- */
+
+  const FS = tier === 0 ? 512 : 1024;
+  const foilCv = makeCanvas(FS, FS), foilCx = foilCv.getContext('2d'), foilMapT = own(canvasTex(foilCv));
+  const glowCv = makeCanvas(256, 256), glowCx = glowCv.getContext('2d'), glowT = own(canvasTex(glowCv));
+  const foilTopMat = own(new THREE.MeshStandardMaterial({ map: foilMapT, bumpMap: foilTex.rough, bumpScale: 0.3, metalness: 0.75, roughness: 0.4, envMapIntensity: 1.5, emissive: 0xff5a14, emissiveMap: glowT, emissiveIntensity: 0 }));
+  let foil = null, foilR = 4.8;
+  function drawFoil(holes) {
+    foilCx.drawImage(foilTex.map.image, 0, 0, FS, FS);
+    glowCx.fillStyle = '#000'; glowCx.fillRect(0, 0, 256, 256);
+    const hr = FS * 0.0062;
+    (holes || []).forEach((h) => {
+      const x = (0.5 + h[0] * 0.5) * FS, y = (0.5 + h[1] * 0.5) * FS;
+      foilCx.fillStyle = 'rgba(255,255,255,.55)'; foilCx.beginPath(); foilCx.arc(x - hr * 0.3, y - hr * 0.3, hr * 1.5, 0, 7); foilCx.fill();
+      foilCx.fillStyle = '#0d0704'; foilCx.beginPath(); foilCx.arc(x, y, hr, 0, 7); foilCx.fill();
+      glowCx.fillStyle = '#ffb070'; glowCx.beginPath(); glowCx.arc((0.5 + h[0] * 0.5) * 256, (0.5 + h[1] * 0.5) * 256, 2.6, 0, 7); glowCx.fill();
+    });
+    foilMapT.needsUpdate = true; glowT.needsUpdate = true;
+    kick();
+  }
+  function makeFoil(id) {
+    if (foil && foil.userData.id === id) return foil;
+    if (foil) { foil.parent && foil.parent.remove(foil); foil.children.forEach((m) => m.geometry.dispose()); }
+    const b = bowls[id], rimY = b.userData.rimY, R = b.userData.rimR * 1.1;
+    foilR = R;
+    const G = new THREE.Group();
+    const top = new THREE.Mesh(new THREE.CircleGeometry(R, 72), foilTopMat); top.rotation.x = -Math.PI / 2; top.position.y = 0.06; top.receiveShadow = tier > 0;
+    const skirt = new THREE.Mesh(new THREE.CylinderGeometry(R, R * 0.93, 1.3, 72, 1, true), foilMat); skirt.position.y = -0.58;
+    G.add(top, skirt);
+    G.userData = { id, rimY, top };
+    foil = G;
+    return G;
+  }
+  function foilTo(on, S, anim) {
+    if (on) {
+      const G = makeFoil(S.bowl), host = bowls[S.bowl];
+      drawFoil(S.foilHoles);
+      if (G.parent !== host) {
+        host.add(G); G.position.set(0, G.userData.rimY + (anim ? 7 : 0), 0); G.scale.set(1.15, 1, 1.15);
+        if (anim) tween(700, (k) => { G.position.y = G.userData.rimY + 7 * (1 - k); const sc = 1.15 - 0.15 * k; G.scale.set(sc, 1, sc); }, eo);
+        else G.scale.set(1, 1, 1);
+      }
+    } else if (foil && foil.parent) {
+      const G = foil, y0 = G.position.y;
+      if (anim) tween(450, (k) => { G.position.y = y0 + 7 * k; }, eio, () => { if (G.parent && !keepFoil) G.parent.remove(G); });
+      else G.parent.remove(G);
+    }
+  }
+  let keepFoil = false;
+
+  /* ---------------- HMD ---------------- */
+
+  let hmdOn = false;
+  const hmdCap = P.hmd.children.find((c) => c.isGroup);
+  function hmdTo(on, S, anim, capOpen) {
+    const b = bowls[S.bowl], rimY = b ? b.userData.rimY : 8.7;
+    if (on) {
+      if (!hmdOn) {
+        hmdOn = true;
+        const from = P.hmd.position.clone(), to = new THREE.Vector3(0, rimY - 0.05, 0);
+        if (anim) tween(900, (k) => { P.hmd.position.lerpVectors(from, to, k); P.hmd.position.y += Math.sin(k * Math.PI) * 5; }, eio);
+        else P.hmd.position.copy(to);
+      }
+      const capY = capOpen ? 6.5 : 1.5, capZ = capOpen ? -3.2 : 0, capX = capOpen ? 2.2 : 0;
+      const c0 = hmdCap.position.clone(), r0 = hmdCap.rotation.x, vr = (S.vents == null ? 0.5 : S.vents) * 1.1;
+      tween(anim ? 600 : 1, (k) => { hmdCap.position.set(lerp(c0.x, capX, k), lerp(c0.y, capY, k), lerp(c0.z, capZ, k)); hmdCap.rotation.x = lerp(r0, capOpen ? -0.5 : 0, k); });
+      hmdCap.rotation.y = vr;
+    } else if (hmdOn) {
+      hmdOn = false;
+      hmdCap.position.set(0, 1.5, 0); hmdCap.rotation.set(0, 0, 0);
+      const t = PROP_HOME.hmd;
+      if (anim) moveTo(P.hmd, t[0], t[1], t[2], 0, 800); else P.hmd.position.fromArray(t);
+    }
+  }
+
+  /* ---------------- ugljevi ---------------- */
+
+  const coals = [];
+  let tongsBusy = false;
+  function coalSpot(S, c, out) {
+    const b = bowls[S.bowl], rimY = b ? b.userData.rimY : 8.7;
+    if (S.cover === 'hmd') return out.set(c[0] * 3.6, rimY + 0.68, c[1] * 3.6);
+    return out.set(c[0] * foilR, rimY + 1.17, c[1] * foilR);
+  }
+  function setCoals(S, anim) {
+    const list = S.coals || [], v = new THREE.Vector3();
+    while (coals.length > list.length) {
+      const m = coals.pop(), p0 = m.position.clone(), to = P.burner.position.clone().add(new THREE.Vector3(0, 4, 0));
+      if (anim) tween(500, (k) => { m.position.lerpVectors(p0, to, k); m.position.y += Math.sin(k * Math.PI) * 4; }, eio, () => scene.remove(m)); else scene.remove(m);
+    }
+    list.forEach((c, i) => {
+      coalSpot(S, c, v);
+      let m = coals[i];
+      const hmdScale = S.cover === 'hmd' ? [1.05, 0.48, 1.05] : [1, 1, 1];
+      if (!m) {
+        m = new THREE.Mesh(coalGeo, coalMat); m.castShadow = tier > 0; coals.push(m); scene.add(m);
+        m.rotation.y = 0.4 + i * 1.3;
+        m.scale.set(hmdScale[0], hmdScale[1], hmdScale[2]);
+        if (anim && !reduced) {
+          const from = P.burner.position.clone().add(new THREE.Vector3(0, 4, 0)), to = v.clone();
+          m.position.copy(from);
+          tongsBusy = true;
+          tween(750, (k) => {
+            m.position.lerpVectors(from, to, k); m.position.y += Math.sin(k * Math.PI) * 6;
+            P.tongs.position.set(m.position.x, m.position.y + 0.35, m.position.z + 14.7); P.tongs.rotation.set(-0.12, 0, 0);
+          }, eio, () => {
+            setTimeout(() => { tongsBusy = false; const h = PROP_HOME.tongs; P.tongs.rotation.set(0, 0.08, 0); moveTo(P.tongs, h[0], h[1], h[2], 0.08, 600); }, 120);
+          });
+          return;
+        }
+        m.position.copy(v);
+        return;
+      }
+      m.scale.set(hmdScale[0], hmdScale[1], hmdScale[2]);
+      if (m.position.distanceTo(v) > 0.05) { const p0 = m.position.clone(), to = v.clone(); tween(anim ? 420 : 1, (k) => m.position.lerpVectors(p0, to, k)); }
+    });
+    kick();
+  }
+
+  /* ---------------- dim i žar ---------------- */
+
+  const smokeT = (() => {
+    const c = makeCanvas(128, 128), x = c.getContext('2d'), r = rnd(21);
+    for (let i = 0; i < 12; i++) { const cx = 64 + (r() - 0.5) * 40, cy = 64 + (r() - 0.5) * 40, rr = 22 + r() * 22, g = x.createRadialGradient(cx, cy, 0, cx, cy, rr); g.addColorStop(0, 'rgba(240,236,245,.5)'); g.addColorStop(1, 'rgba(240,236,245,0)'); x.fillStyle = g; x.fillRect(0, 0, 128, 128); }
+    return own(canvasTex(c));
+  })();
+  const PUFF_N = [16, 28, 40][tier];
+  const puffs = [];
+  const smokeG = new THREE.Group();
+  scene.add(smokeG);
+  for (let i = 0; i < PUFF_N; i++) {
+    const sp = new THREE.Sprite(own(new THREE.SpriteMaterial({ map: smokeT, transparent: true, depthWrite: false, opacity: 0 })));
+    sp.visible = false; smokeG.add(sp); puffs.push({ sp, life: 1, vx: 0, vz: 0, rot: 0 });
+  }
+  const fire = new THREE.PointLight(0xff6a20, 0, 18, 1.8);
+  scene.add(fire);
+  const sess = { heat: 0, smoke: 0, burn: 0, tint: new THREE.Color(1, 1, 1), on: false, acc: 0 };
+  function smokeAnim(t, dt) {
+    const b = bowls[chosen], rimY = b ? b.userData.rimY : 8.7;
+    const h = Math.min(1.6, sess.heat);
+    coalMat.emissiveIntensity = 1.3 + h * 0.9 + Math.sin(t * 0.004) * 0.12 + Math.sin(t * 0.011) * 0.06;
+    foilTopMat.emissiveIntensity = foil && foil.parent ? h * 0.7 : 0;
+    fire.intensity = 18 + h * 30; fire.position.set(0, rimY + 5, 0);
+    sess.acc += dt * (sess.on ? 3 + sess.smoke * 12 : 0);
+    puffs.forEach((p) => {
+      if (p.life >= 1) {
+        if (sess.acc < 1) { p.sp.visible = false; return; }
+        sess.acc -= 1;
+        p.life = 0; p.vx = (Math.random() - 0.5) * 0.9; p.vz = (Math.random() - 0.5) * 0.9; p.rot = (Math.random() - 0.5) * 0.6;
+        p.sp.position.set((Math.random() - 0.5) * 2.4, rimY + 2.2, (Math.random() - 0.5) * 2.4);
+        p.sp.material.color.copy(sess.tint);
+        p.sp.material.rotation = Math.random() * 6.28;
+        p.sp.visible = true;
+      }
+      p.life += dt * 0.32;
+      const k = p.life;
+      p.sp.position.x += p.vx * dt + Math.sin(t * 0.0015 + k * 5) * dt * 0.6;
+      p.sp.position.z += p.vz * dt;
+      p.sp.position.y += dt * (3.6 - k * 1.2);
+      p.sp.material.rotation += p.rot * dt;
+      const sc = 3.4 + k * 10;
+      p.sp.scale.set(sc, sc, 1);
+      p.sp.material.opacity = Math.min(1, k * 4) * (1 - k) * (0.3 + sess.smoke * 0.6) * (1 - sess.burn * 0.3);
+    });
+    if (!sess.on && puffs.every((p) => p.life >= 1)) { live.delete(smokeAnim); coalMat.emissiveIntensity = 2.2; foilTopMat.emissiveIntensity = 0; fire.intensity = 0; }
+  }
+  function session(o) {
+    if (o.heat != null) sess.heat = o.heat;
+    if (o.smoke != null) sess.smoke = o.smoke;
+    if (o.burn != null) { sess.burn = o.burn; setBurn(o.burn); }
+    if (o.on != null) sess.on = o.on;
+    if (sess.on) { live.add(smokeAnim); kick(); }
+  }
+  function rotateCoals() {
+    const from = coals.map((m) => m.position.clone()), n = coals.length || 1, step = Math.PI * 2 / n;
+    tween(700, (k) => {
+      coals.forEach((m, i) => {
+        const p = from[i], a = Math.atan2(p.z, p.x) + step * k, r = Math.hypot(p.x, p.z);
+        m.position.set(Math.cos(a) * r, p.y + Math.sin(k * Math.PI) * 1.2, Math.sin(a) * r);
+      });
+    });
+  }
+
+  /* ---------------- dodir i snimak ---------------- */
+
+  function hit(cx, cy) {
+    const r = canvas.getBoundingClientRect();
+    ndc.set(((cx - r.left) / r.width) * 2 - 1, -((cy - r.top) / r.height) * 2 + 1);
+    ray.setFromCamera(ndc, camera);
+    if (foil && foil.parent) {
+      const h = ray.intersectObject(foil.userData.top, false)[0];
+      if (h) { const lp = foil.parent.worldToLocal(h.point.clone()); return { kind: 'foil', x: lp.x / foilR, z: lp.z / foilR }; }
+    }
+    if (hmdOn) { const h = ray.intersectObject(P.hmd, true)[0]; if (h) { const lp = P.hmd.worldToLocal(h.point.clone()); return { kind: 'hmd', x: lp.x / 3.6, z: lp.z / 3.6 }; } }
+    const b = bowls[chosen];
+    if (b && b.visible) {
+      const h = ray.intersectObject(b, true)[0];
+      if (h) { const lp = b.worldToLocal(h.point.clone()); return { kind: 'bowl', x: lp.x, z: lp.z }; }
+      // dodir iznad otvora glave (duhan još nije gore)
+      const I = bowlInner(chosen), plane = new THREE.Plane(new THREE.Vector3(0, 1, 0), -(b.position.y + I.rim)), pt = new THREE.Vector3();
+      if (ray.ray.intersectPlane(plane, pt) && Math.hypot(pt.x - b.position.x, pt.z - b.position.z) < I.r1 * 1.25) return { kind: 'bowl', x: pt.x - b.position.x, z: pt.z - b.position.z };
+    }
+    if (P.dish.position.distanceTo(new THREE.Vector3(0, 0, 3)) < 0.5) {
+      const h = ray.intersectObject(P.dish, true)[0];
+      if (h) return { kind: 'dish' };
+    }
+    return null;
+  }
+  function snapshot(size) {
+    const b = bowls[chosen], rimY = b ? b.userData.rimY : 8.7;
+    const sc = new THREE.PerspectiveCamera(26, W / H, 0.5, 200);
+    const dist = 6.2 / Math.tan(THREE.MathUtils.degToRad(13)) / Math.min(1, W / H);
+    sc.position.set(dist * 0.03, rimY + dist, dist * 0.12); sc.lookAt(0, rimY, 0);
+    const vis = smokeG.visible; smokeG.visible = false;
+    renderer.render(scene, sc);
+    const out = makeCanvas(size, size), x = out.getContext('2d'), m = Math.min(canvas.width, canvas.height);
+    x.drawImage(canvas, (canvas.width - m) / 2, (canvas.height - m) / 2, m, m, 0, 0, size, size);
+    smokeG.visible = vis;
+    renderer.render(scene, camera);
+    try { return out.toDataURL('image/jpeg', 0.88); } catch (e) { return ''; }
+  }
+
+  /* ---------------- koraci ---------------- */
+
+  const MORE = {
+    mixDish: { c: [0, 1.6, 2.6], rw: 7.6, rh: 6.4, el: 1.02, az: 0.28 },
+    fill: { c: [0.4, 6.4, 0.6], rw: 7, rh: 6.6, el: 1.16, az: 0.28 },
+    cover: { c: [0.3, 7.2, 0.6], rw: 7.6, rh: 6.6, el: 1.12, az: 0.28 },
+    coals: { c: [-0.2, 6.6, -3.6], rw: 8.6, rh: 10.5, el: 0.98, az: 0.28 },
+    smoke: { c: [0, 12, 0], rw: 8, rh: 12.5, el: 0.84, az: 0.28 },
+    result: { c: [0, 10, 0], rw: 8, rh: 10.5, el: 0.9, az: 0.28 }
+  };
+  function bowlToCenter(anim) {
+    ORDER.forEach((id) => { if (bowls[id] && id !== chosen) bowls[id].visible = false; });
+    const b = bowls[chosen];
+    if (!b) return;
+    b.visible = true;
+    if (b.position.lengthSq() > 0.01) { if (anim) moveTo(b, 0, 0, 0, 0, 900); else b.position.set(0, 0, 0); }
+  }
+  function tinsTo(spots) {
+    tins.forEach((t, i) => {
+      const s = spots[Math.min(i, spots.length - 1)];
+      if (!t.parent) { t.position.set(s[0] + 18, 0, s[2]); scene.add(t); }
+      if (t.position.distanceTo(new THREE.Vector3(s[0], 0, s[2])) > 0.1) moveTo(t, s[0], 0, s[2], -0.35, 800);
+    });
+  }
+  function stirTin(p) {
+    const t = tins[0];
+    if (!t) return;
+    const tob = t.children.find((c) => c.isGroup && c !== t.userData.lid);
+    if (tob) { tob.rotation.y = p * Math.PI * 2.2; tob.position.y = Math.sin(p * Math.PI) * 0.12; }
+    kick();
+  }
+  function laterStep(name, S, prev) {
+    chosen = S.bowl || chosen;
+    if (S.flavors && S.flavors.length) setTins(S.flavors);
+    const two = S.flavors && S.flavors.length > 1;
+    if (name === 'mix') {
+      const b = bowls[chosen];
+      ORDER.forEach((id) => { if (bowls[id] && id !== chosen) bowls[id].visible = false; });
+      if (b) moveTo(b, SPOTS.back[0], 0, SPOTS.back[2], 0, 800);
+      if (S.prep === 'classic') { buildDish(S); setDishMix(S.mixP || 0); tinsTo([[-8.5, 0, -6.5], [8.5, 0, -6.5]]); frame(MORE.mixDish, 1000); }
+      else if (two) { tinsTo(TIN_SPOTS[1]); frame(FRAMES.flavor2, 900); }
+      else { tinsTo(TIN_SPOTS[0]); stirTin(S.mixP || 0); frame(FRAMES.flavor1, 900); }
+    } else {
+      bowlToCenter(true);
+      tinsTo(S.prep === 'classic' ? [[-11, 0, -10], [11, 0, -11]] : two ? [[-10.5, 0, -1.5], [10.5, 0, -1.5]] : [[10.5, 0, -1.5]]);
+      if (S.prep === 'classic') { buildDish(S); setDishMix(1); }
+      buildFill(S);
+      const covered = name !== 'fill', I = bowlInner(chosen), dd = S.density || 0;
+      const capA = (I.rim - 0.62 - I.floor) / ((I.rim - I.floor) * (1 - 0.36 * dd));
+      setFill(covered ? Math.min(S.amount || 0, capA) : S.amount || 0, dd, S.holes);
+      if (name === 'fill') {
+        foilTo(false, S, true); hmdTo(false, S, true); S.coals = []; setCoals(S, true);
+        frame(MORE.fill, 1000);
+      } else {
+        const useFoil = S.cover === 'foil', useHmd = S.cover === 'hmd';
+        foilTo(useFoil, S, prev === 'fill');
+        if (useFoil) drawFoil(S.foilHoles);
+        hmdTo(useHmd, S, true, name === 'coals');
+        setCoals(name === 'cover' ? Object.assign({}, S, { coals: [] }) : S, true);
+        if (name !== 'smoke') session({ on: false });
+        frame(MORE[name] || MORE.cover, 1000);
+      }
+    }
   }
 
   function step(name, data) {
     data = data || {};
     const prev = current;
     current = name;
-    propsFor(name);
+    setDropping(false);
+    if (name !== 'smoke') session({ on: false });
+    const later = ['mix', 'fill', 'cover', 'coals', 'smoke', 'result'].indexOf(name) !== -1;
+    // duhan u glavi, folija, HMD i ugljevi postoje tek od punjenja
+    const topOn = later && name !== 'mix';
+    if (fill) fill.meshes.concat([fill.extra]).forEach((m) => { m.visible = topOn && (m !== fill.extra || m.visible); });
+    if (!topOn) { foilTo(false, data, prev === 'cover' || prev === 'coals'); hmdTo(false, { bowl: chosen }, true); setCoals({ coals: [] }, true); }
+    propsFor(name, data);
+    if (later) { laterStep(name, data, prev); return; }
     if (name === 'intro') {
       chosen = data.bowl || chosen;
       if (prev === 'bowl') {
@@ -773,6 +1258,16 @@ export function mount(host, opts) {
   return {
     tier,
     step,
+    mixProgress(p, single) { if (single) stirTin(p); else setDishMix(p); },
+    fill(A, d, holes) { setFill(A, d, holes); },
+    dropping(on, f) { setDropping(on, f); },
+    foilHoles(list) { drawFoil(list); },
+    vents(v) { hmdCap.rotation.y = v * 1.1; kick(); },
+    coals(S) { setCoals(S, true); },
+    rotateCoals,
+    session,
+    hit,
+    snapshot,
     insets(o) {
       const changed = ['top', 'bottom', 'left', 'right'].some((k) => Math.abs((o[k] || 0) - ins[k]) > 2);
       if (!changed) return;
