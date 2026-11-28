@@ -224,6 +224,8 @@
       "offline": "Offline",
       "loungeInfo": "Für Lounges",
       "fmap": "Geschmackskarte",
+      "studio": "Bowl Studio",
+      "studioSub": "Kopf bauen in 3D",
       "fmapSub": "Alle Sorten auf einer Karte",
       "bars": "Shisha-Bars",
       "barsSub": "Karte nach Stadt und die nächste Bar",

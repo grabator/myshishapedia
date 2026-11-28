@@ -63,6 +63,7 @@ const SOURCES = [
   'data/bih-outline.js',
   'js/views-bars.js',
   'js/views-fmap.js',
+  'js/views-studio.js',
   'js/views-history.js',
   'data/articles.js',
   'js/views-articles.js',
@@ -121,7 +122,8 @@ const ASSETS = ['css/style.css', 'js/strings.js', 'js/strings-de.js', 'data/de.j
   'data/mixes.js', 'js/illustrations.js', 'js/effects.js', 'js/views.js', 'js/views-more.js', 'js/views-extra.js', 'js/pages.js', 'js/app.js',
   'js/search.js', 'js/forms.js', 'js/share.js', 'js/ratings.js', 'js/shelf.js', 'js/qr.js', 'js/journal.js', 'js/session.js', 'js/pwa.js', 'data/lounges.js', 'js/lounge.js', 'data/history.js', 'js/history.js', 'favicon.svg',
   'css/game.css', 'js/strings-game.js', 'js/game-core.js', 'js/game-art.js', 'js/game.js', 'js/creators.js', 'js/bars.js', 'css/bars.css', 'js/vendor/leaflet.js', 'css/vendor/leaflet.css',
-  'css/stemless.css', 'js/stemless.js', 'js/views-fmap.js', 'js/fmap.js', 'css/fmap.css', 'css/clean.css', 'js/clean.js', 'js/hookah3d.js', 'static/models/nargila.glb'];
+  'css/stemless.css', 'js/stemless.js', 'js/views-fmap.js', 'js/fmap.js', 'css/fmap.css', 'css/clean.css', 'js/clean.js', 'js/hookah3d.js', 'static/models/nargila.glb',
+  'js/views-studio.js', 'js/studio.js', 'css/studio.css', 'js/studio3d.js', 'static/models/bowl-egypt.glb'];
 const VERSION = {};
 for (const a of ASSETS) VERSION[a] = hashOf(a);
 const asset = (p) => '/' + p.replace(/^static\//, '') + '?v=' + VERSION[p];
@@ -158,7 +160,8 @@ const PAGE_SCRIPTS = {
   bars: ['js/bars.js'],
   barCity: ['js/bars.js'],
   game: ['js/strings-game.js', 'js/game-core.js', 'js/game-art.js', 'js/game.js'],
-  fmap: ['js/views-fmap.js', 'js/fmap.js']
+  fmap: ['js/views-fmap.js', 'js/fmap.js'],
+  studio: ['js/views-studio.js', 'js/studio.js']
 };
 
 // Stilovi koji trebaju samo jednoj stranici (ostale stranice ih ne preuzimaju).
@@ -167,7 +170,8 @@ const PAGE_STYLES = {
   bars: ['css/bars.css'],
   barCity: ['css/bars.css'],
   lounge: ['css/bars.css'],
-  fmap: ['css/fmap.css']
+  fmap: ['css/fmap.css'],
+  studio: ['css/studio.css']
 };
 
 /* ------------------------------------------------------------------ */
@@ -534,6 +538,7 @@ function renderPage(desc) {
   const bodyAttrs = `data-page="${desc.page}"` + (desc.id ? ` data-id="${esc(desc.id)}"` : '') +
     ` data-smoke="${esc(info.theme.smoke.join(','))}" data-search="${asset('js/search.js')}" data-hk3d="${asset('js/hookah3d.js')}" data-hk3d-model="${asset('static/models/nargila.glb')}"` +
     // mapa lokala: Leaflet se preuzima tek kad posjetilac otvori mapu
+    (desc.page === 'studio' ? ` data-bs3d="${asset('js/studio3d.js')}" data-bs-model="${asset('static/models/bowl-egypt.glb')}"` : '') +
     (desc.page === 'barCity' ? ` data-leaflet="${asset('js/vendor/leaflet.js')}" data-leaflet-css="${asset('css/vendor/leaflet.css')}"` : '');
 
   const html = `<!doctype html>
@@ -658,6 +663,7 @@ function pageList() {
     list.push({ lang, page: 'loungeInfo', url: V.urlFor(lang, 'loungeInfo') });
     for (const lg of V.lounges()) list.push({ lang, page: 'lounge', id: lg.id, lounge: lg, url: V.urlFor(lang, 'lounge', lg.id) });
     list.push({ lang, page: 'fmap', url: V.urlFor(lang, 'fmap') });
+    list.push({ lang, page: 'studio', url: V.urlFor(lang, 'studio') });
     list.push({ lang, page: 'bars', url: V.urlFor(lang, 'bars') });
     for (const c of V.barCityPages()) list.push({ lang, page: 'barCity', id: c.id, city: c, url: V.barCityUrl(c, lang) });
     list.push({ lang, page: 'notfound', url: '/' + lang + '/404.html', year: null });
@@ -802,6 +808,7 @@ function writeSearchIndex() {
     }
     // mapa okusa
     add('page', MSP.t('nav.fmap'), V.fmapTx().lead, V.url('fmap'), '', LANGS.map((l) => MSP.strings[l].nav.fmap).concat(['flavor map', 'mapa okusa', 'geschmackskarte']));
+    add('page', 'Bowl Studio', V.studioTx().lead, V.url('studio'), '', ['bowl studio', 'punjenje glave', 'pack bowl', 'kopf bauen', 'забивка чаши']);
     // nargila barovi: stranica BiH i gradovi (pretraga i po imenu lokala)
     add('page', MSP.t('nav.bars'), V.barsTx('lead'), V.url('bars'), '', LANGS.map((l) => MSP.strings[l].nav.bars).concat(['nargila bar', 'shisha bar', 'hookah lounge']));
     for (const c of V.barCityPages()) {
@@ -1082,7 +1089,8 @@ function writeCloudflareFiles(rendered) {
     "img-src 'self' data: blob: https://tile.openstreetmap.org",
     // Instagram: video kreatora (učitava se tek na klik)
     'frame-src ' + TURNSTILE + ' https://www.instagram.com',
-    ["connect-src 'self'", analytics ? 'https://cloudflareinsights.com' : '', form].filter(Boolean).join(' '),
+    // blob: teksture iz 3D modela (Bowl Studio) se čitaju iz memorije preglednika
+    ["connect-src 'self' blob:", analytics ? 'https://cloudflareinsights.com' : '', form].filter(Boolean).join(' '),
     ["form-action 'self'", form].filter(Boolean).join(' '),
     "frame-ancestors 'none'",
     "base-uri 'self'",
