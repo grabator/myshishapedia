@@ -344,20 +344,36 @@ export function mount(host, opts) {
     return G;
   }
   const steel = own(new THREE.MeshStandardMaterial({ color: 0xcfd0d6, metalness: 1, roughness: 0.24, side: THREE.DoubleSide }));
+  // HMD (kao Kaloud Lotus): metalno tijelo sa otvorima, perforirano dno na kojem leže ugljevi, poklopac sa otvorima
+  const HMD_H = 2.6, HMD_FLOOR = 0.32;
   function hmd() {
     const G = new THREE.Group();
     const vc = makeCanvas(1024, 128), vx = vc.getContext('2d');
     vx.fillStyle = '#bdbcc2'; vx.fillRect(0, 0, 1024, 128); vx.fillStyle = '#120a06';
-    for (let k = 0; k < 8; k++) { const cx = (k + 0.5) * 128; vx.beginPath(); vx.roundRect(cx - 23, 36, 46, 56, 14); vx.fill(); }
+    for (let k = 0; k < 8; k++) { const cx = (k + 0.5) * 128; vx.beginPath(); vx.roundRect(cx - 23, 30, 46, 40, 14); vx.fill(); }
     const vt = own(canvasTex(vc)); vt.wrapS = THREE.RepeatWrapping;
-    const body = new THREE.Mesh(own(new THREE.CylinderGeometry(4.5, 4.7, 1.5, 72, 1, true)), own(new THREE.MeshStandardMaterial({ map: vt, metalness: 1, roughness: 0.28, side: THREE.DoubleSide })));
-    body.position.y = 0.75; G.add(body);
+    const body = new THREE.Mesh(own(new THREE.CylinderGeometry(4.5, 4.7, HMD_H, 72, 1, true)), own(new THREE.MeshStandardMaterial({ map: vt, metalness: 1, roughness: 0.3, side: THREE.DoubleSide })));
+    body.position.y = HMD_H / 2; G.add(body);
+    // dno: tamni metal sa rupicama (kroz njega ide vreo zrak, duhan se ne vidi)
+    const fc = makeCanvas(512, 512), fx = fc.getContext('2d');
+    fx.fillStyle = '#5c5a5f'; fx.fillRect(0, 0, 512, 512);
+    const g = fx.createRadialGradient(256, 256, 40, 256, 256, 256); g.addColorStop(0, 'rgba(255,255,255,.08)'); g.addColorStop(1, 'rgba(0,0,0,.35)'); fx.fillStyle = g; fx.fillRect(0, 0, 512, 512);
+    fx.fillStyle = '#0c0705';
+    for (let r = 40; r < 230; r += 34) { const n = Math.round(r / 7); for (let k = 0; k < n; k++) { const a = k / n * Math.PI * 2 + r; fx.beginPath(); fx.arc(256 + Math.cos(a) * r, 256 + Math.sin(a) * r, 5, 0, 7); fx.fill(); } }
+    const floor = new THREE.Mesh(own(new THREE.CircleGeometry(4.5, 72)), own(new THREE.MeshStandardMaterial({ map: own(canvasTex(fc)), metalness: 0.9, roughness: 0.45 })));
+    floor.rotation.x = -Math.PI / 2; floor.position.y = HMD_FLOOR; G.add(floor);
+    const under = new THREE.Mesh(own(new THREE.CircleGeometry(4.6, 48)), own(new THREE.MeshStandardMaterial({ color: 0x2a2826, metalness: 0.8, roughness: 0.6 })));
+    under.rotation.x = Math.PI / 2; under.position.y = 0.02; G.add(under);
+    const lip = new THREE.Mesh(own(new THREE.TorusGeometry(4.52, 0.12, 10, 72)), steel); lip.rotation.x = Math.PI / 2; lip.position.y = HMD_H; G.add(lip);
+    const base = new THREE.Mesh(own(new THREE.TorusGeometry(4.7, 0.14, 10, 72)), steel); base.rotation.x = Math.PI / 2; base.position.y = 0.05; G.add(base);
     const cap = new THREE.Group();
-    cap.add(lathe([[4.75, 0], [4.75, 0.9], [4.4, 1.4], [2.4, 2.3], [1.0, 2.55], [0, 2.6]], steel));
-    const knob = lathe([[0, 0], [0.9, 0], [1.1, 0.4], [0.9, 1.0], [0, 1.1]], own(new THREE.MeshStandardMaterial({ color: 0x1a1410, roughness: 0.5 }))); knob.position.y = 2.55; cap.add(knob);
-    const vm = own(new THREE.MeshBasicMaterial({ color: 0x0a0503 })), vg = own(new THREE.PlaneGeometry(1.2, 0.28));
-    for (let k = 0; k < 6; k++) { const a = k / 6 * Math.PI * 2, v = new THREE.Mesh(vg, vm); v.position.set(Math.cos(a) * 3.2, 1.96, Math.sin(a) * 3.2); v.rotation.order = 'YXZ'; v.rotation.set(-1.1, -a + Math.PI / 2, 0); cap.add(v); }
-    cap.position.y = 1.5; G.add(cap);
+    cap.add(lathe([[4.75, 0], [4.75, 0.7], [4.4, 1.2], [2.4, 2.0], [1.0, 2.25], [0, 2.3]], steel));
+    const knob = lathe([[0, 0], [0.9, 0], [1.1, 0.4], [0.9, 1.0], [0, 1.1]], own(new THREE.MeshStandardMaterial({ color: 0x1a1410, roughness: 0.5 }))); knob.position.y = 2.25; cap.add(knob);
+    const vm = own(new THREE.MeshBasicMaterial({ color: 0x0a0503 })), vg = own(new THREE.PlaneGeometry(1.3, 0.3));
+    const vents = [];
+    for (let k = 0; k < 6; k++) { const a = k / 6 * Math.PI * 2, v = new THREE.Mesh(vg, vm); v.position.set(Math.cos(a) * 3.2, 1.72, Math.sin(a) * 3.2); v.rotation.order = 'YXZ'; v.rotation.set(-1.15, -a + Math.PI / 2, 0); cap.add(v); vents.push(v); }
+    cap.position.y = HMD_H; cap.userData.vents = vents;
+    G.add(cap);
     blob(G, 5.4);
     return G;
   }
@@ -374,15 +390,17 @@ export function mount(host, opts) {
     blob(G, 9);
     return G;
   }
+  // hvataljka: tanki krakovi, vrhovi na lokalnom z = -TONG_TIP
+  const TONG_TIP = 10.6;
   function tongs() {
-    const G = new THREE.Group(), st = own(new THREE.MeshStandardMaterial({ color: 0xb8b8be, metalness: 1, roughness: 0.3 }));
-    const ag = own(new THREE.BoxGeometry(0.28, 0.12, 15)), tg = own(new THREE.BoxGeometry(0.2, 0.9, 1.1));
-    [-1, 1].forEach((s) => {
-      const arm = new THREE.Mesh(ag, st); arm.position.set(s * 0.75, 0, -7.5); arm.rotation.y = s * 0.055; G.add(arm);
-      const tip = new THREE.Mesh(tg, st); tip.position.set(s * 1.15, -0.3, -14.7); G.add(tip);
+    const G = new THREE.Group(), st = own(new THREE.MeshStandardMaterial({ color: 0xbdbdc3, metalness: 1, roughness: 0.28 }));
+    const ag = own(new THREE.BoxGeometry(0.16, 0.07, 10.4)), tg = own(new THREE.BoxGeometry(0.12, 0.55, 0.7));
+    [-1, 1].forEach((s2) => {
+      const arm = new THREE.Mesh(ag, st); arm.position.set(s2 * 0.45, 0, -5.2); arm.rotation.y = s2 * 0.05; G.add(arm);
+      const tip = new THREE.Mesh(tg, st); tip.position.set(s2 * 0.7, -0.2, -TONG_TIP); G.add(tip);
     });
-    const grip = new THREE.Mesh(own(new THREE.CylinderGeometry(0.42, 0.42, 4.5, 12)), own(new THREE.MeshStandardMaterial({ color: 0x1a1410, roughness: 0.6 })));
-    grip.rotation.x = Math.PI / 2; grip.position.set(0, 0, -1.8); grip.scale.x = 2.6; G.add(grip);
+    const grip = new THREE.Mesh(own(new THREE.CylinderGeometry(0.22, 0.22, 2.6, 10)), own(new THREE.MeshStandardMaterial({ color: 0x1a1410, roughness: 0.6 })));
+    grip.rotation.x = Math.PI / 2; grip.position.set(0, 0, -0.9); grip.scale.x = 2.4; G.add(grip);
     return G;
   }
   function toothpick() {
@@ -651,7 +669,9 @@ export function mount(host, opts) {
     intro: { c: [0, 1, -0.5], rw: 14.5, rh: 21, el: 1.06, az: 0.28 },
     bowl: { c: [0.2, 3.2, -2.5], rw: 13.5, rh: 11.5, el: 0.72, az: 0.28 },
     flavor1: { c: [1.2, 2.2, 0.8], rw: 6.6, rh: 6.4, el: 0.9, az: 0.28 },
-    flavor2: { c: [0.2, 2.2, 0.2], rw: 11, rh: 7.2, el: 0.92, az: 0.28 }
+    flavor2: { c: [0.2, 2.2, 0.2], rw: 11, rh: 7.2, el: 0.92, az: 0.28 },
+    flavor3: { c: [0, 2.2, -1.6], rw: 11.2, rh: 9.6, el: 1.0, az: 0.28 },
+    flavor4: { c: [0, 2.2, -1.6], rw: 11.2, rh: 10.4, el: 1.05, az: 0.28 }
   };
 
   function setTins(list) {
@@ -664,7 +684,7 @@ export function mount(host, opts) {
     old.forEach((t) => { moveTo(t, t.position.x + 24, 0, t.position.z + 4, 0, 520); setTimeout(() => dropTin(t), 560); });
     return true;
   }
-  const TIN_SPOTS = [[[1.2, 0, 1.5]], [[-4.4, 0, 0.6], [5.2, 0, -0.8]]];
+  const TIN_SPOTS = [[[1.2, 0, 1.5]], [[-4.4, 0, 0.6], [5.2, 0, -0.8]], [[-5.1, 0, 3], [5.1, 0, 3], [0, 0, -6.6]], [[-5.1, 0, 3.6], [5.1, 0, 3.6], [-5.1, 0, -6.4], [5.1, 0, -6.4]]];
   const TIN_REST = [10, 0, 2.5];
   function closeTin(t) {
     const lid = t.userData.lid;
@@ -681,21 +701,22 @@ export function mount(host, opts) {
     });
   }
   function openTins() {
-    const spots = TIN_SPOTS[tins.length - 1] || TIN_SPOTS[0];
+    const n = tins.length, spots = TIN_SPOTS[n - 1] || TIN_SPOTS[0];
     tins.forEach((t, i) => {
-      const s = spots[i], lid = t.userData.lid;
-      if (!t.parent) { closeTin(t); t.position.set(s[0] + 18, 0, s[2] - 8); t.rotation.y = -0.6; scene.add(t); }
-      moveTo(t, s[0], 0, s[2], -0.35, 900, i * 120);
+      const s2 = spots[i], lid = t.userData.lid;
+      if (!t.parent) { closeTin(t); t.position.set(s2[0] + 18, 0, s2[2] - 8); t.rotation.y = -0.6; scene.add(t); }
+      moveTo(t, s2[0], 0, s2[2], -0.35, 900, i * 110);
       if (t.userData.opened) return;
       t.userData.opened = true;
-      // poklopac se odvrne (okrene i podigne), pa legne iza limenke
-      const lx = s[0] < 0 ? -1 : 1;
+      // poklopac se odvrne (okrene i podigne), pa legne: iza limenke (1-2 limenke) ili u stranu (3-4)
+      const side = s2[0] < 0 ? -1 : 1;
+      const tx = n <= 2 ? -side * 1.2 - 2.0 : side * 9.4, tz = n <= 2 ? -7.6 : 0;
       const run = () => tween(1100, (k) => {
         const a = Math.min(1, k / 0.45), b = Math.max(0, (k - 0.45) / 0.55);
         lid.rotation.y = -a * Math.PI * 1.2 - b * 0.4;
-        lid.position.set(lerp(0, -lx * 1.2 - 2.0, eio(b)), 3.2 + Math.sin(a * Math.PI / 2) * 1.6 * (1 - b) + lerp(0, -2.88, eio(b)) + Math.sin(b * Math.PI) * 1.2, lerp(0, -7.6, eio(b)));
+        lid.position.set(lerp(0, tx, eio(b)), 3.2 + Math.sin(a * Math.PI / 2) * 1.6 * (1 - b) + lerp(0, -2.88, eio(b)) + Math.sin(b * Math.PI) * 1.2, lerp(0, tz, eio(b)));
       }, (x) => x);
-      if (reduced) run(); else setTimeout(run, 650 + i * 120);
+      if (reduced) run(); else setTimeout(run, 650 + i * 110);
     });
   }
 
@@ -709,7 +730,7 @@ export function mount(host, opts) {
   function propsFor(name, S) {
     const away = AWAY_IN[name] || [];
     const over = {};
-    if (S && S.prep === 'classic') { if (name === 'mix') over.dish = [0, 0, 3]; if (name === 'fill' || name === 'cover') over.dish = [10.5, 0, -2.5]; }
+    if (S && S.prep === 'mix' && S.flavors && S.flavors.length > 1) { if (name === 'mix') over.dish = [0, 0, 3]; if (name === 'fill') over.dish = [14, 0, -1]; }
     if (name === 'cover') { over.roll = [-9.5, 0, 6.5]; over.hmd = [9.8, 0, 6]; }
     if (name === 'coals' || name === 'smoke' || name === 'result') over.burner = [-1, 0, -15];
     Object.keys(P).forEach((k) => {
@@ -744,157 +765,356 @@ export function mount(host, opts) {
   }
   function dropMeshes(list, parent) { list.forEach((im) => { parent.remove(im); im.dispose(); }); }
 
-  /* ---------------- zdjelica: klasično miješanje ---------------- */
+  /* ---------------- vilica za miješanje ---------------- */
+
+  // čelična vilica sa dva zupca i šarenom drškom od smole; os vilice je lokalni +y, vrhovi zubaca u (0, 0, 0)
+  function marbleTex() {
+    const c = makeCanvas(256, 512), x = c.getContext('2d'), r = rnd(31);
+    x.fillStyle = '#2a7f8f'; x.fillRect(0, 0, 256, 512);
+    const cols = ['#1e9bb3', '#f2833a', '#7a4fc9', '#3cc4a8', '#e9583c', '#2f5fd0', '#f4c25a'];
+    for (let i = 0; i < 46; i++) {
+      x.strokeStyle = cols[i % cols.length]; x.globalAlpha = 0.35 + r() * 0.5; x.lineWidth = 6 + r() * 26; x.beginPath();
+      let px = r() * 256, py = r() * 512; x.moveTo(px, py);
+      for (let s2 = 0; s2 < 6; s2++) { px += (r() - 0.5) * 120; py += (r() - 0.3) * 120; x.quadraticCurveTo(px + (r() - 0.5) * 80, py - 40, px, py); }
+      x.stroke();
+    }
+    x.globalAlpha = 1;
+    return own(canvasTex(c));
+  }
+  function makeFork() {
+    const pivot = new THREE.Group(), st = own(new THREE.MeshStandardMaterial({ color: 0xc9c9cf, metalness: 1, roughness: 0.32 }));
+    const prong = own(new THREE.CylinderGeometry(0.075, 0.035, 1.9, 8));
+    [-1, 1].forEach((k) => { const m = new THREE.Mesh(prong, st); m.position.set(k * 0.26, 0.95, 0); pivot.add(m); });
+    const bridge = new THREE.Mesh(own(new THREE.BoxGeometry(0.66, 0.24, 0.12)), st); bridge.position.y = 1.95; pivot.add(bridge);
+    const neck = new THREE.Mesh(own(new THREE.CylinderGeometry(0.07, 0.2, 1.7, 10)), st); neck.position.y = 2.9; pivot.add(neck);
+    const fer = lathe([[0.17, 0], [0.2, 0.1], [0.14, 0.24], [0.2, 0.36], [0.24, 0.42], [0, 0.42]], st, 16); fer.position.y = 3.72; pivot.add(fer);
+    const hm = own(new THREE.MeshPhysicalMaterial({ map: marbleTex(), roughness: 0.18, clearcoat: 1, clearcoatRoughness: 0.08 }));
+    const handle = lathe([[0, 0], [0.26, 0], [0.34, 1.2], [0.4, 2.6], [0.36, 2.75], [0.42, 2.95], [0.36, 3.1], [0.43, 3.3], [0.36, 3.45], [0.44, 3.7], [0.38, 4.0], [0, 4.1]], hm, 24);
+    handle.position.y = 4.14; pivot.add(handle);
+    pivot.traverse((m) => { if (m.isMesh) m.castShadow = tier > 0; });
+    pivot.visible = false;
+    scene.add(pivot);
+    return pivot;
+  }
+  const fork = makeFork();
+  // stanje vilice: tačka vrha (svijet), odmor na stolu ili u radu
+  const fk = { x: 0, z: 0, tx: 0, tz: 0, y: 6, ty: 6, work: 0, twork: 0, host: null, a: 0 };
+  const REST = new THREE.Vector3(8.5, 0.45, 4.5);
+  function forkAnim(t, dt) {
+    const k = 1 - Math.pow(0.0008, dt);
+    fk.x += (fk.tx - fk.x) * k; fk.z += (fk.tz - fk.z) * k; fk.y += (fk.ty - fk.y) * k; fk.work += (fk.twork - fk.work) * Math.min(1, dt * 6);
+    const w = fk.work;
+    // odmor: vilica leži na stolu pored posude; rad: koso, zupci u duhanu
+    fork.position.set(lerp(REST.x, fk.x, w), lerp(REST.y, fk.y, w), lerp(REST.z, fk.z, w));
+    fork.rotation.set(lerp(Math.PI / 2 - 0.04, 0.62, w), lerp(-0.5, 0.35 + Math.sin(t * 0.004) * 0.08 * w, w), lerp(0, -0.3, w), 'YXZ');
+    if (fk.twork === 0 && w < 0.01 && Math.abs(fk.x - fk.tx) < 0.01) live.delete(forkAnim);
+  }
+  function forkShow(on, host) {
+    fork.visible = on;
+    fk.host = host || null;
+    if (on && host) { const off = host === P.dish ? 8 : 5.8; REST.set(host.position.x + off, 0.45, host.position.z + 2.2); }
+    if (on) { live.add(forkAnim); kick(); }
+  }
+
+  /* ---------------- zdjelica: miješanje viljuškom ---------------- */
 
   const dummy = new THREE.Object3D();
-  let dish = null; // { key, meshes, data }
+  const HEAPS = { 1: [[0, 0]], 2: [[-1.45, 0.3], [1.55, -0.3]], 3: [[-1.55, 0.95], [1.55, 0.95], [0, -1.45]], 4: [[-1.5, 1.25], [1.5, 1.25], [-1.5, -1.25], [1.5, -1.25]] };
+  let dish = null; // { key, meshes, data, prog }
+  function pickShare(shares, r) { let x = r() * 100, i = 0; for (; i < shares.length - 1; i++) { x -= shares[i]; if (x < 0) break; } return i; }
   function buildDish(S) {
-    const fl = S.flavors, key = fl.map((f) => f.id).join('|') + S.ratio;
+    const fl = S.flavors, sh = S.shares || fl.map(() => 100 / fl.length), key = fl.map((f) => f.id).join('|') + sh.join(',');
     if (dish && dish.key === key) return;
     if (dish) dropMeshes(dish.meshes, P.dish);
-    const n = [520, 820, 1150][tier], r = rnd(hash(key)), ca = flavorCols(fl[0]), cb = flavorCols(fl[1] || fl[0]);
+    const n = [560, 860, 1200][tier], r = rnd(hash(key)), cols = fl.map(flavorCols), heaps = HEAPS[fl.length] || HEAPS[1];
+    const hr = fl.length > 2 ? 1.2 : 1.6;
     const meshes = variantMeshes(n, P.dish), data = [];
     for (let i = 0; i < n; i++) {
-      const isA = r() < S.ratio, v = i % 8;
-      // početak: dvije gomilice; kraj: jedna izmiješana
-      const a0 = r() * Math.PI * 2, u0 = Math.sqrt(r()) * 1.7, a1 = r() * Math.PI * 2, u1 = Math.sqrt(r()) * 3.1;
-      const sx = (isA ? -1.45 : 1.55) + Math.cos(a0) * u0, sz = (isA ? 0.3 : -0.3) + Math.sin(a0) * u0;
-      data.push({ v, j: (i - v) / 8, sx, sz, ex: Math.cos(a1) * u1, ez: Math.sin(a1) * u1, sy: 0.62 + r() * 0.7 * (1 - u0 / 2.2), ey: 0.62 + r() * 0.6 * (1 - u1 / 3.6), rx: (r() - 0.5) * 1.6, ry: r() * 6.28, rz: (r() - 0.5) * 1.6, s: 0.8 + r() * 0.5 });
-      meshes[v].setColorAt(data[i].j, (isA ? ca : cb)[v]);
+      const f = pickShare(sh, r), v = i % 8, hp = heaps[f];
+      const a0 = r() * 6.28, u0 = Math.sqrt(r()) * hr, a1 = r() * 6.28, u1 = Math.sqrt(r()) * 3.1;
+      data.push({ v, j: (i - v) / 8, sx: hp[0] + Math.cos(a0) * u0, sz: hp[1] + Math.sin(a0) * u0, ex: Math.cos(a1) * u1, ez: Math.sin(a1) * u1,
+        sy: 0.62 + r() * 0.62 * (1 - u0 / (hr + 0.5)), ey: 0.62 + r() * 0.55 * (1 - u1 / 3.6), rx: (r() - 0.5) * 1.6, ry: r() * 6.28, rz: (r() - 0.5) * 1.6, s: 0.8 + r() * 0.5, p: 0, x: 0, z: 0 });
+      meshes[v].setColorAt(data[i].j, cols[f][v]);
     }
     meshes.forEach((m) => { m.instanceColor.needsUpdate = true; });
-    dish = { key, meshes, data, p: -1 };
-    setDishMix(0);
+    dish = { key, meshes, data, prog: 0 };
+    dishMatrices();
   }
-  function setDishMix(p) {
-    if (!dish || Math.abs(p - dish.p) < 0.004) return;
-    dish.p = p;
-    const swirl = p * (1 - p) * 5;
+  function dishMatrices() {
     dish.data.forEach((d) => {
-      let x = lerp(d.sx, d.ex, p), z = lerp(d.sz, d.ez, p);
-      const a = swirl * (1 - Math.hypot(x, z) / 4), c = Math.cos(a), sn = Math.sin(a);
-      dummy.position.set(x * c - z * sn, lerp(d.sy, d.ey, p), x * sn + z * c);
-      dummy.rotation.set(d.rx, d.ry + swirl, d.rz); dummy.scale.setScalar(d.s); dummy.updateMatrix();
+      const e = d.p < 0.5 ? 2 * d.p * d.p : 1 - Math.pow(-2 * d.p + 2, 2) / 2;
+      d.x = lerp(d.sx, d.ex, e); d.z = lerp(d.sz, d.ez, e);
+      dummy.position.set(d.x, lerp(d.sy, d.ey, e) + Math.sin(d.p * Math.PI) * 0.25, d.z);
+      dummy.rotation.set(d.rx, d.ry + d.p * 2.5, d.rz); dummy.scale.setScalar(d.s); dummy.updateMatrix();
       dish.meshes[d.v].setMatrixAt(d.j, dummy.matrix);
     });
     dish.meshes.forEach((m) => { m.instanceMatrix.needsUpdate = true; });
     kick();
   }
+  // vilica prođe kroz tačku (x, z) posude: miješaju se samo vlakna u njenoj blizini
+  function dishStir(x, z, amount) {
+    if (!dish) return 0;
+    let sum = 0;
+    dish.data.forEach((d) => {
+      const dd = Math.hypot(d.x - x, d.z - z);
+      if (dd < 1.35) d.p = Math.min(1, d.p + amount * (1 - dd / 1.35));
+      sum += d.p;
+    });
+    dishMatrices();
+    dish.prog = Math.min(1, (sum / dish.data.length) / 0.82);
+    return dish.prog;
+  }
+  function setDishMix(p) {
+    // gotovo stanje (miks je već izmiješan, npr. pri povratku na korak)
+    if (!dish) return;
+    dish.data.forEach((d) => { d.p = p; });
+    dish.prog = p;
+    dishMatrices();
+  }
 
-  /* ---------------- duhan u glavi ---------------- */
+  // jedan okus: vilicom se rastresa duhan u limenci
+  let tinStir = 0;
+  function tinStirAt(amount) {
+    const t = tins[0];
+    if (!t) return 0;
+    tinStir = Math.min(1, tinStir + amount * 0.35);
+    const tob = t.children.find((c) => c.isGroup && c !== t.userData.lid);
+    if (tob) { tob.rotation.y += amount * 1.5; tob.position.y = Math.sin(tinStir * Math.PI * 6) * 0.05; }
+    kick();
+    return tinStir;
+  }
+  // dodir na posudu: vrh vilice ide tamo gdje je prst
+  const mixPlane = new THREE.Plane(), mixPt = new THREE.Vector3();
+  function mixTarget() { return S_mode.prep === 'mix' && S_mode.n > 1 ? P.dish : tins[0]; }
+  const S_mode = { prep: 'mix', n: 1 };
+  function mixDrag(cx, cy, phase) {
+    const host = mixTarget();
+    if (!host) return 0;
+    if (phase === 'end') { fk.twork = 0; return host === P.dish ? (dish ? dish.prog : 0) : tinStir; }
+    const r = canvas.getBoundingClientRect();
+    ndc.set(((cx - r.left) / r.width) * 2 - 1, -((cy - r.top) / r.height) * 2 + 1);
+    ray.setFromCamera(ndc, camera);
+    const surf = host === P.dish ? 0.95 : 2.6;
+    mixPlane.set(new THREE.Vector3(0, 1, 0), -(host.position.y + surf));
+    if (!ray.ray.intersectPlane(mixPlane, mixPt)) return 0;
+    let lx = mixPt.x - host.position.x, lz = mixPt.z - host.position.z;
+    const lim = host === P.dish ? 3.3 : 3.6, rr = Math.hypot(lx, lz);
+    if (rr > lim) { lx *= lim / rr; lz *= lim / rr; }
+    const moved = phase === 'start' ? 0 : Math.hypot(host.position.x + lx - fk.tx, host.position.z + lz - fk.tz);
+    fk.tx = host.position.x + lx; fk.tz = host.position.z + lz; fk.ty = host.position.y + surf - 0.25; fk.twork = 1;
+    if (phase === 'start') { fk.x = fk.tx; fk.z = fk.tz; }
+    live.add(forkAnim); kick();
+    return host === P.dish ? dishStir(lx, lz, moved * 0.16) : tinStirAt(moved * 0.08);
+  }
+  // držanje dugmeta: vilica sama kruži kroz posudu
+  let autoA = 0;
+  function mixAuto(dt) {
+    const host = mixTarget();
+    if (!host) return 0;
+    autoA += dt * 2.6;
+    const R = host === P.dish ? 1.4 + Math.sin(autoA * 0.37) * 1.3 : 2.1, lx = Math.cos(autoA) * R, lz = Math.sin(autoA) * R * 0.9;
+    const surf = host === P.dish ? 0.95 : 2.6;
+    fk.tx = host.position.x + lx; fk.tz = host.position.z + lz; fk.ty = host.position.y + surf - 0.25; fk.twork = 1;
+    live.add(forkAnim); kick();
+    return host === P.dish ? dishStir(lx, lz, dt * 0.9) : tinStirAt(dt * 0.45);
+  }
+  function mixRelease() { fk.twork = 0; kick(); }
+
+  /* ---------------- duhan u glavi: puni se tamo gdje je prst ---------------- */
 
   // unutrašnjost glave: dno, poluprečnik na dnu i kod ivice, stub (phunnel)
-  const INNER = { egypt: { floor: 6.68, r0: 2.3, r1: 3.2, spire: 0 }, phunnel: { floor: 6.08, r0: 2.0, r1: 3.72, spire: 0.85 }, silicone: { floor: 6.47, r0: 3.3, r1: 3.55, spire: 0 } };
-  const FILL_MAX = 1.25;
-  let fill = null; // { key, meshes, data, d, vis, top }
+  const INNER = { egypt: { floor: 6.68, r0: 2.3, r1: 3.2, spire: 0, spireTop: 0 }, phunnel: { floor: 6.08, r0: 2.0, r1: 3.72, spire: 0.85, spireTop: 8.05 }, silicone: { floor: 6.47, r0: 3.3, r1: 3.55, spire: 0, spireTop: 0 } };
+  const FILL_MAX = 1.25, GRID = 18;
   function bowlInner(id) { const b = bowls[id], I = INNER[id]; return { rim: b ? b.userData.rimY : 8.7, ...I }; }
   function innerR(I, y) {
     if (y <= I.rim) return lerp(I.r0, I.r1, Math.max(0, (y - I.floor) / (I.rim - I.floor)));
     return I.r1 * Math.max(0.15, 1 - (y - I.rim) / 1.6);
   }
-  function buildFill(S) {
-    const fl = S.flavors, key = S.bowl + fl.map((f) => f.id).join('|') + S.prep + S.ratio;
+  // visinska mapa duhana (GRID x GRID ćelija preko otvora glave) i vlakna koja je prate
+  let hf = null;
+  function cellOf(px, pz) { return Math.min(GRID - 1, Math.max(0, Math.floor((px + 1) / 2 * GRID))) + GRID * Math.min(GRID - 1, Math.max(0, Math.floor((pz + 1) / 2 * GRID))); }
+  function buildHF(S) {
     const host = bowls[S.bowl];
     if (!host) return;
-    if (fill && fill.key === key && fill.host === host) return;
-    if (fill) { dropMeshes(fill.meshes, fill.host); fill.host.remove(fill.extra); }
-    const I = bowlInner(S.bowl), n = [900, 1500, 2100][tier], r = rnd(hash(key) + 7);
-    const ca = flavorCols(fl[0]), cb = flavorCols(fl[1] || fl[0]);
+    if (hf && hf.bowl === S.bowl && hf.host === host) return;
+    if (hf) { dropMeshes(hf.meshes, hf.host); hf.host.remove(hf.extra); }
+    const I = bowlInner(S.bowl), n = [1900, 2900, 3800][tier], r = rnd(hash(S.bowl) + 11);
+    const Hmax = (I.rim - I.floor) * FILL_MAX, spireN = I.spire ? (I.spire + 0.16) / I.r1 : 0;
     const raw = [];
-    for (let i = 0; i < n; i++) raw.push({ by: I.floor + 0.12 + r() * (I.rim - I.floor) * FILL_MAX, a: r() * Math.PI * 2, u: Math.sqrt(r()), rx: (r() - 0.5) * 1.5, ry: r() * 6.28, rz: (r() - 0.5) * 1.5, s: 1.05 + r() * 0.55, k: r() });
-    raw.sort((x, y) => x.by - y.by);
-    const meshes = variantMeshes(n, host), boundary = Math.round(S.ratio * n / FILL_MAX);
-    raw.forEach((d, i) => {
-      d.v = i % 8; d.j = (i - d.v) / 8;
-      const isA = fl.length < 2 ? true : S.prep === 'layer' ? i < boundary : d.k < S.ratio;
-      d.col = (isA ? ca : cb)[d.v].clone();
-      d.isA = isA;
-      meshes[d.v].setColorAt(d.j, d.col);
-    });
-    meshes.forEach((m) => { m.instanceColor.needsUpdate = true; m.count = 0; });
-    // rupice čačkalicom (kroz duhan)
-    const extra = new THREE.Group(), hm = own(new THREE.MeshBasicMaterial({ color: 0x0a0503 })), hg = own(new THREE.CircleGeometry(0.11, 10));
-    for (let k = 0; k < 7; k++) { const a = k / 7 * 6.28 + 0.3, u = k ? 0.55 : 0.12, h = new THREE.Mesh(hg, hm); h.rotation.x = -Math.PI / 2; h.userData.p = [Math.cos(a) * u, Math.sin(a) * u]; extra.add(h); }
+    while (raw.length < n) {
+      const px = r() * 2 - 1, pz = r() * 2 - 1, q = Math.hypot(px, pz);
+      if (q > 1 || q < spireN) continue;
+      raw.push({ px, pz, u: r(), c: cellOf(px, pz), rx: (r() - 0.5) * 1.5, ry: r() * 6.28, rz: (r() - 0.5) * 1.5, s: 1.15 + r() * 0.55, vis: false, col: new THREE.Color(), base: new THREE.Color() });
+    }
+    raw.sort((a, b) => a.c - b.c);
+    const cells = [];
+    for (let c = 0; c < GRID * GRID; c++) cells.push([0, 0]);
+    raw.forEach((d, i) => { d.v = i % 8; d.j = (i - d.v) / 8; if (!cells[d.c][1]) cells[d.c][0] = i; cells[d.c][1] = i + 1; });
+    const meshes = variantMeshes(n, host);
+    const inDisk = new Uint8Array(GRID * GRID);
+    for (let gz = 0; gz < GRID; gz++) for (let gx = 0; gx < GRID; gx++) { const px = (gx + 0.5) / GRID * 2 - 1, pz = (gz + 0.5) / GRID * 2 - 1; inDisk[gx + gz * GRID] = Math.hypot(px, pz) < 1.02 && Math.hypot(px, pz) > spireN * 0.7 ? 1 : 0; }
+    const extra = new THREE.Group(), hm = own(new THREE.MeshBasicMaterial({ color: 0x0a0503 })), hg = own(new THREE.CircleGeometry(0.1, 10));
+    for (let k = 0; k < 7; k++) { const a = k / 7 * 6.28 + 0.3, u = k ? 0.55 : 0.18, h = new THREE.Mesh(hg, hm); h.rotation.x = -Math.PI / 2; h.userData.p = [Math.cos(a) * u, Math.sin(a) * u]; extra.add(h); }
     extra.visible = false;
     host.add(extra);
-    fill = { key, host, meshes, data: raw, I, n, d: -1, vis: -1, top: I.floor, extra, burn: 0 };
+    hf = { bowl: S.bowl, host, I, Hmax, spireN, n, data: raw, cells, meshes, inDisk, extra, h: new Float32Array(GRID * GRID), d: 0, cap: false, holes: false, burn: 0, flavors: S.flavors, shares: S.shares, mixed: S.prep === 'mix', pick: 0, rng: rnd(77) };
+    meshes.forEach((m) => { m.count = m.instanceMatrix.count; });
+    hfUpdate(0, GRID - 1, 0, GRID - 1);
   }
-  // A: količina (1 = do ivice prije sabijanja), d: sabijenost 0..1
-  function setFill(A, d, holes) {
-    if (!fill) return;
-    const I = fill.I, squash = 1 - 0.36 * d;
-    const vis = Math.min(fill.n, Math.round(fill.n * A / FILL_MAX));
-    const topRaw = I.floor + A * (I.rim - I.floor);
-    fill.top = I.floor + (topRaw - I.floor) * squash;
-    if (Math.abs(d - fill.d) > 0.004) {
-      fill.d = d;
-      fill.data.forEach((p) => {
-        const y = I.floor + (p.by - I.floor) * squash, R = Math.max(0.2, innerR(I, y) * 0.94 - 0.12);
-        const min = I.spire ? I.spire + 0.12 : 0, u = min + p.u * (R - min);
-        dummy.position.set(Math.cos(p.a) * u, y, Math.sin(p.a) * u);
-        dummy.rotation.set(p.rx, p.ry, p.rz); dummy.scale.setScalar(p.s * (1 - d * 0.12)); dummy.updateMatrix();
-        fill.meshes[p.v].setMatrixAt(p.j, dummy.matrix);
-      });
-      fill.meshes.forEach((m) => { m.instanceMatrix.needsUpdate = true; });
+  function hfH(px, pz) {
+    // bilinearno uzorkovanje visine
+    const gx = (px + 1) / 2 * GRID - 0.5, gz = (pz + 1) / 2 * GRID - 0.5;
+    const x0 = Math.max(0, Math.min(GRID - 1, Math.floor(gx))), z0 = Math.max(0, Math.min(GRID - 1, Math.floor(gz)));
+    const x1 = Math.min(GRID - 1, x0 + 1), z1 = Math.min(GRID - 1, z0 + 1), fx = Math.max(0, Math.min(1, gx - x0)), fz = Math.max(0, Math.min(1, gz - z0));
+    const h = hf.h;
+    return lerp(lerp(h[x0 + z0 * GRID], h[x1 + z0 * GRID], fx), lerp(h[x0 + z1 * GRID], h[x1 + z1 * GRID], fx), fz);
+  }
+  function strandColor(d) {
+    const fl = hf.flavors, i = hf.mixed && fl.length > 1 ? pickShare(hf.shares, hf.rng) : Math.min(hf.pick, fl.length - 1);
+    d.base.copy(flavorCols(fl[i])[d.v]);
+  }
+  const ZERO = new THREE.Matrix4().makeScale(0, 0, 0);
+  function hfUpdate(x0, x1, z0, z1) {
+    const I = hf.I, squash = 1 - 0.36 * hf.d, darkC = new THREE.Color(0x0e0806);
+    let colorDirty = false;
+    for (let gz = Math.max(0, z0); gz <= Math.min(GRID - 1, z1); gz++) {
+      for (let gx = Math.max(0, x0); gx <= Math.min(GRID - 1, x1); gx++) {
+        const cell = hf.cells[gx + gz * GRID];
+        for (let i = cell[0]; i < cell[1]; i++) {
+          const d = hf.data[i], lim = hfH(d.px, d.pz), raw = d.u * hf.Hmax;
+          const y = I.floor + 0.08 + raw * squash;
+          let vis = raw < lim - 0.02;
+          if (vis && hf.cap && y > I.rim - 0.5) vis = false;
+          const R = Math.max(0.3, innerR(I, y) * 0.93 - 0.1), q = Math.hypot(d.px, d.pz) * R;
+          if (vis && I.spire && q < I.spire + 0.12) vis = false;
+          if (!vis) { if (d.vis) { d.vis = false; hf.meshes[d.v].setMatrixAt(d.j, ZERO); } else hf.meshes[d.v].setMatrixAt(d.j, ZERO); continue; }
+          if (!d.vis) { d.vis = true; strandColor(d); }
+          const k = hf.burn > 0 && raw > lim - 0.45 ? hf.burn * 0.9 : 0;
+          d.col.copy(d.base).lerp(darkC, k);
+          hf.meshes[d.v].setColorAt(d.j, d.col); colorDirty = true;
+          dummy.position.set(d.px * R, y, d.pz * R);
+          dummy.rotation.set(d.rx, d.ry, d.rz); dummy.scale.setScalar(d.s * (1 - hf.d * 0.12)); dummy.updateMatrix();
+          hf.meshes[d.v].setMatrixAt(d.j, dummy.matrix);
+        }
+      }
     }
-    if (vis !== fill.vis) {
-      fill.vis = vis;
-      fill.meshes.forEach((m, v) => { m.count = Math.max(0, Math.ceil((vis - v) / 8)); });
-    }
-    fill.extra.visible = !!holes && vis > 20;
-    fill.extra.children.forEach((h) => { const R = innerR(I, fill.top) * 0.8; h.position.set(h.userData.p[0] * R, fill.top + 0.04, h.userData.p[1] * R); });
+    hf.meshes.forEach((m) => { m.instanceMatrix.needsUpdate = true; if (colorDirty && m.instanceColor) m.instanceColor.needsUpdate = true; });
+    // rupice čačkalicom na površini
+    const st = hfStats();
+    hf.extra.visible = hf.holes && st.A > 0.2;
+    hf.extra.children.forEach((hh) => { const p = hh.userData.p, top = I.floor + hfH(p[0], p[1]) * squash; hh.position.set(p[0] * innerR(I, top) * 0.85, top + 0.05, p[1] * innerR(I, top) * 0.85); });
     kick();
   }
-  // pregorjeli gornji sloj potamni
-  function setBurn(b) {
-    if (!fill || Math.abs(b - fill.burn) < 0.04) return;
-    fill.burn = b;
-    const dark = new THREE.Color(0x0e0806), band = fill.vis * 0.82, c = new THREE.Color();
-    fill.data.forEach((p, i) => {
-      if (i >= fill.vis) return;
-      const k = i < band ? 0 : Math.min(1, (i - band) / (fill.vis - band + 1)) * b * 0.9;
-      c.copy(p.col).lerp(dark, k);
-      fill.meshes[p.v].setColorAt(p.j, c);
-    });
-    fill.meshes.forEach((m) => { m.instanceColor.needsUpdate = true; });
-    kick();
+  function hfAll() { if (hf) hfUpdate(0, GRID - 1, 0, GRID - 1); }
+  // nanošenje duhana kistom oko tačke (px, pz) u koordinatama otvora (-1..1)
+  function hfDeposit(px, pz, dt) {
+    const rb = 0.3, rate = 2.4 * dt, h = hf.h;
+    const gx0 = Math.floor(((px - rb * 2) + 1) / 2 * GRID), gx1 = Math.ceil(((px + rb * 2) + 1) / 2 * GRID), gz0 = Math.floor(((pz - rb * 2) + 1) / 2 * GRID), gz1 = Math.ceil(((pz + rb * 2) + 1) / 2 * GRID);
+    for (let gz = Math.max(0, gz0); gz <= Math.min(GRID - 1, gz1); gz++) for (let gx = Math.max(0, gx0); gx <= Math.min(GRID - 1, gx1); gx++) {
+      const c = gx + gz * GRID;
+      if (!hf.inDisk[c]) continue;
+      const cx = (gx + 0.5) / GRID * 2 - 1, cz = (gz + 0.5) / GRID * 2 - 1, dd = (cx - px) * (cx - px) + (cz - pz) * (cz - pz);
+      h[c] = Math.min(hf.Hmax, h[c] + rate * Math.exp(-dd / (2 * rb * rb * 0.45)));
+    }
+    // duhan se malo razlije (ne stoji u stubu)
+    for (let gz = Math.max(1, gz0); gz <= Math.min(GRID - 2, gz1); gz++) for (let gx = Math.max(1, gx0); gx <= Math.min(GRID - 2, gx1); gx++) {
+      const c = gx + gz * GRID;
+      if (!hf.inDisk[c]) continue;
+      [1, -1, GRID, -GRID].forEach((o) => { const n2 = c + o; if (!hf.inDisk[n2]) return; const diff = h[c] - h[n2]; if (diff > 0.55) { const m = (diff - 0.55) * 0.25; h[c] -= m; h[n2] += m; } });
+    }
+    hfUpdate(gx0 - 1, gx1 + 1, gz0 - 1, gz1 + 1);
+  }
+  function hfStats() {
+    const I = hf.I, depth = I.rim - I.floor, squash = 1 - 0.36 * hf.d;
+    let sum = 0, sum2 = 0, n = 0, touch = 0, center = 0, cn = 0;
+    for (let c = 0; c < GRID * GRID; c++) {
+      if (!hf.inDisk[c]) continue;
+      const v = hf.h[c]; sum += v; sum2 += v * v; n++;
+      if (I.floor + v * squash > I.rim - 0.08) touch++;
+      const gx = c % GRID, gz = (c - gx) / GRID, q = Math.hypot((gx + 0.5) / GRID * 2 - 1, (gz + 0.5) / GRID * 2 - 1);
+      if (q < 0.34) { center += v; cn++; }
+    }
+    const mean = sum / n, sd = Math.sqrt(Math.max(0, sum2 / n - mean * mean));
+    return {
+      A: mean / depth, d: hf.d, uneven: sd / depth, touch: touch / n, top: I.floor + mean * squash,
+      spire: !!I.spire && cn > 0 && I.floor + (center / cn) * squash > I.spireTop - 0.05
+    };
   }
 
-  // vlakna koja padaju u glavu dok korisnik puni
+  // vlakna koja padaju na mjesto gdje korisnik puni
   const DROP_N = [14, 22, 30][tier];
   const dropIM = new THREE.InstancedMesh(ribbons[3], tobMat(3), DROP_N);
   dropIM.frustumCulled = false; dropIM.count = 0;
   scene.add(dropIM);
   const drops = [];
-  for (let i = 0; i < DROP_N; i++) drops.push({ ph: i / DROP_N, a: Math.random() * 6.28, u: Math.sqrt(Math.random()), sp: 0.7 + Math.random() * 0.5, rx: Math.random() * 6, rz: Math.random() * 6 });
-  let dropping = false, dropFlavor = null;
+  for (let i = 0; i < DROP_N; i++) drops.push({ ph: i / DROP_N, a: Math.random() * 6.28, u: Math.sqrt(Math.random()), sp: 0.7 + Math.random() * 0.5, rx: Math.random() * 6, rz: Math.random() * 6, dead: true });
+  let dropping = false, dropAt = { x: 0, z: 0, r: 0.7 };
   function dropAnim(t, dt) {
-    if (!fill) return;
-    const I = fill.I, hostP = fill.host.position;
+    if (!hf) return;
+    const I = hf.I, hp = hf.host.position, top = hfStats().top;
     let on = 0;
-    drops.forEach((d, i) => {
-      d.ph += dt * d.sp * 1.6;
+    drops.forEach((d) => {
+      d.ph += dt * d.sp * 1.7;
       if (d.ph >= 1) { if (!dropping) { d.dead = true; return; } d.ph -= 1; d.dead = false; d.a = Math.random() * 6.28; d.u = Math.sqrt(Math.random()); }
       if (d.dead) return;
-      const R = innerR(I, fill.top) * 0.85, y = lerp(I.rim + 6, fill.top + 0.1, d.ph * d.ph);
-      dummy.position.set(hostP.x + Math.cos(d.a) * d.u * R, y, hostP.z + Math.sin(d.a) * d.u * R);
-      dummy.rotation.set(d.rx + t * 0.004, 0, d.rz + t * 0.003); dummy.scale.setScalar(1); dummy.updateMatrix();
+      const y = lerp(I.rim + 5.5, top + 0.2, d.ph * d.ph);
+      dummy.position.set(hp.x + dropAt.x + Math.cos(d.a) * d.u * dropAt.r, y, hp.z + dropAt.z + Math.sin(d.a) * d.u * dropAt.r);
+      dummy.rotation.set(d.rx + t * 0.004, 0, d.rz + t * 0.003); dummy.scale.setScalar(1.1); dummy.updateMatrix();
       dropIM.setMatrixAt(on, dummy.matrix); on++;
     });
     dropIM.count = on;
     dropIM.instanceMatrix.needsUpdate = true;
     if (!dropping && !on) live.delete(dropAnim);
   }
-  function setDropping(on, f) {
-    if (on && f && f !== dropFlavor) {
-      dropFlavor = f;
-      const cols = flavorCols(f);
-      for (let i = 0; i < DROP_N; i++) dropIM.setColorAt(i, cols[i % 8]);
-      dropIM.instanceColor.needsUpdate = true;
+  function setDropping(on) {
+    if (on && hf) {
+      for (let i = 0; i < DROP_N; i++) { const fl = hf.flavors, fi = hf.mixed && fl.length > 1 ? pickShare(hf.shares, hf.rng) : Math.min(hf.pick, fl.length - 1); dropIM.setColorAt(i, flavorCols(fl[fi])[i % 8]); }
+      if (dropIM.instanceColor) dropIM.instanceColor.needsUpdate = true;
     }
     dropping = on;
-    if (on) { drops.forEach((d) => { if (d.dead) { d.dead = false; d.ph = Math.random(); } }); live.add(dropAnim); kick(); }
+    if (on) { drops.forEach((d) => { if (d.dead) { d.dead = false; d.ph = Math.random() * 0.5; } }); live.add(dropAnim); kick(); }
   }
+  // dodir na glavu: tačka na površini duhana u koordinatama otvora
+  const fillPlane = new THREE.Plane(), fillPt = new THREE.Vector3();
+  function fillHit(cx, cy) {
+    if (!hf) return null;
+    const r = canvas.getBoundingClientRect();
+    ndc.set(((cx - r.left) / r.width) * 2 - 1, -((cy - r.top) / r.height) * 2 + 1);
+    ray.setFromCamera(ndc, camera);
+    const st = hfStats(), y = Math.min(st.top, hf.I.rim);
+    fillPlane.set(new THREE.Vector3(0, 1, 0), -(hf.host.position.y + y));
+    if (!ray.ray.intersectPlane(fillPlane, fillPt)) return null;
+    const R = innerR(hf.I, y) * 0.93, px = (fillPt.x - hf.host.position.x) / R, pz = (fillPt.z - hf.host.position.z) / R, q = Math.hypot(px, pz);
+    if (q > 1.25) return null;
+    return { px: q > 1 ? px / q : px, pz: q > 1 ? pz / q : pz, x: fillPt.x - hf.host.position.x, z: fillPt.z - hf.host.position.z };
+  }
+  let zoomed = false;
+  function fillAt(cx, cy, dt) {
+    const p = fillHit(cx, cy);
+    if (!p) { setDropping(false); return null; }
+    if (!zoomed && current === 'fill') { zoomed = true; frame(MORE.fillClose, 650); }
+    dropAt = { x: p.x, z: p.z, r: 0.75 };
+    if (!dropping) setDropping(true);
+    hfDeposit(p.px, p.pz, dt);
+    return hfStats();
+  }
+  function fillEven(dt) {
+    if (!hf) return null;
+    for (let c = 0; c < GRID * GRID; c++) if (hf.inDisk[c]) hf.h[c] = Math.min(hf.Hmax, hf.h[c] + 0.85 * dt);
+    dropAt = { x: 0, z: 0, r: innerR(hf.I, hf.I.rim) * 0.7 };
+    if (!dropping) setDropping(true);
+    hfAll();
+    return hfStats();
+  }
+  function fillLevel() {
+    if (!hf) return null;
+    const st = hfStats(), target = st.A * (hf.I.rim - hf.I.floor), from = Float32Array.from(hf.h);
+    tween(420, (k) => { for (let c = 0; c < GRID * GRID; c++) if (hf.inDisk[c]) hf.h[c] = lerp(from[c], target, k); hfAll(); });
+    return st;
+  }
+  function fillPress(dt) { if (!hf) return null; hf.d = Math.min(1, hf.d + dt * 0.42); hfAll(); return hfStats(); }
+  function fillReset() { if (!hf) return; hf.h.fill(0); hf.d = 0; hf.burn = 0; hf.data.forEach((d) => { d.vis = false; }); hfAll(); }
+  function setBurn(b) { if (!hf || Math.abs(b - hf.burn) < 0.04) return; hf.burn = b; hfAll(); }
 
   /* ---------------- folija ---------------- */
 
@@ -951,24 +1171,32 @@ export function mount(host, opts) {
   let hmdOn = false;
   const hmdCap = P.hmd.children.find((c) => c.isGroup);
   function hmdTo(on, S, anim, capOpen) {
-    const b = bowls[S.bowl], rimY = b ? b.userData.rimY : 8.7;
+    const b = bowls[S.bowl], rimY = b ? b.userData.rimY : 8.7, hy = rimY - 0.05;
     if (on) {
       if (!hmdOn) {
         hmdOn = true;
-        const from = P.hmd.position.clone(), to = new THREE.Vector3(0, rimY - 0.05, 0);
-        if (anim) tween(900, (k) => { P.hmd.position.lerpVectors(from, to, k); P.hmd.position.y += Math.sin(k * Math.PI) * 5; }, eio);
+        hmdCap.position.set(0, HMD_H, 0); hmdCap.rotation.set(0, 0, 0);
+        const from = P.hmd.position.clone(), to = new THREE.Vector3(0, hy, 0);
+        // HMD se podigne, preleti i spusti tačno na ivicu glave
+        if (anim) tween(1000, (k) => { P.hmd.position.lerpVectors(from, to, k); P.hmd.position.y += Math.sin(k * Math.PI) * 6; P.hmd.rotation.y = (1 - k) * 0.8; }, eio);
         else P.hmd.position.copy(to);
       }
-      const capY = capOpen ? 6.5 : 1.5, capZ = capOpen ? -3.2 : 0, capX = capOpen ? 2.2 : 0;
-      const c0 = hmdCap.position.clone(), r0 = hmdCap.rotation.x, vr = (S.vents == null ? 0.5 : S.vents) * 1.1;
-      tween(anim ? 600 : 1, (k) => { hmdCap.position.set(lerp(c0.x, capX, k), lerp(c0.y, capY, k), lerp(c0.z, capZ, k)); hmdCap.rotation.x = lerp(r0, capOpen ? -0.5 : 0, k); });
-      hmdCap.rotation.y = vr;
+      // poklopac: skinut i ostavljen na stolu pored glave (dok se stavljaju ugljevi), inače na HMD-u
+      const to = capOpen ? new THREE.Vector3(8.2, -hy + 0.02, 3.4) : new THREE.Vector3(0, HMD_H, 0);
+      const c0 = hmdCap.position.clone();
+      if (c0.distanceTo(to) > 0.05) tween(anim ? 750 : 1, (k) => { hmdCap.position.lerpVectors(c0, to, k); hmdCap.position.y += Math.sin(k * Math.PI) * 3.5; }, eio);
+      setVents(S.vents == null ? 0.5 : S.vents);
     } else if (hmdOn) {
       hmdOn = false;
-      hmdCap.position.set(0, 1.5, 0); hmdCap.rotation.set(0, 0, 0);
+      hmdCap.position.set(0, HMD_H, 0); hmdCap.rotation.set(0, 0, 0);
       const t = PROP_HOME.hmd;
       if (anim) moveTo(P.hmd, t[0], t[1], t[2], 0, 800); else P.hmd.position.fromArray(t);
     }
+  }
+  function setVents(v) {
+    hmdCap.rotation.y = v * 0.9;
+    (hmdCap.userData.vents || []).forEach((m) => { m.scale.set(1, 0.35 + v * 1.3, 1); });
+    kick();
   }
 
   /* ---------------- ugljevi ---------------- */
@@ -977,8 +1205,9 @@ export function mount(host, opts) {
   let tongsBusy = false;
   function coalSpot(S, c, out) {
     const b = bowls[S.bowl], rimY = b ? b.userData.rimY : 8.7;
-    if (S.cover === 'hmd') return out.set(c[0] * 3.6, rimY + 0.68, c[1] * 3.6);
-    return out.set(c[0] * foilR, rimY + 1.17, c[1] * foilR);
+    // na HMD-u ugljevi leže na njegovom perforiranom dnu, na foliji na foliji
+    if (S.cover === 'hmd') return out.set(c[0] * 3.6, rimY - 0.05 + HMD_FLOOR + 1.1, c[1] * 3.6);
+    return out.set(c[0] * foilR, rimY + 0.06 + 1.1, c[1] * foilR);
   }
   function setCoals(S, anim) {
     const list = S.coals || [], v = new THREE.Vector3();
@@ -989,7 +1218,7 @@ export function mount(host, opts) {
     list.forEach((c, i) => {
       coalSpot(S, c, v);
       let m = coals[i];
-      const hmdScale = S.cover === 'hmd' ? [1.05, 0.48, 1.05] : [1, 1, 1];
+      const hmdScale = [1, 1, 1];
       if (!m) {
         m = new THREE.Mesh(coalGeo, coalMat); m.castShadow = tier > 0; coals.push(m); scene.add(m);
         m.rotation.y = 0.4 + i * 1.3;
@@ -1000,7 +1229,7 @@ export function mount(host, opts) {
           tongsBusy = true;
           tween(750, (k) => {
             m.position.lerpVectors(from, to, k); m.position.y += Math.sin(k * Math.PI) * 6;
-            P.tongs.position.set(m.position.x, m.position.y + 0.35, m.position.z + 14.7); P.tongs.rotation.set(-0.12, 0, 0);
+            P.tongs.position.set(m.position.x, m.position.y + 0.3, m.position.z + TONG_TIP); P.tongs.rotation.set(-0.06, 0, 0);
           }, eio, () => {
             setTimeout(() => { tongsBusy = false; const h = PROP_HOME.tongs; P.tongs.rotation.set(0, 0.08, 0); moveTo(P.tongs, h[0], h[1], h[2], 0.08, 600); }, 120);
           });
@@ -1121,12 +1350,14 @@ export function mount(host, opts) {
   /* ---------------- koraci ---------------- */
 
   const MORE = {
-    mixDish: { c: [0, 1.6, 2.6], rw: 7.6, rh: 6.4, el: 1.02, az: 0.28 },
-    fill: { c: [0.4, 6.4, 0.6], rw: 7, rh: 6.6, el: 1.16, az: 0.28 },
-    cover: { c: [0.3, 7.2, 0.6], rw: 7.6, rh: 6.6, el: 1.12, az: 0.28 },
-    coals: { c: [-0.2, 6.6, -3.6], rw: 8.6, rh: 10.5, el: 0.98, az: 0.28 },
-    smoke: { c: [0, 12, 0], rw: 8, rh: 12.5, el: 0.84, az: 0.28 },
-    result: { c: [0, 10, 0], rw: 8, rh: 10.5, el: 0.9, az: 0.28 }
+    mixDish: { c: [0, 1.4, 3.3], rw: 6.9, rh: 6.2, el: 1.12, az: 0.28 },
+    tinMix: { c: [1.2, 2.6, 1.5], rw: 6, rh: 6, el: 1.08, az: 0.28 },
+    fill: { c: [0.3, 7.4, 0.6], rw: 7.2, rh: 6.6, el: 1.2, az: 0.28 },
+    fillClose: { c: [0, 7.6, 0.25], rw: 4.5, rh: 4.5, el: 1.36, az: 0.2 },
+    cover: { c: [0, 8.4, 0.3], rw: 5.0, rh: 5.0, el: 1.4, az: 0.2 },
+    coals: { c: [0, 9.4, 0], rw: 5.6, rh: 6.2, el: 1.2, az: 0.24 },
+    smoke: { c: [0, 11.5, 0], rw: 6.2, rh: 9.5, el: 0.98, az: 0.28 },
+    result: { c: [0, 10, 0], rw: 6.5, rh: 8, el: 1.0, az: 0.28 }
   };
   function bowlToCenter(anim) {
     ORDER.forEach((id) => { if (bowls[id] && id !== chosen) bowls[id].visible = false; });
@@ -1142,44 +1373,45 @@ export function mount(host, opts) {
       if (t.position.distanceTo(new THREE.Vector3(s[0], 0, s[2])) > 0.1) moveTo(t, s[0], 0, s[2], -0.35, 800);
     });
   }
-  function stirTin(p) {
-    const t = tins[0];
-    if (!t) return;
-    const tob = t.children.find((c) => c.isGroup && c !== t.userData.lid);
-    if (tob) { tob.rotation.y = p * Math.PI * 2.2; tob.position.y = Math.sin(p * Math.PI) * 0.12; }
-    kick();
-  }
+
+  const FAR = [[-15, 0, -5], [15, 0, -5], [-15, 0, -15], [15, 0, -15]];
   function laterStep(name, S, prev) {
     chosen = S.bowl || chosen;
     if (S.flavors && S.flavors.length) setTins(S.flavors);
-    const two = S.flavors && S.flavors.length > 1;
+    const n = S.flavors ? S.flavors.length : 1, mixing = S.prep === 'mix' && n > 1;
+    S_mode.prep = S.prep; S_mode.n = n;
     if (name === 'mix') {
       const b = bowls[chosen];
       ORDER.forEach((id) => { if (bowls[id] && id !== chosen) bowls[id].visible = false; });
       if (b) moveTo(b, SPOTS.back[0], 0, SPOTS.back[2], 0, 800);
-      if (S.prep === 'classic') { buildDish(S); setDishMix(S.mixP || 0); tinsTo([[-8.5, 0, -6.5], [8.5, 0, -6.5]]); frame(MORE.mixDish, 1000); }
-      else if (two) { tinsTo(TIN_SPOTS[1]); frame(FRAMES.flavor2, 900); }
-      else { tinsTo(TIN_SPOTS[0]); stirTin(S.mixP || 0); frame(FRAMES.flavor1, 900); }
+      if (mixing) { buildDish(S); tinsTo([[-8.6, 0, -6.6], [8.6, 0, -6.6], [-12.5, 0, 3.5], [12.5, 0, 3.5]]); forkShow(true, P.dish); frame(MORE.mixDish, 1000); }
+      else if (n > 1) { tinsTo(TIN_SPOTS[n - 1]); forkShow(false); frame(FRAMES['flavor' + n], 900); }
+      else { tinsTo(TIN_SPOTS[0]); forkShow(true, tins[0]); frame(MORE.tinMix, 900); }
+      return;
+    }
+    forkShow(false);
+    bowlToCenter(true);
+    tinsTo(FAR);
+    if (mixing) buildDish(S);
+    buildHF(S);
+    if (hf) {
+      hf.flavors = S.flavors; hf.shares = S.shares; hf.mixed = mixing; hf.pick = S.pick || 0; hf.holes = !!S.holes;
+      hf.cap = name !== 'fill';
+      hf.meshes.forEach((m) => { m.visible = true; });
+      hfAll();
+    }
+    if (name === 'fill') {
+      foilTo(false, S, true); hmdTo(false, S, true); setCoals(Object.assign({}, S, { coals: [] }), true);
+      zoomed = (hf && hfStats().A > 0.05);
+      frame(zoomed ? MORE.fillClose : MORE.fill, 1000);
     } else {
-      bowlToCenter(true);
-      tinsTo(S.prep === 'classic' ? [[-11, 0, -10], [11, 0, -11]] : two ? [[-10.5, 0, -1.5], [10.5, 0, -1.5]] : [[10.5, 0, -1.5]]);
-      if (S.prep === 'classic') { buildDish(S); setDishMix(1); }
-      buildFill(S);
-      const covered = name !== 'fill', I = bowlInner(chosen), dd = S.density || 0;
-      const capA = (I.rim - 0.62 - I.floor) / ((I.rim - I.floor) * (1 - 0.36 * dd));
-      setFill(covered ? Math.min(S.amount || 0, capA) : S.amount || 0, dd, S.holes);
-      if (name === 'fill') {
-        foilTo(false, S, true); hmdTo(false, S, true); S.coals = []; setCoals(S, true);
-        frame(MORE.fill, 1000);
-      } else {
-        const useFoil = S.cover === 'foil', useHmd = S.cover === 'hmd';
-        foilTo(useFoil, S, prev === 'fill');
-        if (useFoil) drawFoil(S.foilHoles);
-        hmdTo(useHmd, S, true, name === 'coals');
-        setCoals(name === 'cover' ? Object.assign({}, S, { coals: [] }) : S, true);
-        if (name !== 'smoke') session({ on: false });
-        frame(MORE[name] || MORE.cover, 1000);
-      }
+      const useFoil = S.cover === 'foil', useHmd = S.cover === 'hmd';
+      foilTo(useFoil, S, prev === 'fill');
+      if (useFoil) drawFoil(S.foilHoles);
+      hmdTo(useHmd, S, true, name === 'coals');
+      setCoals(name === 'cover' ? Object.assign({}, S, { coals: [] }) : S, true);
+      if (name !== 'smoke') session({ on: false });
+      frame(MORE[name] || MORE.cover, 1000);
     }
   }
 
@@ -1192,7 +1424,8 @@ export function mount(host, opts) {
     const later = ['mix', 'fill', 'cover', 'coals', 'smoke', 'result'].indexOf(name) !== -1;
     // duhan u glavi, folija, HMD i ugljevi postoje tek od punjenja
     const topOn = later && name !== 'mix';
-    if (fill) fill.meshes.concat([fill.extra]).forEach((m) => { m.visible = topOn && (m !== fill.extra || m.visible); });
+    if (hf) { hf.meshes.forEach((m) => { m.visible = topOn; }); if (!topOn) hf.extra.visible = false; }
+    if (!later) forkShow(false);
     if (!topOn) { foilTo(false, data, prev === 'cover' || prev === 'coals'); hmdTo(false, { bowl: chosen }, true); setCoals({ coals: [] }, true); }
     propsFor(name, data);
     if (later) { laterStep(name, data, prev); return; }
@@ -1228,9 +1461,9 @@ export function mount(host, opts) {
       hideOtherBowls(prev === 'bowl');
       const b = bowls[chosen];
       if (b) moveTo(b, SPOTS.back[0], 0, SPOTS.back[2], 0, 900);
-      const list = (data.flavors || []).slice(0, 2);
+      const list = (data.flavors || []).slice(0, 4);
       if (list.length) { setTins(list); openTins(); }
-      frame(list.length > 1 ? FRAMES.flavor2 : FRAMES.flavor1, 1000);
+      frame(FRAMES['flavor' + Math.max(1, list.length)], 1000);
     }
   }
 
@@ -1258,11 +1491,14 @@ export function mount(host, opts) {
   return {
     tier,
     step,
-    mixProgress(p, single) { if (single) stirTin(p); else setDishMix(p); },
-    fill(A, d, holes) { setFill(A, d, holes); },
-    dropping(on, f) { setDropping(on, f); },
+    mixDrag, mixAuto, mixRelease,
+    fillAt, fillEven, fillLevel, fillPress, fillReset,
+    fillStats() { return hf ? hfStats() : null; },
+    fillPick(i) { if (hf) hf.pick = i; },
+    fillHoles(on) { if (hf) { hf.holes = on; hfAll(); } },
+    dropping(on) { setDropping(on); },
     foilHoles(list) { drawFoil(list); },
-    vents(v) { hmdCap.rotation.y = v * 1.1; kick(); },
+    vents(v) { setVents(v); },
     coals(S) { setCoals(S, true); },
     rotateCoals,
     session,
